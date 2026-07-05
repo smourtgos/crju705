@@ -83,7 +83,9 @@ Render a key locally on demand:
 `quarto render _private/keys/hw-02-key.qmd --to docx` (output stays local).
 
 **After any change to `_quarto.yml`:** re-render and check
-`grep -ri "answer" _site/ | grep -i key` returns nothing.
+`grep -ri "answer" _site/ --exclude-dir=site_libs | grep -i key` returns nothing.
+(`site_libs` is excluded because reveal.js's syntax-highlighter bundles contain
+words like "answerCall" — known false positives.)
 
 ## Slide improvements (vs. the original PPT decks)
 

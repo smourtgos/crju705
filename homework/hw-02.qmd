@@ -1,0 +1,74 @@
+---
+title: "Homework 2 · Descriptive Statistics in R"
+subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 3"
+format:
+  html: default
+  docx: default
+format-links: [docx]
+---
+
+**Instructions:** complete the following exercises in a single `.R` script file. Include comments explaining your code and answers to any interpretive questions. Submit your `.R` file via **Canvas** for credit.
+
+## Part 1: Measures of Central Tendency
+
+1. Create a numeric vector with these sentence lengths (in years):
+
+   ```r
+   sentences <- c(2, 2, 3, 3, 3, 4, 4, 5, 5, 30)
+   ```
+
+2. Calculate the **mean**, **median**, and **mode** of these sentences. Use both the manual (hard-coded) method *and* the built-in functions: `mean()`, `median()`, and `mfv()` from the **modeest** package.
+
+3. Plot a histogram of the sentence data. You may use `ggplot() + geom_histogram()` (as in Lab 2) or base R's `hist()` — your choice.
+
+4. **Interpretation (in a comment):** why might the mean give a misleading impression of typical sentence length in this example?
+
+## Part 2: Measures of Dispersion
+
+1. Create two vote-count scenarios:
+
+   ```r
+   scenario1 <- c(175, 300, 425)
+   scenario2 <- c(299, 300, 301)
+   ```
+
+2. Compute the range of each using `range()` and `diff()`.
+
+3. Compute the deviations from the mean for each set (subtract the mean from each value).
+
+4. Compute the **sum of squared deviations**, **variance**, and **standard deviation** — using:
+   - the manual (hard-coded *population*) formulas, and
+   - the built-in functions `var()` and `sd()`.
+
+   *(You'll notice the built-ins give slightly different answers than your population formulas — R divides by n − 1. We'll see exactly why in Session 4; for now, just note the difference in a comment.)*
+
+5. **Compare the two vote scenarios:** what do these measures tell you about the difference between the two vote distributions?
+
+## Part 3: Exploring Distributions
+
+1. Generate and plot a **normal** distribution using a *different* mean and standard deviation than used in class, e.g.:
+
+   ```r
+   hist(rnorm(n = 1000, mean = 70, sd = 15))
+   ```
+
+2. Generate and plot a **Poisson** distribution with `lambda = 1`, and again with `lambda = 5`.
+
+3. **Reflection (in a comment):**
+   - What's the key difference in shape between the normal and Poisson distributions?
+   - Why might a Poisson distribution be useful in a criminal justice setting?
+
+## Part 4: Real Data (new this year)
+
+1. Load the course anchor data:
+
+   ```r
+   library(tidyverse)
+   areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv")
+   ```
+
+2. Compute the mean, median, and standard deviation of `violent_rate` (violent crimes per 1,000 residents across Chicago's 77 community areas).
+
+3. Make a histogram of `violent_rate`.
+
+4. **Interpretation (in a comment):** based on the mean-vs-median comparison and the histogram's shape, is `violent_rate` symmetric or skewed? What does that tell you about how violence is distributed across Chicago's communities?

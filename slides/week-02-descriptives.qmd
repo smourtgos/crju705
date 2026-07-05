@@ -1,0 +1,463 @@
+---
+title: "Descriptive Statistics"
+subtitle: "CRJU 705 · Session 2 · Fall 2026"
+author: "Scott M. Mourtgos"
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    footer: "CRJU 705 · Session 2"
+    theme: [default, custom-slides.scss]
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(modeest)
+source(here::here("R/setup.R"))
+theme_set(theme_minimal(base_size = 18))
+set.seed(705)
+crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
+areas  <- read_csv(here::here("data/chicago-areas.csv"), show_col_types = FALSE)
+```
+
+## Week 1 Follow-Up
+
+**swirl assignments** — experiences, issues, good stuff with R???
+
+1. Basic Building Blocks · 2. Workspace and Files · 3. Sequences of Numbers · 4. Vectors · 5. Missing Values · 6. Subsetting Vectors · 7. Matrices and Data Frames · 8. Logic · 12. Looking at Data · 15. Base Graphics
+
+## This Week
+
+**Topic:** Descriptive statistics and statistical vocabulary
+
+- Measures of central tendency
+- Measures of dispersion
+- Distributions and their shapes
+
+**Learning goals:** define in your own words — *mean, median, mode, variance, standard deviation, histogram, normal distribution, Poisson distribution* — and use R to describe a small dataset and plot a distribution.
+
+**R4DS thread:** you read Ch. 1 (Data visualization) & Ch. 2 (Workflow) — today's lab puts both to work.
+
+# Measures of Central Tendency {background-color="#73000A"}
+
+## Three Ways to Say "Typical"
+
+| Measure | Meaning |
+|---------|---------|
+| **Mean** | the average |
+| **Median** | the halfway point |
+| **Mode** | the most frequently occurring value |
+
+Measures of central tendency summarize a vector of data by locating the *typical*, the *middle*, or the *most common* point.
+
+## Practice — The Mean
+
+```{r}
+#| label: mean-hard
+rainfall <- c(0, 0, 0, 2, 1, 1, 4)   # rain each day this week
+
+# The hard way:
+sum(rainfall) / length(rainfall)
+```
+
+. . .
+
+```{r}
+#| label: mean-easy
+# The easy way:
+mean(rainfall)
+```
+
+## Practice — The Median
+
+```{r}
+#| label: median-hard
+rainfall
+sort(rainfall)   # middle value of the sorted data?
+```
+
+. . .
+
+```{r}
+#| label: median-easy
+median(rainfall)
+```
+
+## Practice — The Mode
+
+```{r}
+#| label: mode
+rainfall          # which value appears most often?
+
+library(modeest)  # install.packages("modeest") once, library() every session
+mfv(rainfall)     # mfv = "most frequent value"
+```
+
+## What Do These Look Like?
+
+```{r}
+#| label: rainfall-plot
+#| code-line-numbers: "3-6|7-9"
+#| output-location: slide
+#| fig-height: 5
+stats <- tibble(
+  measure = c("Mean", "Median", "Mode"),
+  value = c(mean(rainfall), median(rainfall), mfv(rainfall))
+)
+ggplot(tibble(rainfall), aes(rainfall)) +
+  geom_histogram(binwidth = 1, fill = "lightblue", color = "black") +
+  geom_vline(data = stats, aes(xintercept = value, color = measure),
+             linewidth = 1.2, linetype = "dashed") +
+  labs(title = "Rainfall with Mean, Median, and Mode",
+       x = "Rainfall (inches)", y = "Frequency", color = NULL)
+```
+
+## Why We Care in CJ: Sentencing
+
+```{r}
+#| label: sentences
+# Sentence lengths for 10 people convicted of robbery (years)
+sentences <- c(2, 2, 3, 3, 3, 4, 4, 5, 5, 30)   # note the outlier!
+
+mean(sentences)
+median(sentences)
+mfv(sentences)
+```
+
+One 30-year sentence drags the mean to **6.1** — nobody in the data actually got a "typical" 6-year sentence.
+
+## Why We Care in CJ: Sentencing
+
+```{r}
+#| label: sentences-plot
+#| echo: false
+#| fig-height: 5
+sent_stats <- tibble(
+  measure = c("Mean", "Median", "Mode"),
+  value = c(mean(sentences), median(sentences), mfv(sentences))
+)
+ggplot(tibble(sentences), aes(sentences)) +
+  geom_histogram(binwidth = 1, fill = "grey85", color = "black") +
+  geom_vline(data = sent_stats, aes(xintercept = value, color = measure),
+             linewidth = 1.2, linetype = "dashed") +
+  labs(title = "Sentence Lengths (in Years)",
+       x = "Years in Prison", y = "Number of People", color = NULL)
+```
+
+## Thoughts?
+
+- Why do these three values (mean = 6.1, median = 3.5, mode = 3) give such different impressions of "typical" sentence length?
+- Which one might be most fair to use when describing a sentencing policy to the public?
+- When might the mean be misleading?
+
+## The Same Thing in Real Data
+
+Community-level crime rates in Chicago, 2025:
+
+```{r}
+#| label: chicago-skew
+areas |>
+  summarize(
+    mean_rate   = mean(crime_rate),
+    median_rate = median(crime_rate),
+    max_rate    = max(crime_rate)
+  )
+```
+
+. . .
+
+```{r}
+#| label: chicago-worst
+areas |> slice_max(crime_rate, n = 3) |> select(community, crime_rate)
+```
+
+The Loop's rate (driven by a small residential population and huge daytime crowds) pulls the mean above the median — same lesson as the 30-year sentence, in live data.
+
+## The Same Thing in Real Data
+
+```{r}
+#| label: chicago-skew-plot
+#| echo: false
+#| fig-height: 5
+ggplot(areas, aes(crime_rate)) +
+  geom_histogram(bins = 25, fill = crju_colors["garnet"], color = "white") +
+  geom_vline(xintercept = mean(areas$crime_rate), color = crju_colors["navy"],
+             linewidth = 1.2, linetype = "dashed") +
+  geom_vline(xintercept = median(areas$crime_rate), color = crju_colors["gold"],
+             linewidth = 1.2, linetype = "dashed") +
+  annotate("text", x = mean(areas$crime_rate) + 12, y = 10.5,
+           label = "mean", color = crju_colors["navy"], size = 6) +
+  annotate("text", x = median(areas$crime_rate) - 12, y = 10.5,
+           label = "median", color = "#8a6d1a", size = 6) +
+  labs(title = "Crimes per 1,000 residents across 77 Chicago community areas (2025)",
+       x = "Crime rate per 1,000 residents", y = "Community areas")
+```
+
+# Measures of Dispersion {background-color="#1B2A4A"}
+
+## Central Tendency Isn't the Whole Story
+
+Three people run for city council; **only the top two vote-getters win**:
+
+:::: {.columns}
+::: {.column width="50%"}
+**Scenario 1**
+
+- A = 200 votes
+- B = 300 votes
+- C = 400 votes
+:::
+::: {.column width="50%"}
+**Scenario 2**
+
+- X = 299 votes
+- Y = 300 votes
+- Z = 301 votes
+:::
+::::
+
+In **both** cases the average is 300. But scenario 1 has *much greater spread* in support; scenario 2 is *tightly clustered* — it's hard to say who's truly "preferred."
+
+→ We need **measures of dispersion**: range, deviations, variance, standard deviation.
+
+## Practice — Range
+
+```{r}
+#| label: votes-setup
+votes1 <- c(200, 300, 400)   # wide spread
+votes2 <- c(299, 300, 301)   # tight cluster
+
+mean(votes1); mean(votes2)   # identical means
+```
+
+. . .
+
+```{r}
+#| label: votes-range
+range(votes1); diff(range(votes1))
+range(votes2); diff(range(votes2))
+```
+
+## Practice — Deviations from the Mean
+
+```{r}
+#| label: votes-dev
+votes1 - mean(votes1)
+votes2 - mean(votes2)
+```
+
+. . .
+
+**Why can't we just sum the deviations?**
+
+```{r}
+#| label: votes-sum-dev
+sum(votes1 - mean(votes1))   # they always cancel to zero!
+```
+
+## Practice — Sum of Squares
+
+Squaring makes every deviation positive (and emphasizes big misses):
+
+```{r}
+#| label: votes-ss
+sum((votes1 - mean(votes1))^2)
+sum((votes2 - mean(votes2))^2)
+```
+
+## Practice — Variance and SD
+
+```{r}
+#| label: votes-var
+# Variance = mean squared deviation (population formula)
+sum((votes1 - mean(votes1))^2) / length(votes1)
+
+# Standard deviation = square root of variance (back to vote units!)
+sqrt(sum((votes1 - mean(votes1))^2) / length(votes1))
+```
+
+. . .
+
+```{r}
+#| label: votes-var-fn
+var(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)
+var(votes2); sd(votes2)   # more on WHY in Session 4
+```
+
+## Seeing the Machinery
+
+```{r}
+#| label: dispersion-steps
+#| echo: false
+#| fig-height: 5.5
+votes_df <- tibble(
+  scenario = rep(c("Wide Spread", "Tight Cluster"), each = 3),
+  candidate = factor(rep(1:3, times = 2)),
+  votes = c(votes1, votes2)
+) |>
+  mutate(dev = votes - mean(votes), sq_dev = dev^2, .by = scenario)
+
+p1 <- ggplot(votes_df, aes(candidate, votes, fill = scenario)) +
+  geom_col(show.legend = FALSE) +
+  geom_hline(yintercept = 300, color = "red", linetype = "dashed") +
+  facet_wrap(~scenario) +
+  scale_fill_manual(values = unname(crju_colors[c("blue", "garnet")])) +
+  labs(title = "1: Raw votes + mean", x = NULL, y = "Votes")
+p2 <- ggplot(votes_df, aes(candidate, dev, fill = scenario)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~scenario) +
+  scale_fill_manual(values = unname(crju_colors[c("blue", "garnet")])) +
+  labs(title = "2: Deviations from mean", x = NULL, y = "Deviation")
+p3 <- ggplot(votes_df, aes(candidate, sq_dev, fill = scenario)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~scenario) +
+  scale_fill_manual(values = unname(crju_colors[c("blue", "garnet")])) +
+  labs(title = "3: Squared deviations", x = "Candidate", y = "Squared dev.")
+library(patchwork)
+p1 / p2 / p3
+```
+
+## Standard Deviation, in Words
+
+The **standard deviation** measures *how spread out the data are around the mean*.
+
+> "On average, how far is each value from the mean?"
+
+We square the deviations (to make them positive and emphasize larger differences), average them (that's the **variance**), then take the square root (back to the original units).
+
+## Why the Standard Deviation?
+
+::: incremental
+- **Same units as the data** — variance is in squared units; SD is interpretable
+- **Works with the normal distribution** — SD tells us how typical or extreme a value is
+- **The basis for many tools** — confidence intervals, hypothesis tests, z-scores, regression all rely on it
+- **Lets you compare variability** across datasets with similar scales
+:::
+
+## In CJ Scenarios
+
+**Response times** for patrol officers:
+
+- Low SD → officers respond in consistently similar times
+- High SD → sometimes fast, sometimes slow — inconsistency that matters for policy, supervision, training
+
+**Sentence lengths** for the same crime:
+
+- High SD might suggest inconsistency — or bias — in sentencing
+
+## Real Data: Consistency Across Communities
+
+```{r}
+#| label: chicago-sd
+# Violent-crime rates: how much do Chicago communities differ?
+areas |>
+  summarize(
+    mean_violent = mean(violent_rate),
+    sd_violent   = sd(violent_rate),
+    min_violent  = min(violent_rate),
+    max_violent  = max(violent_rate)
+  )
+```
+
+The **SD is nearly as large as the mean** — Chicago communities differ enormously in violence exposure. That inequality *is* a finding, and it took exactly one line of dispersion statistics to see it.
+
+# Distributions {background-color="#73000A"}
+
+## What *Is* a Distribution?
+
+A **distribution** shows *how many observations* fall at different values — the **shape** of the data.
+
+It answers:
+
+- "Where do most of the values fall?"
+- "How spread out are they?"
+- "Are some values rare or common?"
+
+We visualize distributions with a **histogram**.
+
+## The Normal Distribution
+
+```{r}
+#| label: normal-hist
+#| fig-height: 4
+sims <- tibble(x = rnorm(n = 1000, mean = 100, sd = 10))
+ggplot(sims, aes(x)) + geom_histogram(bins = 30, fill = "grey80", color = "white")
+```
+
+Symmetrical, bell-shaped; defined by **two numbers** — the mean (center) and SD (spread). **Try different values!**
+
+## SD and the Normal: the Empirical Rule
+
+```{r}
+#| label: empirical-rule
+#| echo: false
+#| fig-height: 5.5
+m <- mean(sims$x); s <- sd(sims$x)
+bands <- tibble(
+  k = 1:3,
+  label = c("±1 SD ≈ 68%", "±2 SD ≈ 95%", "±3 SD ≈ 99.7%"),
+  color = unname(crju_colors[c("blue", "gold", "garnet")])
+)
+ggplot(sims, aes(x)) +
+  geom_histogram(bins = 30, fill = "grey85", color = "white") +
+  geom_vline(xintercept = m, color = "red", linewidth = 1.2) +
+  geom_vline(xintercept = m + c(-1, 1) * s, color = crju_colors["blue"], linewidth = 1, linetype = 2) +
+  geom_vline(xintercept = m + c(-2, 2) * s, color = crju_colors["gold"], linewidth = 1, linetype = 3) +
+  geom_vline(xintercept = m + c(-3, 3) * s, color = crju_colors["garnet"], linewidth = 1, linetype = 4) +
+  annotate("text", x = m, y = Inf, label = "mean", vjust = 1.5, color = "red", size = 5) +
+  labs(title = "±1 SD ≈ 68% · ±2 SD ≈ 95% · ±3 SD ≈ 99.7%", x = "Value", y = "Count")
+```
+
+```{r}
+#| label: pct-within
+pct_within <- function(k) 100 * (pnorm(k) - pnorm(-k))
+tibble(k = 1:3, pct_within = round(pct_within(1:3), 2))
+```
+
+## The Poisson Distribution
+
+```{r}
+#| label: poisson-hist
+#| fig-height: 4
+pois_sims <- tibble(x = rpois(n = 1000, lambda = 1))
+ggplot(pois_sims, aes(x)) + geom_bar(fill = crju_colors["navy"])
+```
+
+Often **skewed**, especially when λ is low. Models **counts of rare events**: 911 calls per hour, crimes per day, cars per minute. One parameter: **λ** = expected number of events. **Try different values!**
+
+## The Poisson Is Not Hypothetical
+
+Daily robbery counts in our Chicago sample, all of 2025:
+
+```{r}
+#| label: chicago-poisson
+#| fig-height: 4.5
+daily_robberies <- crimes |>
+  filter(primary_type == "ROBBERY") |>
+  count(date)
+
+ggplot(daily_robberies, aes(n)) +
+  geom_bar(fill = crju_colors["garnet"]) +
+  labs(x = "Robberies per day", y = "Number of days",
+       title = "Real crime counts look Poisson")
+```
+
+## Why We Care About Distributions in CJ
+
+- The **normal distribution** helps us understand common variation (response times, test scores)
+- The **Poisson distribution** models **event counts**, especially rare ones — crimes, incidents — and underlies many forecasting tools
+- Recognizing the *shape* of your data is the first step in choosing the right analysis — a theme for the whole semester
+
+## Today's Lab & Homework
+
+- **Lab 2:** your first ggplots — histograms, boxplots, and bar charts with real corrections data ([lab page](../labs/lab-02-visualize.qmd))
+- **Homework 2:** descriptive statistics in R (posted on the [Session 2 page](../weeks/week-02.qmd))
+- **Read before Session 3:** Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Code style)

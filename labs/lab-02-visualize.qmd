@@ -1,0 +1,113 @@
+---
+title: "Lab 2 · First Plots with ggplot2"
+subtitle: "CRJU 705 · Session 2"
+---
+
+**Goal:** make your first plots in R and connect them to today's descriptive statistics. This lab assumes you've read R4DS [Ch. 1 (Data visualization)](https://r4ds.hadley.nz/data-visualize.html) and [Ch. 2 (Workflow: basics)](https://r4ds.hadley.nz/workflow-basics.html).
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+
+prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
+```
+
+`prisoners` holds records for 300 incarcerated persons (simulated, but realistic): demographics, offense type, sentence, and well-being measures. Look at it first — *always* look at your data first:
+
+```{r}
+#| label: glimpse
+glimpse(prisoners)
+```
+
+## Walkthrough
+
+### A histogram — the shape of a numeric variable
+
+Today's lecture was about summarizing numeric variables. A histogram is the picture version:
+
+```{r}
+#| label: hist-age
+ggplot(prisoners, aes(x = age)) +
+  geom_histogram(binwidth = 5, fill = "steelblue", color = "white") +
+  labs(title = "Age distribution of incarcerated persons",
+       x = "Age (years)", y = "Count")
+```
+
+Anatomy of every ggplot: **data** (`prisoners`), **aesthetics** (`aes(x = age)` — which variables map to which visual channels), and **geometry** (`geom_histogram()` — how to draw them).
+
+How does the picture relate to the numbers?
+
+```{r}
+#| label: age-stats
+prisoners |>
+  summarize(mean_age = mean(age), median_age = median(age), sd_age = sd(age))
+```
+
+### A bar chart — counts of a categorical variable
+
+```{r}
+#| label: bar-offense
+ggplot(prisoners, aes(x = offense_type)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Offense types", x = NULL, y = "Count")
+```
+
+### A boxplot — a distribution *split by groups*
+
+The five-number-summary as a picture, one box per offense type:
+
+```{r}
+#| label: box-sentence
+ggplot(prisoners, aes(x = offense_type, y = sentence_years)) +
+  geom_boxplot(fill = "grey90") +
+  labs(title = "Sentence length by offense type",
+       x = NULL, y = "Sentence (years)")
+```
+
+The box is the middle 50% (median = the line inside); the dots are outliers — the same "one 30-year sentence" problem from lecture, visible instantly.
+
+## Your Turn
+
+Work in your own script. Comment each answer.
+
+**1.** Make a histogram of `sentence_years`. Is it symmetric or skewed? Compute the mean and median — do they agree with what the picture shows? *(Hint: today's lecture.)*
+
+```{r}
+#| label: yt-1
+#| eval: false
+# your code here
+```
+
+**2.** Make a bar chart of `education`. Which category is most common (the mode)?
+
+```{r}
+#| label: yt-2
+#| eval: false
+# your code here
+```
+
+**3.** Make a boxplot of `age` by `offense_type`. Which offense type has the *most spread* in age? Check yourself with `sd()`:
+
+```{r}
+#| label: yt-3
+#| eval: false
+# your code here — for the numeric check:
+# prisoners |> summarize(sd_age = sd(age), .by = offense_type)
+```
+
+**4.** *(Stretch)* Add `color = "white"` inside your histogram's `geom_histogram()` and change its `binwidth`. What changes? What binwidth seems most honest for `sentence_years`?
+
+## Exit Ticket
+
+Submit a short R script to Canvas before you leave, containing:
+
+1. One plot of your choice from today (code only is fine)
+2. A comment (2–3 sentences): what does the plot show, and which descriptive statistic (mean/median/SD) best summarizes it?
+3. A comment naming one thing from R4DS Ch. 1–2 or today's lab that is still confusing

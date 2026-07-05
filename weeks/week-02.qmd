@@ -1,0 +1,29 @@
+---
+title: "Session 2 · Descriptive Statistics & EDA"
+subtitle: "Central tendency · dispersion · distributions · first ggplots"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Descriptive Statistics](../slides/week-02-descriptives.qmd)** · **[🧪 Lab 2: First Plots with ggplot2](../labs/lab-02-visualize.qmd)** · **[📝 Homework 2](../homework/hw-02.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 1** (Statistical Vocabulary)
+- Read: R4DS **[Ch. 1 — Data visualization](https://r4ds.hadley.nz/data-visualize.html)** and **[Ch. 2 — Workflow: basics](https://r4ds.hadley.nz/workflow-basics.html)**
+- Bring your laptop with R, RStudio, and the course packages installed ([install guide](../resources.qmd#installing-r-and-rstudio))
+
+## In class
+
+- swirl debrief — what was confusing, what clicked
+- Measures of central tendency: mean, median, mode (and when each misleads)
+- Measures of dispersion: range, deviations, variance, standard deviation
+- Distributions: histograms, the normal distribution and the empirical rule, the Poisson
+- Real-data thread: skew and spread in Chicago's community-level crime rates
+- **Lab 2:** first plots with ggplot2 (histograms, bar charts, boxplots) using the `prisoners` data
+
+## Homework
+
+- **[Homework 2](../homework/hw-02.qmd)** — submit your `.R` file via Canvas **before noon Tuesday**
+- Read Stanton **Ch. 2** (Reasoning with Probability) before Session 3
+- Read R4DS **[Ch. 3 — Data transformation](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4 — Workflow: code style](https://r4ds.hadley.nz/workflow-style.html)**

@@ -22,6 +22,8 @@ website:
         menu:
           - href: weeks/week-01.qmd
             text: "Session 1 · Intro & R Setup"
+          - href: weeks/week-02.qmd
+            text: "Session 2 · Descriptive Statistics"
       - href: resources.qmd
         text: Resources
       - href: chicago-data.qmd
