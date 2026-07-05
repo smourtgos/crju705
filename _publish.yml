@@ -1,0 +1,4 @@
+- source: project
+  gh-pages:
+    - id: crju705-gh-pages
+      url: 'https://smourtgos.github.io/crju705/'
