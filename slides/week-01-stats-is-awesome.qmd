@@ -1,0 +1,520 @@
+---
+title: "Statistics is Awesome!"
+subtitle: "CRJU 705 · Session 1 · Fall 2026"
+author: "Scott M. Mourtgos"
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    footer: "CRJU 705 · Session 1"
+    theme: [default, custom-slides.scss]
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+source(here::here("R/setup.R"))
+theme_set(theme_minimal(base_size = 18))
+set.seed(705)
+zone_pal <- unname(palette.colors(6, palette = "Okabe-Ito"))[2:6]
+```
+
+# Welcome {background-color="#73000A"}
+
+## Class Introductions
+
+- Name
+- Place in program
+- Area of interest
+- Experience with statistics (*anxiety* about statistics?)
+- Why are you here?
+- Future plans / goals
+
+# A City Under Siege {background-color="#1B2A4A"}
+
+## The Situation
+
+Over three months, **40 bank robberies** strike across a city's five zones: North, South, East, West, and Downtown.
+
+::: incremental
+- No clear pattern. No suspects. No leads.
+- The robber hits banks, disappears, and resurfaces days later in a different part of the city.
+- Detectives are stumped. The media is escalating. Public concern is growing.
+- Then someone makes a call to the PD's new crime analyst team:
+:::
+
+. . .
+
+> "Can you help us predict where they'll hit next?"
+
+## What Does the Data Look Like?
+
+40 bank robberies across 5 city zones over several months:
+
+| Variable | Meaning |
+|----------|---------|
+| `robbery_id` | Robbery sequence |
+| `date` | When the robbery occurred |
+| `zone` | Which part of the city was hit |
+| `day_of_year` | Numeric version of the date (for modeling time) |
+| `lat` & `lon` | Spatial location (for mapping) |
+| `prior_robberies_in_zone` | How many robberies already happened in that zone? |
+
+## Before We Model, We Look
+
+Very little information is available: no suspect descriptions, no MO patterns — just **when** and **where**.
+
+Can we use this simple dataset to build a predictive model with statistics?
+
+. . .
+
+But before we even build a model, we can use basic plots to spot patterns.
+
+**Good data analysts always visualize before they model.**
+
+```{r}
+#| label: simulate-robberies
+#| include: false
+# Same simulation as Fall 2025 lecture (seed preserved)
+set.seed(58)
+n <- 40
+zones <- c("North", "South", "East", "West", "Downtown")
+
+robberies <- tibble(
+  robbery_id = 1:n,
+  date = as.Date("2024-01-01") + cumsum(rpois(n, 5)),
+  zone = sample(zones, size = n, replace = TRUE,
+                prob = c(0.1, 0.1, 0.1, 0.5, 0.2))
+) |>
+  arrange(date) |>
+  mutate(
+    day_of_year = yday(date),
+    zone = factor(zone, levels = zones),
+    prior_robberies_in_zone = row_number() - 1,
+    .by = zone
+  ) |>
+  arrange(date)
+```
+
+## Timeline of Robberies by Zone — any patterns?
+
+```{r}
+#| label: timeline-plot
+#| echo: false
+#| fig-width: 10
+#| fig-height: 5
+ggplot(robberies, aes(x = date, y = zone, color = zone)) +
+  geom_point(size = 4, alpha = 0.85) +
+  scale_color_manual(values = zone_pal) +
+  labs(title = "Timeline of Bank Robberies by Zone", x = "Date", y = NULL) +
+  theme(legend.position = "none")
+```
+
+## Watching It Unfold Over Time
+
+{{< video ../media/week-01/robbery_timeline.mp4 >}}
+
+## Mapped Locations — any patterns?
+
+{{< video ../media/week-01/animated_robberies_map.mp4 >}}
+
+## Building a Predictive Model
+
+We want to predict **where the next robbery will occur** within a short time window, based on patterns in *time*, *location*, and *prior activity*.
+
+**Key predictors:**
+
+- Day of year (captures seasonal or other unobserved time patterns)
+- Prior robberies in the same zone
+- Zone
+
+## What Are We Trying to Predict?
+
+We use **logistic regression** to predict whether the same zone will be hit again within 10 days:
+
+- **Outcome:** `future_hit` = 1 if another robbery occurs in the *same zone* within the next 10 days; otherwise 0
+- This creates a **binary classification** problem
+
+*(Don't worry about the machinery today — logistic regression is Session 12. This is a preview of where we're headed.)*
+
+```{r}
+#| label: fit-model
+#| include: false
+robberies <- robberies |>
+  arrange(date) |>
+  mutate(
+    future_hit = map_int(row_number(), \(i) {
+      if (i == nrow(robberies)) return(NA_integer_)
+      later <- robberies[(i + 1):nrow(robberies), ]
+      as.integer(any(later$zone == zone[i] & later$date <= date[i] + 10))
+    })
+  ) |>
+  filter(!is.na(future_hit))
+
+model <- glm(future_hit ~ 0 + scale(day_of_year) + prior_robberies_in_zone + zone,
+             data = robberies, family = binomial)
+```
+
+## Logistic Regression Results
+
+```{r}
+#| label: model-summary
+#| echo: false
+broom::tidy(model) |>
+  mutate(across(where(is.numeric), \(x) round(x, 3))) |>
+  knitr::kable()
+```
+
+## Predicted Risk by Zone
+
+{{< video ../media/week-01/predicted_prob_growth.mp4 >}}
+
+## Predicted Risk by Zone
+
+Based on the model, the **West Zone** has the highest likelihood of being targeted next.
+
+. . .
+
+**So what should we do with the information derived from the model?**
+
+## Strategic Deployment
+
+{{< video ../media/week-01/deploy_cars_east_in.mp4 >}}
+
+- 📍 **Where:** West Zone had the highest predicted probability
+- 🚔 **Action:** Deploy units there for surveillance and hopeful capture
+- 🎯 **Goal:** Increase arrest probability
+
+## Case Study Wrap-Up & Discussion
+
+**Outcome:** Within days, officers apprehended the suspect in the predicted area as he was approaching a bank.
+
+Statistics turned scattered crime data into a clear lead — saving time, resources, and preventing further victimization.
+
+::: incremental
+- What data did we *not* use? How could we update this model as new robberies occur in real time?
+- What are the risks of over-relying on a model? How do we communicate uncertainty to decision-makers?
+- What other areas that interest you could statistics be applied to?
+:::
+
+# Course Structure {background-color="#73000A"}
+
+## How This Course Works
+
+Everything lives on the course website — bookmark it:
+
+**<https://smourtgos.github.io/crju705/>**
+
+- **[Schedule](https://smourtgos.github.io/crju705/schedule.html)** — topics, readings, slides, labs, homework for every session
+- **[Syllabus](https://smourtgos.github.io/crju705/syllabus.html)** — walk-through now (grading, policies, AI policy, the mid-term warning)
+- **Two textbooks:** Stanton (required) + *R for Data Science* (free online)
+- **Both traditions:** you will learn frequentist **and** Bayesian inference — few courses teach both
+- Submissions happen via Canvas; materials live here
+
+# Types of Data & Levels of Measurement {background-color="#1B2A4A"}
+
+## Types of Data
+
+**Qualitative (categorical)**
+
+- Describe groups or labels (zone, sex, race)
+- Text / interviews
+
+**Quantitative (numerical)**
+
+- Measurable amounts (age, prior robberies)
+- **Discrete** = whole counts (number of robberies)
+- **Continuous** = can take any value (income, age)
+
+## Levels of Measurement
+
+| Level | Definition | Examples |
+|-------|-----------|----------|
+| **Nominal** | Categories without order | Race, sex, zone |
+| **Ordinal** | Ordered categories, unequal gaps | Likert scales |
+| **Interval** | Meaningful differences, no true zero | Temperature (°C) |
+| **Ratio** | Meaningful differences **and** true zero | Robbery counts, age |
+
+## Why Does the Level Matter?
+
+::: incremental
+- Your variable's scale determines **the math you're allowed to do**
+- It also determines **the plot you should make**
+- Using the wrong scale leads to **wrong conclusions**
+:::
+
+```{r}
+#| label: rob-sim
+#| include: false
+set.seed(58)
+rob <- tibble(
+  zone = factor(sample(c("North", "South", "East", "West", "Downtown"), 200, TRUE)),
+  prior_robberies_in_zone = rpois(200, 3),    # discrete (ratio)
+  risk_likert = sample(1:7, 200, TRUE),       # ordinal
+  temp_c = rnorm(200, 20, 5),                 # interval
+  age = pmax(18, round(rnorm(200, 40, 12))),  # ratio
+  caught = factor(rbinom(200, 1, 0.35), labels = c("No", "Yes"))
+)
+```
+
+## Scale Determines the Math: Nominal
+
+```{r}
+#| label: nominal-wrong
+# WRONG: the "mean zone" is meaningless
+rob$zone |> as.numeric() |> mean()
+```
+
+. . .
+
+```{r}
+#| label: nominal-right
+# RIGHT: counts and percentages
+rob |>
+  count(zone) |>
+  mutate(pct = 100 * n / sum(n))
+```
+
+## Scale Determines the Math: Ordinal
+
+```{r}
+#| label: ordinal-summaries
+# Summarize a Likert item (ordinal): median & IQR
+rob |>
+  summarize(med = median(risk_likert), iqr = IQR(risk_likert))
+
+# Association with a numeric variable: Spearman (rank-based)
+cor(rob$risk_likert, rob$prior_robberies_in_zone, method = "spearman")
+```
+
+## Interval vs. Ratio
+
+```{r}
+#| label: interval-demo
+mean(rob$temp_c)             # ~20 °C
+mean(rob$temp_c * 1.8 + 32)  # same temperatures in °F
+```
+
+Temperature has **no true zero** — 0 °C is just where water freezes.
+
+- "30 °C is 10 °C warmer than 20 °C" ✔ (differences are fine)
+- "20 °C is *twice as hot* as 10 °C" ✘ (ratios are meaningless)
+
+. . .
+
+```{r}
+#| label: ratio-demo
+mean(rob$age)
+```
+
+Age **has** a true zero — a 40-year-old *is* twice as old as a 20-year-old. Differences **and** ratios both work.
+
+## Plots That Match the Scale
+
+```{r}
+#| label: scale-plots
+#| echo: false
+#| fig-width: 12
+#| fig-height: 6
+library(patchwork)
+p1 <- ggplot(rob, aes(zone)) + geom_bar(fill = crju_colors["garnet"]) +
+  labs(title = "Nominal: bar chart", x = NULL)
+p2 <- ggplot(rob, aes(factor(risk_likert, levels = 1:7))) +
+  geom_bar(fill = crju_colors["navy"]) +
+  labs(title = "Ordinal: ordered bars", x = "Risk (1–7)")
+p3 <- ggplot(rob, aes(age)) + geom_histogram(binwidth = 5, fill = crju_colors["blue"]) +
+  labs(title = "Continuous (ratio): histogram")
+p4 <- ggplot(rob, aes(prior_robberies_in_zone)) + geom_bar(fill = crju_colors["gold"]) +
+  labs(title = "Discrete counts: bars", x = "Prior robberies")
+(p1 + p2) / (p3 + p4)
+```
+
+## Choosing the Right Test (Preview of the Semester)
+
+```{r}
+#| label: test-preview
+#| output-location: fragment
+# Categorical × categorical → chi-squared (compare proportions)
+chisq.test(table(rob$zone, rob$caught))
+```
+
+```{r}
+#| label: test-preview-2
+#| output-location: fragment
+# Numeric by category → ANOVA (compare group means)  [Session 8]
+aov(age ~ zone, data = rob) |> summary()
+```
+
+```{r}
+#| label: test-preview-3
+#| output-location: fragment
+# Numeric × numeric → Pearson correlation             [Session 10]
+cor(rob$age, rob$prior_robberies_in_zone)
+```
+
+## Treating Ordinal as Numeric Can Mislead
+
+```{r}
+#| label: ordinal-trap
+#| fig-height: 4
+educ <- rep(1:5, each = 50)                 # ordinal codes 1..5
+income <- rep(c(1, 2, 3, 4, 1000), each = 50)  # HUGE jump at the top
+cor(educ, income)                           # Pearson looks "strong"
+```
+
+```{r}
+#| label: ordinal-trap-plot
+#| echo: false
+#| fig-height: 4
+ggplot(tibble(educ, income), aes(educ, income)) +
+  geom_point(size = 3, alpha = 0.6, color = crju_colors["garnet"]) +
+  geom_smooth(method = lm, se = FALSE, color = crju_colors["navy"]) +
+  scale_y_log10() +
+  labs(x = "Education (1–5 coded as numbers)", y = "Income (log scale)",
+       title = "Ordinal codes hide wildly unequal spacing")
+```
+
+The correlation is "large," but the categories are **not equally spaced** — code numbers ≠ measurements.
+
+# Getting You Running in R {background-color="#73000A"}
+
+## Install R + RStudio (Before Session 2!)
+
+Follow the step-by-step guide on the course website:
+
+**[smourtgos.github.io/crju705/resources.html](https://smourtgos.github.io/crju705/resources.html)**
+
+1. Install **R** (from CRAN)
+2. Install **RStudio** (from Posit)
+3. Test: type `2 + 2` in the Console → you should see `[1] 4`
+4. Install the course packages:
+
+```{r}
+#| label: install-pkgs
+#| eval: false
+install.packages(c("tidyverse", "swirl", "BayesFactor", "here"))
+```
+
+**Check:** open RStudio and verify you see four panes (Source, Console, Environment/History, Files/Plots/Help).
+
+## First Steps: Arithmetic & Assignment
+
+*(Stanton Appendix A)*
+
+```{r}
+#| label: appendix-a1
+3 + 5
+x <- 1:10
+sum(x); mean(x); sd(x)
+```
+
+```{r}
+#| label: appendix-a-help
+#| eval: false
+?mean   # every function has a help page — use them constantly
+```
+
+## First Steps: Logical Indexing
+
+```{r}
+#| label: appendix-a2
+x > 5
+x[x > 5]
+```
+
+## First Steps: Characters & Factors
+
+```{r}
+#| label: appendix-a3
+student_names <- c("Alice", "Bob", "Carol")
+is.character(student_names)
+
+f <- factor(c("red", "blue", "red"))
+f
+```
+
+::: {.your-turn}
+**Your turn:** build a vector of seven ages; compute the mean & SD; subset the values > 30; then use `?seq` to generate `seq(0, 1, by = 0.2)`.
+:::
+
+## Data Frames & dplyr
+
+*(Stanton Appendix B — modern form)*
+
+```{r}
+#| label: appendix-b1
+library(tidyverse)
+cars_data <- as_tibble(mtcars, rownames = "model")
+head(cars_data, 4)
+```
+
+## select & filter
+
+```{r}
+#| label: appendix-b2
+cars_data |> select(model, mpg, cyl, hp)
+```
+
+```{r}
+#| label: appendix-b3
+cars_data |> filter(cyl == 6)
+```
+
+## mutate & summarize
+
+```{r}
+#| label: appendix-b4
+cars_data |>
+  mutate(mpg_per_hp = mpg / hp) |>
+  select(model, mpg, hp, mpg_per_hp) |>
+  head(4)
+
+cars_data |>
+  summarize(avg_mpg = mean(mpg), n = n(), .by = cyl)
+```
+
+::: {.your-turn}
+**Your turn:** using the built-in `mpg` data — (1) find the top-3 models by `hwy`; (2) compute average `cty` by `class`.
+:::
+
+## Coming Attractions: Real Data, All Semester
+
+Starting next week, our running example is **real**: every crime reported in Chicago in 2025.
+
+```{r}
+#| label: chicago-teaser
+#| echo: false
+#| fig-height: 4.5
+crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
+crimes |>
+  count(primary_type, sort = TRUE) |>
+  slice_head(n = 10) |>
+  ggplot(aes(n, fct_reorder(primary_type, n))) +
+  geom_col(fill = crju_colors["garnet"]) +
+  labs(title = "Ten most common reported crimes, Chicago 2025",
+       subtitle = "30,000-incident sample · Chicago Police Department data portal",
+       x = "Incidents", y = NULL)
+```
+
+## Homework (Due Before Noon Tuesday)
+
+**swirl tutorials** — interactive R lessons *inside* R:
+
+```{r}
+#| label: swirl-hw
+#| eval: false
+install.packages("swirl")
+library(swirl)
+swirl()
+```
+
+Complete these lessons from *R Programming*: **1)** Basic Building Blocks · **2)** Workspace and Files · **3)** Sequences of Numbers · **4)** Vectors · **5)** Missing Values · **6)** Subsetting Vectors · **7)** Matrices and Data Frames · **8)** Logic · **12)** Looking at Data · **15)** Base Graphics
+
+Submit your R script files via **Canvas**. Then read **Stanton Ch. 1** before Session 2.

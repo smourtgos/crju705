@@ -3,8 +3,8 @@ title: "Session 1 · Intro & R Setup"
 subtitle: "Class introduction · Why statistics is awesome · Types of data · R & RStudio"
 ---
 
-::: {.callout-note appearance="simple"}
-Full session materials (slides, swirl assignment) are being finalized and will appear here.
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Statistics is Awesome!](../slides/week-01-stats-is-awesome.qmd)**
 :::
 
 ## Before class
@@ -22,5 +22,27 @@ Full session materials (slides, swirl assignment) are being finalized and will a
 
 ## Homework
 
-- **swirl tutorials** — instructions given in class; submit your R script files via Canvas **before noon Tuesday** ahead of Session 2
-- Read Stanton **Ch. 1** before next class
+**swirl tutorials** — interactive R lessons that run inside R itself:
+
+```r
+install.packages("swirl")
+library(swirl)
+swirl()
+```
+
+When prompted, choose the **R Programming** course and complete these lessons:
+
+1. Basic Building Blocks
+2. Workspace and Files
+3. Sequences of Numbers
+4. Vectors
+5. Missing Values
+6. Subsetting Vectors
+7. Matrices and Data Frames
+8. Logic
+12. Looking at Data
+15. Base Graphics
+
+Save the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas **before noon Tuesday** ahead of Session 2.
+
+Also read Stanton **Ch. 1** before next class *(and if you couldn't finish the Intro and Appendices A–C before the first class, complete them this week)*.
