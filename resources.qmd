@@ -58,11 +58,24 @@ install.packages(c("tidyverse", "swirl", "BayesFactor", "here"))
 
 ## Datasets
 
-*The dataset index will appear here as course data files are posted.*
+Download by clicking, or read directly in R, e.g.:
+
+```r
+prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
+```
 
 | File | Description | Used in |
 |------|-------------|---------|
-| *coming soon* | | |
+| [prisoners.csv](data/prisoners.csv) | 300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated) | Lab 2 |
+| [neighborhoods.csv](data/neighborhoods.csv) | 500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated) | Lab 3 |
+| [cities-wide.csv](data/cities-wide.csv) | 100 cities with violent-crime rates 2015–2025 in wide format (simulated) | Lab 4 |
+| [reentry-wide.csv](data/reentry-wide.csv) | 150 reentry program participants, monthly outcomes in wide format (simulated) | Lab 4 |
+| [population-data.csv](data/population-data.csv) | A full "population" of test scores for sampling-distribution simulations | Session 4 |
+| [crash-ak.csv](data/crash-ak.csv) | 20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated) | Lab 5, Workshop |
+| [crash-ak.xlsx](data/crash-ak.xlsx) | The same crashes as a (messier) Excel file — for import practice | Lab 5 |
+| [officers.csv](data/officers.csv) | 200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated) | Lab 6 |
+
+Simulated datasets are realistic but artificial — generously shared by a colleague. The course **anchor dataset** (real open data used in lecture examples all semester) will be posted here with its codebook.
 
 ## Getting help
 
