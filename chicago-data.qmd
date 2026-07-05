@@ -1,0 +1,69 @@
+---
+title: "The Chicago Anchor Dataset"
+subtitle: "Real crime data we'll use all semester"
+---
+
+Most lecture examples this semester use **one real dataset** — reported crime in Chicago during 2025, from the [Chicago Police Department's public data portal](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2) — so that each new technique builds on data you already know. It comes at **two levels**:
+
+## 1. Incident level — `chicago-crimes-2025.csv`
+
+A random sample of **30,000** of the 237,472 crimes reported to CPD in 2025 (sampled with `set.seed(705)`).
+
+```r
+crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
+```
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `id` | numeric | CPD incident ID |
+| `date` | date | Date the incident occurred |
+| `hour` | numeric | Hour of day (0–23) |
+| `primary_type` | character | CPD primary offense classification (THEFT, BATTERY, …) |
+| `description` | character | More detailed offense description |
+| `location_description` | character | Type of location (STREET, RESIDENCE, …) |
+| `crime_category` | character | Violent / Property / Other (course-defined, see below) |
+| `arrest` | logical | Did the incident result in an arrest? |
+| `domestic` | logical | Domestic-related incident (per Illinois DV statute) |
+| `community_area` | numeric | Chicago community area number (1–77) |
+| `community` | character | Community area name |
+| `latitude`, `longitude` | numeric | Anonymized block-level coordinates (may be missing) |
+
+**`crime_category` definitions (course convention):** Violent = homicide, criminal sexual assault, robbery, battery, assault. Property = burglary, theft, motor vehicle theft, arson. Everything else = Other.
+
+## 2. Community-area level — `chicago-areas.csv`
+
+All 237,472 incidents (not just the sample) aggregated to Chicago's **77 community areas**, joined with socioeconomic measures from the [CMAP Community Data Snapshots](https://cmap.illinois.gov/data/community-data-snapshots/) (American Community Survey estimates).
+
+```r
+areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv")
+```
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `community_area`, `community` | id | Area number (1–77) and name |
+| `population` | numeric | Total population (ACS) |
+| `crimes_total`, `crimes_violent`, `crimes_property` | numeric | 2025 reported crime counts |
+| `crime_rate`, `violent_rate`, `property_rate` | numeric | Crimes per 1,000 residents |
+| `high_violence` | logical | Violent-crime rate above the citywide median? |
+| `arrest_rate` | numeric | Share of the area's 2025 incidents ending in arrest |
+| `median_age` | numeric | Median age |
+| `pct_white`, `pct_black`, `pct_hispanic`, `pct_asian` | numeric | Racial/ethnic composition (%) |
+| `unemployment_rate` | numeric | Unemployed share of the labor force (%) |
+| `pct_bachelors` | numeric | Adults 25+ with a bachelor's degree or higher (%) |
+| `pct_no_hs_diploma` | numeric | Adults 25+ without a high-school diploma (%) |
+| `median_income` | numeric | Median household income ($) |
+| `income_per_capita` | numeric | Per-capita income ($) |
+| `pct_renter` | numeric | Renter-occupied share of households (%) |
+| `pct_vacant` | numeric | Vacant share of housing units (%) |
+| `median_rent` | numeric | Median gross rent ($) |
+
+## Important caveats — we will return to these all semester
+
+- **Reported** crime only. These data reflect crimes *reported to and recorded by* CPD — not all crime that occurred. Reporting rates differ across offense types and communities.
+- **An arrest is not a conviction**, and `arrest_rate` reflects incident clearance patterns, not "guilt rates."
+- The ACS measures are **survey estimates** with sampling error, larger for smaller areas.
+- Aggregate (community-level) associations do **not** license conclusions about individuals — we'll name this properly (the *ecological fallacy*) when we get to correlation.
+
+## Provenance
+
+Snapshot pulled July 2026; build script archived in the course repository (`R/build-anchor-dataset.R`) so the dataset is exactly reproducible. Sources: [Chicago Data Portal, Crimes 2001–present](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2) (dataset `ijzp-q8t2`) and [CMAP Community Data Snapshots 2026](https://cmap.illinois.gov/data/community-data-snapshots/) (CCA table).

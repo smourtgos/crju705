@@ -66,6 +66,8 @@ prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
 
 | File | Description | Used in |
 |------|-------------|---------|
+| [chicago-crimes-2025.csv](data/chicago-crimes-2025.csv) | **Anchor dataset**: 30,000 real Chicago crime incidents from 2025 — [full codebook](chicago-data.qmd) | Lectures, all semester |
+| [chicago-areas.csv](data/chicago-areas.csv) | **Anchor dataset**: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — [full codebook](chicago-data.qmd) | Lectures (correlation → regression) |
 | [prisoners.csv](data/prisoners.csv) | 300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated) | Lab 2 |
 | [neighborhoods.csv](data/neighborhoods.csv) | 500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated) | Lab 3 |
 | [cities-wide.csv](data/cities-wide.csv) | 100 cities with violent-crime rates 2015–2025 in wide format (simulated) | Lab 4 |
@@ -75,7 +77,7 @@ prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
 | [crash-ak.xlsx](data/crash-ak.xlsx) | The same crashes as a (messier) Excel file — for import practice | Lab 5 |
 | [officers.csv](data/officers.csv) | 200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated) | Lab 6 |
 
-Simulated datasets are realistic but artificial — generously shared by a colleague. The course **anchor dataset** (real open data used in lecture examples all semester) will be posted here with its codebook.
+The two **Chicago anchor files are real data** (Chicago Police Department portal + Census/ACS via CMAP) — see the [full codebook and caveats](chicago-data.qmd). The remaining datasets are simulated but realistic, generously shared by a colleague.
 
 ## Getting help
 

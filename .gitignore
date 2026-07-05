@@ -11,6 +11,9 @@ _site/
 .RData
 .Ruserdata
 
+# Raw data downloads for R/build-anchor-dataset.R (not committed)
+data-raw/
+
 # OS
 .DS_Store
 
