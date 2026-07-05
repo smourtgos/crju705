@@ -1,0 +1,31 @@
+---
+title: "CRJU 705: Quantitative Methods in Criminal Justice"
+subtitle: "Fall 2026 · University of South Carolina"
+toc: false
+---
+
+::: {.callout-note appearance="simple"}
+**Wednesdays, 5:50–8:35 pm · Currell 204** · Dr. Scott M. Mourtgos · [mourtgos@mailbox.sc.edu](mailto:mourtgos@mailbox.sc.edu)
+:::
+
+> "It is easy to lie with statistics; it is easier to lie without them."
+> — Frederick Mosteller
+
+Statistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both **traditional (frequentist)** and **Bayesian** approaches to statistical reasoning, with all analysis done in **R**.
+
+Everything for the course lives on this site:
+
+- The [Schedule](schedule.qmd) — week-by-week topics, readings, slides, labs, and homework
+- The [Syllabus](syllabus.qmd) — policies, grading, expectations
+- [Resources](resources.qmd) — installing R and RStudio, datasets, textbook links
+
+## Textbooks
+
+- **Stanton**, *Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R* (required)
+- **Wickham, Çetinkaya-Rundel & Grolemund**, [*R for Data Science* (2nd edition)](https://r4ds.hadley.nz/) — free online (assigned readings woven through the first half of the course)
+
+## Getting started
+
+1. Install R and RStudio before the first class — [instructions here](resources.qmd#installing-r-and-rstudio)
+2. Read the [Syllabus](syllabus.qmd)
+3. Bring your laptop to **every** class meeting

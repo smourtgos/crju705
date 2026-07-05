@@ -1,0 +1,17 @@
+# Answer keys, exams, private notes — must never enter git history
+_private/
+
+# Quarto build artifacts
+_site/
+/.quarto/
+
+# R artifacts
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# OS
+.DS_Store
+
+**/*.quarto_ipynb

@@ -1,0 +1,70 @@
+---
+title: "Resources"
+---
+
+## Installing R and RStudio {#installing-r-and-rstudio}
+
+You **must** have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.
+
+### Step 1 — Install R
+
+**Windows:**
+
+1. Go to <https://cran.r-project.org/>
+2. Click *Download R for Windows* → *base* → *Download R-x.x.x for Windows*
+3. Open the installer and follow the prompts (accept defaults)
+
+**Mac:**
+
+1. Go to <https://cran.r-project.org/>
+2. Click *Download R for macOS*
+3. Select the most recent `.pkg` file **for your Mac's chip** (Apple silicon vs. Intel — check  → About This Mac)
+4. Open the `.pkg` file and follow the prompts
+
+### Step 2 — Install RStudio
+
+1. Go to <https://posit.co/download/rstudio-desktop/>
+2. Click *Download* under RStudio Desktop (free)
+3. Select your operating system, run the installer, accept defaults
+
+### Step 3 — Test your installation
+
+Open RStudio. In the Console (bottom-left), type:
+
+```r
+2 + 2
+```
+
+Press Enter. If you see `[1] 4`, you're ready.
+
+### Step 4 — Install the course packages
+
+Paste this into the Console and press Enter (it takes a few minutes):
+
+```r
+install.packages(c("tidyverse", "swirl", "BayesFactor", "here"))
+```
+
+### Troubleshooting
+
+- If RStudio won't open, make sure R is installed *first* — RStudio requires it.
+- If you get a message about an outdated R version, install the newest R, then restart RStudio.
+- Still stuck? See the [R installation FAQ](https://cran.r-project.org/faq.html) or email me — *before* class, not the night homework is due.
+
+## Textbooks
+
+- **Stanton, J. M.** *Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R.* Guilford Press. (Required — electronic edition is fine.)
+- **Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G.** [*R for Data Science*, 2nd ed.](https://r4ds.hadley.nz/) Free online. Assigned readings are listed on the [Schedule](schedule.qmd).
+
+## Datasets
+
+*The dataset index will appear here as course data files are posted.*
+
+| File | Description | Used in |
+|------|-------------|---------|
+| *coming soon* | | |
+
+## Getting help
+
+- **In this order:** R's built-in help (`?mean`), the R4DS [Getting Help chapter](https://r4ds.hadley.nz/workflow-help.html), a classmate, then me.
+- AI tools (ChatGPT, Claude, etc.) are welcome as *collaborators* — see the [syllabus AI policy](syllabus.qmd#use-of-artificial-intelligence-tools) — but you must be able to explain every line you submit.

@@ -1,0 +1,49 @@
+project:
+  type: website
+  render:
+    - "*.qmd"
+    - "weeks/"
+    - "slides/"
+    - "labs/"
+    - "homework/"
+    - "!_private/"
+
+website:
+  title: "CRJU 705"
+  description: "Quantitative Methods in Criminal Justice — University of South Carolina"
+  navbar:
+    background: primary
+    left:
+      - href: schedule.qmd
+        text: Schedule
+      - href: syllabus.qmd
+        text: Syllabus
+      - text: Weeks
+        menu:
+          - href: weeks/week-01.qmd
+            text: "Session 1 · Intro & R Setup"
+      - href: resources.qmd
+        text: Resources
+    right:
+      - icon: github
+        href: https://github.com/smourtgos/crju705
+        aria-label: GitHub
+  page-footer:
+    center: "CRJU 705 · Fall 2026 · Scott M. Mourtgos · University of South Carolina"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - custom.scss
+    toc: true
+    code-copy: true
+    code-link: true
+    df-print: default
+
+execute:
+  freeze: auto
+  warning: false
+  message: false
+
+editor: source

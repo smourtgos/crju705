@@ -1,0 +1,26 @@
+---
+title: "Session 1 · Intro & R Setup"
+subtitle: "Class introduction · Why statistics is awesome · Types of data · R & RStudio"
+---
+
+::: {.callout-note appearance="simple"}
+Full session materials (slides, swirl assignment) are being finalized and will appear here.
+:::
+
+## Before class
+
+- Install R and RStudio — [step-by-step guide](../resources.qmd#installing-r-and-rstudio)
+- Read: Stanton **Introduction** and **Appendices A–C**
+- Read: this site's [Syllabus](../syllabus.qmd)
+
+## In class
+
+- Course tour: syllabus, this website, how the semester works
+- Why statistics is awesome (with real crime-data examples)
+- Types of data and levels of measurement
+- Guided tour of R and RStudio
+
+## Homework
+
+- **swirl tutorials** — instructions given in class; submit your R script files via Canvas **before noon Tuesday** ahead of Session 2
+- Read Stanton **Ch. 1** before next class

@@ -1,0 +1,25 @@
+/*-- scss:defaults --*/
+
+// USC garnet as the primary brand color
+$primary: #73000A;
+$link-color: #73000A;
+
+$font-size-root: 17px;
+
+/*-- scss:rules --*/
+
+.navbar {
+  .navbar-brand {
+    font-weight: 700;
+  }
+}
+
+// Slightly tighter code blocks
+pre.sourceCode {
+  font-size: 0.9em;
+}
+
+// Schedule table readability
+.schedule-table td {
+  vertical-align: top;
+}

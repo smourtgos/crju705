@@ -1,0 +1,26 @@
+/*-- scss:defaults --*/
+
+$presentation-heading-color: #73000A;
+$link-color: #73000A;
+$presentation-font-size-root: 36px;
+$code-block-font-size: 0.62em;
+
+/*-- scss:rules --*/
+
+.reveal .slide-logo {
+  max-height: 2em;
+}
+
+// Slightly muted footer
+.reveal .footer {
+  color: #6c757d;
+  font-size: 0.45em;
+}
+
+// Callout for "your turn" moments in lecture
+.your-turn {
+  background-color: #fdf3e7;
+  border-left: 6px solid #F2BA66;
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+}
