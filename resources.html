@@ -262,7 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="datasets" class="level2">
 <h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<p><em>The dataset index will appear here as course data files are posted.</em></p>
+<p>Download by clicking, or read directly in R, e.g.:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prisoners <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/prisoners.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -273,12 +274,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td><em>coming soon</em></td>
-<td></td>
-<td></td>
+<td><a href="data/prisoners.csv">prisoners.csv</a></td>
+<td>300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)</td>
+<td>Lab 2</td>
+</tr>
+<tr class="even">
+<td><a href="data/neighborhoods.csv">neighborhoods.csv</a></td>
+<td>500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)</td>
+<td>Lab 3</td>
+</tr>
+<tr class="odd">
+<td><a href="data/cities-wide.csv">cities-wide.csv</a></td>
+<td>100 cities with violent-crime rates 2015–2025 in wide format (simulated)</td>
+<td>Lab 4</td>
+</tr>
+<tr class="even">
+<td><a href="data/reentry-wide.csv">reentry-wide.csv</a></td>
+<td>150 reentry program participants, monthly outcomes in wide format (simulated)</td>
+<td>Lab 4</td>
+</tr>
+<tr class="odd">
+<td><a href="data/population-data.csv">population-data.csv</a></td>
+<td>A full “population” of test scores for sampling-distribution simulations</td>
+<td>Session 4</td>
+</tr>
+<tr class="even">
+<td><a href="data/crash-ak.csv">crash-ak.csv</a></td>
+<td>20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)</td>
+<td>Lab 5, Workshop</td>
+</tr>
+<tr class="odd">
+<td><a href="data/crash-ak.xlsx">crash-ak.xlsx</a></td>
+<td>The same crashes as a (messier) Excel file — for import practice</td>
+<td>Lab 5</td>
+</tr>
+<tr class="even">
+<td><a href="data/officers.csv">officers.csv</a></td>
+<td>200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)</td>
+<td>Lab 6</td>
 </tr>
 </tbody>
 </table>
+<p>Simulated datasets are realistic but artificial — generously shared by a colleague. The course <strong>anchor dataset</strong> (real open data used in lecture examples all semester) will be posted here with its codebook.</p>
 </section>
 <section id="getting-help" class="level2">
 <h2 class="anchored" data-anchor-id="getting-help">Getting help</h2>
@@ -364,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/smourtgos\.github\.io\/crju705\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

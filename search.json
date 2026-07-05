@@ -81,7 +81,7 @@
     "href": "resources.html#datasets",
     "title": "Resources",
     "section": "Datasets",
-    "text": "Datasets\nThe dataset index will appear here as course data files are posted.\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\ncoming soon"
+    "text": "Datasets\nDownload by clicking, or read directly in R, e.g.:\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nSimulated datasets are realistic but artificial — generously shared by a colleague. The course anchor dataset (real open data used in lecture examples all semester) will be posted here with its codebook."
   },
   {
     "objectID": "resources.html#getting-help",
