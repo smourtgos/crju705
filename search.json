@@ -1,0 +1,282 @@
+[
+  {
+    "objectID": "weeks/week-01.html",
+    "href": "weeks/week-01.html",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "",
+    "text": "Full session materials (slides, swirl assignment) are being finalized and will appear here."
+  },
+  {
+    "objectID": "weeks/week-01.html#before-class",
+    "href": "weeks/week-01.html#before-class",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "Before class",
+    "text": "Before class\n\nInstall R and RStudio — step-by-step guide\nRead: Stanton Introduction and Appendices A–C\nRead: this site’s Syllabus"
+  },
+  {
+    "objectID": "weeks/week-01.html#in-class",
+    "href": "weeks/week-01.html#in-class",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "In class",
+    "text": "In class\n\nCourse tour: syllabus, this website, how the semester works\nWhy statistics is awesome (with real crime-data examples)\nTypes of data and levels of measurement\nGuided tour of R and RStudio"
+  },
+  {
+    "objectID": "weeks/week-01.html#homework",
+    "href": "weeks/week-01.html#homework",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "Homework",
+    "text": "Homework\n\nswirl tutorials — instructions given in class; submit your R script files via Canvas before noon Tuesday ahead of Session 2\nRead Stanton Ch. 1 before next class"
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\ncoming soon\n\n\n3\nProbability, via simulation\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\ncoming soon\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects)\ncoming soon\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 7 (Data import), Ch. 8 (Workflow: getting help)\ncoming soon\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 19 (Joins); Ch. 18 (Missing values, skim)\ncoming soon\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\ncoming soon\n\n\n8\nANOVA · project checkpoints begin\nCh. 6\n—\ncoming soon\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\n\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\ncoming soon\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\ncoming soon\n\n\n12\nLogistic regression · project checkpoint\nCh. 10\n—\ncoming soon\n\n\n13\nFinal-project help session — open Q&A and code clinic\n—\n—\n\n\n\n14\nFinal project presentations\n—\n—"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "",
+    "text": "Wednesdays, 5:50–8:35 pm · Currell 204 · Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu\nStatistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both traditional (frequentist) and Bayesian approaches to statistical reasoning, with all analysis done in R.\nEverything for the course lives on this site:"
+  },
+  {
+    "objectID": "index.html#textbooks",
+    "href": "index.html#textbooks",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "Textbooks",
+    "text": "Textbooks\n\nStanton, Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R (required)\nWickham, Çetinkaya-Rundel & Grolemund, R for Data Science (2nd edition) — free online (assigned readings woven through the first half of the course)"
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "Getting started",
+    "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\"))\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
+  },
+  {
+    "objectID": "resources.html#installing-r-and-rstudio",
+    "href": "resources.html#installing-r-and-rstudio",
+    "title": "Resources",
+    "section": "",
+    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\"))\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
+  },
+  {
+    "objectID": "resources.html#textbooks",
+    "href": "resources.html#textbooks",
+    "title": "Resources",
+    "section": "Textbooks",
+    "text": "Textbooks\n\nStanton, J. M. Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R. Guilford Press. (Required — electronic edition is fine.)\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. R for Data Science, 2nd ed. Free online. Assigned readings are listed on the Schedule."
+  },
+  {
+    "objectID": "resources.html#datasets",
+    "href": "resources.html#datasets",
+    "title": "Resources",
+    "section": "Datasets",
+    "text": "Datasets\nThe dataset index will appear here as course data files are posted.\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\ncoming soon"
+  },
+  {
+    "objectID": "resources.html#getting-help",
+    "href": "resources.html#getting-help",
+    "title": "Resources",
+    "section": "Getting help",
+    "text": "Getting help\n\nIn this order: R’s built-in help (?mean), the R4DS Getting Help chapter, a classmate, then me.\nAI tools (ChatGPT, Claude, etc.) are welcome as collaborators — see the syllabus AI policy — but you must be able to explain every line you submit."
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Provisional dates. Session dates on this page derive from a provisional Fall 2026 calendar and will be finalized before the semester begins. Topics, their order, and course policies are final.\nInstructor: Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu · Office: Currell 111 · Office hours: on request Class meetings: Wednesdays, 5:50–8:35 pm · Currell 204"
+  },
+  {
+    "objectID": "syllabus.html#academic-bulletin",
+    "href": "syllabus.html#academic-bulletin",
+    "title": "Syllabus",
+    "section": "Academic Bulletin",
+    "text": "Academic Bulletin\nDescriptive and inferential statistics and the use of computers in criminal justice."
+  },
+  {
+    "objectID": "syllabus.html#course-objectives",
+    "href": "syllabus.html#course-objectives",
+    "title": "Syllabus",
+    "section": "Course Objectives",
+    "text": "Course Objectives\nBy the end of this course, students will be able to:\n\nIdentify the role of statistics in criminology and criminal justice research.\nDistinguish between different types of data and levels of measurement.\nImport, clean, transform, and visualize real data in R using modern (tidyverse) tools.\nApply descriptive statistics to summarize and interpret data.\nExplain the concepts of probability and distributions as they relate to criminological data.\nConduct and interpret basic statistical tests — from both frequentist and Bayesian perspectives — including t-tests, ANOVA, correlation, and regression.\nCritically evaluate statistical claims in criminal justice policy and research.\nEffectively communicate statistical findings in both written and visual formats."
+  },
+  {
+    "objectID": "syllabus.html#assignment-due-dates",
+    "href": "syllabus.html#assignment-due-dates",
+    "title": "Syllabus",
+    "section": "Assignment Due Dates",
+    "text": "Assignment Due Dates\nDates for all assignments and exams are listed on the course Canvas page and discussed in class. Course materials (slides, labs, homework) live on this website; submissions go through Canvas."
+  },
+  {
+    "objectID": "syllabus.html#final-project-information",
+    "href": "syllabus.html#final-project-information",
+    "title": "Syllabus",
+    "section": "Final Project Information",
+    "text": "Final Project Information\nThe final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — dataset selection is due at Session 7 (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. A dedicated help session (Session 13) provides open Q&A and a code clinic before presentations.\nYour completed project is due in class on December 02, 2026 (presentations day).\nThere will be absolutely no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.\nYou are responsible for ensuring that your final project is submitted successfully and on time, with all required components included: the R script, output, and written report."
+  },
+  {
+    "objectID": "syllabus.html#session-1-august-19",
+    "href": "syllabus.html#session-1-august-19",
+    "title": "Syllabus",
+    "section": "Session 1 — August 19",
+    "text": "Session 1 — August 19\nTopics: Class introduction · Why statistics is awesome · Types of data and levels of measurement · Using R and RStudio\nReadings due before class: Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see Resources.\nHomework: swirl tutorials in R (instructions in class). Submit R script files via Canvas before noon Tuesday ahead of the next session. Read Stanton Ch. 1 before next class."
+  },
+  {
+    "objectID": "syllabus.html#session-2-august-26",
+    "href": "syllabus.html#session-2-august-26",
+    "title": "Syllabus",
+    "section": "Session 2 — August 26",
+    "text": "Session 2 — August 26\nTopics: Descriptive statistics & exploratory data analysis\nReadings due: Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)\nHomework: Problem set 2 · Read Stanton Ch. 2"
+  },
+  {
+    "objectID": "syllabus.html#session-3-september-02",
+    "href": "syllabus.html#session-3-september-02",
+    "title": "Syllabus",
+    "section": "Session 3 — September 02",
+    "text": "Session 3 — September 02\nTopics: Probability, taught via simulation\nReadings due: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)\nIn-class exercise (graded) · Homework: Problem set 3 · Read Stanton Ch. 3"
+  },
+  {
+    "objectID": "syllabus.html#session-4-september-09",
+    "href": "syllabus.html#session-4-september-09",
+    "title": "Syllabus",
+    "section": "Session 4 — September 09",
+    "text": "Session 4 — September 09\nTopics: Sampling distributions, taught via simulation\nReadings due: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)\nIn-class exercise (graded) · Homework: Problem set 4 · Read Stanton Ch. 4"
+  },
+  {
+    "objectID": "syllabus.html#session-5-september-16",
+    "href": "syllabus.html#session-5-september-16",
+    "title": "Syllabus",
+    "section": "Session 5 — September 16",
+    "text": "Session 5 — September 16\nTopics: The logic of inference using confidence intervals — on real data\nReadings due: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)\nIn-class exercise (graded) · Homework: Problem set 5 · Read Stanton Ch. 5"
+  },
+  {
+    "objectID": "syllabus.html#session-6-september-23",
+    "href": "syllabus.html#session-6-september-23",
+    "title": "Syllabus",
+    "section": "Session 6 — September 23",
+    "text": "Session 6 — September 23\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)\nIn-class exercise (graded) · Homework: Problem set 6 · Begin scouting a final-project dataset"
+  },
+  {
+    "objectID": "syllabus.html#session-7-september-30",
+    "href": "syllabus.html#session-7-september-30",
+    "title": "Syllabus",
+    "section": "Session 7 — September 30",
+    "text": "Session 7 — September 30\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Workshop write-up · Read Stanton Ch. 6"
+  },
+  {
+    "objectID": "syllabus.html#session-8-october-07",
+    "href": "syllabus.html#session-8-october-07",
+    "title": "Syllabus",
+    "section": "Session 8 — October 07",
+    "text": "Session 8 — October 07\nTopics: ANOVA\nReadings due: Stanton Ch. 6\nIn-class exercise (graded) · Homework: Problem set 8 (includes project checkpoint 1: descriptives on your project data) · Study for mid-term"
+  },
+  {
+    "objectID": "syllabus.html#session-9-october-14",
+    "href": "syllabus.html#session-9-october-14",
+    "title": "Syllabus",
+    "section": "Session 9 — October 14",
+    "text": "Session 9 — October 14\nTopics: Mid-Term Exam (in class) — covers Sessions 1–8\nNo in-class exercise or problem set. Read Stanton Ch. 7 before next class."
+  },
+  {
+    "objectID": "syllabus.html#session-10-october-21",
+    "href": "syllabus.html#session-10-october-21",
+    "title": "Syllabus",
+    "section": "Session 10 — October 21",
+    "text": "Session 10 — October 21\nTopics: Measures of association / correlation\nReadings due: Stanton Ch. 7\nIn-class exercise (graded) · Homework: Problem set 10 (includes project checkpoint 2)"
+  },
+  {
+    "objectID": "syllabus.html#session-11-october-28",
+    "href": "syllabus.html#session-11-october-28",
+    "title": "Syllabus",
+    "section": "Session 11 — October 28",
+    "text": "Session 11 — October 28\nTopics: Multiple linear regression\nReadings due: Stanton Ch. 8\nIn-class exercise (graded) · Homework: Problem set 11 (includes project checkpoint 3) · Read Stanton Ch. 10"
+  },
+  {
+    "objectID": "syllabus.html#session-12-november-04",
+    "href": "syllabus.html#session-12-november-04",
+    "title": "Syllabus",
+    "section": "Session 12 — November 04",
+    "text": "Session 12 — November 04\nTopics: Logistic regression\nReadings due: Stanton Ch. 10\nIn-class exercise (graded) · Homework: Problem set 12 (includes project checkpoint 4)"
+  },
+  {
+    "objectID": "syllabus.html#session-13-november-11",
+    "href": "syllabus.html#session-13-november-11",
+    "title": "Syllabus",
+    "section": "Session 13 — November 11",
+    "text": "Session 13 — November 11\nTopics: Final-project help session — open Q&A, code clinic, project check-ins\nNo in-class exercise or problem set. Bring your project code and questions."
+  },
+  {
+    "objectID": "syllabus.html#session-14-december-02",
+    "href": "syllabus.html#session-14-december-02",
+    "title": "Syllabus",
+    "section": "Session 14 — December 02",
+    "text": "Session 14 — December 02\nTopics: Final Project Presentations (in class)\nThe final project — R script, output, and written report — is due in class on December 02, 2026. No late submissions, no appeals. Plan ahead."
+  },
+  {
+    "objectID": "syllabus.html#academic-honesty",
+    "href": "syllabus.html#academic-honesty",
+    "title": "Syllabus",
+    "section": "Academic Honesty",
+    "text": "Academic Honesty\nAcademic honesty is expected, and dishonesty will not be tolerated. The University policy on academic dishonesty can be found on the university website. An act of academic dishonesty will result in a failing course grade and a recommendation of additional disciplinary action. Any of the following violations will be considered academic dishonesty:\n\n\nCheating: the giving or receiving of any unauthorized assistance on any academic work;\n\nPlagiarism: presenting the language, structures or ideas of another person or persons as one’s own academic work;\n\nFalsification: any untrue statement, either oral or written, concerning one’s own academic work or the academic work of another student, or the unauthorized alteration of any academic record; and\n\nOriginal work & “self-plagiarism”: unless specifically allowed by the instructor, all academic work undertaken in a course must be original."
+  },
+  {
+    "objectID": "syllabus.html#respectful-appropriate-class-conduct",
+    "href": "syllabus.html#respectful-appropriate-class-conduct",
+    "title": "Syllabus",
+    "section": "Respectful & Appropriate Class Conduct",
+    "text": "Respectful & Appropriate Class Conduct\nPublic policy processes, including the criminal justice system, inherently center on topics for which individuals hold strong opinions. This course will challenge students to acknowledge and respect perspectives that differ from their own. Respectful behavior is the expectation, norm, and requirement in this class. Arguments and ideas may (and are expected to) be challenged, but personal attacks, disrespectful behavior, and/or hateful attitudes will not be tolerated."
+  },
+  {
+    "objectID": "syllabus.html#late-policy",
+    "href": "syllabus.html#late-policy",
+    "title": "Syllabus",
+    "section": "Late Policy",
+    "text": "Late Policy\nI do not accept late assignments of any kind. Missing submissions will be awarded zero points automatically. Most important: contact me beforehand if you are experiencing difficulties that will impact your ability to turn in work. Reaching out after the due date has passed is not helpful to you or me."
+  },
+  {
+    "objectID": "syllabus.html#grading-scheme",
+    "href": "syllabus.html#grading-scheme",
+    "title": "Syllabus",
+    "section": "Grading Scheme",
+    "text": "Grading Scheme\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
+  },
+  {
+    "objectID": "syllabus.html#attendance-policy",
+    "href": "syllabus.html#attendance-policy",
+    "title": "Syllabus",
+    "section": "Attendance Policy",
+    "text": "Attendance Policy\nAttendance is mandatory for our weekly class meetings. We all have busy lives, so while being on time is expected, I’d rather you miss ten minutes than a whole class. Students are expected to fully engage in class discussion and participate in the in-class exercises. The purpose of the class is for everyone to discuss the readings, not to have them explained.\nI generally do not take formal attendance; however, during most weeks there is a graded in-class exercise. Points for these exercises are awarded based on active participation in class that day, and these points cannot be made up. Missing class means missing the opportunity to earn them.\nConsider the following (simulated data, courtesy of an approach by Steven Miller): a simple linear regression of a student’s final grade on percentage of classes attended suggests an increase of one percent in attendance leads to an estimated increase of 0.704 in the final grade. One missed class is roughly a five-percent decrease in semester attendance — an estimated decrease of 3.52 in the overall grade. The effect is precise (t = 20.37) and the likelihood of no actual relationship is almost zero (R² = 0.342).\n\n\n\n\nThe relationship between class attendance and final grade (simulated data)."
+  },
+  {
+    "objectID": "syllabus.html#instructor-expectations",
+    "href": "syllabus.html#instructor-expectations",
+    "title": "Syllabus",
+    "section": "Instructor Expectations",
+    "text": "Instructor Expectations\nI commit to being your mentor and facilitator of the educational experience:\n\nI will design the course to include reading materials and assignments that challenge students and provide opportunities to learn and practice course content.\nI will respond to emails within 24–72 hours, not including weekends and holidays (normally much faster). If you do not hear from me within 72 hours, please email again.\nI will be available for individual consultation via virtual office hours, email, or phone — not restricted to campus or banker’s hours.\nI will provide feedback on assignments in a timely manner.\nI will ensure and enforce a respectful atmosphere, open to questions, discussion, and ethical disagreement.\nI will follow all official University of South Carolina policies regarding classroom conduct, incompletes, and accommodations."
+  },
+  {
+    "objectID": "syllabus.html#student-expectations",
+    "href": "syllabus.html#student-expectations",
+    "title": "Syllabus",
+    "section": "Student Expectations",
+    "text": "Student Expectations\n\nAttend class every week (half the battle in life is just showing up).\nComplete all assignments on time.\nBe self-motivated, organized, and willing to stay on top of your schedule.\nRegularly check course announcements on Canvas and update notification settings accordingly.\nIf you have questions or are struggling, take the initiative to contact me. If you do not hear back within 72 hours, contact me again.\nEngage with the course, classmates, and professor respectfully and professionally at all times."
+  },
+  {
+    "objectID": "syllabus.html#copyrightfair-use",
+    "href": "syllabus.html#copyrightfair-use",
+    "title": "Syllabus",
+    "section": "Copyright/Fair Use",
+    "text": "Copyright/Fair Use\nI will cite and/or reference any materials that I use in this course that I do not create. You, as students, are expected not to distribute any of these materials, resources, quizzes, tests, or homework assignments (whether graded or ungraded)."
+  }
+]
