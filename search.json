@@ -56,6 +56,41 @@
     "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
   },
   {
+    "objectID": "chicago-data.html",
+    "href": "chicago-data.html",
+    "title": "The Chicago Anchor Dataset",
+    "section": "",
+    "text": "Most lecture examples this semester use one real dataset — reported crime in Chicago during 2025, from the Chicago Police Department’s public data portal — so that each new technique builds on data you already know. It comes at two levels:"
+  },
+  {
+    "objectID": "chicago-data.html#incident-level-chicago-crimes-2025.csv",
+    "href": "chicago-data.html#incident-level-chicago-crimes-2025.csv",
+    "title": "The Chicago Anchor Dataset",
+    "section": "1. Incident level — chicago-crimes-2025.csv",
+    "text": "1. Incident level — chicago-crimes-2025.csv\nA random sample of 30,000 of the 237,472 crimes reported to CPD in 2025 (sampled with set.seed(705)).\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\n\n\n\n\n\n\n\n\nVariable\nType\nDescription\n\n\n\n\nid\nnumeric\nCPD incident ID\n\n\ndate\ndate\nDate the incident occurred\n\n\nhour\nnumeric\nHour of day (0–23)\n\n\nprimary_type\ncharacter\nCPD primary offense classification (THEFT, BATTERY, …)\n\n\ndescription\ncharacter\nMore detailed offense description\n\n\nlocation_description\ncharacter\nType of location (STREET, RESIDENCE, …)\n\n\ncrime_category\ncharacter\nViolent / Property / Other (course-defined, see below)\n\n\narrest\nlogical\nDid the incident result in an arrest?\n\n\ndomestic\nlogical\nDomestic-related incident (per Illinois DV statute)\n\n\ncommunity_area\nnumeric\nChicago community area number (1–77)\n\n\ncommunity\ncharacter\nCommunity area name\n\n\nlatitude, longitude\nnumeric\nAnonymized block-level coordinates (may be missing)\n\n\n\ncrime_category definitions (course convention): Violent = homicide, criminal sexual assault, robbery, battery, assault. Property = burglary, theft, motor vehicle theft, arson. Everything else = Other."
+  },
+  {
+    "objectID": "chicago-data.html#community-area-level-chicago-areas.csv",
+    "href": "chicago-data.html#community-area-level-chicago-areas.csv",
+    "title": "The Chicago Anchor Dataset",
+    "section": "2. Community-area level — chicago-areas.csv",
+    "text": "2. Community-area level — chicago-areas.csv\nAll 237,472 incidents (not just the sample) aggregated to Chicago’s 77 community areas, joined with socioeconomic measures from the CMAP Community Data Snapshots (American Community Survey estimates).\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\")\n\n\n\n\n\n\n\n\nVariable\nType\nDescription\n\n\n\n\ncommunity_area, community\nid\nArea number (1–77) and name\n\n\npopulation\nnumeric\nTotal population (ACS)\n\n\ncrimes_total, crimes_violent, crimes_property\nnumeric\n2025 reported crime counts\n\n\ncrime_rate, violent_rate, property_rate\nnumeric\nCrimes per 1,000 residents\n\n\nhigh_violence\nlogical\nViolent-crime rate above the citywide median?\n\n\narrest_rate\nnumeric\nShare of the area’s 2025 incidents ending in arrest\n\n\nmedian_age\nnumeric\nMedian age\n\n\npct_white, pct_black, pct_hispanic, pct_asian\nnumeric\nRacial/ethnic composition (%)\n\n\nunemployment_rate\nnumeric\nUnemployed share of the labor force (%)\n\n\npct_bachelors\nnumeric\nAdults 25+ with a bachelor’s degree or higher (%)\n\n\npct_no_hs_diploma\nnumeric\nAdults 25+ without a high-school diploma (%)\n\n\nmedian_income\nnumeric\nMedian household income (\\() |\n| `income_per_capita` | numeric | Per-capita income (\\))\n\n\npct_renter\nnumeric\nRenter-occupied share of households (%)\n\n\npct_vacant\nnumeric\nVacant share of housing units (%)\n\n\nmedian_rent\nnumeric\nMedian gross rent ($)"
+  },
+  {
+    "objectID": "chicago-data.html#important-caveats-we-will-return-to-these-all-semester",
+    "href": "chicago-data.html#important-caveats-we-will-return-to-these-all-semester",
+    "title": "The Chicago Anchor Dataset",
+    "section": "Important caveats — we will return to these all semester",
+    "text": "Important caveats — we will return to these all semester\n\nReported crime only. These data reflect crimes reported to and recorded by CPD — not all crime that occurred. Reporting rates differ across offense types and communities.\nAn arrest is not a conviction, and arrest_rate reflects incident clearance patterns, not “guilt rates.”\nThe ACS measures are survey estimates with sampling error, larger for smaller areas.\nAggregate (community-level) associations do not license conclusions about individuals — we’ll name this properly (the ecological fallacy) when we get to correlation."
+  },
+  {
+    "objectID": "chicago-data.html#provenance",
+    "href": "chicago-data.html#provenance",
+    "title": "The Chicago Anchor Dataset",
+    "section": "Provenance",
+    "text": "Provenance\nSnapshot pulled July 2026; build script archived in the course repository (R/build-anchor-dataset.R) so the dataset is exactly reproducible. Sources: Chicago Data Portal, Crimes 2001–present (dataset ijzp-q8t2) and CMAP Community Data Snapshots 2026 (CCA table)."
+  },
+  {
     "objectID": "resources.html",
     "href": "resources.html",
     "title": "Resources",
@@ -81,7 +116,7 @@
     "href": "resources.html#datasets",
     "title": "Resources",
     "section": "Datasets",
-    "text": "Datasets\nDownload by clicking, or read directly in R, e.g.:\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nSimulated datasets are realistic but artificial — generously shared by a colleague. The course anchor dataset (real open data used in lecture examples all semester) will be posted here with its codebook."
+    "text": "Datasets\nDownload by clicking, or read directly in R, e.g.:\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nchicago-crimes-2025.csv\nAnchor dataset: 30,000 real Chicago crime incidents from 2025 — full codebook\nLectures, all semester\n\n\nchicago-areas.csv\nAnchor dataset: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — full codebook\nLectures (correlation → regression)\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nThe two Chicago anchor files are real data (Chicago Police Department portal + Census/ACS via CMAP) — see the full codebook and caveats. The remaining datasets are simulated but realistic, generously shared by a colleague."
   },
   {
     "objectID": "resources.html#getting-help",

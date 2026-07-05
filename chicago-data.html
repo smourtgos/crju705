@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>CRJU 705: Quantitative Methods in Criminal Justice – CRJU 705</title>
+<title>The Chicago Anchor Dataset – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -69,10 +104,39 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -113,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chicago-data.html"> 
+    <a class="nav-link active" href="./chicago-data.html" aria-current="page"> 
 <span class="menu-text">Data Codebook</span></a>
   </li>  
 </ul>
@@ -134,14 +198,25 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#incident-level-chicago-crimes-2025.csv" id="toc-incident-level-chicago-crimes-2025.csv" class="nav-link active" data-scroll-target="#incident-level-chicago-crimes-2025.csv">1. Incident level — <code>chicago-crimes-2025.csv</code></a></li>
+  <li><a href="#community-area-level-chicago-areas.csv" id="toc-community-area-level-chicago-areas.csv" class="nav-link" data-scroll-target="#community-area-level-chicago-areas.csv">2. Community-area level — <code>chicago-areas.csv</code></a></li>
+  <li><a href="#important-caveats-we-will-return-to-these-all-semester" id="toc-important-caveats-we-will-return-to-these-all-semester" class="nav-link" data-scroll-target="#important-caveats-we-will-return-to-these-all-semester">Important caveats — we will return to these all semester</a></li>
+  <li><a href="#provenance" id="toc-provenance" class="nav-link" data-scroll-target="#provenance">Provenance</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">CRJU 705: Quantitative Methods in Criminal Justice</h1>
-<p class="subtitle lead">Fall 2026 · University of South Carolina</p>
+<h1 class="title">The Chicago Anchor Dataset</h1>
+<p class="subtitle lead">Real crime data we’ll use all semester</p>
 </div>
 
 
@@ -158,40 +233,198 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Wednesdays, 5:50–8:35 pm · Currell 204</strong> · Dr.&nbsp;Scott M. Mourtgos · <a href="mailto:mourtgos@mailbox.sc.edu">mourtgos@mailbox.sc.edu</a></p>
-</div>
-</div>
-</div>
-<blockquote class="blockquote">
-<p>“It is easy to lie with statistics; it is easier to lie without them.” — Frederick Mosteller</p>
-</blockquote>
-<p>Statistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both <strong>traditional (frequentist)</strong> and <strong>Bayesian</strong> approaches to statistical reasoning, with all analysis done in <strong>R</strong>.</p>
-<p>Everything for the course lives on this site:</p>
+<p>Most lecture examples this semester use <strong>one real dataset</strong> — reported crime in Chicago during 2025, from the <a href="https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2">Chicago Police Department’s public data portal</a> — so that each new technique builds on data you already know. It comes at <strong>two levels</strong>:</p>
+<section id="incident-level-chicago-crimes-2025.csv" class="level2">
+<h2 class="anchored" data-anchor-id="incident-level-chicago-crimes-2025.csv">1. Incident level — <code>chicago-crimes-2025.csv</code></h2>
+<p>A random sample of <strong>30,000</strong> of the 237,472 crimes reported to CPD in 2025 (sampled with <code>set.seed(705)</code>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>crimes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 20%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>id</code></td>
+<td>numeric</td>
+<td>CPD incident ID</td>
+</tr>
+<tr class="even">
+<td><code>date</code></td>
+<td>date</td>
+<td>Date the incident occurred</td>
+</tr>
+<tr class="odd">
+<td><code>hour</code></td>
+<td>numeric</td>
+<td>Hour of day (0–23)</td>
+</tr>
+<tr class="even">
+<td><code>primary_type</code></td>
+<td>character</td>
+<td>CPD primary offense classification (THEFT, BATTERY, …)</td>
+</tr>
+<tr class="odd">
+<td><code>description</code></td>
+<td>character</td>
+<td>More detailed offense description</td>
+</tr>
+<tr class="even">
+<td><code>location_description</code></td>
+<td>character</td>
+<td>Type of location (STREET, RESIDENCE, …)</td>
+</tr>
+<tr class="odd">
+<td><code>crime_category</code></td>
+<td>character</td>
+<td>Violent / Property / Other (course-defined, see below)</td>
+</tr>
+<tr class="even">
+<td><code>arrest</code></td>
+<td>logical</td>
+<td>Did the incident result in an arrest?</td>
+</tr>
+<tr class="odd">
+<td><code>domestic</code></td>
+<td>logical</td>
+<td>Domestic-related incident (per Illinois DV statute)</td>
+</tr>
+<tr class="even">
+<td><code>community_area</code></td>
+<td>numeric</td>
+<td>Chicago community area number (1–77)</td>
+</tr>
+<tr class="odd">
+<td><code>community</code></td>
+<td>character</td>
+<td>Community area name</td>
+</tr>
+<tr class="even">
+<td><code>latitude</code>, <code>longitude</code></td>
+<td>numeric</td>
+<td>Anonymized block-level coordinates (may be missing)</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>crime_category</code> definitions (course convention):</strong> Violent = homicide, criminal sexual assault, robbery, battery, assault. Property = burglary, theft, motor vehicle theft, arson. Everything else = Other.</p>
+</section>
+<section id="community-area-level-chicago-areas.csv" class="level2">
+<h2 class="anchored" data-anchor-id="community-area-level-chicago-areas.csv">2. Community-area level — <code>chicago-areas.csv</code></h2>
+<p>All 237,472 incidents (not just the sample) aggregated to Chicago’s <strong>77 community areas</strong>, joined with socioeconomic measures from the <a href="https://cmap.illinois.gov/data/community-data-snapshots/">CMAP Community Data Snapshots</a> (American Community Survey estimates).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 20%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>community_area</code>, <code>community</code></td>
+<td>id</td>
+<td>Area number (1–77) and name</td>
+</tr>
+<tr class="even">
+<td><code>population</code></td>
+<td>numeric</td>
+<td>Total population (ACS)</td>
+</tr>
+<tr class="odd">
+<td><code>crimes_total</code>, <code>crimes_violent</code>, <code>crimes_property</code></td>
+<td>numeric</td>
+<td>2025 reported crime counts</td>
+</tr>
+<tr class="even">
+<td><code>crime_rate</code>, <code>violent_rate</code>, <code>property_rate</code></td>
+<td>numeric</td>
+<td>Crimes per 1,000 residents</td>
+</tr>
+<tr class="odd">
+<td><code>high_violence</code></td>
+<td>logical</td>
+<td>Violent-crime rate above the citywide median?</td>
+</tr>
+<tr class="even">
+<td><code>arrest_rate</code></td>
+<td>numeric</td>
+<td>Share of the area’s 2025 incidents ending in arrest</td>
+</tr>
+<tr class="odd">
+<td><code>median_age</code></td>
+<td>numeric</td>
+<td>Median age</td>
+</tr>
+<tr class="even">
+<td><code>pct_white</code>, <code>pct_black</code>, <code>pct_hispanic</code>, <code>pct_asian</code></td>
+<td>numeric</td>
+<td>Racial/ethnic composition (%)</td>
+</tr>
+<tr class="odd">
+<td><code>unemployment_rate</code></td>
+<td>numeric</td>
+<td>Unemployed share of the labor force (%)</td>
+</tr>
+<tr class="even">
+<td><code>pct_bachelors</code></td>
+<td>numeric</td>
+<td>Adults 25+ with a bachelor’s degree or higher (%)</td>
+</tr>
+<tr class="odd">
+<td><code>pct_no_hs_diploma</code></td>
+<td>numeric</td>
+<td>Adults 25+ without a high-school diploma (%)</td>
+</tr>
+<tr class="even">
+<td><code>median_income</code></td>
+<td>numeric</td>
+<td>Median household income (<span class="math inline">\() |
+| `income_per_capita` | numeric | Per-capita income (\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><code>pct_renter</code></td>
+<td>numeric</td>
+<td>Renter-occupied share of households (%)</td>
+</tr>
+<tr class="even">
+<td><code>pct_vacant</code></td>
+<td>numeric</td>
+<td>Vacant share of housing units (%)</td>
+</tr>
+<tr class="odd">
+<td><code>median_rent</code></td>
+<td>numeric</td>
+<td>Median gross rent ($)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="important-caveats-we-will-return-to-these-all-semester" class="level2">
+<h2 class="anchored" data-anchor-id="important-caveats-we-will-return-to-these-all-semester">Important caveats — we will return to these all semester</h2>
 <ul>
-<li>The <a href="./schedule.html">Schedule</a> — week-by-week topics, readings, slides, labs, and homework</li>
-<li>The <a href="./syllabus.html">Syllabus</a> — policies, grading, expectations</li>
-<li><a href="./resources.html">Resources</a> — installing R and RStudio, datasets, textbook links</li>
-</ul>
-<section id="textbooks" class="level2">
-<h2 class="anchored" data-anchor-id="textbooks">Textbooks</h2>
-<ul>
-<li><strong>Stanton</strong>, <em>Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R</em> (required)</li>
-<li><strong>Wickham, Çetinkaya-Rundel &amp; Grolemund</strong>, <a href="https://r4ds.hadley.nz/"><em>R for Data Science</em> (2nd edition)</a> — free online (assigned readings woven through the first half of the course)</li>
+<li><strong>Reported</strong> crime only. These data reflect crimes <em>reported to and recorded by</em> CPD — not all crime that occurred. Reporting rates differ across offense types and communities.</li>
+<li><strong>An arrest is not a conviction</strong>, and <code>arrest_rate</code> reflects incident clearance patterns, not “guilt rates.”</li>
+<li>The ACS measures are <strong>survey estimates</strong> with sampling error, larger for smaller areas.</li>
+<li>Aggregate (community-level) associations do <strong>not</strong> license conclusions about individuals — we’ll name this properly (the <em>ecological fallacy</em>) when we get to correlation.</li>
 </ul>
 </section>
-<section id="getting-started" class="level2">
-<h2 class="anchored" data-anchor-id="getting-started">Getting started</h2>
-<ol type="1">
-<li>Install R and RStudio before the first class — <a href="./resources.html#installing-r-and-rstudio">instructions here</a></li>
-<li>Read the <a href="./syllabus.html">Syllabus</a></li>
-<li>Bring your laptop to <strong>every</strong> class meeting</li>
-</ol>
+<section id="provenance" class="level2">
+<h2 class="anchored" data-anchor-id="provenance">Provenance</h2>
+<p>Snapshot pulled July 2026; build script archived in the course repository (<code>R/build-anchor-dataset.R</code>) so the dataset is exactly reproducible. Sources: <a href="https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2">Chicago Data Portal, Crimes 2001–present</a> (dataset <code>ijzp-q8t2</code>) and <a href="https://cmap.illinois.gov/data/community-data-snapshots/">CMAP Community Data Snapshots 2026</a> (CCA table).</p>
 
 
 </section>
