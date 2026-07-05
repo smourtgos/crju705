@@ -1,220 +1,500 @@
 [
   {
-    "objectID": "weeks/week-02.html",
-    "href": "weeks/week-02.html",
-    "title": "Session 2 · Descriptive Statistics & EDA",
+    "objectID": "weeks/week-05.html",
+    "href": "weeks/week-05.html",
+    "title": "Session 5 · Confidence Intervals on Real Data",
     "section": "",
-    "text": "📽️ Slides: Descriptive Statistics · 🧪 Lab 2: First Plots with ggplot2 · 📝 Homework 2"
+    "text": "📽️ Slides: The Logic of Inference: Confidence Intervals · 🧪 Lab 5: Importing Real Data · 📝 Homework 5"
   },
   {
-    "objectID": "weeks/week-02.html#before-class",
-    "href": "weeks/week-02.html#before-class",
-    "title": "Session 2 · Descriptive Statistics & EDA",
+    "objectID": "weeks/week-05.html#before-class",
+    "href": "weeks/week-05.html#before-class",
+    "title": "Session 5 · Confidence Intervals on Real Data",
     "section": "Before class",
-    "text": "Before class\n\nRead: Stanton Ch. 1 (Statistical Vocabulary)\nRead: R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
+    "text": "Before class\n\nRead: Stanton Ch. 4 (The Logic of Inference)\nRead: R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help\nBring your laptop — the lab downloads files, so make sure you can write to a folder you can find again"
   },
   {
-    "objectID": "weeks/week-02.html#in-class",
-    "href": "weeks/week-02.html#in-class",
-    "title": "Session 2 · Descriptive Statistics & EDA",
+    "objectID": "weeks/week-05.html#in-class",
+    "href": "weeks/week-05.html#in-class",
+    "title": "Session 5 · Confidence Intervals on Real Data",
     "section": "In class",
-    "text": "In class\n\nswirl debrief — what was confusing, what clicked\nMeasures of central tendency: mean, median, mode (and when each misleads)\nMeasures of dispersion: range, deviations, variance, standard deviation\nDistributions: histograms, the normal distribution and the empirical rule, the Poisson\nReal-data thread: skew and spread in Chicago’s community-level crime rates\nLab 2: first plots with ggplot2 (histograms, bar charts, boxplots) using the prisoners data"
+    "text": "In class\n\nWhat statistical inference is: inductive reasoning under uncertainty (you can’t prove anything from a sample)\nJohn Snow and the Broad Street pump — the founding example of inference from sampled evidence, rebuilt live in R\nPoint estimates and why samples fluctuate: the Chicago arrest rate, where we know the true population value and can watch estimates miss it\nConfidence intervals: prop.test() and t.test(), the “100 samples, 100 intervals” simulation, and what a 95% CI does and does not mean\nReal-data thread: the citywide arrest proportion from one modest sample vs. the truth; do violent crimes happen later in the day than property crimes? (detectable ≠ dramatic)\nLab 5: importing real data — read_csv() from the web, read_excel() on a messy download, col_types, mdy(), problems(), and how to ask for help"
   },
   {
-    "objectID": "weeks/week-02.html#homework",
-    "href": "weeks/week-02.html#homework",
-    "title": "Session 2 · Descriptive Statistics & EDA",
+    "objectID": "weeks/week-05.html#homework",
+    "href": "weeks/week-05.html#homework",
+    "title": "Session 5 · Confidence Intervals on Real Data",
     "section": "Homework",
-    "text": "Homework\n\nHomework 2 — submit your .R file via Canvas before noon Tuesday\nRead Stanton Ch. 2 (Reasoning with Probability) before Session 3\nRead R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style"
+    "text": "Homework\n\nHomework 5 — confidence intervals on the Alaska crash data; submit your .R file via Canvas before noon Tuesday\nRead Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing) before Session 6\nRead R4DS Ch. 19 — Joins and skim Ch. 18 — Missing values"
   },
   {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Syllabus",
+    "objectID": "weeks/week-03.html",
+    "href": "weeks/week-03.html",
+    "title": "Session 3 · Reasoning with Probability",
     "section": "",
-    "text": "Provisional dates. Session dates on this page derive from a provisional Fall 2026 calendar and will be finalized before the semester begins. Topics, their order, and course policies are final.\nInstructor: Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu · Office: Currell 111 · Office hours: on request Class meetings: Wednesdays, 5:50–8:35 pm · Currell 204"
+    "text": "📽️ Slides: Reasoning with Probability · 🧪 Lab 3: Data Transformation with dplyr · 📝 Homework 3"
   },
   {
-    "objectID": "syllabus.html#academic-bulletin",
-    "href": "syllabus.html#academic-bulletin",
-    "title": "Syllabus",
-    "section": "Academic Bulletin",
-    "text": "Academic Bulletin\nDescriptive and inferential statistics and the use of computers in criminal justice."
+    "objectID": "weeks/week-03.html#before-class",
+    "href": "weeks/week-03.html#before-class",
+    "title": "Session 3 · Reasoning with Probability",
+    "section": "Before class",
+    "text": "Before class\n\nRead: Stanton Ch. 2 (Reasoning with Probability)\nRead: R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
   },
   {
-    "objectID": "syllabus.html#course-objectives",
-    "href": "syllabus.html#course-objectives",
-    "title": "Syllabus",
-    "section": "Course Objectives",
-    "text": "Course Objectives\nBy the end of this course, students will be able to:\n\nIdentify the role of statistics in criminology and criminal justice research.\nDistinguish between different types of data and levels of measurement.\nImport, clean, transform, and visualize real data in R using modern (tidyverse) tools.\nApply descriptive statistics to summarize and interpret data.\nExplain the concepts of probability and distributions as they relate to criminological data.\nConduct and interpret basic statistical tests — from both frequentist and Bayesian perspectives — including t-tests, ANOVA, correlation, and regression.\nCritically evaluate statistical claims in criminal justice policy and research.\nEffectively communicate statistical findings in both written and visual formats."
+    "objectID": "weeks/week-03.html#in-class",
+    "href": "weeks/week-03.html#in-class",
+    "title": "Session 3 · Reasoning with Probability",
+    "section": "In class",
+    "text": "In class\n\nHomework 2 debrief — questions on descriptives\nWhat a probability is: long-run proportion, seen by simulation (coin flips, then real arrest data)\nToast drops: outcome tables, the binomial distribution, rbinom(), cumulative probabilities\nContingency tables: marginal, joint, and conditional probability — dropped toast, the restaurant work schedule, and arrest × crime category in the Chicago data\nConditional probability as filter, then re-proportion — the seed of Bayes’ theorem\nIndependence: when conditioning doesn’t move the number\nIn-class exercise: factory-accidents contingency table (paper, then dplyr — folded into Lab 3)\nLab 3: data transformation with dplyr (filter, arrange, mutate, summarize, count) using the neighborhoods data"
   },
   {
-    "objectID": "syllabus.html#assignment-due-dates",
-    "href": "syllabus.html#assignment-due-dates",
-    "title": "Syllabus",
-    "section": "Assignment Due Dates",
-    "text": "Assignment Due Dates\nDates for all assignments and exams are listed on the course Canvas page and discussed in class. Course materials (slides, labs, homework) live on this website; submissions go through Canvas."
+    "objectID": "weeks/week-03.html#homework",
+    "href": "weeks/week-03.html#homework",
+    "title": "Session 3 · Reasoning with Probability",
+    "section": "Homework",
+    "text": "Homework\n\nHomework 3 — submit your .R file via Canvas before noon Tuesday\nRead Stanton Ch. 3 (Probabilities in the Long Run) before Session 4\nRead R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects"
   },
   {
-    "objectID": "syllabus.html#final-project-information",
-    "href": "syllabus.html#final-project-information",
-    "title": "Syllabus",
-    "section": "Final Project Information",
-    "text": "Final Project Information\nThe final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — dataset selection is due at Session 7 (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. A dedicated help session (Session 13) provides open Q&A and a code clinic before presentations.\nYour completed project is due in class on December 02, 2026 (presentations day).\nThere will be absolutely no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.\nYou are responsible for ensuring that your final project is submitted successfully and on time, with all required components included: the R script, output, and written report."
+    "objectID": "weeks/week-01.html",
+    "href": "weeks/week-01.html",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "",
+    "text": "📽️ Slides: Statistics is Awesome!"
   },
   {
-    "objectID": "syllabus.html#session-1-august-19",
-    "href": "syllabus.html#session-1-august-19",
-    "title": "Syllabus",
-    "section": "Session 1 — August 19",
-    "text": "Session 1 — August 19\nTopics: Class introduction · Why statistics is awesome · Types of data and levels of measurement · Using R and RStudio\nReadings due before class: Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see Resources.\nHomework: swirl tutorials in R (instructions in class). Submit R script files via Canvas before noon Tuesday ahead of the next session. Read Stanton Ch. 1 before next class."
+    "objectID": "weeks/week-01.html#before-class",
+    "href": "weeks/week-01.html#before-class",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "Before class",
+    "text": "Before class\n\nInstall R and RStudio — step-by-step guide\nRead: Stanton Introduction and Appendices A–C\nRead: this site’s Syllabus"
   },
   {
-    "objectID": "syllabus.html#session-2-august-26",
-    "href": "syllabus.html#session-2-august-26",
-    "title": "Syllabus",
-    "section": "Session 2 — August 26",
-    "text": "Session 2 — August 26\nTopics: Descriptive statistics & exploratory data analysis\nReadings due: Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)\nHomework: Problem set 2 · Read Stanton Ch. 2"
+    "objectID": "weeks/week-01.html#in-class",
+    "href": "weeks/week-01.html#in-class",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "In class",
+    "text": "In class\n\nCourse tour: syllabus, this website, how the semester works\nWhy statistics is awesome (with real crime-data examples)\nTypes of data and levels of measurement\nGuided tour of R and RStudio"
   },
   {
-    "objectID": "syllabus.html#session-3-september-02",
-    "href": "syllabus.html#session-3-september-02",
-    "title": "Syllabus",
-    "section": "Session 3 — September 02",
-    "text": "Session 3 — September 02\nTopics: Probability, taught via simulation\nReadings due: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)\nIn-class exercise (graded) · Homework: Problem set 3 · Read Stanton Ch. 3"
+    "objectID": "weeks/week-01.html#homework",
+    "href": "weeks/week-01.html#homework",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "Homework",
+    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas before noon Tuesday ahead of Session 2.\nAlso read Stanton Ch. 1 before next class (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)."
   },
   {
-    "objectID": "syllabus.html#session-4-september-09",
-    "href": "syllabus.html#session-4-september-09",
-    "title": "Syllabus",
-    "section": "Session 4 — September 09",
-    "text": "Session 4 — September 09\nTopics: Sampling distributions, taught via simulation\nReadings due: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)\nIn-class exercise (graded) · Homework: Problem set 4 · Read Stanton Ch. 4"
+    "objectID": "slides/week-05-confidence-intervals.html#this-week",
+    "href": "slides/week-05-confidence-intervals.html#this-week",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "This Week",
+    "text": "This Week\nTopic: The logic of inference, using confidence intervals\n\nWhat statistical inference actually is (and isn’t)\nPoint estimates and why they’re not enough\nConfidence intervals: building them, reading them, and — hardest of all — saying what they mean out loud without lying\n\nLearning goals: explain in your own words what a 95% confidence interval does and does not mean; compute CIs for a proportion and a difference in means from real data.\nR4DS thread: you read Ch. 7 (Data import) & Ch. 8 (Getting help) — today’s lab puts both to work."
   },
   {
-    "objectID": "syllabus.html#session-5-september-16",
-    "href": "syllabus.html#session-5-september-16",
-    "title": "Syllabus",
-    "section": "Session 5 — September 16",
-    "text": "Session 5 — September 16\nTopics: The logic of inference using confidence intervals — on real data\nReadings due: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)\nIn-class exercise (graded) · Homework: Problem set 5 · Read Stanton Ch. 5"
+    "objectID": "slides/week-05-confidence-intervals.html#where-weve-been",
+    "href": "slides/week-05-confidence-intervals.html#where-weve-been",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Where We’ve Been",
+    "text": "Where We’ve Been\n\nSession 3: probability — the rules randomness follows\nSession 4: sampling distributions — take many samples, and the sample statistics themselves form a distribution with predictable behavior\nToday: we cash that in. If we know how sample statistics behave, we can attach an honest statement of uncertainty to a single sample’s estimate."
   },
   {
-    "objectID": "syllabus.html#session-6-september-23",
-    "href": "syllabus.html#session-6-september-23",
-    "title": "Syllabus",
-    "section": "Session 6 — September 23",
-    "text": "Session 6 — September 23\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)\nIn-class exercise (graded) · Homework: Problem set 6 · Begin scouting a final-project dataset"
+    "objectID": "slides/week-05-confidence-intervals.html#what-does-inference-mean",
+    "href": "slides/week-05-confidence-intervals.html#what-does-inference-mean",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "What Does “Inference” Mean?",
+    "text": "What Does “Inference” Mean?\nInference: a reasoning process that begins with some information and leads to some conclusion.\nInductive inference: reasons from specific cases to the more general — a cat jumps from a tree and lands on its feet; you infer something about cats generally.\nStatistical inference: dealing systematically with situations where we have uncertain or incomplete information. Conclusions drawn inductively from samples are never fixed or firm.\n\n\n\n\n\n\n\nYou cannot PROVE anything from samples or by using statistical inference."
   },
   {
-    "objectID": "syllabus.html#session-7-september-30",
-    "href": "syllabus.html#session-7-september-30",
-    "title": "Syllabus",
-    "section": "Session 7 — September 30",
-    "text": "Session 7 — September 30\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Workshop write-up · Read Stanton Ch. 6"
+    "objectID": "slides/week-05-confidence-intervals.html#if-we-cant-prove-anything-what-are-we-doing",
+    "href": "slides/week-05-confidence-intervals.html#if-we-cant-prove-anything-what-are-we-doing",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "If We Can’t Prove Anything, What Are We Doing?",
+    "text": "If We Can’t Prove Anything, What Are We Doing?\nWe collect data and analyze it with inferential statistics to build up a weight of evidence that influences our certainty about one conclusion or another.\n\nLet’s look at the classic example:\n\n1854 — cholera breaks out in Soho, London\nThe debate: bad air (“miasma”) or contaminated water?\nJohn Snow couldn’t test every household in London — that’s the whole population\nSo he mapped the sample of evidence he could get: deaths, and where people got their water"
   },
   {
-    "objectID": "syllabus.html#session-8-october-07",
-    "href": "syllabus.html#session-8-october-07",
-    "title": "Syllabus",
-    "section": "Session 8 — October 07",
-    "text": "Session 8 — October 07\nTopics: ANOVA\nReadings due: Stanton Ch. 6\nIn-class exercise (graded) · Homework: Problem set 8 (includes project checkpoint 1: descriptives on your project data) · Study for mid-term"
+    "objectID": "slides/week-05-confidence-intervals.html#sampled-evidence-deaths-and-pumps",
+    "href": "slides/week-05-confidence-intervals.html#sampled-evidence-deaths-and-pumps",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Sampled Evidence: Deaths and Pumps",
+    "text": "Sampled Evidence: Deaths and Pumps\n\ndeaths &lt;- as_tibble(Snow.deaths) |&gt; mutate(did = row_number())\npumps  &lt;- as_tibble(Snow.pumps)  |&gt; mutate(pid = row_number())\n\n# Every death-pump distance, then each death's NEAREST pump\npairs &lt;- crossing(did = deaths$did, pid = pumps$pid) |&gt;\n  left_join(deaths |&gt; select(did, dx = x, dy = y), by = \"did\") |&gt;\n  left_join(pumps  |&gt; select(pid, px = x, py = y), by = \"pid\") |&gt;\n  mutate(dist = sqrt((dx - px)^2 + (dy - py)^2))\n\nnearest &lt;- pairs |&gt;\n  slice_min(dist, n = 1, by = did)\n\nby_pump &lt;- nearest |&gt;\n  count(pid, name = \"deaths_nearest\") |&gt;\n  arrange(desc(deaths_nearest))\nby_pump"
   },
   {
-    "objectID": "syllabus.html#session-9-october-14",
-    "href": "syllabus.html#session-9-october-14",
-    "title": "Syllabus",
-    "section": "Session 9 — October 14",
-    "text": "Session 9 — October 14\nTopics: Mid-Term Exam (in class) — covers Sessions 1–8\nNo in-class exercise or problem set. Read Stanton Ch. 7 before next class."
+    "objectID": "slides/week-05-confidence-intervals.html#sampled-evidence-deaths-and-pumps-output",
+    "href": "slides/week-05-confidence-intervals.html#sampled-evidence-deaths-and-pumps-output",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Sampled Evidence: Deaths and Pumps",
+    "text": "Sampled Evidence: Deaths and Pumps\n\n# A tibble: 12 × 2\n     pid deaths_nearest\n   &lt;int&gt;          &lt;int&gt;\n 1     7            359\n 2    10             64\n 3     6             61\n 4     9             27\n 5     4             24\n 6     8             16\n 7     3             12\n 8     5              6\n 9    13              4\n10    11              2\n11    12              2\n12     2              1"
   },
   {
-    "objectID": "syllabus.html#session-10-october-21",
-    "href": "syllabus.html#session-10-october-21",
-    "title": "Syllabus",
-    "section": "Session 10 — October 21",
-    "text": "Session 10 — October 21\nTopics: Measures of association / correlation\nReadings due: Stanton Ch. 7\nIn-class exercise (graded) · Homework: Problem set 10 (includes project checkpoint 2)"
+    "objectID": "slides/week-05-confidence-intervals.html#sampled-evidence-the-map",
+    "href": "slides/week-05-confidence-intervals.html#sampled-evidence-the-map",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Sampled Evidence: The Map",
+    "text": "Sampled Evidence: The Map"
   },
   {
-    "objectID": "syllabus.html#session-11-october-28",
-    "href": "syllabus.html#session-11-october-28",
-    "title": "Syllabus",
-    "section": "Session 11 — October 28",
-    "text": "Session 11 — October 28\nTopics: Multiple linear regression\nReadings due: Stanton Ch. 8\nIn-class exercise (graded) · Homework: Problem set 11 (includes project checkpoint 3) · Read Stanton Ch. 10"
+    "objectID": "slides/week-05-confidence-intervals.html#sampled-evidence-broad-street-accumulates-deaths-fastest",
+    "href": "slides/week-05-confidence-intervals.html#sampled-evidence-broad-street-accumulates-deaths-fastest",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Sampled Evidence: Broad Street Accumulates Deaths Fastest",
+    "text": "Sampled Evidence: Broad Street Accumulates Deaths Fastest"
   },
   {
-    "objectID": "syllabus.html#session-12-november-04",
-    "href": "syllabus.html#session-12-november-04",
-    "title": "Syllabus",
-    "section": "Session 12 — November 04",
-    "text": "Session 12 — November 04\nTopics: Logistic regression\nReadings due: Stanton Ch. 10\nIn-class exercise (graded) · Homework: Problem set 12 (includes project checkpoint 4)"
+    "objectID": "slides/week-05-confidence-intervals.html#why-this-is-statistical-inference",
+    "href": "slides/week-05-confidence-intervals.html#why-this-is-statistical-inference",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Why This Is Statistical Inference",
+    "text": "Why This Is Statistical Inference\n\nWhy wasn’t Snow just describing the map?\nWhat bigger claim was he making about the whole city — and about cholera itself?\n\nThat jump — from the data you have to the world you don’t — is what we mean by inference.\n\nReview from previous weeks — why do we sample?\nWe almost never have access to the totality of the population data. At its best, a sample is representative of a population."
   },
   {
-    "objectID": "syllabus.html#session-13-november-11",
-    "href": "syllabus.html#session-13-november-11",
-    "title": "Syllabus",
-    "section": "Session 13 — November 11",
-    "text": "Session 13 — November 11\nTopics: Final-project help session — open Q&A, code clinic, project check-ins\nNo in-class exercise or problem set. Bring your project code and questions."
+    "objectID": "slides/week-05-confidence-intervals.html#a-rare-luxury-we-know-the-truth",
+    "href": "slides/week-05-confidence-intervals.html#a-rare-luxury-we-know-the-truth",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "A Rare Luxury: We Know the Truth",
+    "text": "A Rare Luxury: We Know the Truth\nOur Chicago file holds ~30,000 incidents from 2025. Today, pretend the file is the whole population — then we can check our inferences against the truth.\n\ncrimes |&gt; summarize(pop_arrest_rate = mean(arrest), n = n())\n\n# A tibble: 1 × 2\n  pop_arrest_rate     n\n            &lt;dbl&gt; &lt;int&gt;\n1           0.161 30000\n\n\nThe “true” citywide arrest proportion is 16.1%. Lock that in — in real research you never get to see this number."
   },
   {
-    "objectID": "syllabus.html#session-14-december-02",
-    "href": "syllabus.html#session-14-december-02",
-    "title": "Syllabus",
-    "section": "Session 14 — December 02",
-    "text": "Session 14 — December 02\nTopics: Final Project Presentations (in class)\nThe final project — R script, output, and written report — is due in class on December 02, 2026. No late submissions, no appeals. Plan ahead."
+    "objectID": "slides/week-05-confidence-intervals.html#now-act-like-a-researcher-draw-one-sample",
+    "href": "slides/week-05-confidence-intervals.html#now-act-like-a-researcher-draw-one-sample",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Now Act Like a Researcher: Draw One Sample",
+    "text": "Now Act Like a Researcher: Draw One Sample\nA researcher can rarely afford all 30,000 case files. Suppose we pull a random sample of 250 incidents:\n\nsample_250 &lt;- crimes |&gt; slice_sample(n = 250)\n\nsample_250 |&gt; summarize(sample_arrest_rate = mean(arrest))\n\n# A tibble: 1 × 1\n  sample_arrest_rate\n               &lt;dbl&gt;\n1              0.148\n\n\n\nThis is a point estimate — the sample’s best single guess at the population value.\n14.8% vs the true 16.1%. Close-ish. But how good is this estimate? How certain are we?"
   },
   {
-    "objectID": "syllabus.html#academic-honesty",
-    "href": "syllabus.html#academic-honesty",
-    "title": "Syllabus",
-    "section": "Academic Honesty",
-    "text": "Academic Honesty\nAcademic honesty is expected, and dishonesty will not be tolerated. The University policy on academic dishonesty can be found on the university website. An act of academic dishonesty will result in a failing course grade and a recommendation of additional disciplinary action. Any of the following violations will be considered academic dishonesty:\n\n\nCheating: the giving or receiving of any unauthorized assistance on any academic work;\n\nPlagiarism: presenting the language, structures or ideas of another person or persons as one’s own academic work;\n\nFalsification: any untrue statement, either oral or written, concerning one’s own academic work or the academic work of another student, or the unauthorized alteration of any academic record; and\n\nOriginal work & “self-plagiarism”: unless specifically allowed by the instructor, all academic work undertaken in a course must be original."
+    "objectID": "slides/week-05-confidence-intervals.html#caution-samples-fluctuate",
+    "href": "slides/week-05-confidence-intervals.html#caution-samples-fluctuate",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Caution! Samples Fluctuate",
+    "text": "Caution! Samples Fluctuate\nDraw a fresh sample of 250 and the estimate moves. Do it 1,000 times:\n\nmany_estimates &lt;- map_dbl(1:1000, \\(i) {\n  crimes |&gt; slice_sample(n = 250) |&gt; summarize(p = mean(arrest)) |&gt; pull(p)\n})\n\nggplot(tibble(p = many_estimates), aes(p)) +\n  geom_histogram(bins = 30, fill = crju_colors[\"blue\"], color = \"white\") +\n  geom_vline(xintercept = mean(crimes$arrest),\n             color = crju_colors[\"garnet\"], linewidth = 1.2) +\n  labs(title = \"1,000 sample estimates of the arrest rate (n = 250 each)\",\n       subtitle = \"Garnet line = the true population value\",\n       x = \"Sample arrest proportion\", y = \"Number of samples\")"
   },
   {
-    "objectID": "syllabus.html#respectful-appropriate-class-conduct",
-    "href": "syllabus.html#respectful-appropriate-class-conduct",
-    "title": "Syllabus",
-    "section": "Respectful & Appropriate Class Conduct",
-    "text": "Respectful & Appropriate Class Conduct\nPublic policy processes, including the criminal justice system, inherently center on topics for which individuals hold strong opinions. This course will challenge students to acknowledge and respect perspectives that differ from their own. Respectful behavior is the expectation, norm, and requirement in this class. Arguments and ideas may (and are expected to) be challenged, but personal attacks, disrespectful behavior, and/or hateful attitudes will not be tolerated."
+    "objectID": "slides/week-05-confidence-intervals.html#caution-samples-fluctuate-output",
+    "href": "slides/week-05-confidence-intervals.html#caution-samples-fluctuate-output",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Caution! Samples Fluctuate",
+    "text": "Caution! Samples Fluctuate"
   },
   {
-    "objectID": "syllabus.html#late-policy",
-    "href": "syllabus.html#late-policy",
-    "title": "Syllabus",
-    "section": "Late Policy",
-    "text": "Late Policy\nI do not accept late assignments of any kind. Missing submissions will be awarded zero points automatically. Most important: contact me beforehand if you are experiencing difficulties that will impact your ability to turn in work. Reaching out after the due date has passed is not helpful to you or me."
+    "objectID": "slides/week-05-confidence-intervals.html#what-the-fluctuation-tells-us",
+    "href": "slides/week-05-confidence-intervals.html#what-the-fluctuation-tells-us",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "What the Fluctuation Tells Us",
+    "text": "What the Fluctuation Tells Us\n\nquantile(many_estimates, c(0.025, 0.975))   # what is this telling us?\n\n 2.5% 97.5% \n0.120 0.208 \n\n\n\n95% of sample estimates landed between about 12% and 21% — that’s the sampling distribution from Session 4, live\nAny single sample’s estimate could easily be a couple points off the truth\nSo reporting “14.8%” alone is overconfident — we owe our reader a range that reflects the fluctuation\nProblem: this required 1,000 samples and a known population. A real researcher has one sample. Now what?"
   },
   {
-    "objectID": "syllabus.html#grading-scheme",
-    "href": "syllabus.html#grading-scheme",
-    "title": "Syllabus",
-    "section": "Grading Scheme",
-    "text": "Grading Scheme\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
+    "objectID": "slides/week-05-confidence-intervals.html#our-first-inferential-tool",
+    "href": "slides/week-05-confidence-intervals.html#our-first-inferential-tool",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Our First Inferential Tool",
+    "text": "Our First Inferential Tool\nThe confidence interval turns one sample into an honest range, using what Session 4 taught us about how sample statistics behave:\n\\[\\text{estimate} \\; \\pm \\; \\underbrace{1.96 \\times SE}_{\\text{margin of error}}\\]\n\nSE (standard error) = the standard deviation of the sampling distribution, estimated from the one sample you have\n1.96 comes from the normal distribution: ±1.96 SDs covers the middle 95%\n\nBigger samples → smaller SE → narrower interval."
   },
   {
-    "objectID": "syllabus.html#attendance-policy",
-    "href": "syllabus.html#attendance-policy",
-    "title": "Syllabus",
-    "section": "Attendance Policy",
-    "text": "Attendance Policy\nAttendance is mandatory for our weekly class meetings. We all have busy lives, so while being on time is expected, I’d rather you miss ten minutes than a whole class. Students are expected to fully engage in class discussion and participate in the in-class exercises. The purpose of the class is for everyone to discuss the readings, not to have them explained.\nI generally do not take formal attendance; however, during most weeks there is a graded in-class exercise. Points for these exercises are awarded based on active participation in class that day, and these points cannot be made up. Missing class means missing the opportunity to earn them.\nConsider the following (simulated data, courtesy of an approach by Steven Miller): a simple linear regression of a student’s final grade on percentage of classes attended suggests an increase of one percent in attendance leads to an estimated increase of 0.704 in the final grade. One missed class is roughly a five-percent decrease in semester attendance — an estimated decrease of 3.52 in the overall grade. The effect is precise (t = 20.37) and the likelihood of no actual relationship is almost zero (R² = 0.342).\n\n\n\n\nThe relationship between class attendance and final grade (simulated data)."
+    "objectID": "slides/week-05-confidence-intervals.html#r-does-this-for-us-prop.test",
+    "href": "slides/week-05-confidence-intervals.html#r-does-this-for-us-prop.test",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "R Does This For Us: prop.test()",
+    "text": "R Does This For Us: prop.test()\n\nprop.test(sum(sample_250$arrest), n = 250)\n\n\n    1-sample proportions test with continuity correction\n\ndata:  sum(sample_250$arrest) out of 250, null probability 0.5\nX-squared = 122.5, df = 1, p-value &lt; 0.00000000000000022\nalternative hypothesis: true p is not equal to 0.5\n95 percent confidence interval:\n 0.1075899 0.1995409\nsample estimates:\n    p \n0.148 \n\n\n\nOur one sample of 250 says: point estimate 14.8%, 95% CI 10.8% to 20.0%. The true value (16.1%) is inside — this time. But “95% confident” of what, exactly?"
   },
   {
-    "objectID": "syllabus.html#instructor-expectations",
-    "href": "syllabus.html#instructor-expectations",
-    "title": "Syllabus",
-    "section": "Instructor Expectations",
-    "text": "Instructor Expectations\nI commit to being your mentor and facilitator of the educational experience:\n\nI will design the course to include reading materials and assignments that challenge students and provide opportunities to learn and practice course content.\nI will respond to emails within 24–72 hours, not including weekends and holidays (normally much faster). If you do not hear from me within 72 hours, please email again.\nI will be available for individual consultation via virtual office hours, email, or phone — not restricted to campus or banker’s hours.\nI will provide feedback on assignments in a timely manner.\nI will ensure and enforce a respectful atmosphere, open to questions, discussion, and ethical disagreement.\nI will follow all official University of South Carolina policies regarding classroom conduct, incompletes, and accommodations."
+    "objectID": "slides/week-05-confidence-intervals.html#the-classic-picture-100-samples-100-intervals",
+    "href": "slides/week-05-confidence-intervals.html#the-classic-picture-100-samples-100-intervals",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "The Classic Picture: 100 Samples, 100 Intervals",
+    "text": "The Classic Picture: 100 Samples, 100 Intervals\n\nci_100 &lt;- map(1:100, \\(i) {\n  s  &lt;- crimes |&gt; slice_sample(n = 250)\n  ci &lt;- prop.test(sum(s$arrest), n = 250)$conf.int\n  tibble(sample = i, estimate = mean(s$arrest), lo = ci[1], hi = ci[2])\n}) |&gt;\n  list_rbind() |&gt;\n  mutate(captured = lo &lt;= mean(crimes$arrest) & mean(crimes$arrest) &lt;= hi)\n\nsum(ci_100$captured)   # how many of the 100 intervals caught the truth?"
   },
   {
-    "objectID": "syllabus.html#student-expectations",
-    "href": "syllabus.html#student-expectations",
-    "title": "Syllabus",
-    "section": "Student Expectations",
-    "text": "Student Expectations\n\nAttend class every week (half the battle in life is just showing up).\nComplete all assignments on time.\nBe self-motivated, organized, and willing to stay on top of your schedule.\nRegularly check course announcements on Canvas and update notification settings accordingly.\nIf you have questions or are struggling, take the initiative to contact me. If you do not hear back within 72 hours, contact me again.\nEngage with the course, classmates, and professor respectfully and professionally at all times."
+    "objectID": "slides/week-05-confidence-intervals.html#the-classic-picture-100-samples-100-intervals-output",
+    "href": "slides/week-05-confidence-intervals.html#the-classic-picture-100-samples-100-intervals-output",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "The Classic Picture: 100 Samples, 100 Intervals",
+    "text": "The Classic Picture: 100 Samples, 100 Intervals\n\n[1] 97\n\nggplot(ci_100, aes(sample, estimate, color = captured)) +\n  geom_hline(yintercept = mean(crimes$arrest), color = \"grey30\", linewidth = 1) +\n  geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 0.7, size = 0.25) +\n  scale_color_manual(values = c(\"TRUE\" = \"grey65\", \"FALSE\" = \"#73000A\")) +\n  labs(title = paste0(\"100 samples, 100 confidence intervals — \",\n                      sum(ci_100$captured), \" capture the truth\"),\n       subtitle = \"Horizontal line = true population arrest rate; garnet = intervals that missed\",\n       x = \"Sample number\", y = \"Arrest proportion\", color = \"Captured?\")"
   },
   {
-    "objectID": "syllabus.html#copyrightfair-use",
-    "href": "syllabus.html#copyrightfair-use",
-    "title": "Syllabus",
-    "section": "Copyright/Fair Use",
-    "text": "Copyright/Fair Use\nI will cite and/or reference any materials that I use in this course that I do not create. You, as students, are expected not to distribute any of these materials, resources, quizzes, tests, or homework assignments (whether graded or ungraded)."
+    "objectID": "slides/week-05-confidence-intervals.html#what-just-happened",
+    "href": "slides/week-05-confidence-intervals.html#what-just-happened",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "What Just Happened",
+    "text": "What Just Happened\n\nEach of the 100 samples produced a different interval — the interval is a random quantity, the population value is fixed\n97 of our 100 intervals captured the true arrest rate; 3 missed (the garnet ones)\nIn the long run, the 95% procedure captures the truth in ~95% of replications — that long-run capture rate is the entire meaning of “95% confident”\nThe researchers who drew the garnet samples did nothing wrong — and their data give no warning that theirs are the unlucky intervals"
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#in-practice",
+    "href": "slides/week-05-confidence-intervals.html#in-practice",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "In Practice",
+    "text": "In Practice\nIf we reran our whole study many times — drawing a new sample each time and constructing a new confidence interval each time — in 95% of those replications the interval would contain the true population value.\n\n\n\n\n\n\nIMPORTANT:\n\nOur 95% CI does not necessarily contain the true population value\nOur 95% CI is not a statement about the probability that this particular interval is correct\nIt is a long-run prediction based on numerous replications\n\n\n\n\n\nWTF?!? — yes, everyone reacts this way. Point at the 100-intervals plot until it clicks."
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#saying-it-out-loud",
+    "href": "slides/week-05-confidence-intervals.html#saying-it-out-loud",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Saying It Out Loud",
+    "text": "Saying It Out Loud\n✅ Defensible:\n\n“We estimate the citywide arrest rate at 14.8% (95% CI: 10.8% to 20.0%). Values in this range are consistent with our data.”\n\n\n“The method we used captures the true value 95% of the time.”\n\n❌ Not defensible:\n\n“There is a 95% probability the true arrest rate is between 10.8% and 20.0%.” (The truth is fixed — it’s either in there or it isn’t.)\n\n\n“95% of arrest rates fall in this interval.” (The CI is about the population parameter, not individual observations.)"
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#sample-size-buys-precision",
+    "href": "slides/week-05-confidence-intervals.html#sample-size-buys-precision",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Sample Size Buys Precision",
+    "text": "Sample Size Buys Precision\nSame procedure, three sample sizes, one draw each:\n\nmap(c(100, 250, 1000, 4000), \\(n) {\n  s  &lt;- crimes |&gt; slice_sample(n = n)\n  ci &lt;- prop.test(sum(s$arrest), n = n)$conf.int\n  tibble(n = n, estimate = mean(s$arrest),\n         lo = ci[1], hi = ci[2], width = ci[2] - ci[1])\n}) |&gt;\n  list_rbind()\n\n\n\n# A tibble: 4 × 5\n      n estimate    lo    hi  width\n  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1   100    0.22  0.146 0.316 0.170 \n2   250    0.192 0.146 0.247 0.101 \n3  1000    0.154 0.132 0.178 0.0457\n4  4000    0.163 0.152 0.175 0.0231\n\n\n\nQuadrupling n roughly halves the width — precision grows with \\(\\sqrt{n}\\), so it gets expensive fast."
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#a-real-question-do-violent-crimes-happen-later-in-the-day",
+    "href": "slides/week-05-confidence-intervals.html#a-real-question-do-violent-crimes-happen-later-in-the-day",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "A Real Question: Do Violent Crimes Happen Later in the Day?",
+    "text": "A Real Question: Do Violent Crimes Happen Later in the Day?\nStreet lore says violence is a nighttime phenomenon. Property crime, the daytime hustle. Our data:\n\nvp &lt;- crimes |&gt; filter(crime_category %in% c(\"Violent\", \"Property\"))\n\nvp |&gt; summarize(mean_hour = mean(hour), sd_hour = sd(hour),\n                n = n(), .by = crime_category)\n\n# A tibble: 2 × 4\n  crime_category mean_hour sd_hour     n\n  &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;\n1 Violent             12.8    6.87  9148\n2 Property            12.5    6.63 10371\n\n\n\nTwo point estimates: violent crimes average hour 12.8, property 12.5. Is that ~15-minute gap real, or sample fluctuation?"
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#lets-look-at-it-visually",
+    "href": "slides/week-05-confidence-intervals.html#lets-look-at-it-visually",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Let’s Look at It Visually",
+    "text": "Let’s Look at It Visually\n\nggplot(vp, aes(crime_category, hour, fill = crime_category)) +\n  geom_boxplot(show.legend = FALSE) +\n  scale_fill_manual(values = unname(crju_colors[c(\"blue\", \"garnet\")])) +\n  labs(x = NULL, y = \"Hour of day (0–23)\")\n\n\nThe boxes nearly coincide — the eye can’t settle this one. We need inference."
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#resample-the-difference",
+    "href": "slides/week-05-confidence-intervals.html#resample-the-difference",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Resample the Difference",
+    "text": "Resample the Difference\nSame trick as before — resample each group, compute the difference in means, repeat:\n\nviolent_hours  &lt;- vp$hour[vp$crime_category == \"Violent\"]\nproperty_hours &lt;- vp$hour[vp$crime_category == \"Property\"]\n\nmean_diffs &lt;- replicate(1000, {\n  mean(sample(violent_hours,  length(violent_hours),  replace = TRUE)) -\n  mean(sample(property_hours, length(property_hours), replace = TRUE))\n})\n\nquantile(mean_diffs, c(0.025, 0.975))   # what is this telling us?"
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#resample-the-difference-output",
+    "href": "slides/week-05-confidence-intervals.html#resample-the-difference-output",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Resample the Difference",
+    "text": "Resample the Difference\n\n      2.5%      97.5% \n0.05568685 0.43652029 \n\nggplot(tibble(mean_diffs), aes(mean_diffs)) +\n  geom_histogram(bins = 30, fill = crju_colors[\"navy\"], color = \"white\") +\n  geom_vline(xintercept = 0, color = crju_colors[\"garnet\"], linewidth = 1.2) +\n  labs(title = \"1,000 resampled differences in mean hour (Violent − Property)\",\n       x = \"Difference in mean hour\", y = \"Count\")"
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#the-two-sample-t-test-gives-the-ci-directly",
+    "href": "slides/week-05-confidence-intervals.html#the-two-sample-t-test-gives-the-ci-directly",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "The Two-Sample t-Test Gives the CI Directly",
+    "text": "The Two-Sample t-Test Gives the CI Directly\n\nt.test(hour ~ crime_category, data = vp)\n\n\n    Welch Two Sample t-test\n\ndata:  hour by crime_category\nt = -2.6061, df = 19021, p-value = 0.009164\nalternative hypothesis: true difference in means between group Property and group Violent is not equal to 0\n95 percent confidence interval:\n -0.44272107 -0.06263688\nsample estimates:\nmean in group Property  mean in group Violent \n              12.54334               12.79602 \n\n\nWatch the direction: R orders groups alphabetically, so this tests Property − Violent — the mirror image of our resampled Violent − Property differences. Same finding, flipped sign."
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#reading-that-output-honestly",
+    "href": "slides/week-05-confidence-intervals.html#reading-that-output-honestly",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Reading That Output Honestly",
+    "text": "Reading That Output Honestly\n\nt.test(hour ~ crime_category, data = vp)$conf.int\n\n[1] -0.44272107 -0.06263688\nattr(,\"conf.level\")\n[1] 0.95\n\n\n\nThe 95% CI for the difference (Property − Violent) runs from −0.44 to −0.06 hours — it excludes zero, so the data are consistent with violent crimes genuinely averaging later\nBut look at the magnitude: the difference is somewhere between about 4 and 27 minutes. Detectable ≠ dramatic.\nWith ~19,500 incidents, we can detect tiny differences. The CI hands you both facts at once: direction (probably real) and size (small). Never report the first without the second.\nThis is your vaccination against next week’s topic — a “significant” result can be substantively trivial"
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#your-turn-5-minutes-with-a-neighbor",
+    "href": "slides/week-05-confidence-intervals.html#your-turn-5-minutes-with-a-neighbor",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Your Turn (5 minutes, with a neighbor)",
+    "text": "Your Turn (5 minutes, with a neighbor)\nUsing crimes, compute a 95% CI for the proportion of incidents flagged as domestic:\ncrimes |&gt; summarize(mean(domestic))          # point estimate\nprop.test(sum(crimes$domestic), nrow(crimes))\n\nWrite one defensible sentence reporting your interval.\nTrade sentences with your neighbor and audit each other: does the sentence claim a probability about this interval? If so, fix it."
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#todays-lab-homework",
+    "href": "slides/week-05-confidence-intervals.html#todays-lab-homework",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Today’s Lab & Homework",
+    "text": "Today’s Lab & Homework\n\nLab 5: importing real data — read_csv(), read_excel(), parsing dates, and what to do when R yells at you (lab page)\nHomework 5: confidence intervals on Alaska crash data (posted on the Session 5 page)\nRead before Session 6: Stanton Ch. 5 · R4DS Ch. 19 (Joins) & skim Ch. 18 (Missing values)"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#week-2-follow-up",
+    "href": "slides/week-03-probability.html#week-2-follow-up",
+    "title": "Reasoning with Probability",
+    "section": "Week 2 Follow-Up",
+    "text": "Week 2 Follow-Up\nHomework 2 — questions on central tendency, dispersion, or the distributions?\nAnything from Lab 2 (ggplot) still shaky? We use every one of those tools again today."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#this-week",
+    "href": "slides/week-03-probability.html#this-week",
+    "title": "Reasoning with Probability",
+    "section": "This Week",
+    "text": "This Week\nTopic: Essentials of probability (Stanton Ch. 2)\n\nOutcome tables — toast drops in place of coin tosses\nThe binomial distribution; generating random data\nContingency tables: marginal, joint, and conditional probability\n\nLearning goals: use outcome tables to reason about a simple set of random events, and contingency tables to reason about linked events; generate and plot random distributions in R.\nToday’s rule: don’t take a probability claim on faith — simulate it and watch it happen.\nR4DS thread: you read Ch. 3 (Data transformation) & Ch. 4 (Code style) — today’s lab puts them to work."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#probability-long-run-proportion",
+    "href": "slides/week-03-probability.html#probability-long-run-proportion",
+    "title": "Reasoning with Probability",
+    "section": "Probability = Long-Run Proportion",
+    "text": "Probability = Long-Run Proportion\nClaim: a fair coin lands heads with probability 0.5. Don’t trust me — flip some coins:\n\nflips &lt;- sample(c(\"heads\", \"tails\"), size = 10, replace = TRUE)\nflips\n\n [1] \"heads\" \"heads\" \"heads\" \"tails\" \"tails\" \"tails\" \"heads\" \"tails\" \"heads\"\n[10] \"heads\"\n\nmean(flips == \"heads\")\n\n[1] 0.6\n\n\n\n\n# six more batches of ten flips each:\nreplicate(6, mean(sample(c(\"heads\", \"tails\"), size = 10, replace = TRUE) == \"heads\"))\n\n[1] 0.6 0.1 0.5 0.6 0.6 0.7\n\n\nTen flips is not the long run — batches of 10 bounce around, and none is entitled to land exactly on 0.5."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-long-run-seen",
+    "href": "slides/week-03-probability.html#the-long-run-seen",
+    "title": "Reasoning with Probability",
+    "section": "The Long Run, Seen",
+    "text": "The Long Run, Seen\n\nlln &lt;- tibble(flip = sample(c(1, 0), size = 100000, replace = TRUE)) |&gt;\n  mutate(n_flips = row_number(),\n         running_prop = cummean(flip))\n\nggplot(lln, aes(n_flips, running_prop)) +\n  geom_line(color = crju_colors[\"garnet\"]) +\n  geom_hline(yintercept = 0.5, linetype = \"dashed\") +\n  scale_x_log10() +\n  labs(x = \"Number of flips (log scale)\", y = \"Running proportion of heads\")\n\n\nWobbly early, pinned to 0.5 eventually. A probability is the value the long-run proportion settles on. Every probability “fact” today gets this treatment."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-long-run-seen-output",
+    "href": "slides/week-03-probability.html#the-long-run-seen-output",
+    "title": "Reasoning with Probability",
+    "section": "The Long Run, Seen",
+    "text": "The Long Run, Seen"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#real-stakes-parrest-in-chicago",
+    "href": "slides/week-03-probability.html#real-stakes-parrest-in-chicago",
+    "title": "Reasoning with Probability",
+    "section": "Real Stakes: P(Arrest) in Chicago",
+    "text": "Real Stakes: P(Arrest) in Chicago\nOur anchor data: 30,000 real Chicago incidents from 2025. Each incident either ended in an arrest or didn’t — 30,000 recorded trials.\n\nmean(crimes$arrest)\n\n[1] 0.1608\n\n\nPick a 2025 incident at random and the probability it ended in arrest is about 0.16 — arrest is the exception, not the rule.\n(arrest is TRUE/FALSE; mean() of a logical is the proportion of TRUEs. You’ll use this trick constantly.)"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-long-run-works-on-real-data-too",
+    "href": "slides/week-03-probability.html#the-long-run-works-on-real-data-too",
+    "title": "Reasoning with Probability",
+    "section": "The Long Run Works on Real Data Too",
+    "text": "The Long Run Works on Real Data Too\nRead case files one at a time, tracking the running arrest proportion:\n\nrunning &lt;- tibble(arrest = sample(crimes$arrest, size = 5000)) |&gt;\n  mutate(n_cases = row_number(),\n         running_prop = cummean(arrest))\n\nggplot(running, aes(n_cases, running_prop)) +\n  geom_line(color = crju_colors[\"navy\"]) +\n  geom_hline(yintercept = mean(crimes$arrest), linetype = \"dashed\") +\n  scale_x_log10() +\n  labs(x = \"Case files read (log scale)\", y = \"Running proportion arrested\")\n\n\nThe first few dozen cases can wander far from 0.16. Thousands pin it down. Small samples lie; long runs don’t."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-long-run-works-on-real-data-too-output",
+    "href": "slides/week-03-probability.html#the-long-run-works-on-real-data-too-output",
+    "title": "Reasoning with Probability",
+    "section": "The Long Run Works on Real Data Too",
+    "text": "The Long Run Works on Real Data Too"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#a-reality-show-about-dropped-toast",
+    "href": "slides/week-03-probability.html#a-reality-show-about-dropped-toast",
+    "title": "Reasoning with Probability",
+    "section": "A Reality Show About Dropped Toast",
+    "text": "A Reality Show About Dropped Toast\nImagine a restaurant where the waiters always drop the food. Each order = six pieces of toast; each piece lands topping-down or topping-up.\n\nOne piece of toast falling = one event\nOne dropped order of six = one trial\n\nHere’s data from 100 trials:\n\ntoast &lt;- tibble(\n  jelly_down = 0:6,\n  trials     = c(4, 9, 20, 34, 21, 11, 1)\n)\ntoast\n\n# A tibble: 7 × 2\n  jelly_down trials\n       &lt;int&gt;  &lt;dbl&gt;\n1          0      4\n2          1      9\n3          2     20\n4          3     34\n5          4     21\n6          5     11\n7          6      1"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#proportions-probabilities",
+    "href": "slides/week-03-probability.html#proportions-probabilities",
+    "title": "Reasoning with Probability",
+    "section": "Proportions ≈ Probabilities",
+    "text": "Proportions ≈ Probabilities\n\ntoast |&gt; mutate(prob = trials / sum(trials))\n\n# A tibble: 7 × 3\n  jelly_down trials  prob\n       &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;\n1          0      4  0.04\n2          1      9  0.09\n3          2     20  0.2 \n4          3     34  0.34\n5          4     21  0.21\n6          5     11  0.11\n7          6      1  0.01\n\n\n\nProbability rule #1: probabilities across all possible outcomes sum to 1. Data built from proportions can’t help but obey:\n\ntoast |&gt; summarize(total_prob = sum(trials / sum(trials)))\n\n# A tibble: 1 × 1\n  total_prob\n       &lt;dbl&gt;\n1          1"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#simulate-your-own-toast-drops",
+    "href": "slides/week-03-probability.html#simulate-your-own-toast-drops",
+    "title": "Reasoning with Probability",
+    "section": "Simulate Your Own Toast Drops",
+    "text": "Simulate Your Own Toast Drops\n\ndrops &lt;- rbinom(n = 100, size = 6, prob = 0.5)\n# rbinom() generates random trials of the \"binomial distribution\"\n# n = 100 gives the number of trials\n# size = 6 asks for six pieces of toast in each trial\n# prob = 0.5 says there's an even (50:50) chance of jelly-down or jelly-up\n\ntibble(jelly_down = drops) |&gt; count(jelly_down)\n\n# A tibble: 7 × 2\n  jelly_down     n\n       &lt;int&gt; &lt;int&gt;\n1          0     1\n2          1     8\n3          2    23\n4          3    32\n5          4    22\n6          5    13\n7          6     1\n\n\nCompare to the reality-show table — same shape, without filming a single waiter."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#run-it-again-it-changes",
+    "href": "slides/week-03-probability.html#run-it-again-it-changes",
+    "title": "Reasoning with Probability",
+    "section": "Run It Again — It Changes",
+    "text": "Run It Again — It Changes\n\ntwo_runs &lt;- tibble(\n  run = rep(c(\"Run 1\", \"Run 2\"), each = 100),\n  jelly_down = c(rbinom(100, size = 6, prob = 0.5),\n                 rbinom(100, size = 6, prob = 0.5))\n)\nggplot(two_runs, aes(jelly_down)) +\n  geom_bar(fill = crju_colors[\"garnet\"]) +\n  facet_wrap(~run) +\n  labs(x = \"Jelly-down count (out of 6)\", y = \"Trials\")\n\n\nSame process, different picture — sampling variability. 100 trials is still a shortish run. Try running it yourself!"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#run-it-again-it-changes-output",
+    "href": "slides/week-03-probability.html#run-it-again-it-changes-output",
+    "title": "Reasoning with Probability",
+    "section": "Run It Again — It Changes",
+    "text": "Run It Again — It Changes"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-long-run-tames-the-wobble",
+    "href": "slides/week-03-probability.html#the-long-run-tames-the-wobble",
+    "title": "Reasoning with Probability",
+    "section": "The Long Run Tames the Wobble",
+    "text": "The Long Run Tames the Wobble\nThe “theoretical” binomial probabilities are just what the simulation converges to:\n\ntibble(jelly_down = rbinom(n = 100000, size = 6, prob = 0.5)) |&gt;\n  count(jelly_down) |&gt;\n  mutate(\n    simulated   = n / sum(n),\n    theoretical = dbinom(jelly_down, size = 6, prob = 0.5)\n  )\n\n# A tibble: 7 × 4\n  jelly_down     n simulated theoretical\n       &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;\n1          0  1545    0.0154      0.0156\n2          1  9644    0.0964      0.0937\n3          2 23351    0.234       0.234 \n4          3 31040    0.310       0.312 \n5          4 23353    0.234       0.234 \n6          5  9418    0.0942      0.0937\n7          6  1649    0.0165      0.0156\n\n\nAt 100,000 trials, simulated and theoretical probabilities agree to within a few thousandths. Theory is the long run; simulation is how we watch the long run."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#cumulative-probabilities",
+    "href": "slides/week-03-probability.html#cumulative-probabilities",
+    "title": "Reasoning with Probability",
+    "section": "Cumulative Probabilities",
+    "text": "Cumulative Probabilities\n“What’s the probability of 3 or fewer jelly-down?” Add up the outcomes as you go:\n\ncum_toast &lt;- tibble(jelly_down = rbinom(n = 100000, size = 6, prob = 0.5)) |&gt;\n  count(jelly_down) |&gt;\n  mutate(prob = n / sum(n),\n         cum_prob = cumsum(prob))\nggplot(cum_toast, aes(jelly_down, cum_prob)) +\n  geom_col(fill = crju_colors[\"navy\"]) +\n  labs(x = \"Jelly-down count\", y = \"P(this count or fewer)\")\n\n\nEach bar = probability of that count or fewer. The last bar is always 1 — rule #1 again."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#cumulative-probabilities-output",
+    "href": "slides/week-03-probability.html#cumulative-probabilities-output",
+    "title": "Reasoning with Probability",
+    "section": "Cumulative Probabilities",
+    "text": "Cumulative Probabilities"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#linked-outcomes",
+    "href": "slides/week-03-probability.html#linked-outcomes",
+    "title": "Reasoning with Probability",
+    "section": "Linked Outcomes",
+    "text": "Linked Outcomes\nNow each falling piece of toast has two classifications: how it lands (down/up) and its topping (jelly/butter). Ten dropped pieces:\n\ntoast10 &lt;- tribble(\n  ~topping, ~landed, ~n,\n  \"Jelly\",  \"Down\",  2,\n  \"Jelly\",  \"Up\",    1,\n  \"Butter\", \"Down\",  3,\n  \"Butter\", \"Up\",    4\n)\ntoast10 |&gt; pivot_wider(names_from = landed, values_from = n)\n\n# A tibble: 2 × 3\n  topping  Down    Up\n  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;\n1 Jelly       2     1\n2 Butter      3     4\n\n\nA contingency table: rows = one classification, columns = the other, cells = counts of events with both."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#marginal-totals-answer-questions",
+    "href": "slides/week-03-probability.html#marginal-totals-answer-questions",
+    "title": "Reasoning with Probability",
+    "section": "Marginal Totals Answer Questions",
+    "text": "Marginal Totals Answer Questions\n\nTotal toast-drop events? How many landed down? Up?\nMore likely to land down or up?\nWhich topping is more common, butter or jelly?\n\n\ntoast10 |&gt; summarize(n = sum(n), .by = landed)    # column margins\n\n# A tibble: 2 × 2\n  landed     n\n  &lt;chr&gt;  &lt;dbl&gt;\n1 Down       5\n2 Up         5\n\ntoast10 |&gt; summarize(n = sum(n), .by = topping)   # row margins\n\n# A tibble: 2 × 2\n  topping     n\n  &lt;chr&gt;   &lt;dbl&gt;\n1 Jelly       3\n2 Butter      7\n\nsum(toast10$n)                                    # grand total\n\n[1] 10\n\n\nThe row/column sums live in the margins of the table — hence marginal probabilities."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#super-challenge-does-the-topping-matter",
+    "href": "slides/week-03-probability.html#super-challenge-does-the-topping-matter",
+    "title": "Reasoning with Probability",
+    "section": "Super Challenge: Does the Topping Matter?",
+    "text": "Super Challenge: Does the Topping Matter?\nJelly landed down 2/3 of the time (0.67); butter 3/7 (0.43). Is jelly really doomed — or is 10 pieces of toast just a short run? Simulate a world where topping makes no difference:\n\nsim_gap &lt;- function() {\n  p_jelly  &lt;- rbinom(1, size = 3, prob = 0.5) / 3   # 3 jelly pieces, fair\n  p_butter &lt;- rbinom(1, size = 7, prob = 0.5) / 7   # 7 butter pieces, fair\n  abs(p_jelly - p_butter)\n}\ngaps &lt;- replicate(10000, sim_gap())\nmean(gaps &gt;= 2/3 - 3/7)   # how often does pure chance produce our gap?\n\n[1] 0.611\n\n\nEven with no real difference, chance alone produces a gap at least this big well over half the time. Ten drops can’t answer the question. (This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#a-real-contingency-table",
+    "href": "slides/week-03-probability.html#a-real-contingency-table",
+    "title": "Reasoning with Probability",
+    "section": "A Real Contingency Table",
+    "text": "A Real Contingency Table\nSame structure, real stakes — crime category × arrest, 30,000 Chicago incidents:\n\ncrimes |&gt;\n  count(crime_category, arrest) |&gt;\n  pivot_wider(names_from = arrest, values_from = n)\n\n# A tibble: 3 × 3\n  crime_category `FALSE` `TRUE`\n  &lt;chr&gt;            &lt;int&gt;  &lt;int&gt;\n1 Other             7867   2614\n2 Property          9615    756\n3 Violent           7694   1454\n\n\ncount() gets the cell counts; pivot_wider() lays them out as the table. This is today’s lab skill set doing probability work."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#joint-and-marginal-probabilities-for-real",
+    "href": "slides/week-03-probability.html#joint-and-marginal-probabilities-for-real",
+    "title": "Reasoning with Probability",
+    "section": "Joint and Marginal Probabilities, For Real",
+    "text": "Joint and Marginal Probabilities, For Real\nJoint — divide every cell by the grand total:\n\ncrimes |&gt;\n  count(crime_category, arrest) |&gt;\n  mutate(p = n / sum(n))\n\n# A tibble: 6 × 4\n  crime_category arrest     n      p\n  &lt;chr&gt;          &lt;lgl&gt;  &lt;int&gt;  &lt;dbl&gt;\n1 Other          FALSE   7867 0.262 \n2 Other          TRUE    2614 0.0871\n3 Property       FALSE   9615 0.320 \n4 Property       TRUE     756 0.0252\n5 Violent        FALSE   7694 0.256 \n6 Violent        TRUE    1454 0.0485\n\n\n\nMarginal — collapse one classification:\n\ncrimes |&gt; count(crime_category) |&gt; mutate(p = n / sum(n))\n\n# A tibble: 3 × 3\n  crime_category     n     p\n  &lt;chr&gt;          &lt;int&gt; &lt;dbl&gt;\n1 Other          10481 0.349\n2 Property       10371 0.346\n3 Violent         9148 0.305\n\n\nP(Property and arrest) ≈ 0.025 — a joint probability. P(Property) ≈ 0.35 — a marginal one."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-restaurant-work-schedule",
+    "href": "slides/week-03-probability.html#the-restaurant-work-schedule",
+    "title": "Reasoning with Probability",
+    "section": "The Restaurant Work Schedule",
+    "text": "The Restaurant Work Schedule\nBack at the toast restaurant — hours worked by four servers:\n\nhours &lt;- tribble(\n  ~day,        ~Anne, ~Bill, ~Calvin, ~Devon,\n  \"Monday\",        6,     0,       5,      8,\n  \"Tuesday\",       0,     6,       6,      0,\n  \"Wednesday\",     8,     5,       0,      8,\n  \"Thursday\",      4,     6,       5,      8,\n  \"Friday\",        8,     8,       5,      8,\n  \"Saturday\",      8,    10,       8,      8,\n  \"Sunday\",        0,     3,       6,      0\n)\nhours_long &lt;- hours |&gt;\n  pivot_longer(-day, names_to = \"server\", values_to = \"hours\")\n\nTwo interesting questions:\n\nYou sit down and Bill is your server. What day is it most likely to be?\nYou know it’s Monday. Who is most likely to be your server?"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#converting-to-proportions",
+    "href": "slides/week-03-probability.html#converting-to-proportions",
+    "title": "Reasoning with Probability",
+    "section": "Converting to Proportions",
+    "text": "Converting to Proportions\nEvery cell divided by the grand total (147 hours) — the joint probabilities:\n\nhours_long |&gt;\n  mutate(p = hours / sum(hours)) |&gt;\n  pivot_wider(id_cols = day, names_from = server, values_from = p)\n\n# A tibble: 7 × 5\n  day         Anne   Bill Calvin  Devon\n  &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;\n1 Monday    0.0408 0      0.0340 0.0544\n2 Tuesday   0      0.0408 0.0408 0     \n3 Wednesday 0.0544 0.0340 0      0.0544\n4 Thursday  0.0272 0.0408 0.0340 0.0544\n5 Friday    0.0544 0.0544 0.0340 0.0544\n6 Saturday  0.0544 0.0680 0.0544 0.0544\n7 Sunday    0      0.0204 0.0408 0     \n\n\nBut question 1 isn’t about the whole table — Bill being your server rules out every other column."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#question-1-bill-is-your-server-what-day-is-it",
+    "href": "slides/week-03-probability.html#question-1-bill-is-your-server-what-day-is-it",
+    "title": "Reasoning with Probability",
+    "section": "Question 1: Bill Is Your Server — What Day Is It?",
+    "text": "Question 1: Bill Is Your Server — What Day Is It?\nIsolate Bill’s column, then re-scale it so it sums to 1:\n\nhours_long |&gt;\n  filter(server == \"Bill\") |&gt;\n  mutate(p_day_given_bill = hours / sum(hours)) |&gt;\n  arrange(desc(p_day_given_bill))\n\n# A tibble: 7 × 4\n  day       server hours p_day_given_bill\n  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;            &lt;dbl&gt;\n1 Saturday  Bill      10           0.263 \n2 Friday    Bill       8           0.211 \n3 Tuesday   Bill       6           0.158 \n4 Thursday  Bill       6           0.158 \n5 Wednesday Bill       5           0.132 \n6 Sunday    Bill       3           0.0789\n7 Monday    Bill       0           0     \n\n\nMost likely Saturday (0.26). That renormalization — shrink the world to the condition, then re-proportion — is conditional probability, and it’s the core move behind Bayes’ theorem later in the course."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#question-2-its-monday-whos-serving",
+    "href": "slides/week-03-probability.html#question-2-its-monday-whos-serving",
+    "title": "Reasoning with Probability",
+    "section": "Question 2: It’s Monday — Who’s Serving?",
+    "text": "Question 2: It’s Monday — Who’s Serving?\nSame move, conditioning the other way:\n\nhours_long |&gt;\n  filter(day == \"Monday\") |&gt;\n  mutate(p_server_given_monday = hours / sum(hours))\n\n# A tibble: 4 × 4\n  day    server hours p_server_given_monday\n  &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt;                 &lt;dbl&gt;\n1 Monday Anne       6                 0.316\n2 Monday Bill       0                 0    \n3 Monday Calvin     5                 0.263\n4 Monday Devon      8                 0.421\n\n\nDevon (0.42). Note the asymmetry: P(Saturday | Bill) and P(Bill | Saturday) are different questions with different answers. The direction of conditioning matters — a lot, as we’ll see when we get to Bayes."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#conditioning-filter-then-proportion",
+    "href": "slides/week-03-probability.html#conditioning-filter-then-proportion",
+    "title": "Reasoning with Probability",
+    "section": "Conditioning = filter(), Then Proportion",
+    "text": "Conditioning = filter(), Then Proportion\nIn real data, conditional probability is just subset, then take the mean:\n\ncrimes |&gt;\n  summarize(p_arrest = mean(arrest), n = n(), .by = crime_category)\n\n# A tibble: 3 × 3\n  crime_category p_arrest     n\n  &lt;chr&gt;             &lt;dbl&gt; &lt;int&gt;\n1 Violent          0.159   9148\n2 Other            0.249  10481\n3 Property         0.0729 10371\n\n\nP(arrest | Property) ≈ 0.07; P(arrest | Other) ≈ 0.25. Knowing the crime category changes the arrest probability — the two variables are dependent."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#conditionals-reveal-what-variables-measure",
+    "href": "slides/week-03-probability.html#conditionals-reveal-what-variables-measure",
+    "title": "Reasoning with Probability",
+    "section": "Conditionals Reveal What Variables Measure",
+    "text": "Conditionals Reveal What Variables Measure\n\ncrimes |&gt;\n  filter(primary_type == \"NARCOTICS\") |&gt;\n  summarize(p_arrest = mean(arrest), n = n())\n\n# A tibble: 1 × 2\n  p_arrest     n\n     &lt;dbl&gt; &lt;int&gt;\n1    0.971   919\n\n\nP(arrest | narcotics) ≈ 0.97. Is Chicago spectacular at solving drug crimes?\n\nNo — a narcotics record usually exists because someone was arrested. Conditional probabilities describe the data-generating process, not just the world. Always ask how did this row get into the data?"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#when-conditioning-changes-nothing-independence",
+    "href": "slides/week-03-probability.html#when-conditioning-changes-nothing-independence",
+    "title": "Reasoning with Probability",
+    "section": "When Conditioning Changes Nothing: Independence",
+    "text": "When Conditioning Changes Nothing: Independence\n\nmean(crimes$arrest)\n\n[1] 0.1608\n\ncrimes |&gt;\n  summarize(p_arrest = mean(arrest), n = n(), .by = domestic)\n\n# A tibble: 2 × 3\n  domestic p_arrest     n\n  &lt;lgl&gt;       &lt;dbl&gt; &lt;int&gt;\n1 FALSE       0.161 24194\n2 TRUE        0.160  5806\n\n\nP(arrest | domestic) and P(arrest | not domestic) are essentially identical to the overall P(arrest) — in this sample, knowing an incident was domestic tells you almost nothing about arrest.\nDefinition: A and B are independent when P(A | B) = P(A). Conditioning that moves the number = dependence; conditioning that doesn’t = independence."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#todays-lab-homework",
+    "href": "slides/week-03-probability.html#todays-lab-homework",
+    "title": "Reasoning with Probability",
+    "section": "Today’s Lab & Homework",
+    "text": "Today’s Lab & Homework\n\nIn-class exercise: factory-accidents contingency table — on paper first, then in R (folded into Lab 3)\nLab 3: data transformation with dplyr — filter(), arrange(), mutate(), summarize(), count() (lab page)\nHomework 3: probability and conditional thinking (posted on the Session 3 page)\nRead before Session 4: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts and projects)"
   },
   {
     "objectID": "slides/week-01-stats-is-awesome.html#class-introductions",
@@ -483,25 +763,172 @@
     "text": "Getting help\n\nIn this order: R’s built-in help (?mean), the R4DS Getting Help chapter, a classmate, then me.\nAI tools (ChatGPT, Claude, etc.) are welcome as collaborators — see the syllabus AI policy — but you must be able to explain every line you submit."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "objectID": "labs/lab-04-tidy.html",
+    "href": "labs/lab-04-tidy.html",
+    "title": "Lab 4 · Tidy Data: Pivoting Longer and Wider",
     "section": "",
-    "text": "Wednesdays, 5:50–8:35 pm · Currell 204 · Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu\nStatistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both traditional (frequentist) and Bayesian approaches to statistical reasoning, with all analysis done in R.\nEverything for the course lives on this site:"
+    "text": "Goal: learn to reshape data between wide and long form with pivot_longer() and pivot_wider(), and pick up the workflow habits that keep your analyses reproducible. This lab assumes you’ve read R4DS Ch. 5 (Data tidying) and Ch. 6 (Workflow: scripts and projects).\nHow labs work: run the Setup chunk as-is, follow the Walkthrough along with me, then complete the Your Turn tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave."
   },
   {
-    "objectID": "index.html#textbooks",
-    "href": "index.html#textbooks",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
-    "section": "Textbooks",
-    "text": "Textbooks\n\nStanton, Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R (required)\nWickham, Çetinkaya-Rundel & Grolemund, R for Data Science (2nd edition) — free online (assigned readings woven through the first half of the course)"
+    "objectID": "labs/lab-04-tidy.html#setup",
+    "href": "labs/lab-04-tidy.html#setup",
+    "title": "Lab 4 · Tidy Data: Pivoting Longer and Wider",
+    "section": "Setup",
+    "text": "Setup\nOpen RStudio, start a new R script, and run:\n\nlibrary(tidyverse)\n\ncities  &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/cities-wide.csv\")\nreentry &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/reentry-wide.csv\")\n\ncities holds 100 cities (simulated, but realistic): a few city characteristics plus violent crime rates for 2015–2025. reentry holds 150 reentry-program participants with a monthly employment indicator (1 = employed that month) for their first 12 months after release. Look first — always look at your data first:\n\nglimpse(cities)\n\nRows: 100\nColumns: 18\n$ city_id           &lt;chr&gt; \"CITY_001\", \"CITY_002\", \"CITY_003\", \"CITY_004\", \"CIT…\n$ city              &lt;chr&gt; \"City 1\", \"City 2\", \"City 3\", \"City 4\", \"City 5\", \"C…\n$ region            &lt;chr&gt; \"South\", \"Midwest\", \"South\", \"South\", \"Midwest\", \"Mi…\n$ population_2020   &lt;dbl&gt; 478692, 151873, 1282289, 825770, 1454259, 1082444, 1…\n$ poverty_rate      &lt;dbl&gt; 20.4, 10.9, 9.5, 6.7, 13.8, 26.1, 10.5, 6.6, 18.4, 1…\n$ unemployment_rate &lt;dbl&gt; 13.3, 5.0, 7.4, 12.3, 10.5, 5.3, 9.1, 2.7, 10.0, 11.…\n$ police_per_10k    &lt;dbl&gt; 28.7, 25.5, 10.0, 32.2, 20.0, 32.9, 15.7, 14.7, 32.3…\n$ vcr_2015          &lt;dbl&gt; 549, 660, 401, 326, 424, 535, 246, 364, 278, 404, 65…\n$ vcr_2016          &lt;dbl&gt; 561, 648, 317, 346, 375, 428, 295, 441, 258, 420, 54…\n$ vcr_2017          &lt;dbl&gt; 510, 599, 384, 353, 347, 400, 252, 422, 229, 319, 60…\n$ vcr_2018          &lt;dbl&gt; 512, 605, 364, 270, 488, 491, 236, 445, 245, 374, 61…\n$ vcr_2019          &lt;dbl&gt; 516, 566, 276, 245, 464, 512, 149, 334, 179, 371, 59…\n$ vcr_2020          &lt;dbl&gt; 604, 669, 450, 361, 508, 457, 251, 429, 279, 437, 63…\n$ vcr_2021          &lt;dbl&gt; 641, 629, 409, 313, 509, 465, 319, 362, 312, 368, 70…\n$ vcr_2022          &lt;dbl&gt; 525, 529, 286, 224, 372, 468, 180, 228, 148, 300, 61…\n$ vcr_2023          &lt;dbl&gt; 539, 502, 270, 201, 395, 408, 187, 292, 181, 335, 65…\n$ vcr_2024          &lt;dbl&gt; 519, 508, 261, 160, 311, 436, 147, 292, 227, 272, 64…\n$ vcr_2025          &lt;dbl&gt; 525, 456, 277, 203, 383, 371, 192, 265, 177, 277, 66…"
   },
   {
-    "objectID": "index.html#getting-started",
-    "href": "index.html#getting-started",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
-    "section": "Getting started",
-    "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
+    "objectID": "labs/lab-04-tidy.html#walkthrough",
+    "href": "labs/lab-04-tidy.html#walkthrough",
+    "title": "Lab 4 · Tidy Data: Pivoting Longer and Wider",
+    "section": "Walkthrough",
+    "text": "Walkthrough\nWhat’s wrong with this data?\nNothing — for a spreadsheet. cities is wide: each year’s violent crime rate lives in its own column (vcr_2015 … vcr_2025). That’s fine for eyeballing, but notice what it breaks in R:\n\nYou can’t put year on the x-axis of a ggplot — there is no year variable. Year is data, but it’s trapped in the column names.\nYou can’t summarize() an average rate per year, or filter to years after 2020, for the same reason.\n\nR4DS’s tidy-data rules: every variable is a column, every observation is a row. Here one observation is really “a city in a year” — so tidy form needs 100 × 11 = 1,100 rows, not 100.\n\npivot_longer() — column names become data\n\ncities_long &lt;- cities |&gt;\n  pivot_longer(\n    cols = starts_with(\"vcr_\"),   # which columns to gather\n    names_to = \"year\",            # where their NAMES go\n    values_to = \"violent_rate\"    # where their VALUES go\n  )\n\ncities_long\n\n# A tibble: 1,100 × 9\n   city_id  city   region population_2020 poverty_rate unemployment_rate\n   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;            &lt;dbl&gt;        &lt;dbl&gt;             &lt;dbl&gt;\n 1 CITY_001 City 1 South           478692         20.4              13.3\n 2 CITY_001 City 1 South           478692         20.4              13.3\n 3 CITY_001 City 1 South           478692         20.4              13.3\n 4 CITY_001 City 1 South           478692         20.4              13.3\n 5 CITY_001 City 1 South           478692         20.4              13.3\n 6 CITY_001 City 1 South           478692         20.4              13.3\n 7 CITY_001 City 1 South           478692         20.4              13.3\n 8 CITY_001 City 1 South           478692         20.4              13.3\n 9 CITY_001 City 1 South           478692         20.4              13.3\n10 CITY_001 City 1 South           478692         20.4              13.3\n# ℹ 1,090 more rows\n# ℹ 3 more variables: police_per_10k &lt;dbl&gt;, year &lt;chr&gt;, violent_rate &lt;dbl&gt;\n\n\n1,100 rows — one per city-year. But look at year: it’s the text \"vcr_2015\", not a number. parse_number() strips the text and keeps the digits:\n\ncities_long &lt;- cities_long |&gt;\n  mutate(year = parse_number(year))\n\ncities_long |&gt; select(city, year, violent_rate)\n\n# A tibble: 1,100 × 3\n   city    year violent_rate\n   &lt;chr&gt;  &lt;dbl&gt;        &lt;dbl&gt;\n 1 City 1  2015          549\n 2 City 1  2016          561\n 3 City 1  2017          510\n 4 City 1  2018          512\n 5 City 1  2019          516\n 6 City 1  2020          604\n 7 City 1  2021          641\n 8 City 1  2022          525\n 9 City 1  2023          539\n10 City 1  2024          519\n# ℹ 1,090 more rows\n\n\nNow the analysis is one-liners\nAverage violent crime rate per year, across all 100 cities:\n\ncities_long |&gt;\n  summarize(mean_rate = mean(violent_rate), .by = year)\n\n# A tibble: 11 × 2\n    year mean_rate\n   &lt;dbl&gt;     &lt;dbl&gt;\n 1  2015      431.\n 2  2016      419.\n 3  2017      415.\n 4  2018      415.\n 5  2019      404.\n 6  2020      460.\n 7  2021      459.\n 8  2022      392.\n 9  2023      378.\n10  2024      372.\n11  2025      373.\n\n\nNotice the story hiding in there — rates climb into 2020–2021, then fall. And a line plot over time, impossible ten minutes ago, is now routine:\n\ncities_long |&gt;\n  summarize(mean_rate = mean(violent_rate), .by = c(region, year)) |&gt;\n  ggplot(aes(x = year, y = mean_rate, color = region)) +\n  geom_line(linewidth = 1) +\n  labs(title = \"Violent crime rate by region, 2015-2025\",\n       x = NULL, y = \"Mean violent crimes per 100k\", color = \"Region\")\n\n\n\n\n\n\n\n\npivot_wider() — and back again\nSometimes you want wide (for a table in a report, or to compute 2025 minus 2015):\n\ncities_long |&gt;\n  pivot_wider(\n    names_from = year,\n    values_from = violent_rate,\n    names_prefix = \"vcr_\"\n  ) |&gt;\n  select(city, region, vcr_2015, vcr_2025) |&gt;\n  mutate(change = vcr_2025 - vcr_2015)\n\n# A tibble: 100 × 5\n   city    region    vcr_2015 vcr_2025 change\n   &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;\n 1 City 1  South          549      525    -24\n 2 City 2  Midwest        660      456   -204\n 3 City 3  South          401      277   -124\n 4 City 4  South          326      203   -123\n 5 City 5  Midwest        424      383    -41\n 6 City 6  Midwest        535      371   -164\n 7 City 7  Northeast      246      192    -54\n 8 City 8  South          364      265    -99\n 9 City 9  West           278      177   -101\n10 City 10 South          404      277   -127\n# ℹ 90 more rows\n\n\npivot_longer() and pivot_wider() are inverses — data flows freely between shapes once you can name which columns hold names and which hold values.\nWorkflow hygiene: scripts and projects\nThree habits from R4DS Ch. 6 that I will hold you to all semester:\n\n\nEverything in a script, nothing only in the console. The console is for experimenting; the script is the record. If it matters, it’s in the script.\n\nUse an RStudio Project for this course. File &gt; New Project… once, then always open the course via the .Rproj file. Your working directory is then always the project folder, paths stay relative, and your code runs on any machine — including mine when I grade it.\n\nNever rely on the Environment pane. Objects in memory are disposable; your script + your data are the source of truth. Prove it to yourself right now: Session &gt; Restart R, then re-run your script top to bottom. If it doesn’t reproduce everything, fix the script — you just saved a future you from a very bad day. (I also recommend Tools &gt; Global Options &gt; un-check “Restore .RData into workspace at startup.”)"
+  },
+  {
+    "objectID": "labs/lab-04-tidy.html#your-turn",
+    "href": "labs/lab-04-tidy.html#your-turn",
+    "title": "Lab 4 · Tidy Data: Pivoting Longer and Wider",
+    "section": "Your Turn",
+    "text": "Your Turn\nWork in your own script. Comment each answer. The reentry data is wide: month_1 … month_12 are employment indicators (1 = employed) for each month after release.\n1. Pivot reentry longer so there’s one row per person-month, with a month column and an employed column. Convert month to a number with parse_number(). How many rows should you end up with? Check that you did.\n\n# your code here\n\n2. Using your long data, compute the overall employment rate (mean(employed)) for each month. Is reentry employment improving over the first year?\n\n# your code here\n\n3. Make a line plot of the monthly employment rate, with a separate colored line for each program_type. Which program looks most effective — and at what point after release do the programs separate?\n\n# your code here — hint: summarize by c(program_type, month) first\n\n4. Pivot your long data back to wide with pivot_wider() so it matches the original layout (hint: names_prefix = \"month_\"). Confirm with glimpse() that you’re back to 150 rows.\n\n# your code here\n\n5. (Stretch) From the long form, compute each person’s employment rate across their 12 months, then compare the average of those rates across program_type and by gender. Any pattern?\n\n# your code here"
+  },
+  {
+    "objectID": "labs/lab-04-tidy.html#exit-ticket",
+    "href": "labs/lab-04-tidy.html#exit-ticket",
+    "title": "Lab 4 · Tidy Data: Pivoting Longer and Wider",
+    "section": "Exit Ticket",
+    "text": "Exit Ticket\nSubmit a short R script to Canvas before you leave, containing:\n\nYour Your-Turn 1 pivot code, plus a comment explaining in one sentence why the month columns had to be pivoted before you could plot employment over time\nYour Your-Turn 3 plot code and a comment (2–3 sentences) on what it shows\nA comment confirming you restarted R and your script ran clean top to bottom — or describing what broke when you tried"
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html",
+    "href": "labs/lab-02-visualize.html",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "",
+    "text": "Goal: make your first plots in R and connect them to today’s descriptive statistics. This lab assumes you’ve read R4DS Ch. 1 (Data visualization) and Ch. 2 (Workflow: basics).\nHow labs work: run the Setup chunk as-is, follow the Walkthrough along with me, then complete the Your Turn tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave."
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#setup",
+    "href": "labs/lab-02-visualize.html#setup",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Setup",
+    "text": "Setup\nOpen RStudio, start a new R script, and run:\n\nlibrary(tidyverse)\n\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\nprisoners holds records for 300 incarcerated persons (simulated, but realistic): demographics, offense type, sentence, and well-being measures. Look at it first — always look at your data first:\n\nglimpse(prisoners)\n\nRows: 300\nColumns: 14\n$ prisoner_id        &lt;chr&gt; \"P0001\", \"P0002\", \"P0003\", \"P0004\", \"P0005\", \"P0006…\n$ facility           &lt;chr&gt; \"Central Unit\", \"River Unit\", \"River Unit\", \"Centra…\n$ housing_unit       &lt;chr&gt; \"HU-1\", \"HU-3\", \"HU-4\", \"HU-2\", \"HU-5\", \"HU-3\", \"HU…\n$ age                &lt;dbl&gt; 36, 51, 33, 38, 36, 35, 26, 30, 18, 23, 18, 18, 40,…\n$ gender             &lt;chr&gt; \"MALE\", \"Male\", \"Female\", \"Male\", \"Male\", \"Male\", \"…\n$ race               &lt;chr&gt; \"Black\", \"Black\", \"White\", \"White\", \"Black\", \"Black…\n$ education          &lt;chr&gt; \"Some College\", \"Less than HS\", \"HS/GED\", \"HS/GED\",…\n$ offense_type       &lt;chr&gt; \"Property\", \"Drug\", \"Property\", \"Drug\", \"Property\",…\n$ sentence_years     &lt;dbl&gt; 1.88, 4.34, 6.57, 1.58, 3.10, 19.91, 1.27, 3.05, 5.…\n$ months_served      &lt;dbl&gt; 23, 52, 79, 19, 37, 156, 15, 37, 68, 20, 49, 34, 8,…\n$ stress             &lt;dbl&gt; 5.4, 8.4, 4.4, 9.7, 2.8, 8.1, 5.0, 6.3, 4.7, 6.4, 8…\n$ depression         &lt;dbl&gt; 8.0, 3.8, 9.0, 1.7, 5.0, 5.1, 2.6, 5.4, 3.4, 6.7, 3…\n$ sleep_quality      &lt;dbl&gt; 1.1, 5.1, 4.6, 3.2, 3.7, 7.7, 4.2, 4.5, 3.8, 4.5, 6…\n$ substance_use_risk &lt;dbl&gt; 4.1, 2.4, 6.3, 2.9, 1.2, 6.5, 6.6, 5.9, 5.9, 5.2, 6…"
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#walkthrough",
+    "href": "labs/lab-02-visualize.html#walkthrough",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Walkthrough",
+    "text": "Walkthrough\nA histogram — the shape of a numeric variable\nToday’s lecture was about summarizing numeric variables. A histogram is the picture version:\n\nggplot(prisoners, aes(x = age)) +\n  geom_histogram(binwidth = 5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Age distribution of incarcerated persons\",\n       x = \"Age (years)\", y = \"Count\")\n\n\n\n\n\n\n\nAnatomy of every ggplot: data (prisoners), aesthetics (aes(x = age) — which variables map to which visual channels), and geometry (geom_histogram() — how to draw them).\nHow does the picture relate to the numbers?\n\nprisoners |&gt;\n  summarize(mean_age = mean(age), median_age = median(age), sd_age = sd(age))\n\n# A tibble: 1 × 3\n  mean_age median_age sd_age\n     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1     34.5         34   10.2\n\n\nA bar chart — counts of a categorical variable\n\nggplot(prisoners, aes(x = offense_type)) +\n  geom_bar(fill = \"steelblue\") +\n  labs(title = \"Offense types\", x = NULL, y = \"Count\")\n\n\n\n\n\n\n\nA boxplot — a distribution split by groups\n\nThe five-number-summary as a picture, one box per offense type:\n\nggplot(prisoners, aes(x = offense_type, y = sentence_years)) +\n  geom_boxplot(fill = \"grey90\") +\n  labs(title = \"Sentence length by offense type\",\n       x = NULL, y = \"Sentence (years)\")\n\n\n\n\n\n\n\nThe box is the middle 50% (median = the line inside); the dots are outliers — the same “one 30-year sentence” problem from lecture, visible instantly."
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#your-turn",
+    "href": "labs/lab-02-visualize.html#your-turn",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Your Turn",
+    "text": "Your Turn\nWork in your own script. Comment each answer.\n1. Make a histogram of sentence_years. Is it symmetric or skewed? Compute the mean and median — do they agree with what the picture shows? (Hint: today’s lecture.)\n\n# your code here\n\n2. Make a bar chart of education. Which category is most common (the mode)?\n\n# your code here\n\n3. Make a boxplot of age by offense_type. Which offense type has the most spread in age? Check yourself with sd():\n\n# your code here — for the numeric check:\n# prisoners |&gt; summarize(sd_age = sd(age), .by = offense_type)\n\n4. (Stretch) Add color = \"white\" inside your histogram’s geom_histogram() and change its binwidth. What changes? What binwidth seems most honest for sentence_years?"
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#exit-ticket",
+    "href": "labs/lab-02-visualize.html#exit-ticket",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Exit Ticket",
+    "text": "Exit Ticket\nSubmit a short R script to Canvas before you leave, containing:\n\nOne plot of your choice from today (code only is fine)\nA comment (2–3 sentences): what does the plot show, and which descriptive statistic (mean/median/SD) best summarizes it?\nA comment naming one thing from R4DS Ch. 1–2 or today’s lab that is still confusing"
+  },
+  {
+    "objectID": "homework/hw-05.html",
+    "href": "homework/hw-05.html",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "",
+    "text": "Instructions: complete the following exercises in a single .R script file. Include comments explaining your code and answers to any interpretive questions. Submit your .R file via Canvas for credit.\nThis homework uses the Alaska traffic-crash data from Lab 5 — 20,000 real-world-style crash incidents. Our research question: do crashes involving an intoxicated driver injure more people than crashes that don’t?"
+  },
+  {
+    "objectID": "homework/hw-05.html#part-1-import-and-clean",
+    "href": "homework/hw-05.html#part-1-import-and-clean",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Part 1: Import and Clean",
+    "text": "Part 1: Import and Clean\n\nImport the crash data directly from the web:\nlibrary(tidyverse)\ncrashes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/crash-ak.csv\")\nCheck what read_csv() guessed with spec() or glimpse(). One column that should be a date is not. Fix it using mdy() from lubridate (as in Lab 5), and verify your parse worked with sum(is.na(crashes$date)).\nCreate a year column from your parsed date and count crashes per year. In a comment: one year has almost no crashes — is that a data problem or something else? (Hint: check the latest date in the data with max().)"
+  },
+  {
+    "objectID": "homework/hw-05.html#part-2-point-estimates",
+    "href": "homework/hw-05.html#part-2-point-estimates",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Part 2: Point Estimates",
+    "text": "Part 2: Point Estimates\n\nCalculate the mean number of injuries separately for crashes with an intoxicated driver (intox_any == 1) and without (intox_any == 0). You can use the Lab 2 approach:\ncrashes |&gt; summarize(mean_injuries = mean(injuries), .by = intox_any)\nIn a comment: write down each mean. Which group has the higher average injury count? Remember what these numbers are — point estimates, not the final word."
+  },
+  {
+    "objectID": "homework/hw-05.html#part-3-standard-deviations",
+    "href": "homework/hw-05.html#part-3-standard-deviations",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Part 3: Standard Deviations",
+    "text": "Part 3: Standard Deviations\n\nCalculate the standard deviation of injuries for each group (add sd() to your summarize()).\nIn a comment: compare the variability. Which group’s injury counts vary more?"
+  },
+  {
+    "objectID": "homework/hw-05.html#part-4-visualize",
+    "href": "homework/hw-05.html#part-4-visualize",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Part 4: Visualize",
+    "text": "Part 4: Visualize\n\nCreate a boxplot of injuries for the two groups. Because intox_any is stored as 0/1, wrap it in factor():\nggplot(crashes, aes(x = factor(intox_any), y = injuries)) +\n  geom_boxplot()\nIn a comment: interpret the plot. Injury counts are small whole numbers, so the boxes look blocky — can you see a difference between the groups, or do you need inference to settle it?"
+  },
+  {
+    "objectID": "homework/hw-05.html#part-5-sampling-variability",
+    "href": "homework/hw-05.html#part-5-sampling-variability",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Part 5: Sampling Variability",
+    "text": "Part 5: Sampling Variability\n\nResample each group (with replacement, at its full size) 100 times and compute the distribution of differences in mean injuries (intoxicated − sober), as we did in class:\nset.seed(705)\nsober &lt;- crashes$injuries[crashes$intox_any == 0]\nintox &lt;- crashes$injuries[crashes$intox_any == 1]\n\nmean_diffs &lt;- replicate(100, {\n  mean(sample(intox, length(intox), replace = TRUE)) -\n    mean(sample(sober, length(sober), replace = TRUE))\n})\nPlot a histogram of mean_diffs and compute quantile(mean_diffs, c(0.025, 0.975)).\nIn a comment: what does the spread of the histogram suggest? Are the resampled differences consistently on one side of zero?"
+  },
+  {
+    "objectID": "homework/hw-05.html#part-6-confidence-interval-with-t.test",
+    "href": "homework/hw-05.html#part-6-confidence-interval-with-t.test",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Part 6: Confidence Interval with t.test()",
+    "text": "Part 6: Confidence Interval with t.test()\n\nRun a two-sample t-test comparing injuries across the two groups:\nt.test(injuries ~ intox_any, data = crashes)\nIn a comment: copy down the 95% confidence interval. Does it include 0? What does that tell us about the difference? (Careful with direction: R computes group 0 − group 1 here, so compare the sign against your Part 5 histogram.)"
+  },
+  {
+    "objectID": "homework/hw-05.html#part-7-a-proportion-for-practice",
+    "href": "homework/hw-05.html#part-7-a-proportion-for-practice",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Part 7: A Proportion, for Practice",
+    "text": "Part 7: A Proportion, for Practice\n\nCompute a 95% confidence interval for the proportion of all crashes that involve an intoxicated driver:\nprop.test(sum(crashes$intox_any), n = nrow(crashes))\nIn a comment: report the interval in one defensible sentence — one that would survive the “Saying It Out Loud” slide from class."
+  },
+  {
+    "objectID": "homework/hw-05.html#wrap-up-questions-answer-in-comments",
+    "href": "homework/hw-05.html#wrap-up-questions-answer-in-comments",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "Wrap-Up Questions (answer in comments)",
+    "text": "Wrap-Up Questions (answer in comments)\n\nHow does the confidence interval help us make an inference about the population of Alaska crashes, when we only ever see a sample?\nWhat would happen to the width of the CI if we doubled the sample size? Why?\nHow does this example compare to John Snow’s inference about the cholera pumps?"
+  },
+  {
+    "objectID": "homework/hw-03.html",
+    "href": "homework/hw-03.html",
+    "title": "Homework 3 · Probability and Conditional Thinking",
+    "section": "",
+    "text": "Instructions: complete the following exercises in a single .R script file. Include comments explaining your code and answers to any interpretive questions. Submit your .R file via Canvas for credit.\nParts 1–3 use the built-in mtcars dataset (type mtcars in the console — it’s always available, no loading needed)."
+  },
+  {
+    "objectID": "homework/hw-03.html#part-1-contingency-tables",
+    "href": "homework/hw-03.html#part-1-contingency-tables",
+    "title": "Homework 3 · Probability and Conditional Thinking",
+    "section": "Part 1: Contingency Tables",
+    "text": "Part 1: Contingency Tables\n\nCreate a contingency table of mtcars showing the number of cars by number of cylinders (cyl) and number of gears (gear). Use either the classic table(mtcars$cyl, mtcars$gear) or the tidyverse route from Lab 3:\nlibrary(tidyverse)\nmtcars |&gt;\n  count(cyl, gear) |&gt;\n  pivot_wider(names_from = gear, values_from = n)\nHow many cars have 4 cylinders and 4 gears?\nWhat is the probability that a randomly selected car (out of all 32) has both 4 gears and 6 cylinders? (This is a joint probability — divide the cell count by the grand total, not by a row or column total.)\nWhat is the probability that a randomly selected car has 6 cylinders? (A marginal probability.)"
+  },
+  {
+    "objectID": "homework/hw-03.html#part-2-conditional-probability",
+    "href": "homework/hw-03.html#part-2-conditional-probability",
+    "title": "Homework 3 · Probability and Conditional Thinking",
+    "section": "Part 2: Conditional Probability",
+    "text": "Part 2: Conditional Probability\n\nWhat is the conditional probability that a car has 6 cylinders given that it has 4 gears? Compute it in R (not by eye) — e.g., filter() to the condition and take a proportion, or divide the right counts.\nInterpretation (in a comment): your answers to Q3 and Q5 use the same cell of the table but give different numbers. Explain in one or two sentences why — what changed between the two questions?"
+  },
+  {
+    "objectID": "homework/hw-03.html#part-3-visualizing-distributions",
+    "href": "homework/hw-03.html#part-3-visualizing-distributions",
+    "title": "Homework 3 · Probability and Conditional Thinking",
+    "section": "Part 3: Visualizing Distributions",
+    "text": "Part 3: Visualizing Distributions\n\nCreate a bar plot showing the distribution of cylinders.\nCreate a bar plot showing the distribution of gears.\nCreate a grouped bar plot of the number of cars by cyl and gear. You may use ggplot (geom_bar(position = \"dodge\") — remember to make the grouping variable a factor) or base R’s barplot(..., beside = TRUE) — your choice."
+  },
+  {
+    "objectID": "homework/hw-03.html#part-4-real-data-new-this-year",
+    "href": "homework/hw-03.html#part-4-real-data-new-this-year",
+    "title": "Homework 3 · Probability and Conditional Thinking",
+    "section": "Part 4: Real Data (new this year)",
+    "text": "Part 4: Real Data (new this year)\n\nLoad the course anchor data:\nlibrary(tidyverse)\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\nCompute the marginal probability that an incident ended in arrest: P(arrest). (Hint: arrest is logical, and mean() of a logical is a proportion.)\nCompute the conditional probability of arrest given each crime category: P(arrest | Violent), P(arrest | Property), P(arrest | Other). (Hint: summarize() with .by = crime_category.)\nCompute P(arrest | domestic == TRUE) and compare it to your overall P(arrest) from Q11.\nInterpretation (in a comment): based on Q12 and Q13 — which variable (crime_category or domestic) is closer to independent of arrest in these data, and how can you tell? Use the definition from lecture: A and B are independent when P(A | B) = P(A)."
   },
   {
     "objectID": "chicago-data.html",
@@ -574,46 +1001,144 @@
     "text": "Part 4: Real Data (new this year)\n\nLoad the course anchor data:\nlibrary(tidyverse)\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\")\nCompute the mean, median, and standard deviation of violent_rate (violent crimes per 1,000 residents across Chicago’s 77 community areas).\nMake a histogram of violent_rate.\nInterpretation (in a comment): based on the mean-vs-median comparison and the histogram’s shape, is violent_rate symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?"
   },
   {
-    "objectID": "labs/lab-02-visualize.html",
-    "href": "labs/lab-02-visualize.html",
-    "title": "Lab 2 · First Plots with ggplot2",
+    "objectID": "homework/hw-04.html",
+    "href": "homework/hw-04.html",
+    "title": "Homework 4 · Sampling and Sampling Distributions",
     "section": "",
-    "text": "Goal: make your first plots in R and connect them to today’s descriptive statistics. This lab assumes you’ve read R4DS Ch. 1 (Data visualization) and Ch. 2 (Workflow: basics).\nHow labs work: run the Setup chunk as-is, follow the Walkthrough along with me, then complete the Your Turn tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave."
+    "text": "Instructions: complete the following exercises in a single .R script file. Include comments explaining your code and answers to any interpretive questions. Submit your .R file via Canvas for credit.\nStart your script with:"
   },
   {
-    "objectID": "labs/lab-02-visualize.html#setup",
-    "href": "labs/lab-02-visualize.html#setup",
-    "title": "Lab 2 · First Plots with ggplot2",
+    "objectID": "homework/hw-04.html#part-1-understanding-the-population",
+    "href": "homework/hw-04.html#part-1-understanding-the-population",
+    "title": "Homework 4 · Sampling and Sampling Distributions",
+    "section": "Part 1: Understanding the Population",
+    "text": "Part 1: Understanding the Population\n\nMake a histogram of the score column. Describe the general shape of the distribution in a comment.\nCalculate the mean, median, and standard deviation of score."
+  },
+  {
+    "objectID": "homework/hw-04.html#part-2-sampling-from-the-population",
+    "href": "homework/hw-04.html#part-2-sampling-from-the-population",
+    "title": "Homework 4 · Sampling and Sampling Distributions",
+    "section": "Part 2: Sampling from the Population",
+    "text": "Part 2: Sampling from the Population\n\nDraw a random sample of size 30 from score, without replacement (that’s sample()’s default). Calculate the mean and standard deviation of the sample.\nRepeat Question 3 five times, recording the sample mean each time. (Copy-paste is fine; replicate(5, mean(sample(scores$score, size = 30))) is nicer.) How much do the five means vary?\nInterpretation (in a comment): compare your sample means to the population mean. Why are they close but not identical?"
+  },
+  {
+    "objectID": "homework/hw-04.html#part-3-sampling-from-unknown-distributions",
+    "href": "homework/hw-04.html#part-3-sampling-from-unknown-distributions",
+    "title": "Homework 4 · Sampling and Sampling Distributions",
+    "section": "Part 3: Sampling from Unknown Distributions",
+    "text": "Part 3: Sampling from Unknown Distributions\n\nImagine you did not know the population distribution. Draw one new sample of size 30, make a histogram of it, and describe in a comment what type of distribution the sample appears to come from.\nInterpretation (in a comment): could your sample lead you to believe the population has a different shape than it really does? Explain."
+  },
+  {
+    "objectID": "homework/hw-04.html#part-4-build-a-sampling-distribution-new-this-year",
+    "href": "homework/hw-04.html#part-4-build-a-sampling-distribution-new-this-year",
+    "title": "Homework 4 · Sampling and Sampling Distributions",
+    "section": "Part 4: Build a Sampling Distribution (new this year)",
+    "text": "Part 4: Build a Sampling Distribution (new this year)\n\nDraw 500 samples of size 30 and keep each sample’s mean. Two equivalent options — use either:\nmany_means &lt;- replicate(500, mean(sample(scores$score, size = 30)))\n\n# or, tidyverse-style, as in the Session 4 slides:\nmany_means &lt;- tibble(draw = 1:500) |&gt;\n  mutate(mean_score = map_dbl(draw, \\(d) mean(sample(scores$score, size = 30))))\nMake a histogram of the 500 sample means. In a comment: how does its shape and spread compare to the histogram of raw scores from Part 1?\nCompute the standard deviation of your 500 sample means, and compare it to the formula for the standard error, sd(scores$score) / sqrt(30). How close are they? What is this quantity called?"
+  },
+  {
+    "objectID": "homework/hw-04.html#part-5-real-data-the-clt-with-chicago-arrests-new-this-year",
+    "href": "homework/hw-04.html#part-5-real-data-the-clt-with-chicago-arrests-new-this-year",
+    "title": "Homework 4 · Sampling and Sampling Distributions",
+    "section": "Part 5: Real Data — The CLT with Chicago Arrests (new this year)",
+    "text": "Part 5: Real Data — The CLT with Chicago Arrests (new this year)\n\nLoad the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your population:\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\nmean(crimes$arrest)\nSimulate an analyst who can only pull 100 case files at a time: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.\nInterpretation (in a comment): each individual incident’s arrest value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of sample proportions have, and what theorem from Session 4 explains that?"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "",
+    "text": "Wednesdays, 5:50–8:35 pm · Currell 204 · Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu\nStatistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both traditional (frequentist) and Bayesian approaches to statistical reasoning, with all analysis done in R.\nEverything for the course lives on this site:"
+  },
+  {
+    "objectID": "index.html#textbooks",
+    "href": "index.html#textbooks",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "Textbooks",
+    "text": "Textbooks\n\nStanton, Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R (required)\nWickham, Çetinkaya-Rundel & Grolemund, R for Data Science (2nd edition) — free online (assigned readings woven through the first half of the course)"
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "Getting started",
+    "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
+  },
+  {
+    "objectID": "labs/lab-03-transform.html",
+    "href": "labs/lab-03-transform.html",
+    "title": "Lab 3 · Data Transformation with dplyr",
+    "section": "",
+    "text": "Goal: learn the five dplyr verbs you’ll use in nearly every analysis this semester — filter(), arrange(), mutate(), summarize(), and count() — and use them to compute the probabilities from today’s lecture on real-looking neighborhood data. This lab assumes you’ve read R4DS Ch. 3 (Data transformation) and Ch. 4 (Workflow: code style).\nHow labs work: run the Setup chunk as-is, follow the Walkthrough along with me, then complete the Your Turn tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave."
+  },
+  {
+    "objectID": "labs/lab-03-transform.html#setup",
+    "href": "labs/lab-03-transform.html#setup",
+    "title": "Lab 3 · Data Transformation with dplyr",
     "section": "Setup",
-    "text": "Setup\nOpen RStudio, start a new R script, and run:\n\nlibrary(tidyverse)\n\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\nprisoners holds records for 300 incarcerated persons (simulated, but realistic): demographics, offense type, sentence, and well-being measures. Look at it first — always look at your data first:\n\nglimpse(prisoners)\n\nRows: 300\nColumns: 14\n$ prisoner_id        &lt;chr&gt; \"P0001\", \"P0002\", \"P0003\", \"P0004\", \"P0005\", \"P0006…\n$ facility           &lt;chr&gt; \"Central Unit\", \"River Unit\", \"River Unit\", \"Centra…\n$ housing_unit       &lt;chr&gt; \"HU-1\", \"HU-3\", \"HU-4\", \"HU-2\", \"HU-5\", \"HU-3\", \"HU…\n$ age                &lt;dbl&gt; 36, 51, 33, 38, 36, 35, 26, 30, 18, 23, 18, 18, 40,…\n$ gender             &lt;chr&gt; \"MALE\", \"Male\", \"Female\", \"Male\", \"Male\", \"Male\", \"…\n$ race               &lt;chr&gt; \"Black\", \"Black\", \"White\", \"White\", \"Black\", \"Black…\n$ education          &lt;chr&gt; \"Some College\", \"Less than HS\", \"HS/GED\", \"HS/GED\",…\n$ offense_type       &lt;chr&gt; \"Property\", \"Drug\", \"Property\", \"Drug\", \"Property\",…\n$ sentence_years     &lt;dbl&gt; 1.88, 4.34, 6.57, 1.58, 3.10, 19.91, 1.27, 3.05, 5.…\n$ months_served      &lt;dbl&gt; 23, 52, 79, 19, 37, 156, 15, 37, 68, 20, 49, 34, 8,…\n$ stress             &lt;dbl&gt; 5.4, 8.4, 4.4, 9.7, 2.8, 8.1, 5.0, 6.3, 4.7, 6.4, 8…\n$ depression         &lt;dbl&gt; 8.0, 3.8, 9.0, 1.7, 5.0, 5.1, 2.6, 5.4, 3.4, 6.7, 3…\n$ sleep_quality      &lt;dbl&gt; 1.1, 5.1, 4.6, 3.2, 3.7, 7.7, 4.2, 4.5, 3.8, 4.5, 6…\n$ substance_use_risk &lt;dbl&gt; 4.1, 2.4, 6.3, 2.9, 1.2, 6.5, 6.6, 5.9, 5.9, 5.2, 6…"
+    "text": "Setup\nOpen RStudio, start a new R script, and run:\n\nlibrary(tidyverse)\n\nnbhd &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/neighborhoods.csv\")\n\nnbhd holds 500 neighborhoods (simulated, but realistic): which high school is nearest, whether the neighborhood is historic or has an HOA, poverty and unemployment rates, an observed disorder level, and the count of assaults last year. Look at it first — always look at your data first:\n\nglimpse(nbhd)\n\nRows: 500\nColumns: 8\n$ nbhd_id           &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…\n$ nearest_school    &lt;chr&gt; \"North HS\", \"North HS\", \"Charter Academy\", \"East HS\"…\n$ historic          &lt;chr&gt; \"No\", \"No\", \"No\", \"Yes\", \"No\", \"No\", \"No\", \"Yes\", \"N…\n$ hoa               &lt;chr&gt; \"No\", \"No\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"Yes\", …\n$ poverty_rate      &lt;dbl&gt; 0.08405944, 0.37753951, 0.25401241, 0.27018472, 0.35…\n$ unemployment_rate &lt;dbl&gt; 0.18197853, 0.52985269, 0.27713970, 0.25442789, 0.23…\n$ disorder_level    &lt;chr&gt; \"Moderate\", \"Very High\", \"Moderate\", \"Moderate\", \"Mo…\n$ assaults          &lt;dbl&gt; 0, 5, 3, 2, 4, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0…"
   },
   {
-    "objectID": "labs/lab-02-visualize.html#walkthrough",
-    "href": "labs/lab-02-visualize.html#walkthrough",
-    "title": "Lab 2 · First Plots with ggplot2",
+    "objectID": "labs/lab-03-transform.html#walkthrough",
+    "href": "labs/lab-03-transform.html#walkthrough",
+    "title": "Lab 3 · Data Transformation with dplyr",
     "section": "Walkthrough",
-    "text": "Walkthrough\nA histogram — the shape of a numeric variable\nToday’s lecture was about summarizing numeric variables. A histogram is the picture version:\n\nggplot(prisoners, aes(x = age)) +\n  geom_histogram(binwidth = 5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Age distribution of incarcerated persons\",\n       x = \"Age (years)\", y = \"Count\")\n\n\n\n\n\n\n\nAnatomy of every ggplot: data (prisoners), aesthetics (aes(x = age) — which variables map to which visual channels), and geometry (geom_histogram() — how to draw them).\nHow does the picture relate to the numbers?\n\nprisoners |&gt;\n  summarize(mean_age = mean(age), median_age = median(age), sd_age = sd(age))\n\n# A tibble: 1 × 3\n  mean_age median_age sd_age\n     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1     34.5         34   10.2\n\n\nA bar chart — counts of a categorical variable\n\nggplot(prisoners, aes(x = offense_type)) +\n  geom_bar(fill = \"steelblue\") +\n  labs(title = \"Offense types\", x = NULL, y = \"Count\")\n\n\n\n\n\n\n\nA boxplot — a distribution split by groups\n\nThe five-number-summary as a picture, one box per offense type:\n\nggplot(prisoners, aes(x = offense_type, y = sentence_years)) +\n  geom_boxplot(fill = \"grey90\") +\n  labs(title = \"Sentence length by offense type\",\n       x = NULL, y = \"Sentence (years)\")\n\n\n\n\n\n\n\nThe box is the middle 50% (median = the line inside); the dots are outliers — the same “one 30-year sentence” problem from lecture, visible instantly."
+    "text": "Walkthrough\nfilter() — keep the rows you care about\nfilter() keeps rows where a condition is TRUE:\n\nnbhd |&gt;\n  filter(disorder_level == \"Very High\")\n\n# A tibble: 24 × 8\n   nbhd_id nearest_school  historic hoa   poverty_rate unemployment_rate\n     &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;             &lt;dbl&gt;\n 1       2 North HS        No       No           0.378             0.530\n 2      71 Central HS      No       Yes          0.494             0.247\n 3      85 North HS        No       Yes          0.452             0.382\n 4      88 Charter Academy No       Yes          0.326             0.460\n 5      98 North HS        No       No           0.594             0.629\n 6     115 Charter Academy No       No           0.363             0.352\n 7     127 East HS         No       Yes          0.671             0.412\n 8     130 North HS        No       No           0.675             0.468\n 9     132 North HS        Yes      Yes          0.728             0.307\n10     140 Central HS      No       Yes          0.518             0.517\n# ℹ 14 more rows\n# ℹ 2 more variables: disorder_level &lt;chr&gt;, assaults &lt;dbl&gt;\n\n\nConditions can stack — a comma means and:\n\nnbhd |&gt;\n  filter(poverty_rate &gt; 0.30, historic == \"Yes\")\n\n# A tibble: 43 × 8\n   nbhd_id nearest_school  historic hoa   poverty_rate unemployment_rate\n     &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt;             &lt;dbl&gt;\n 1      14 North HS        Yes      No           0.377             0.207\n 2      16 East HS         Yes      No           0.582             0.245\n 3      24 Charter Academy Yes      No           0.681             0.412\n 4      25 East HS         Yes      Yes          0.348             0.293\n 5      27 North HS        Yes      No           0.367             0.306\n 6      40 East HS         Yes      No           0.521             0.256\n 7      50 East HS         Yes      Yes          0.524             0.305\n 8      54 West HS         Yes      No           0.371             0.264\n 9      56 Charter Academy Yes      No           0.388             0.292\n10      63 West HS         Yes      No           0.343             0.163\n# ℹ 33 more rows\n# ℹ 2 more variables: disorder_level &lt;chr&gt;, assaults &lt;dbl&gt;\n\n\nAnd %in% matches any of several values:\n\nnbhd |&gt;\n  filter(disorder_level %in% c(\"High\", \"Very High\")) |&gt;\n  nrow()\n\n[1] 118\n\n\narrange() — sort the rows\nWhich neighborhoods had the most assaults? arrange() sorts; desc() flips to descending:\n\nnbhd |&gt;\n  arrange(desc(assaults)) |&gt;\n  select(nbhd_id, disorder_level, poverty_rate, assaults) |&gt;\n  head(5)\n\n# A tibble: 5 × 4\n  nbhd_id disorder_level poverty_rate assaults\n    &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;\n1      53 Moderate              0.426        7\n2      98 Very High             0.594        7\n3      54 High                  0.371        6\n4      83 Moderate              0.480        6\n5      95 Moderate              0.692        6\n\n\nmutate() — make new columns\nmutate() adds columns computed from existing ones:\n\nnbhd &lt;- nbhd |&gt;\n  mutate(\n    poverty_pct   = poverty_rate * 100,\n    high_disorder = disorder_level %in% c(\"High\", \"Very High\")\n  )\n\nnbhd |&gt; select(nbhd_id, poverty_pct, disorder_level, high_disorder) |&gt; head(4)\n\n# A tibble: 4 × 4\n  nbhd_id poverty_pct disorder_level high_disorder\n    &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;          &lt;lgl&gt;        \n1       1        8.41 Moderate       FALSE        \n2       2       37.8  Very High      TRUE         \n3       3       25.4  Moderate       FALSE        \n4       4       27.0  Moderate       FALSE        \n\n\nNote we assigned the result back to nbhd — pipelines don’t change the data unless you save them.\nsummarize() with .by — one row per group\nsummarize() collapses many rows into summaries; .by = does it per group:\n\nnbhd |&gt;\n  summarize(\n    mean_assaults = mean(assaults),\n    mean_poverty  = mean(poverty_rate),\n    n             = n(),\n    .by = disorder_level\n  )\n\n# A tibble: 4 × 4\n  disorder_level mean_assaults mean_poverty     n\n  &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt; &lt;int&gt;\n1 Moderate               1.04         0.273   255\n2 Very High              2.21         0.534    24\n3 Low                    0.528        0.143   127\n4 High                   1.62         0.410    94\n\n\nAssaults and poverty both climb with observed disorder — one pipeline, four verbs of vocabulary from lecture.\ncount() — the fast path to contingency tables\ncount() is a shortcut for grouped counting, and it’s how we built every probability in lecture:\n\nnbhd |&gt; count(disorder_level)\n\n# A tibble: 4 × 2\n  disorder_level     n\n  &lt;chr&gt;          &lt;int&gt;\n1 High              94\n2 Low              127\n3 Moderate         255\n4 Very High         24\n\n\nTwo variables gives the long form of a contingency table; pivot_wider() makes it look like the lecture tables:\n\nnbhd |&gt;\n  count(historic, high_disorder) |&gt;\n  pivot_wider(names_from = high_disorder, values_from = n)\n\n# A tibble: 2 × 3\n  historic `FALSE` `TRUE`\n  &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;\n1 No           303     99\n2 Yes           79     19\n\n\nAnd dividing by sum(n) turns counts into probabilities. Marginal:\n\nnbhd |&gt; count(high_disorder) |&gt; mutate(p = n / sum(n))\n\n# A tibble: 2 × 3\n  high_disorder     n     p\n  &lt;lgl&gt;         &lt;int&gt; &lt;dbl&gt;\n1 FALSE           382 0.764\n2 TRUE            118 0.236\n\n\nConditional — filter to the condition, then take the proportion (the lecture’s renormalization move):\n\nnbhd |&gt;\n  filter(historic == \"Yes\") |&gt;\n  summarize(p_high_given_historic = mean(high_disorder))\n\n# A tibble: 1 × 1\n  p_high_given_historic\n                  &lt;dbl&gt;\n1                 0.194\n\n\nCompare that to the marginal P(high disorder) above — does knowing a neighborhood is historic change the probability much?\nCode style — 30 seconds that save hours\nFrom R4DS Ch. 4, the habits I will nag you about all semester:\n\nSpaces around &lt;-, =, and after commas: mean_x = mean(x), not mean_x=mean(x)\n\nAfter a pipe |&gt;, put the next verb on a new line, indented two spaces\nNames: lowercase, words separated by _ (high_disorder, not HighDisorder or hd2)\nComments explain why, code shows what\n\n\nYour future self is your most frequent collaborator. Be kind to them."
   },
   {
-    "objectID": "labs/lab-02-visualize.html#your-turn",
-    "href": "labs/lab-02-visualize.html#your-turn",
-    "title": "Lab 2 · First Plots with ggplot2",
+    "objectID": "labs/lab-03-transform.html#your-turn",
+    "href": "labs/lab-03-transform.html#your-turn",
+    "title": "Lab 3 · Data Transformation with dplyr",
     "section": "Your Turn",
-    "text": "Your Turn\nWork in your own script. Comment each answer.\n1. Make a histogram of sentence_years. Is it symmetric or skewed? Compute the mean and median — do they agree with what the picture shows? (Hint: today’s lecture.)\n\n# your code here\n\n2. Make a bar chart of education. Which category is most common (the mode)?\n\n# your code here\n\n3. Make a boxplot of age by offense_type. Which offense type has the most spread in age? Check yourself with sd():\n\n# your code here — for the numeric check:\n# prisoners |&gt; summarize(sd_age = sd(age), .by = offense_type)\n\n4. (Stretch) Add color = \"white\" inside your histogram’s geom_histogram() and change its binwidth. What changes? What binwidth seems most honest for sentence_years?"
+    "text": "Your Turn\nWork in your own script. Comment each answer.\n1. Use filter() to find neighborhoods with an HOA (hoa == \"Yes\") that had 3 or more assaults. How many are there? (Hint: pipe into nrow() or look at the tibble header.)\n\n# your code here\n\n2. Use arrange() to find the 5 poorest neighborhoods (highest poverty_rate). What disorder levels do they have?\n\n# your code here\n\n3. Use mutate() to create unemp_pct (unemployment as a percentage), then summarize() with .by = disorder_level to get its mean per disorder level. Describe the pattern in a comment.\n\n# your code here\n\n4. Probability, lecture-style: using count() and/or filter() + mean(), compute a. the marginal probability that a randomly chosen neighborhood is disorder_level == \"Very High\", and b. the conditional probability of “Very High” given historic == \"Yes\" versus given historic == \"No\". In a comment: do historic and very-high disorder look closer to dependent or independent here?\n\n# your code here\n\n5. (Stretch — the factory-accidents exercise from class, now in dplyr.) Run this chunk to build the accident data, then answer the in-class worksheet questions in code: total accidents per factory (which is worst?), the most common accident type overall, and P(Equipment accident | factory) for each of the three factories.\n\naccidents &lt;- tribble(\n  ~type,       ~factory,   ~n,\n  \"Vehicle\",   \"Factory1\",  0,\n  \"Vehicle\",   \"Factory2\",  6,\n  \"Vehicle\",   \"Factory3\",  4,\n  \"Spill\",     \"Factory1\",  6,\n  \"Spill\",     \"Factory2\",  0,\n  \"Spill\",     \"Factory3\",  6,\n  \"Equipment\", \"Factory1\",  6,\n  \"Equipment\", \"Factory2\",  4,\n  \"Equipment\", \"Factory3\",  5,\n  \"Injury\",    \"Factory1\",  4,\n  \"Injury\",    \"Factory2\",  9,\n  \"Injury\",    \"Factory3\",  0\n)\n# your code here — hints: summarize(sum(n), .by = ...), then\n# join or filter to get Equipment's share of each factory's total"
   },
   {
-    "objectID": "labs/lab-02-visualize.html#exit-ticket",
-    "href": "labs/lab-02-visualize.html#exit-ticket",
-    "title": "Lab 2 · First Plots with ggplot2",
+    "objectID": "labs/lab-03-transform.html#exit-ticket",
+    "href": "labs/lab-03-transform.html#exit-ticket",
+    "title": "Lab 3 · Data Transformation with dplyr",
     "section": "Exit Ticket",
-    "text": "Exit Ticket\nSubmit a short R script to Canvas before you leave, containing:\n\nOne plot of your choice from today (code only is fine)\nA comment (2–3 sentences): what does the plot show, and which descriptive statistic (mean/median/SD) best summarizes it?\nA comment naming one thing from R4DS Ch. 1–2 or today’s lab that is still confusing"
+    "text": "Exit Ticket\nSubmit a short R script to Canvas before you leave, containing:\n\nOne pipeline from today that uses at least two dplyr verbs (code only is fine)\nA comment (2–3 sentences): one marginal and one conditional probability you computed today, in plain English (e.g., “16% of all neighborhoods are X, but among historic neighborhoods it’s Y%”)\nA comment naming one thing from R4DS Ch. 3–4 or today’s lab that is still confusing"
+  },
+  {
+    "objectID": "labs/lab-05-import.html",
+    "href": "labs/lab-05-import.html",
+    "title": "Lab 5 · Importing Real Data",
+    "section": "",
+    "text": "Goal: get real data into R correctly — from a CSV on the web and from a messier Excel file — and know what to do when the import goes sideways. This lab assumes you’ve read R4DS Ch. 7 (Data import) and Ch. 8 (Workflow: getting help).\nHow labs work: run the Setup chunk as-is, follow the Walkthrough along with me, then complete the Your Turn tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave."
+  },
+  {
+    "objectID": "labs/lab-05-import.html#setup",
+    "href": "labs/lab-05-import.html#setup",
+    "title": "Lab 5 · Importing Real Data",
+    "section": "Setup",
+    "text": "Setup\nOpen RStudio, start a new R script, and run:\n\nlibrary(tidyverse)\nlibrary(readxl)\n\ncrashes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/crash-ak.csv\")\n\ncrashes holds 20,000 Alaska traffic-crash incidents (simulated, but realistic): when and where each crash happened, causes, severity, injuries, driver characteristics, and intoxication flags. As always — look at it first:\n\nglimpse(crashes)\n\nRows: 20,000\nColumns: 25\n$ incident_id     &lt;chr&gt; \"AK340354\", \"AK991668\", \"AK050345\", \"AK336884\", \"AK873…\n$ date            &lt;chr&gt; \"02/20/2023\", \"04/09/2023\", \"06/29/2022\", \"06/11/2023\"…\n$ time            &lt;time&gt; 02:12:34, 17:56:02, 17:36:39, 00:21:50, 21:14:18, 02:…\n$ county          &lt;chr&gt; \"Anchorage\", \"Matanuska-Susitna\", \"Bethel\", \"Fairbanks…\n$ latitude        &lt;dbl&gt; 58.06860, 58.75863, 58.44418, 60.19892, 57.78133, 56.4…\n$ longitude       &lt;dbl&gt; -148.1293, -140.4515, -132.4827, -132.8759, -169.3963,…\n$ num_vehicles    &lt;dbl&gt; 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, …\n$ occupants       &lt;dbl&gt; 5, 4, 6, 8, 3, 8, 5, 3, 1, 4, 6, 3, 3, 6, 3, 2, 4, 3, …\n$ primary_cause   &lt;chr&gt; \"road_defect\", \"wildlife\", \"weather\", \"impaired\", \"fat…\n$ secondary_cause &lt;chr&gt; \"speeding\", \"weather\", \"impaired\", NA, \"fatigue\", NA, …\n$ severity        &lt;dbl&gt; 1, 1, 2, 1, 1, 3, 3, 1, 3, 3, 1, 3, 1, 3, 3, 2, 3, 1, …\n$ injuries        &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 4, 0, 1, 2, 0, 2, 0, 3, 2, 2, 1, 0, …\n$ fatalities      &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ road_condition  &lt;chr&gt; \"normal\", \"normal\", \"normal\", \"normal\", \"normal\", \"icy…\n$ driver_age      &lt;dbl&gt; 34, 39, 16, 48, 52, 27, 25, 73, 35, 46, 42, 30, 37, 58…\n$ driver_gender   &lt;chr&gt; \"Female\", \"Male\", \"Male\", \"Female\", \"Female\", \"Male\", …\n$ intox_alcohol   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ intox_drugs     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, …\n$ intox_any       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, …\n$ vehicle1_make   &lt;chr&gt; \"Chevrolet\", \"Toyota\", \"Dodge\", \"Chevrolet\", \"Hyundai\"…\n$ vehicle1_model  &lt;chr&gt; \"Silverado\", \"RAV4\", \"Charger\", \"Silverado\", \"Tucson\",…\n$ vehicle1_year   &lt;dbl&gt; 2010, 2008, 2017, 2002, 2014, 2019, 2014, 2012, 2014, …\n$ vehicle2_make   &lt;chr&gt; \"Hyundai\", \"Ram\", \"Hyundai\", \"Subaru\", NA, \"Jeep\", \"Je…\n$ vehicle2_model  &lt;chr&gt; \"Tucson\", \"1500\", \"Tucson\", \"Outback\", NA, \"Grand Cher…\n$ vehicle2_year   &lt;dbl&gt; 2007, 2011, 2011, 2008, NA, 2011, 2006, 2012, NA, 2018…"
+  },
+  {
+    "objectID": "labs/lab-05-import.html#walkthrough",
+    "href": "labs/lab-05-import.html#walkthrough",
+    "title": "Lab 5 · Importing Real Data",
+    "section": "Walkthrough",
+    "text": "Walkthrough\nWhat did read_csv() decide for us?\nread_csv() guessed a type for every column. See its guesses with spec():\n\nspec(crashes)\n\ncols(\n  incident_id = col_character(),\n  date = col_character(),\n  time = col_time(format = \"\"),\n  county = col_character(),\n  latitude = col_double(),\n  longitude = col_double(),\n  num_vehicles = col_double(),\n  occupants = col_double(),\n  primary_cause = col_character(),\n  secondary_cause = col_character(),\n  severity = col_double(),\n  injuries = col_double(),\n  fatalities = col_double(),\n  road_condition = col_character(),\n  driver_age = col_double(),\n  driver_gender = col_character(),\n  intox_alcohol = col_double(),\n  intox_drugs = col_double(),\n  intox_any = col_double(),\n  vehicle1_make = col_character(),\n  vehicle1_model = col_character(),\n  vehicle1_year = col_double(),\n  vehicle2_make = col_character(),\n  vehicle2_model = col_character(),\n  vehicle2_year = col_double()\n)\n\n\nMostly sensible — but look at date: it’s col_character(). The file stores dates as \"02/20/2023\" (MM/DD/YYYY), and readr only auto-detects ISO-style dates (2023-02-20). Right now R thinks our dates are just text — you can’t sort them chronologically, subtract them, or extract a year.\nThe lesson: never assume the import worked. Check the types.\nTelling read_csv() what you want: col_types\n\nYou can hand read_csv() an explicit specification instead of letting it guess. What happens if we naively declare date a date column?\n\ncrashes_bad &lt;- read_csv(\n  \"https://smourtgos.github.io/crju705/data/crash-ak.csv\",\n  col_types = cols(date = col_date())\n)\n\nWarning: One or more parsing issues, call `problems()` on your data frame for details,\ne.g.:\n  dat &lt;- vroom(...)\n  problems(dat)\n\n\nreadr warns us — and problems() shows exactly what went wrong, row by row:\n\nproblems(crashes_bad)\n\n# A tibble: 20,000 × 5\n     row   col expected        actual     file \n   &lt;int&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt;\n 1     2     2 date in ISO8601 02/20/2023 \"\"   \n 2     3     2 date in ISO8601 04/09/2023 \"\"   \n 3     4     2 date in ISO8601 06/29/2022 \"\"   \n 4     5     2 date in ISO8601 06/11/2023 \"\"   \n 5     6     2 date in ISO8601 07/15/2022 \"\"   \n 6     7     2 date in ISO8601 07/27/2024 \"\"   \n 7     8     2 date in ISO8601 02/16/2025 \"\"   \n 8     9     2 date in ISO8601 08/16/2025 \"\"   \n 9    10     2 date in ISO8601 06/07/2025 \"\"   \n10    11     2 date in ISO8601 06/22/2025 \"\"   \n# ℹ 19,990 more rows\n\n\nEvery row “failed to parse”: col_date() expected ISO format and got \"02/20/2023\", so the whole column became NA. Two fixes:\nFix 1 — tell readr the format up front:\n\ncrashes_fixed &lt;- read_csv(\n  \"https://smourtgos.github.io/crju705/data/crash-ak.csv\",\n  col_types = cols(date = col_date(format = \"%m/%d/%Y\"))\n)\ncrashes_fixed |&gt; select(incident_id, date) |&gt; head(3)\n\n# A tibble: 3 × 2\n  incident_id date      \n  &lt;chr&gt;       &lt;date&gt;    \n1 AK340354    2023-02-20\n2 AK991668    2023-04-09\n3 AK050345    2022-06-29\n\n\nFix 2 — import as text, then parse with lubridate. This is my everyday habit, because lubridate’s helpers are nearly unbreakable: name the function after the order of the components — mdy() for month/day/year, dmy() for day/month/year, ymd() for year/month/day:\n\ncrashes &lt;- crashes |&gt;\n  mutate(date = mdy(date))\n\ncrashes |&gt; select(incident_id, date, time) |&gt; head(3)\n\n# A tibble: 3 × 3\n  incident_id date       time    \n  &lt;chr&gt;       &lt;date&gt;     &lt;time&gt;  \n1 AK340354    2023-02-20 02:12:34\n2 AK991668    2023-04-09 17:56:02\n3 AK050345    2022-06-29 17:36:39\n\n\nNow date is a real date. Real dates unlock real questions:\n\ncrashes |&gt;\n  mutate(year = year(date)) |&gt;\n  count(year)\n\n# A tibble: 5 × 2\n   year     n\n  &lt;dbl&gt; &lt;int&gt;\n1  2022  4960\n2  2023  4972\n3  2024  5064\n4  2025  4996\n5  2026     8\n\n\nAlways confirm a date parse did what you think: check sum(is.na(...)) after parsing. Zero new NAs means every value parsed.\n\nsum(is.na(crashes$date))\n\n[1] 0\n\n\nChecking names (no packages required)\nBefore analyzing, glance at the column names:\n\nnames(crashes)\n\n [1] \"incident_id\"     \"date\"            \"time\"            \"county\"         \n [5] \"latitude\"        \"longitude\"       \"num_vehicles\"    \"occupants\"      \n [9] \"primary_cause\"   \"secondary_cause\" \"severity\"        \"injuries\"       \n[13] \"fatalities\"      \"road_condition\"  \"driver_age\"      \"driver_gender\"  \n[17] \"intox_alcohol\"   \"intox_drugs\"     \"intox_any\"       \"vehicle1_make\"  \n[21] \"vehicle1_model\"  \"vehicle1_year\"   \"vehicle2_make\"   \"vehicle2_model\" \n[25] \"vehicle2_year\"  \n\n\nThese are already clean: lowercase, no spaces, words separated by underscores — so you never need backticks. When you import data from the wild, look for the troublemakers: spaces (Driver Age), capitals, punctuation (Injuries?), or the dead giveaway ...1 — readr/readxl’s placeholder name for a column with no header at all. You’re about to meet one.\nThe messier cousin: Excel\nThe same crash data also circulates as an Excel file — as agency data usually does. read_excel() can’t read from a URL, so download the file first, then read it:\n\ndownload.file(\n  \"https://smourtgos.github.io/crju705/data/crash-ak.xlsx\",\n  \"crash-ak.xlsx\",\n  mode = \"wb\"   # \"write binary\" — required for Excel files, especially on Windows\n)\n\ncrashes_xl &lt;- read_excel(\"crash-ak.xlsx\")\n\n\nglimpse(crashes_xl)\n\nRows: 20,000\nColumns: 26\n$ ...1            &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,…\n$ incident_id     &lt;chr&gt; \"AK340354\", \"AK991668\", \"AK050345\", \"AK336884\", \"AK873…\n$ date            &lt;dttm&gt; 2023-02-20, 2023-04-09, 2022-06-29, 2023-06-11, 2022-…\n$ time            &lt;dttm&gt; 1899-12-31 02:12:34, 1899-12-31 17:56:02, 1899-12-31 …\n$ county          &lt;chr&gt; \"Anchorage\", \"Matanuska-Susitna\", \"Bethel\", \"Fairbanks…\n$ latitude        &lt;dbl&gt; 58.06860, 58.75863, 58.44418, 60.19892, 57.78133, 56.4…\n$ longitude       &lt;dbl&gt; -148.1293, -140.4515, -132.4827, -132.8759, -169.3963,…\n$ num_vehicles    &lt;dbl&gt; 2, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, …\n$ occupants       &lt;dbl&gt; 5, 4, 6, 8, 3, 8, 5, 3, 1, 4, 6, 3, 3, 6, 3, 2, 4, 3, …\n$ primary_cause   &lt;chr&gt; \"road_defect\", \"wildlife\", \"weather\", \"impaired\", \"fat…\n$ secondary_cause &lt;chr&gt; \"speeding\", \"weather\", \"impaired\", \"NA\", \"fatigue\", \"N…\n$ severity        &lt;dbl&gt; 1, 1, 2, 1, 1, 3, 3, 1, 3, 3, 1, 3, 1, 3, 3, 2, 3, 1, …\n$ injuries        &lt;dbl&gt; 0, 0, 0, 0, 1, 1, 4, 0, 1, 2, 0, 2, 0, 3, 2, 2, 1, 0, …\n$ fatalities      &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ road_condition  &lt;chr&gt; \"normal\", \"normal\", \"normal\", \"normal\", \"normal\", \"icy…\n$ driver_age      &lt;dbl&gt; 34, 39, 16, 48, 52, 27, 25, 73, 35, 46, 42, 30, 37, 58…\n$ driver_gender   &lt;chr&gt; \"Female\", \"Male\", \"Male\", \"Female\", \"Female\", \"Male\", …\n$ intox_alcohol   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …\n$ intox_drugs     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, …\n$ intox_any       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, …\n$ vehicle1_make   &lt;chr&gt; \"Chevrolet\", \"Toyota\", \"Dodge\", \"Chevrolet\", \"Hyundai\"…\n$ vehicle1_model  &lt;chr&gt; \"Silverado\", \"RAV4\", \"Charger\", \"Silverado\", \"Tucson\",…\n$ vehicle1_year   &lt;dbl&gt; 2010, 2008, 2017, 2002, 2014, 2019, 2014, 2012, 2014, …\n$ vehicle2_make   &lt;chr&gt; \"Hyundai\", \"Ram\", \"Hyundai\", \"Subaru\", \"NA\", \"Jeep\", \"…\n$ vehicle2_model  &lt;chr&gt; \"Tucson\", \"1500\", \"Tucson\", \"Outback\", \"NA\", \"Grand Ch…\n$ vehicle2_year   &lt;chr&gt; \"2007\", \"2011\", \"2011\", \"2008\", \"NA\", \"2011\", \"2006\", …\n\n\nSame 20,000 crashes, but three problems the CSV didn’t have:\n\n\nA junk first column named ...1 — someone saved the spreadsheet with Excel’s row numbers included, and there’s no header for them.\n\ndate and time imported as datetimes. Excel stores everything as datetimes under the hood; note time’s absurd 1899-12-31 dates — that’s Excel’s “time only” anchor leaking through.\n\nvehicle2_year imported as character. Why? Single-vehicle crashes have no second vehicle, and this spreadsheet recorded those cells as the literal text \"NA\" — which readxl treats as a word, not as missing:\n\n\ncrashes_xl |&gt; count(vehicle2_year == \"NA\")\n\n# A tibble: 2 × 2\n  `vehicle2_year == \"NA\"`     n\n  &lt;lgl&gt;                   &lt;int&gt;\n1 FALSE                   15981\n2 TRUE                     4019\n\n\nFix all three — tell read_excel() what “missing” looks like, drop the junk column, and flatten the datetimes:\n\ncrashes_xl &lt;- read_excel(\"crash-ak.xlsx\", na = c(\"\", \"NA\"))\n\n\ncrashes_xl &lt;- crashes_xl |&gt;\n  select(-`...1`) |&gt;\n  mutate(\n    date = as_date(date),      # drop the meaningless midnight timestamp\n    hour = hour(time)          # keep the useful part of the time column\n  )\n\ncrashes_xl |&gt; select(incident_id, date, hour, vehicle2_year) |&gt; head(3)\n\n# A tibble: 3 × 4\n  incident_id date        hour vehicle2_year\n  &lt;chr&gt;       &lt;date&gt;     &lt;int&gt;         &lt;dbl&gt;\n1 AK340354    2023-02-20     2          2007\n2 AK991668    2023-04-09    17          2011\n3 AK050345    2022-06-29    17          2011\n\n\nvehicle2_year is now numeric with honest NAs — because na = c(\"\", \"NA\") told readxl both blank cells and the text \"NA\" mean missing. This distinction — the two-letter word “NA” versus a genuinely empty value — causes an astonishing share of real-world data misery.\nSave your clean version\nOnce the cleaning works, write the result out so you (and collaborators) never have to repeat it. Keep the raw file untouched and give the clean one its own name:\n\nwrite_csv(crashes, \"crash-ak-clean.csv\")\n\nwrite_csv() stores dates in ISO format (2023-02-20), so the next read_csv() parses them automatically — your future self imports with zero fixes.\nWhen R yells at you: getting help\nYou will spend more time reading error messages than reading textbooks. A system:\n1. Actually read the message. Modern tidyverse errors usually tell you the fix:\n\ncrashes |&gt; filter(county = \"Anchorage\")\n\nError in `filter()`:\n! We detected a named input.\nℹ This usually means that you've used `=` instead of `==`.\nℹ Did you mean `county == \"Anchorage\"`?\n\n\nThe error names the problem and the solution. Slow down and read before you panic.\n2. Read the help page. ?read_csv — skim Usage and Arguments, then jump to the Examples at the bottom, which are runnable.\n3. Make a reprex (a reproducible example) before asking anyone for help: the smallest self-contained chunk of code + data that produces your error. Half the time, building the reprex reveals the bug yourself; the other half, it lets a helper answer in minutes. A question like “my import is broken” is unanswerable; “read_csv() turns my date column into NA — here are three sample rows and my code” gets solved.\n4. Search the exact error text (in quotes). Someone has hit it before you."
+  },
+  {
+    "objectID": "labs/lab-05-import.html#your-turn",
+    "href": "labs/lab-05-import.html#your-turn",
+    "title": "Lab 5 · Importing Real Data",
+    "section": "Your Turn",
+    "text": "Your Turn\nWork in your own script. Comment each answer.\n1. Re-import the CSV from the URL with a col_types specification that gets date right on import (no mutate() afterward). Confirm with problems() and spec() that nothing failed.\n\n# your code here\n\n2. Using your correctly-imported data, create year and month columns from date, then count crashes per year. Which year in the data has the fewest crashes? (Careful — is that year fully observed, or is it an artifact of when the data ends?)\n\n# your code here\n\n3. Download and import the Excel version with read_excel(), applying all three fixes from the walkthrough. Verify your fix: confirm vehicle2_year is numeric and count its NAs — then check that the count equals the number of single-vehicle crashes (num_vehicles == 1). Does it?\n\n# your code here\n\n4. Write your cleaned CSV data out with write_csv(), then read the new file back in with read_csv(). Does date come back as a real date column without any help? In a comment, explain why.\n\n# your code here\n\n5. (Stretch) Sabotage on purpose: re-import the CSV forcing col_types = cols(driver_gender = col_double()), then inspect problems(). In a comment, explain what readr did with the column and why deliberately breaking an import is a useful debugging skill.\n\n# your code here"
+  },
+  {
+    "objectID": "labs/lab-05-import.html#exit-ticket",
+    "href": "labs/lab-05-import.html#exit-ticket",
+    "title": "Lab 5 · Importing Real Data",
+    "section": "Exit Ticket",
+    "text": "Exit Ticket\nSubmit a short R script to Canvas before you leave, containing:\n\nOne column that read_csv() or read_excel() guessed wrong today, and the code that fixed it\nA comment (2–3 sentences): what is the difference between a cell containing the text \"NA\" and a truly empty cell, and how did we handle it?\nA comment: one error message you hit this week (any assignment), phrased the way you’d ask for help — what you ran, what you expected, what happened instead"
   },
   {
     "objectID": "schedule.html",
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\nSession page · Slides · Lab · HW\n\n\n3\nProbability, via simulation\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\ncoming soon\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects)\ncoming soon\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 7 (Data import), Ch. 8 (Workflow: getting help)\ncoming soon\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 19 (Joins); Ch. 18 (Missing values, skim)\ncoming soon\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\ncoming soon\n\n\n8\nANOVA · project checkpoints begin\nCh. 6\n—\ncoming soon\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\n\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\ncoming soon\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\ncoming soon\n\n\n12\nLogistic regression · project checkpoint\nCh. 10\n—\ncoming soon\n\n\n13\nFinal-project help session — open Q&A and code clinic\n—\n—\n\n\n\n14\nFinal project presentations\n—\n—"
+    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\nSession page · Slides · Lab · HW\n\n\n3\nProbability, via simulation\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\nSession page · Slides · Lab · HW\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects)\nSession page · Slides · Lab · HW\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 7 (Data import), Ch. 8 (Workflow: getting help)\nSession page · Slides · Lab · HW\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 19 (Joins); Ch. 18 (Missing values, skim)\ncoming soon\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\ncoming soon\n\n\n8\nANOVA · project checkpoints begin\nCh. 6\n—\ncoming soon\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\n\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\ncoming soon\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\ncoming soon\n\n\n12\nLogistic regression · project checkpoint\nCh. 10\n—\ncoming soon\n\n\n13\nFinal-project help session — open Q&A and code clinic\n—\n—\n\n\n\n14\nFinal project presentations\n—\n—"
   },
   {
     "objectID": "slides/week-02-descriptives.html#week-1-follow-up",
@@ -826,31 +1351,451 @@
     "text": "Today’s Lab & Homework\n\nLab 2: your first ggplots — histograms, boxplots, and bar charts with real corrections data (lab page)\nHomework 2: descriptive statistics in R (posted on the Session 2 page)\nRead before Session 3: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Code style)"
   },
   {
-    "objectID": "weeks/week-01.html",
-    "href": "weeks/week-01.html",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "slides/week-04-sampling-distributions.html#this-week",
+    "href": "slides/week-04-sampling-distributions.html#this-week",
+    "title": "Sampling Distributions",
+    "section": "This Week",
+    "text": "This Week\nTopic: probabilities in the long run and sampling distributions — taught by simulation. We won’t derive anything today; we’ll draw thousands of samples in R and watch the theory appear on screen.\nLearning goals: explain in your own words — law of large numbers, sampling distribution, standard error, central limit theorem — and say why R’s var() and sd() divide by n − 1 (Session 2’s IOU gets paid today).\nR4DS thread: you read Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts and projects) — today’s lab puts both to work."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#a-question-to-start",
+    "href": "slides/week-04-sampling-distributions.html#a-question-to-start",
+    "title": "Sampling Distributions",
+    "section": "A Question to Start",
+    "text": "A Question to Start\n\nIf I told you the chance of being selected for a jury was 10%, and you weren’t selected after 10 tries, would that surprise you? Why or why not?\n\n\nTwo kinds of probability:\n\nTheoretical probability — based on mathematical reasoning (a fair coin is 50/50 by definition)\nEmpirical probability — observed through repetition (flip it and count)\n\nToday’s whole session is about the gap between these two — and how it shrinks."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#theoretical-vs.-empirical-probability",
+    "href": "slides/week-04-sampling-distributions.html#theoretical-vs.-empirical-probability",
+    "title": "Sampling Distributions",
+    "section": "Theoretical vs. Empirical Probability",
+    "text": "Theoretical vs. Empirical Probability\nFlip a fair coin 10 times:\n\nflips_10 &lt;- sample(c(\"heads\", \"tails\"), size = 10, replace = TRUE)\ntable(flips_10) / 10\n\nflips_10\nheads tails \n  0.6   0.4 \n\n\n\nNow 10,000 times:\n\nflips_10k &lt;- sample(c(\"heads\", \"tails\"), size = 10000, replace = TRUE)\ntable(flips_10k) / 10000\n\nflips_10k\n heads  tails \n0.5055 0.4945 \n\n\nEmpirical results fluctuate in small samples but converge toward the theoretical probability — the law of large numbers."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#watching-the-long-run-arrive",
+    "href": "slides/week-04-sampling-distributions.html#watching-the-long-run-arrive",
+    "title": "Sampling Distributions",
+    "section": "Watching the Long Run Arrive",
+    "text": "Watching the Long Run Arrive\n\nlln &lt;- tibble(\n  flip = 1:10000,\n  heads = sample(c(0, 1), size = 10000, replace = TRUE)\n) |&gt;\n  mutate(running_prop = cumsum(heads) / flip)\nggplot(lln, aes(flip, running_prop)) +\n  geom_line(color = crju_colors[\"navy\"]) +\n  geom_hline(yintercept = 0.5, color = \"red\", linetype = \"dashed\") +\n  labs(title = \"Proportion of heads in coin flips\",\n       x = \"Number of flips\", y = \"Proportion heads\")\n\n\nConcept: in the long run, empirical ≈ theoretical. But “long run” might be longer than we think — look how wild the first few hundred flips are."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#watching-the-long-run-arrive-output",
+    "href": "slides/week-04-sampling-distributions.html#watching-the-long-run-arrive-output",
+    "title": "Sampling Distributions",
+    "section": "Watching the Long Run Arrive",
+    "text": "Watching the Long Run Arrive"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#simulating-probabilities-in-cj-1",
+    "href": "slides/week-04-sampling-distributions.html#simulating-probabilities-in-cj-1",
+    "title": "Sampling Distributions",
+    "section": "Simulating Probabilities in CJ (1)",
+    "text": "Simulating Probabilities in CJ (1)\nFalse positive drug tests. Suppose a field test for drugs has a 5% false positive rate. Simulate 100 field tests of non-users:\n\ntests &lt;- sample(c(\"false positive\", \"correct\"), size = 100,\n                replace = TRUE, prob = c(0.05, 0.95))\ntable(tests)\n\ntests\n       correct false positive \n            91              9 \n\n\n\nDiscussion: even with a low false positive rate, false positives occur regularly in practice. What do we think about this? Does it matter?"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#simulating-probabilities-in-cj-2",
+    "href": "slides/week-04-sampling-distributions.html#simulating-probabilities-in-cj-2",
+    "title": "Sampling Distributions",
+    "section": "Simulating Probabilities in CJ (2)",
+    "text": "Simulating Probabilities in CJ (2)\nStop & frisk outcomes. Suppose 8% of stops yield contraband. What happens over 1,000 stops?\n\nstop_outcomes &lt;- sample(c(\"found\", \"nothing\"), size = 1000,\n                        replace = TRUE, prob = c(0.08, 0.92))\ntable(stop_outcomes)\n\nstop_outcomes\n  found nothing \n     69     931 \n\n\n\nDiscussion: is that hit rate too low? What if each find were an illegal gun that would have been used in a violent crime? Simulation makes the long-run consequences of a policy concrete."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#random-does-not-mean-balanced",
+    "href": "slides/week-04-sampling-distributions.html#random-does-not-mean-balanced",
+    "title": "Sampling Distributions",
+    "section": "Random Does Not Mean Balanced",
+    "text": "Random Does Not Mean Balanced\nTwo runs of 100 dice rolls — same die, same code:\n\ndice &lt;- tibble(\n  run  = rep(c(\"Run 1\", \"Run 2\"), each = 100),\n  roll = c(sample(1:6, size = 100, replace = TRUE),\n           sample(1:6, size = 100, replace = TRUE))\n)\nggplot(dice, aes(x = factor(roll))) +\n  geom_bar(fill = crju_colors[\"garnet\"]) +\n  facet_wrap(~run) +\n  labs(title = \"Dice roll frequencies — two runs of 100\",\n       x = \"Face\", y = \"Count\")\n\n\nDoes either look fair? Both are. Random does not mean balanced in small samples — remember this every time you see a “streak” in real data."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#random-does-not-mean-balanced-output",
+    "href": "slides/week-04-sampling-distributions.html#random-does-not-mean-balanced-output",
+    "title": "Sampling Distributions",
+    "section": "Random Does Not Mean Balanced",
+    "text": "Random Does Not Mean Balanced"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#a-population-we-can-actually-see",
+    "href": "slides/week-04-sampling-distributions.html#a-population-we-can-actually-see",
+    "title": "Sampling Distributions",
+    "section": "A Population We Can Actually See",
+    "text": "A Population We Can Actually See\npopulation-data.csv — 10,000 test scores. In real research we never see the whole population; today we get to cheat:\n\npop |&gt;\n  summarize(mean = mean(score), median = median(score),\n            sd = sd(score), n = n())\n\n# A tibble: 1 × 4\n   mean median    sd     n\n  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;\n1  100.   100.  15.0 10000"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#one-sample-of-30",
+    "href": "slides/week-04-sampling-distributions.html#one-sample-of-30",
+    "title": "Sampling Distributions",
+    "section": "One Sample of 30",
+    "text": "One Sample of 30\n\nsamp &lt;- sample(pop$score, size = 30)\nmean(samp)\n\n[1] 100.3389\n\nsd(samp)\n\n[1] 13.16761\n\n\nClose to the truth (mean ≈ 100, SD ≈ 15) — but not exact. That gap is sampling error, and it is not a mistake; it’s a fact of life.\n\nThe question that drives the rest of the semester: how wrong can one sample be?"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#what-if-we-sampled-from-the-tail",
+    "href": "slides/week-04-sampling-distributions.html#what-if-we-sampled-from-the-tail",
+    "title": "Sampling Distributions",
+    "section": "What If We Sampled From the Tail?",
+    "text": "What If We Sampled From the Tail?\nDraw 10 scores from the bottom 5% of the population — and look at them in context:\n\ntail_scores &lt;- pop |&gt; filter(score &lt; quantile(score, 0.05))\ntail_sample &lt;- sample(tail_scores$score, size = 10)\nmean(tail_sample)\n\n[1] 70.02723"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#and-what-if-we-didnt-know-it",
+    "href": "slides/week-04-sampling-distributions.html#and-what-if-we-didnt-know-it",
+    "title": "Sampling Distributions",
+    "section": "…And What If We Didn’t Know It?",
+    "text": "…And What If We Didn’t Know It?\nNow pretend that sample is all we ever get to see:\n\nIf this were your dataset, you’d report a “typical” score near 70 — and you’d be badly wrong. How often does that actually happen with a random sample? Let’s find out."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#do-it-a-thousand-times",
+    "href": "slides/week-04-sampling-distributions.html#do-it-a-thousand-times",
+    "title": "Sampling Distributions",
+    "section": "Do It a Thousand Times",
+    "text": "Do It a Thousand Times\nThe key move of this whole session — instead of drawing one sample, draw 1,000 samples of 30 and keep each sample’s mean:\n\nsample_means &lt;- tibble(draw = 1:1000) |&gt;\n  mutate(mean_score = map_dbl(draw, \\(d) mean(sample(pop$score, size = 30))))\n\nsample_means\n\n# A tibble: 1,000 × 2\n   draw mean_score\n  &lt;int&gt;      &lt;dbl&gt;\n1     1       99.7\n2     2       97.4\n3     3       97.5\n4     4       99.6\n5     5      105. \n6     6      104. \n# ℹ 994 more rows"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#the-sampling-distribution-of-the-mean",
+    "href": "slides/week-04-sampling-distributions.html#the-sampling-distribution-of-the-mean",
+    "title": "Sampling Distributions",
+    "section": "The Sampling Distribution of the Mean",
+    "text": "The Sampling Distribution of the Mean\n\nggplot(sample_means, aes(mean_score)) +\n  geom_histogram(bins = 40, fill = crju_colors[\"blue\"], color = \"white\") +\n  geom_vline(xintercept = mean(pop$score), color = \"red\", linewidth = 1.2) +\n  labs(title = \"1,000 sample means (n = 30 each)\",\n       x = \"Sample mean\", y = \"Number of samples\")\n\n\nThis histogram of means is a sampling distribution. It’s centered on the true population mean — and it’s much narrower than the population itself."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#two-distributions-side-by-side",
+    "href": "slides/week-04-sampling-distributions.html#two-distributions-side-by-side",
+    "title": "Sampling Distributions",
+    "section": "Two Distributions, Side by Side",
+    "text": "Two Distributions, Side by Side\n\nSame center. Radically different spread. Individual scores wander all over; averages of 30 stay close to home."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#the-standard-error",
+    "href": "slides/week-04-sampling-distributions.html#the-standard-error",
+    "title": "Sampling Distributions",
+    "section": "The Standard Error",
+    "text": "The Standard Error\nThe SD of the sampling distribution has its own name: the standard error. And it has a formula — which our simulation can check:\n\nsd(sample_means$mean_score)   # SE from the simulation\n\n[1] 2.648695\n\nsd(pop$score) / sqrt(30)      # SE from the formula: SD / sqrt(n)\n\n[1] 2.733584\n\n\n\n\nThe standard error answers: “if I re-ran my study, how much would my estimate typically move?”\n\nThat single number is the foundation of confidence intervals and hypothesis tests — the rest of this course."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#sample-size-buys-precision",
+    "href": "slides/week-04-sampling-distributions.html#sample-size-buys-precision",
+    "title": "Sampling Distributions",
+    "section": "Sample Size Buys Precision",
+    "text": "Sample Size Buys Precision\n\nmany_ns &lt;- expand_grid(n = c(5, 30, 100), draw = 1:1000) |&gt;\n  mutate(mean_score = map_dbl(n, \\(k) mean(sample(pop$score, size = k))))\nggplot(many_ns, aes(mean_score)) +\n  geom_histogram(bins = 40, fill = crju_colors[\"navy\"], color = \"white\") +\n  geom_vline(xintercept = mean(pop$score), color = \"red\", linetype = \"dashed\") +\n  facet_wrap(~n, labeller = label_both) +\n  labs(x = \"Sample mean\", y = \"Count\")\n\n\n\nmany_ns |&gt;\n  summarize(simulated_se = sd(mean_score), formula_se = sd(pop$score) / sqrt(first(n)),\n            .by = n)\n\n# A tibble: 3 × 3\n      n simulated_se formula_se\n  &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;\n1     5         6.84       6.70\n2    30         2.77       2.73\n3   100         1.49       1.50\n\n\nThe SE shrinks like 1/√n: to halve your uncertainty you need four times the data."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#sample-size-buys-precision-output",
+    "href": "slides/week-04-sampling-distributions.html#sample-size-buys-precision-output",
+    "title": "Sampling Distributions",
+    "section": "Sample Size Buys Precision",
+    "text": "Sample Size Buys Precision"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#the-least-normal-variable-imaginable",
+    "href": "slides/week-04-sampling-distributions.html#the-least-normal-variable-imaginable",
+    "title": "Sampling Distributions",
+    "section": "The Least Normal Variable Imaginable",
+    "text": "The Least Normal Variable Imaginable\nBack to our 30,000 real Chicago incidents. Whether an incident ended in arrest is as far from a bell curve as data gets — every value is TRUE or FALSE:\n\ncrimes |&gt; count(arrest) |&gt; mutate(prop = n / sum(n))\n\n# A tibble: 2 × 3\n  arrest     n  prop\n  &lt;lgl&gt;  &lt;int&gt; &lt;dbl&gt;\n1 FALSE  25176 0.839\n2 TRUE    4824 0.161\n\n\n\nTreat these 30,000 incidents as the population. True arrest proportion: 0.161."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#sample-100-incidents.-repeat-1000-times.",
+    "href": "slides/week-04-sampling-distributions.html#sample-100-incidents.-repeat-1000-times.",
+    "title": "Sampling Distributions",
+    "section": "Sample 100 Incidents. Repeat 1,000 Times.",
+    "text": "Sample 100 Incidents. Repeat 1,000 Times.\nImagine an analyst who can only pull 100 case files at a time:\n\narrest_props &lt;- tibble(draw = 1:1000) |&gt;\n  mutate(prop_arrest = map_dbl(draw, \\(d) mean(sample(crimes$arrest, size = 100))))\n\n\nggplot(arrest_props, aes(prop_arrest)) +\n  geom_histogram(binwidth = 0.01, fill = crju_colors[\"blue\"], color = \"white\") +\n  geom_vline(xintercept = mean(crimes$arrest), color = \"red\", linewidth = 1.2) +\n  labs(title = \"1,000 sample arrest proportions (n = 100 incidents each)\",\n       x = \"Proportion of sampled incidents with an arrest\", y = \"Samples\")"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#a-bell-curve-out-of-truefalse-data",
+    "href": "slides/week-04-sampling-distributions.html#a-bell-curve-out-of-truefalse-data",
+    "title": "Sampling Distributions",
+    "section": "A Bell Curve Out of TRUE/FALSE Data",
+    "text": "A Bell Curve Out of TRUE/FALSE Data\nThat’s the central limit theorem:\n\nWhatever shape the population has — even a two-bar TRUE/FALSE stack — the sampling distribution of a mean (or proportion) becomes approximately normal as n grows, centered on the true value.\n\n\nIt’s why polls of ~1,000 people work for a country of 330 million\nIt’s why we can attach a standard error to an arrest rate, a clearance rate, a recidivism rate — without ever seeing the full population\nIt’s why the normal distribution keeps showing up even though raw CJ data almost never look normal"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#the-clt-also-obeys-the-n-rule",
+    "href": "slides/week-04-sampling-distributions.html#the-clt-also-obeys-the-n-rule",
+    "title": "Sampling Distributions",
+    "section": "The CLT Also Obeys the √n Rule",
+    "text": "The CLT Also Obeys the √n Rule\n\nAt n = 25 a sample could easily tell you the arrest rate is 8% or 28%. At n = 400 you’re rarely off by more than a couple of points."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#session-2s-iou",
+    "href": "slides/week-04-sampling-distributions.html#session-2s-iou",
+    "title": "Sampling Distributions",
+    "section": "Session 2’s IOU",
+    "text": "Session 2’s IOU\nIn Session 2 we noticed var() and sd() divide by n − 1, not n, and I promised you’d see why. Simulation pays the debt. Draw 5,000 tiny samples (n = 5) and compute the variance both ways:\n\nvar_pop &lt;- mean((pop$score - mean(pop$score))^2)   # true population variance\n\nvariance_sims &lt;- tibble(draw = 1:5000) |&gt;\n  mutate(\n    s            = map(draw, \\(d) sample(pop$score, size = 5)),\n    var_div_n    = map_dbl(s, \\(x) sum((x - mean(x))^2) / length(x)),\n    var_div_nm1  = map_dbl(s, \\(x) var(x))          # R's built-in: n - 1\n  )"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#divide-by-n-and-youre-biased",
+    "href": "slides/week-04-sampling-distributions.html#divide-by-n-and-youre-biased",
+    "title": "Sampling Distributions",
+    "section": "Divide by n, and You’re Biased",
+    "text": "Divide by n, and You’re Biased\n\nvariance_sims |&gt;\n  summarize(\n    true_variance   = var_pop,\n    avg_divide_by_n = mean(var_div_n),\n    avg_divide_by_n_minus_1 = mean(var_div_nm1)\n  )\n\n# A tibble: 1 × 3\n  true_variance avg_divide_by_n avg_divide_by_n_minus_1\n          &lt;dbl&gt;           &lt;dbl&gt;                   &lt;dbl&gt;\n1          224.            179.                    224.\n\n\n\nDividing by n systematically underestimates the population variance — across 5,000 samples, not occasionally\nWhy? A sample clusters around its own mean, which is always closer to the sample’s values than the true mean is — so measured spread comes up short\nDividing by n − 1 inflates each estimate just enough to land, on average, on the truth. That’s all “unbiased estimator” means"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#what-if-the-population-is-unknown",
+    "href": "slides/week-04-sampling-distributions.html#what-if-the-population-is-unknown",
+    "title": "Sampling Distributions",
+    "section": "What If the Population Is Unknown?",
+    "text": "What If the Population Is Unknown?\nIn real life you never get the left-hand panel. One draw from a mystery population:\n\nunknown_population &lt;- rnorm(1000, mean = 100, sd = 50)   # don't peek!\nmystery_sample &lt;- sample(unknown_population, size = 30)\nmean(mystery_sample)\n\n[1] 95.44168\n\n\n\nBased on 30 points, you might assume normality — or skew, or outliers — and be wrong. Sampling-distribution logic is what lets us say how wrong we’re likely to be."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#why-this-matters-in-cj",
+    "href": "slides/week-04-sampling-distributions.html#why-this-matters-in-cj",
+    "title": "Sampling Distributions",
+    "section": "Why This Matters in CJ",
+    "text": "Why This Matters in CJ\n\nAlmost every number in CJ research is a sample statistic: a survey of officers, a sample of case files, one year of one city’s incidents\nEvery one of those statistics has a sampling distribution — it would come out differently if the study were re-run\nThe standard error turns “it would come out differently” into a number\nStarting next session: use the SE to build confidence intervals — a range of values the truth is likely to be in"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#in-class-exercise-probabilities-in-the-long-run",
+    "href": "slides/week-04-sampling-distributions.html#in-class-exercise-probabilities-in-the-long-run",
+    "title": "Sampling Distributions",
+    "section": "In-Class Exercise: Probabilities in the Long Run",
+    "text": "In-Class Exercise: Probabilities in the Long Run\nWork in pairs; record your code and results in a script.\n\nLong run: simulate 10,000 rolls of a fair die and get the proportion of each face (sample(), count()). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?\nKnown population: create rnorm(10000, mean = 100, sd = 15), plot it, and mark the 1st/5th/95th percentiles with quantile(). Draw a sample of 30 — where does its mean fall?\nUnknown population: run unknown_pop &lt;- rnorm(1000, 100, 50) without plotting it. Sample 30 values, plot the sample, and write down what you’d conclude about the population. Then peek. Were you right?"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#todays-lab-homework",
+    "href": "slides/week-04-sampling-distributions.html#todays-lab-homework",
+    "title": "Sampling Distributions",
+    "section": "Today’s Lab & Homework",
+    "text": "Today’s Lab & Homework\n\nLab 4: tidy data — pivot_longer() and pivot_wider() with city crime trends and reentry outcomes (lab page)\nHomework 4: sampling and sampling distributions (posted on the Session 4 page)\nRead before Session 5: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)"
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
     "section": "",
-    "text": "📽️ Slides: Statistics is Awesome!"
+    "text": "Provisional dates. Session dates on this page derive from a provisional Fall 2026 calendar and will be finalized before the semester begins. Topics, their order, and course policies are final.\nInstructor: Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu · Office: Currell 111 · Office hours: on request Class meetings: Wednesdays, 5:50–8:35 pm · Currell 204"
   },
   {
-    "objectID": "weeks/week-01.html#before-class",
-    "href": "weeks/week-01.html#before-class",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "syllabus.html#academic-bulletin",
+    "href": "syllabus.html#academic-bulletin",
+    "title": "Syllabus",
+    "section": "Academic Bulletin",
+    "text": "Academic Bulletin\nDescriptive and inferential statistics and the use of computers in criminal justice."
+  },
+  {
+    "objectID": "syllabus.html#course-objectives",
+    "href": "syllabus.html#course-objectives",
+    "title": "Syllabus",
+    "section": "Course Objectives",
+    "text": "Course Objectives\nBy the end of this course, students will be able to:\n\nIdentify the role of statistics in criminology and criminal justice research.\nDistinguish between different types of data and levels of measurement.\nImport, clean, transform, and visualize real data in R using modern (tidyverse) tools.\nApply descriptive statistics to summarize and interpret data.\nExplain the concepts of probability and distributions as they relate to criminological data.\nConduct and interpret basic statistical tests — from both frequentist and Bayesian perspectives — including t-tests, ANOVA, correlation, and regression.\nCritically evaluate statistical claims in criminal justice policy and research.\nEffectively communicate statistical findings in both written and visual formats."
+  },
+  {
+    "objectID": "syllabus.html#assignment-due-dates",
+    "href": "syllabus.html#assignment-due-dates",
+    "title": "Syllabus",
+    "section": "Assignment Due Dates",
+    "text": "Assignment Due Dates\nDates for all assignments and exams are listed on the course Canvas page and discussed in class. Course materials (slides, labs, homework) live on this website; submissions go through Canvas."
+  },
+  {
+    "objectID": "syllabus.html#final-project-information",
+    "href": "syllabus.html#final-project-information",
+    "title": "Syllabus",
+    "section": "Final Project Information",
+    "text": "Final Project Information\nThe final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — dataset selection is due at Session 7 (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. A dedicated help session (Session 13) provides open Q&A and a code clinic before presentations.\nYour completed project is due in class on December 02, 2026 (presentations day).\nThere will be absolutely no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.\nYou are responsible for ensuring that your final project is submitted successfully and on time, with all required components included: the R script, output, and written report."
+  },
+  {
+    "objectID": "syllabus.html#session-1-august-19",
+    "href": "syllabus.html#session-1-august-19",
+    "title": "Syllabus",
+    "section": "Session 1 — August 19",
+    "text": "Session 1 — August 19\nTopics: Class introduction · Why statistics is awesome · Types of data and levels of measurement · Using R and RStudio\nReadings due before class: Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see Resources.\nHomework: swirl tutorials in R (instructions in class). Submit R script files via Canvas before noon Tuesday ahead of the next session. Read Stanton Ch. 1 before next class."
+  },
+  {
+    "objectID": "syllabus.html#session-2-august-26",
+    "href": "syllabus.html#session-2-august-26",
+    "title": "Syllabus",
+    "section": "Session 2 — August 26",
+    "text": "Session 2 — August 26\nTopics: Descriptive statistics & exploratory data analysis\nReadings due: Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)\nHomework: Problem set 2 · Read Stanton Ch. 2"
+  },
+  {
+    "objectID": "syllabus.html#session-3-september-02",
+    "href": "syllabus.html#session-3-september-02",
+    "title": "Syllabus",
+    "section": "Session 3 — September 02",
+    "text": "Session 3 — September 02\nTopics: Probability, taught via simulation\nReadings due: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)\nIn-class exercise (graded) · Homework: Problem set 3 · Read Stanton Ch. 3"
+  },
+  {
+    "objectID": "syllabus.html#session-4-september-09",
+    "href": "syllabus.html#session-4-september-09",
+    "title": "Syllabus",
+    "section": "Session 4 — September 09",
+    "text": "Session 4 — September 09\nTopics: Sampling distributions, taught via simulation\nReadings due: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)\nIn-class exercise (graded) · Homework: Problem set 4 · Read Stanton Ch. 4"
+  },
+  {
+    "objectID": "syllabus.html#session-5-september-16",
+    "href": "syllabus.html#session-5-september-16",
+    "title": "Syllabus",
+    "section": "Session 5 — September 16",
+    "text": "Session 5 — September 16\nTopics: The logic of inference using confidence intervals — on real data\nReadings due: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)\nIn-class exercise (graded) · Homework: Problem set 5 · Read Stanton Ch. 5"
+  },
+  {
+    "objectID": "syllabus.html#session-6-september-23",
+    "href": "syllabus.html#session-6-september-23",
+    "title": "Syllabus",
+    "section": "Session 6 — September 23",
+    "text": "Session 6 — September 23\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)\nIn-class exercise (graded) · Homework: Problem set 6 · Begin scouting a final-project dataset"
+  },
+  {
+    "objectID": "syllabus.html#session-7-september-30",
+    "href": "syllabus.html#session-7-september-30",
+    "title": "Syllabus",
+    "section": "Session 7 — September 30",
+    "text": "Session 7 — September 30\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Workshop write-up · Read Stanton Ch. 6"
+  },
+  {
+    "objectID": "syllabus.html#session-8-october-07",
+    "href": "syllabus.html#session-8-october-07",
+    "title": "Syllabus",
+    "section": "Session 8 — October 07",
+    "text": "Session 8 — October 07\nTopics: ANOVA\nReadings due: Stanton Ch. 6\nIn-class exercise (graded) · Homework: Problem set 8 (includes project checkpoint 1: descriptives on your project data) · Study for mid-term"
+  },
+  {
+    "objectID": "syllabus.html#session-9-october-14",
+    "href": "syllabus.html#session-9-october-14",
+    "title": "Syllabus",
+    "section": "Session 9 — October 14",
+    "text": "Session 9 — October 14\nTopics: Mid-Term Exam (in class) — covers Sessions 1–8\nNo in-class exercise or problem set. Read Stanton Ch. 7 before next class."
+  },
+  {
+    "objectID": "syllabus.html#session-10-october-21",
+    "href": "syllabus.html#session-10-october-21",
+    "title": "Syllabus",
+    "section": "Session 10 — October 21",
+    "text": "Session 10 — October 21\nTopics: Measures of association / correlation\nReadings due: Stanton Ch. 7\nIn-class exercise (graded) · Homework: Problem set 10 (includes project checkpoint 2)"
+  },
+  {
+    "objectID": "syllabus.html#session-11-october-28",
+    "href": "syllabus.html#session-11-october-28",
+    "title": "Syllabus",
+    "section": "Session 11 — October 28",
+    "text": "Session 11 — October 28\nTopics: Multiple linear regression\nReadings due: Stanton Ch. 8\nIn-class exercise (graded) · Homework: Problem set 11 (includes project checkpoint 3) · Read Stanton Ch. 10"
+  },
+  {
+    "objectID": "syllabus.html#session-12-november-04",
+    "href": "syllabus.html#session-12-november-04",
+    "title": "Syllabus",
+    "section": "Session 12 — November 04",
+    "text": "Session 12 — November 04\nTopics: Logistic regression\nReadings due: Stanton Ch. 10\nIn-class exercise (graded) · Homework: Problem set 12 (includes project checkpoint 4)"
+  },
+  {
+    "objectID": "syllabus.html#session-13-november-11",
+    "href": "syllabus.html#session-13-november-11",
+    "title": "Syllabus",
+    "section": "Session 13 — November 11",
+    "text": "Session 13 — November 11\nTopics: Final-project help session — open Q&A, code clinic, project check-ins\nNo in-class exercise or problem set. Bring your project code and questions."
+  },
+  {
+    "objectID": "syllabus.html#session-14-december-02",
+    "href": "syllabus.html#session-14-december-02",
+    "title": "Syllabus",
+    "section": "Session 14 — December 02",
+    "text": "Session 14 — December 02\nTopics: Final Project Presentations (in class)\nThe final project — R script, output, and written report — is due in class on December 02, 2026. No late submissions, no appeals. Plan ahead."
+  },
+  {
+    "objectID": "syllabus.html#academic-honesty",
+    "href": "syllabus.html#academic-honesty",
+    "title": "Syllabus",
+    "section": "Academic Honesty",
+    "text": "Academic Honesty\nAcademic honesty is expected, and dishonesty will not be tolerated. The University policy on academic dishonesty can be found on the university website. An act of academic dishonesty will result in a failing course grade and a recommendation of additional disciplinary action. Any of the following violations will be considered academic dishonesty:\n\n\nCheating: the giving or receiving of any unauthorized assistance on any academic work;\n\nPlagiarism: presenting the language, structures or ideas of another person or persons as one’s own academic work;\n\nFalsification: any untrue statement, either oral or written, concerning one’s own academic work or the academic work of another student, or the unauthorized alteration of any academic record; and\n\nOriginal work & “self-plagiarism”: unless specifically allowed by the instructor, all academic work undertaken in a course must be original."
+  },
+  {
+    "objectID": "syllabus.html#respectful-appropriate-class-conduct",
+    "href": "syllabus.html#respectful-appropriate-class-conduct",
+    "title": "Syllabus",
+    "section": "Respectful & Appropriate Class Conduct",
+    "text": "Respectful & Appropriate Class Conduct\nPublic policy processes, including the criminal justice system, inherently center on topics for which individuals hold strong opinions. This course will challenge students to acknowledge and respect perspectives that differ from their own. Respectful behavior is the expectation, norm, and requirement in this class. Arguments and ideas may (and are expected to) be challenged, but personal attacks, disrespectful behavior, and/or hateful attitudes will not be tolerated."
+  },
+  {
+    "objectID": "syllabus.html#late-policy",
+    "href": "syllabus.html#late-policy",
+    "title": "Syllabus",
+    "section": "Late Policy",
+    "text": "Late Policy\nI do not accept late assignments of any kind. Missing submissions will be awarded zero points automatically. Most important: contact me beforehand if you are experiencing difficulties that will impact your ability to turn in work. Reaching out after the due date has passed is not helpful to you or me."
+  },
+  {
+    "objectID": "syllabus.html#grading-scheme",
+    "href": "syllabus.html#grading-scheme",
+    "title": "Syllabus",
+    "section": "Grading Scheme",
+    "text": "Grading Scheme\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
+  },
+  {
+    "objectID": "syllabus.html#attendance-policy",
+    "href": "syllabus.html#attendance-policy",
+    "title": "Syllabus",
+    "section": "Attendance Policy",
+    "text": "Attendance Policy\nAttendance is mandatory for our weekly class meetings. We all have busy lives, so while being on time is expected, I’d rather you miss ten minutes than a whole class. Students are expected to fully engage in class discussion and participate in the in-class exercises. The purpose of the class is for everyone to discuss the readings, not to have them explained.\nI generally do not take formal attendance; however, during most weeks there is a graded in-class exercise. Points for these exercises are awarded based on active participation in class that day, and these points cannot be made up. Missing class means missing the opportunity to earn them.\nConsider the following (simulated data, courtesy of an approach by Steven Miller): a simple linear regression of a student’s final grade on percentage of classes attended suggests an increase of one percent in attendance leads to an estimated increase of 0.704 in the final grade. One missed class is roughly a five-percent decrease in semester attendance — an estimated decrease of 3.52 in the overall grade. The effect is precise (t = 20.37) and the likelihood of no actual relationship is almost zero (R² = 0.342).\n\n\n\n\nThe relationship between class attendance and final grade (simulated data)."
+  },
+  {
+    "objectID": "syllabus.html#instructor-expectations",
+    "href": "syllabus.html#instructor-expectations",
+    "title": "Syllabus",
+    "section": "Instructor Expectations",
+    "text": "Instructor Expectations\nI commit to being your mentor and facilitator of the educational experience:\n\nI will design the course to include reading materials and assignments that challenge students and provide opportunities to learn and practice course content.\nI will respond to emails within 24–72 hours, not including weekends and holidays (normally much faster). If you do not hear from me within 72 hours, please email again.\nI will be available for individual consultation via virtual office hours, email, or phone — not restricted to campus or banker’s hours.\nI will provide feedback on assignments in a timely manner.\nI will ensure and enforce a respectful atmosphere, open to questions, discussion, and ethical disagreement.\nI will follow all official University of South Carolina policies regarding classroom conduct, incompletes, and accommodations."
+  },
+  {
+    "objectID": "syllabus.html#student-expectations",
+    "href": "syllabus.html#student-expectations",
+    "title": "Syllabus",
+    "section": "Student Expectations",
+    "text": "Student Expectations\n\nAttend class every week (half the battle in life is just showing up).\nComplete all assignments on time.\nBe self-motivated, organized, and willing to stay on top of your schedule.\nRegularly check course announcements on Canvas and update notification settings accordingly.\nIf you have questions or are struggling, take the initiative to contact me. If you do not hear back within 72 hours, contact me again.\nEngage with the course, classmates, and professor respectfully and professionally at all times."
+  },
+  {
+    "objectID": "syllabus.html#copyrightfair-use",
+    "href": "syllabus.html#copyrightfair-use",
+    "title": "Syllabus",
+    "section": "Copyright/Fair Use",
+    "text": "Copyright/Fair Use\nI will cite and/or reference any materials that I use in this course that I do not create. You, as students, are expected not to distribute any of these materials, resources, quizzes, tests, or homework assignments (whether graded or ungraded)."
+  },
+  {
+    "objectID": "weeks/week-02.html",
+    "href": "weeks/week-02.html",
+    "title": "Session 2 · Descriptive Statistics & EDA",
+    "section": "",
+    "text": "📽️ Slides: Descriptive Statistics · 🧪 Lab 2: First Plots with ggplot2 · 📝 Homework 2"
+  },
+  {
+    "objectID": "weeks/week-02.html#before-class",
+    "href": "weeks/week-02.html#before-class",
+    "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "Before class",
-    "text": "Before class\n\nInstall R and RStudio — step-by-step guide\nRead: Stanton Introduction and Appendices A–C\nRead: this site’s Syllabus"
+    "text": "Before class\n\nRead: Stanton Ch. 1 (Statistical Vocabulary)\nRead: R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
   },
   {
-    "objectID": "weeks/week-01.html#in-class",
-    "href": "weeks/week-01.html#in-class",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "weeks/week-02.html#in-class",
+    "href": "weeks/week-02.html#in-class",
+    "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "In class",
-    "text": "In class\n\nCourse tour: syllabus, this website, how the semester works\nWhy statistics is awesome (with real crime-data examples)\nTypes of data and levels of measurement\nGuided tour of R and RStudio"
+    "text": "In class\n\nswirl debrief — what was confusing, what clicked\nMeasures of central tendency: mean, median, mode (and when each misleads)\nMeasures of dispersion: range, deviations, variance, standard deviation\nDistributions: histograms, the normal distribution and the empirical rule, the Poisson\nReal-data thread: skew and spread in Chicago’s community-level crime rates\nLab 2: first plots with ggplot2 (histograms, bar charts, boxplots) using the prisoners data"
   },
   {
-    "objectID": "weeks/week-01.html#homework",
-    "href": "weeks/week-01.html#homework",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "weeks/week-02.html#homework",
+    "href": "weeks/week-02.html#homework",
+    "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "Homework",
-    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas before noon Tuesday ahead of Session 2.\nAlso read Stanton Ch. 1 before next class (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)."
+    "text": "Homework\n\nHomework 2 — submit your .R file via Canvas before noon Tuesday\nRead Stanton Ch. 2 (Reasoning with Probability) before Session 3\nRead R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style"
+  },
+  {
+    "objectID": "weeks/week-04.html",
+    "href": "weeks/week-04.html",
+    "title": "Session 4 · Sampling Distributions",
+    "section": "",
+    "text": "📽️ Slides: Sampling Distributions · 🧪 Lab 4: Tidy Data — Pivoting Longer and Wider · 📝 Homework 4"
+  },
+  {
+    "objectID": "weeks/week-04.html#before-class",
+    "href": "weeks/week-04.html#before-class",
+    "title": "Session 4 · Sampling Distributions",
+    "section": "Before class",
+    "text": "Before class\n\nRead: Stanton Ch. 3 (Probabilities in the Long Run)\nRead: R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects\nBring your laptop — this session is almost entirely live simulation in R"
+  },
+  {
+    "objectID": "weeks/week-04.html#in-class",
+    "href": "weeks/week-04.html#in-class",
+    "title": "Session 4 · Sampling Distributions",
+    "section": "In class",
+    "text": "In class\n\nTheoretical vs. empirical probability: coin flips, the law of large numbers, and why “long run” is longer than you think\nSimulating CJ probabilities: false-positive drug tests, stop-and-frisk hit rates, and why random ≠ balanced\nSampling from a visible population (population-data.csv): one sample, tail samples, and then a thousand samples — watching the sampling distribution of the mean form on screen\nThe standard error: simulation vs. the SD/√n formula, and why sample size buys precision at a √n rate\nReal-data thread: the central limit theorem with 30,000 real Chicago incidents — repeated samples of case files turn TRUE/FALSE arrest data into a bell curve of sample proportions\nPaying Session 2’s IOU: a simulation showing why var() and sd() divide by n − 1\nIn-class exercise: probabilities in the long run (dice, known and unknown populations)\nLab 4: tidy data — pivot_longer()/pivot_wider() with city crime trends and reentry outcomes, plus scripts-and-projects hygiene"
+  },
+  {
+    "objectID": "weeks/week-04.html#homework",
+    "href": "weeks/week-04.html#homework",
+    "title": "Session 4 · Sampling Distributions",
+    "section": "Homework",
+    "text": "Homework\n\nHomework 4 — submit your .R file via Canvas before noon Tuesday\nRead Stanton Ch. 4 before Session 5\nRead R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help"
   }
 ]

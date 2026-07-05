@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Lab 2 · First Plots with ggplot2 – CRJU 705</title>
+<title>Lab 4 · Tidy Data: Pivoting Longer and Wider – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -180,9 +180,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li>
 <a href="#walkthrough" id="toc-walkthrough" class="nav-link" data-scroll-target="#walkthrough">Walkthrough</a>
   <ul class="collapse">
-<li><a href="#a-histogram-the-shape-of-a-numeric-variable" id="toc-a-histogram-the-shape-of-a-numeric-variable" class="nav-link" data-scroll-target="#a-histogram-the-shape-of-a-numeric-variable">A histogram — the shape of a numeric variable</a></li>
-  <li><a href="#a-bar-chart-counts-of-a-categorical-variable" id="toc-a-bar-chart-counts-of-a-categorical-variable" class="nav-link" data-scroll-target="#a-bar-chart-counts-of-a-categorical-variable">A bar chart — counts of a categorical variable</a></li>
-  <li><a href="#a-boxplot-a-distribution-split-by-groups" id="toc-a-boxplot-a-distribution-split-by-groups" class="nav-link" data-scroll-target="#a-boxplot-a-distribution-split-by-groups">A boxplot — a distribution <em>split by groups</em></a></li>
+<li><a href="#whats-wrong-with-this-data" id="toc-whats-wrong-with-this-data" class="nav-link" data-scroll-target="#whats-wrong-with-this-data">What’s wrong with this data?</a></li>
+  <li><a href="#pivot_longer-column-names-become-data" id="toc-pivot_longer-column-names-become-data" class="nav-link" data-scroll-target="#pivot_longer-column-names-become-data"><code>pivot_longer()</code> — column names become data</a></li>
+  <li><a href="#now-the-analysis-is-one-liners" id="toc-now-the-analysis-is-one-liners" class="nav-link" data-scroll-target="#now-the-analysis-is-one-liners">Now the analysis is one-liners</a></li>
+  <li><a href="#pivot_wider-and-back-again" id="toc-pivot_wider-and-back-again" class="nav-link" data-scroll-target="#pivot_wider-and-back-again"><code>pivot_wider()</code> — and back again</a></li>
+  <li><a href="#workflow-hygiene-scripts-and-projects" id="toc-workflow-hygiene-scripts-and-projects" class="nav-link" data-scroll-target="#workflow-hygiene-scripts-and-projects">Workflow hygiene: scripts and projects</a></li>
   </ul>
 </li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
@@ -191,8 +193,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Lab 2 · First Plots with ggplot2</h1>
-<p class="subtitle lead">CRJU 705 · Session 2</p>
+<h1 class="title">Lab 4 · Tidy Data: Pivoting Longer and Wider</h1>
+<p class="subtitle lead">CRJU 705 · Session 4</p>
 </div>
 
 
@@ -206,114 +208,206 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p><strong>Goal:</strong> make your first plots in R and connect them to today’s descriptive statistics. This lab assumes you’ve read R4DS <a href="https://r4ds.hadley.nz/data-visualize.html">Ch. 1 (Data visualization)</a> and <a href="https://r4ds.hadley.nz/workflow-basics.html">Ch. 2 (Workflow: basics)</a>.</p>
+</header><p><strong>Goal:</strong> learn to reshape data between <em>wide</em> and <em>long</em> form with <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>, and pick up the workflow habits that keep your analyses reproducible. This lab assumes you’ve read R4DS <a href="https://r4ds.hadley.nz/data-tidy.html">Ch. 5 (Data tidying)</a> and <a href="https://r4ds.hadley.nz/workflow-scripts.html">Ch. 6 (Workflow: scripts and projects)</a>.</p>
 <p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.</p>
 <section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Open RStudio, start a new R script, and run:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">prisoners</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/prisoners.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">cities</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/cities-wide.csv"</span><span class="op">)</span></span>
+<span><span class="va">reentry</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/reentry-wide.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><code>prisoners</code> holds records for 300 incarcerated persons (simulated, but realistic): demographics, offense type, sentence, and well-being measures. Look at it first — <em>always</em> look at your data first:</p>
+<p><code>cities</code> holds 100 cities (simulated, but realistic): a few city characteristics plus violent crime rates for 2015–2025. <code>reentry</code> holds 150 reentry-program participants with a monthly employment indicator (1 = employed that month) for their first 12 months after release. Look first — <em>always</em> look at your data first:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">prisoners</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 300
-Columns: 14
-$ prisoner_id        &lt;chr&gt; "P0001", "P0002", "P0003", "P0004", "P0005", "P0006…
-$ facility           &lt;chr&gt; "Central Unit", "River Unit", "River Unit", "Centra…
-$ housing_unit       &lt;chr&gt; "HU-1", "HU-3", "HU-4", "HU-2", "HU-5", "HU-3", "HU…
-$ age                &lt;dbl&gt; 36, 51, 33, 38, 36, 35, 26, 30, 18, 23, 18, 18, 40,…
-$ gender             &lt;chr&gt; "MALE", "Male", "Female", "Male", "Male", "Male", "…
-$ race               &lt;chr&gt; "Black", "Black", "White", "White", "Black", "Black…
-$ education          &lt;chr&gt; "Some College", "Less than HS", "HS/GED", "HS/GED",…
-$ offense_type       &lt;chr&gt; "Property", "Drug", "Property", "Drug", "Property",…
-$ sentence_years     &lt;dbl&gt; 1.88, 4.34, 6.57, 1.58, 3.10, 19.91, 1.27, 3.05, 5.…
-$ months_served      &lt;dbl&gt; 23, 52, 79, 19, 37, 156, 15, 37, 68, 20, 49, 34, 8,…
-$ stress             &lt;dbl&gt; 5.4, 8.4, 4.4, 9.7, 2.8, 8.1, 5.0, 6.3, 4.7, 6.4, 8…
-$ depression         &lt;dbl&gt; 8.0, 3.8, 9.0, 1.7, 5.0, 5.1, 2.6, 5.4, 3.4, 6.7, 3…
-$ sleep_quality      &lt;dbl&gt; 1.1, 5.1, 4.6, 3.2, 3.7, 7.7, 4.2, 4.5, 3.8, 4.5, 6…
-$ substance_use_risk &lt;dbl&gt; 4.1, 2.4, 6.3, 2.9, 1.2, 6.5, 6.6, 5.9, 5.9, 5.2, 6…</code></pre>
+<pre><code>Rows: 100
+Columns: 18
+$ city_id           &lt;chr&gt; "CITY_001", "CITY_002", "CITY_003", "CITY_004", "CIT…
+$ city              &lt;chr&gt; "City 1", "City 2", "City 3", "City 4", "City 5", "C…
+$ region            &lt;chr&gt; "South", "Midwest", "South", "South", "Midwest", "Mi…
+$ population_2020   &lt;dbl&gt; 478692, 151873, 1282289, 825770, 1454259, 1082444, 1…
+$ poverty_rate      &lt;dbl&gt; 20.4, 10.9, 9.5, 6.7, 13.8, 26.1, 10.5, 6.6, 18.4, 1…
+$ unemployment_rate &lt;dbl&gt; 13.3, 5.0, 7.4, 12.3, 10.5, 5.3, 9.1, 2.7, 10.0, 11.…
+$ police_per_10k    &lt;dbl&gt; 28.7, 25.5, 10.0, 32.2, 20.0, 32.9, 15.7, 14.7, 32.3…
+$ vcr_2015          &lt;dbl&gt; 549, 660, 401, 326, 424, 535, 246, 364, 278, 404, 65…
+$ vcr_2016          &lt;dbl&gt; 561, 648, 317, 346, 375, 428, 295, 441, 258, 420, 54…
+$ vcr_2017          &lt;dbl&gt; 510, 599, 384, 353, 347, 400, 252, 422, 229, 319, 60…
+$ vcr_2018          &lt;dbl&gt; 512, 605, 364, 270, 488, 491, 236, 445, 245, 374, 61…
+$ vcr_2019          &lt;dbl&gt; 516, 566, 276, 245, 464, 512, 149, 334, 179, 371, 59…
+$ vcr_2020          &lt;dbl&gt; 604, 669, 450, 361, 508, 457, 251, 429, 279, 437, 63…
+$ vcr_2021          &lt;dbl&gt; 641, 629, 409, 313, 509, 465, 319, 362, 312, 368, 70…
+$ vcr_2022          &lt;dbl&gt; 525, 529, 286, 224, 372, 468, 180, 228, 148, 300, 61…
+$ vcr_2023          &lt;dbl&gt; 539, 502, 270, 201, 395, 408, 187, 292, 181, 335, 65…
+$ vcr_2024          &lt;dbl&gt; 519, 508, 261, 160, 311, 436, 147, 292, 227, 272, 64…
+$ vcr_2025          &lt;dbl&gt; 525, 456, 277, 203, 383, 371, 192, 265, 177, 277, 66…</code></pre>
 </div>
 </div>
 </section><section id="walkthrough" class="level2"><h2 class="anchored" data-anchor-id="walkthrough">Walkthrough</h2>
-<section id="a-histogram-the-shape-of-a-numeric-variable" class="level3"><h3 class="anchored" data-anchor-id="a-histogram-the-shape-of-a-numeric-variable">A histogram — the shape of a numeric variable</h3>
-<p>Today’s lecture was about summarizing numeric variables. A histogram is the picture version:</p>
+<section id="whats-wrong-with-this-data" class="level3"><h3 class="anchored" data-anchor-id="whats-wrong-with-this-data">What’s wrong with this data?</h3>
+<p>Nothing — for a spreadsheet. <code>cities</code> is <strong>wide</strong>: each year’s violent crime rate lives in its own column (<code>vcr_2015</code> … <code>vcr_2025</code>). That’s fine for eyeballing, but notice what it breaks in R:</p>
+<ul>
+<li>You can’t put <code>year</code> on the x-axis of a ggplot — <em>there is no <code>year</code> variable</em>. Year is data, but it’s trapped in the column <strong>names</strong>.</li>
+<li>You can’t <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> an average rate per year, or filter to years after 2020, for the same reason.</li>
+</ul>
+<p>R4DS’s tidy-data rules: every variable is a <strong>column</strong>, every observation is a <strong>row</strong>. Here one observation is really “a city <em>in a year</em>” — so tidy form needs 100 × 11 = 1,100 rows, not 100.</p>
+</section><section id="pivot_longer-column-names-become-data" class="level3"><h3 class="anchored" data-anchor-id="pivot_longer-column-names-become-data">
+<code>pivot_longer()</code> — column names become data</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prisoners</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span>, fill <span class="op">=</span> <span class="st">"steelblue"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Age distribution of incarcerated persons"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Age (years)"</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="lab-02-visualize_files/figure-html/hist-age-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Anatomy of every ggplot: <strong>data</strong> (<code>prisoners</code>), <strong>aesthetics</strong> (<code>aes(x = age)</code> — which variables map to which visual channels), and <strong>geometry</strong> (<code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> — how to draw them).</p>
-<p>How does the picture relate to the numbers?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prisoners</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, median_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cities_long</span> <span class="op">&lt;-</span> <span class="va">cities</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"vcr_"</span><span class="op">)</span>,   <span class="co"># which columns to gather</span></span>
+<span>    names_to <span class="op">=</span> <span class="st">"year"</span>,            <span class="co"># where their NAMES go</span></span>
+<span>    values_to <span class="op">=</span> <span class="st">"violent_rate"</span>    <span class="co"># where their VALUES go</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">cities_long</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  mean_age median_age sd_age
-     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
-1     34.5         34   10.2</code></pre>
+<pre><code># A tibble: 1,100 × 9
+   city_id  city   region population_2020 poverty_rate unemployment_rate
+   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;            &lt;dbl&gt;        &lt;dbl&gt;             &lt;dbl&gt;
+ 1 CITY_001 City 1 South           478692         20.4              13.3
+ 2 CITY_001 City 1 South           478692         20.4              13.3
+ 3 CITY_001 City 1 South           478692         20.4              13.3
+ 4 CITY_001 City 1 South           478692         20.4              13.3
+ 5 CITY_001 City 1 South           478692         20.4              13.3
+ 6 CITY_001 City 1 South           478692         20.4              13.3
+ 7 CITY_001 City 1 South           478692         20.4              13.3
+ 8 CITY_001 City 1 South           478692         20.4              13.3
+ 9 CITY_001 City 1 South           478692         20.4              13.3
+10 CITY_001 City 1 South           478692         20.4              13.3
+# ℹ 1,090 more rows
+# ℹ 3 more variables: police_per_10k &lt;dbl&gt;, year &lt;chr&gt;, violent_rate &lt;dbl&gt;</code></pre>
 </div>
 </div>
-</section><section id="a-bar-chart-counts-of-a-categorical-variable" class="level3"><h3 class="anchored" data-anchor-id="a-bar-chart-counts-of-a-categorical-variable">A bar chart — counts of a categorical variable</h3>
+<p>1,100 rows — one per city-year. But look at <code>year</code>: it’s the <em>text</em> <code>"vcr_2015"</code>, not a number. <code><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number()</a></code> strips the text and keeps the digits:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prisoners</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">offense_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Offense types"</span>, x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cities_long</span> <span class="op">&lt;-</span> <span class="va">cities_long</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cities_long</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">city</span>, <span class="va">year</span>, <span class="va">violent_rate</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,100 × 3
+   city    year violent_rate
+   &lt;chr&gt;  &lt;dbl&gt;        &lt;dbl&gt;
+ 1 City 1  2015          549
+ 2 City 1  2016          561
+ 3 City 1  2017          510
+ 4 City 1  2018          512
+ 5 City 1  2019          516
+ 6 City 1  2020          604
+ 7 City 1  2021          641
+ 8 City 1  2022          525
+ 9 City 1  2023          539
+10 City 1  2024          519
+# ℹ 1,090 more rows</code></pre>
+</div>
+</div>
+</section><section id="now-the-analysis-is-one-liners" class="level3"><h3 class="anchored" data-anchor-id="now-the-analysis-is-one-liners">Now the analysis is one-liners</h3>
+<p>Average violent crime rate per year, across all 100 cities:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cities_long</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">violent_rate</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">year</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 2
+    year mean_rate
+   &lt;dbl&gt;     &lt;dbl&gt;
+ 1  2015      431.
+ 2  2016      419.
+ 3  2017      415.
+ 4  2018      415.
+ 5  2019      404.
+ 6  2020      460.
+ 7  2021      459.
+ 8  2022      392.
+ 9  2023      378.
+10  2024      372.
+11  2025      373.</code></pre>
+</div>
+</div>
+<p>Notice the story hiding in there — rates climb into 2020–2021, then fall. And a <strong>line plot over time</strong>, impossible ten minutes ago, is now routine:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cities_long</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">violent_rate</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">region</span>, <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">mean_rate</span>, color <span class="op">=</span> <span class="va">region</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Violent crime rate by region, 2015-2025"</span>,</span>
+<span>       x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Mean violent crimes per 100k"</span>, color <span class="op">=</span> <span class="st">"Region"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="lab-02-visualize_files/figure-html/bar-offense-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="lab-04-tidy_files/figure-html/line-plot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section><section id="a-boxplot-a-distribution-split-by-groups" class="level3"><h3 class="anchored" data-anchor-id="a-boxplot-a-distribution-split-by-groups">A boxplot — a distribution <em>split by groups</em>
-</h3>
-<p>The five-number-summary as a picture, one box per offense type:</p>
+</section><section id="pivot_wider-and-back-again" class="level3"><h3 class="anchored" data-anchor-id="pivot_wider-and-back-again">
+<code>pivot_wider()</code> — and back again</h3>
+<p>Sometimes you <em>want</em> wide (for a table in a report, or to compute 2025 minus 2015):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prisoners</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">offense_type</span>, y <span class="op">=</span> <span class="va">sentence_years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey90"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Sentence length by offense type"</span>,</span>
-<span>       x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Sentence (years)"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="lab-02-visualize_files/figure-html/box-sentence-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cities_long</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
+<span>    names_from <span class="op">=</span> <span class="va">year</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">violent_rate</span>,</span>
+<span>    names_prefix <span class="op">=</span> <span class="st">"vcr_"</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">city</span>, <span class="va">region</span>, <span class="va">vcr_2015</span>, <span class="va">vcr_2025</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>change <span class="op">=</span> <span class="va">vcr_2025</span> <span class="op">-</span> <span class="va">vcr_2015</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 5
+   city    region    vcr_2015 vcr_2025 change
+   &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+ 1 City 1  South          549      525    -24
+ 2 City 2  Midwest        660      456   -204
+ 3 City 3  South          401      277   -124
+ 4 City 4  South          326      203   -123
+ 5 City 5  Midwest        424      383    -41
+ 6 City 6  Midwest        535      371   -164
+ 7 City 7  Northeast      246      192    -54
+ 8 City 8  South          364      265    -99
+ 9 City 9  West           278      177   -101
+10 City 10 South          404      277   -127
+# ℹ 90 more rows</code></pre>
 </div>
 </div>
-</div>
-<p>The box is the middle 50% (median = the line inside); the dots are outliers — the same “one 30-year sentence” problem from lecture, visible instantly.</p>
-</section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
-<p>Work in your own script. Comment each answer.</p>
-<p><strong>1.</strong> Make a histogram of <code>sentence_years</code>. Is it symmetric or skewed? Compute the mean and median — do they agree with what the picture shows? <em>(Hint: today’s lecture.)</em></p>
+<p><code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> and <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> are inverses — data flows freely between shapes once you can name which columns hold names and which hold values.</p>
+</section><section id="workflow-hygiene-scripts-and-projects" class="level3"><h3 class="anchored" data-anchor-id="workflow-hygiene-scripts-and-projects">Workflow hygiene: scripts and projects</h3>
+<p>Three habits from R4DS Ch. 6 that I will hold you to all semester:</p>
+<ol type="1">
+<li>
+<strong>Everything in a script, nothing only in the console.</strong> The console is for experimenting; the script is the record. If it matters, it’s in the script.</li>
+<li>
+<strong>Use an RStudio Project for this course.</strong> <code>File &gt; New Project…</code> once, then always open the course via the <code>.Rproj</code> file. Your working directory is then always the project folder, paths stay relative, and your code runs on any machine — including mine when I grade it.</li>
+<li>
+<strong>Never rely on the Environment pane.</strong> Objects in memory are disposable; your script + your data are the source of truth. Prove it to yourself right now: <code>Session &gt; Restart R</code>, then re-run your script top to bottom. If it doesn’t reproduce everything, fix the script — you just saved a future you from a very bad day. (I also recommend Tools &gt; Global Options &gt; un-check “Restore .RData into workspace at startup.”)</li>
+</ol></section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
+<p>Work in your own script. Comment each answer. The <code>reentry</code> data is wide: <code>month_1</code> … <code>month_12</code> are employment indicators (1 = employed) for each month after release.</p>
+<p><strong>1.</strong> Pivot <code>reentry</code> longer so there’s one row per person-month, with a <code>month</code> column and an <code>employed</code> column. Convert <code>month</code> to a number with <code><a href="https://readr.tidyverse.org/reference/parse_number.html">parse_number()</a></code>. How many rows should you end up with? Check that you did.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>2.</strong> Make a bar chart of <code>education</code>. Which category is most common (the mode)?</p>
+<p><strong>2.</strong> Using your long data, compute the overall employment rate (<code>mean(employed)</code>) for each month. Is reentry employment improving over the first year?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>3.</strong> Make a boxplot of <code>age</code> by <code>offense_type</code>. Which offense type has the <em>most spread</em> in age? Check yourself with <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>:</p>
+<p><strong>3.</strong> Make a line plot of the monthly employment rate, with a separate colored line for each <code>program_type</code>. Which program looks most effective — and at what point after release do the programs separate?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here — for the numeric check:</span></span>
-<span><span class="co"># prisoners |&gt; summarize(sd_age = sd(age), .by = offense_type)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here — hint: summarize by c(program_type, month) first</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>4.</strong> <em>(Stretch)</em> Add <code>color = "white"</code> inside your histogram’s <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> and change its <code>binwidth</code>. What changes? What binwidth seems most honest for <code>sentence_years</code>?</p>
+<p><strong>4.</strong> Pivot your long data back to wide with <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> so it matches the original layout (hint: <code>names_prefix = "month_"</code>). Confirm with <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> that you’re back to 150 rows.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>5.</strong> <em>(Stretch)</em> From the long form, compute each <em>person’s</em> employment rate across their 12 months, then compare the average of those rates across <code>program_type</code> and by <code>gender</code>. Any pattern?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section><section id="exit-ticket" class="level2"><h2 class="anchored" data-anchor-id="exit-ticket">Exit Ticket</h2>
 <p>Submit a short R script to Canvas before you leave, containing:</p>
 <ol type="1">
-<li>One plot of your choice from today (code only is fine)</li>
-<li>A comment (2–3 sentences): what does the plot show, and which descriptive statistic (mean/median/SD) best summarizes it?</li>
-<li>A comment naming one thing from R4DS Ch. 1–2 or today’s lab that is still confusing</li>
+<li>Your Your-Turn 1 pivot code, plus a comment explaining in one sentence <em>why</em> the month columns had to be pivoted before you could plot employment over time</li>
+<li>Your Your-Turn 3 plot code and a comment (2–3 sentences) on what it shows</li>
+<li>A comment confirming you restarted R and your script ran clean top to bottom — or describing what broke when you tried</li>
 </ol>
 
 
