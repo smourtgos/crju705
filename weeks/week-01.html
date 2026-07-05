@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -168,13 +203,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Full session materials (slides, swirl assignment) are being finalized and will appear here.</p>
+<p><strong><a href="../slides/week-01-stats-is-awesome.html">📽️ Slides: Statistics is Awesome!</a></strong></p>
 </div>
 </div>
 </div>
@@ -197,10 +232,25 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>
-<ul>
-<li><strong>swirl tutorials</strong> — instructions given in class; submit your R script files via Canvas <strong>before noon Tuesday</strong> ahead of Session 2</li>
-<li>Read Stanton <strong>Ch. 1</strong> before next class</li>
-</ul>
+<p><strong>swirl tutorials</strong> — interactive R lessons that run inside R itself:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(swirl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">swirl</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>When prompted, choose the <strong>R Programming</strong> course and complete these lessons:</p>
+<ol type="1">
+<li>Basic Building Blocks</li>
+<li>Workspace and Files</li>
+<li>Sequences of Numbers</li>
+<li>Vectors</li>
+<li>Missing Values</li>
+<li>Subsetting Vectors</li>
+<li>Matrices and Data Frames</li>
+<li>Logic</li>
+<li>Looking at Data</li>
+<li>Base Graphics</li>
+</ol>
+<p>Save the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas <strong>before noon Tuesday</strong> ahead of Session 2.</p>
+<p>Also read Stanton <strong>Ch. 1</strong> before next class <em>(and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)</em>.</p>
 
 
 </section>

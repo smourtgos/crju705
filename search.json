@@ -4,7 +4,7 @@
     "href": "weeks/week-01.html",
     "title": "Session 1 · Intro & R Setup",
     "section": "",
-    "text": "Full session materials (slides, swirl assignment) are being finalized and will appear here."
+    "text": "📽️ Slides: Statistics is Awesome!"
   },
   {
     "objectID": "weeks/week-01.html#before-class",
@@ -25,35 +25,273 @@
     "href": "weeks/week-01.html#homework",
     "title": "Session 1 · Intro & R Setup",
     "section": "Homework",
-    "text": "Homework\n\nswirl tutorials — instructions given in class; submit your R script files via Canvas before noon Tuesday ahead of Session 2\nRead Stanton Ch. 1 before next class"
+    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas before noon Tuesday ahead of Session 2.\nAlso read Stanton Ch. 1 before next class (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)."
   },
   {
-    "objectID": "schedule.html",
-    "href": "schedule.html",
-    "title": "Schedule",
+    "objectID": "slides/week-01-stats-is-awesome.html#class-introductions",
+    "href": "slides/week-01-stats-is-awesome.html#class-introductions",
+    "title": "Statistics is Awesome!",
+    "section": "Class Introductions",
+    "text": "Class Introductions\n\nName\nPlace in program\nArea of interest\nExperience with statistics (anxiety about statistics?)\nWhy are you here?\nFuture plans / goals"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#the-situation",
+    "href": "slides/week-01-stats-is-awesome.html#the-situation",
+    "title": "Statistics is Awesome!",
+    "section": "The Situation",
+    "text": "The Situation\nOver three months, 40 bank robberies strike across a city’s five zones: North, South, East, West, and Downtown.\n\nNo clear pattern. No suspects. No leads.\nThe robber hits banks, disappears, and resurfaces days later in a different part of the city.\nDetectives are stumped. The media is escalating. Public concern is growing.\nThen someone makes a call to the PD’s new crime analyst team:\n\n\n\n“Can you help us predict where they’ll hit next?”"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#what-does-the-data-look-like",
+    "href": "slides/week-01-stats-is-awesome.html#what-does-the-data-look-like",
+    "title": "Statistics is Awesome!",
+    "section": "What Does the Data Look Like?",
+    "text": "What Does the Data Look Like?\n40 bank robberies across 5 city zones over several months:\n\n\n\n\n\n\n\nVariable\nMeaning\n\n\n\n\nrobbery_id\nRobbery sequence\n\n\ndate\nWhen the robbery occurred\n\n\nzone\nWhich part of the city was hit\n\n\nday_of_year\nNumeric version of the date (for modeling time)\n\n\nlat & lon\nSpatial location (for mapping)\n\n\nprior_robberies_in_zone\nHow many robberies already happened in that zone?"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#before-we-model-we-look",
+    "href": "slides/week-01-stats-is-awesome.html#before-we-model-we-look",
+    "title": "Statistics is Awesome!",
+    "section": "Before We Model, We Look",
+    "text": "Before We Model, We Look\nVery little information is available: no suspect descriptions, no MO patterns — just when and where.\nCan we use this simple dataset to build a predictive model with statistics?\n\nBut before we even build a model, we can use basic plots to spot patterns.\nGood data analysts always visualize before they model."
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#timeline-of-robberies-by-zone-any-patterns",
+    "href": "slides/week-01-stats-is-awesome.html#timeline-of-robberies-by-zone-any-patterns",
+    "title": "Statistics is Awesome!",
+    "section": "Timeline of Robberies by Zone — any patterns?",
+    "text": "Timeline of Robberies by Zone — any patterns?"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#watching-it-unfold-over-time",
+    "href": "slides/week-01-stats-is-awesome.html#watching-it-unfold-over-time",
+    "title": "Statistics is Awesome!",
+    "section": "Watching It Unfold Over Time",
+    "text": "Watching It Unfold Over Time"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#mapped-locations-any-patterns",
+    "href": "slides/week-01-stats-is-awesome.html#mapped-locations-any-patterns",
+    "title": "Statistics is Awesome!",
+    "section": "Mapped Locations — any patterns?",
+    "text": "Mapped Locations — any patterns?"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#building-a-predictive-model",
+    "href": "slides/week-01-stats-is-awesome.html#building-a-predictive-model",
+    "title": "Statistics is Awesome!",
+    "section": "Building a Predictive Model",
+    "text": "Building a Predictive Model\nWe want to predict where the next robbery will occur within a short time window, based on patterns in time, location, and prior activity.\nKey predictors:\n\nDay of year (captures seasonal or other unobserved time patterns)\nPrior robberies in the same zone\nZone"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#what-are-we-trying-to-predict",
+    "href": "slides/week-01-stats-is-awesome.html#what-are-we-trying-to-predict",
+    "title": "Statistics is Awesome!",
+    "section": "What Are We Trying to Predict?",
+    "text": "What Are We Trying to Predict?\nWe use logistic regression to predict whether the same zone will be hit again within 10 days:\n\nOutcome: future_hit = 1 if another robbery occurs in the same zone within the next 10 days; otherwise 0\nThis creates a binary classification problem\n\n(Don’t worry about the machinery today — logistic regression is Session 12. This is a preview of where we’re headed.)"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#logistic-regression-results",
+    "href": "slides/week-01-stats-is-awesome.html#logistic-regression-results",
+    "title": "Statistics is Awesome!",
+    "section": "Logistic Regression Results",
+    "text": "Logistic Regression Results\n\n\n\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\n\n\n\n\nscale(day_of_year)\n0.034\n1.055\n0.032\n0.975\n\n\nprior_robberies_in_zone\n-0.033\n0.194\n-0.171\n0.864\n\n\nzoneNorth\n-17.528\n3956.181\n-0.004\n0.996\n\n\nzoneSouth\n-17.563\n2284.020\n-0.008\n0.994\n\n\nzoneEast\n-1.309\n1.328\n-0.986\n0.324\n\n\nzoneWest\n1.114\n2.053\n0.543\n0.587\n\n\nzoneDowntown\n-0.979\n1.149\n-0.852\n0.394"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#predicted-risk-by-zone",
+    "href": "slides/week-01-stats-is-awesome.html#predicted-risk-by-zone",
+    "title": "Statistics is Awesome!",
+    "section": "Predicted Risk by Zone",
+    "text": "Predicted Risk by Zone"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#predicted-risk-by-zone-1",
+    "href": "slides/week-01-stats-is-awesome.html#predicted-risk-by-zone-1",
+    "title": "Statistics is Awesome!",
+    "section": "Predicted Risk by Zone",
+    "text": "Predicted Risk by Zone\nBased on the model, the West Zone has the highest likelihood of being targeted next.\n\nSo what should we do with the information derived from the model?"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#strategic-deployment",
+    "href": "slides/week-01-stats-is-awesome.html#strategic-deployment",
+    "title": "Statistics is Awesome!",
+    "section": "Strategic Deployment",
+    "text": "Strategic Deployment\n\n\n📍 Where: West Zone had the highest predicted probability\n🚔 Action: Deploy units there for surveillance and hopeful capture\n🎯 Goal: Increase arrest probability"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#case-study-wrap-up-discussion",
+    "href": "slides/week-01-stats-is-awesome.html#case-study-wrap-up-discussion",
+    "title": "Statistics is Awesome!",
+    "section": "Case Study Wrap-Up & Discussion",
+    "text": "Case Study Wrap-Up & Discussion\nOutcome: Within days, officers apprehended the suspect in the predicted area as he was approaching a bank.\nStatistics turned scattered crime data into a clear lead — saving time, resources, and preventing further victimization.\n\nWhat data did we not use? How could we update this model as new robberies occur in real time?\nWhat are the risks of over-relying on a model? How do we communicate uncertainty to decision-makers?\nWhat other areas that interest you could statistics be applied to?"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#how-this-course-works",
+    "href": "slides/week-01-stats-is-awesome.html#how-this-course-works",
+    "title": "Statistics is Awesome!",
+    "section": "How This Course Works",
+    "text": "How This Course Works\nEverything lives on the course website — bookmark it:\nhttps://smourtgos.github.io/crju705/\n\nSchedule — topics, readings, slides, labs, homework for every session\nSyllabus — walk-through now (grading, policies, AI policy, the mid-term warning)\nTwo textbooks: Stanton (required) + R for Data Science (free online)\nBoth traditions: you will learn frequentist and Bayesian inference — few courses teach both\nSubmissions happen via Canvas; materials live here"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#types-of-data",
+    "href": "slides/week-01-stats-is-awesome.html#types-of-data",
+    "title": "Statistics is Awesome!",
+    "section": "Types of Data",
+    "text": "Types of Data\nQualitative (categorical)\n\nDescribe groups or labels (zone, sex, race)\nText / interviews\n\nQuantitative (numerical)\n\nMeasurable amounts (age, prior robberies)\nDiscrete = whole counts (number of robberies)\nContinuous = can take any value (income, age)"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#levels-of-measurement",
+    "href": "slides/week-01-stats-is-awesome.html#levels-of-measurement",
+    "title": "Statistics is Awesome!",
+    "section": "Levels of Measurement",
+    "text": "Levels of Measurement\n\n\n\n\n\n\n\n\nLevel\nDefinition\nExamples\n\n\n\n\nNominal\nCategories without order\nRace, sex, zone\n\n\nOrdinal\nOrdered categories, unequal gaps\nLikert scales\n\n\nInterval\nMeaningful differences, no true zero\nTemperature (°C)\n\n\nRatio\nMeaningful differences and true zero\nRobbery counts, age"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#why-does-the-level-matter",
+    "href": "slides/week-01-stats-is-awesome.html#why-does-the-level-matter",
+    "title": "Statistics is Awesome!",
+    "section": "Why Does the Level Matter?",
+    "text": "Why Does the Level Matter?\n\nYour variable’s scale determines the math you’re allowed to do\nIt also determines the plot you should make\nUsing the wrong scale leads to wrong conclusions"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#scale-determines-the-math-nominal",
+    "href": "slides/week-01-stats-is-awesome.html#scale-determines-the-math-nominal",
+    "title": "Statistics is Awesome!",
+    "section": "Scale Determines the Math: Nominal",
+    "text": "Scale Determines the Math: Nominal\n\n# WRONG: the \"mean zone\" is meaningless\nrob$zone |&gt; as.numeric() |&gt; mean()\n\n[1] 3.17\n\n\n\n\n# RIGHT: counts and percentages\nrob |&gt;\n  count(zone) |&gt;\n  mutate(pct = 100 * n / sum(n))\n\n# A tibble: 5 × 3\n  zone         n   pct\n  &lt;fct&gt;    &lt;int&gt; &lt;dbl&gt;\n1 Downtown    32  16  \n2 East        28  14  \n3 North       59  29.5\n4 South       36  18  \n5 West        45  22.5"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#scale-determines-the-math-ordinal",
+    "href": "slides/week-01-stats-is-awesome.html#scale-determines-the-math-ordinal",
+    "title": "Statistics is Awesome!",
+    "section": "Scale Determines the Math: Ordinal",
+    "text": "Scale Determines the Math: Ordinal\n\n# Summarize a Likert item (ordinal): median & IQR\nrob |&gt;\n  summarize(med = median(risk_likert), iqr = IQR(risk_likert))\n\n# A tibble: 1 × 2\n    med   iqr\n  &lt;dbl&gt; &lt;dbl&gt;\n1     4     3\n\n# Association with a numeric variable: Spearman (rank-based)\ncor(rob$risk_likert, rob$prior_robberies_in_zone, method = \"spearman\")\n\n[1] 0.001707403"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#interval-vs.-ratio",
+    "href": "slides/week-01-stats-is-awesome.html#interval-vs.-ratio",
+    "title": "Statistics is Awesome!",
+    "section": "Interval vs. Ratio",
+    "text": "Interval vs. Ratio\n\nmean(rob$temp_c)             # ~20 °C\n\n[1] 20.07643\n\nmean(rob$temp_c * 1.8 + 32)  # same temperatures in °F\n\n[1] 68.13757\n\n\nTemperature has no true zero — 0 °C is just where water freezes.\n\n“30 °C is 10 °C warmer than 20 °C” ✔ (differences are fine)\n“20 °C is twice as hot as 10 °C” ✘ (ratios are meaningless)\n\n\n\nmean(rob$age)\n\n[1] 40.605\n\n\nAge has a true zero — a 40-year-old is twice as old as a 20-year-old. Differences and ratios both work."
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#plots-that-match-the-scale",
+    "href": "slides/week-01-stats-is-awesome.html#plots-that-match-the-scale",
+    "title": "Statistics is Awesome!",
+    "section": "Plots That Match the Scale",
+    "text": "Plots That Match the Scale"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#choosing-the-right-test-preview-of-the-semester",
+    "href": "slides/week-01-stats-is-awesome.html#choosing-the-right-test-preview-of-the-semester",
+    "title": "Statistics is Awesome!",
+    "section": "Choosing the Right Test (Preview of the Semester)",
+    "text": "Choosing the Right Test (Preview of the Semester)\n\n# Categorical × categorical → chi-squared (compare proportions)\nchisq.test(table(rob$zone, rob$caught))\n\n\n\n\n    Pearson's Chi-squared test\n\ndata:  table(rob$zone, rob$caught)\nX-squared = 2.1521, df = 4, p-value = 0.7078\n\n\n\n# Numeric by category → ANOVA (compare group means)  [Session 8]\naov(age ~ zone, data = rob) |&gt; summary()\n\n\n\n             Df Sum Sq Mean Sq F value Pr(&gt;F)\nzone          4     73   18.15   0.134   0.97\nResiduals   195  26419  135.48               \n\n\n\n# Numeric × numeric → Pearson correlation             [Session 10]\ncor(rob$age, rob$prior_robberies_in_zone)\n\n\n\n[1] -0.004038644"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#treating-ordinal-as-numeric-can-mislead",
+    "href": "slides/week-01-stats-is-awesome.html#treating-ordinal-as-numeric-can-mislead",
+    "title": "Statistics is Awesome!",
+    "section": "Treating Ordinal as Numeric Can Mislead",
+    "text": "Treating Ordinal as Numeric Can Mislead\n\neduc &lt;- rep(1:5, each = 50)                 # ordinal codes 1..5\nincome &lt;- rep(c(1, 2, 3, 4, 1000), each = 50)  # HUGE jump at the top\ncor(educ, income)                           # Pearson looks \"strong\"\n\n[1] 0.7088768\n\n\n\nThe correlation is “large,” but the categories are not equally spaced — code numbers ≠ measurements."
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#install-r-rstudio-before-session-2",
+    "href": "slides/week-01-stats-is-awesome.html#install-r-rstudio-before-session-2",
+    "title": "Statistics is Awesome!",
+    "section": "Install R + RStudio (Before Session 2!)",
+    "text": "Install R + RStudio (Before Session 2!)\nFollow the step-by-step guide on the course website:\nsmourtgos.github.io/crju705/resources.html\n\nInstall R (from CRAN)\nInstall RStudio (from Posit)\nTest: type 2 + 2 in the Console → you should see [1] 4\nInstall the course packages:\n\n\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\"))\n\nCheck: open RStudio and verify you see four panes (Source, Console, Environment/History, Files/Plots/Help)."
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#first-steps-arithmetic-assignment",
+    "href": "slides/week-01-stats-is-awesome.html#first-steps-arithmetic-assignment",
+    "title": "Statistics is Awesome!",
+    "section": "First Steps: Arithmetic & Assignment",
+    "text": "First Steps: Arithmetic & Assignment\n(Stanton Appendix A)\n\n3 + 5\n\n[1] 8\n\nx &lt;- 1:10\nsum(x); mean(x); sd(x)\n\n[1] 55\n\n\n[1] 5.5\n\n\n[1] 3.02765\n\n\n\n?mean   # every function has a help page — use them constantly"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#first-steps-logical-indexing",
+    "href": "slides/week-01-stats-is-awesome.html#first-steps-logical-indexing",
+    "title": "Statistics is Awesome!",
+    "section": "First Steps: Logical Indexing",
+    "text": "First Steps: Logical Indexing\n\nx &gt; 5\n\n [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE\n\nx[x &gt; 5]\n\n[1]  6  7  8  9 10"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#first-steps-characters-factors",
+    "href": "slides/week-01-stats-is-awesome.html#first-steps-characters-factors",
+    "title": "Statistics is Awesome!",
+    "section": "First Steps: Characters & Factors",
+    "text": "First Steps: Characters & Factors\n\nstudent_names &lt;- c(\"Alice\", \"Bob\", \"Carol\")\nis.character(student_names)\n\n[1] TRUE\n\nf &lt;- factor(c(\"red\", \"blue\", \"red\"))\nf\n\n[1] red  blue red \nLevels: blue red\n\n\n\nYour turn: build a vector of seven ages; compute the mean & SD; subset the values &gt; 30; then use ?seq to generate seq(0, 1, by = 0.2)."
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#data-frames-dplyr",
+    "href": "slides/week-01-stats-is-awesome.html#data-frames-dplyr",
+    "title": "Statistics is Awesome!",
+    "section": "Data Frames & dplyr",
+    "text": "Data Frames & dplyr\n(Stanton Appendix B — modern form)\n\nlibrary(tidyverse)\ncars_data &lt;- as_tibble(mtcars, rownames = \"model\")\nhead(cars_data, 4)\n\n# A tibble: 4 × 12\n  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4\n2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4\n3 Datsun 710    22.8     4   108    93  3.85  2.32  18.6     1     1     4     1\n4 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#select-filter",
+    "href": "slides/week-01-stats-is-awesome.html#select-filter",
+    "title": "Statistics is Awesome!",
+    "section": "select & filter",
+    "text": "select & filter\n\ncars_data |&gt; select(model, mpg, cyl, hp)\n\n# A tibble: 32 × 4\n  model               mpg   cyl    hp\n  &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4          21       6   110\n2 Mazda RX4 Wag      21       6   110\n3 Datsun 710         22.8     4    93\n4 Hornet 4 Drive     21.4     6   110\n5 Hornet Sportabout  18.7     8   175\n6 Valiant            18.1     6   105\n# ℹ 26 more rows\n\n\n\ncars_data |&gt; filter(cyl == 6)\n\n# A tibble: 7 × 12\n  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4     21       6  160    110  3.9   2.62  16.5     0     1     4     4\n2 Mazda RX4 W…  21       6  160    110  3.9   2.88  17.0     0     1     4     4\n3 Hornet 4 Dr…  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1\n4 Valiant       18.1     6  225    105  2.76  3.46  20.2     1     0     3     1\n5 Merc 280      19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4\n6 Merc 280C     17.8     6  168.   123  3.92  3.44  18.9     1     0     4     4\n7 Ferrari Dino  19.7     6  145    175  3.62  2.77  15.5     0     1     5     6"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#mutate-summarize",
+    "href": "slides/week-01-stats-is-awesome.html#mutate-summarize",
+    "title": "Statistics is Awesome!",
+    "section": "mutate & summarize",
+    "text": "mutate & summarize\n\ncars_data |&gt;\n  mutate(mpg_per_hp = mpg / hp) |&gt;\n  select(model, mpg, hp, mpg_per_hp) |&gt;\n  head(4)\n\n# A tibble: 4 × 4\n  model            mpg    hp mpg_per_hp\n  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;\n1 Mazda RX4       21     110      0.191\n2 Mazda RX4 Wag   21     110      0.191\n3 Datsun 710      22.8    93      0.245\n4 Hornet 4 Drive  21.4   110      0.195\n\ncars_data |&gt;\n  summarize(avg_mpg = mean(mpg), n = n(), .by = cyl)\n\n# A tibble: 3 × 3\n    cyl avg_mpg     n\n  &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;\n1     6    19.7     7\n2     4    26.7    11\n3     8    15.1    14\n\n\n\nYour turn: using the built-in mpg data — (1) find the top-3 models by hwy; (2) compute average cty by class."
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#coming-attractions-real-data-all-semester",
+    "href": "slides/week-01-stats-is-awesome.html#coming-attractions-real-data-all-semester",
+    "title": "Statistics is Awesome!",
+    "section": "Coming Attractions: Real Data, All Semester",
+    "text": "Coming Attractions: Real Data, All Semester\nStarting next week, our running example is real: every crime reported in Chicago in 2025."
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#homework-due-before-noon-tuesday",
+    "href": "slides/week-01-stats-is-awesome.html#homework-due-before-noon-tuesday",
+    "title": "Statistics is Awesome!",
+    "section": "Homework (Due Before Noon Tuesday)",
+    "text": "Homework (Due Before Noon Tuesday)\nswirl tutorials — interactive R lessons inside R:\n\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\n\nComplete these lessons from R Programming: 1) Basic Building Blocks · 2) Workspace and Files · 3) Sequences of Numbers · 4) Vectors · 5) Missing Values · 6) Subsetting Vectors · 7) Matrices and Data Frames · 8) Logic · 12) Looking at Data · 15) Base Graphics\nSubmit your R script files via Canvas. Then read Stanton Ch. 1 before Session 2."
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
     "section": "",
-    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\ncoming soon\n\n\n3\nProbability, via simulation\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\ncoming soon\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects)\ncoming soon\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 7 (Data import), Ch. 8 (Workflow: getting help)\ncoming soon\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 19 (Joins); Ch. 18 (Missing values, skim)\ncoming soon\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\ncoming soon\n\n\n8\nANOVA · project checkpoints begin\nCh. 6\n—\ncoming soon\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\n\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\ncoming soon\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\ncoming soon\n\n\n12\nLogistic regression · project checkpoint\nCh. 10\n—\ncoming soon\n\n\n13\nFinal-project help session — open Q&A and code clinic\n—\n—\n\n\n\n14\nFinal project presentations\n—\n—"
+    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\"))\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "objectID": "resources.html#installing-r-and-rstudio",
+    "href": "resources.html#installing-r-and-rstudio",
+    "title": "Resources",
     "section": "",
-    "text": "Wednesdays, 5:50–8:35 pm · Currell 204 · Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu\nStatistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both traditional (frequentist) and Bayesian approaches to statistical reasoning, with all analysis done in R.\nEverything for the course lives on this site:"
+    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\"))\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
   },
   {
-    "objectID": "index.html#textbooks",
-    "href": "index.html#textbooks",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "objectID": "resources.html#textbooks",
+    "href": "resources.html#textbooks",
+    "title": "Resources",
     "section": "Textbooks",
-    "text": "Textbooks\n\nStanton, Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R (required)\nWickham, Çetinkaya-Rundel & Grolemund, R for Data Science (2nd edition) — free online (assigned readings woven through the first half of the course)"
+    "text": "Textbooks\n\nStanton, J. M. Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R. Guilford Press. (Required — electronic edition is fine.)\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. R for Data Science, 2nd ed. Free online. Assigned readings are listed on the Schedule."
   },
   {
-    "objectID": "index.html#getting-started",
-    "href": "index.html#getting-started",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
-    "section": "Getting started",
-    "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
+    "objectID": "resources.html#datasets",
+    "href": "resources.html#datasets",
+    "title": "Resources",
+    "section": "Datasets",
+    "text": "Datasets\nDownload by clicking, or read directly in R, e.g.:\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nchicago-crimes-2025.csv\nAnchor dataset: 30,000 real Chicago crime incidents from 2025 — full codebook\nLectures, all semester\n\n\nchicago-areas.csv\nAnchor dataset: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — full codebook\nLectures (correlation → regression)\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nThe two Chicago anchor files are real data (Chicago Police Department portal + Census/ACS via CMAP) — see the full codebook and caveats. The remaining datasets are simulated but realistic, generously shared by a colleague."
+  },
+  {
+    "objectID": "resources.html#getting-help",
+    "href": "resources.html#getting-help",
+    "title": "Resources",
+    "section": "Getting help",
+    "text": "Getting help\n\nIn this order: R’s built-in help (?mean), the R4DS Getting Help chapter, a classmate, then me.\nAI tools (ChatGPT, Claude, etc.) are welcome as collaborators — see the syllabus AI policy — but you must be able to explain every line you submit."
   },
   {
     "objectID": "chicago-data.html",
@@ -91,39 +329,32 @@
     "text": "Provenance\nSnapshot pulled July 2026; build script archived in the course repository (R/build-anchor-dataset.R) so the dataset is exactly reproducible. Sources: Chicago Data Portal, Crimes 2001–present (dataset ijzp-q8t2) and CMAP Community Data Snapshots 2026 (CCA table)."
   },
   {
-    "objectID": "resources.html",
-    "href": "resources.html",
-    "title": "Resources",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
     "section": "",
-    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\"))\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
+    "text": "Wednesdays, 5:50–8:35 pm · Currell 204 · Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu\nStatistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both traditional (frequentist) and Bayesian approaches to statistical reasoning, with all analysis done in R.\nEverything for the course lives on this site:"
   },
   {
-    "objectID": "resources.html#installing-r-and-rstudio",
-    "href": "resources.html#installing-r-and-rstudio",
-    "title": "Resources",
-    "section": "",
-    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\"))\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
-  },
-  {
-    "objectID": "resources.html#textbooks",
-    "href": "resources.html#textbooks",
-    "title": "Resources",
+    "objectID": "index.html#textbooks",
+    "href": "index.html#textbooks",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
     "section": "Textbooks",
-    "text": "Textbooks\n\nStanton, J. M. Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R. Guilford Press. (Required — electronic edition is fine.)\nWickham, H., Çetinkaya-Rundel, M., & Grolemund, G. R for Data Science, 2nd ed. Free online. Assigned readings are listed on the Schedule."
+    "text": "Textbooks\n\nStanton, Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R (required)\nWickham, Çetinkaya-Rundel & Grolemund, R for Data Science (2nd edition) — free online (assigned readings woven through the first half of the course)"
   },
   {
-    "objectID": "resources.html#datasets",
-    "href": "resources.html#datasets",
-    "title": "Resources",
-    "section": "Datasets",
-    "text": "Datasets\nDownload by clicking, or read directly in R, e.g.:\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nchicago-crimes-2025.csv\nAnchor dataset: 30,000 real Chicago crime incidents from 2025 — full codebook\nLectures, all semester\n\n\nchicago-areas.csv\nAnchor dataset: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — full codebook\nLectures (correlation → regression)\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nThe two Chicago anchor files are real data (Chicago Police Department portal + Census/ACS via CMAP) — see the full codebook and caveats. The remaining datasets are simulated but realistic, generously shared by a colleague."
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "Getting started",
+    "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
   },
   {
-    "objectID": "resources.html#getting-help",
-    "href": "resources.html#getting-help",
-    "title": "Resources",
-    "section": "Getting help",
-    "text": "Getting help\n\nIn this order: R’s built-in help (?mean), the R4DS Getting Help chapter, a classmate, then me.\nAI tools (ChatGPT, Claude, etc.) are welcome as collaborators — see the syllabus AI policy — but you must be able to explain every line you submit."
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\ncoming soon\n\n\n3\nProbability, via simulation\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\ncoming soon\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects)\ncoming soon\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 7 (Data import), Ch. 8 (Workflow: getting help)\ncoming soon\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 19 (Joins); Ch. 18 (Missing values, skim)\ncoming soon\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\ncoming soon\n\n\n8\nANOVA · project checkpoints begin\nCh. 6\n—\ncoming soon\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\n\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\ncoming soon\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\ncoming soon\n\n\n12\nLogistic regression · project checkpoint\nCh. 10\n—\ncoming soon\n\n\n13\nFinal-project help session — open Q&A and code clinic\n—\n—\n\n\n\n14\nFinal project presentations\n—\n—"
   },
   {
     "objectID": "syllabus.html",
