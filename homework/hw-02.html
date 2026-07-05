@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Schedule – CRJU 705</title>
+<title>Homework 2 · Descriptive Statistics in R – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,14 +107,14 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">CRJU 705</span>
     </a>
   </div>
@@ -90,11 +125,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./schedule.html" aria-current="page"> 
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./syllabus.html"> 
+    <a class="nav-link" href="../syllabus.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -103,21 +138,21 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
         <li>
-    <a class="dropdown-item" href="./weeks/week-01.html">
+    <a class="dropdown-item" href="../weeks/week-01.html">
  <span class="dropdown-text">Session 1 · Intro &amp; R Setup</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./weeks/week-02.html">
+    <a class="dropdown-item" href="../weeks/week-02.html">
  <span class="dropdown-text">Session 2 · Descriptive Statistics</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./resources.html"> 
+    <a class="nav-link" href="../resources.html"> 
 <span class="menu-text">Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chicago-data.html"> 
+    <a class="nav-link" href="../chicago-data.html"> 
 <span class="menu-text">Data Codebook</span></a>
   </li>  
 </ul>
@@ -138,13 +173,25 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-1-measures-of-central-tendency" id="toc-part-1-measures-of-central-tendency" class="nav-link active" data-scroll-target="#part-1-measures-of-central-tendency">Part 1: Measures of Central Tendency</a></li>
+  <li><a href="#part-2-measures-of-dispersion" id="toc-part-2-measures-of-dispersion" class="nav-link" data-scroll-target="#part-2-measures-of-dispersion">Part 2: Measures of Dispersion</a></li>
+  <li><a href="#part-3-exploring-distributions" id="toc-part-3-exploring-distributions" class="nav-link" data-scroll-target="#part-3-exploring-distributions">Part 3: Exploring Distributions</a></li>
+  <li><a href="#part-4-real-data-new-this-year" id="toc-part-4-real-data-new-this-year" class="nav-link" data-scroll-target="#part-4-real-data-new-this-year">Part 4: Real Data (new this year)</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-02.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Schedule</h1>
+<h1 class="title">Homework 2 · Descriptive Statistics in R</h1>
+<p class="subtitle lead">CRJU 705 · due before noon Tuesday ahead of Session 3</p>
 </div>
 
 
@@ -161,137 +208,60 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-simple callout-warning">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.</p>
-</div>
-</div>
-</div>
-<p>Readings are due <strong>before</strong> the start of the listed class session. “R4DS” = <a href="https://r4ds.hadley.nz/"><em>R for Data Science</em>, 2nd ed.</a> (free online). Slide, lab, and homework links go live as each session is published.</p>
-<table class="schedule-table table-striped table-hover caption-top table">
-<colgroup>
-<col style="width: 4%">
-<col style="width: 40%">
-<col style="width: 10%">
-<col style="width: 26%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Topic</th>
-<th>Stanton</th>
-<th>R4DS</th>
-<th>Materials</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>Class intro · Why statistics is awesome · Types of data · R &amp; RStudio setup</td>
-<td>Intro, App. A–C</td>
-<td>— (swirl tutorials for homework)</td>
-<td><a href="./weeks/week-01.html">Session page</a></td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>Descriptive statistics &amp; exploratory data analysis</td>
-<td>Ch. 1</td>
-<td>Ch. 1 (Data visualization), Ch. 2 (Workflow: basics)</td>
-<td><a href="./weeks/week-02.html">Session page</a> · <a href="./slides/week-02-descriptives.html">Slides</a> · <a href="./labs/lab-02-visualize.html">Lab</a> · <a href="./homework/hw-02.html">HW</a></td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>Probability, via simulation</td>
-<td>Ch. 2</td>
-<td>Ch. 3 (Data transformation), Ch. 4 (Workflow: code style)</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td>Sampling distributions, via simulation</td>
-<td>Ch. 3</td>
-<td>Ch. 5 (Data tidying), Ch. 6 (Workflow: scripts &amp; projects)</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>Confidence intervals on real data</td>
-<td>Ch. 4</td>
-<td>Ch. 7 (Data import), Ch. 8 (Workflow: getting help)</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>Hypothesis testing: frequentist <strong>and</strong> Bayesian t-tests</td>
-<td>Ch. 5</td>
-<td>Ch. 19 (Joins); Ch. 18 (Missing values, skim)</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td><strong>Applied data workshop</strong> — full pipeline on messy data · <strong>Final-project dataset selection due</strong></td>
-<td>—</td>
-<td>(capstone of the R4DS thread)</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="even">
-<td>8</td>
-<td>ANOVA · project checkpoints begin</td>
-<td>Ch. 6</td>
-<td>—</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="odd">
-<td>9</td>
-<td><strong>Midterm exam</strong> (in class, covers sessions 1–8)</td>
-<td>—</td>
-<td>—</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>10</td>
-<td>Measures of association / correlation · project checkpoint</td>
-<td>Ch. 7</td>
-<td>—</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="odd">
-<td>11</td>
-<td>Multiple linear regression · project checkpoint</td>
-<td>Ch. 8</td>
-<td>—</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="even">
-<td>12</td>
-<td>Logistic regression · project checkpoint</td>
-<td>Ch. 10</td>
-<td>—</td>
-<td><em>coming soon</em></td>
-</tr>
-<tr class="odd">
-<td>13</td>
-<td><strong>Final-project help session</strong> — open Q&amp;A and code clinic</td>
-<td>—</td>
-<td>—</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>14</td>
-<td><strong>Final project presentations</strong></td>
-<td>—</td>
-<td>—</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p><strong>Instructions:</strong> complete the following exercises in a single <code>.R</code> script file. Include comments explaining your code and answers to any interpretive questions. Submit your <code>.R</code> file via <strong>Canvas</strong> for credit.</p>
+<section id="part-1-measures-of-central-tendency" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-measures-of-central-tendency">Part 1: Measures of Central Tendency</h2>
+<ol type="1">
+<li><p>Create a numeric vector with these sentence lengths (in years):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Calculate the <strong>mean</strong>, <strong>median</strong>, and <strong>mode</strong> of these sentences. Use both the manual (hard-coded) method <em>and</em> the built-in functions: <code>mean()</code>, <code>median()</code>, and <code>mfv()</code> from the <strong>modeest</strong> package.</p></li>
+<li><p>Plot a histogram of the sentence data. You may use <code>ggplot() + geom_histogram()</code> (as in Lab 2) or base R’s <code>hist()</code> — your choice.</p></li>
+<li><p><strong>Interpretation (in a comment):</strong> why might the mean give a misleading impression of typical sentence length in this example?</p></li>
+</ol>
+</section>
+<section id="part-2-measures-of-dispersion" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-measures-of-dispersion">Part 2: Measures of Dispersion</h2>
+<ol type="1">
+<li><p>Create two vote-count scenarios:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>scenario1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">175</span>, <span class="dv">300</span>, <span class="dv">425</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scenario2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">299</span>, <span class="dv">300</span>, <span class="dv">301</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Compute the range of each using <code>range()</code> and <code>diff()</code>.</p></li>
+<li><p>Compute the deviations from the mean for each set (subtract the mean from each value).</p></li>
+<li><p>Compute the <strong>sum of squared deviations</strong>, <strong>variance</strong>, and <strong>standard deviation</strong> — using:</p>
+<ul>
+<li>the manual (hard-coded <em>population</em>) formulas, and</li>
+<li>the built-in functions <code>var()</code> and <code>sd()</code>.</li>
+</ul>
+<p><em>(You’ll notice the built-ins give slightly different answers than your population formulas — R divides by n − 1. We’ll see exactly why in Session 4; for now, just note the difference in a comment.)</em></p></li>
+<li><p><strong>Compare the two vote scenarios:</strong> what do these measures tell you about the difference between the two vote distributions?</p></li>
+</ol>
+</section>
+<section id="part-3-exploring-distributions" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-exploring-distributions">Part 3: Exploring Distributions</h2>
+<ol type="1">
+<li><p>Generate and plot a <strong>normal</strong> distribution using a <em>different</em> mean and standard deviation than used in class, e.g.:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Generate and plot a <strong>Poisson</strong> distribution with <code>lambda = 1</code>, and again with <code>lambda = 5</code>.</p></li>
+<li><p><strong>Reflection (in a comment):</strong></p>
+<ul>
+<li>What’s the key difference in shape between the normal and Poisson distributions?</li>
+<li>Why might a Poisson distribution be useful in a criminal justice setting?</li>
+</ul></li>
+</ol>
+</section>
+<section id="part-4-real-data-new-this-year" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-real-data-new-this-year">Part 4: Real Data (new this year)</h2>
+<ol type="1">
+<li><p>Load the course anchor data:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Compute the mean, median, and standard deviation of <code>violent_rate</code> (violent crimes per 1,000 residents across Chicago’s 77 community areas).</p></li>
+<li><p>Make a histogram of <code>violent_rate</code>.</p></li>
+<li><p><strong>Interpretation (in a comment):</strong> based on the mean-vs-median comparison and the histogram’s shape, is <code>violent_rate</code> symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?</p></li>
+</ol>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

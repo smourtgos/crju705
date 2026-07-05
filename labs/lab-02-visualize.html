@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>The Chicago Anchor Dataset – CRJU 705</title>
+<title>Lab 2 · First Plots with ggplot2 – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,26 +54,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -103,47 +98,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
 </head>
-
 <body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">CRJU 705</span>
     </a>
   </div>
@@ -153,74 +114,73 @@ window.Quarto = {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./schedule.html"> 
+<li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
 <span class="menu-text">Schedule</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./syllabus.html"> 
+    <a class="nav-link" href="../syllabus.html"> 
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Weeks</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
-        <li>
-    <a class="dropdown-item" href="./weeks/week-01.html">
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">
+<li>
+    <a class="dropdown-item" href="../weeks/week-01.html">
  <span class="dropdown-text">Session 1 · Intro &amp; R Setup</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./weeks/week-02.html">
+    <a class="dropdown-item" href="../weeks/week-02.html">
  <span class="dropdown-text">Session 2 · Descriptive Statistics</span></a>
   </li>  
     </ul>
-  </li>
+</li>
   <li class="nav-item">
-    <a class="nav-link" href="./resources.html"> 
+    <a class="nav-link" href="../resources.html"> 
 <span class="menu-text">Resources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./chicago-data.html" aria-current="page"> 
+    <a class="nav-link" href="../chicago-data.html"> 
 <span class="menu-text">Data Codebook</span></a>
   </li>  
 </ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item compact">
     <a class="nav-link" href="https://github.com/smourtgos/crju705"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
 </ul>
-          </div> <!-- /navcollapse -->
+</div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#incident-level-chicago-crimes-2025.csv" id="toc-incident-level-chicago-crimes-2025.csv" class="nav-link active" data-scroll-target="#incident-level-chicago-crimes-2025.csv">1. Incident level — <code>chicago-crimes-2025.csv</code></a></li>
-  <li><a href="#community-area-level-chicago-areas.csv" id="toc-community-area-level-chicago-areas.csv" class="nav-link" data-scroll-target="#community-area-level-chicago-areas.csv">2. Community-area level — <code>chicago-areas.csv</code></a></li>
-  <li><a href="#important-caveats-we-will-return-to-these-all-semester" id="toc-important-caveats-we-will-return-to-these-all-semester" class="nav-link" data-scroll-target="#important-caveats-we-will-return-to-these-all-semester">Important caveats — we will return to these all semester</a></li>
-  <li><a href="#provenance" id="toc-provenance" class="nav-link" data-scroll-target="#provenance">Provenance</a></li>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#walkthrough" id="toc-walkthrough" class="nav-link" data-scroll-target="#walkthrough">Walkthrough</a>
+  <ul class="collapse">
+<li><a href="#a-histogram-the-shape-of-a-numeric-variable" id="toc-a-histogram-the-shape-of-a-numeric-variable" class="nav-link" data-scroll-target="#a-histogram-the-shape-of-a-numeric-variable">A histogram — the shape of a numeric variable</a></li>
+  <li><a href="#a-bar-chart-counts-of-a-categorical-variable" id="toc-a-bar-chart-counts-of-a-categorical-variable" class="nav-link" data-scroll-target="#a-bar-chart-counts-of-a-categorical-variable">A bar chart — counts of a categorical variable</a></li>
+  <li><a href="#a-boxplot-a-distribution-split-by-groups" id="toc-a-boxplot-a-distribution-split-by-groups" class="nav-link" data-scroll-target="#a-boxplot-a-distribution-split-by-groups">A boxplot — a distribution <em>split by groups</em></a></li>
   </ul>
-</nav>
+</li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
+  <li><a href="#exit-ticket" id="toc-exit-ticket" class="nav-link" data-scroll-target="#exit-ticket">Exit Ticket</a></li>
+  </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">The Chicago Anchor Dataset</h1>
-<p class="subtitle lead">Real crime data we’ll use all semester</p>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Lab 2 · First Plots with ggplot2</h1>
+<p class="subtitle lead">CRJU 705 · Session 2</p>
 </div>
 
 
@@ -234,207 +194,118 @@ window.Quarto = {
   
 
 
-</header>
+</header><p><strong>Goal:</strong> make your first plots in R and connect them to today’s descriptive statistics. This lab assumes you’ve read R4DS <a href="https://r4ds.hadley.nz/data-visualize.html">Ch. 1 (Data visualization)</a> and <a href="https://r4ds.hadley.nz/workflow-basics.html">Ch. 2 (Workflow: basics)</a>.</p>
+<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.</p>
+<section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Open RStudio, start a new R script, and run:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">prisoners</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/prisoners.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>prisoners</code> holds records for 300 incarcerated persons (simulated, but realistic): demographics, offense type, sentence, and well-being measures. Look at it first — <em>always</em> look at your data first:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">prisoners</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 300
+Columns: 14
+$ prisoner_id        &lt;chr&gt; "P0001", "P0002", "P0003", "P0004", "P0005", "P0006…
+$ facility           &lt;chr&gt; "Central Unit", "River Unit", "River Unit", "Centra…
+$ housing_unit       &lt;chr&gt; "HU-1", "HU-3", "HU-4", "HU-2", "HU-5", "HU-3", "HU…
+$ age                &lt;dbl&gt; 36, 51, 33, 38, 36, 35, 26, 30, 18, 23, 18, 18, 40,…
+$ gender             &lt;chr&gt; "MALE", "Male", "Female", "Male", "Male", "Male", "…
+$ race               &lt;chr&gt; "Black", "Black", "White", "White", "Black", "Black…
+$ education          &lt;chr&gt; "Some College", "Less than HS", "HS/GED", "HS/GED",…
+$ offense_type       &lt;chr&gt; "Property", "Drug", "Property", "Drug", "Property",…
+$ sentence_years     &lt;dbl&gt; 1.88, 4.34, 6.57, 1.58, 3.10, 19.91, 1.27, 3.05, 5.…
+$ months_served      &lt;dbl&gt; 23, 52, 79, 19, 37, 156, 15, 37, 68, 20, 49, 34, 8,…
+$ stress             &lt;dbl&gt; 5.4, 8.4, 4.4, 9.7, 2.8, 8.1, 5.0, 6.3, 4.7, 6.4, 8…
+$ depression         &lt;dbl&gt; 8.0, 3.8, 9.0, 1.7, 5.0, 5.1, 2.6, 5.4, 3.4, 6.7, 3…
+$ sleep_quality      &lt;dbl&gt; 1.1, 5.1, 4.6, 3.2, 3.7, 7.7, 4.2, 4.5, 3.8, 4.5, 6…
+$ substance_use_risk &lt;dbl&gt; 4.1, 2.4, 6.3, 2.9, 1.2, 6.5, 6.6, 5.9, 5.9, 5.2, 6…</code></pre>
+</div>
+</div>
+</section><section id="walkthrough" class="level2"><h2 class="anchored" data-anchor-id="walkthrough">Walkthrough</h2>
+<section id="a-histogram-the-shape-of-a-numeric-variable" class="level3"><h3 class="anchored" data-anchor-id="a-histogram-the-shape-of-a-numeric-variable">A histogram — the shape of a numeric variable</h3>
+<p>Today’s lecture was about summarizing numeric variables. A histogram is the picture version:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prisoners</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span>, fill <span class="op">=</span> <span class="st">"steelblue"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Age distribution of incarcerated persons"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Age (years)"</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="lab-02-visualize_files/figure-html/hist-age-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Anatomy of every ggplot: <strong>data</strong> (<code>prisoners</code>), <strong>aesthetics</strong> (<code>aes(x = age)</code> — which variables map to which visual channels), and <strong>geometry</strong> (<code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> — how to draw them).</p>
+<p>How does the picture relate to the numbers?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">prisoners</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, median_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, sd_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  mean_age median_age sd_age
+     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+1     34.5         34   10.2</code></pre>
+</div>
+</div>
+</section><section id="a-bar-chart-counts-of-a-categorical-variable" class="level3"><h3 class="anchored" data-anchor-id="a-bar-chart-counts-of-a-categorical-variable">A bar chart — counts of a categorical variable</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prisoners</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">offense_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Offense types"</span>, x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="lab-02-visualize_files/figure-html/bar-offense-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="a-boxplot-a-distribution-split-by-groups" class="level3"><h3 class="anchored" data-anchor-id="a-boxplot-a-distribution-split-by-groups">A boxplot — a distribution <em>split by groups</em>
+</h3>
+<p>The five-number-summary as a picture, one box per offense type:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">prisoners</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">offense_type</span>, y <span class="op">=</span> <span class="va">sentence_years</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"grey90"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Sentence length by offense type"</span>,</span>
+<span>       x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Sentence (years)"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="lab-02-visualize_files/figure-html/box-sentence-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The box is the middle 50% (median = the line inside); the dots are outliers — the same “one 30-year sentence” problem from lecture, visible instantly.</p>
+</section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
+<p>Work in your own script. Comment each answer.</p>
+<p><strong>1.</strong> Make a histogram of <code>sentence_years</code>. Is it symmetric or skewed? Compute the mean and median — do they agree with what the picture shows? <em>(Hint: today’s lecture.)</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>2.</strong> Make a bar chart of <code>education</code>. Which category is most common (the mode)?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>3.</strong> Make a boxplot of <code>age</code> by <code>offense_type</code>. Which offense type has the <em>most spread</em> in age? Check yourself with <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here — for the numeric check:</span></span>
+<span><span class="co"># prisoners |&gt; summarize(sd_age = sd(age), .by = offense_type)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>4.</strong> <em>(Stretch)</em> Add <code>color = "white"</code> inside your histogram’s <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> and change its <code>binwidth</code>. What changes? What binwidth seems most honest for <code>sentence_years</code>?</p>
+</section><section id="exit-ticket" class="level2"><h2 class="anchored" data-anchor-id="exit-ticket">Exit Ticket</h2>
+<p>Submit a short R script to Canvas before you leave, containing:</p>
+<ol type="1">
+<li>One plot of your choice from today (code only is fine)</li>
+<li>A comment (2–3 sentences): what does the plot show, and which descriptive statistic (mean/median/SD) best summarizes it?</li>
+<li>A comment naming one thing from R4DS Ch. 1–2 or today’s lab that is still confusing</li>
+</ol>
 
 
-<p>Most lecture examples this semester use <strong>one real dataset</strong> — reported crime in Chicago during 2025, from the <a href="https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2">Chicago Police Department’s public data portal</a> — so that each new technique builds on data you already know. It comes at <strong>two levels</strong>:</p>
-<section id="incident-level-chicago-crimes-2025.csv" class="level2">
-<h2 class="anchored" data-anchor-id="incident-level-chicago-crimes-2025.csv">1. Incident level — <code>chicago-crimes-2025.csv</code></h2>
-<p>A random sample of <strong>30,000</strong> of the 237,472 crimes reported to CPD in 2025 (sampled with <code>set.seed(705)</code>).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>crimes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 34%">
-<col style="width: 20%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>id</code></td>
-<td>numeric</td>
-<td>CPD incident ID</td>
-</tr>
-<tr class="even">
-<td><code>date</code></td>
-<td>date</td>
-<td>Date the incident occurred</td>
-</tr>
-<tr class="odd">
-<td><code>hour</code></td>
-<td>numeric</td>
-<td>Hour of day (0–23)</td>
-</tr>
-<tr class="even">
-<td><code>primary_type</code></td>
-<td>character</td>
-<td>CPD primary offense classification (THEFT, BATTERY, …)</td>
-</tr>
-<tr class="odd">
-<td><code>description</code></td>
-<td>character</td>
-<td>More detailed offense description</td>
-</tr>
-<tr class="even">
-<td><code>location_description</code></td>
-<td>character</td>
-<td>Type of location (STREET, RESIDENCE, …)</td>
-</tr>
-<tr class="odd">
-<td><code>crime_category</code></td>
-<td>character</td>
-<td>Violent / Property / Other (course-defined, see below)</td>
-</tr>
-<tr class="even">
-<td><code>arrest</code></td>
-<td>logical</td>
-<td>Did the incident result in an arrest?</td>
-</tr>
-<tr class="odd">
-<td><code>domestic</code></td>
-<td>logical</td>
-<td>Domestic-related incident (per Illinois DV statute)</td>
-</tr>
-<tr class="even">
-<td><code>community_area</code></td>
-<td>numeric</td>
-<td>Chicago community area number (1–77)</td>
-</tr>
-<tr class="odd">
-<td><code>community</code></td>
-<td>character</td>
-<td>Community area name</td>
-</tr>
-<tr class="even">
-<td><code>latitude</code>, <code>longitude</code></td>
-<td>numeric</td>
-<td>Anonymized block-level coordinates (may be missing)</td>
-</tr>
-</tbody>
-</table>
-<p><strong><code>crime_category</code> definitions (course convention):</strong> Violent = homicide, criminal sexual assault, robbery, battery, assault. Property = burglary, theft, motor vehicle theft, arson. Everything else = Other.</p>
-</section>
-<section id="community-area-level-chicago-areas.csv" class="level2">
-<h2 class="anchored" data-anchor-id="community-area-level-chicago-areas.csv">2. Community-area level — <code>chicago-areas.csv</code></h2>
-<p>All 237,472 incidents (not just the sample) aggregated to Chicago’s <strong>77 community areas</strong>, joined with socioeconomic measures from the <a href="https://cmap.illinois.gov/data/community-data-snapshots/">CMAP Community Data Snapshots</a> (American Community Survey estimates).</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 34%">
-<col style="width: 20%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>community_area</code>, <code>community</code></td>
-<td>id</td>
-<td>Area number (1–77) and name</td>
-</tr>
-<tr class="even">
-<td><code>population</code></td>
-<td>numeric</td>
-<td>Total population (ACS)</td>
-</tr>
-<tr class="odd">
-<td><code>crimes_total</code>, <code>crimes_violent</code>, <code>crimes_property</code></td>
-<td>numeric</td>
-<td>2025 reported crime counts</td>
-</tr>
-<tr class="even">
-<td><code>crime_rate</code>, <code>violent_rate</code>, <code>property_rate</code></td>
-<td>numeric</td>
-<td>Crimes per 1,000 residents</td>
-</tr>
-<tr class="odd">
-<td><code>high_violence</code></td>
-<td>logical</td>
-<td>Violent-crime rate above the citywide median?</td>
-</tr>
-<tr class="even">
-<td><code>arrest_rate</code></td>
-<td>numeric</td>
-<td>Share of the area’s 2025 incidents ending in arrest</td>
-</tr>
-<tr class="odd">
-<td><code>median_age</code></td>
-<td>numeric</td>
-<td>Median age</td>
-</tr>
-<tr class="even">
-<td><code>pct_white</code>, <code>pct_black</code>, <code>pct_hispanic</code>, <code>pct_asian</code></td>
-<td>numeric</td>
-<td>Racial/ethnic composition (%)</td>
-</tr>
-<tr class="odd">
-<td><code>unemployment_rate</code></td>
-<td>numeric</td>
-<td>Unemployed share of the labor force (%)</td>
-</tr>
-<tr class="even">
-<td><code>pct_bachelors</code></td>
-<td>numeric</td>
-<td>Adults 25+ with a bachelor’s degree or higher (%)</td>
-</tr>
-<tr class="odd">
-<td><code>pct_no_hs_diploma</code></td>
-<td>numeric</td>
-<td>Adults 25+ without a high-school diploma (%)</td>
-</tr>
-<tr class="even">
-<td><code>median_income</code></td>
-<td>numeric</td>
-<td>Median household income (<span class="math inline">\() |
-| `income_per_capita` | numeric | Per-capita income (\)</span>)</td>
-</tr>
-<tr class="odd">
-<td><code>pct_renter</code></td>
-<td>numeric</td>
-<td>Renter-occupied share of households (%)</td>
-</tr>
-<tr class="even">
-<td><code>pct_vacant</code></td>
-<td>numeric</td>
-<td>Vacant share of housing units (%)</td>
-</tr>
-<tr class="odd">
-<td><code>median_rent</code></td>
-<td>numeric</td>
-<td>Median gross rent ($)</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="important-caveats-we-will-return-to-these-all-semester" class="level2">
-<h2 class="anchored" data-anchor-id="important-caveats-we-will-return-to-these-all-semester">Important caveats — we will return to these all semester</h2>
-<ul>
-<li><strong>Reported</strong> crime only. These data reflect crimes <em>reported to and recorded by</em> CPD — not all crime that occurred. Reporting rates differ across offense types and communities.</li>
-<li><strong>An arrest is not a conviction</strong>, and <code>arrest_rate</code> reflects incident clearance patterns, not “guilt rates.”</li>
-<li>The ACS measures are <strong>survey estimates</strong> with sampling error, larger for smaller areas.</li>
-<li>Aggregate (community-level) associations do <strong>not</strong> license conclusions about individuals — we’ll name this properly (the <em>ecological fallacy</em>) when we get to correlation.</li>
-</ul>
-</section>
-<section id="provenance" class="level2">
-<h2 class="anchored" data-anchor-id="provenance">Provenance</h2>
-<p>Snapshot pulled July 2026; build script archived in the course repository (<code>R/build-anchor-dataset.R</code>) so the dataset is exactly reproducible. Sources: <a href="https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-Present/ijzp-q8t2">Chicago Data Portal, Crimes 2001–present</a> (dataset <code>ijzp-q8t2</code>) and <a href="https://cmap.illinois.gov/data/community-data-snapshots/">CMAP Community Data Snapshots 2026</a> (CCA table).</p>
-
-
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -835,8 +706,7 @@ window.Quarto = {
   });
   </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
+<footer class="footer"><div class="nav-footer">
     <div class="nav-footer-left">
       &nbsp;
     </div>   
@@ -848,8 +718,6 @@ window.Quarto = {
     </div>
   </div>
 </footer>
-
-
 
 
 </body></html>

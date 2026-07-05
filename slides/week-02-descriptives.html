@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <meta name="author" content="Scott M. Mourtgos">
+  <title>CRJU 705 – Descriptive Statistics</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-9951db751665c29f6f8c4a20dfca5aca.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Descriptive Statistics</h1>
+  <p class="subtitle">CRJU 705 · Session 2 · Fall 2026</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Scott M. Mourtgos 
+</div>
+</div>
+</div>
+
+</section>
+<section id="week-1-follow-up" class="slide level2">
+<h2>Week 1 Follow-Up</h2>
+<p><strong>swirl assignments</strong> — experiences, issues, good stuff with R???</p>
+<ol type="1">
+<li>Basic Building Blocks · 2. Workspace and Files · 3. Sequences of Numbers · 4. Vectors · 5. Missing Values · 6. Subsetting Vectors · 7. Matrices and Data Frames · 8. Logic · 12. Looking at Data · 15. Base Graphics</li>
+</ol>
+</section>
+<section id="this-week" class="slide level2">
+<h2>This Week</h2>
+<p><strong>Topic:</strong> Descriptive statistics and statistical vocabulary</p>
+<ul>
+<li>Measures of central tendency</li>
+<li>Measures of dispersion</li>
+<li>Distributions and their shapes</li>
+</ul>
+<p><strong>Learning goals:</strong> define in your own words — <em>mean, median, mode, variance, standard deviation, histogram, normal distribution, Poisson distribution</em> — and use R to describe a small dataset and plot a distribution.</p>
+<p><strong>R4DS thread:</strong> you read Ch. 1 (Data visualization) &amp; Ch. 2 (Workflow) — today’s lab puts both to work.</p>
+</section>
+<section>
+<section id="measures-of-central-tendency" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Measures of Central Tendency</h1>
+
+</section>
+<section id="three-ways-to-say-typical" class="slide level2">
+<h2>Three Ways to Say “Typical”</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Measure</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Mean</strong></td>
+<td>the average</td>
+</tr>
+<tr class="even">
+<td><strong>Median</strong></td>
+<td>the halfway point</td>
+</tr>
+<tr class="odd">
+<td><strong>Mode</strong></td>
+<td>the most frequently occurring value</td>
+</tr>
+</tbody>
+</table>
+<p>Measures of central tendency summarize a vector of data by locating the <em>typical</em>, the <em>middle</em>, or the <em>most common</em> point.</p>
+</section>
+<section id="practice-the-mean" class="slide level2">
+<h2>Practice — The Mean</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>rainfall <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>)   <span class="co"># rain each day this week</span></span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a><span class="co"># The hard way:</span></span>
+<span id="cb1-4"><a></a><span class="fu">sum</span>(rainfall) <span class="sc">/</span> <span class="fu">length</span>(rainfall)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.142857</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># The easy way:</span></span>
+<span id="cb3-2"><a></a><span class="fu">mean</span>(rainfall)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.142857</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="practice-the-median" class="slide level2">
+<h2>Practice — The Median</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>rainfall</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 0 0 2 1 1 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">sort</span>(rainfall)   <span class="co"># middle value of the sorted data?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 0 0 1 1 2 4</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">median</span>(rainfall)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="practice-the-mode" class="slide level2">
+<h2>Practice — The Mode</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>rainfall          <span class="co"># which value appears most often?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 0 0 2 1 1 4</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(modeest)  <span class="co"># install.packages("modeest") once, library() every session</span></span>
+<span id="cb13-2"><a></a><span class="fu">mfv</span>(rainfall)     <span class="co"># mfv = "most frequent value"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="what-do-these-look-like" class="slide level2">
+<h2>What Do These Look Like?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" data-code-line-numbers="3-6|7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>stats <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-2"><a></a>  <span class="at">measure =</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"Median"</span>, <span class="st">"Mode"</span>),</span>
+<span id="cb15-3"><a></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">mean</span>(rainfall), <span class="fu">median</span>(rainfall), <span class="fu">mfv</span>(rainfall))</span>
+<span id="cb15-4"><a></a>)</span>
+<span id="cb15-5"><a></a><span class="fu">ggplot</span>(<span class="fu">tibble</span>(rainfall), <span class="fu">aes</span>(rainfall)) <span class="sc">+</span></span>
+<span id="cb15-6"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"lightblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> stats, <span class="fu">aes</span>(<span class="at">xintercept =</span> value, <span class="at">color =</span> measure),</span>
+<span id="cb15-8"><a></a>             <span class="at">linewidth =</span> <span class="fl">1.2</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb15-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rainfall with Mean, Median, and Mode"</span>,</span>
+<span id="cb15-10"><a></a>       <span class="at">x =</span> <span class="st">"Rainfall (inches)"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="what-do-these-look-like-output" class="slide level2 output-location-slide"><h2>What Do These Look Like?</h2><div class="cell output-location-slide">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="week-02-descriptives_files/figure-revealjs/rainfall-plot-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></section><section id="why-we-care-in-cj-sentencing" class="slide level2">
+<h2>Why We Care in CJ: Sentencing</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Sentence lengths for 10 people convicted of robbery (years)</span></span>
+<span id="cb16-2"><a></a>sentences <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">30</span>)   <span class="co"># note the outlier!</span></span>
+<span id="cb16-3"><a></a></span>
+<span id="cb16-4"><a></a><span class="fu">mean</span>(sentences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">median</span>(sentences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">mfv</span>(sentences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<p>One 30-year sentence drags the mean to <strong>6.1</strong> — nobody in the data actually got a “typical” 6-year sentence.</p>
+</section>
+<section id="why-we-care-in-cj-sentencing-1" class="slide level2">
+<h2>Why We Care in CJ: Sentencing</h2>
+
+<img data-src="week-02-descriptives_files/figure-revealjs/sentences-plot-1.png" width="960" class="r-stretch"></section>
+<section id="thoughts" class="slide level2">
+<h2>Thoughts?</h2>
+<ul>
+<li>Why do these three values (mean = 6.1, median = 3.5, mode = 3) give such different impressions of “typical” sentence length?</li>
+<li>Which one might be most fair to use when describing a sentencing policy to the public?</li>
+<li>When might the mean be misleading?</li>
+</ul>
+</section>
+<section id="the-same-thing-in-real-data" class="slide level2">
+<h2>The Same Thing in Real Data</h2>
+<p>Community-level crime rates in Chicago, 2025:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a></a>  <span class="fu">summarize</span>(</span>
+<span id="cb22-3"><a></a>    <span class="at">mean_rate   =</span> <span class="fu">mean</span>(crime_rate),</span>
+<span id="cb22-4"><a></a>    <span class="at">median_rate =</span> <span class="fu">median</span>(crime_rate),</span>
+<span id="cb22-5"><a></a>    <span class="at">max_rate    =</span> <span class="fu">max</span>(crime_rate)</span>
+<span id="cb22-6"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  mean_rate median_rate max_rate
+      &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;
+1      96.9          82     292.</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>areas <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(crime_rate, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(community, crime_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  community          crime_rate
+  &lt;chr&gt;                   &lt;dbl&gt;
+1 Fuller Park              292.
+2 West Garfield Park       220.
+3 Englewood                214.</code></pre>
+</div>
+</div>
+<p>The Loop’s rate (driven by a small residential population and huge daytime crowds) pulls the mean above the median — same lesson as the 30-year sentence, in live data.</p>
+</div>
+</section>
+<section id="the-same-thing-in-real-data-1" class="slide level2">
+<h2>The Same Thing in Real Data</h2>
+
+<img data-src="week-02-descriptives_files/figure-revealjs/chicago-skew-plot-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="measures-of-dispersion" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Measures of Dispersion</h1>
+
+</section>
+<section id="central-tendency-isnt-the-whole-story" class="slide level2">
+<h2>Central Tendency Isn’t the Whole Story</h2>
+<p>Three people run for city council; <strong>only the top two vote-getters win</strong>:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Scenario 1</strong></p>
+<ul>
+<li>A = 200 votes</li>
+<li>B = 300 votes</li>
+<li>C = 400 votes</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Scenario 2</strong></p>
+<ul>
+<li>X = 299 votes</li>
+<li>Y = 300 votes</li>
+<li>Z = 301 votes</li>
+</ul>
+</div></div>
+<p>In <strong>both</strong> cases the average is 300. But scenario 1 has <em>much greater spread</em> in support; scenario 2 is <em>tightly clustered</em> — it’s hard to say who’s truly “preferred.”</p>
+<p>→ We need <strong>measures of dispersion</strong>: range, deviations, variance, standard deviation.</p>
+</section>
+<section id="practice-range" class="slide level2">
+<h2>Practice — Range</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>votes1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>)   <span class="co"># wide spread</span></span>
+<span id="cb26-2"><a></a>votes2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">299</span>, <span class="dv">300</span>, <span class="dv">301</span>)   <span class="co"># tight cluster</span></span>
+<span id="cb26-3"><a></a></span>
+<span id="cb26-4"><a></a><span class="fu">mean</span>(votes1); <span class="fu">mean</span>(votes2)   <span class="co"># identical means</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 300</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 300</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">range</span>(votes1); <span class="fu">diff</span>(<span class="fu">range</span>(votes1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200 400</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">range</span>(votes2); <span class="fu">diff</span>(<span class="fu">range</span>(votes2))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 299 301</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="practice-deviations-from-the-mean" class="slide level2">
+<h2>Practice — Deviations from the Mean</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -100    0  100</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>votes2 <span class="sc">-</span> <span class="fu">mean</span>(votes2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -1  0  1</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Why can’t we just sum the deviations?</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">sum</span>(votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))   <span class="co"># they always cancel to zero!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="practice-sum-of-squares" class="slide level2">
+<h2>Practice — Sum of Squares</h2>
+<p>Squaring makes every deviation positive (and emphasizes big misses):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20000</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">sum</span>((votes2 <span class="sc">-</span> <span class="fu">mean</span>(votes2))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+</section>
+<section id="practice-variance-and-sd" class="slide level2">
+<h2>Practice — Variance and SD</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co"># Variance = mean squared deviation (population formula)</span></span>
+<span id="cb45-2"><a></a><span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6666.667</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="co"># Standard deviation = square root of variance (back to vote units!)</span></span>
+<span id="cb47-2"><a></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 81.64966</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="fu">var</span>(votes1); <span class="fu">sd</span>(votes1)   <span class="co"># R's built-ins use the SAMPLE formula (divide by n-1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">var</span>(votes2); <span class="fu">sd</span>(votes2)   <span class="co"># more on WHY in Session 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="seeing-the-machinery" class="slide level2">
+<h2>Seeing the Machinery</h2>
+
+<img data-src="week-02-descriptives_files/figure-revealjs/dispersion-steps-1.png" width="960" class="r-stretch"></section>
+<section id="standard-deviation-in-words" class="slide level2">
+<h2>Standard Deviation, in Words</h2>
+<p>The <strong>standard deviation</strong> measures <em>how spread out the data are around the mean</em>.</p>
+<blockquote>
+<p>“On average, how far is each value from the mean?”</p>
+</blockquote>
+<p>We square the deviations (to make them positive and emphasize larger differences), average them (that’s the <strong>variance</strong>), then take the square root (back to the original units).</p>
+</section>
+<section id="why-the-standard-deviation" class="slide level2">
+<h2>Why the Standard Deviation?</h2>
+<ul>
+<li class="fragment"><strong>Same units as the data</strong> — variance is in squared units; SD is interpretable</li>
+<li class="fragment"><strong>Works with the normal distribution</strong> — SD tells us how typical or extreme a value is</li>
+<li class="fragment"><strong>The basis for many tools</strong> — confidence intervals, hypothesis tests, z-scores, regression all rely on it</li>
+<li class="fragment"><strong>Lets you compare variability</strong> across datasets with similar scales</li>
+</ul>
+</section>
+<section id="in-cj-scenarios" class="slide level2">
+<h2>In CJ Scenarios</h2>
+<p><strong>Response times</strong> for patrol officers:</p>
+<ul>
+<li>Low SD → officers respond in consistently similar times</li>
+<li>High SD → sometimes fast, sometimes slow — inconsistency that matters for policy, supervision, training</li>
+</ul>
+<p><strong>Sentence lengths</strong> for the same crime:</p>
+<ul>
+<li>High SD might suggest inconsistency — or bias — in sentencing</li>
+</ul>
+</section>
+<section id="real-data-consistency-across-communities" class="slide level2">
+<h2>Real Data: Consistency Across Communities</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="co"># Violent-crime rates: how much do Chicago communities differ?</span></span>
+<span id="cb55-2"><a></a>areas <span class="sc">|&gt;</span></span>
+<span id="cb55-3"><a></a>  <span class="fu">summarize</span>(</span>
+<span id="cb55-4"><a></a>    <span class="at">mean_violent =</span> <span class="fu">mean</span>(violent_rate),</span>
+<span id="cb55-5"><a></a>    <span class="at">sd_violent   =</span> <span class="fu">sd</span>(violent_rate),</span>
+<span id="cb55-6"><a></a>    <span class="at">min_violent  =</span> <span class="fu">min</span>(violent_rate),</span>
+<span id="cb55-7"><a></a>    <span class="at">max_violent  =</span> <span class="fu">max</span>(violent_rate)</span>
+<span id="cb55-8"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  mean_violent sd_violent min_violent max_violent
+         &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+1         30.7       22.5           4        111.</code></pre>
+</div>
+</div>
+<p>The <strong>SD is nearly as large as the mean</strong> — Chicago communities differ enormously in violence exposure. That inequality <em>is</em> a finding, and it took exactly one line of dispersion statistics to see it.</p>
+</section></section>
+<section>
+<section id="distributions" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Distributions</h1>
+
+</section>
+<section id="what-is-a-distribution" class="slide level2">
+<h2>What <em>Is</em> a Distribution?</h2>
+<p>A <strong>distribution</strong> shows <em>how many observations</em> fall at different values — the <strong>shape</strong> of the data.</p>
+<p>It answers:</p>
+<ul>
+<li>“Where do most of the values fall?”</li>
+<li>“How spread out are they?”</li>
+<li>“Are some values rare or common?”</li>
+</ul>
+<p>We visualize distributions with a <strong>histogram</strong>.</p>
+</section>
+<section id="the-normal-distribution" class="slide level2">
+<h2>The Normal Distribution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>sims <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>))</span>
+<span id="cb57-2"><a></a><span class="fu">ggplot</span>(sims, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week-02-descriptives_files/figure-revealjs/normal-hist-1.png" width="960" class="r-stretch"><p>Symmetrical, bell-shaped; defined by <strong>two numbers</strong> — the mean (center) and SD (spread). <strong>Try different values!</strong></p>
+</section>
+<section id="sd-and-the-normal-the-empirical-rule" class="slide level2">
+<h2>SD and the Normal: the Empirical Rule</h2>
+
+<img data-src="week-02-descriptives_files/figure-revealjs/empirical-rule-1.png" width="960" class="r-stretch"><div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>pct_within <span class="ot">&lt;-</span> <span class="cf">function</span>(k) <span class="dv">100</span> <span class="sc">*</span> (<span class="fu">pnorm</span>(k) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span>k))</span>
+<span id="cb58-2"><a></a><span class="fu">tibble</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pct_within =</span> <span class="fu">round</span>(<span class="fu">pct_within</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+      k pct_within
+  &lt;int&gt;      &lt;dbl&gt;
+1     1       68.3
+2     2       95.4
+3     3       99.7</code></pre>
+</div>
+</div>
+</section>
+<section id="the-poisson-distribution" class="slide level2">
+<h2>The Poisson Distribution</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a>pois_sims <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
+<span id="cb60-2"><a></a><span class="fu">ggplot</span>(pois_sims, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">fill =</span> crju_colors[<span class="st">"navy"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week-02-descriptives_files/figure-revealjs/poisson-hist-1.png" width="960" class="r-stretch"><p>Often <strong>skewed</strong>, especially when λ is low. Models <strong>counts of rare events</strong>: 911 calls per hour, crimes per day, cars per minute. One parameter: <strong>λ</strong> = expected number of events. <strong>Try different values!</strong></p>
+</section>
+<section id="the-poisson-is-not-hypothetical" class="slide level2">
+<h2>The Poisson Is Not Hypothetical</h2>
+<p>Daily robbery counts in our Chicago sample, all of 2025:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>daily_robberies <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a></a>  <span class="fu">filter</span>(primary_type <span class="sc">==</span> <span class="st">"ROBBERY"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb61-3"><a></a>  <span class="fu">count</span>(date)</span>
+<span id="cb61-4"><a></a></span>
+<span id="cb61-5"><a></a><span class="fu">ggplot</span>(daily_robberies, <span class="fu">aes</span>(n)) <span class="sc">+</span></span>
+<span id="cb61-6"><a></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
+<span id="cb61-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Robberies per day"</span>, <span class="at">y =</span> <span class="st">"Number of days"</span>,</span>
+<span id="cb61-8"><a></a>       <span class="at">title =</span> <span class="st">"Real crime counts look Poisson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="week-02-descriptives_files/figure-revealjs/chicago-poisson-1.png" width="960" class="r-stretch"></section>
+<section id="why-we-care-about-distributions-in-cj" class="slide level2">
+<h2>Why We Care About Distributions in CJ</h2>
+<ul>
+<li>The <strong>normal distribution</strong> helps us understand common variation (response times, test scores)</li>
+<li>The <strong>Poisson distribution</strong> models <strong>event counts</strong>, especially rare ones — crimes, incidents — and underlies many forecasting tools</li>
+<li>Recognizing the <em>shape</em> of your data is the first step in choosing the right analysis — a theme for the whole semester</li>
+</ul>
+</section>
+<section id="todays-lab-homework" class="slide level2">
+<h2>Today’s Lab &amp; Homework</h2>
+<ul>
+<li><strong>Lab 2:</strong> your first ggplots — histograms, boxplots, and bar charts with real corrections data (<a href="../labs/lab-02-visualize.html">lab page</a>)</li>
+<li><strong>Homework 2:</strong> descriptive statistics in R (posted on the <a href="../weeks/week-02.html">Session 2 page</a>)</li>
+<li><strong>Read before Session 3:</strong> Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) &amp; Ch. 4 (Code style)</li>
+</ul>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>CRJU 705 · Session 2</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

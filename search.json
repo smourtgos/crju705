@@ -1,31 +1,220 @@
 [
   {
-    "objectID": "weeks/week-01.html",
-    "href": "weeks/week-01.html",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "weeks/week-02.html",
+    "href": "weeks/week-02.html",
+    "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "",
-    "text": "📽️ Slides: Statistics is Awesome!"
+    "text": "📽️ Slides: Descriptive Statistics · 🧪 Lab 2: First Plots with ggplot2 · 📝 Homework 2"
   },
   {
-    "objectID": "weeks/week-01.html#before-class",
-    "href": "weeks/week-01.html#before-class",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "weeks/week-02.html#before-class",
+    "href": "weeks/week-02.html#before-class",
+    "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "Before class",
-    "text": "Before class\n\nInstall R and RStudio — step-by-step guide\nRead: Stanton Introduction and Appendices A–C\nRead: this site’s Syllabus"
+    "text": "Before class\n\nRead: Stanton Ch. 1 (Statistical Vocabulary)\nRead: R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
   },
   {
-    "objectID": "weeks/week-01.html#in-class",
-    "href": "weeks/week-01.html#in-class",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "weeks/week-02.html#in-class",
+    "href": "weeks/week-02.html#in-class",
+    "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "In class",
-    "text": "In class\n\nCourse tour: syllabus, this website, how the semester works\nWhy statistics is awesome (with real crime-data examples)\nTypes of data and levels of measurement\nGuided tour of R and RStudio"
+    "text": "In class\n\nswirl debrief — what was confusing, what clicked\nMeasures of central tendency: mean, median, mode (and when each misleads)\nMeasures of dispersion: range, deviations, variance, standard deviation\nDistributions: histograms, the normal distribution and the empirical rule, the Poisson\nReal-data thread: skew and spread in Chicago’s community-level crime rates\nLab 2: first plots with ggplot2 (histograms, bar charts, boxplots) using the prisoners data"
   },
   {
-    "objectID": "weeks/week-01.html#homework",
-    "href": "weeks/week-01.html#homework",
-    "title": "Session 1 · Intro & R Setup",
+    "objectID": "weeks/week-02.html#homework",
+    "href": "weeks/week-02.html#homework",
+    "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "Homework",
-    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas before noon Tuesday ahead of Session 2.\nAlso read Stanton Ch. 1 before next class (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)."
+    "text": "Homework\n\nHomework 2 — submit your .R file via Canvas before noon Tuesday\nRead Stanton Ch. 2 (Reasoning with Probability) before Session 3\nRead R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style"
+  },
+  {
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Syllabus",
+    "section": "",
+    "text": "Provisional dates. Session dates on this page derive from a provisional Fall 2026 calendar and will be finalized before the semester begins. Topics, their order, and course policies are final.\nInstructor: Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu · Office: Currell 111 · Office hours: on request Class meetings: Wednesdays, 5:50–8:35 pm · Currell 204"
+  },
+  {
+    "objectID": "syllabus.html#academic-bulletin",
+    "href": "syllabus.html#academic-bulletin",
+    "title": "Syllabus",
+    "section": "Academic Bulletin",
+    "text": "Academic Bulletin\nDescriptive and inferential statistics and the use of computers in criminal justice."
+  },
+  {
+    "objectID": "syllabus.html#course-objectives",
+    "href": "syllabus.html#course-objectives",
+    "title": "Syllabus",
+    "section": "Course Objectives",
+    "text": "Course Objectives\nBy the end of this course, students will be able to:\n\nIdentify the role of statistics in criminology and criminal justice research.\nDistinguish between different types of data and levels of measurement.\nImport, clean, transform, and visualize real data in R using modern (tidyverse) tools.\nApply descriptive statistics to summarize and interpret data.\nExplain the concepts of probability and distributions as they relate to criminological data.\nConduct and interpret basic statistical tests — from both frequentist and Bayesian perspectives — including t-tests, ANOVA, correlation, and regression.\nCritically evaluate statistical claims in criminal justice policy and research.\nEffectively communicate statistical findings in both written and visual formats."
+  },
+  {
+    "objectID": "syllabus.html#assignment-due-dates",
+    "href": "syllabus.html#assignment-due-dates",
+    "title": "Syllabus",
+    "section": "Assignment Due Dates",
+    "text": "Assignment Due Dates\nDates for all assignments and exams are listed on the course Canvas page and discussed in class. Course materials (slides, labs, homework) live on this website; submissions go through Canvas."
+  },
+  {
+    "objectID": "syllabus.html#final-project-information",
+    "href": "syllabus.html#final-project-information",
+    "title": "Syllabus",
+    "section": "Final Project Information",
+    "text": "Final Project Information\nThe final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — dataset selection is due at Session 7 (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. A dedicated help session (Session 13) provides open Q&A and a code clinic before presentations.\nYour completed project is due in class on December 02, 2026 (presentations day).\nThere will be absolutely no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.\nYou are responsible for ensuring that your final project is submitted successfully and on time, with all required components included: the R script, output, and written report."
+  },
+  {
+    "objectID": "syllabus.html#session-1-august-19",
+    "href": "syllabus.html#session-1-august-19",
+    "title": "Syllabus",
+    "section": "Session 1 — August 19",
+    "text": "Session 1 — August 19\nTopics: Class introduction · Why statistics is awesome · Types of data and levels of measurement · Using R and RStudio\nReadings due before class: Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see Resources.\nHomework: swirl tutorials in R (instructions in class). Submit R script files via Canvas before noon Tuesday ahead of the next session. Read Stanton Ch. 1 before next class."
+  },
+  {
+    "objectID": "syllabus.html#session-2-august-26",
+    "href": "syllabus.html#session-2-august-26",
+    "title": "Syllabus",
+    "section": "Session 2 — August 26",
+    "text": "Session 2 — August 26\nTopics: Descriptive statistics & exploratory data analysis\nReadings due: Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)\nHomework: Problem set 2 · Read Stanton Ch. 2"
+  },
+  {
+    "objectID": "syllabus.html#session-3-september-02",
+    "href": "syllabus.html#session-3-september-02",
+    "title": "Syllabus",
+    "section": "Session 3 — September 02",
+    "text": "Session 3 — September 02\nTopics: Probability, taught via simulation\nReadings due: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)\nIn-class exercise (graded) · Homework: Problem set 3 · Read Stanton Ch. 3"
+  },
+  {
+    "objectID": "syllabus.html#session-4-september-09",
+    "href": "syllabus.html#session-4-september-09",
+    "title": "Syllabus",
+    "section": "Session 4 — September 09",
+    "text": "Session 4 — September 09\nTopics: Sampling distributions, taught via simulation\nReadings due: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)\nIn-class exercise (graded) · Homework: Problem set 4 · Read Stanton Ch. 4"
+  },
+  {
+    "objectID": "syllabus.html#session-5-september-16",
+    "href": "syllabus.html#session-5-september-16",
+    "title": "Syllabus",
+    "section": "Session 5 — September 16",
+    "text": "Session 5 — September 16\nTopics: The logic of inference using confidence intervals — on real data\nReadings due: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)\nIn-class exercise (graded) · Homework: Problem set 5 · Read Stanton Ch. 5"
+  },
+  {
+    "objectID": "syllabus.html#session-6-september-23",
+    "href": "syllabus.html#session-6-september-23",
+    "title": "Syllabus",
+    "section": "Session 6 — September 23",
+    "text": "Session 6 — September 23\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)\nIn-class exercise (graded) · Homework: Problem set 6 · Begin scouting a final-project dataset"
+  },
+  {
+    "objectID": "syllabus.html#session-7-september-30",
+    "href": "syllabus.html#session-7-september-30",
+    "title": "Syllabus",
+    "section": "Session 7 — September 30",
+    "text": "Session 7 — September 30\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Workshop write-up · Read Stanton Ch. 6"
+  },
+  {
+    "objectID": "syllabus.html#session-8-october-07",
+    "href": "syllabus.html#session-8-october-07",
+    "title": "Syllabus",
+    "section": "Session 8 — October 07",
+    "text": "Session 8 — October 07\nTopics: ANOVA\nReadings due: Stanton Ch. 6\nIn-class exercise (graded) · Homework: Problem set 8 (includes project checkpoint 1: descriptives on your project data) · Study for mid-term"
+  },
+  {
+    "objectID": "syllabus.html#session-9-october-14",
+    "href": "syllabus.html#session-9-october-14",
+    "title": "Syllabus",
+    "section": "Session 9 — October 14",
+    "text": "Session 9 — October 14\nTopics: Mid-Term Exam (in class) — covers Sessions 1–8\nNo in-class exercise or problem set. Read Stanton Ch. 7 before next class."
+  },
+  {
+    "objectID": "syllabus.html#session-10-october-21",
+    "href": "syllabus.html#session-10-october-21",
+    "title": "Syllabus",
+    "section": "Session 10 — October 21",
+    "text": "Session 10 — October 21\nTopics: Measures of association / correlation\nReadings due: Stanton Ch. 7\nIn-class exercise (graded) · Homework: Problem set 10 (includes project checkpoint 2)"
+  },
+  {
+    "objectID": "syllabus.html#session-11-october-28",
+    "href": "syllabus.html#session-11-october-28",
+    "title": "Syllabus",
+    "section": "Session 11 — October 28",
+    "text": "Session 11 — October 28\nTopics: Multiple linear regression\nReadings due: Stanton Ch. 8\nIn-class exercise (graded) · Homework: Problem set 11 (includes project checkpoint 3) · Read Stanton Ch. 10"
+  },
+  {
+    "objectID": "syllabus.html#session-12-november-04",
+    "href": "syllabus.html#session-12-november-04",
+    "title": "Syllabus",
+    "section": "Session 12 — November 04",
+    "text": "Session 12 — November 04\nTopics: Logistic regression\nReadings due: Stanton Ch. 10\nIn-class exercise (graded) · Homework: Problem set 12 (includes project checkpoint 4)"
+  },
+  {
+    "objectID": "syllabus.html#session-13-november-11",
+    "href": "syllabus.html#session-13-november-11",
+    "title": "Syllabus",
+    "section": "Session 13 — November 11",
+    "text": "Session 13 — November 11\nTopics: Final-project help session — open Q&A, code clinic, project check-ins\nNo in-class exercise or problem set. Bring your project code and questions."
+  },
+  {
+    "objectID": "syllabus.html#session-14-december-02",
+    "href": "syllabus.html#session-14-december-02",
+    "title": "Syllabus",
+    "section": "Session 14 — December 02",
+    "text": "Session 14 — December 02\nTopics: Final Project Presentations (in class)\nThe final project — R script, output, and written report — is due in class on December 02, 2026. No late submissions, no appeals. Plan ahead."
+  },
+  {
+    "objectID": "syllabus.html#academic-honesty",
+    "href": "syllabus.html#academic-honesty",
+    "title": "Syllabus",
+    "section": "Academic Honesty",
+    "text": "Academic Honesty\nAcademic honesty is expected, and dishonesty will not be tolerated. The University policy on academic dishonesty can be found on the university website. An act of academic dishonesty will result in a failing course grade and a recommendation of additional disciplinary action. Any of the following violations will be considered academic dishonesty:\n\n\nCheating: the giving or receiving of any unauthorized assistance on any academic work;\n\nPlagiarism: presenting the language, structures or ideas of another person or persons as one’s own academic work;\n\nFalsification: any untrue statement, either oral or written, concerning one’s own academic work or the academic work of another student, or the unauthorized alteration of any academic record; and\n\nOriginal work & “self-plagiarism”: unless specifically allowed by the instructor, all academic work undertaken in a course must be original."
+  },
+  {
+    "objectID": "syllabus.html#respectful-appropriate-class-conduct",
+    "href": "syllabus.html#respectful-appropriate-class-conduct",
+    "title": "Syllabus",
+    "section": "Respectful & Appropriate Class Conduct",
+    "text": "Respectful & Appropriate Class Conduct\nPublic policy processes, including the criminal justice system, inherently center on topics for which individuals hold strong opinions. This course will challenge students to acknowledge and respect perspectives that differ from their own. Respectful behavior is the expectation, norm, and requirement in this class. Arguments and ideas may (and are expected to) be challenged, but personal attacks, disrespectful behavior, and/or hateful attitudes will not be tolerated."
+  },
+  {
+    "objectID": "syllabus.html#late-policy",
+    "href": "syllabus.html#late-policy",
+    "title": "Syllabus",
+    "section": "Late Policy",
+    "text": "Late Policy\nI do not accept late assignments of any kind. Missing submissions will be awarded zero points automatically. Most important: contact me beforehand if you are experiencing difficulties that will impact your ability to turn in work. Reaching out after the due date has passed is not helpful to you or me."
+  },
+  {
+    "objectID": "syllabus.html#grading-scheme",
+    "href": "syllabus.html#grading-scheme",
+    "title": "Syllabus",
+    "section": "Grading Scheme",
+    "text": "Grading Scheme\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
+  },
+  {
+    "objectID": "syllabus.html#attendance-policy",
+    "href": "syllabus.html#attendance-policy",
+    "title": "Syllabus",
+    "section": "Attendance Policy",
+    "text": "Attendance Policy\nAttendance is mandatory for our weekly class meetings. We all have busy lives, so while being on time is expected, I’d rather you miss ten minutes than a whole class. Students are expected to fully engage in class discussion and participate in the in-class exercises. The purpose of the class is for everyone to discuss the readings, not to have them explained.\nI generally do not take formal attendance; however, during most weeks there is a graded in-class exercise. Points for these exercises are awarded based on active participation in class that day, and these points cannot be made up. Missing class means missing the opportunity to earn them.\nConsider the following (simulated data, courtesy of an approach by Steven Miller): a simple linear regression of a student’s final grade on percentage of classes attended suggests an increase of one percent in attendance leads to an estimated increase of 0.704 in the final grade. One missed class is roughly a five-percent decrease in semester attendance — an estimated decrease of 3.52 in the overall grade. The effect is precise (t = 20.37) and the likelihood of no actual relationship is almost zero (R² = 0.342).\n\n\n\n\nThe relationship between class attendance and final grade (simulated data)."
+  },
+  {
+    "objectID": "syllabus.html#instructor-expectations",
+    "href": "syllabus.html#instructor-expectations",
+    "title": "Syllabus",
+    "section": "Instructor Expectations",
+    "text": "Instructor Expectations\nI commit to being your mentor and facilitator of the educational experience:\n\nI will design the course to include reading materials and assignments that challenge students and provide opportunities to learn and practice course content.\nI will respond to emails within 24–72 hours, not including weekends and holidays (normally much faster). If you do not hear from me within 72 hours, please email again.\nI will be available for individual consultation via virtual office hours, email, or phone — not restricted to campus or banker’s hours.\nI will provide feedback on assignments in a timely manner.\nI will ensure and enforce a respectful atmosphere, open to questions, discussion, and ethical disagreement.\nI will follow all official University of South Carolina policies regarding classroom conduct, incompletes, and accommodations."
+  },
+  {
+    "objectID": "syllabus.html#student-expectations",
+    "href": "syllabus.html#student-expectations",
+    "title": "Syllabus",
+    "section": "Student Expectations",
+    "text": "Student Expectations\n\nAttend class every week (half the battle in life is just showing up).\nComplete all assignments on time.\nBe self-motivated, organized, and willing to stay on top of your schedule.\nRegularly check course announcements on Canvas and update notification settings accordingly.\nIf you have questions or are struggling, take the initiative to contact me. If you do not hear back within 72 hours, contact me again.\nEngage with the course, classmates, and professor respectfully and professionally at all times."
+  },
+  {
+    "objectID": "syllabus.html#copyrightfair-use",
+    "href": "syllabus.html#copyrightfair-use",
+    "title": "Syllabus",
+    "section": "Copyright/Fair Use",
+    "text": "Copyright/Fair Use\nI will cite and/or reference any materials that I use in this course that I do not create. You, as students, are expected not to distribute any of these materials, resources, quizzes, tests, or homework assignments (whether graded or ungraded)."
   },
   {
     "objectID": "slides/week-01-stats-is-awesome.html#class-introductions",
@@ -294,6 +483,27 @@
     "text": "Getting help\n\nIn this order: R’s built-in help (?mean), the R4DS Getting Help chapter, a classmate, then me.\nAI tools (ChatGPT, Claude, etc.) are welcome as collaborators — see the syllabus AI policy — but you must be able to explain every line you submit."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "",
+    "text": "Wednesdays, 5:50–8:35 pm · Currell 204 · Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu\nStatistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both traditional (frequentist) and Bayesian approaches to statistical reasoning, with all analysis done in R.\nEverything for the course lives on this site:"
+  },
+  {
+    "objectID": "index.html#textbooks",
+    "href": "index.html#textbooks",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "Textbooks",
+    "text": "Textbooks\n\nStanton, Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R (required)\nWickham, Çetinkaya-Rundel & Grolemund, R for Data Science (2nd edition) — free online (assigned readings woven through the first half of the course)"
+  },
+  {
+    "objectID": "index.html#getting-started",
+    "href": "index.html#getting-started",
+    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "section": "Getting started",
+    "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
+  },
+  {
     "objectID": "chicago-data.html",
     "href": "chicago-data.html",
     "title": "The Chicago Anchor Dataset",
@@ -329,220 +539,318 @@
     "text": "Provenance\nSnapshot pulled July 2026; build script archived in the course repository (R/build-anchor-dataset.R) so the dataset is exactly reproducible. Sources: Chicago Data Portal, Crimes 2001–present (dataset ijzp-q8t2) and CMAP Community Data Snapshots 2026 (CCA table)."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
+    "objectID": "homework/hw-02.html",
+    "href": "homework/hw-02.html",
+    "title": "Homework 2 · Descriptive Statistics in R",
     "section": "",
-    "text": "Wednesdays, 5:50–8:35 pm · Currell 204 · Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu\nStatistics is one of the most powerful tools for understanding the world around us, especially within the context of crime and criminal justice. This course covers both traditional (frequentist) and Bayesian approaches to statistical reasoning, with all analysis done in R.\nEverything for the course lives on this site:"
+    "text": "Instructions: complete the following exercises in a single .R script file. Include comments explaining your code and answers to any interpretive questions. Submit your .R file via Canvas for credit."
   },
   {
-    "objectID": "index.html#textbooks",
-    "href": "index.html#textbooks",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
-    "section": "Textbooks",
-    "text": "Textbooks\n\nStanton, Reasoning with Data: An Introduction to Traditional and Bayesian Statistics Using R (required)\nWickham, Çetinkaya-Rundel & Grolemund, R for Data Science (2nd edition) — free online (assigned readings woven through the first half of the course)"
+    "objectID": "homework/hw-02.html#part-1-measures-of-central-tendency",
+    "href": "homework/hw-02.html#part-1-measures-of-central-tendency",
+    "title": "Homework 2 · Descriptive Statistics in R",
+    "section": "Part 1: Measures of Central Tendency",
+    "text": "Part 1: Measures of Central Tendency\n\nCreate a numeric vector with these sentence lengths (in years):\nsentences &lt;- c(2, 2, 3, 3, 3, 4, 4, 5, 5, 30)\nCalculate the mean, median, and mode of these sentences. Use both the manual (hard-coded) method and the built-in functions: mean(), median(), and mfv() from the modeest package.\nPlot a histogram of the sentence data. You may use ggplot() + geom_histogram() (as in Lab 2) or base R’s hist() — your choice.\nInterpretation (in a comment): why might the mean give a misleading impression of typical sentence length in this example?"
   },
   {
-    "objectID": "index.html#getting-started",
-    "href": "index.html#getting-started",
-    "title": "CRJU 705: Quantitative Methods in Criminal Justice",
-    "section": "Getting started",
-    "text": "Getting started\n\nInstall R and RStudio before the first class — instructions here\nRead the Syllabus\nBring your laptop to every class meeting"
+    "objectID": "homework/hw-02.html#part-2-measures-of-dispersion",
+    "href": "homework/hw-02.html#part-2-measures-of-dispersion",
+    "title": "Homework 2 · Descriptive Statistics in R",
+    "section": "Part 2: Measures of Dispersion",
+    "text": "Part 2: Measures of Dispersion\n\nCreate two vote-count scenarios:\nscenario1 &lt;- c(175, 300, 425)\nscenario2 &lt;- c(299, 300, 301)\nCompute the range of each using range() and diff().\nCompute the deviations from the mean for each set (subtract the mean from each value).\nCompute the sum of squared deviations, variance, and standard deviation — using:\n\nthe manual (hard-coded population) formulas, and\nthe built-in functions var() and sd().\n\n(You’ll notice the built-ins give slightly different answers than your population formulas — R divides by n − 1. We’ll see exactly why in Session 4; for now, just note the difference in a comment.)\nCompare the two vote scenarios: what do these measures tell you about the difference between the two vote distributions?"
+  },
+  {
+    "objectID": "homework/hw-02.html#part-3-exploring-distributions",
+    "href": "homework/hw-02.html#part-3-exploring-distributions",
+    "title": "Homework 2 · Descriptive Statistics in R",
+    "section": "Part 3: Exploring Distributions",
+    "text": "Part 3: Exploring Distributions\n\nGenerate and plot a normal distribution using a different mean and standard deviation than used in class, e.g.:\nhist(rnorm(n = 1000, mean = 70, sd = 15))\nGenerate and plot a Poisson distribution with lambda = 1, and again with lambda = 5.\nReflection (in a comment):\n\nWhat’s the key difference in shape between the normal and Poisson distributions?\nWhy might a Poisson distribution be useful in a criminal justice setting?"
+  },
+  {
+    "objectID": "homework/hw-02.html#part-4-real-data-new-this-year",
+    "href": "homework/hw-02.html#part-4-real-data-new-this-year",
+    "title": "Homework 2 · Descriptive Statistics in R",
+    "section": "Part 4: Real Data (new this year)",
+    "text": "Part 4: Real Data (new this year)\n\nLoad the course anchor data:\nlibrary(tidyverse)\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\")\nCompute the mean, median, and standard deviation of violent_rate (violent crimes per 1,000 residents across Chicago’s 77 community areas).\nMake a histogram of violent_rate.\nInterpretation (in a comment): based on the mean-vs-median comparison and the histogram’s shape, is violent_rate symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?"
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html",
+    "href": "labs/lab-02-visualize.html",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "",
+    "text": "Goal: make your first plots in R and connect them to today’s descriptive statistics. This lab assumes you’ve read R4DS Ch. 1 (Data visualization) and Ch. 2 (Workflow: basics).\nHow labs work: run the Setup chunk as-is, follow the Walkthrough along with me, then complete the Your Turn tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave."
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#setup",
+    "href": "labs/lab-02-visualize.html#setup",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Setup",
+    "text": "Setup\nOpen RStudio, start a new R script, and run:\n\nlibrary(tidyverse)\n\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\nprisoners holds records for 300 incarcerated persons (simulated, but realistic): demographics, offense type, sentence, and well-being measures. Look at it first — always look at your data first:\n\nglimpse(prisoners)\n\nRows: 300\nColumns: 14\n$ prisoner_id        &lt;chr&gt; \"P0001\", \"P0002\", \"P0003\", \"P0004\", \"P0005\", \"P0006…\n$ facility           &lt;chr&gt; \"Central Unit\", \"River Unit\", \"River Unit\", \"Centra…\n$ housing_unit       &lt;chr&gt; \"HU-1\", \"HU-3\", \"HU-4\", \"HU-2\", \"HU-5\", \"HU-3\", \"HU…\n$ age                &lt;dbl&gt; 36, 51, 33, 38, 36, 35, 26, 30, 18, 23, 18, 18, 40,…\n$ gender             &lt;chr&gt; \"MALE\", \"Male\", \"Female\", \"Male\", \"Male\", \"Male\", \"…\n$ race               &lt;chr&gt; \"Black\", \"Black\", \"White\", \"White\", \"Black\", \"Black…\n$ education          &lt;chr&gt; \"Some College\", \"Less than HS\", \"HS/GED\", \"HS/GED\",…\n$ offense_type       &lt;chr&gt; \"Property\", \"Drug\", \"Property\", \"Drug\", \"Property\",…\n$ sentence_years     &lt;dbl&gt; 1.88, 4.34, 6.57, 1.58, 3.10, 19.91, 1.27, 3.05, 5.…\n$ months_served      &lt;dbl&gt; 23, 52, 79, 19, 37, 156, 15, 37, 68, 20, 49, 34, 8,…\n$ stress             &lt;dbl&gt; 5.4, 8.4, 4.4, 9.7, 2.8, 8.1, 5.0, 6.3, 4.7, 6.4, 8…\n$ depression         &lt;dbl&gt; 8.0, 3.8, 9.0, 1.7, 5.0, 5.1, 2.6, 5.4, 3.4, 6.7, 3…\n$ sleep_quality      &lt;dbl&gt; 1.1, 5.1, 4.6, 3.2, 3.7, 7.7, 4.2, 4.5, 3.8, 4.5, 6…\n$ substance_use_risk &lt;dbl&gt; 4.1, 2.4, 6.3, 2.9, 1.2, 6.5, 6.6, 5.9, 5.9, 5.2, 6…"
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#walkthrough",
+    "href": "labs/lab-02-visualize.html#walkthrough",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Walkthrough",
+    "text": "Walkthrough\nA histogram — the shape of a numeric variable\nToday’s lecture was about summarizing numeric variables. A histogram is the picture version:\n\nggplot(prisoners, aes(x = age)) +\n  geom_histogram(binwidth = 5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Age distribution of incarcerated persons\",\n       x = \"Age (years)\", y = \"Count\")\n\n\n\n\n\n\n\nAnatomy of every ggplot: data (prisoners), aesthetics (aes(x = age) — which variables map to which visual channels), and geometry (geom_histogram() — how to draw them).\nHow does the picture relate to the numbers?\n\nprisoners |&gt;\n  summarize(mean_age = mean(age), median_age = median(age), sd_age = sd(age))\n\n# A tibble: 1 × 3\n  mean_age median_age sd_age\n     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1     34.5         34   10.2\n\n\nA bar chart — counts of a categorical variable\n\nggplot(prisoners, aes(x = offense_type)) +\n  geom_bar(fill = \"steelblue\") +\n  labs(title = \"Offense types\", x = NULL, y = \"Count\")\n\n\n\n\n\n\n\nA boxplot — a distribution split by groups\n\nThe five-number-summary as a picture, one box per offense type:\n\nggplot(prisoners, aes(x = offense_type, y = sentence_years)) +\n  geom_boxplot(fill = \"grey90\") +\n  labs(title = \"Sentence length by offense type\",\n       x = NULL, y = \"Sentence (years)\")\n\n\n\n\n\n\n\nThe box is the middle 50% (median = the line inside); the dots are outliers — the same “one 30-year sentence” problem from lecture, visible instantly."
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#your-turn",
+    "href": "labs/lab-02-visualize.html#your-turn",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Your Turn",
+    "text": "Your Turn\nWork in your own script. Comment each answer.\n1. Make a histogram of sentence_years. Is it symmetric or skewed? Compute the mean and median — do they agree with what the picture shows? (Hint: today’s lecture.)\n\n# your code here\n\n2. Make a bar chart of education. Which category is most common (the mode)?\n\n# your code here\n\n3. Make a boxplot of age by offense_type. Which offense type has the most spread in age? Check yourself with sd():\n\n# your code here — for the numeric check:\n# prisoners |&gt; summarize(sd_age = sd(age), .by = offense_type)\n\n4. (Stretch) Add color = \"white\" inside your histogram’s geom_histogram() and change its binwidth. What changes? What binwidth seems most honest for sentence_years?"
+  },
+  {
+    "objectID": "labs/lab-02-visualize.html#exit-ticket",
+    "href": "labs/lab-02-visualize.html#exit-ticket",
+    "title": "Lab 2 · First Plots with ggplot2",
+    "section": "Exit Ticket",
+    "text": "Exit Ticket\nSubmit a short R script to Canvas before you leave, containing:\n\nOne plot of your choice from today (code only is fine)\nA comment (2–3 sentences): what does the plot show, and which descriptive statistic (mean/median/SD) best summarizes it?\nA comment naming one thing from R4DS Ch. 1–2 or today’s lab that is still confusing"
   },
   {
     "objectID": "schedule.html",
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\ncoming soon\n\n\n3\nProbability, via simulation\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\ncoming soon\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects)\ncoming soon\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 7 (Data import), Ch. 8 (Workflow: getting help)\ncoming soon\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 19 (Joins); Ch. 18 (Missing values, skim)\ncoming soon\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\ncoming soon\n\n\n8\nANOVA · project checkpoints begin\nCh. 6\n—\ncoming soon\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\n\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\ncoming soon\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\ncoming soon\n\n\n12\nLogistic regression · project checkpoint\nCh. 10\n—\ncoming soon\n\n\n13\nFinal-project help session — open Q&A and code clinic\n—\n—\n\n\n\n14\nFinal project presentations\n—\n—"
+    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\nSession page · Slides · Lab · HW\n\n\n3\nProbability, via simulation\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\ncoming soon\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects)\ncoming soon\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 7 (Data import), Ch. 8 (Workflow: getting help)\ncoming soon\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 19 (Joins); Ch. 18 (Missing values, skim)\ncoming soon\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\ncoming soon\n\n\n8\nANOVA · project checkpoints begin\nCh. 6\n—\ncoming soon\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\n\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\ncoming soon\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\ncoming soon\n\n\n12\nLogistic regression · project checkpoint\nCh. 10\n—\ncoming soon\n\n\n13\nFinal-project help session — open Q&A and code clinic\n—\n—\n\n\n\n14\nFinal project presentations\n—\n—"
   },
   {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Syllabus",
+    "objectID": "slides/week-02-descriptives.html#week-1-follow-up",
+    "href": "slides/week-02-descriptives.html#week-1-follow-up",
+    "title": "Descriptive Statistics",
+    "section": "Week 1 Follow-Up",
+    "text": "Week 1 Follow-Up\nswirl assignments — experiences, issues, good stuff with R???\n\nBasic Building Blocks · 2. Workspace and Files · 3. Sequences of Numbers · 4. Vectors · 5. Missing Values · 6. Subsetting Vectors · 7. Matrices and Data Frames · 8. Logic · 12. Looking at Data · 15. Base Graphics"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#this-week",
+    "href": "slides/week-02-descriptives.html#this-week",
+    "title": "Descriptive Statistics",
+    "section": "This Week",
+    "text": "This Week\nTopic: Descriptive statistics and statistical vocabulary\n\nMeasures of central tendency\nMeasures of dispersion\nDistributions and their shapes\n\nLearning goals: define in your own words — mean, median, mode, variance, standard deviation, histogram, normal distribution, Poisson distribution — and use R to describe a small dataset and plot a distribution.\nR4DS thread: you read Ch. 1 (Data visualization) & Ch. 2 (Workflow) — today’s lab puts both to work."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#three-ways-to-say-typical",
+    "href": "slides/week-02-descriptives.html#three-ways-to-say-typical",
+    "title": "Descriptive Statistics",
+    "section": "Three Ways to Say “Typical”",
+    "text": "Three Ways to Say “Typical”\n\n\n\nMeasure\nMeaning\n\n\n\n\nMean\nthe average\n\n\nMedian\nthe halfway point\n\n\nMode\nthe most frequently occurring value\n\n\n\nMeasures of central tendency summarize a vector of data by locating the typical, the middle, or the most common point."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-the-mean",
+    "href": "slides/week-02-descriptives.html#practice-the-mean",
+    "title": "Descriptive Statistics",
+    "section": "Practice — The Mean",
+    "text": "Practice — The Mean\n\nrainfall &lt;- c(0, 0, 0, 2, 1, 1, 4)   # rain each day this week\n\n# The hard way:\nsum(rainfall) / length(rainfall)\n\n[1] 1.142857\n\n\n\n\n# The easy way:\nmean(rainfall)\n\n[1] 1.142857"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-the-median",
+    "href": "slides/week-02-descriptives.html#practice-the-median",
+    "title": "Descriptive Statistics",
+    "section": "Practice — The Median",
+    "text": "Practice — The Median\n\nrainfall\n\n[1] 0 0 0 2 1 1 4\n\nsort(rainfall)   # middle value of the sorted data?\n\n[1] 0 0 0 1 1 2 4\n\n\n\n\nmedian(rainfall)\n\n[1] 1"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-the-mode",
+    "href": "slides/week-02-descriptives.html#practice-the-mode",
+    "title": "Descriptive Statistics",
+    "section": "Practice — The Mode",
+    "text": "Practice — The Mode\n\nrainfall          # which value appears most often?\n\n[1] 0 0 0 2 1 1 4\n\nlibrary(modeest)  # install.packages(\"modeest\") once, library() every session\nmfv(rainfall)     # mfv = \"most frequent value\"\n\n[1] 0"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#what-do-these-look-like",
+    "href": "slides/week-02-descriptives.html#what-do-these-look-like",
+    "title": "Descriptive Statistics",
+    "section": "What Do These Look Like?",
+    "text": "What Do These Look Like?\n\nstats &lt;- tibble(\n  measure = c(\"Mean\", \"Median\", \"Mode\"),\n  value = c(mean(rainfall), median(rainfall), mfv(rainfall))\n)\nggplot(tibble(rainfall), aes(rainfall)) +\n  geom_histogram(binwidth = 1, fill = \"lightblue\", color = \"black\") +\n  geom_vline(data = stats, aes(xintercept = value, color = measure),\n             linewidth = 1.2, linetype = \"dashed\") +\n  labs(title = \"Rainfall with Mean, Median, and Mode\",\n       x = \"Rainfall (inches)\", y = \"Frequency\", color = NULL)"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#what-do-these-look-like-output",
+    "href": "slides/week-02-descriptives.html#what-do-these-look-like-output",
+    "title": "Descriptive Statistics",
+    "section": "What Do These Look Like?",
+    "text": "What Do These Look Like?"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#why-we-care-in-cj-sentencing",
+    "href": "slides/week-02-descriptives.html#why-we-care-in-cj-sentencing",
+    "title": "Descriptive Statistics",
+    "section": "Why We Care in CJ: Sentencing",
+    "text": "Why We Care in CJ: Sentencing\n\n# Sentence lengths for 10 people convicted of robbery (years)\nsentences &lt;- c(2, 2, 3, 3, 3, 4, 4, 5, 5, 30)   # note the outlier!\n\nmean(sentences)\n\n[1] 6.1\n\nmedian(sentences)\n\n[1] 3.5\n\nmfv(sentences)\n\n[1] 3\n\n\nOne 30-year sentence drags the mean to 6.1 — nobody in the data actually got a “typical” 6-year sentence."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#why-we-care-in-cj-sentencing-1",
+    "href": "slides/week-02-descriptives.html#why-we-care-in-cj-sentencing-1",
+    "title": "Descriptive Statistics",
+    "section": "Why We Care in CJ: Sentencing",
+    "text": "Why We Care in CJ: Sentencing"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#thoughts",
+    "href": "slides/week-02-descriptives.html#thoughts",
+    "title": "Descriptive Statistics",
+    "section": "Thoughts?",
+    "text": "Thoughts?\n\nWhy do these three values (mean = 6.1, median = 3.5, mode = 3) give such different impressions of “typical” sentence length?\nWhich one might be most fair to use when describing a sentencing policy to the public?\nWhen might the mean be misleading?"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#the-same-thing-in-real-data",
+    "href": "slides/week-02-descriptives.html#the-same-thing-in-real-data",
+    "title": "Descriptive Statistics",
+    "section": "The Same Thing in Real Data",
+    "text": "The Same Thing in Real Data\nCommunity-level crime rates in Chicago, 2025:\n\nareas |&gt;\n  summarize(\n    mean_rate   = mean(crime_rate),\n    median_rate = median(crime_rate),\n    max_rate    = max(crime_rate)\n  )\n\n# A tibble: 1 × 3\n  mean_rate median_rate max_rate\n      &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;\n1      96.9          82     292.\n\n\n\n\nareas |&gt; slice_max(crime_rate, n = 3) |&gt; select(community, crime_rate)\n\n# A tibble: 3 × 2\n  community          crime_rate\n  &lt;chr&gt;                   &lt;dbl&gt;\n1 Fuller Park              292.\n2 West Garfield Park       220.\n3 Englewood                214.\n\n\nThe Loop’s rate (driven by a small residential population and huge daytime crowds) pulls the mean above the median — same lesson as the 30-year sentence, in live data."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#the-same-thing-in-real-data-1",
+    "href": "slides/week-02-descriptives.html#the-same-thing-in-real-data-1",
+    "title": "Descriptive Statistics",
+    "section": "The Same Thing in Real Data",
+    "text": "The Same Thing in Real Data"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#central-tendency-isnt-the-whole-story",
+    "href": "slides/week-02-descriptives.html#central-tendency-isnt-the-whole-story",
+    "title": "Descriptive Statistics",
+    "section": "Central Tendency Isn’t the Whole Story",
+    "text": "Central Tendency Isn’t the Whole Story\nThree people run for city council; only the top two vote-getters win:\n\n\nScenario 1\n\nA = 200 votes\nB = 300 votes\nC = 400 votes\n\n\nScenario 2\n\nX = 299 votes\nY = 300 votes\nZ = 301 votes\n\n\nIn both cases the average is 300. But scenario 1 has much greater spread in support; scenario 2 is tightly clustered — it’s hard to say who’s truly “preferred.”\n→ We need measures of dispersion: range, deviations, variance, standard deviation."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-range",
+    "href": "slides/week-02-descriptives.html#practice-range",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Range",
+    "text": "Practice — Range\n\nvotes1 &lt;- c(200, 300, 400)   # wide spread\nvotes2 &lt;- c(299, 300, 301)   # tight cluster\n\nmean(votes1); mean(votes2)   # identical means\n\n[1] 300\n\n\n[1] 300\n\n\n\n\nrange(votes1); diff(range(votes1))\n\n[1] 200 400\n\n\n[1] 200\n\nrange(votes2); diff(range(votes2))\n\n[1] 299 301\n\n\n[1] 2"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-deviations-from-the-mean",
+    "href": "slides/week-02-descriptives.html#practice-deviations-from-the-mean",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Deviations from the Mean",
+    "text": "Practice — Deviations from the Mean\n\nvotes1 - mean(votes1)\n\n[1] -100    0  100\n\nvotes2 - mean(votes2)\n\n[1] -1  0  1\n\n\n\nWhy can’t we just sum the deviations?\n\nsum(votes1 - mean(votes1))   # they always cancel to zero!\n\n[1] 0"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-sum-of-squares",
+    "href": "slides/week-02-descriptives.html#practice-sum-of-squares",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Sum of Squares",
+    "text": "Practice — Sum of Squares\nSquaring makes every deviation positive (and emphasizes big misses):\n\nsum((votes1 - mean(votes1))^2)\n\n[1] 20000\n\nsum((votes2 - mean(votes2))^2)\n\n[1] 2"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-variance-and-sd",
+    "href": "slides/week-02-descriptives.html#practice-variance-and-sd",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Variance and SD",
+    "text": "Practice — Variance and SD\n\n# Variance = mean squared deviation (population formula)\nsum((votes1 - mean(votes1))^2) / length(votes1)\n\n[1] 6666.667\n\n# Standard deviation = square root of variance (back to vote units!)\nsqrt(sum((votes1 - mean(votes1))^2) / length(votes1))\n\n[1] 81.64966\n\n\n\n\nvar(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)\n\n[1] 10000\n\n\n[1] 100\n\nvar(votes2); sd(votes2)   # more on WHY in Session 4\n\n[1] 1\n\n\n[1] 1"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#seeing-the-machinery",
+    "href": "slides/week-02-descriptives.html#seeing-the-machinery",
+    "title": "Descriptive Statistics",
+    "section": "Seeing the Machinery",
+    "text": "Seeing the Machinery"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#standard-deviation-in-words",
+    "href": "slides/week-02-descriptives.html#standard-deviation-in-words",
+    "title": "Descriptive Statistics",
+    "section": "Standard Deviation, in Words",
+    "text": "Standard Deviation, in Words\nThe standard deviation measures how spread out the data are around the mean.\n\n“On average, how far is each value from the mean?”\n\nWe square the deviations (to make them positive and emphasize larger differences), average them (that’s the variance), then take the square root (back to the original units)."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#why-the-standard-deviation",
+    "href": "slides/week-02-descriptives.html#why-the-standard-deviation",
+    "title": "Descriptive Statistics",
+    "section": "Why the Standard Deviation?",
+    "text": "Why the Standard Deviation?\n\nSame units as the data — variance is in squared units; SD is interpretable\nWorks with the normal distribution — SD tells us how typical or extreme a value is\nThe basis for many tools — confidence intervals, hypothesis tests, z-scores, regression all rely on it\nLets you compare variability across datasets with similar scales"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#in-cj-scenarios",
+    "href": "slides/week-02-descriptives.html#in-cj-scenarios",
+    "title": "Descriptive Statistics",
+    "section": "In CJ Scenarios",
+    "text": "In CJ Scenarios\nResponse times for patrol officers:\n\nLow SD → officers respond in consistently similar times\nHigh SD → sometimes fast, sometimes slow — inconsistency that matters for policy, supervision, training\n\nSentence lengths for the same crime:\n\nHigh SD might suggest inconsistency — or bias — in sentencing"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#real-data-consistency-across-communities",
+    "href": "slides/week-02-descriptives.html#real-data-consistency-across-communities",
+    "title": "Descriptive Statistics",
+    "section": "Real Data: Consistency Across Communities",
+    "text": "Real Data: Consistency Across Communities\n\n# Violent-crime rates: how much do Chicago communities differ?\nareas |&gt;\n  summarize(\n    mean_violent = mean(violent_rate),\n    sd_violent   = sd(violent_rate),\n    min_violent  = min(violent_rate),\n    max_violent  = max(violent_rate)\n  )\n\n# A tibble: 1 × 4\n  mean_violent sd_violent min_violent max_violent\n         &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;\n1         30.7       22.5           4        111.\n\n\nThe SD is nearly as large as the mean — Chicago communities differ enormously in violence exposure. That inequality is a finding, and it took exactly one line of dispersion statistics to see it."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#what-is-a-distribution",
+    "href": "slides/week-02-descriptives.html#what-is-a-distribution",
+    "title": "Descriptive Statistics",
+    "section": "What Is a Distribution?",
+    "text": "What Is a Distribution?\nA distribution shows how many observations fall at different values — the shape of the data.\nIt answers:\n\n“Where do most of the values fall?”\n“How spread out are they?”\n“Are some values rare or common?”\n\nWe visualize distributions with a histogram."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#the-normal-distribution",
+    "href": "slides/week-02-descriptives.html#the-normal-distribution",
+    "title": "Descriptive Statistics",
+    "section": "The Normal Distribution",
+    "text": "The Normal Distribution\n\nsims &lt;- tibble(x = rnorm(n = 1000, mean = 100, sd = 10))\nggplot(sims, aes(x)) + geom_histogram(bins = 30, fill = \"grey80\", color = \"white\")\n\n\nSymmetrical, bell-shaped; defined by two numbers — the mean (center) and SD (spread). Try different values!"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#sd-and-the-normal-the-empirical-rule",
+    "href": "slides/week-02-descriptives.html#sd-and-the-normal-the-empirical-rule",
+    "title": "Descriptive Statistics",
+    "section": "SD and the Normal: the Empirical Rule",
+    "text": "SD and the Normal: the Empirical Rule\n\n\npct_within &lt;- function(k) 100 * (pnorm(k) - pnorm(-k))\ntibble(k = 1:3, pct_within = round(pct_within(1:3), 2))\n\n# A tibble: 3 × 2\n      k pct_within\n  &lt;int&gt;      &lt;dbl&gt;\n1     1       68.3\n2     2       95.4\n3     3       99.7"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#the-poisson-distribution",
+    "href": "slides/week-02-descriptives.html#the-poisson-distribution",
+    "title": "Descriptive Statistics",
+    "section": "The Poisson Distribution",
+    "text": "The Poisson Distribution\n\npois_sims &lt;- tibble(x = rpois(n = 1000, lambda = 1))\nggplot(pois_sims, aes(x)) + geom_bar(fill = crju_colors[\"navy\"])\n\n\nOften skewed, especially when λ is low. Models counts of rare events: 911 calls per hour, crimes per day, cars per minute. One parameter: λ = expected number of events. Try different values!"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#the-poisson-is-not-hypothetical",
+    "href": "slides/week-02-descriptives.html#the-poisson-is-not-hypothetical",
+    "title": "Descriptive Statistics",
+    "section": "The Poisson Is Not Hypothetical",
+    "text": "The Poisson Is Not Hypothetical\nDaily robbery counts in our Chicago sample, all of 2025:\n\ndaily_robberies &lt;- crimes |&gt;\n  filter(primary_type == \"ROBBERY\") |&gt;\n  count(date)\n\nggplot(daily_robberies, aes(n)) +\n  geom_bar(fill = crju_colors[\"garnet\"]) +\n  labs(x = \"Robberies per day\", y = \"Number of days\",\n       title = \"Real crime counts look Poisson\")"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#why-we-care-about-distributions-in-cj",
+    "href": "slides/week-02-descriptives.html#why-we-care-about-distributions-in-cj",
+    "title": "Descriptive Statistics",
+    "section": "Why We Care About Distributions in CJ",
+    "text": "Why We Care About Distributions in CJ\n\nThe normal distribution helps us understand common variation (response times, test scores)\nThe Poisson distribution models event counts, especially rare ones — crimes, incidents — and underlies many forecasting tools\nRecognizing the shape of your data is the first step in choosing the right analysis — a theme for the whole semester"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#todays-lab-homework",
+    "href": "slides/week-02-descriptives.html#todays-lab-homework",
+    "title": "Descriptive Statistics",
+    "section": "Today’s Lab & Homework",
+    "text": "Today’s Lab & Homework\n\nLab 2: your first ggplots — histograms, boxplots, and bar charts with real corrections data (lab page)\nHomework 2: descriptive statistics in R (posted on the Session 2 page)\nRead before Session 3: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Code style)"
+  },
+  {
+    "objectID": "weeks/week-01.html",
+    "href": "weeks/week-01.html",
+    "title": "Session 1 · Intro & R Setup",
     "section": "",
-    "text": "Provisional dates. Session dates on this page derive from a provisional Fall 2026 calendar and will be finalized before the semester begins. Topics, their order, and course policies are final.\nInstructor: Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu · Office: Currell 111 · Office hours: on request Class meetings: Wednesdays, 5:50–8:35 pm · Currell 204"
+    "text": "📽️ Slides: Statistics is Awesome!"
   },
   {
-    "objectID": "syllabus.html#academic-bulletin",
-    "href": "syllabus.html#academic-bulletin",
-    "title": "Syllabus",
-    "section": "Academic Bulletin",
-    "text": "Academic Bulletin\nDescriptive and inferential statistics and the use of computers in criminal justice."
+    "objectID": "weeks/week-01.html#before-class",
+    "href": "weeks/week-01.html#before-class",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "Before class",
+    "text": "Before class\n\nInstall R and RStudio — step-by-step guide\nRead: Stanton Introduction and Appendices A–C\nRead: this site’s Syllabus"
   },
   {
-    "objectID": "syllabus.html#course-objectives",
-    "href": "syllabus.html#course-objectives",
-    "title": "Syllabus",
-    "section": "Course Objectives",
-    "text": "Course Objectives\nBy the end of this course, students will be able to:\n\nIdentify the role of statistics in criminology and criminal justice research.\nDistinguish between different types of data and levels of measurement.\nImport, clean, transform, and visualize real data in R using modern (tidyverse) tools.\nApply descriptive statistics to summarize and interpret data.\nExplain the concepts of probability and distributions as they relate to criminological data.\nConduct and interpret basic statistical tests — from both frequentist and Bayesian perspectives — including t-tests, ANOVA, correlation, and regression.\nCritically evaluate statistical claims in criminal justice policy and research.\nEffectively communicate statistical findings in both written and visual formats."
+    "objectID": "weeks/week-01.html#in-class",
+    "href": "weeks/week-01.html#in-class",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "In class",
+    "text": "In class\n\nCourse tour: syllabus, this website, how the semester works\nWhy statistics is awesome (with real crime-data examples)\nTypes of data and levels of measurement\nGuided tour of R and RStudio"
   },
   {
-    "objectID": "syllabus.html#assignment-due-dates",
-    "href": "syllabus.html#assignment-due-dates",
-    "title": "Syllabus",
-    "section": "Assignment Due Dates",
-    "text": "Assignment Due Dates\nDates for all assignments and exams are listed on the course Canvas page and discussed in class. Course materials (slides, labs, homework) live on this website; submissions go through Canvas."
-  },
-  {
-    "objectID": "syllabus.html#final-project-information",
-    "href": "syllabus.html#final-project-information",
-    "title": "Syllabus",
-    "section": "Final Project Information",
-    "text": "Final Project Information\nThe final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — dataset selection is due at Session 7 (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. A dedicated help session (Session 13) provides open Q&A and a code clinic before presentations.\nYour completed project is due in class on December 02, 2026 (presentations day).\nThere will be absolutely no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.\nYou are responsible for ensuring that your final project is submitted successfully and on time, with all required components included: the R script, output, and written report."
-  },
-  {
-    "objectID": "syllabus.html#session-1-august-19",
-    "href": "syllabus.html#session-1-august-19",
-    "title": "Syllabus",
-    "section": "Session 1 — August 19",
-    "text": "Session 1 — August 19\nTopics: Class introduction · Why statistics is awesome · Types of data and levels of measurement · Using R and RStudio\nReadings due before class: Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see Resources.\nHomework: swirl tutorials in R (instructions in class). Submit R script files via Canvas before noon Tuesday ahead of the next session. Read Stanton Ch. 1 before next class."
-  },
-  {
-    "objectID": "syllabus.html#session-2-august-26",
-    "href": "syllabus.html#session-2-august-26",
-    "title": "Syllabus",
-    "section": "Session 2 — August 26",
-    "text": "Session 2 — August 26\nTopics: Descriptive statistics & exploratory data analysis\nReadings due: Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)\nHomework: Problem set 2 · Read Stanton Ch. 2"
-  },
-  {
-    "objectID": "syllabus.html#session-3-september-02",
-    "href": "syllabus.html#session-3-september-02",
-    "title": "Syllabus",
-    "section": "Session 3 — September 02",
-    "text": "Session 3 — September 02\nTopics: Probability, taught via simulation\nReadings due: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)\nIn-class exercise (graded) · Homework: Problem set 3 · Read Stanton Ch. 3"
-  },
-  {
-    "objectID": "syllabus.html#session-4-september-09",
-    "href": "syllabus.html#session-4-september-09",
-    "title": "Syllabus",
-    "section": "Session 4 — September 09",
-    "text": "Session 4 — September 09\nTopics: Sampling distributions, taught via simulation\nReadings due: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)\nIn-class exercise (graded) · Homework: Problem set 4 · Read Stanton Ch. 4"
-  },
-  {
-    "objectID": "syllabus.html#session-5-september-16",
-    "href": "syllabus.html#session-5-september-16",
-    "title": "Syllabus",
-    "section": "Session 5 — September 16",
-    "text": "Session 5 — September 16\nTopics: The logic of inference using confidence intervals — on real data\nReadings due: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)\nIn-class exercise (graded) · Homework: Problem set 5 · Read Stanton Ch. 5"
-  },
-  {
-    "objectID": "syllabus.html#session-6-september-23",
-    "href": "syllabus.html#session-6-september-23",
-    "title": "Syllabus",
-    "section": "Session 6 — September 23",
-    "text": "Session 6 — September 23\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)\nIn-class exercise (graded) · Homework: Problem set 6 · Begin scouting a final-project dataset"
-  },
-  {
-    "objectID": "syllabus.html#session-7-september-30",
-    "href": "syllabus.html#session-7-september-30",
-    "title": "Syllabus",
-    "section": "Session 7 — September 30",
-    "text": "Session 7 — September 30\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Workshop write-up · Read Stanton Ch. 6"
-  },
-  {
-    "objectID": "syllabus.html#session-8-october-07",
-    "href": "syllabus.html#session-8-october-07",
-    "title": "Syllabus",
-    "section": "Session 8 — October 07",
-    "text": "Session 8 — October 07\nTopics: ANOVA\nReadings due: Stanton Ch. 6\nIn-class exercise (graded) · Homework: Problem set 8 (includes project checkpoint 1: descriptives on your project data) · Study for mid-term"
-  },
-  {
-    "objectID": "syllabus.html#session-9-october-14",
-    "href": "syllabus.html#session-9-october-14",
-    "title": "Syllabus",
-    "section": "Session 9 — October 14",
-    "text": "Session 9 — October 14\nTopics: Mid-Term Exam (in class) — covers Sessions 1–8\nNo in-class exercise or problem set. Read Stanton Ch. 7 before next class."
-  },
-  {
-    "objectID": "syllabus.html#session-10-october-21",
-    "href": "syllabus.html#session-10-october-21",
-    "title": "Syllabus",
-    "section": "Session 10 — October 21",
-    "text": "Session 10 — October 21\nTopics: Measures of association / correlation\nReadings due: Stanton Ch. 7\nIn-class exercise (graded) · Homework: Problem set 10 (includes project checkpoint 2)"
-  },
-  {
-    "objectID": "syllabus.html#session-11-october-28",
-    "href": "syllabus.html#session-11-october-28",
-    "title": "Syllabus",
-    "section": "Session 11 — October 28",
-    "text": "Session 11 — October 28\nTopics: Multiple linear regression\nReadings due: Stanton Ch. 8\nIn-class exercise (graded) · Homework: Problem set 11 (includes project checkpoint 3) · Read Stanton Ch. 10"
-  },
-  {
-    "objectID": "syllabus.html#session-12-november-04",
-    "href": "syllabus.html#session-12-november-04",
-    "title": "Syllabus",
-    "section": "Session 12 — November 04",
-    "text": "Session 12 — November 04\nTopics: Logistic regression\nReadings due: Stanton Ch. 10\nIn-class exercise (graded) · Homework: Problem set 12 (includes project checkpoint 4)"
-  },
-  {
-    "objectID": "syllabus.html#session-13-november-11",
-    "href": "syllabus.html#session-13-november-11",
-    "title": "Syllabus",
-    "section": "Session 13 — November 11",
-    "text": "Session 13 — November 11\nTopics: Final-project help session — open Q&A, code clinic, project check-ins\nNo in-class exercise or problem set. Bring your project code and questions."
-  },
-  {
-    "objectID": "syllabus.html#session-14-december-02",
-    "href": "syllabus.html#session-14-december-02",
-    "title": "Syllabus",
-    "section": "Session 14 — December 02",
-    "text": "Session 14 — December 02\nTopics: Final Project Presentations (in class)\nThe final project — R script, output, and written report — is due in class on December 02, 2026. No late submissions, no appeals. Plan ahead."
-  },
-  {
-    "objectID": "syllabus.html#academic-honesty",
-    "href": "syllabus.html#academic-honesty",
-    "title": "Syllabus",
-    "section": "Academic Honesty",
-    "text": "Academic Honesty\nAcademic honesty is expected, and dishonesty will not be tolerated. The University policy on academic dishonesty can be found on the university website. An act of academic dishonesty will result in a failing course grade and a recommendation of additional disciplinary action. Any of the following violations will be considered academic dishonesty:\n\n\nCheating: the giving or receiving of any unauthorized assistance on any academic work;\n\nPlagiarism: presenting the language, structures or ideas of another person or persons as one’s own academic work;\n\nFalsification: any untrue statement, either oral or written, concerning one’s own academic work or the academic work of another student, or the unauthorized alteration of any academic record; and\n\nOriginal work & “self-plagiarism”: unless specifically allowed by the instructor, all academic work undertaken in a course must be original."
-  },
-  {
-    "objectID": "syllabus.html#respectful-appropriate-class-conduct",
-    "href": "syllabus.html#respectful-appropriate-class-conduct",
-    "title": "Syllabus",
-    "section": "Respectful & Appropriate Class Conduct",
-    "text": "Respectful & Appropriate Class Conduct\nPublic policy processes, including the criminal justice system, inherently center on topics for which individuals hold strong opinions. This course will challenge students to acknowledge and respect perspectives that differ from their own. Respectful behavior is the expectation, norm, and requirement in this class. Arguments and ideas may (and are expected to) be challenged, but personal attacks, disrespectful behavior, and/or hateful attitudes will not be tolerated."
-  },
-  {
-    "objectID": "syllabus.html#late-policy",
-    "href": "syllabus.html#late-policy",
-    "title": "Syllabus",
-    "section": "Late Policy",
-    "text": "Late Policy\nI do not accept late assignments of any kind. Missing submissions will be awarded zero points automatically. Most important: contact me beforehand if you are experiencing difficulties that will impact your ability to turn in work. Reaching out after the due date has passed is not helpful to you or me."
-  },
-  {
-    "objectID": "syllabus.html#grading-scheme",
-    "href": "syllabus.html#grading-scheme",
-    "title": "Syllabus",
-    "section": "Grading Scheme",
-    "text": "Grading Scheme\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
-  },
-  {
-    "objectID": "syllabus.html#attendance-policy",
-    "href": "syllabus.html#attendance-policy",
-    "title": "Syllabus",
-    "section": "Attendance Policy",
-    "text": "Attendance Policy\nAttendance is mandatory for our weekly class meetings. We all have busy lives, so while being on time is expected, I’d rather you miss ten minutes than a whole class. Students are expected to fully engage in class discussion and participate in the in-class exercises. The purpose of the class is for everyone to discuss the readings, not to have them explained.\nI generally do not take formal attendance; however, during most weeks there is a graded in-class exercise. Points for these exercises are awarded based on active participation in class that day, and these points cannot be made up. Missing class means missing the opportunity to earn them.\nConsider the following (simulated data, courtesy of an approach by Steven Miller): a simple linear regression of a student’s final grade on percentage of classes attended suggests an increase of one percent in attendance leads to an estimated increase of 0.704 in the final grade. One missed class is roughly a five-percent decrease in semester attendance — an estimated decrease of 3.52 in the overall grade. The effect is precise (t = 20.37) and the likelihood of no actual relationship is almost zero (R² = 0.342).\n\n\n\n\nThe relationship between class attendance and final grade (simulated data)."
-  },
-  {
-    "objectID": "syllabus.html#instructor-expectations",
-    "href": "syllabus.html#instructor-expectations",
-    "title": "Syllabus",
-    "section": "Instructor Expectations",
-    "text": "Instructor Expectations\nI commit to being your mentor and facilitator of the educational experience:\n\nI will design the course to include reading materials and assignments that challenge students and provide opportunities to learn and practice course content.\nI will respond to emails within 24–72 hours, not including weekends and holidays (normally much faster). If you do not hear from me within 72 hours, please email again.\nI will be available for individual consultation via virtual office hours, email, or phone — not restricted to campus or banker’s hours.\nI will provide feedback on assignments in a timely manner.\nI will ensure and enforce a respectful atmosphere, open to questions, discussion, and ethical disagreement.\nI will follow all official University of South Carolina policies regarding classroom conduct, incompletes, and accommodations."
-  },
-  {
-    "objectID": "syllabus.html#student-expectations",
-    "href": "syllabus.html#student-expectations",
-    "title": "Syllabus",
-    "section": "Student Expectations",
-    "text": "Student Expectations\n\nAttend class every week (half the battle in life is just showing up).\nComplete all assignments on time.\nBe self-motivated, organized, and willing to stay on top of your schedule.\nRegularly check course announcements on Canvas and update notification settings accordingly.\nIf you have questions or are struggling, take the initiative to contact me. If you do not hear back within 72 hours, contact me again.\nEngage with the course, classmates, and professor respectfully and professionally at all times."
-  },
-  {
-    "objectID": "syllabus.html#copyrightfair-use",
-    "href": "syllabus.html#copyrightfair-use",
-    "title": "Syllabus",
-    "section": "Copyright/Fair Use",
-    "text": "Copyright/Fair Use\nI will cite and/or reference any materials that I use in this course that I do not create. You, as students, are expected not to distribute any of these materials, resources, quizzes, tests, or homework assignments (whether graded or ungraded)."
+    "objectID": "weeks/week-01.html#homework",
+    "href": "weeks/week-01.html#homework",
+    "title": "Session 1 · Intro & R Setup",
+    "section": "Homework",
+    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas before noon Tuesday ahead of Session 2.\nAlso read Stanton Ch. 1 before next class (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)."
   }
 ]
