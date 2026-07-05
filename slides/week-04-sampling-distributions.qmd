@@ -1,0 +1,486 @@
+---
+title: "Sampling Distributions"
+subtitle: "CRJU 705 · Session 4 · Fall 2026"
+author: "Scott M. Mourtgos"
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    footer: "CRJU 705 · Session 4"
+    theme: [default, custom-slides.scss]
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+source(here::here("R/setup.R"))
+theme_set(theme_minimal(base_size = 18))
+set.seed(705)
+pop    <- read_csv(here::here("data/population-data.csv"), show_col_types = FALSE)
+crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
+```
+
+## This Week
+
+**Topic:** probabilities in the long run and sampling distributions — taught by *simulation*. We won't derive anything today; we'll draw thousands of samples in R and watch the theory appear on screen.
+
+**Learning goals:** explain in your own words — *law of large numbers, sampling distribution, standard error, central limit theorem* — and say why R's `var()` and `sd()` divide by n − 1 (Session 2's IOU gets paid today).
+
+**R4DS thread:** you read Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts and projects) — today's lab puts both to work.
+
+## A Question to Start
+
+> If I told you the chance of being selected for a jury was 10%, and you weren't selected after 10 tries, would that surprise you? Why or why not?
+
+. . .
+
+Two kinds of probability:
+
+- **Theoretical probability** — based on *mathematical reasoning* (a fair coin is 50/50 by definition)
+- **Empirical probability** — observed through *repetition* (flip it and count)
+
+Today's whole session is about the gap between these two — and how it shrinks.
+
+# Probabilities in the Long Run {background-color="#73000A"}
+
+## Theoretical vs. Empirical Probability
+
+Flip a fair coin 10 times:
+
+```{r}
+#| label: coin-10
+flips_10 <- sample(c("heads", "tails"), size = 10, replace = TRUE)
+table(flips_10) / 10
+```
+
+. . .
+
+Now 10,000 times:
+
+```{r}
+#| label: coin-10k
+flips_10k <- sample(c("heads", "tails"), size = 10000, replace = TRUE)
+table(flips_10k) / 10000
+```
+
+Empirical results fluctuate in small samples but converge toward the theoretical probability — the **law of large numbers**.
+
+## Watching the Long Run Arrive
+
+```{r}
+#| label: lln-plot
+#| code-line-numbers: "1-5|6-10"
+#| output-location: slide
+#| fig-height: 5
+lln <- tibble(
+  flip = 1:10000,
+  heads = sample(c(0, 1), size = 10000, replace = TRUE)
+) |>
+  mutate(running_prop = cumsum(heads) / flip)
+ggplot(lln, aes(flip, running_prop)) +
+  geom_line(color = crju_colors["navy"]) +
+  geom_hline(yintercept = 0.5, color = "red", linetype = "dashed") +
+  labs(title = "Proportion of heads in coin flips",
+       x = "Number of flips", y = "Proportion heads")
+```
+
+**Concept:** in the long run, empirical ≈ theoretical. But "long run" might be longer than we think — look how wild the first few hundred flips are.
+
+## Simulating Probabilities in CJ (1)
+
+**False positive drug tests.** Suppose a field test for drugs has a 5% false positive rate. Simulate 100 field tests of *non-users*:
+
+```{r}
+#| label: false-positives
+tests <- sample(c("false positive", "correct"), size = 100,
+                replace = TRUE, prob = c(0.05, 0.95))
+table(tests)
+```
+
+. . .
+
+**Discussion:** even with a *low* false positive rate, false positives occur regularly in practice. What do we think about this? Does it matter?
+
+## Simulating Probabilities in CJ (2)
+
+**Stop & frisk outcomes.** Suppose 8% of stops yield contraband. What happens over 1,000 stops?
+
+```{r}
+#| label: stops
+stop_outcomes <- sample(c("found", "nothing"), size = 1000,
+                        replace = TRUE, prob = c(0.08, 0.92))
+table(stop_outcomes)
+```
+
+. . .
+
+**Discussion:** is that hit rate too low? What if each find were an illegal gun that would have been used in a violent crime? Simulation makes the *long-run consequences* of a policy concrete.
+
+## Random Does Not Mean Balanced
+
+Two runs of 100 dice rolls — same die, same code:
+
+```{r}
+#| label: dice
+#| output-location: slide
+#| fig-height: 5
+dice <- tibble(
+  run  = rep(c("Run 1", "Run 2"), each = 100),
+  roll = c(sample(1:6, size = 100, replace = TRUE),
+           sample(1:6, size = 100, replace = TRUE))
+)
+ggplot(dice, aes(x = factor(roll))) +
+  geom_bar(fill = crju_colors["garnet"]) +
+  facet_wrap(~run) +
+  labs(title = "Dice roll frequencies — two runs of 100",
+       x = "Face", y = "Count")
+```
+
+Does either look fair? **Both are.** Random does not mean balanced in small samples — remember this every time you see a "streak" in real data.
+
+# From One Sample to Many {background-color="#1B2A4A"}
+
+## A Population We Can Actually See
+
+`population-data.csv` — 10,000 test scores. In real research we *never* see the whole population; today we get to cheat:
+
+```{r}
+#| label: pop-summary
+pop |>
+  summarize(mean = mean(score), median = median(score),
+            sd = sd(score), n = n())
+```
+
+```{r}
+#| label: pop-hist
+#| echo: false
+#| fig-height: 4
+qs <- quantile(pop$score, c(0.01, 0.05, 0.50, 0.95, 0.99))
+ggplot(pop, aes(score)) +
+  geom_histogram(bins = 60, fill = "grey85", color = "white") +
+  geom_vline(xintercept = qs, linetype = "dashed",
+             color = unname(crju_colors[c("garnet", "gold", "navy", "gold", "garnet")]),
+             linewidth = 1) +
+  labs(title = "The full population, with 1st / 5th / 50th / 95th / 99th percentiles",
+       x = "Score", y = "Count")
+```
+
+## One Sample of 30
+
+```{r}
+#| label: one-sample
+samp <- sample(pop$score, size = 30)
+mean(samp)
+sd(samp)
+```
+
+Close to the truth (mean ≈ 100, SD ≈ 15) — but not exact. That gap is **sampling error**, and it is not a mistake; it's a fact of life.
+
+. . .
+
+The question that drives the rest of the semester: **how wrong can one sample be?**
+
+## What If We Sampled From the Tail?
+
+Draw 10 scores from the bottom 5% of the population — and look at them *in context*:
+
+```{r}
+#| label: tail-sample
+tail_scores <- pop |> filter(score < quantile(score, 0.05))
+tail_sample <- sample(tail_scores$score, size = 10)
+mean(tail_sample)
+```
+
+```{r}
+#| label: tail-context
+#| echo: false
+#| fig-height: 4
+ggplot(pop, aes(score)) +
+  geom_histogram(bins = 60, fill = "grey85", color = "white") +
+  geom_point(data = tibble(score = tail_sample), aes(y = 0),
+             color = "red", size = 3) +
+  geom_vline(xintercept = mean(tail_sample), color = "red", linewidth = 1.2) +
+  geom_vline(xintercept = mean(pop$score), color = "black",
+             linewidth = 1, linetype = "dashed") +
+  annotate("text", x = mean(tail_sample) - 2, y = 500, label = "tail sample mean",
+           color = "red", hjust = 1, size = 5) +
+  annotate("text", x = mean(pop$score) + 2, y = 500, label = "population mean",
+           hjust = 0, size = 5) +
+  labs(title = "A tail sample, seen in context", x = "Score", y = "Count")
+```
+
+## …And What If We Didn't Know It?
+
+Now pretend that sample is *all we ever get to see*:
+
+```{r}
+#| label: tail-alone
+#| echo: false
+#| fig-height: 4.5
+ggplot(tibble(score = tail_sample), aes(score)) +
+  geom_histogram(bins = 5, fill = "red", color = "white") +
+  geom_vline(xintercept = mean(tail_sample), color = "blue", linewidth = 1.2) +
+  geom_vline(xintercept = mean(pop$score), color = "black",
+             linewidth = 1, linetype = "dashed") +
+  xlim(50, 150) +
+  labs(title = paste0("The sample alone — mean = ", round(mean(tail_sample), 1),
+                      " (true mean = ", round(mean(pop$score), 1), ")"),
+       x = "Score", y = "Count")
+```
+
+If this were your dataset, you'd report a "typical" score near 70 — and you'd be badly wrong. How often does that actually happen with a *random* sample? Let's find out.
+
+## Do It a Thousand Times
+
+The key move of this whole session — instead of drawing *one* sample, draw **1,000 samples of 30** and keep each sample's mean:
+
+```{r}
+#| label: sampling-dist
+sample_means <- tibble(draw = 1:1000) |>
+  mutate(mean_score = map_dbl(draw, \(d) mean(sample(pop$score, size = 30))))
+
+sample_means
+```
+
+## The Sampling Distribution of the Mean
+
+```{r}
+#| label: sampling-dist-plot
+#| fig-height: 4.5
+ggplot(sample_means, aes(mean_score)) +
+  geom_histogram(bins = 40, fill = crju_colors["blue"], color = "white") +
+  geom_vline(xintercept = mean(pop$score), color = "red", linewidth = 1.2) +
+  labs(title = "1,000 sample means (n = 30 each)",
+       x = "Sample mean", y = "Number of samples")
+```
+
+This histogram *of means* is a **sampling distribution**. It's centered on the true population mean — and it's much narrower than the population itself.
+
+## Two Distributions, Side by Side
+
+```{r}
+#| label: overlay
+#| echo: false
+#| fig-height: 5
+overlay <- bind_rows(
+  tibble(value = pop$score,                what = "Population of scores (SD ≈ 15)"),
+  tibble(value = sample_means$mean_score,  what = "Sample means, n = 30 (SD ≈ 2.6)")
+)
+ggplot(overlay, aes(value, fill = what)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 60,
+                 position = "identity", alpha = 0.65, color = "white") +
+  scale_fill_manual(values = unname(crju_colors[c("gray", "garnet")])) +
+  labs(title = "The population vs. the sampling distribution of its mean",
+       x = "Score / sample mean", y = "Density", fill = NULL) +
+  theme(legend.position = "bottom")
+```
+
+Same center. Radically different spread. Individual scores wander all over; *averages of 30* stay close to home.
+
+## The Standard Error
+
+The SD of the sampling distribution has its own name: the **standard error**. And it has a formula — which our simulation can check:
+
+```{r}
+#| label: se
+sd(sample_means$mean_score)   # SE from the simulation
+
+sd(pop$score) / sqrt(30)      # SE from the formula: SD / sqrt(n)
+```
+
+. . .
+
+> The **standard error** answers: "if I re-ran my study, how much would my *estimate* typically move?"
+
+That single number is the foundation of confidence intervals and hypothesis tests — the rest of this course.
+
+## Sample Size Buys Precision
+
+```{r}
+#| label: se-by-n
+#| code-line-numbers: "1-2|3-7"
+#| output-location: slide
+#| fig-height: 5
+many_ns <- expand_grid(n = c(5, 30, 100), draw = 1:1000) |>
+  mutate(mean_score = map_dbl(n, \(k) mean(sample(pop$score, size = k))))
+ggplot(many_ns, aes(mean_score)) +
+  geom_histogram(bins = 40, fill = crju_colors["navy"], color = "white") +
+  geom_vline(xintercept = mean(pop$score), color = "red", linetype = "dashed") +
+  facet_wrap(~n, labeller = label_both) +
+  labs(x = "Sample mean", y = "Count")
+```
+
+```{r}
+#| label: se-by-n-table
+many_ns |>
+  summarize(simulated_se = sd(mean_score), formula_se = sd(pop$score) / sqrt(first(n)),
+            .by = n)
+```
+
+The SE shrinks like 1/√n: to *halve* your uncertainty you need *four times* the data.
+
+# The Central Limit Theorem — With Real Crimes {background-color="#73000A"}
+
+## The Least Normal Variable Imaginable
+
+Back to our 30,000 real Chicago incidents. Whether an incident ended in **arrest** is as far from a bell curve as data gets — every value is TRUE or FALSE:
+
+```{r}
+#| label: arrest-pop
+crimes |> count(arrest) |> mutate(prop = n / sum(n))
+```
+
+```{r}
+#| label: arrest-bar
+#| echo: false
+#| fig-height: 3
+ggplot(crimes, aes(arrest)) +
+  geom_bar(fill = crju_colors["garnet"]) +
+  labs(title = "The \"population\": arrest outcomes for 30,000 incidents",
+       x = "Arrest made", y = "Incidents")
+```
+
+Treat these 30,000 incidents as the population. True arrest proportion: **0.161**.
+
+## Sample 100 Incidents. Repeat 1,000 Times.
+
+Imagine an analyst who can only pull 100 case files at a time:
+
+```{r}
+#| label: arrest-sim
+arrest_props <- tibble(draw = 1:1000) |>
+  mutate(prop_arrest = map_dbl(draw, \(d) mean(sample(crimes$arrest, size = 100))))
+```
+
+```{r}
+#| label: arrest-sim-plot
+#| fig-height: 4
+ggplot(arrest_props, aes(prop_arrest)) +
+  geom_histogram(binwidth = 0.01, fill = crju_colors["blue"], color = "white") +
+  geom_vline(xintercept = mean(crimes$arrest), color = "red", linewidth = 1.2) +
+  labs(title = "1,000 sample arrest proportions (n = 100 incidents each)",
+       x = "Proportion of sampled incidents with an arrest", y = "Samples")
+```
+
+## A Bell Curve Out of TRUE/FALSE Data
+
+That's the **central limit theorem**:
+
+> Whatever shape the population has — even a two-bar TRUE/FALSE stack — the sampling distribution of a mean (or proportion) becomes approximately **normal** as n grows, centered on the true value.
+
+::: incremental
+- It's why polls of ~1,000 people work for a country of 330 million
+- It's why we can attach a standard error to an arrest rate, a clearance rate, a recidivism rate — without ever seeing the full population
+- It's why the normal distribution keeps showing up even though raw CJ data almost never look normal
+:::
+
+## The CLT Also Obeys the √n Rule
+
+```{r}
+#| label: arrest-by-n
+#| echo: false
+#| fig-height: 5
+arrest_ns <- expand_grid(n = c(25, 100, 400), draw = 1:1000) |>
+  mutate(prop_arrest = map_dbl(n, \(k) mean(sample(crimes$arrest, size = k))))
+ggplot(arrest_ns, aes(prop_arrest)) +
+  geom_histogram(binwidth = 0.01, fill = crju_colors["navy"], color = "white") +
+  geom_vline(xintercept = mean(crimes$arrest), color = "red", linetype = "dashed") +
+  facet_wrap(~n, labeller = label_both) +
+  labs(title = "Sample arrest proportions at n = 25, 100, 400",
+       x = "Sample proportion arrested", y = "Samples")
+```
+
+At n = 25 a sample could easily tell you the arrest rate is 8% or 28%. At n = 400 you're rarely off by more than a couple of points.
+
+# The n − 1 Payoff {background-color="#1B2A4A"}
+
+## Session 2's IOU
+
+In Session 2 we noticed `var()` and `sd()` divide by **n − 1**, not n, and I promised you'd see why. Simulation pays the debt. Draw 5,000 tiny samples (n = 5) and compute the variance *both* ways:
+
+```{r}
+#| label: nminus1-sim
+var_pop <- mean((pop$score - mean(pop$score))^2)   # true population variance
+
+variance_sims <- tibble(draw = 1:5000) |>
+  mutate(
+    s            = map(draw, \(d) sample(pop$score, size = 5)),
+    var_div_n    = map_dbl(s, \(x) sum((x - mean(x))^2) / length(x)),
+    var_div_nm1  = map_dbl(s, \(x) var(x))          # R's built-in: n - 1
+  )
+```
+
+## Divide by n, and You're Biased
+
+```{r}
+#| label: nminus1-results
+variance_sims |>
+  summarize(
+    true_variance   = var_pop,
+    avg_divide_by_n = mean(var_div_n),
+    avg_divide_by_n_minus_1 = mean(var_div_nm1)
+  )
+```
+
+::: incremental
+- Dividing by n **systematically underestimates** the population variance — across 5,000 samples, not occasionally
+- Why? A sample clusters around *its own* mean, which is always closer to the sample's values than the true mean is — so measured spread comes up short
+- Dividing by n − 1 inflates each estimate just enough to land, on average, on the truth. That's all "unbiased estimator" means
+:::
+
+## What If the Population Is Unknown?
+
+In real life you *never* get the left-hand panel. One draw from a mystery population:
+
+```{r}
+#| label: unknown-pop
+unknown_population <- rnorm(1000, mean = 100, sd = 50)   # don't peek!
+mystery_sample <- sample(unknown_population, size = 30)
+mean(mystery_sample)
+```
+
+```{r}
+#| label: unknown-plots
+#| echo: false
+#| fig-height: 4
+unknown_df <- bind_rows(
+  tibble(value = mystery_sample,      what = "Your sample (n = 30)"),
+  tibble(value = unknown_population,  what = "The population (revealed)")
+)
+ggplot(unknown_df, aes(value)) +
+  geom_histogram(bins = 30, fill = crju_colors["rust"], color = "white") +
+  facet_wrap(~what, scales = "free_y") +
+  labs(x = "Value", y = "Count")
+```
+
+Based on 30 points, you might assume normality — or skew, or outliers — and be wrong. Sampling-distribution logic is what lets us say *how* wrong we're likely to be.
+
+## Why This Matters in CJ
+
+::: incremental
+- Almost every number in CJ research is a **sample statistic**: a survey of officers, a sample of case files, one year of one city's incidents
+- Every one of those statistics has a **sampling distribution** — it would come out differently if the study were re-run
+- The **standard error** turns "it would come out differently" into a number
+- Starting next session: use the SE to build **confidence intervals** — a range of values the truth is likely to be in
+:::
+
+## In-Class Exercise: Probabilities in the Long Run
+
+Work in pairs; record your code and results in a script.
+
+1. **Long run:** simulate 10,000 rolls of a fair die and get the proportion of each face (`sample()`, `count()`). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?
+2. **Known population:** create `rnorm(10000, mean = 100, sd = 15)`, plot it, and mark the 1st/5th/95th percentiles with `quantile()`. Draw a sample of 30 — where does its mean fall?
+3. **Unknown population:** run `unknown_pop <- rnorm(1000, 100, 50)` *without plotting it*. Sample 30 values, plot the sample, and write down what you'd conclude about the population. *Then* peek. Were you right?
+
+## Today's Lab & Homework
+
+- **Lab 4:** tidy data — `pivot_longer()` and `pivot_wider()` with city crime trends and reentry outcomes ([lab page](../labs/lab-04-tidy.qmd))
+- **Homework 4:** sampling and sampling distributions (posted on the [Session 4 page](../weeks/week-04.qmd))
+- **Read before Session 5:** Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)

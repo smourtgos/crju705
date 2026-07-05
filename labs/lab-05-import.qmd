@@ -1,0 +1,263 @@
+---
+title: "Lab 5 · Importing Real Data"
+subtitle: "CRJU 705 · Session 5"
+---
+
+**Goal:** get real data *into* R correctly — from a CSV on the web and from a messier Excel file — and know what to do when the import goes sideways. This lab assumes you've read R4DS [Ch. 7 (Data import)](https://r4ds.hadley.nz/data-import.html) and [Ch. 8 (Workflow: getting help)](https://r4ds.hadley.nz/workflow-help.html).
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+library(readxl)
+
+crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv")
+```
+
+`crashes` holds 20,000 Alaska traffic-crash incidents (simulated, but realistic): when and where each crash happened, causes, severity, injuries, driver characteristics, and intoxication flags. As always — look at it first:
+
+```{r}
+#| label: glimpse
+glimpse(crashes)
+```
+
+## Walkthrough
+
+### What did `read_csv()` decide for us?
+
+`read_csv()` *guessed* a type for every column. See its guesses with `spec()`:
+
+```{r}
+#| label: spec
+spec(crashes)
+```
+
+Mostly sensible — but look at `date`: it's `col_character()`. The file stores dates as `"02/20/2023"` (MM/DD/YYYY), and readr only auto-detects ISO-style dates (`2023-02-20`). Right now R thinks our dates are just text — you can't sort them chronologically, subtract them, or extract a year.
+
+**The lesson: never assume the import worked. Check the types.**
+
+### Telling `read_csv()` what you want: `col_types`
+
+You can hand `read_csv()` an explicit specification instead of letting it guess. What happens if we naively declare `date` a date column?
+
+```{r}
+#| label: bad-coltypes
+#| warning: true
+crashes_bad <- read_csv(
+  "https://smourtgos.github.io/crju705/data/crash-ak.csv",
+  col_types = cols(date = col_date())
+)
+```
+
+readr warns us — and `problems()` shows exactly what went wrong, row by row:
+
+```{r}
+#| label: problems
+problems(crashes_bad)
+```
+
+Every row "failed to parse": `col_date()` expected ISO format and got `"02/20/2023"`, so the whole column became `NA`. Two fixes:
+
+**Fix 1 — tell readr the format up front:**
+
+```{r}
+#| label: coltypes-format
+crashes_fixed <- read_csv(
+  "https://smourtgos.github.io/crju705/data/crash-ak.csv",
+  col_types = cols(date = col_date(format = "%m/%d/%Y"))
+)
+crashes_fixed |> select(incident_id, date) |> head(3)
+```
+
+**Fix 2 — import as text, then parse with lubridate.** This is my everyday habit, because lubridate's helpers are nearly unbreakable: name the function after the *order* of the components — `mdy()` for month/day/year, `dmy()` for day/month/year, `ymd()` for year/month/day:
+
+```{r}
+#| label: mdy
+crashes <- crashes |>
+  mutate(date = mdy(date))
+
+crashes |> select(incident_id, date, time) |> head(3)
+```
+
+Now `date` is a real date. Real dates unlock real questions:
+
+```{r}
+#| label: dates-work
+crashes |>
+  mutate(year = year(date)) |>
+  count(year)
+```
+
+**Always confirm a date parse did what you think:** check `sum(is.na(...))` after parsing. Zero new `NA`s means every value parsed.
+
+```{r}
+#| label: parse-check
+sum(is.na(crashes$date))
+```
+
+### Checking names (no packages required)
+
+Before analyzing, glance at the column names:
+
+```{r}
+#| label: names
+names(crashes)
+```
+
+These are already *clean*: lowercase, no spaces, words separated by underscores — so you never need backticks. When you import data from the wild, look for the troublemakers: spaces (`Driver Age`), capitals, punctuation (`Injuries?`), or the dead giveaway `...1` — readr/readxl's placeholder name for a column with **no header at all**. You're about to meet one.
+
+### The messier cousin: Excel
+
+The same crash data also circulates as an Excel file — as agency data usually does. `read_excel()` can't read from a URL, so download the file first, then read it:
+
+```{r}
+#| label: download-xlsx
+#| eval: false
+download.file(
+  "https://smourtgos.github.io/crju705/data/crash-ak.xlsx",
+  "crash-ak.xlsx",
+  mode = "wb"   # "write binary" — required for Excel files, especially on Windows
+)
+
+crashes_xl <- read_excel("crash-ak.xlsx")
+```
+
+```{r}
+#| label: read-xlsx-local
+#| echo: false
+crashes_xl <- read_excel(here::here("data/crash-ak.xlsx"))
+```
+
+```{r}
+#| label: glimpse-xlsx
+glimpse(crashes_xl)
+```
+
+Same 20,000 crashes, but three problems the CSV didn't have:
+
+1. **A junk first column named `...1`** — someone saved the spreadsheet with Excel's row numbers included, and there's no header for them.
+2. **`date` and `time` imported as datetimes.** Excel stores everything as datetimes under the hood; note `time`'s absurd `1899-12-31` dates — that's Excel's "time only" anchor leaking through.
+3. **`vehicle2_year` imported as *character*.** Why? Single-vehicle crashes have no second vehicle, and this spreadsheet recorded those cells as the literal *text* `"NA"` — which readxl treats as a word, not as missing:
+
+```{r}
+#| label: fake-na
+crashes_xl |> count(vehicle2_year == "NA")
+```
+
+Fix all three — tell `read_excel()` what "missing" looks like, drop the junk column, and flatten the datetimes:
+
+```{r}
+#| label: fix-xlsx
+#| eval: false
+crashes_xl <- read_excel("crash-ak.xlsx", na = c("", "NA"))
+```
+
+```{r}
+#| label: fix-xlsx-local
+#| echo: false
+crashes_xl <- read_excel(here::here("data/crash-ak.xlsx"), na = c("", "NA"))
+```
+
+```{r}
+#| label: fix-xlsx-clean
+crashes_xl <- crashes_xl |>
+  select(-`...1`) |>
+  mutate(
+    date = as_date(date),      # drop the meaningless midnight timestamp
+    hour = hour(time)          # keep the useful part of the time column
+  )
+
+crashes_xl |> select(incident_id, date, hour, vehicle2_year) |> head(3)
+```
+
+`vehicle2_year` is now numeric with honest `NA`s — because `na = c("", "NA")` told readxl both blank cells and the text `"NA"` mean *missing*. This distinction — the two-letter *word* "NA" versus a genuinely empty value — causes an astonishing share of real-world data misery.
+
+### Save your clean version
+
+Once the cleaning works, write the result out so you (and collaborators) never have to repeat it. Keep the raw file untouched and give the clean one its own name:
+
+```{r}
+#| label: write-csv
+#| eval: false
+write_csv(crashes, "crash-ak-clean.csv")
+```
+
+`write_csv()` stores dates in ISO format (`2023-02-20`), so the next `read_csv()` parses them automatically — your future self imports with zero fixes.
+
+### When R yells at you: getting help
+
+You will spend more time reading error messages than reading textbooks. A system:
+
+**1. Actually read the message.** Modern tidyverse errors usually tell you the fix:
+
+```{r}
+#| label: error-anatomy
+#| error: true
+crashes |> filter(county = "Anchorage")
+```
+
+The error names the problem *and* the solution. Slow down and read before you panic.
+
+**2. Read the help page.** `?read_csv` — skim **Usage** and **Arguments**, then jump to the **Examples** at the bottom, which are runnable.
+
+**3. Make a reprex** (a *repr*oducible *ex*ample) before asking anyone for help: the smallest self-contained chunk of code + data that produces your error. Half the time, building the reprex reveals the bug yourself; the other half, it lets a helper answer in minutes. A question like "my import is broken" is unanswerable; "`read_csv()` turns my date column into `NA` — here are three sample rows and my code" gets solved.
+
+**4. Search the exact error text** (in quotes). Someone has hit it before you.
+
+## Your Turn
+
+Work in your own script. Comment each answer.
+
+**1.** Re-import the CSV from the URL with a `col_types` specification that gets `date` right *on import* (no `mutate()` afterward). Confirm with `problems()` and `spec()` that nothing failed.
+
+```{r}
+#| label: yt-1
+#| eval: false
+# your code here
+```
+
+**2.** Using your correctly-imported data, create `year` and `month` columns from `date`, then count crashes per year. Which year in the data has the fewest crashes? (Careful — is that year fully observed, or is it an artifact of when the data ends?)
+
+```{r}
+#| label: yt-2
+#| eval: false
+# your code here
+```
+
+**3.** Download and import the Excel version with `read_excel()`, applying all three fixes from the walkthrough. Verify your fix: confirm `vehicle2_year` is numeric and count its `NA`s — then check that the count equals the number of single-vehicle crashes (`num_vehicles == 1`). Does it?
+
+```{r}
+#| label: yt-3
+#| eval: false
+# your code here
+```
+
+**4.** Write your cleaned CSV data out with `write_csv()`, then read the new file back in with `read_csv()`. Does `date` come back as a real date column without any help? In a comment, explain why.
+
+```{r}
+#| label: yt-4
+#| eval: false
+# your code here
+```
+
+**5.** *(Stretch)* Sabotage on purpose: re-import the CSV forcing `col_types = cols(driver_gender = col_double())`, then inspect `problems()`. In a comment, explain what readr did with the column and why deliberately breaking an import is a useful debugging skill.
+
+```{r}
+#| label: yt-5
+#| eval: false
+# your code here
+```
+
+## Exit Ticket
+
+Submit a short R script to Canvas before you leave, containing:
+
+1. One column that `read_csv()` or `read_excel()` guessed wrong today, and the code that fixed it
+2. A comment (2–3 sentences): what is the difference between a cell containing the text `"NA"` and a truly empty cell, and how did we handle it?
+3. A comment: one error message you hit this week (any assignment), phrased the way you'd ask for help — what you ran, what you expected, what happened instead

@@ -1,0 +1,31 @@
+---
+title: "Session 3 · Reasoning with Probability"
+subtitle: "Outcome tables · the binomial · contingency tables · conditional probability"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Reasoning with Probability](../slides/week-03-probability.qmd)** · **[🧪 Lab 3: Data Transformation with dplyr](../labs/lab-03-transform.qmd)** · **[📝 Homework 3](../homework/hw-03.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 2** (Reasoning with Probability)
+- Read: R4DS **[Ch. 3 — Data transformation](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4 — Workflow: code style](https://r4ds.hadley.nz/workflow-style.html)**
+- Bring your laptop with R, RStudio, and the course packages installed ([install guide](../resources.qmd#installing-r-and-rstudio))
+
+## In class
+
+- Homework 2 debrief — questions on descriptives
+- What a probability *is*: long-run proportion, seen by simulation (coin flips, then real arrest data)
+- Toast drops: outcome tables, the binomial distribution, `rbinom()`, cumulative probabilities
+- Contingency tables: marginal, joint, and conditional probability — dropped toast, the restaurant work schedule, and arrest × crime category in the Chicago data
+- Conditional probability as *filter, then re-proportion* — the seed of Bayes' theorem
+- Independence: when conditioning doesn't move the number
+- In-class exercise: factory-accidents contingency table (paper, then dplyr — folded into Lab 3)
+- **Lab 3:** data transformation with dplyr (`filter`, `arrange`, `mutate`, `summarize`, `count`) using the `neighborhoods` data
+
+## Homework
+
+- **[Homework 3](../homework/hw-03.qmd)** — submit your `.R` file via Canvas **before noon Tuesday**
+- Read Stanton **Ch. 3** (Probabilities in the Long Run) before Session 4
+- Read R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6 — Workflow: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)**

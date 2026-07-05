@@ -24,6 +24,12 @@ website:
             text: "Session 1 · Intro & R Setup"
           - href: weeks/week-02.qmd
             text: "Session 2 · Descriptive Statistics"
+          - href: weeks/week-03.qmd
+            text: "Session 3 · Probability"
+          - href: weeks/week-04.qmd
+            text: "Session 4 · Sampling Distributions"
+          - href: weeks/week-05.qmd
+            text: "Session 5 · Confidence Intervals"
       - href: resources.qmd
         text: Resources
       - href: chicago-data.qmd

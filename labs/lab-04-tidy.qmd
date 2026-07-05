@@ -1,0 +1,163 @@
+---
+title: "Lab 4 · Tidy Data: Pivoting Longer and Wider"
+subtitle: "CRJU 705 · Session 4"
+---
+
+**Goal:** learn to reshape data between *wide* and *long* form with `pivot_longer()` and `pivot_wider()`, and pick up the workflow habits that keep your analyses reproducible. This lab assumes you've read R4DS [Ch. 5 (Data tidying)](https://r4ds.hadley.nz/data-tidy.html) and [Ch. 6 (Workflow: scripts and projects)](https://r4ds.hadley.nz/workflow-scripts.html).
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+
+cities  <- read_csv("https://smourtgos.github.io/crju705/data/cities-wide.csv")
+reentry <- read_csv("https://smourtgos.github.io/crju705/data/reentry-wide.csv")
+```
+
+`cities` holds 100 cities (simulated, but realistic): a few city characteristics plus violent crime rates for 2015–2025. `reentry` holds 150 reentry-program participants with a monthly employment indicator (1 = employed that month) for their first 12 months after release. Look first — *always* look at your data first:
+
+```{r}
+#| label: glimpse
+glimpse(cities)
+```
+
+## Walkthrough
+
+### What's wrong with this data?
+
+Nothing — for a spreadsheet. `cities` is **wide**: each year's violent crime rate lives in its own column (`vcr_2015` … `vcr_2025`). That's fine for eyeballing, but notice what it breaks in R:
+
+- You can't put `year` on the x-axis of a ggplot — *there is no `year` variable*. Year is data, but it's trapped in the column **names**.
+- You can't `summarize()` an average rate per year, or filter to years after 2020, for the same reason.
+
+R4DS's tidy-data rules: every variable is a **column**, every observation is a **row**. Here one observation is really "a city *in a year*" — so tidy form needs 100 × 11 = 1,100 rows, not 100.
+
+### `pivot_longer()` — column names become data
+
+```{r}
+#| label: pivot-longer
+cities_long <- cities |>
+  pivot_longer(
+    cols = starts_with("vcr_"),   # which columns to gather
+    names_to = "year",            # where their NAMES go
+    values_to = "violent_rate"    # where their VALUES go
+  )
+
+cities_long
+```
+
+1,100 rows — one per city-year. But look at `year`: it's the *text* `"vcr_2015"`, not a number. `parse_number()` strips the text and keeps the digits:
+
+```{r}
+#| label: parse-number
+cities_long <- cities_long |>
+  mutate(year = parse_number(year))
+
+cities_long |> select(city, year, violent_rate)
+```
+
+### Now the analysis is one-liners
+
+Average violent crime rate per year, across all 100 cities:
+
+```{r}
+#| label: by-year
+cities_long |>
+  summarize(mean_rate = mean(violent_rate), .by = year)
+```
+
+Notice the story hiding in there — rates climb into 2020–2021, then fall. And a **line plot over time**, impossible ten minutes ago, is now routine:
+
+```{r}
+#| label: line-plot
+cities_long |>
+  summarize(mean_rate = mean(violent_rate), .by = c(region, year)) |>
+  ggplot(aes(x = year, y = mean_rate, color = region)) +
+  geom_line(linewidth = 1) +
+  labs(title = "Violent crime rate by region, 2015-2025",
+       x = NULL, y = "Mean violent crimes per 100k", color = "Region")
+```
+
+### `pivot_wider()` — and back again
+
+Sometimes you *want* wide (for a table in a report, or to compute 2025 minus 2015):
+
+```{r}
+#| label: pivot-wider
+cities_long |>
+  pivot_wider(
+    names_from = year,
+    values_from = violent_rate,
+    names_prefix = "vcr_"
+  ) |>
+  select(city, region, vcr_2015, vcr_2025) |>
+  mutate(change = vcr_2025 - vcr_2015)
+```
+
+`pivot_longer()` and `pivot_wider()` are inverses — data flows freely between shapes once you can name which columns hold names and which hold values.
+
+### Workflow hygiene: scripts and projects
+
+Three habits from R4DS Ch. 6 that I will hold you to all semester:
+
+1. **Everything in a script, nothing only in the console.** The console is for experimenting; the script is the record. If it matters, it's in the script.
+2. **Use an RStudio Project for this course.** `File > New Project…` once, then always open the course via the `.Rproj` file. Your working directory is then always the project folder, paths stay relative, and your code runs on any machine — including mine when I grade it.
+3. **Never rely on the Environment pane.** Objects in memory are disposable; your script + your data are the source of truth. Prove it to yourself right now: `Session > Restart R`, then re-run your script top to bottom. If it doesn't reproduce everything, fix the script — you just saved a future you from a very bad day. (I also recommend Tools > Global Options > un-check "Restore .RData into workspace at startup.")
+
+## Your Turn
+
+Work in your own script. Comment each answer. The `reentry` data is wide: `month_1` … `month_12` are employment indicators (1 = employed) for each month after release.
+
+**1.** Pivot `reentry` longer so there's one row per person-month, with a `month` column and an `employed` column. Convert `month` to a number with `parse_number()`. How many rows should you end up with? Check that you did.
+
+```{r}
+#| label: yt-1
+#| eval: false
+# your code here
+```
+
+**2.** Using your long data, compute the overall employment rate (`mean(employed)`) for each month. Is reentry employment improving over the first year?
+
+```{r}
+#| label: yt-2
+#| eval: false
+# your code here
+```
+
+**3.** Make a line plot of the monthly employment rate, with a separate colored line for each `program_type`. Which program looks most effective — and at what point after release do the programs separate?
+
+```{r}
+#| label: yt-3
+#| eval: false
+# your code here — hint: summarize by c(program_type, month) first
+```
+
+**4.** Pivot your long data back to wide with `pivot_wider()` so it matches the original layout (hint: `names_prefix = "month_"`). Confirm with `glimpse()` that you're back to 150 rows.
+
+```{r}
+#| label: yt-4
+#| eval: false
+# your code here
+```
+
+**5.** *(Stretch)* From the long form, compute each *person's* employment rate across their 12 months, then compare the average of those rates across `program_type` and by `gender`. Any pattern?
+
+```{r}
+#| label: yt-5
+#| eval: false
+# your code here
+```
+
+## Exit Ticket
+
+Submit a short R script to Canvas before you leave, containing:
+
+1. Your Your-Turn 1 pivot code, plus a comment explaining in one sentence *why* the month columns had to be pivoted before you could plot employment over time
+2. Your Your-Turn 3 plot code and a comment (2–3 sentences) on what it shows
+3. A comment confirming you restarted R and your script ran clean top to bottom — or describing what broke when you tried

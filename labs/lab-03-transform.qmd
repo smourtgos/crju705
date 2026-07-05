@@ -1,0 +1,220 @@
+---
+title: "Lab 3 · Data Transformation with dplyr"
+subtitle: "CRJU 705 · Session 3"
+---
+
+**Goal:** learn the five dplyr verbs you'll use in nearly every analysis this semester — `filter()`, `arrange()`, `mutate()`, `summarize()`, and `count()` — and use them to compute the probabilities from today's lecture on real-looking neighborhood data. This lab assumes you've read R4DS [Ch. 3 (Data transformation)](https://r4ds.hadley.nz/data-transform.html) and [Ch. 4 (Workflow: code style)](https://r4ds.hadley.nz/workflow-style.html).
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+
+nbhd <- read_csv("https://smourtgos.github.io/crju705/data/neighborhoods.csv")
+```
+
+`nbhd` holds 500 neighborhoods (simulated, but realistic): which high school is nearest, whether the neighborhood is historic or has an HOA, poverty and unemployment rates, an observed disorder level, and the count of assaults last year. Look at it first — *always* look at your data first:
+
+```{r}
+#| label: glimpse
+glimpse(nbhd)
+```
+
+## Walkthrough
+
+### filter() — keep the rows you care about
+
+`filter()` keeps rows where a condition is TRUE:
+
+```{r}
+#| label: wt-filter
+nbhd |>
+  filter(disorder_level == "Very High")
+```
+
+Conditions can stack — a comma means *and*:
+
+```{r}
+#| label: wt-filter-and
+nbhd |>
+  filter(poverty_rate > 0.30, historic == "Yes")
+```
+
+And `%in%` matches any of several values:
+
+```{r}
+#| label: wt-filter-in
+nbhd |>
+  filter(disorder_level %in% c("High", "Very High")) |>
+  nrow()
+```
+
+### arrange() — sort the rows
+
+Which neighborhoods had the most assaults? `arrange()` sorts; `desc()` flips to descending:
+
+```{r}
+#| label: wt-arrange
+nbhd |>
+  arrange(desc(assaults)) |>
+  select(nbhd_id, disorder_level, poverty_rate, assaults) |>
+  head(5)
+```
+
+### mutate() — make new columns
+
+`mutate()` adds columns computed from existing ones:
+
+```{r}
+#| label: wt-mutate
+nbhd <- nbhd |>
+  mutate(
+    poverty_pct   = poverty_rate * 100,
+    high_disorder = disorder_level %in% c("High", "Very High")
+  )
+
+nbhd |> select(nbhd_id, poverty_pct, disorder_level, high_disorder) |> head(4)
+```
+
+Note we *assigned the result back* to `nbhd` — pipelines don't change the data unless you save them.
+
+### summarize() with .by — one row per group
+
+`summarize()` collapses many rows into summaries; `.by =` does it per group:
+
+```{r}
+#| label: wt-summarize
+nbhd |>
+  summarize(
+    mean_assaults = mean(assaults),
+    mean_poverty  = mean(poverty_rate),
+    n             = n(),
+    .by = disorder_level
+  )
+```
+
+Assaults and poverty both climb with observed disorder — one pipeline, four verbs of vocabulary from lecture.
+
+### count() — the fast path to contingency tables
+
+`count()` is a shortcut for grouped counting, and it's how we built every probability in lecture:
+
+```{r}
+#| label: wt-count
+nbhd |> count(disorder_level)
+```
+
+Two variables gives the *long* form of a contingency table; `pivot_wider()` makes it look like the lecture tables:
+
+```{r}
+#| label: wt-count-2var
+nbhd |>
+  count(historic, high_disorder) |>
+  pivot_wider(names_from = high_disorder, values_from = n)
+```
+
+And dividing by `sum(n)` turns counts into probabilities. Marginal:
+
+```{r}
+#| label: wt-marginal
+nbhd |> count(high_disorder) |> mutate(p = n / sum(n))
+```
+
+Conditional — *filter to the condition, then take the proportion* (the lecture's renormalization move):
+
+```{r}
+#| label: wt-conditional
+nbhd |>
+  filter(historic == "Yes") |>
+  summarize(p_high_given_historic = mean(high_disorder))
+```
+
+Compare that to the marginal P(high disorder) above — does knowing a neighborhood is historic change the probability much?
+
+### Code style — 30 seconds that save hours
+
+From R4DS Ch. 4, the habits I will nag you about all semester:
+
+- Spaces around `<-`, `=`, and after commas: `mean_x = mean(x)`, not `mean_x=mean(x)`
+- After a pipe `|>`, put the next verb on a **new line**, indented two spaces
+- Names: lowercase, words separated by `_` (`high_disorder`, not `HighDisorder` or `hd2`)
+- Comments explain *why*, code shows *what*
+
+Your future self is your most frequent collaborator. Be kind to them.
+
+## Your Turn
+
+Work in your own script. Comment each answer.
+
+**1.** Use `filter()` to find neighborhoods with an HOA (`hoa == "Yes"`) that had 3 or more assaults. How many are there? *(Hint: pipe into `nrow()` or look at the tibble header.)*
+
+```{r}
+#| label: yt-1
+#| eval: false
+# your code here
+```
+
+**2.** Use `arrange()` to find the 5 poorest neighborhoods (highest `poverty_rate`). What disorder levels do they have?
+
+```{r}
+#| label: yt-2
+#| eval: false
+# your code here
+```
+
+**3.** Use `mutate()` to create `unemp_pct` (unemployment as a percentage), then `summarize()` with `.by = disorder_level` to get its mean per disorder level. Describe the pattern in a comment.
+
+```{r}
+#| label: yt-3
+#| eval: false
+# your code here
+```
+
+**4.** Probability, lecture-style: using `count()` and/or `filter()` + `mean()`, compute
+   a. the marginal probability that a randomly chosen neighborhood is `disorder_level == "Very High"`, and
+   b. the conditional probability of "Very High" given `historic == "Yes"` versus given `historic == "No"`.
+   In a comment: do `historic` and very-high disorder look closer to dependent or independent here?
+
+```{r}
+#| label: yt-4
+#| eval: false
+# your code here
+```
+
+**5.** *(Stretch — the factory-accidents exercise from class, now in dplyr.)* Run this chunk to build the accident data, then answer the in-class worksheet questions in code: total accidents per factory (which is worst?), the most common accident type overall, and P(Equipment accident | factory) for each of the three factories.
+
+```{r}
+#| label: yt-5
+#| eval: false
+accidents <- tribble(
+  ~type,       ~factory,   ~n,
+  "Vehicle",   "Factory1",  0,
+  "Vehicle",   "Factory2",  6,
+  "Vehicle",   "Factory3",  4,
+  "Spill",     "Factory1",  6,
+  "Spill",     "Factory2",  0,
+  "Spill",     "Factory3",  6,
+  "Equipment", "Factory1",  6,
+  "Equipment", "Factory2",  4,
+  "Equipment", "Factory3",  5,
+  "Injury",    "Factory1",  4,
+  "Injury",    "Factory2",  9,
+  "Injury",    "Factory3",  0
+)
+# your code here — hints: summarize(sum(n), .by = ...), then
+# join or filter to get Equipment's share of each factory's total
+```
+
+## Exit Ticket
+
+Submit a short R script to Canvas before you leave, containing:
+
+1. One pipeline from today that uses at least two dplyr verbs (code only is fine)
+2. A comment (2–3 sentences): one marginal and one conditional probability you computed today, in plain English (e.g., "16% of all neighborhoods are X, but among historic neighborhoods it's Y%")
+3. A comment naming one thing from R4DS Ch. 3–4 or today's lab that is still confusing

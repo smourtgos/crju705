@@ -1,0 +1,29 @@
+---
+title: "Session 5 · Confidence Intervals on Real Data"
+subtitle: "The logic of inference · point estimates · CIs for proportions and mean differences · data import"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: The Logic of Inference: Confidence Intervals](../slides/week-05-confidence-intervals.qmd)** · **[🧪 Lab 5: Importing Real Data](../labs/lab-05-import.qmd)** · **[📝 Homework 5](../homework/hw-05.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 4** (The Logic of Inference)
+- Read: R4DS **[Ch. 7 — Data import](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8 — Workflow: getting help](https://r4ds.hadley.nz/workflow-help.html)**
+- Bring your laptop — the lab downloads files, so make sure you can write to a folder you can find again
+
+## In class
+
+- What statistical inference is: inductive reasoning under uncertainty (you can't *prove* anything from a sample)
+- John Snow and the Broad Street pump — the founding example of inference from sampled evidence, rebuilt live in R
+- Point estimates and why samples fluctuate: the Chicago arrest rate, where we know the true population value and can watch estimates miss it
+- Confidence intervals: `prop.test()` and `t.test()`, the "100 samples, 100 intervals" simulation, and what a 95% CI does and does **not** mean
+- Real-data thread: the citywide arrest proportion from one modest sample vs. the truth; do violent crimes happen later in the day than property crimes? (detectable ≠ dramatic)
+- **Lab 5:** importing real data — `read_csv()` from the web, `read_excel()` on a messy download, `col_types`, `mdy()`, `problems()`, and how to ask for help
+
+## Homework
+
+- **[Homework 5](../homework/hw-05.qmd)** — confidence intervals on the Alaska crash data; submit your `.R` file via Canvas **before noon Tuesday**
+- Read Stanton **Ch. 5** (Bayesian & Frequentist Hypothesis Testing) before Session 6
+- Read R4DS **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)** and skim **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)**

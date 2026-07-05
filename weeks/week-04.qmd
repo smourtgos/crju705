@@ -1,0 +1,31 @@
+---
+title: "Session 4 · Sampling Distributions"
+subtitle: "Probabilities in the long run · law of large numbers · standard error · central limit theorem"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Sampling Distributions](../slides/week-04-sampling-distributions.qmd)** · **[🧪 Lab 4: Tidy Data — Pivoting Longer and Wider](../labs/lab-04-tidy.qmd)** · **[📝 Homework 4](../homework/hw-04.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 3** (Probabilities in the Long Run)
+- Read: R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6 — Workflow: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)**
+- Bring your laptop — this session is almost entirely live simulation in R
+
+## In class
+
+- Theoretical vs. empirical probability: coin flips, the law of large numbers, and why "long run" is longer than you think
+- Simulating CJ probabilities: false-positive drug tests, stop-and-frisk hit rates, and why random ≠ balanced
+- Sampling from a visible population (`population-data.csv`): one sample, tail samples, and then **a thousand samples** — watching the sampling distribution of the mean form on screen
+- The standard error: simulation vs. the SD/√n formula, and why sample size buys precision at a √n rate
+- Real-data thread: the central limit theorem with 30,000 real Chicago incidents — repeated samples of case files turn TRUE/FALSE arrest data into a bell curve of sample proportions
+- Paying Session 2's IOU: a simulation showing why `var()` and `sd()` divide by n − 1
+- In-class exercise: probabilities in the long run (dice, known and unknown populations)
+- **Lab 4:** tidy data — `pivot_longer()`/`pivot_wider()` with city crime trends and reentry outcomes, plus scripts-and-projects hygiene
+
+## Homework
+
+- **[Homework 4](../homework/hw-04.qmd)** — submit your `.R` file via Canvas **before noon Tuesday**
+- Read Stanton **Ch. 4** before Session 5
+- Read R4DS **[Ch. 7 — Data import](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8 — Workflow: getting help](https://r4ds.hadley.nz/workflow-help.html)**

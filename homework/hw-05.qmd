@@ -1,0 +1,97 @@
+---
+title: "Homework 5 · Confidence Intervals in Practice"
+subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 6"
+format:
+  html: default
+  docx: default
+format-links: [docx]
+---
+
+**Instructions:** complete the following exercises in a single `.R` script file. Include comments explaining your code and answers to any interpretive questions. Submit your `.R` file via **Canvas** for credit.
+
+This homework uses the Alaska traffic-crash data from Lab 5 — 20,000 real-world-style crash incidents. **Our research question: do crashes involving an intoxicated driver injure more people than crashes that don't?**
+
+## Part 1: Import and Clean
+
+1. Import the crash data directly from the web:
+
+   ```r
+   library(tidyverse)
+   crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv")
+   ```
+
+2. Check what `read_csv()` guessed with `spec()` or `glimpse()`. One column that *should* be a date is not. Fix it using `mdy()` from lubridate (as in Lab 5), and verify your parse worked with `sum(is.na(crashes$date))`.
+
+3. Create a `year` column from your parsed date and count crashes per year. **In a comment:** one year has almost no crashes — is that a data problem or something else? (Hint: check the latest date in the data with `max()`.)
+
+## Part 2: Point Estimates
+
+1. Calculate the mean number of `injuries` separately for crashes with an intoxicated driver (`intox_any == 1`) and without (`intox_any == 0`). You can use the Lab 2 approach:
+
+   ```r
+   crashes |> summarize(mean_injuries = mean(injuries), .by = intox_any)
+   ```
+
+2. **In a comment:** write down each mean. Which group has the higher average injury count? Remember what these numbers are — *point estimates*, not the final word.
+
+## Part 3: Standard Deviations
+
+1. Calculate the standard deviation of `injuries` for each group (add `sd()` to your `summarize()`).
+
+2. **In a comment:** compare the variability. Which group's injury counts vary more?
+
+## Part 4: Visualize
+
+1. Create a boxplot of `injuries` for the two groups. Because `intox_any` is stored as 0/1, wrap it in `factor()`:
+
+   ```r
+   ggplot(crashes, aes(x = factor(intox_any), y = injuries)) +
+     geom_boxplot()
+   ```
+
+2. **In a comment:** interpret the plot. Injury counts are small whole numbers, so the boxes look blocky — can you *see* a difference between the groups, or do you need inference to settle it?
+
+## Part 5: Sampling Variability
+
+1. Resample each group (with replacement, at its full size) 100 times and compute the distribution of differences in mean injuries (intoxicated − sober), as we did in class:
+
+   ```r
+   set.seed(705)
+   sober <- crashes$injuries[crashes$intox_any == 0]
+   intox <- crashes$injuries[crashes$intox_any == 1]
+
+   mean_diffs <- replicate(100, {
+     mean(sample(intox, length(intox), replace = TRUE)) -
+       mean(sample(sober, length(sober), replace = TRUE))
+   })
+   ```
+
+2. Plot a histogram of `mean_diffs` and compute `quantile(mean_diffs, c(0.025, 0.975))`.
+
+3. **In a comment:** what does the spread of the histogram suggest? Are the resampled differences consistently on one side of zero?
+
+## Part 6: Confidence Interval with `t.test()`
+
+1. Run a two-sample t-test comparing injuries across the two groups:
+
+   ```r
+   t.test(injuries ~ intox_any, data = crashes)
+   ```
+
+2. **In a comment:** copy down the 95% confidence interval. Does it include 0? What does that tell us about the difference? *(Careful with direction: R computes group 0 − group 1 here, so compare the sign against your Part 5 histogram.)*
+
+## Part 7: A Proportion, for Practice
+
+1. Compute a 95% confidence interval for the **proportion of all crashes that involve an intoxicated driver**:
+
+   ```r
+   prop.test(sum(crashes$intox_any), n = nrow(crashes))
+   ```
+
+2. **In a comment:** report the interval in one *defensible* sentence — one that would survive the "Saying It Out Loud" slide from class.
+
+## Wrap-Up Questions (answer in comments)
+
+1. How does the confidence interval help us make an inference about the *population* of Alaska crashes, when we only ever see a sample?
+2. What would happen to the width of the CI if we doubled the sample size? Why?
+3. How does this example compare to John Snow's inference about the cholera pumps?

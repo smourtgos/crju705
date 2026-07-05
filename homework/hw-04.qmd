@@ -1,0 +1,68 @@
+---
+title: "Homework 4 · Sampling and Sampling Distributions"
+subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 5"
+format:
+  html: default
+  docx: default
+format-links: [docx]
+---
+
+**Instructions:** complete the following exercises in a single `.R` script file. Include comments explaining your code and answers to any interpretive questions. Submit your `.R` file via **Canvas** for credit.
+
+Start your script with:
+
+```r
+library(tidyverse)
+set.seed(705)   # so your "random" results are reproducible when I run your script
+
+scores <- read_csv("https://smourtgos.github.io/crju705/data/population-data.csv")
+```
+
+## Part 1: Understanding the Population
+
+1. Make a histogram of the `score` column. Describe the general shape of the distribution in a comment.
+
+2. Calculate the **mean**, **median**, and **standard deviation** of `score`.
+
+## Part 2: Sampling from the Population
+
+3. Draw a random sample of size 30 from `score`, without replacement (that's `sample()`'s default). Calculate the mean and standard deviation of the sample.
+
+4. Repeat Question 3 five times, recording the sample mean each time. (Copy-paste is fine; `replicate(5, mean(sample(scores$score, size = 30)))` is nicer.) How much do the five means vary?
+
+5. **Interpretation (in a comment):** compare your sample means to the population mean. Why are they close but not identical?
+
+## Part 3: Sampling from Unknown Distributions
+
+6. Imagine you did *not* know the population distribution. Draw one new sample of size 30, make a histogram of it, and describe in a comment what type of distribution the sample *appears* to come from.
+
+7. **Interpretation (in a comment):** could your sample lead you to believe the population has a different shape than it really does? Explain.
+
+## Part 4: Build a Sampling Distribution (new this year)
+
+8. Draw **500 samples of size 30** and keep each sample's mean. Two equivalent options — use either:
+
+   ```r
+   many_means <- replicate(500, mean(sample(scores$score, size = 30)))
+
+   # or, tidyverse-style, as in the Session 4 slides:
+   many_means <- tibble(draw = 1:500) |>
+     mutate(mean_score = map_dbl(draw, \(d) mean(sample(scores$score, size = 30))))
+   ```
+
+9. Make a histogram of the 500 sample means. In a comment: how does its shape and spread compare to the histogram of raw scores from Part 1?
+
+10. Compute the **standard deviation of your 500 sample means**, and compare it to the formula for the standard error, `sd(scores$score) / sqrt(30)`. How close are they? What is this quantity called?
+
+## Part 5: Real Data — The CLT with Chicago Arrests (new this year)
+
+11. Load the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your *population*:
+
+    ```r
+    crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
+    mean(crimes$arrest)
+    ```
+
+12. Simulate an analyst who can only pull **100 case files at a time**: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.
+
+13. **Interpretation (in a comment):** each individual incident's `arrest` value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of *sample proportions* have, and what theorem from Session 4 explains that?

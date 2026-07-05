@@ -1,0 +1,455 @@
+---
+title: "The Logic of Inference: Confidence Intervals"
+subtitle: "CRJU 705 · Session 5 · Fall 2026"
+author: "Scott M. Mourtgos"
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    footer: "CRJU 705 · Session 5"
+    theme: [default, custom-slides.scss]
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(ggrepel)
+library(HistData)
+source(here::here("R/setup.R"))
+theme_set(theme_minimal(base_size = 18))
+set.seed(705)
+crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
+```
+
+## This Week
+
+**Topic:** The logic of inference, using confidence intervals
+
+- What statistical *inference* actually is (and isn't)
+- Point estimates and why they're not enough
+- Confidence intervals: building them, reading them, and — hardest of all — *saying what they mean out loud without lying*
+
+**Learning goals:** explain in your own words what a 95% confidence interval does and does **not** mean; compute CIs for a proportion and a difference in means from real data.
+
+**R4DS thread:** you read Ch. 7 (Data import) & Ch. 8 (Getting help) — today's lab puts both to work.
+
+## Where We've Been
+
+::: incremental
+- **Session 3:** probability — the rules randomness follows
+- **Session 4:** sampling distributions — take many samples, and the sample statistics themselves form a distribution with predictable behavior
+- **Today:** we cash that in. If we know how sample statistics *behave*, we can attach an honest statement of **uncertainty** to a single sample's estimate.
+:::
+
+# The Logic of Inference {background-color="#73000A"}
+
+## What Does "Inference" Mean?
+
+**Inference:** a reasoning process that begins with some information and leads to some conclusion.
+
+**Inductive inference:** reasons from *specific cases* to the *more general* — a cat jumps from a tree and lands on its feet; you infer something about cats generally.
+
+**Statistical inference:** dealing systematically with situations where we have *uncertain or incomplete* information. Conclusions drawn inductively from samples are **never fixed or firm**.
+
+. . .
+
+::: {.callout-important appearance="simple"}
+You **cannot PROVE** anything from samples or by using statistical inference.
+:::
+
+## If We Can't Prove Anything, What Are We Doing?
+
+We collect data and analyze it with inferential statistics **to build up a weight of evidence that influences our certainty about one conclusion or another**.
+
+. . .
+
+**Let's look at the classic example:**
+
+- 1854 — cholera breaks out in Soho, London
+- The debate: bad air ("miasma") or contaminated water?
+- John Snow couldn't test *every household in London* — that's the whole population
+- So he mapped the **sample of evidence** he could get: deaths, and where people got their water
+
+## Sampled Evidence: Deaths and Pumps
+
+```{r}
+#| label: snow-setup
+#| output-location: slide
+#| code-line-numbers: "1-2|4-8|10-16"
+#| fig-height: 6
+deaths <- as_tibble(Snow.deaths) |> mutate(did = row_number())
+pumps  <- as_tibble(Snow.pumps)  |> mutate(pid = row_number())
+
+# Every death-pump distance, then each death's NEAREST pump
+pairs <- crossing(did = deaths$did, pid = pumps$pid) |>
+  left_join(deaths |> select(did, dx = x, dy = y), by = "did") |>
+  left_join(pumps  |> select(pid, px = x, py = y), by = "pid") |>
+  mutate(dist = sqrt((dx - px)^2 + (dy - py)^2))
+
+nearest <- pairs |>
+  slice_min(dist, n = 1, by = did)
+
+by_pump <- nearest |>
+  count(pid, name = "deaths_nearest") |>
+  arrange(desc(deaths_nearest))
+by_pump
+```
+
+## Sampled Evidence: The Map
+
+```{r}
+#| label: snow-map
+#| echo: false
+#| fig-height: 6.5
+top_pid <- by_pump$pid[1]
+broad   <- pumps |> filter(pid == top_pid)
+radius  <- 1.0
+
+circle <- tibble(
+  x = broad$x + radius * cos(seq(0, 2 * pi, length.out = 360)),
+  y = broad$y + radius * sin(seq(0, 2 * pi, length.out = 360))
+)
+n_within <- deaths |>
+  mutate(d = sqrt((x - broad$x)^2 + (y - broad$y)^2)) |>
+  summarize(n = sum(d <= radius)) |>
+  pull(n)
+pumps_lab <- pumps |>
+  mutate(label = if_else(pid == top_pid, "Broad St. (most deaths)", paste0("Pump ", pid)))
+
+ggplot() +
+  geom_point(data = deaths, aes(x, y), color = crju_colors["garnet"], alpha = 0.6, size = 1.8) +
+  geom_point(data = pumps, aes(x, y), color = crju_colors["navy"], size = 3, shape = 17) +
+  geom_path(data = circle, aes(x, y), linetype = 2) +
+  geom_label_repel(data = pumps_lab, aes(x, y, label = label), size = 3) +
+  annotate("label", x = broad$x, y = broad$y - 0.8,
+           label = paste0(n_within, " deaths within r = ", radius), fill = "white") +
+  coord_equal() +
+  labs(title = "Cholera deaths cluster around a single pump",
+       subtitle = "Dotted circle: chosen radius around the pump with the most nearby deaths",
+       x = NULL, y = NULL)
+```
+
+## Sampled Evidence: Broad Street Accumulates Deaths Fastest
+
+```{r}
+#| label: snow-cumulative
+#| echo: false
+#| fig-height: 5.5
+r_seq <- seq(0, 2.5, by = 0.1)
+
+cum_for_pump <- function(px, py) {
+  d <- sqrt((deaths$x - px)^2 + (deaths$y - py)^2)
+  tibble(radius = r_seq, cum_deaths = map_int(r_seq, \(r) sum(d <= r)))
+}
+
+cum_broad <- cum_for_pump(broad$x, broad$y) |>
+  rename(`Broad St. (culprit)` = cum_deaths)
+
+cum_others <- pumps |>
+  filter(pid != top_pid) |>
+  mutate(cum = map2(x, y, cum_for_pump)) |>
+  select(pid, cum) |>
+  unnest(cum) |>
+  summarize(`Median other pump` = median(cum_deaths), .by = radius)
+
+cum_broad |>
+  left_join(cum_others, by = "radius") |>
+  pivot_longer(-radius, names_to = "series", values_to = "cum_deaths") |>
+  ggplot(aes(radius, cum_deaths, color = series)) +
+  geom_line(linewidth = 1.2) +
+  scale_color_manual(values = unname(crju_colors[c("garnet", "gray")])) +
+  labs(title = "Cumulative cholera deaths as we widen the radius around each pump",
+       x = "Radius around pump", y = "Cumulative deaths", color = NULL)
+```
+
+## Why This Is Statistical Inference
+
+- Why wasn't Snow just *describing* the map?
+- What **bigger claim** was he making about the whole city — and about *cholera itself*?
+
+**That jump — from the data you have to the world you don't — is what we mean by inference.**
+
+. . .
+
+**Review from previous weeks — why do we sample?**
+
+We almost never have access to the totality of the population data. At its *best*, a sample is **representative** of a population.
+
+# Point Estimates and Their Discontents {background-color="#1B2A4A"}
+
+## A Rare Luxury: We Know the Truth
+
+Our Chicago file holds ~30,000 incidents from 2025. Today, *pretend the file is the whole population* — then we can check our inferences against the truth.
+
+```{r}
+#| label: pop-truth
+crimes |> summarize(pop_arrest_rate = mean(arrest), n = n())
+```
+
+The "true" citywide arrest proportion is **16.1%**. Lock that in — in real research you never get to see this number.
+
+## Now Act Like a Researcher: Draw One Sample
+
+A researcher can rarely afford all 30,000 case files. Suppose we pull a random sample of **250** incidents:
+
+```{r}
+#| label: one-sample
+sample_250 <- crimes |> slice_sample(n = 250)
+
+sample_250 |> summarize(sample_arrest_rate = mean(arrest))
+```
+
+. . .
+
+This is a **point estimate** — the sample's best single guess at the population value.
+
+**14.8% vs the true 16.1%.** Close-ish. But how good is this estimate? How *certain* are we?
+
+## Caution! Samples Fluctuate
+
+Draw a fresh sample of 250 and the estimate moves. Do it 1,000 times:
+
+```{r}
+#| label: many-samples
+#| output-location: slide
+#| fig-height: 5
+many_estimates <- map_dbl(1:1000, \(i) {
+  crimes |> slice_sample(n = 250) |> summarize(p = mean(arrest)) |> pull(p)
+})
+
+ggplot(tibble(p = many_estimates), aes(p)) +
+  geom_histogram(bins = 30, fill = crju_colors["blue"], color = "white") +
+  geom_vline(xintercept = mean(crimes$arrest),
+             color = crju_colors["garnet"], linewidth = 1.2) +
+  labs(title = "1,000 sample estimates of the arrest rate (n = 250 each)",
+       subtitle = "Garnet line = the true population value",
+       x = "Sample arrest proportion", y = "Number of samples")
+```
+
+## What the Fluctuation Tells Us
+
+```{r}
+#| label: quantile-bridge
+quantile(many_estimates, c(0.025, 0.975))   # what is this telling us?
+```
+
+::: incremental
+- 95% of sample estimates landed between about **12% and 21%** — that's the *sampling distribution* from Session 4, live
+- Any *single* sample's estimate could easily be a couple points off the truth
+- So reporting "14.8%" alone is **overconfident** — we owe our reader a range that reflects the fluctuation
+- Problem: this required 1,000 samples and a known population. A real researcher has **one sample**. Now what?
+:::
+
+# The Confidence Interval {background-color="#73000A"}
+
+## Our First Inferential Tool
+
+The **confidence interval** turns *one* sample into an honest range, using what Session 4 taught us about how sample statistics behave:
+
+$$\text{estimate} \; \pm \; \underbrace{1.96 \times SE}_{\text{margin of error}}$$
+
+- **SE** (standard error) = the standard deviation of the sampling distribution, *estimated from the one sample you have*
+- **1.96** comes from the normal distribution: ±1.96 SDs covers the middle 95%
+
+Bigger samples → smaller SE → narrower interval.
+
+## R Does This For Us: `prop.test()`
+
+```{r}
+#| label: prop-test
+prop.test(sum(sample_250$arrest), n = 250)
+```
+
+. . .
+
+Our one sample of 250 says: point estimate **14.8%**, 95% CI **10.8% to 20.0%**. The true value (16.1%) is inside — this time. But *"95% confident"* of what, exactly?
+
+## The Classic Picture: 100 Samples, 100 Intervals
+
+```{r}
+#| label: ci-sim
+#| output-location: slide
+#| code-line-numbers: "1-7|9-10|12-18"
+#| fig-height: 6
+ci_100 <- map(1:100, \(i) {
+  s  <- crimes |> slice_sample(n = 250)
+  ci <- prop.test(sum(s$arrest), n = 250)$conf.int
+  tibble(sample = i, estimate = mean(s$arrest), lo = ci[1], hi = ci[2])
+}) |>
+  list_rbind() |>
+  mutate(captured = lo <= mean(crimes$arrest) & mean(crimes$arrest) <= hi)
+
+sum(ci_100$captured)   # how many of the 100 intervals caught the truth?
+
+ggplot(ci_100, aes(sample, estimate, color = captured)) +
+  geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 0.7, size = 0.25) +
+  scale_color_manual(values = c("TRUE" = "grey65", "FALSE" = "#73000A")) +
+  labs(title = paste0("100 samples, 100 confidence intervals — ",
+                      sum(ci_100$captured), " capture the truth"),
+       subtitle = "Horizontal line = true population arrest rate; garnet = intervals that missed",
+       x = "Sample number", y = "Arrest proportion", color = "Captured?")
+```
+
+## What Just Happened
+
+::: incremental
+- Each of the 100 samples produced a *different* interval — the interval is a **random quantity**, the population value is **fixed**
+- **`r sum(ci_100$captured)` of our 100** intervals captured the true arrest rate; `r 100 - sum(ci_100$captured)` missed (the garnet ones)
+- In the long run, the 95% procedure captures the truth in **~95% of replications** — that long-run capture rate is *the entire meaning* of "95% confident"
+- The researchers who drew the garnet samples did nothing wrong — and their data give **no warning** that theirs are the unlucky intervals
+:::
+
+## In Practice
+
+If we reran our whole study many times — drawing a new sample each time and constructing a new confidence interval each time — **in 95% of those replications the interval would contain the true population value.**
+
+::: {.callout-important appearance="simple"}
+**IMPORTANT:**
+
+1. Our 95% CI does **not** necessarily contain the true population value
+2. Our 95% CI is **not** a statement about the probability that *this particular* interval is correct
+3. It is a **long-run prediction** based on numerous replications
+:::
+
+. . .
+
+**WTF?!?** — yes, everyone reacts this way. Point at the 100-intervals plot until it clicks.
+
+## Saying It Out Loud
+
+✅ **Defensible:**
+
+> "We estimate the citywide arrest rate at 14.8% (95% CI: 10.8% to 20.0%). Values in this range are consistent with our data."
+
+> "The method we used captures the true value 95% of the time."
+
+❌ **Not defensible:**
+
+> "There is a 95% probability the true arrest rate is between 10.8% and 20.0%." *(The truth is fixed — it's either in there or it isn't.)*
+
+> "95% of arrest rates fall in this interval." *(The CI is about the population parameter, not individual observations.)*
+
+## Sample Size Buys Precision
+
+Same procedure, three sample sizes, one draw each:
+
+```{r}
+#| label: width-by-n
+#| output-location: fragment
+map(c(100, 250, 1000, 4000), \(n) {
+  s  <- crimes |> slice_sample(n = n)
+  ci <- prop.test(sum(s$arrest), n = n)$conf.int
+  tibble(n = n, estimate = mean(s$arrest),
+         lo = ci[1], hi = ci[2], width = ci[2] - ci[1])
+}) |>
+  list_rbind()
+```
+
+. . .
+
+Quadrupling *n* roughly **halves** the width — precision grows with $\sqrt{n}$, so it gets expensive fast.
+
+# Comparing Two Groups {background-color="#1B2A4A"}
+
+## A Real Question: Do Violent Crimes Happen Later in the Day?
+
+Street lore says violence is a nighttime phenomenon. Property crime, the daytime hustle. Our data:
+
+```{r}
+#| label: two-group-est
+vp <- crimes |> filter(crime_category %in% c("Violent", "Property"))
+
+vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour),
+                n = n(), .by = crime_category)
+```
+
+. . .
+
+Two **point estimates**: violent crimes average hour 12.8, property 12.5. Is that ~15-minute gap real, or sample fluctuation?
+
+## Let's Look at It Visually
+
+```{r}
+#| label: two-group-box
+#| fig-height: 5
+ggplot(vp, aes(crime_category, hour, fill = crime_category)) +
+  geom_boxplot(show.legend = FALSE) +
+  scale_fill_manual(values = unname(crju_colors[c("blue", "garnet")])) +
+  labs(x = NULL, y = "Hour of day (0–23)")
+```
+
+The boxes nearly coincide — the eye can't settle this one. We need inference.
+
+## Resample the Difference
+
+Same trick as before — resample each group, compute the difference in means, repeat:
+
+```{r}
+#| label: mean-diffs
+#| output-location: slide
+#| fig-height: 5
+violent_hours  <- vp$hour[vp$crime_category == "Violent"]
+property_hours <- vp$hour[vp$crime_category == "Property"]
+
+mean_diffs <- replicate(1000, {
+  mean(sample(violent_hours,  length(violent_hours),  replace = TRUE)) -
+  mean(sample(property_hours, length(property_hours), replace = TRUE))
+})
+
+quantile(mean_diffs, c(0.025, 0.975))   # what is this telling us?
+
+ggplot(tibble(mean_diffs), aes(mean_diffs)) +
+  geom_histogram(bins = 30, fill = crju_colors["navy"], color = "white") +
+  geom_vline(xintercept = 0, color = crju_colors["garnet"], linewidth = 1.2) +
+  labs(title = "1,000 resampled differences in mean hour (Violent − Property)",
+       x = "Difference in mean hour", y = "Count")
+```
+
+## The Two-Sample t-Test Gives the CI Directly
+
+```{r}
+#| label: t-test
+t.test(hour ~ crime_category, data = vp)
+```
+
+Watch the direction: R orders groups alphabetically, so this tests **Property − Violent** — the mirror image of our resampled Violent − Property differences. Same finding, flipped sign.
+
+## Reading That Output Honestly
+
+```{r}
+#| label: t-test-ci
+t.test(hour ~ crime_category, data = vp)$conf.int
+```
+
+::: incremental
+- The 95% CI for the difference (Property − Violent) runs from **−0.44 to −0.06 hours** — it excludes zero, so the data are consistent with violent crimes genuinely averaging later
+- But look at the *magnitude*: the difference is somewhere between about **4 and 27 minutes**. Detectable ≠ dramatic.
+- With ~19,500 incidents, we can detect tiny differences. The CI hands you both facts at once: *direction* (probably real) and *size* (small). **Never report the first without the second.**
+- This is your vaccination against next week's topic — a "significant" result can be substantively trivial
+:::
+
+## Your Turn (5 minutes, with a neighbor)
+
+Using `crimes`, compute a 95% CI for the proportion of incidents flagged as **domestic**:
+
+```r
+crimes |> summarize(mean(domestic))          # point estimate
+prop.test(sum(crimes$domestic), nrow(crimes))
+```
+
+1. Write one **defensible** sentence reporting your interval.
+2. Trade sentences with your neighbor and audit each other: does the sentence claim a probability about *this* interval? If so, fix it.
+
+## Today's Lab & Homework
+
+- **Lab 5:** importing real data — `read_csv()`, `read_excel()`, parsing dates, and what to do when R yells at you ([lab page](../labs/lab-05-import.qmd))
+- **Homework 5:** confidence intervals on Alaska crash data (posted on the [Session 5 page](../weeks/week-05.qmd))
+- **Read before Session 6:** Stanton Ch. 5 · R4DS Ch. 19 (Joins) & skim Ch. 18 (Missing values)
