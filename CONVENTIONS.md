@@ -44,6 +44,7 @@ execute:
 - **Videos: use plain `<video>` tags, NEVER the `{{< video >}}` shortcode.** The shortcode's video.js "fluid" player mis-sizes in reveal slides (clips, then letterboxes in a black box). Pattern:
   `<video src="../media/week-NN/file.mp4" controls preload="metadata"></video>`
   Slide CSS caps videos at 480px tall; on a slide where anything sits below/beside the video, add an explicit smaller `style="max-height:430px;"` or use columns.
+- **`media/` and `data/` MUST stay listed under `project: resources:` in `_quarto.yml`.** Raw `<video>` tags are not tracked by full-project renders — without the explicit resource declaration, `quarto render` silently drops `_site/media/` and every animation 404s live (symptom: tiny black video boxes that won't play). After publishing a deck with videos, spot-check one live mp4 URL returns 200.
 - First chunk is always:
 
 ````
