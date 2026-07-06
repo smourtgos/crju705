@@ -17,6 +17,25 @@ $code-block-font-size: 0.62em;
   font-size: 0.45em;
 }
 
+// Embedded videos don't get Quarto's auto-stretch (images do), and the
+// video.js "fluid" player sizes itself from its WIDTH (padding-ratio trick),
+// so a full-width 4:3 video overflows the 700px slide canvas under a title.
+// Capping the wrapper's width caps its height: 640px wide → 480px tall (4:3).
+.reveal .slides section .video-js.vjs-fluid {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Fallback for plain <video> elements (no video.js wrapper)
+.reveal .slides section video:not(.video-js video) {
+  max-height: 480px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
 // Callout for "your turn" moments in lecture
 .your-turn {
   background-color: #fdf3e7;

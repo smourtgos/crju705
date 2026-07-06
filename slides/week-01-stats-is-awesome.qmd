@@ -186,11 +186,18 @@ Based on the model, the **West Zone** has the highest likelihood of being target
 
 ## Strategic Deployment
 
+:::: {.columns}
+::: {.column width="62%"}
 {{< video ../media/week-01/deploy_cars_east_in.mp4 >}}
+:::
+::: {.column width="38%"}
+<br>
 
 - 📍 **Where:** West Zone had the highest predicted probability
 - 🚔 **Action:** Deploy units there for surveillance and hopeful capture
 - 🎯 **Goal:** Increase arrest probability
+:::
+::::
 
 ## Case Study Wrap-Up & Discussion
 
