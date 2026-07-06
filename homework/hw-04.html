@@ -193,8 +193,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-1-understanding-the-population" id="toc-part-1-understanding-the-population" class="nav-link active" data-scroll-target="#part-1-understanding-the-population">Part 1: Understanding the Population</a></li>
   <li><a href="#part-2-sampling-from-the-population" id="toc-part-2-sampling-from-the-population" class="nav-link" data-scroll-target="#part-2-sampling-from-the-population">Part 2: Sampling from the Population</a></li>
   <li><a href="#part-3-sampling-from-unknown-distributions" id="toc-part-3-sampling-from-unknown-distributions" class="nav-link" data-scroll-target="#part-3-sampling-from-unknown-distributions">Part 3: Sampling from Unknown Distributions</a></li>
-  <li><a href="#part-4-build-a-sampling-distribution-new-this-year" id="toc-part-4-build-a-sampling-distribution-new-this-year" class="nav-link" data-scroll-target="#part-4-build-a-sampling-distribution-new-this-year">Part 4: Build a Sampling Distribution (new this year)</a></li>
-  <li><a href="#part-5-real-data-the-clt-with-chicago-arrests-new-this-year" id="toc-part-5-real-data-the-clt-with-chicago-arrests-new-this-year" class="nav-link" data-scroll-target="#part-5-real-data-the-clt-with-chicago-arrests-new-this-year">Part 5: Real Data — The CLT with Chicago Arrests (new this year)</a></li>
+  <li><a href="#part-4-build-a-sampling-distribution" id="toc-part-4-build-a-sampling-distribution" class="nav-link" data-scroll-target="#part-4-build-a-sampling-distribution">Part 4: Build a Sampling Distribution</a></li>
+  <li><a href="#part-5-real-data-the-clt-with-chicago-arrests" id="toc-part-5-real-data-the-clt-with-chicago-arrests" class="nav-link" data-scroll-target="#part-5-real-data-the-clt-with-chicago-arrests">Part 5: Real Data — The CLT with Chicago Arrests</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-04.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -249,8 +249,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Interpretation (in a comment):</strong> could your sample lead you to believe the population has a different shape than it really does? Explain.</p></li>
 </ol>
 </section>
-<section id="part-4-build-a-sampling-distribution-new-this-year" class="level2">
-<h2 class="anchored" data-anchor-id="part-4-build-a-sampling-distribution-new-this-year">Part 4: Build a Sampling Distribution (new this year)</h2>
+<section id="part-4-build-a-sampling-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-build-a-sampling-distribution">Part 4: Build a Sampling Distribution</h2>
 <ol start="8" type="1">
 <li><p>Draw <strong>500 samples of size 30</strong> and keep each sample’s mean. Two equivalent options — use either:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>many_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">500</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(scores<span class="sc">$</span>score, <span class="at">size =</span> <span class="dv">30</span>)))</span>
@@ -262,8 +262,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Compute the <strong>standard deviation of your 500 sample means</strong>, and compare it to the formula for the standard error, <code>sd(scores$score) / sqrt(30)</code>. How close are they? What is this quantity called?</p></li>
 </ol>
 </section>
-<section id="part-5-real-data-the-clt-with-chicago-arrests-new-this-year" class="level2">
-<h2 class="anchored" data-anchor-id="part-5-real-data-the-clt-with-chicago-arrests-new-this-year">Part 5: Real Data — The CLT with Chicago Arrests (new this year)</h2>
+<section id="part-5-real-data-the-clt-with-chicago-arrests" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-real-data-the-clt-with-chicago-arrests">Part 5: Real Data — The CLT with Chicago Arrests</h2>
 <ol start="11" type="1">
 <li><p>Load the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your <em>population</em>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crimes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>)</span>

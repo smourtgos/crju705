@@ -207,14 +207,14 @@
     "href": "slides/week-05-confidence-intervals.html#the-classic-picture-100-samples-100-intervals",
     "title": "The Logic of Inference: Confidence Intervals",
     "section": "The Classic Picture: 100 Samples, 100 Intervals",
-    "text": "The Classic Picture: 100 Samples, 100 Intervals\n\nci_100 &lt;- map(1:100, \\(i) {\n  s  &lt;- crimes |&gt; slice_sample(n = 250)\n  ci &lt;- prop.test(sum(s$arrest), n = 250)$conf.int\n  tibble(sample = i, estimate = mean(s$arrest), lo = ci[1], hi = ci[2])\n}) |&gt;\n  list_rbind() |&gt;\n  mutate(captured = lo &lt;= mean(crimes$arrest) & mean(crimes$arrest) &lt;= hi)\n\nsum(ci_100$captured)   # how many of the 100 intervals caught the truth?"
+    "text": "The Classic Picture: 100 Samples, 100 Intervals\nDraw 100 samples; build a 95% CI from each:\n\nci_100 &lt;- map(1:100, \\(i) {\n  s  &lt;- crimes |&gt; slice_sample(n = 250)\n  ci &lt;- prop.test(sum(s$arrest), n = 250)$conf.int\n  tibble(sample = i, estimate = mean(s$arrest), lo = ci[1], hi = ci[2])\n}) |&gt;\n  list_rbind() |&gt;\n  mutate(captured = lo &lt;= mean(crimes$arrest) & mean(crimes$arrest) &lt;= hi)\n\nsum(ci_100$captured)   # how many of the 100 intervals caught the truth?\n\n[1] 97"
   },
   {
-    "objectID": "slides/week-05-confidence-intervals.html#the-classic-picture-100-samples-100-intervals-output",
-    "href": "slides/week-05-confidence-intervals.html#the-classic-picture-100-samples-100-intervals-output",
+    "objectID": "slides/week-05-confidence-intervals.html#the-classic-picture-seen",
+    "href": "slides/week-05-confidence-intervals.html#the-classic-picture-seen",
     "title": "The Logic of Inference: Confidence Intervals",
-    "section": "The Classic Picture: 100 Samples, 100 Intervals",
-    "text": "The Classic Picture: 100 Samples, 100 Intervals\n\n[1] 97\n\nggplot(ci_100, aes(sample, estimate, color = captured)) +\n  geom_hline(yintercept = mean(crimes$arrest), color = \"grey30\", linewidth = 1) +\n  geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 0.7, size = 0.25) +\n  scale_color_manual(values = c(\"TRUE\" = \"grey65\", \"FALSE\" = \"#73000A\")) +\n  labs(title = paste0(\"100 samples, 100 confidence intervals — \",\n                      sum(ci_100$captured), \" capture the truth\"),\n       subtitle = \"Horizontal line = true population arrest rate; garnet = intervals that missed\",\n       x = \"Sample number\", y = \"Arrest proportion\", color = \"Captured?\")"
+    "section": "The Classic Picture, Seen",
+    "text": "The Classic Picture, Seen"
   },
   {
     "objectID": "slides/week-05-confidence-intervals.html#what-just-happened",
@@ -270,14 +270,14 @@
     "href": "slides/week-05-confidence-intervals.html#resample-the-difference",
     "title": "The Logic of Inference: Confidence Intervals",
     "section": "Resample the Difference",
-    "text": "Resample the Difference\nSame trick as before — resample each group, compute the difference in means, repeat:\n\nviolent_hours  &lt;- vp$hour[vp$crime_category == \"Violent\"]\nproperty_hours &lt;- vp$hour[vp$crime_category == \"Property\"]\n\nmean_diffs &lt;- replicate(1000, {\n  mean(sample(violent_hours,  length(violent_hours),  replace = TRUE)) -\n  mean(sample(property_hours, length(property_hours), replace = TRUE))\n})\n\nquantile(mean_diffs, c(0.025, 0.975))   # what is this telling us?"
+    "text": "Resample the Difference\nSame trick as before — resample each group, compute the difference in means, repeat:\n\nviolent_hours  &lt;- vp$hour[vp$crime_category == \"Violent\"]\nproperty_hours &lt;- vp$hour[vp$crime_category == \"Property\"]\n\nmean_diffs &lt;- replicate(1000, {\n  mean(sample(violent_hours,  length(violent_hours),  replace = TRUE)) -\n  mean(sample(property_hours, length(property_hours), replace = TRUE))\n})\n\nquantile(mean_diffs, c(0.025, 0.975))   # what is this telling us?\n\n      2.5%      97.5% \n0.05568685 0.43652029"
   },
   {
-    "objectID": "slides/week-05-confidence-intervals.html#resample-the-difference-output",
-    "href": "slides/week-05-confidence-intervals.html#resample-the-difference-output",
+    "objectID": "slides/week-05-confidence-intervals.html#resample-the-difference-seen",
+    "href": "slides/week-05-confidence-intervals.html#resample-the-difference-seen",
     "title": "The Logic of Inference: Confidence Intervals",
-    "section": "Resample the Difference",
-    "text": "Resample the Difference\n\n      2.5%      97.5% \n0.05568685 0.43652029 \n\nggplot(tibble(mean_diffs), aes(mean_diffs)) +\n  geom_histogram(bins = 30, fill = crju_colors[\"navy\"], color = \"white\") +\n  geom_vline(xintercept = 0, color = crju_colors[\"garnet\"], linewidth = 1.2) +\n  labs(title = \"1,000 resampled differences in mean hour (Violent − Property)\",\n       x = \"Difference in mean hour\", y = \"Count\")"
+    "section": "Resample the Difference, Seen",
+    "text": "Resample the Difference, Seen"
   },
   {
     "objectID": "slides/week-05-confidence-intervals.html#the-two-sample-t-test-gives-the-ci-directly",
@@ -1008,11 +1008,11 @@
     "text": "Part 3: Visualizing Distributions\n\nCreate a bar plot showing the distribution of cylinders.\nCreate a bar plot showing the distribution of gears.\nCreate a grouped bar plot of the number of cars by cyl and gear. You may use ggplot (geom_bar(position = \"dodge\") — remember to make the grouping variable a factor) or base R’s barplot(..., beside = TRUE) — your choice."
   },
   {
-    "objectID": "homework/hw-03.html#part-4-real-data-new-this-year",
-    "href": "homework/hw-03.html#part-4-real-data-new-this-year",
+    "objectID": "homework/hw-03.html#part-4-real-data",
+    "href": "homework/hw-03.html#part-4-real-data",
     "title": "Homework 3 · Probability and Conditional Thinking",
-    "section": "Part 4: Real Data (new this year)",
-    "text": "Part 4: Real Data (new this year)\n\nLoad the course anchor data:\nlibrary(tidyverse)\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\nCompute the marginal probability that an incident ended in arrest: P(arrest). (Hint: arrest is logical, and mean() of a logical is a proportion.)\nCompute the conditional probability of arrest given each crime category: P(arrest | Violent), P(arrest | Property), P(arrest | Other). (Hint: summarize() with .by = crime_category.)\nCompute P(arrest | domestic == TRUE) and compare it to your overall P(arrest) from Q11.\nInterpretation (in a comment): based on Q12 and Q13 — which variable (crime_category or domestic) is closer to independent of arrest in these data, and how can you tell? Use the definition from lecture: A and B are independent when P(A | B) = P(A)."
+    "section": "Part 4: Real Data",
+    "text": "Part 4: Real Data\n\nLoad the course anchor data:\nlibrary(tidyverse)\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\nCompute the marginal probability that an incident ended in arrest: P(arrest). (Hint: arrest is logical, and mean() of a logical is a proportion.)\nCompute the conditional probability of arrest given each crime category: P(arrest | Violent), P(arrest | Property), P(arrest | Other). (Hint: summarize() with .by = crime_category.)\nCompute P(arrest | domestic == TRUE) and compare it to your overall P(arrest) from Q11.\nInterpretation (in a comment): based on Q12 and Q13 — which variable (crime_category or domestic) is closer to independent of arrest in these data, and how can you tell? Use the definition from lecture: A and B are independent when P(A | B) = P(A)."
   },
   {
     "objectID": "chicago-data.html",
@@ -1078,11 +1078,11 @@
     "text": "Part 3: Exploring Distributions\n\nGenerate and plot a normal distribution using a different mean and standard deviation than used in class, e.g.:\nhist(rnorm(n = 1000, mean = 70, sd = 15))\nGenerate and plot a Poisson distribution with lambda = 1, and again with lambda = 5.\nReflection (in a comment):\n\nWhat’s the key difference in shape between the normal and Poisson distributions?\nWhy might a Poisson distribution be useful in a criminal justice setting?"
   },
   {
-    "objectID": "homework/hw-02.html#part-4-real-data-new-this-year",
-    "href": "homework/hw-02.html#part-4-real-data-new-this-year",
+    "objectID": "homework/hw-02.html#part-4-real-data",
+    "href": "homework/hw-02.html#part-4-real-data",
     "title": "Homework 2 · Descriptive Statistics in R",
-    "section": "Part 4: Real Data (new this year)",
-    "text": "Part 4: Real Data (new this year)\n\nLoad the course anchor data:\nlibrary(tidyverse)\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\")\nCompute the mean, median, and standard deviation of violent_rate (violent crimes per 1,000 residents across Chicago’s 77 community areas).\nMake a histogram of violent_rate.\nInterpretation (in a comment): based on the mean-vs-median comparison and the histogram’s shape, is violent_rate symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?"
+    "section": "Part 4: Real Data",
+    "text": "Part 4: Real Data\n\nLoad the course anchor data:\nlibrary(tidyverse)\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\")\nCompute the mean, median, and standard deviation of violent_rate (violent crimes per 1,000 residents across Chicago’s 77 community areas).\nMake a histogram of violent_rate.\nInterpretation (in a comment): based on the mean-vs-median comparison and the histogram’s shape, is violent_rate symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?"
   },
   {
     "objectID": "homework/hw-04.html",
@@ -1113,18 +1113,18 @@
     "text": "Part 3: Sampling from Unknown Distributions\n\nImagine you did not know the population distribution. Draw one new sample of size 30, make a histogram of it, and describe in a comment what type of distribution the sample appears to come from.\nInterpretation (in a comment): could your sample lead you to believe the population has a different shape than it really does? Explain."
   },
   {
-    "objectID": "homework/hw-04.html#part-4-build-a-sampling-distribution-new-this-year",
-    "href": "homework/hw-04.html#part-4-build-a-sampling-distribution-new-this-year",
+    "objectID": "homework/hw-04.html#part-4-build-a-sampling-distribution",
+    "href": "homework/hw-04.html#part-4-build-a-sampling-distribution",
     "title": "Homework 4 · Sampling and Sampling Distributions",
-    "section": "Part 4: Build a Sampling Distribution (new this year)",
-    "text": "Part 4: Build a Sampling Distribution (new this year)\n\nDraw 500 samples of size 30 and keep each sample’s mean. Two equivalent options — use either:\nmany_means &lt;- replicate(500, mean(sample(scores$score, size = 30)))\n\n# or, tidyverse-style, as in the Session 4 slides:\nmany_means &lt;- tibble(draw = 1:500) |&gt;\n  mutate(mean_score = map_dbl(draw, \\(d) mean(sample(scores$score, size = 30))))\nMake a histogram of the 500 sample means. In a comment: how does its shape and spread compare to the histogram of raw scores from Part 1?\nCompute the standard deviation of your 500 sample means, and compare it to the formula for the standard error, sd(scores$score) / sqrt(30). How close are they? What is this quantity called?"
+    "section": "Part 4: Build a Sampling Distribution",
+    "text": "Part 4: Build a Sampling Distribution\n\nDraw 500 samples of size 30 and keep each sample’s mean. Two equivalent options — use either:\nmany_means &lt;- replicate(500, mean(sample(scores$score, size = 30)))\n\n# or, tidyverse-style, as in the Session 4 slides:\nmany_means &lt;- tibble(draw = 1:500) |&gt;\n  mutate(mean_score = map_dbl(draw, \\(d) mean(sample(scores$score, size = 30))))\nMake a histogram of the 500 sample means. In a comment: how does its shape and spread compare to the histogram of raw scores from Part 1?\nCompute the standard deviation of your 500 sample means, and compare it to the formula for the standard error, sd(scores$score) / sqrt(30). How close are they? What is this quantity called?"
   },
   {
-    "objectID": "homework/hw-04.html#part-5-real-data-the-clt-with-chicago-arrests-new-this-year",
-    "href": "homework/hw-04.html#part-5-real-data-the-clt-with-chicago-arrests-new-this-year",
+    "objectID": "homework/hw-04.html#part-5-real-data-the-clt-with-chicago-arrests",
+    "href": "homework/hw-04.html#part-5-real-data-the-clt-with-chicago-arrests",
     "title": "Homework 4 · Sampling and Sampling Distributions",
-    "section": "Part 5: Real Data — The CLT with Chicago Arrests (new this year)",
-    "text": "Part 5: Real Data — The CLT with Chicago Arrests (new this year)\n\nLoad the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your population:\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\nmean(crimes$arrest)\nSimulate an analyst who can only pull 100 case files at a time: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.\nInterpretation (in a comment): each individual incident’s arrest value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of sample proportions have, and what theorem from Session 4 explains that?"
+    "section": "Part 5: Real Data — The CLT with Chicago Arrests",
+    "text": "Part 5: Real Data — The CLT with Chicago Arrests\n\nLoad the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your population:\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\nmean(crimes$arrest)\nSimulate an analyst who can only pull 100 case files at a time: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.\nInterpretation (in a comment): each individual incident’s arrest value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of sample proportions have, and what theorem from Session 4 explains that?"
   },
   {
     "objectID": "index.html",
@@ -1358,11 +1358,25 @@
     "text": "Practice — Variance and SD\n\n# Variance = mean squared deviation (population formula)\nsum((votes1 - mean(votes1))^2) / length(votes1)\n\n[1] 6666.667\n\n# Standard deviation = square root of variance (back to vote units!)\nsqrt(sum((votes1 - mean(votes1))^2) / length(votes1))\n\n[1] 81.64966\n\n\n\n\nvar(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)\n\n[1] 10000\n\n\n[1] 100\n\nvar(votes2); sd(votes2)   # more on WHY in Session 4\n\n[1] 1\n\n\n[1] 1"
   },
   {
-    "objectID": "slides/week-02-descriptives.html#seeing-the-machinery",
-    "href": "slides/week-02-descriptives.html#seeing-the-machinery",
+    "objectID": "slides/week-02-descriptives.html#seeing-the-machinery-step-1-raw-votes",
+    "href": "slides/week-02-descriptives.html#seeing-the-machinery-step-1-raw-votes",
     "title": "Descriptive Statistics",
-    "section": "Seeing the Machinery",
-    "text": "Seeing the Machinery"
+    "section": "Seeing the Machinery — Step 1: Raw Votes",
+    "text": "Seeing the Machinery — Step 1: Raw Votes"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#seeing-the-machinery-step-2-deviations",
+    "href": "slides/week-02-descriptives.html#seeing-the-machinery-step-2-deviations",
+    "title": "Descriptive Statistics",
+    "section": "Seeing the Machinery — Step 2: Deviations",
+    "text": "Seeing the Machinery — Step 2: Deviations\n\n(Notice the Tight Cluster panel: deviations of −1, 0, +1 are barely visible on the same scale.)"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#seeing-the-machinery-step-3-squared-deviations",
+    "href": "slides/week-02-descriptives.html#seeing-the-machinery-step-3-squared-deviations",
+    "title": "Descriptive Statistics",
+    "section": "Seeing the Machinery — Step 3: Squared Deviations",
+    "text": "Seeing the Machinery — Step 3: Squared Deviations\n\nAverage these and you have the variance; take the square root and you’re back in vote units — the SD."
   },
   {
     "objectID": "slides/week-02-descriptives.html#standard-deviation-in-words",
