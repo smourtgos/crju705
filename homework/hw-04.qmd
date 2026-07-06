@@ -38,7 +38,7 @@ scores <- read_csv("https://smourtgos.github.io/crju705/data/population-data.csv
 
 7. **Interpretation (in a comment):** could your sample lead you to believe the population has a different shape than it really does? Explain.
 
-## Part 4: Build a Sampling Distribution (new this year)
+## Part 4: Build a Sampling Distribution
 
 8. Draw **500 samples of size 30** and keep each sample's mean. Two equivalent options — use either:
 
@@ -54,7 +54,7 @@ scores <- read_csv("https://smourtgos.github.io/crju705/data/population-data.csv
 
 10. Compute the **standard deviation of your 500 sample means**, and compare it to the formula for the standard error, `sd(scores$score) / sqrt(30)`. How close are they? What is this quantity called?
 
-## Part 5: Real Data — The CLT with Chicago Arrests (new this year)
+## Part 5: Real Data — The CLT with Chicago Arrests
 
 11. Load the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your *population*:
 

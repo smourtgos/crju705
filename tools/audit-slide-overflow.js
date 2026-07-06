@@ -1,21 +1,34 @@
-// Slide-overflow audit for reveal.js decks.
-// Usage: open a rendered deck in the browser, paste this into the DevTools
-// console. Lists every slide whose content is taller than the 700px canvas
-// (i.e., would be visually cut off at the bottom).
+// Slide-overflow audit for reveal.js decks — v2.
+// Usage: open a rendered deck in the browser, paste into the DevTools console.
+// Flags any slide whose content exceeds the slide canvas, using BOTH:
+//   (a) scrollHeight (flow overflow), and
+//   (b) the visual bottom of the lowest child element (catches cases that
+//       scrollHeight misses, e.g. stretched figures under tall code blocks).
 (() => {
-  const slides = Reveal.getSlides();
   const H = Reveal.getConfig().height;
+  const slides = Reveal.getSlides();
   const out = [];
   slides.forEach((el, i) => {
     const idx = Reveal.getIndices(el);
     Reveal.slide(idx.h, idx.v);
-    el.offsetHeight; // force reflow
-    if (el.scrollHeight > H + 5) {
+    el.offsetHeight; // reflow
+    const scale = Reveal.getScale();
+    const top = el.getBoundingClientRect().top;
+    let maxBottom = 0;
+    el.querySelectorAll('*').forEach(c => {
+      const r = c.getBoundingClientRect();
+      if (r.height > 0) maxBottom = Math.max(maxBottom, r.bottom);
+    });
+    const visual = (maxBottom - top) / scale;
+    const flow = el.scrollHeight;
+    const worst = Math.max(flow, Math.round(visual));
+    if (worst > H + 5) {
       out.push({
         slide: i + 1,
-        title: (el.querySelector('h1,h2')?.textContent || '').slice(0, 50),
-        contentHeight: el.scrollHeight,
-        overBy: el.scrollHeight - H
+        title: (el.querySelector('h1,h2')?.textContent || '').slice(0, 45),
+        flowHeight: flow,
+        visualBottom: Math.round(visual),
+        overBy: worst - H
       });
     }
   });

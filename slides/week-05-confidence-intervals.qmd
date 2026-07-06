@@ -271,11 +271,10 @@ Our one sample of 250 says: point estimate **14.8%**, 95% CI **10.8% to 20.0%**.
 
 ## The Classic Picture: 100 Samples, 100 Intervals
 
+Draw 100 samples; build a 95% CI from each:
+
 ```{r}
 #| label: ci-sim
-#| output-location: slide
-#| code-line-numbers: "1-7|9-10|12-18"
-#| fig-height: 6
 ci_100 <- map(1:100, \(i) {
   s  <- crimes |> slice_sample(n = 250)
   ci <- prop.test(sum(s$arrest), n = 250)$conf.int
@@ -285,7 +284,14 @@ ci_100 <- map(1:100, \(i) {
   mutate(captured = lo <= mean(crimes$arrest) & mean(crimes$arrest) <= hi)
 
 sum(ci_100$captured)   # how many of the 100 intervals caught the truth?
+```
 
+## The Classic Picture, Seen
+
+```{r}
+#| label: ci-sim-plot
+#| echo: false
+#| fig-height: 6
 ggplot(ci_100, aes(sample, estimate, color = captured)) +
   geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
   geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 0.7, size = 0.25) +
@@ -394,8 +400,6 @@ Same trick as before — resample each group, compute the difference in means, r
 
 ```{r}
 #| label: mean-diffs
-#| output-location: slide
-#| fig-height: 5
 violent_hours  <- vp$hour[vp$crime_category == "Violent"]
 property_hours <- vp$hour[vp$crime_category == "Property"]
 
@@ -405,7 +409,14 @@ mean_diffs <- replicate(1000, {
 })
 
 quantile(mean_diffs, c(0.025, 0.975))   # what is this telling us?
+```
 
+## Resample the Difference, Seen
+
+```{r}
+#| label: mean-diffs-plot
+#| echo: false
+#| fig-height: 5.5
 ggplot(tibble(mean_diffs), aes(mean_diffs)) +
   geom_histogram(bins = 30, fill = crju_colors["navy"], color = "white") +
   geom_vline(xintercept = 0, color = crju_colors["garnet"], linewidth = 1.2) +

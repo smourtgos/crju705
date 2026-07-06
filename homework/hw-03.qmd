@@ -42,7 +42,7 @@ Parts 1–3 use the built-in `mtcars` dataset (type `mtcars` in the console — 
 
 9. Create a **grouped** bar plot of the number of cars by `cyl` and `gear`. You may use ggplot (`geom_bar(position = "dodge")` — remember to make the grouping variable a factor) or base R's `barplot(..., beside = TRUE)` — your choice.
 
-## Part 4: Real Data (new this year)
+## Part 4: Real Data
 
 10. Load the course anchor data:
 

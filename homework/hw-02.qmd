@@ -58,7 +58,7 @@ format-links: [docx]
    - What's the key difference in shape between the normal and Poisson distributions?
    - Why might a Poisson distribution be useful in a criminal justice setting?
 
-## Part 4: Real Data (new this year)
+## Part 4: Real Data
 
 1. Load the course anchor data:
 
