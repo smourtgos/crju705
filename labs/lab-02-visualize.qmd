@@ -50,6 +50,12 @@ prisoners |>
   summarize(mean_age = mean(age), median_age = median(age), sd_age = sd(age))
 ```
 
+::: {.callout-note collapse="true"}
+## What's the `|>` symbol?
+
+That's the **pipe** — it feeds whatever is on its left into the function on its right, so you can read code top-to-bottom as "take the data, *then* do this, *then* do that." R4DS uses it everywhere. In older code (and in the Stanton book) you'll see `%>%` instead — for our purposes they're interchangeable.
+:::
+
 ### A bar chart — counts of a categorical variable
 
 ```{r}

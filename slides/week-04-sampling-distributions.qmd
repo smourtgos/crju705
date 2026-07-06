@@ -429,6 +429,8 @@ variance_sims |>
   )
 ```
 
+## Divide by n, and You're Biased (cont.)
+
 ::: incremental
 - Dividing by n **systematically underestimates** the population variance — across 5,000 samples, not occasionally
 - Why? A sample clusters around *its own* mean, which is always closer to the sample's values than the true mean is — so measured spread comes up short
@@ -477,6 +479,9 @@ Work in pairs; record your code and results in a script.
 
 1. **Long run:** simulate 10,000 rolls of a fair die and get the proportion of each face (`sample()`, `count()`). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?
 2. **Known population:** create `rnorm(10000, mean = 100, sd = 15)`, plot it, and mark the 1st/5th/95th percentiles with `quantile()`. Draw a sample of 30 — where does its mean fall?
+
+## In-Class Exercise (cont.)
+
 3. **Unknown population:** run `unknown_pop <- rnorm(1000, 100, 50)` *without plotting it*. Sample 30 values, plot the sample, and write down what you'd conclude about the population. *Then* peek. Were you right?
 
 ## Today's Lab & Homework

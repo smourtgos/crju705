@@ -40,6 +40,7 @@ execute:
 
 - `echo: true` is the default — students should see code. Use `#| echo: false` per-chunk for pure-figure slides.
 - NO `embed-resources: true` — slides are served from the site; Quarto manages `*_files/`.
+- **Slide density:** the canvas is 700px tall and reveal auto-shrinks only images — NOT code output, tables, or prose. Rules of thumb: max ONE code chunk with a ~10-row tibble printout per slide (or pipe into `head(4)`); use `#| output-location: slide` for big tables; split rather than cram. Before publishing a new/edited deck, run `tools/audit-slide-overflow.js` in the browser console on the rendered deck — it lists every slide whose content exceeds the canvas.
 - **Videos: use plain `<video>` tags, NEVER the `{{< video >}}` shortcode.** The shortcode's video.js "fluid" player mis-sizes in reveal slides (clips, then letterboxes in a black box). Pattern:
   `<video src="../media/week-NN/file.mp4" controls preload="metadata"></video>`
   Slide CSS caps videos at 480px tall; on a slide where anything sits below/beside the video, add an explicit smaller `style="max-height:430px;"` or use columns.

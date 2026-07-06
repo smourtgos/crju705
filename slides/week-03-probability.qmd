@@ -32,6 +32,8 @@ crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = 
 
 Anything from Lab 2 (ggplot) still shaky? We use every one of those tools again today.
 
+**R4DS thread:** you read Ch. 3 (Data transformation) & Ch. 4 (Code style) — today's lab puts them to work.
+
 ## This Week
 
 **Topic:** Essentials of probability (Stanton Ch. 2)
@@ -43,8 +45,6 @@ Anything from Lab 2 (ggplot) still shaky? We use every one of those tools again 
 **Learning goals:** use outcome tables to reason about a simple set of random events, and contingency tables to reason about *linked* events; generate and plot random distributions in R.
 
 **Today's rule:** don't take a probability claim on faith — **simulate it and watch it happen**.
-
-**R4DS thread:** you read Ch. 3 (Data transformation) & Ch. 4 (Code style) — today's lab puts them to work.
 
 # What *Is* a Probability? {background-color="#73000A"}
 
@@ -133,6 +133,8 @@ Imagine a restaurant where the waiters *always* drop the food. Each order = **si
 - One piece of toast falling = one **event**
 - One dropped order of six = one **trial**
 
+## The Toast Data: 100 Dropped Orders
+
 Here's data from 100 trials:
 
 ```{r}
@@ -153,7 +155,7 @@ toast |> mutate(prob = trials / sum(trials))
 
 . . .
 
-Probability rule #1: probabilities across **all** possible outcomes sum to 1. Data built from proportions can't help but obey:
+Rule #1: probabilities across **all** outcomes sum to 1:
 
 ```{r}
 #| label: toast-sum
@@ -201,6 +203,7 @@ The "theoretical" binomial probabilities are just what the simulation converges 
 
 ```{r}
 #| label: binom-converge
+#| output-location: slide
 tibble(jelly_down = rbinom(n = 100000, size = 6, prob = 0.5)) |>
   count(jelly_down) |>
   mutate(
@@ -259,6 +262,7 @@ A **contingency table**: rows = one classification, columns = the other, cells =
 
 ```{r}
 #| label: toast10-margins
+#| output-location: slide
 toast10 |> summarize(n = sum(n), .by = landed)    # column margins
 toast10 |> summarize(n = sum(n), .by = topping)   # row margins
 sum(toast10$n)                                    # grand total
@@ -281,7 +285,11 @@ gaps <- replicate(10000, sim_gap())
 mean(gaps >= 2/3 - 3/7)   # how often does pure chance produce our gap?
 ```
 
-Even with **no real difference**, chance alone produces a gap at least this big well over half the time. Ten drops can't answer the question. *(This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)*
+## Super Challenge: The Verdict
+
+Even with **no real difference**, chance alone produces a gap at least this big well over half the time. Ten drops can't answer the question.
+
+*(This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)*
 
 ## A Real Contingency Table
 
@@ -296,7 +304,7 @@ crimes |>
 
 `count()` gets the cell counts; `pivot_wider()` lays them out as the table. This is today's lab skill set doing probability work.
 
-## Joint and Marginal Probabilities, For Real
+## Joint Probabilities, For Real
 
 **Joint** — divide every cell by the grand total:
 
@@ -307,7 +315,9 @@ crimes |>
   mutate(p = n / sum(n))
 ```
 
-. . .
+P(Property **and** arrest) ≈ 0.025 — a joint probability.
+
+## Marginal Probabilities, For Real
 
 **Marginal** — collapse one classification:
 
@@ -316,7 +326,7 @@ crimes |>
 crimes |> count(crime_category) |> mutate(p = n / sum(n))
 ```
 
-P(Property **and** arrest) ≈ 0.025 — a joint probability. P(Property) ≈ 0.35 — a marginal one.
+P(Property) ≈ 0.35 — a marginal probability, next to the joint P(Property **and** arrest) ≈ 0.025 from the last slide.
 
 # Conditional Probability {background-color="#1B2A4A"}
 
@@ -336,8 +346,7 @@ hours <- tribble(
   "Saturday",      8,    10,       8,      8,
   "Sunday",        0,     3,       6,      0
 )
-hours_long <- hours |>
-  pivot_longer(-day, names_to = "server", values_to = "hours")
+hours_long <- hours |> pivot_longer(-day, names_to = "server", values_to = "hours")
 ```
 
 Two interesting questions:
@@ -364,6 +373,7 @@ Isolate Bill's column, then **re-scale it so it sums to 1**:
 
 ```{r}
 #| label: bill-normalize
+#| output-location: slide
 hours_long |>
   filter(server == "Bill") |>
   mutate(p_day_given_bill = hours / sum(hours)) |>
@@ -422,6 +432,8 @@ crimes |>
 ```
 
 P(arrest | domestic) and P(arrest | not domestic) are essentially identical to the overall P(arrest) — in this sample, knowing an incident was domestic tells you almost nothing about arrest.
+
+## Independence, Defined
 
 **Definition:** A and B are **independent** when P(A | B) = P(A). Conditioning that moves the number = dependence; conditioning that doesn't = independence.
 

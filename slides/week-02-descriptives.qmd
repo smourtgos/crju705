@@ -172,7 +172,7 @@ areas |>
   )
 ```
 
-. . .
+## Who's Dragging the Mean?
 
 ```{r}
 #| label: chicago-worst

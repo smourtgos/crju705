@@ -68,9 +68,7 @@ You **cannot PROVE** anything from samples or by using statistical inference.
 
 We collect data and analyze it with inferential statistics **to build up a weight of evidence that influences our certainty about one conclusion or another**.
 
-. . .
-
-**Let's look at the classic example:**
+## Let's Look at the Classic Example
 
 - 1854 — cholera breaks out in Soho, London
 - The debate: bad air ("miasma") or contaminated water?
@@ -331,6 +329,8 @@ If we reran our whole study many times — drawing a new sample each time and co
 
 > "The method we used captures the true value 95% of the time."
 
+## Saying It Out Loud: What Not to Say
+
 ❌ **Not defensible:**
 
 > "There is a 95% probability the true arrest rate is between 10.8% and 20.0%." *(The truth is fixed — it's either in there or it isn't.)*
@@ -432,6 +432,11 @@ t.test(hour ~ crime_category, data = vp)$conf.int
 ::: incremental
 - The 95% CI for the difference (Property − Violent) runs from **−0.44 to −0.06 hours** — it excludes zero, so the data are consistent with violent crimes genuinely averaging later
 - But look at the *magnitude*: the difference is somewhere between about **4 and 27 minutes**. Detectable ≠ dramatic.
+:::
+
+## Reading That Output Honestly, Continued
+
+::: incremental
 - With ~19,500 incidents, we can detect tiny differences. The CI hands you both facts at once: *direction* (probably real) and *size* (small). **Never report the first without the second.**
 - This is your vaccination against next week's topic — a "significant" result can be substantively trivial
 :::

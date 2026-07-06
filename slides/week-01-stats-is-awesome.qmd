@@ -462,16 +462,22 @@ cars_data <- as_tibble(mtcars, rownames = "model")
 head(cars_data, 4)
 ```
 
-## select & filter
+::: aside
+The `|>` symbol is the **pipe**: `x |> f()` means `f(x)` — "take x, *then* do f." Older code (including the Stanton book) writes it `%>%`; they work the same way for everything we do.
+:::
+
+## select — pick columns
 
 ```{r}
 #| label: appendix-b2
-cars_data |> select(model, mpg, cyl, hp)
+cars_data |> select(model, mpg, cyl, hp) |> head(4)
 ```
+
+## filter — pick rows
 
 ```{r}
 #| label: appendix-b3
-cars_data |> filter(cyl == 6)
+cars_data |> filter(cyl == 6) |> head(4)
 ```
 
 ## mutate & summarize
@@ -487,9 +493,16 @@ cars_data |>
   summarize(avg_mpg = mean(mpg), n = n(), .by = cyl)
 ```
 
+## Your Turn
+
 ::: {.your-turn}
-**Your turn:** using the built-in `mpg` data — (1) find the top-3 models by `hwy`; (2) compute average `cty` by `class`.
+Using the built-in `mpg` data:
+
+1. Find the top-3 models by `hwy`.
+2. Compute the average `cty` by `class`.
 :::
+
+*(Hints: `arrange(desc(...))`, `slice_head()`, and `summarize(..., .by = ...)` — all from your R4DS Ch. 3 reading next week.)*
 
 ## Coming Attractions: Real Data, All Semester
 
