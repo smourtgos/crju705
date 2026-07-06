@@ -32,6 +32,21 @@ git add -A && git commit -m "..." && git push
 quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser
 ```
 
+**⚠️ Publishing gotcha — GitHub Pages builds can hang.** `quarto publish` pushes the
+built site to the `gh-pages` branch, but GitHub's Pages builder then has to deploy
+it, and it occasionally sticks in "building" for 15+ minutes (happened twice in
+July 2026; also sent Scott spurious "Page build failed" emails during initial setup).
+The live site serves STALE content until the build completes. After publishing:
+
+```bash
+# check the build finished:
+gh api repos/smourtgos/crju705/pages/builds/latest --jq '.status'   # want: "built"
+# if stuck on "building" for >5 min, kick it:
+gh api -X POST repos/smourtgos/crju705/pages/builds
+```
+
+Then hard-refresh the browser (Cmd+Shift+R) — reveal.js decks cache aggressively.
+
 - **`CONVENTIONS.md`** is the rulebook — read it before adding anything. File naming, slide YAML template, lab structure, code style, the video rule, the slide-density rule.
 - **Answer keys & exams** live in `_private/` — that folder is BOTH render-excluded (in `_quarto.yml`) AND gitignored, so it never reaches the public site or git history. Render a key locally on demand: `quarto render _private/keys/hw-0N-key.qmd --to docx`.
 - **After any `_quarto.yml` change**, re-check nothing leaked: `grep -ri "answer" _site/ --exclude-dir=site_libs | grep -i key` should return nothing.
