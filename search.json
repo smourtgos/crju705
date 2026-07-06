@@ -109,7 +109,14 @@
     "href": "slides/week-05-confidence-intervals.html#if-we-cant-prove-anything-what-are-we-doing",
     "title": "The Logic of Inference: Confidence Intervals",
     "section": "If We Can’t Prove Anything, What Are We Doing?",
-    "text": "If We Can’t Prove Anything, What Are We Doing?\nWe collect data and analyze it with inferential statistics to build up a weight of evidence that influences our certainty about one conclusion or another.\n\nLet’s look at the classic example:\n\n1854 — cholera breaks out in Soho, London\nThe debate: bad air (“miasma”) or contaminated water?\nJohn Snow couldn’t test every household in London — that’s the whole population\nSo he mapped the sample of evidence he could get: deaths, and where people got their water"
+    "text": "If We Can’t Prove Anything, What Are We Doing?\nWe collect data and analyze it with inferential statistics to build up a weight of evidence that influences our certainty about one conclusion or another."
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#lets-look-at-the-classic-example",
+    "href": "slides/week-05-confidence-intervals.html#lets-look-at-the-classic-example",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Let’s Look at the Classic Example",
+    "text": "Let’s Look at the Classic Example\n\n1854 — cholera breaks out in Soho, London\nThe debate: bad air (“miasma”) or contaminated water?\nJohn Snow couldn’t test every household in London — that’s the whole population\nSo he mapped the sample of evidence he could get: deaths, and where people got their water"
   },
   {
     "objectID": "slides/week-05-confidence-intervals.html#sampled-evidence-deaths-and-pumps",
@@ -228,7 +235,14 @@
     "href": "slides/week-05-confidence-intervals.html#saying-it-out-loud",
     "title": "The Logic of Inference: Confidence Intervals",
     "section": "Saying It Out Loud",
-    "text": "Saying It Out Loud\n✅ Defensible:\n\n“We estimate the citywide arrest rate at 14.8% (95% CI: 10.8% to 20.0%). Values in this range are consistent with our data.”\n\n\n“The method we used captures the true value 95% of the time.”\n\n❌ Not defensible:\n\n“There is a 95% probability the true arrest rate is between 10.8% and 20.0%.” (The truth is fixed — it’s either in there or it isn’t.)\n\n\n“95% of arrest rates fall in this interval.” (The CI is about the population parameter, not individual observations.)"
+    "text": "Saying It Out Loud\n✅ Defensible:\n\n“We estimate the citywide arrest rate at 14.8% (95% CI: 10.8% to 20.0%). Values in this range are consistent with our data.”\n\n\n“The method we used captures the true value 95% of the time.”"
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#saying-it-out-loud-what-not-to-say",
+    "href": "slides/week-05-confidence-intervals.html#saying-it-out-loud-what-not-to-say",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Saying It Out Loud: What Not to Say",
+    "text": "Saying It Out Loud: What Not to Say\n❌ Not defensible:\n\n“There is a 95% probability the true arrest rate is between 10.8% and 20.0%.” (The truth is fixed — it’s either in there or it isn’t.)\n\n\n“95% of arrest rates fall in this interval.” (The CI is about the population parameter, not individual observations.)"
   },
   {
     "objectID": "slides/week-05-confidence-intervals.html#sample-size-buys-precision",
@@ -277,7 +291,14 @@
     "href": "slides/week-05-confidence-intervals.html#reading-that-output-honestly",
     "title": "The Logic of Inference: Confidence Intervals",
     "section": "Reading That Output Honestly",
-    "text": "Reading That Output Honestly\n\nt.test(hour ~ crime_category, data = vp)$conf.int\n\n[1] -0.44272107 -0.06263688\nattr(,\"conf.level\")\n[1] 0.95\n\n\n\nThe 95% CI for the difference (Property − Violent) runs from −0.44 to −0.06 hours — it excludes zero, so the data are consistent with violent crimes genuinely averaging later\nBut look at the magnitude: the difference is somewhere between about 4 and 27 minutes. Detectable ≠ dramatic.\nWith ~19,500 incidents, we can detect tiny differences. The CI hands you both facts at once: direction (probably real) and size (small). Never report the first without the second.\nThis is your vaccination against next week’s topic — a “significant” result can be substantively trivial"
+    "text": "Reading That Output Honestly\n\nt.test(hour ~ crime_category, data = vp)$conf.int\n\n[1] -0.44272107 -0.06263688\nattr(,\"conf.level\")\n[1] 0.95\n\n\n\nThe 95% CI for the difference (Property − Violent) runs from −0.44 to −0.06 hours — it excludes zero, so the data are consistent with violent crimes genuinely averaging later\nBut look at the magnitude: the difference is somewhere between about 4 and 27 minutes. Detectable ≠ dramatic."
+  },
+  {
+    "objectID": "slides/week-05-confidence-intervals.html#reading-that-output-honestly-continued",
+    "href": "slides/week-05-confidence-intervals.html#reading-that-output-honestly-continued",
+    "title": "The Logic of Inference: Confidence Intervals",
+    "section": "Reading That Output Honestly, Continued",
+    "text": "Reading That Output Honestly, Continued\n\nWith ~19,500 incidents, we can detect tiny differences. The CI hands you both facts at once: direction (probably real) and size (small). Never report the first without the second.\nThis is your vaccination against next week’s topic — a “significant” result can be substantively trivial"
   },
   {
     "objectID": "slides/week-05-confidence-intervals.html#your-turn-5-minutes-with-a-neighbor",
@@ -298,14 +319,14 @@
     "href": "slides/week-03-probability.html#week-2-follow-up",
     "title": "Reasoning with Probability",
     "section": "Week 2 Follow-Up",
-    "text": "Week 2 Follow-Up\nHomework 2 — questions on central tendency, dispersion, or the distributions?\nAnything from Lab 2 (ggplot) still shaky? We use every one of those tools again today."
+    "text": "Week 2 Follow-Up\nHomework 2 — questions on central tendency, dispersion, or the distributions?\nAnything from Lab 2 (ggplot) still shaky? We use every one of those tools again today.\nR4DS thread: you read Ch. 3 (Data transformation) & Ch. 4 (Code style) — today’s lab puts them to work."
   },
   {
     "objectID": "slides/week-03-probability.html#this-week",
     "href": "slides/week-03-probability.html#this-week",
     "title": "Reasoning with Probability",
     "section": "This Week",
-    "text": "This Week\nTopic: Essentials of probability (Stanton Ch. 2)\n\nOutcome tables — toast drops in place of coin tosses\nThe binomial distribution; generating random data\nContingency tables: marginal, joint, and conditional probability\n\nLearning goals: use outcome tables to reason about a simple set of random events, and contingency tables to reason about linked events; generate and plot random distributions in R.\nToday’s rule: don’t take a probability claim on faith — simulate it and watch it happen.\nR4DS thread: you read Ch. 3 (Data transformation) & Ch. 4 (Code style) — today’s lab puts them to work."
+    "text": "This Week\nTopic: Essentials of probability (Stanton Ch. 2)\n\nOutcome tables — toast drops in place of coin tosses\nThe binomial distribution; generating random data\nContingency tables: marginal, joint, and conditional probability\n\nLearning goals: use outcome tables to reason about a simple set of random events, and contingency tables to reason about linked events; generate and plot random distributions in R.\nToday’s rule: don’t take a probability claim on faith — simulate it and watch it happen."
   },
   {
     "objectID": "slides/week-03-probability.html#probability-long-run-proportion",
@@ -354,14 +375,21 @@
     "href": "slides/week-03-probability.html#a-reality-show-about-dropped-toast",
     "title": "Reasoning with Probability",
     "section": "A Reality Show About Dropped Toast",
-    "text": "A Reality Show About Dropped Toast\nImagine a restaurant where the waiters always drop the food. Each order = six pieces of toast; each piece lands topping-down or topping-up.\n\nOne piece of toast falling = one event\nOne dropped order of six = one trial\n\nHere’s data from 100 trials:\n\ntoast &lt;- tibble(\n  jelly_down = 0:6,\n  trials     = c(4, 9, 20, 34, 21, 11, 1)\n)\ntoast\n\n# A tibble: 7 × 2\n  jelly_down trials\n       &lt;int&gt;  &lt;dbl&gt;\n1          0      4\n2          1      9\n3          2     20\n4          3     34\n5          4     21\n6          5     11\n7          6      1"
+    "text": "A Reality Show About Dropped Toast\nImagine a restaurant where the waiters always drop the food. Each order = six pieces of toast; each piece lands topping-down or topping-up.\n\nOne piece of toast falling = one event\nOne dropped order of six = one trial"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-toast-data-100-dropped-orders",
+    "href": "slides/week-03-probability.html#the-toast-data-100-dropped-orders",
+    "title": "Reasoning with Probability",
+    "section": "The Toast Data: 100 Dropped Orders",
+    "text": "The Toast Data: 100 Dropped Orders\nHere’s data from 100 trials:\n\ntoast &lt;- tibble(\n  jelly_down = 0:6,\n  trials     = c(4, 9, 20, 34, 21, 11, 1)\n)\ntoast\n\n# A tibble: 7 × 2\n  jelly_down trials\n       &lt;int&gt;  &lt;dbl&gt;\n1          0      4\n2          1      9\n3          2     20\n4          3     34\n5          4     21\n6          5     11\n7          6      1"
   },
   {
     "objectID": "slides/week-03-probability.html#proportions-probabilities",
     "href": "slides/week-03-probability.html#proportions-probabilities",
     "title": "Reasoning with Probability",
     "section": "Proportions ≈ Probabilities",
-    "text": "Proportions ≈ Probabilities\n\ntoast |&gt; mutate(prob = trials / sum(trials))\n\n# A tibble: 7 × 3\n  jelly_down trials  prob\n       &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;\n1          0      4  0.04\n2          1      9  0.09\n3          2     20  0.2 \n4          3     34  0.34\n5          4     21  0.21\n6          5     11  0.11\n7          6      1  0.01\n\n\n\nProbability rule #1: probabilities across all possible outcomes sum to 1. Data built from proportions can’t help but obey:\n\ntoast |&gt; summarize(total_prob = sum(trials / sum(trials)))\n\n# A tibble: 1 × 1\n  total_prob\n       &lt;dbl&gt;\n1          1"
+    "text": "Proportions ≈ Probabilities\n\ntoast |&gt; mutate(prob = trials / sum(trials))\n\n# A tibble: 7 × 3\n  jelly_down trials  prob\n       &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;\n1          0      4  0.04\n2          1      9  0.09\n3          2     20  0.2 \n4          3     34  0.34\n5          4     21  0.21\n6          5     11  0.11\n7          6      1  0.01\n\n\n\nRule #1: probabilities across all outcomes sum to 1:\n\ntoast |&gt; summarize(total_prob = sum(trials / sum(trials)))\n\n# A tibble: 1 × 1\n  total_prob\n       &lt;dbl&gt;\n1          1"
   },
   {
     "objectID": "slides/week-03-probability.html#simulate-your-own-toast-drops",
@@ -389,7 +417,14 @@
     "href": "slides/week-03-probability.html#the-long-run-tames-the-wobble",
     "title": "Reasoning with Probability",
     "section": "The Long Run Tames the Wobble",
-    "text": "The Long Run Tames the Wobble\nThe “theoretical” binomial probabilities are just what the simulation converges to:\n\ntibble(jelly_down = rbinom(n = 100000, size = 6, prob = 0.5)) |&gt;\n  count(jelly_down) |&gt;\n  mutate(\n    simulated   = n / sum(n),\n    theoretical = dbinom(jelly_down, size = 6, prob = 0.5)\n  )\n\n# A tibble: 7 × 4\n  jelly_down     n simulated theoretical\n       &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;\n1          0  1545    0.0154      0.0156\n2          1  9644    0.0964      0.0937\n3          2 23351    0.234       0.234 \n4          3 31040    0.310       0.312 \n5          4 23353    0.234       0.234 \n6          5  9418    0.0942      0.0937\n7          6  1649    0.0165      0.0156\n\n\nAt 100,000 trials, simulated and theoretical probabilities agree to within a few thousandths. Theory is the long run; simulation is how we watch the long run."
+    "text": "The Long Run Tames the Wobble\nThe “theoretical” binomial probabilities are just what the simulation converges to:\n\ntibble(jelly_down = rbinom(n = 100000, size = 6, prob = 0.5)) |&gt;\n  count(jelly_down) |&gt;\n  mutate(\n    simulated   = n / sum(n),\n    theoretical = dbinom(jelly_down, size = 6, prob = 0.5)\n  )\n\n\nAt 100,000 trials, simulated and theoretical probabilities agree to within a few thousandths. Theory is the long run; simulation is how we watch the long run."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#the-long-run-tames-the-wobble-output",
+    "href": "slides/week-03-probability.html#the-long-run-tames-the-wobble-output",
+    "title": "Reasoning with Probability",
+    "section": "The Long Run Tames the Wobble",
+    "text": "The Long Run Tames the Wobble\n\n# A tibble: 7 × 4\n  jelly_down     n simulated theoretical\n       &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;\n1          0  1545    0.0154      0.0156\n2          1  9644    0.0964      0.0937\n3          2 23351    0.234       0.234 \n4          3 31040    0.310       0.312 \n5          4 23353    0.234       0.234 \n6          5  9418    0.0942      0.0937\n7          6  1649    0.0165      0.0156"
   },
   {
     "objectID": "slides/week-03-probability.html#cumulative-probabilities",
@@ -417,14 +452,28 @@
     "href": "slides/week-03-probability.html#marginal-totals-answer-questions",
     "title": "Reasoning with Probability",
     "section": "Marginal Totals Answer Questions",
-    "text": "Marginal Totals Answer Questions\n\nTotal toast-drop events? How many landed down? Up?\nMore likely to land down or up?\nWhich topping is more common, butter or jelly?\n\n\ntoast10 |&gt; summarize(n = sum(n), .by = landed)    # column margins\n\n# A tibble: 2 × 2\n  landed     n\n  &lt;chr&gt;  &lt;dbl&gt;\n1 Down       5\n2 Up         5\n\ntoast10 |&gt; summarize(n = sum(n), .by = topping)   # row margins\n\n# A tibble: 2 × 2\n  topping     n\n  &lt;chr&gt;   &lt;dbl&gt;\n1 Jelly       3\n2 Butter      7\n\nsum(toast10$n)                                    # grand total\n\n[1] 10\n\n\nThe row/column sums live in the margins of the table — hence marginal probabilities."
+    "text": "Marginal Totals Answer Questions\n\nTotal toast-drop events? How many landed down? Up?\nMore likely to land down or up?\nWhich topping is more common, butter or jelly?\n\n\ntoast10 |&gt; summarize(n = sum(n), .by = landed)    # column margins\n\n\nThe row/column sums live in the margins of the table — hence marginal probabilities."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#marginal-totals-answer-questions-output",
+    "href": "slides/week-03-probability.html#marginal-totals-answer-questions-output",
+    "title": "Reasoning with Probability",
+    "section": "Marginal Totals Answer Questions",
+    "text": "Marginal Totals Answer Questions\n\n# A tibble: 2 × 2\n  landed     n\n  &lt;chr&gt;  &lt;dbl&gt;\n1 Down       5\n2 Up         5\n\ntoast10 |&gt; summarize(n = sum(n), .by = topping)   # row margins\n\n# A tibble: 2 × 2\n  topping     n\n  &lt;chr&gt;   &lt;dbl&gt;\n1 Jelly       3\n2 Butter      7\n\nsum(toast10$n)                                    # grand total\n\n[1] 10"
   },
   {
     "objectID": "slides/week-03-probability.html#super-challenge-does-the-topping-matter",
     "href": "slides/week-03-probability.html#super-challenge-does-the-topping-matter",
     "title": "Reasoning with Probability",
     "section": "Super Challenge: Does the Topping Matter?",
-    "text": "Super Challenge: Does the Topping Matter?\nJelly landed down 2/3 of the time (0.67); butter 3/7 (0.43). Is jelly really doomed — or is 10 pieces of toast just a short run? Simulate a world where topping makes no difference:\n\nsim_gap &lt;- function() {\n  p_jelly  &lt;- rbinom(1, size = 3, prob = 0.5) / 3   # 3 jelly pieces, fair\n  p_butter &lt;- rbinom(1, size = 7, prob = 0.5) / 7   # 7 butter pieces, fair\n  abs(p_jelly - p_butter)\n}\ngaps &lt;- replicate(10000, sim_gap())\nmean(gaps &gt;= 2/3 - 3/7)   # how often does pure chance produce our gap?\n\n[1] 0.611\n\n\nEven with no real difference, chance alone produces a gap at least this big well over half the time. Ten drops can’t answer the question. (This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)"
+    "text": "Super Challenge: Does the Topping Matter?\nJelly landed down 2/3 of the time (0.67); butter 3/7 (0.43). Is jelly really doomed — or is 10 pieces of toast just a short run? Simulate a world where topping makes no difference:\n\nsim_gap &lt;- function() {\n  p_jelly  &lt;- rbinom(1, size = 3, prob = 0.5) / 3   # 3 jelly pieces, fair\n  p_butter &lt;- rbinom(1, size = 7, prob = 0.5) / 7   # 7 butter pieces, fair\n  abs(p_jelly - p_butter)\n}\ngaps &lt;- replicate(10000, sim_gap())\nmean(gaps &gt;= 2/3 - 3/7)   # how often does pure chance produce our gap?\n\n[1] 0.611"
+  },
+  {
+    "objectID": "slides/week-03-probability.html#super-challenge-the-verdict",
+    "href": "slides/week-03-probability.html#super-challenge-the-verdict",
+    "title": "Reasoning with Probability",
+    "section": "Super Challenge: The Verdict",
+    "text": "Super Challenge: The Verdict\nEven with no real difference, chance alone produces a gap at least this big well over half the time. Ten drops can’t answer the question.\n(This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)"
   },
   {
     "objectID": "slides/week-03-probability.html#a-real-contingency-table",
@@ -434,18 +483,25 @@
     "text": "A Real Contingency Table\nSame structure, real stakes — crime category × arrest, 30,000 Chicago incidents:\n\ncrimes |&gt;\n  count(crime_category, arrest) |&gt;\n  pivot_wider(names_from = arrest, values_from = n)\n\n# A tibble: 3 × 3\n  crime_category `FALSE` `TRUE`\n  &lt;chr&gt;            &lt;int&gt;  &lt;int&gt;\n1 Other             7867   2614\n2 Property          9615    756\n3 Violent           7694   1454\n\n\ncount() gets the cell counts; pivot_wider() lays them out as the table. This is today’s lab skill set doing probability work."
   },
   {
-    "objectID": "slides/week-03-probability.html#joint-and-marginal-probabilities-for-real",
-    "href": "slides/week-03-probability.html#joint-and-marginal-probabilities-for-real",
+    "objectID": "slides/week-03-probability.html#joint-probabilities-for-real",
+    "href": "slides/week-03-probability.html#joint-probabilities-for-real",
     "title": "Reasoning with Probability",
-    "section": "Joint and Marginal Probabilities, For Real",
-    "text": "Joint and Marginal Probabilities, For Real\nJoint — divide every cell by the grand total:\n\ncrimes |&gt;\n  count(crime_category, arrest) |&gt;\n  mutate(p = n / sum(n))\n\n# A tibble: 6 × 4\n  crime_category arrest     n      p\n  &lt;chr&gt;          &lt;lgl&gt;  &lt;int&gt;  &lt;dbl&gt;\n1 Other          FALSE   7867 0.262 \n2 Other          TRUE    2614 0.0871\n3 Property       FALSE   9615 0.320 \n4 Property       TRUE     756 0.0252\n5 Violent        FALSE   7694 0.256 \n6 Violent        TRUE    1454 0.0485\n\n\n\nMarginal — collapse one classification:\n\ncrimes |&gt; count(crime_category) |&gt; mutate(p = n / sum(n))\n\n# A tibble: 3 × 3\n  crime_category     n     p\n  &lt;chr&gt;          &lt;int&gt; &lt;dbl&gt;\n1 Other          10481 0.349\n2 Property       10371 0.346\n3 Violent         9148 0.305\n\n\nP(Property and arrest) ≈ 0.025 — a joint probability. P(Property) ≈ 0.35 — a marginal one."
+    "section": "Joint Probabilities, For Real",
+    "text": "Joint Probabilities, For Real\nJoint — divide every cell by the grand total:\n\ncrimes |&gt;\n  count(crime_category, arrest) |&gt;\n  mutate(p = n / sum(n))\n\n# A tibble: 6 × 4\n  crime_category arrest     n      p\n  &lt;chr&gt;          &lt;lgl&gt;  &lt;int&gt;  &lt;dbl&gt;\n1 Other          FALSE   7867 0.262 \n2 Other          TRUE    2614 0.0871\n3 Property       FALSE   9615 0.320 \n4 Property       TRUE     756 0.0252\n5 Violent        FALSE   7694 0.256 \n6 Violent        TRUE    1454 0.0485\n\n\nP(Property and arrest) ≈ 0.025 — a joint probability."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#marginal-probabilities-for-real",
+    "href": "slides/week-03-probability.html#marginal-probabilities-for-real",
+    "title": "Reasoning with Probability",
+    "section": "Marginal Probabilities, For Real",
+    "text": "Marginal Probabilities, For Real\nMarginal — collapse one classification:\n\ncrimes |&gt; count(crime_category) |&gt; mutate(p = n / sum(n))\n\n# A tibble: 3 × 3\n  crime_category     n     p\n  &lt;chr&gt;          &lt;int&gt; &lt;dbl&gt;\n1 Other          10481 0.349\n2 Property       10371 0.346\n3 Violent         9148 0.305\n\n\nP(Property) ≈ 0.35 — a marginal probability, next to the joint P(Property and arrest) ≈ 0.025 from the last slide."
   },
   {
     "objectID": "slides/week-03-probability.html#the-restaurant-work-schedule",
     "href": "slides/week-03-probability.html#the-restaurant-work-schedule",
     "title": "Reasoning with Probability",
     "section": "The Restaurant Work Schedule",
-    "text": "The Restaurant Work Schedule\nBack at the toast restaurant — hours worked by four servers:\n\nhours &lt;- tribble(\n  ~day,        ~Anne, ~Bill, ~Calvin, ~Devon,\n  \"Monday\",        6,     0,       5,      8,\n  \"Tuesday\",       0,     6,       6,      0,\n  \"Wednesday\",     8,     5,       0,      8,\n  \"Thursday\",      4,     6,       5,      8,\n  \"Friday\",        8,     8,       5,      8,\n  \"Saturday\",      8,    10,       8,      8,\n  \"Sunday\",        0,     3,       6,      0\n)\nhours_long &lt;- hours |&gt;\n  pivot_longer(-day, names_to = \"server\", values_to = \"hours\")\n\nTwo interesting questions:\n\nYou sit down and Bill is your server. What day is it most likely to be?\nYou know it’s Monday. Who is most likely to be your server?"
+    "text": "The Restaurant Work Schedule\nBack at the toast restaurant — hours worked by four servers:\n\nhours &lt;- tribble(\n  ~day,        ~Anne, ~Bill, ~Calvin, ~Devon,\n  \"Monday\",        6,     0,       5,      8,\n  \"Tuesday\",       0,     6,       6,      0,\n  \"Wednesday\",     8,     5,       0,      8,\n  \"Thursday\",      4,     6,       5,      8,\n  \"Friday\",        8,     8,       5,      8,\n  \"Saturday\",      8,    10,       8,      8,\n  \"Sunday\",        0,     3,       6,      0\n)\nhours_long &lt;- hours |&gt; pivot_longer(-day, names_to = \"server\", values_to = \"hours\")\n\nTwo interesting questions:\n\nYou sit down and Bill is your server. What day is it most likely to be?\nYou know it’s Monday. Who is most likely to be your server?"
   },
   {
     "objectID": "slides/week-03-probability.html#converting-to-proportions",
@@ -459,7 +515,14 @@
     "href": "slides/week-03-probability.html#question-1-bill-is-your-server-what-day-is-it",
     "title": "Reasoning with Probability",
     "section": "Question 1: Bill Is Your Server — What Day Is It?",
-    "text": "Question 1: Bill Is Your Server — What Day Is It?\nIsolate Bill’s column, then re-scale it so it sums to 1:\n\nhours_long |&gt;\n  filter(server == \"Bill\") |&gt;\n  mutate(p_day_given_bill = hours / sum(hours)) |&gt;\n  arrange(desc(p_day_given_bill))\n\n# A tibble: 7 × 4\n  day       server hours p_day_given_bill\n  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;            &lt;dbl&gt;\n1 Saturday  Bill      10           0.263 \n2 Friday    Bill       8           0.211 \n3 Tuesday   Bill       6           0.158 \n4 Thursday  Bill       6           0.158 \n5 Wednesday Bill       5           0.132 \n6 Sunday    Bill       3           0.0789\n7 Monday    Bill       0           0     \n\n\nMost likely Saturday (0.26). That renormalization — shrink the world to the condition, then re-proportion — is conditional probability, and it’s the core move behind Bayes’ theorem later in the course."
+    "text": "Question 1: Bill Is Your Server — What Day Is It?\nIsolate Bill’s column, then re-scale it so it sums to 1:\n\nhours_long |&gt;\n  filter(server == \"Bill\") |&gt;\n  mutate(p_day_given_bill = hours / sum(hours)) |&gt;\n  arrange(desc(p_day_given_bill))\n\n\nMost likely Saturday (0.26). That renormalization — shrink the world to the condition, then re-proportion — is conditional probability, and it’s the core move behind Bayes’ theorem later in the course."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#question-1-bill-is-your-server-what-day-is-it-output",
+    "href": "slides/week-03-probability.html#question-1-bill-is-your-server-what-day-is-it-output",
+    "title": "Reasoning with Probability",
+    "section": "Question 1: Bill Is Your Server — What Day Is It?",
+    "text": "Question 1: Bill Is Your Server — What Day Is It?\n\n# A tibble: 7 × 4\n  day       server hours p_day_given_bill\n  &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt;            &lt;dbl&gt;\n1 Saturday  Bill      10           0.263 \n2 Friday    Bill       8           0.211 \n3 Tuesday   Bill       6           0.158 \n4 Thursday  Bill       6           0.158 \n5 Wednesday Bill       5           0.132 \n6 Sunday    Bill       3           0.0789\n7 Monday    Bill       0           0"
   },
   {
     "objectID": "slides/week-03-probability.html#question-2-its-monday-whos-serving",
@@ -487,7 +550,14 @@
     "href": "slides/week-03-probability.html#when-conditioning-changes-nothing-independence",
     "title": "Reasoning with Probability",
     "section": "When Conditioning Changes Nothing: Independence",
-    "text": "When Conditioning Changes Nothing: Independence\n\nmean(crimes$arrest)\n\n[1] 0.1608\n\ncrimes |&gt;\n  summarize(p_arrest = mean(arrest), n = n(), .by = domestic)\n\n# A tibble: 2 × 3\n  domestic p_arrest     n\n  &lt;lgl&gt;       &lt;dbl&gt; &lt;int&gt;\n1 FALSE       0.161 24194\n2 TRUE        0.160  5806\n\n\nP(arrest | domestic) and P(arrest | not domestic) are essentially identical to the overall P(arrest) — in this sample, knowing an incident was domestic tells you almost nothing about arrest.\nDefinition: A and B are independent when P(A | B) = P(A). Conditioning that moves the number = dependence; conditioning that doesn’t = independence."
+    "text": "When Conditioning Changes Nothing: Independence\n\nmean(crimes$arrest)\n\n[1] 0.1608\n\ncrimes |&gt;\n  summarize(p_arrest = mean(arrest), n = n(), .by = domestic)\n\n# A tibble: 2 × 3\n  domestic p_arrest     n\n  &lt;lgl&gt;       &lt;dbl&gt; &lt;int&gt;\n1 FALSE       0.161 24194\n2 TRUE        0.160  5806\n\n\nP(arrest | domestic) and P(arrest | not domestic) are essentially identical to the overall P(arrest) — in this sample, knowing an incident was domestic tells you almost nothing about arrest."
+  },
+  {
+    "objectID": "slides/week-03-probability.html#independence-defined",
+    "href": "slides/week-03-probability.html#independence-defined",
+    "title": "Reasoning with Probability",
+    "section": "Independence, Defined",
+    "text": "Independence, Defined\nDefinition: A and B are independent when P(A | B) = P(A). Conditioning that moves the number = dependence; conditioning that doesn’t = independence."
   },
   {
     "objectID": "slides/week-03-probability.html#todays-lab-homework",
@@ -697,21 +767,35 @@
     "href": "slides/week-01-stats-is-awesome.html#data-frames-dplyr",
     "title": "Statistics is Awesome!",
     "section": "Data Frames & dplyr",
-    "text": "Data Frames & dplyr\n(Stanton Appendix B — modern form)\n\nlibrary(tidyverse)\ncars_data &lt;- as_tibble(mtcars, rownames = \"model\")\nhead(cars_data, 4)\n\n# A tibble: 4 × 12\n  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4\n2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4\n3 Datsun 710    22.8     4   108    93  3.85  2.32  18.6     1     1     4     1\n4 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1"
+    "text": "Data Frames & dplyr\n(Stanton Appendix B — modern form)\n\nlibrary(tidyverse)\ncars_data &lt;- as_tibble(mtcars, rownames = \"model\")\nhead(cars_data, 4)\n\n# A tibble: 4 × 12\n  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4\n2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4\n3 Datsun 710    22.8     4   108    93  3.85  2.32  18.6     1     1     4     1\n4 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1\n\n\n\n\nThe |&gt; symbol is the pipe: x |&gt; f() means f(x) — “take x, then do f.” Older code (including the Stanton book) writes it %&gt;%; they work the same way for everything we do."
   },
   {
-    "objectID": "slides/week-01-stats-is-awesome.html#select-filter",
-    "href": "slides/week-01-stats-is-awesome.html#select-filter",
+    "objectID": "slides/week-01-stats-is-awesome.html#select-pick-columns",
+    "href": "slides/week-01-stats-is-awesome.html#select-pick-columns",
     "title": "Statistics is Awesome!",
-    "section": "select & filter",
-    "text": "select & filter\n\ncars_data |&gt; select(model, mpg, cyl, hp)\n\n# A tibble: 32 × 4\n  model               mpg   cyl    hp\n  &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4          21       6   110\n2 Mazda RX4 Wag      21       6   110\n3 Datsun 710         22.8     4    93\n4 Hornet 4 Drive     21.4     6   110\n5 Hornet Sportabout  18.7     8   175\n6 Valiant            18.1     6   105\n# ℹ 26 more rows\n\n\n\ncars_data |&gt; filter(cyl == 6)\n\n# A tibble: 7 × 12\n  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4     21       6  160    110  3.9   2.62  16.5     0     1     4     4\n2 Mazda RX4 W…  21       6  160    110  3.9   2.88  17.0     0     1     4     4\n3 Hornet 4 Dr…  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1\n4 Valiant       18.1     6  225    105  2.76  3.46  20.2     1     0     3     1\n5 Merc 280      19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4\n6 Merc 280C     17.8     6  168.   123  3.92  3.44  18.9     1     0     4     4\n7 Ferrari Dino  19.7     6  145    175  3.62  2.77  15.5     0     1     5     6"
+    "section": "select — pick columns",
+    "text": "select — pick columns\n\ncars_data |&gt; select(model, mpg, cyl, hp) |&gt; head(4)\n\n# A tibble: 4 × 4\n  model            mpg   cyl    hp\n  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4       21       6   110\n2 Mazda RX4 Wag   21       6   110\n3 Datsun 710      22.8     4    93\n4 Hornet 4 Drive  21.4     6   110"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#filter-pick-rows",
+    "href": "slides/week-01-stats-is-awesome.html#filter-pick-rows",
+    "title": "Statistics is Awesome!",
+    "section": "filter — pick rows",
+    "text": "filter — pick rows\n\ncars_data |&gt; filter(cyl == 6) |&gt; head(4)\n\n# A tibble: 4 × 12\n  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb\n  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4\n2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4\n3 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1\n4 Valiant       18.1     6   225   105  2.76  3.46  20.2     1     0     3     1"
   },
   {
     "objectID": "slides/week-01-stats-is-awesome.html#mutate-summarize",
     "href": "slides/week-01-stats-is-awesome.html#mutate-summarize",
     "title": "Statistics is Awesome!",
     "section": "mutate & summarize",
-    "text": "mutate & summarize\n\ncars_data |&gt;\n  mutate(mpg_per_hp = mpg / hp) |&gt;\n  select(model, mpg, hp, mpg_per_hp) |&gt;\n  head(4)\n\n# A tibble: 4 × 4\n  model            mpg    hp mpg_per_hp\n  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;\n1 Mazda RX4       21     110      0.191\n2 Mazda RX4 Wag   21     110      0.191\n3 Datsun 710      22.8    93      0.245\n4 Hornet 4 Drive  21.4   110      0.195\n\ncars_data |&gt;\n  summarize(avg_mpg = mean(mpg), n = n(), .by = cyl)\n\n# A tibble: 3 × 3\n    cyl avg_mpg     n\n  &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;\n1     6    19.7     7\n2     4    26.7    11\n3     8    15.1    14\n\n\n\nYour turn: using the built-in mpg data — (1) find the top-3 models by hwy; (2) compute average cty by class."
+    "text": "mutate & summarize\n\ncars_data |&gt;\n  mutate(mpg_per_hp = mpg / hp) |&gt;\n  select(model, mpg, hp, mpg_per_hp) |&gt;\n  head(4)\n\n# A tibble: 4 × 4\n  model            mpg    hp mpg_per_hp\n  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;\n1 Mazda RX4       21     110      0.191\n2 Mazda RX4 Wag   21     110      0.191\n3 Datsun 710      22.8    93      0.245\n4 Hornet 4 Drive  21.4   110      0.195\n\ncars_data |&gt;\n  summarize(avg_mpg = mean(mpg), n = n(), .by = cyl)\n\n# A tibble: 3 × 3\n    cyl avg_mpg     n\n  &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;\n1     6    19.7     7\n2     4    26.7    11\n3     8    15.1    14"
+  },
+  {
+    "objectID": "slides/week-01-stats-is-awesome.html#your-turn",
+    "href": "slides/week-01-stats-is-awesome.html#your-turn",
+    "title": "Statistics is Awesome!",
+    "section": "Your Turn",
+    "text": "Your Turn\n\nUsing the built-in mpg data:\n\nFind the top-3 models by hwy.\nCompute the average cty by class.\n\n\n(Hints: arrange(desc(...)), slice_head(), and summarize(..., .by = ...) — all from your R4DS Ch. 3 reading next week.)"
   },
   {
     "objectID": "slides/week-01-stats-is-awesome.html#coming-attractions-real-data-all-semester",
@@ -816,7 +900,7 @@
     "href": "labs/lab-02-visualize.html#walkthrough",
     "title": "Lab 2 · First Plots with ggplot2",
     "section": "Walkthrough",
-    "text": "Walkthrough\nA histogram — the shape of a numeric variable\nToday’s lecture was about summarizing numeric variables. A histogram is the picture version:\n\nggplot(prisoners, aes(x = age)) +\n  geom_histogram(binwidth = 5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Age distribution of incarcerated persons\",\n       x = \"Age (years)\", y = \"Count\")\n\n\n\n\n\n\n\nAnatomy of every ggplot: data (prisoners), aesthetics (aes(x = age) — which variables map to which visual channels), and geometry (geom_histogram() — how to draw them).\nHow does the picture relate to the numbers?\n\nprisoners |&gt;\n  summarize(mean_age = mean(age), median_age = median(age), sd_age = sd(age))\n\n# A tibble: 1 × 3\n  mean_age median_age sd_age\n     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1     34.5         34   10.2\n\n\nA bar chart — counts of a categorical variable\n\nggplot(prisoners, aes(x = offense_type)) +\n  geom_bar(fill = \"steelblue\") +\n  labs(title = \"Offense types\", x = NULL, y = \"Count\")\n\n\n\n\n\n\n\nA boxplot — a distribution split by groups\n\nThe five-number-summary as a picture, one box per offense type:\n\nggplot(prisoners, aes(x = offense_type, y = sentence_years)) +\n  geom_boxplot(fill = \"grey90\") +\n  labs(title = \"Sentence length by offense type\",\n       x = NULL, y = \"Sentence (years)\")\n\n\n\n\n\n\n\nThe box is the middle 50% (median = the line inside); the dots are outliers — the same “one 30-year sentence” problem from lecture, visible instantly."
+    "text": "Walkthrough\nA histogram — the shape of a numeric variable\nToday’s lecture was about summarizing numeric variables. A histogram is the picture version:\n\nggplot(prisoners, aes(x = age)) +\n  geom_histogram(binwidth = 5, fill = \"steelblue\", color = \"white\") +\n  labs(title = \"Age distribution of incarcerated persons\",\n       x = \"Age (years)\", y = \"Count\")\n\n\n\n\n\n\n\nAnatomy of every ggplot: data (prisoners), aesthetics (aes(x = age) — which variables map to which visual channels), and geometry (geom_histogram() — how to draw them).\nHow does the picture relate to the numbers?\n\nprisoners |&gt;\n  summarize(mean_age = mean(age), median_age = median(age), sd_age = sd(age))\n\n# A tibble: 1 × 3\n  mean_age median_age sd_age\n     &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1     34.5         34   10.2\n\n\n\n\n\n\n\n\nNoteWhat’s the |&gt; symbol?\n\n\n\n\n\nThat’s the pipe — it feeds whatever is on its left into the function on its right, so you can read code top-to-bottom as “take the data, then do this, then do that.” R4DS uses it everywhere. In older code (and in the Stanton book) you’ll see %&gt;% instead — for our purposes they’re interchangeable.\n\n\n\nA bar chart — counts of a categorical variable\n\nggplot(prisoners, aes(x = offense_type)) +\n  geom_bar(fill = \"steelblue\") +\n  labs(title = \"Offense types\", x = NULL, y = \"Count\")\n\n\n\n\n\n\n\nA boxplot — a distribution split by groups\n\nThe five-number-summary as a picture, one box per offense type:\n\nggplot(prisoners, aes(x = offense_type, y = sentence_years)) +\n  geom_boxplot(fill = \"grey90\") +\n  labs(title = \"Sentence length by offense type\",\n       x = NULL, y = \"Sentence (years)\")\n\n\n\n\n\n\n\nThe box is the middle 50% (median = the line inside); the dots are outliers — the same “one 30-year sentence” problem from lecture, visible instantly."
   },
   {
     "objectID": "labs/lab-02-visualize.html#your-turn",
@@ -1222,7 +1306,14 @@
     "href": "slides/week-02-descriptives.html#the-same-thing-in-real-data",
     "title": "Descriptive Statistics",
     "section": "The Same Thing in Real Data",
-    "text": "The Same Thing in Real Data\nCommunity-level crime rates in Chicago, 2025:\n\nareas |&gt;\n  summarize(\n    mean_rate   = mean(crime_rate),\n    median_rate = median(crime_rate),\n    max_rate    = max(crime_rate)\n  )\n\n# A tibble: 1 × 3\n  mean_rate median_rate max_rate\n      &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;\n1      96.9          82     292.\n\n\n\n\nareas |&gt; slice_max(crime_rate, n = 3) |&gt; select(community, crime_rate)\n\n# A tibble: 3 × 2\n  community          crime_rate\n  &lt;chr&gt;                   &lt;dbl&gt;\n1 Fuller Park              292.\n2 West Garfield Park       220.\n3 Englewood                214.\n\n\nThe Loop’s rate (driven by a small residential population and huge daytime crowds) pulls the mean above the median — same lesson as the 30-year sentence, in live data."
+    "text": "The Same Thing in Real Data\nCommunity-level crime rates in Chicago, 2025:\n\nareas |&gt;\n  summarize(\n    mean_rate   = mean(crime_rate),\n    median_rate = median(crime_rate),\n    max_rate    = max(crime_rate)\n  )\n\n# A tibble: 1 × 3\n  mean_rate median_rate max_rate\n      &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;\n1      96.9          82     292."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#whos-dragging-the-mean",
+    "href": "slides/week-02-descriptives.html#whos-dragging-the-mean",
+    "title": "Descriptive Statistics",
+    "section": "Who’s Dragging the Mean?",
+    "text": "Who’s Dragging the Mean?\n\nareas |&gt; slice_max(crime_rate, n = 3) |&gt; select(community, crime_rate)\n\n# A tibble: 3 × 2\n  community          crime_rate\n  &lt;chr&gt;                   &lt;dbl&gt;\n1 Fuller Park              292.\n2 West Garfield Park       220.\n3 Englewood                214.\n\n\nThe Loop’s rate (driven by a small residential population and huge daytime crowds) pulls the mean above the median — same lesson as the 30-year sentence, in live data."
   },
   {
     "objectID": "slides/week-02-descriptives.html#the-same-thing-in-real-data-1",
@@ -1523,7 +1614,14 @@
     "href": "slides/week-04-sampling-distributions.html#divide-by-n-and-youre-biased",
     "title": "Sampling Distributions",
     "section": "Divide by n, and You’re Biased",
-    "text": "Divide by n, and You’re Biased\n\nvariance_sims |&gt;\n  summarize(\n    true_variance   = var_pop,\n    avg_divide_by_n = mean(var_div_n),\n    avg_divide_by_n_minus_1 = mean(var_div_nm1)\n  )\n\n# A tibble: 1 × 3\n  true_variance avg_divide_by_n avg_divide_by_n_minus_1\n          &lt;dbl&gt;           &lt;dbl&gt;                   &lt;dbl&gt;\n1          224.            179.                    224.\n\n\n\nDividing by n systematically underestimates the population variance — across 5,000 samples, not occasionally\nWhy? A sample clusters around its own mean, which is always closer to the sample’s values than the true mean is — so measured spread comes up short\nDividing by n − 1 inflates each estimate just enough to land, on average, on the truth. That’s all “unbiased estimator” means"
+    "text": "Divide by n, and You’re Biased\n\nvariance_sims |&gt;\n  summarize(\n    true_variance   = var_pop,\n    avg_divide_by_n = mean(var_div_n),\n    avg_divide_by_n_minus_1 = mean(var_div_nm1)\n  )\n\n# A tibble: 1 × 3\n  true_variance avg_divide_by_n avg_divide_by_n_minus_1\n          &lt;dbl&gt;           &lt;dbl&gt;                   &lt;dbl&gt;\n1          224.            179.                    224."
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#divide-by-n-and-youre-biased-cont.",
+    "href": "slides/week-04-sampling-distributions.html#divide-by-n-and-youre-biased-cont.",
+    "title": "Sampling Distributions",
+    "section": "Divide by n, and You’re Biased (cont.)",
+    "text": "Divide by n, and You’re Biased (cont.)\n\nDividing by n systematically underestimates the population variance — across 5,000 samples, not occasionally\nWhy? A sample clusters around its own mean, which is always closer to the sample’s values than the true mean is — so measured spread comes up short\nDividing by n − 1 inflates each estimate just enough to land, on average, on the truth. That’s all “unbiased estimator” means"
   },
   {
     "objectID": "slides/week-04-sampling-distributions.html#what-if-the-population-is-unknown",
@@ -1544,7 +1642,14 @@
     "href": "slides/week-04-sampling-distributions.html#in-class-exercise-probabilities-in-the-long-run",
     "title": "Sampling Distributions",
     "section": "In-Class Exercise: Probabilities in the Long Run",
-    "text": "In-Class Exercise: Probabilities in the Long Run\nWork in pairs; record your code and results in a script.\n\nLong run: simulate 10,000 rolls of a fair die and get the proportion of each face (sample(), count()). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?\nKnown population: create rnorm(10000, mean = 100, sd = 15), plot it, and mark the 1st/5th/95th percentiles with quantile(). Draw a sample of 30 — where does its mean fall?\nUnknown population: run unknown_pop &lt;- rnorm(1000, 100, 50) without plotting it. Sample 30 values, plot the sample, and write down what you’d conclude about the population. Then peek. Were you right?"
+    "text": "In-Class Exercise: Probabilities in the Long Run\nWork in pairs; record your code and results in a script.\n\nLong run: simulate 10,000 rolls of a fair die and get the proportion of each face (sample(), count()). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?\nKnown population: create rnorm(10000, mean = 100, sd = 15), plot it, and mark the 1st/5th/95th percentiles with quantile(). Draw a sample of 30 — where does its mean fall?"
+  },
+  {
+    "objectID": "slides/week-04-sampling-distributions.html#in-class-exercise-cont.",
+    "href": "slides/week-04-sampling-distributions.html#in-class-exercise-cont.",
+    "title": "Sampling Distributions",
+    "section": "In-Class Exercise (cont.)",
+    "text": "In-Class Exercise (cont.)\n\nUnknown population: run unknown_pop &lt;- rnorm(1000, 100, 50) without plotting it. Sample 30 values, plot the sample, and write down what you’d conclude about the population. Then peek. Were you right?"
   },
   {
     "objectID": "slides/week-04-sampling-distributions.html#todays-lab-homework",

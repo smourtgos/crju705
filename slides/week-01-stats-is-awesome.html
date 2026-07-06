@@ -736,37 +736,37 @@ Levels: blue red</code></pre>
 4 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1</code></pre>
 </div>
 </div>
+
+<aside><div>
+<p>The <code>|&gt;</code> symbol is the <strong>pipe</strong>: <code>x |&gt; f()</code> means <code>f(x)</code> — “take x, <em>then</em> do f.” Older code (including the Stanton book) writes it <code>%&gt;%</code>; they work the same way for everything we do.</p>
+</div></aside></section>
+<section id="select-pick-columns" class="slide level2">
+<h2>select — pick columns</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">select</span>(model, mpg, cyl, hp) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  model            mpg   cyl    hp
+  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Mazda RX4       21       6   110
+2 Mazda RX4 Wag   21       6   110
+3 Datsun 710      22.8     4    93
+4 Hornet 4 Drive  21.4     6   110</code></pre>
+</div>
+</div>
 </section>
-<section id="select-filter" class="slide level2">
-<h2>select &amp; filter</h2>
+<section id="filter-pick-rows" class="slide level2">
+<h2>filter — pick rows</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">select</span>(model, mpg, cyl, hp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 32 × 4
-  model               mpg   cyl    hp
-  &lt;chr&gt;             &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 Mazda RX4          21       6   110
-2 Mazda RX4 Wag      21       6   110
-3 Datsun 710         22.8     4    93
-4 Hornet 4 Drive     21.4     6   110
-5 Hornet Sportabout  18.7     8   175
-6 Valiant            18.1     6   105
-# ℹ 26 more rows</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 12
+<pre><code># A tibble: 4 × 12
   model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 Mazda RX4     21       6  160    110  3.9   2.62  16.5     0     1     4     4
-2 Mazda RX4 W…  21       6  160    110  3.9   2.88  17.0     0     1     4     4
-3 Hornet 4 Dr…  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
-4 Valiant       18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
-5 Merc 280      19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-6 Merc 280C     17.8     6  168.   123  3.92  3.44  18.9     1     0     4     4
-7 Ferrari Dino  19.7     6  145    175  3.62  2.77  15.5     0     1     5     6</code></pre>
+1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4
+2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+3 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+4 Valiant       18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</code></pre>
 </div>
 </div>
 </section>
@@ -797,9 +797,17 @@ Levels: blue red</code></pre>
 3     8    15.1    14</code></pre>
 </div>
 </div>
+</section>
+<section id="your-turn" class="slide level2">
+<h2>Your Turn</h2>
 <div class="your-turn">
-<p><strong>Your turn:</strong> using the built-in <code>mpg</code> data — (1) find the top-3 models by <code>hwy</code>; (2) compute average <code>cty</code> by <code>class</code>.</p>
+<p>Using the built-in <code>mpg</code> data:</p>
+<ol type="1">
+<li>Find the top-3 models by <code>hwy</code>.</li>
+<li>Compute the average <code>cty</code> by <code>class</code>.</li>
+</ol>
 </div>
+<p><em>(Hints: <code>arrange(desc(...))</code>, <code>slice_head()</code>, and <code>summarize(..., .by = ...)</code> — all from your R4DS Ch. 3 reading next week.)</em></p>
 </section>
 <section id="coming-attractions-real-data-all-semester" class="slide level2">
 <h2>Coming Attractions: Real Data, All Semester</h2>

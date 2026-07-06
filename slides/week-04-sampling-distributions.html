@@ -584,6 +584,9 @@ heads tails
 1          224.            179.                    224.</code></pre>
 </div>
 </div>
+</section>
+<section id="divide-by-n-and-youre-biased-cont." class="slide level2">
+<h2>Divide by n, and You’re Biased (cont.)</h2>
 <ul>
 <li class="fragment">Dividing by n <strong>systematically underestimates</strong> the population variance — across 5,000 samples, not occasionally</li>
 <li class="fragment">Why? A sample clusters around <em>its own</em> mean, which is always closer to the sample’s values than the true mean is — so measured spread comes up short</li>
@@ -619,6 +622,11 @@ heads tails
 <ol type="1">
 <li><strong>Long run:</strong> simulate 10,000 rolls of a fair die and get the proportion of each face (<code>sample()</code>, <code>count()</code>). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?</li>
 <li><strong>Known population:</strong> create <code>rnorm(10000, mean = 100, sd = 15)</code>, plot it, and mark the 1st/5th/95th percentiles with <code>quantile()</code>. Draw a sample of 30 — where does its mean fall?</li>
+</ol>
+</section>
+<section id="in-class-exercise-cont." class="slide level2">
+<h2>In-Class Exercise (cont.)</h2>
+<ol start="3" type="1">
 <li><strong>Unknown population:</strong> run <code>unknown_pop &lt;- rnorm(1000, 100, 50)</code> <em>without plotting it</em>. Sample 30 values, plot the sample, and write down what you’d conclude about the population. <em>Then</em> peek. Were you right?</li>
 </ol>
 </section>

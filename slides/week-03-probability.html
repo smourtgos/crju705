@@ -211,6 +211,7 @@ Scott M. Mourtgos
 <h2>Week 2 Follow-Up</h2>
 <p><strong>Homework 2</strong> — questions on central tendency, dispersion, or the distributions?</p>
 <p>Anything from Lab 2 (ggplot) still shaky? We use every one of those tools again today.</p>
+<p><strong>R4DS thread:</strong> you read Ch. 3 (Data transformation) &amp; Ch. 4 (Code style) — today’s lab puts them to work.</p>
 </section>
 <section id="this-week" class="slide level2">
 <h2>This Week</h2>
@@ -222,7 +223,6 @@ Scott M. Mourtgos
 </ul>
 <p><strong>Learning goals:</strong> use outcome tables to reason about a simple set of random events, and contingency tables to reason about <em>linked</em> events; generate and plot random distributions in R.</p>
 <p><strong>Today’s rule:</strong> don’t take a probability claim on faith — <strong>simulate it and watch it happen</strong>.</p>
-<p><strong>R4DS thread:</strong> you read Ch. 3 (Data transformation) &amp; Ch. 4 (Code style) — today’s lab puts them to work.</p>
 </section>
 <section>
 <section id="what-is-a-probability" class="title-slide slide level1 center" data-background-color="#73000A">
@@ -328,6 +328,9 @@ Scott M. Mourtgos
 <li>One piece of toast falling = one <strong>event</strong></li>
 <li>One dropped order of six = one <strong>trial</strong></li>
 </ul>
+</section>
+<section id="the-toast-data-100-dropped-orders" class="slide level2">
+<h2>The Toast Data: 100 Dropped Orders</h2>
 <p>Here’s data from 100 trials:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>toast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -367,7 +370,7 @@ Scott M. Mourtgos
 </div>
 </div>
 <div class="fragment">
-<p>Probability rule #1: probabilities across <strong>all</strong> possible outcomes sum to 1. Data built from proportions can’t help but obey:</p>
+<p>Rule #1: probabilities across <strong>all</strong> outcomes sum to 1:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>toast <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">total_prob =</span> <span class="fu">sum</span>(trials <span class="sc">/</span> <span class="fu">sum</span>(trials)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -438,6 +441,11 @@ Scott M. Mourtgos
 <span id="cb20-4"><a></a>    <span class="at">simulated   =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n),</span>
 <span id="cb20-5"><a></a>    <span class="at">theoretical =</span> <span class="fu">dbinom</span>(jelly_down, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
 <span id="cb20-6"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<p>At 100,000 trials, simulated and theoretical probabilities agree to within a few thousandths. Theory is the long run; simulation is how we <em>watch</em> the long run.</p>
+</section>
+<section id="the-long-run-tames-the-wobble-output" class="slide level2 output-location-slide"><h2>The Long Run Tames the Wobble</h2><div class="cell output-location-slide">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 4
   jelly_down     n simulated theoretical
@@ -450,10 +458,7 @@ Scott M. Mourtgos
 6          5  9418    0.0942      0.0937
 7          6  1649    0.0165      0.0156</code></pre>
 </div>
-</div>
-<p>At 100,000 trials, simulated and theoretical probabilities agree to within a few thousandths. Theory is the long run; simulation is how we <em>watch</em> the long run.</p>
-</section>
-<section id="cumulative-probabilities" class="slide level2">
+</div></section><section id="cumulative-probabilities" class="slide level2">
 <h2>Cumulative Probabilities</h2>
 <p>“What’s the probability of <strong>3 or fewer</strong> jelly-down?” Add up the outcomes as you go:</p>
 <div class="cell">
@@ -512,6 +517,11 @@ Scott M. Mourtgos
 </ul>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>toast10 <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">sum</span>(n), <span class="at">.by =</span> landed)    <span class="co"># column margins</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<p>The row/column sums live in the <em>margins</em> of the table — hence <strong>marginal</strong> probabilities.</p>
+</section>
+<section id="marginal-totals-answer-questions-output" class="slide level2 output-location-slide"><h2>Marginal Totals Answer Questions</h2><div class="cell output-location-slide">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   landed     n
@@ -531,10 +541,7 @@ Scott M. Mourtgos
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
-</div>
-<p>The row/column sums live in the <em>margins</em> of the table — hence <strong>marginal</strong> probabilities.</p>
-</section>
-<section id="super-challenge-does-the-topping-matter" class="slide level2">
+</div></section><section id="super-challenge-does-the-topping-matter" class="slide level2">
 <h2>Super Challenge: Does the Topping Matter?</h2>
 <p>Jelly landed down 2/3 of the time (0.67); butter 3/7 (0.43). Is jelly <em>really</em> doomed — or is 10 pieces of toast just a short run? <strong>Simulate a world where topping makes no difference:</strong></p>
 <div class="cell">
@@ -549,7 +556,11 @@ Scott M. Mourtgos
 <pre><code>[1] 0.611</code></pre>
 </div>
 </div>
-<p>Even with <strong>no real difference</strong>, chance alone produces a gap at least this big well over half the time. Ten drops can’t answer the question. <em>(This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)</em></p>
+</section>
+<section id="super-challenge-the-verdict" class="slide level2">
+<h2>Super Challenge: The Verdict</h2>
+<p>Even with <strong>no real difference</strong>, chance alone produces a gap at least this big well over half the time. Ten drops can’t answer the question.</p>
+<p><em>(This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)</em></p>
 </section>
 <section id="a-real-contingency-table" class="slide level2">
 <h2>A Real Contingency Table</h2>
@@ -569,8 +580,8 @@ Scott M. Mourtgos
 </div>
 <p><code>count()</code> gets the cell counts; <code>pivot_wider()</code> lays them out as the table. This is today’s lab skill set doing probability work.</p>
 </section>
-<section id="joint-and-marginal-probabilities-for-real" class="slide level2">
-<h2>Joint and Marginal Probabilities, For Real</h2>
+<section id="joint-probabilities-for-real" class="slide level2">
+<h2>Joint Probabilities, For Real</h2>
 <p><strong>Joint</strong> — divide every cell by the grand total:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>crimes <span class="sc">|&gt;</span></span>
@@ -588,7 +599,10 @@ Scott M. Mourtgos
 6 Violent        TRUE    1454 0.0485</code></pre>
 </div>
 </div>
-<div class="fragment">
+<p>P(Property <strong>and</strong> arrest) ≈ 0.025 — a joint probability.</p>
+</section>
+<section id="marginal-probabilities-for-real" class="slide level2">
+<h2>Marginal Probabilities, For Real</h2>
 <p><strong>Marginal</strong> — collapse one classification:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(crime_category) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -601,8 +615,7 @@ Scott M. Mourtgos
 3 Violent         9148 0.305</code></pre>
 </div>
 </div>
-<p>P(Property <strong>and</strong> arrest) ≈ 0.025 — a joint probability. P(Property) ≈ 0.35 — a marginal one.</p>
-</div>
+<p>P(Property) ≈ 0.35 — a marginal probability, next to the joint P(Property <strong>and</strong> arrest) ≈ 0.025 from the last slide.</p>
 </section></section>
 <section>
 <section id="conditional-probability" class="title-slide slide level1 center" data-background-color="#1B2A4A">
@@ -623,8 +636,7 @@ Scott M. Mourtgos
 <span id="cb39-8"><a></a>  <span class="st">"Saturday"</span>,      <span class="dv">8</span>,    <span class="dv">10</span>,       <span class="dv">8</span>,      <span class="dv">8</span>,</span>
 <span id="cb39-9"><a></a>  <span class="st">"Sunday"</span>,        <span class="dv">0</span>,     <span class="dv">3</span>,       <span class="dv">6</span>,      <span class="dv">0</span></span>
 <span id="cb39-10"><a></a>)</span>
-<span id="cb39-11"><a></a>hours_long <span class="ot">&lt;-</span> hours <span class="sc">|&gt;</span></span>
-<span id="cb39-12"><a></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>day, <span class="at">names_to =</span> <span class="st">"server"</span>, <span class="at">values_to =</span> <span class="st">"hours"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb39-11"><a></a>hours_long <span class="ot">&lt;-</span> hours <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>day, <span class="at">names_to =</span> <span class="st">"server"</span>, <span class="at">values_to =</span> <span class="st">"hours"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Two interesting questions:</p>
 <ol type="1">
@@ -662,6 +674,11 @@ Scott M. Mourtgos
 <span id="cb42-2"><a></a>  <span class="fu">filter</span>(server <span class="sc">==</span> <span class="st">"Bill"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb42-3"><a></a>  <span class="fu">mutate</span>(<span class="at">p_day_given_bill =</span> hours <span class="sc">/</span> <span class="fu">sum</span>(hours)) <span class="sc">|&gt;</span></span>
 <span id="cb42-4"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p_day_given_bill))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<p>Most likely Saturday (0.26). That renormalization — <em>shrink the world to the condition, then re-proportion</em> — <strong>is</strong> conditional probability, and it’s the core move behind Bayes’ theorem later in the course.</p>
+</section>
+<section id="question-1-bill-is-your-server-what-day-is-it-output" class="slide level2 output-location-slide"><h2>Question 1: Bill Is Your Server — What Day Is It?</h2><div class="cell output-location-slide">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 4
   day       server hours p_day_given_bill
@@ -674,10 +691,7 @@ Scott M. Mourtgos
 6 Sunday    Bill       3           0.0789
 7 Monday    Bill       0           0     </code></pre>
 </div>
-</div>
-<p>Most likely Saturday (0.26). That renormalization — <em>shrink the world to the condition, then re-proportion</em> — <strong>is</strong> conditional probability, and it’s the core move behind Bayes’ theorem later in the course.</p>
-</section>
-<section id="question-2-its-monday-whos-serving" class="slide level2">
+</div></section><section id="question-2-its-monday-whos-serving" class="slide level2">
 <h2>Question 2: It’s Monday — Who’s Serving?</h2>
 <p>Same move, conditioning the other way:</p>
 <div class="cell">
@@ -749,6 +763,9 @@ Scott M. Mourtgos
 </div>
 </div>
 <p>P(arrest | domestic) and P(arrest | not domestic) are essentially identical to the overall P(arrest) — in this sample, knowing an incident was domestic tells you almost nothing about arrest.</p>
+</section>
+<section id="independence-defined" class="slide level2">
+<h2>Independence, Defined</h2>
 <p><strong>Definition:</strong> A and B are <strong>independent</strong> when P(A | B) = P(A). Conditioning that moves the number = dependence; conditioning that doesn’t = independence.</p>
 </section>
 <section id="todays-lab-homework" class="slide level2">
