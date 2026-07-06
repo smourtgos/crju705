@@ -40,6 +40,9 @@ execute:
 
 - `echo: true` is the default — students should see code. Use `#| echo: false` per-chunk for pure-figure slides.
 - NO `embed-resources: true` — slides are served from the site; Quarto manages `*_files/`.
+- **Videos: use plain `<video>` tags, NEVER the `{{< video >}}` shortcode.** The shortcode's video.js "fluid" player mis-sizes in reveal slides (clips, then letterboxes in a black box). Pattern:
+  `<video src="../media/week-NN/file.mp4" controls preload="metadata"></video>`
+  Slide CSS caps videos at 480px tall; on a slide where anything sits below/beside the video, add an explicit smaller `style="max-height:430px;"` or use columns.
 - First chunk is always:
 
 ````
