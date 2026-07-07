@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homework 11 · Cleaning Data for Regression + Project Checkpoint 3 – CRJU 705</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">CRJU 705</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="../weeks/week-01.html">
+ <span class="dropdown-text">Session 1 · Intro &amp; R Setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-02.html">
+ <span class="dropdown-text">Session 2 · Descriptive Statistics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-03.html">
+ <span class="dropdown-text">Session 3 · Probability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-04.html">
+ <span class="dropdown-text">Session 4 · Sampling Distributions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-05.html">
+ <span class="dropdown-text">Session 5 · Confidence Intervals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-06.html">
+ <span class="dropdown-text">Session 6 · Hypothesis Testing (Freq + Bayes)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-07.html">
+ <span class="dropdown-text">Session 7 · Applied Data Workshop</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-08.html">
+ <span class="dropdown-text">Session 8 · ANOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-09.html">
+ <span class="dropdown-text">Session 9 · Midterm</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 10 · Correlation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-11.html">
+ <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-12.html">
+ <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-13.html">
+ <span class="dropdown-text">Session 13 · Project Help Session</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-14.html">
+ <span class="dropdown-text">Session 14 · Presentations</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../chicago-data.html"> 
+<span class="menu-text">Data Codebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../final-project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/smourtgos/crju705"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#part-1-find-the-dirt-fix-the-dirt" id="toc-part-1-find-the-dirt-fix-the-dirt" class="nav-link" data-scroll-target="#part-1-find-the-dirt-fix-the-dirt">Part 1: Find the Dirt, Fix the Dirt</a></li>
+  <li><a href="#part-2-regression-before-and-after-cleaning" id="toc-part-2-regression-before-and-after-cleaning" class="nav-link" data-scroll-target="#part-2-regression-before-and-after-cleaning">Part 2: Regression, Before and After Cleaning</a></li>
+  <li><a href="#part-3-project-checkpoint-3" id="toc-part-3-project-checkpoint-3" class="nav-link" data-scroll-target="#part-3-project-checkpoint-3">Part 3: Project Checkpoint 3</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-11.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homework 11 · Cleaning Data for Regression + Project Checkpoint 3</h1>
+<p class="subtitle lead">CRJU 705 · due before noon Tuesday ahead of Session 12</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Instructions:</strong> complete the following exercises in a single <code>.R</code> script file. Your script must run top-to-bottom when I execute it, with answers to interpretive questions in <code>#comments</code>. Submit your <code>.R</code> file via <strong>Canvas</strong> for credit.</p>
+<p>As you begin working with your final-project data, you will quickly discover that most of your time is spent <strong>cleaning</strong> the data — getting it into a shape where a model will even run, and where the numbers it returns mean what you think they mean. That’s not a detour from analysis; it <em>is</em> analysis. This homework makes the point the honest way: you’ll clean a dirty file, then watch what regression does <strong>before and after</strong> you cleaned it.</p>
+<p>Do not shortcut Part 1. Every minute you spend on these verbs now is an hour saved on your final project. (If any verb feels shaky, the reference chapter is <a href="https://r4ds.hadley.nz/data-transform.html">R4DS Ch. 3, Data transformation</a> — the same toolkit from Labs 3–6.)</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>officers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/officers.csv"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(officers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The file holds survey records for <strong>200 correctional officers</strong> (simulated, but realistically messy): facility, shift, tenure, monthly overtime hours, hours of sleep, and a <strong>burnout score that is supposed to run 0–100</strong>. Your eventual model: <code>burnout ~ overtime_hours_mo + sleep_hours</code>.</p>
+</section>
+<section id="part-1-find-the-dirt-fix-the-dirt" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-find-the-dirt-fix-the-dirt">Part 1: Find the Dirt, Fix the Dirt</h2>
+<ol type="1">
+<li><p><strong>First pass.</strong> Run <code>summary()</code> on the data (or on the numeric columns). <strong>In a comment:</strong> identify <strong>two impossible values</strong> hiding in variables your model needs. (Hint: check each variable’s minimum and maximum against what the variable <em>is</em>.)</p></li>
+<li><p><strong>Categorical hygiene.</strong> Run <code>count(officers, shift)</code>. <strong>In a comment:</strong> what went wrong in data entry? Fix it with <code>mutate()</code> + <code>str_to_title()</code>, then re-run <code>count()</code> to confirm exactly three shifts remain — and report the three counts.</p></li>
+<li><p><strong>Sentinels to NA.</strong> The burnout instrument’s codebook says <strong>999 = “declined to answer.”</strong> That is a <em>code</em>, not a score — left as a number, it will poison every mean, SD, and slope downstream. Convert it: <code>mutate(burnout = na_if(burnout, 999))</code>. Then deal with the impossible overtime value the same general way (negative hours cannot happen; make it <code>NA</code> — <code>if_else()</code> is one route). <strong>In a comment:</strong> how many <code>NA</code>s does each of your two repaired variables now contain?</p></li>
+<li><p><strong>Build the analysis file.</strong> Create <code>officers_clean</code> by dropping the rows with <code>NA</code> on any model variable: <code>drop_na(burnout, overtime_hours_mo, sleep_hours)</code>. <strong>In a comment:</strong> how many rows did you lose, and out of how many?</p></li>
+<li><p><strong>Grouped summary practice.</strong> On <code>officers_clean</code>, compute the mean burnout score and the number of officers <strong>per facility</strong> (<code>summarize()</code> with <code>.by = facility</code>), and <code>arrange()</code> the result in descending order. <strong>In a comment:</strong> which facility reports the highest average burnout, and is the gap between facilities large relative to burnout’s SD?</p></li>
+</ol>
+</section>
+<section id="part-2-regression-before-and-after-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-regression-before-and-after-cleaning">Part 2: Regression, Before and After Cleaning</h2>
+<ol start="6" type="1">
+<li><p><strong>Fit the dirty model.</strong> On the <strong>original</strong> <code>officers</code> data, fit <code>lm(burnout ~ overtime_hours_mo + sleep_hours)</code>. Look at <code>summary()</code>, then make the residuals-vs-fitted plot from Lab 11. <strong>In a comment:</strong> what in the plot (and in the residual standard error) screams that something is wrong? Remember the outcome is supposed to live between 0 and 100.</p></li>
+<li><p><strong>Fit the clean model.</strong> Same formula on <code>officers_clean</code>. <strong>In a comment:</strong> compare the residual standard error across the two fits, and explain <em>why</em> a handful of 999s did that much damage. (Think about what least squares does to a residual of ~900 when it <strong>squares</strong> it.)</p></li>
+<li><p><strong>Interpret the clean model honestly.</strong> Look at the coefficients and <code>confint()</code>, and run <code>vif()</code>. <strong>In comments:</strong></p>
+<ul>
+<li>One holding-constant sentence per predictor — <em>including the direction and size</em> of each estimated coefficient.</li>
+<li>Neither predictor reaches conventional significance in this sample. Write the honest version of that finding in one sentence — what the data do and don’t show about overtime, sleep, and burnout here. (“We found no reliable association…” is a legitimate scientific result, not a failure. You will need this sentence again in your career, probably often.)</li>
+<li>What does the VIF tell you about these two predictors?</li>
+</ul></li>
+<li><p><strong>The Bayesian check.</strong> Fit the clean model with <code>brms</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>burnout_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(burnout <span class="sc">~</span> overtime_hours_mo <span class="sc">+</span> sleep_hours,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> officers_clean,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(burnout_bayes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>In a comment:</strong> do the 95% credible intervals include 0? Write one Bayesian sentence about the sleep coefficient, and say whether the two traditions agree here.</p></li>
+</ol>
+</section>
+<section id="part-3-project-checkpoint-3" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-project-checkpoint-3">Part 3: Project Checkpoint 3</h2>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>This section uses YOUR final-project dataset.</strong> Checkpoint 3 of 4: you described your variables in Checkpoint 1 and explored the bivariate relationships in Checkpoint 2 — now you fit the <strong>first regression model</strong> of your project. Like the others, it is graded on <strong>completion and quality of reasoning</strong> — not on whether the model comes out significant, and not on polish. A model that comes out null, weird, or broken — <em>noticed and discussed</em> — is a successful checkpoint.</p>
+</div>
+</div>
+</div>
+<p>In a clearly marked section at the end of your <code>.R</code> script (e.g., <code># ---- PROJECT CHECKPOINT 3 ----</code>):</p>
+<ol type="1">
+<li><p><strong>Fit a first regression model:</strong> your outcome regressed on <strong>2–3 predictors</strong> (the ones your Checkpoint 2 exploration made most promising).</p>
+<ul>
+<li>If your outcome is <strong>continuous</strong> (or close to it), use <code>lm()</code> — this is your tool.</li>
+<li>If your outcome is <strong>binary</strong> (yes/no, arrest/no arrest, recidivated/didn’t), <strong>say so in a comment</strong> — the right tool is <em>logistic regression</em>, which is exactly what Session 12 covers. For now, fit the linear model anyway as a rough first pass (with a binary outcome its coefficients read approximately as changes in the <em>probability</em> of a “yes”), and label it clearly as a placeholder you’ll replace next week.</li>
+</ul></li>
+<li><p><strong>Report and interpret the coefficients:</strong> one plain-language, holding-constant sentence per predictor, <strong>with units</strong> — plus one sentence on R² (or note that R² will make more sense post-logistic if your outcome is binary).</p></li>
+<li><p><strong>One diagnostic check:</strong> a residuals-vs-fitted plot <em>or</em> <code>vif()</code> (VIF only makes sense with 2+ predictors — running both earns no extra credit but will earn my respect). One comment on what it shows.</p></li>
+<li><p><strong>Write a short paragraph</strong> (comment block, roughly 5–8 sentences): what does this first model say about your research question? Which coefficient is most interesting, and is its direction what you predicted in Checkpoint 1? Name <strong>one lurking variable your model cannot hold constant</strong> because your dataset doesn’t measure it. And if anything looks broken — a nonsense coefficient, an outcome that clearly isn’t continuous, residuals doing something alarming — say so plainly and come see me. Catching it <em>now</em> is the checkpoint working.</p></li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CRJU 705 · Fall 2026 · Scott M. Mourtgos · University of South Carolina</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

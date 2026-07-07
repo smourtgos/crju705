@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <meta name="author" content="Scott M. Mourtgos">
+  <title>CRJU 705 – Logistic Regression: Yes/No Outcomes</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <script src="../site_libs/plotly-binding-4.11.0/plotly.js"></script>
+  <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+  <script src="../site_libs/jquery-3.5.1/jquery.min.js"></script>
+  <link href="../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+  <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+  <link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+  <script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Logistic Regression: Yes/No Outcomes</h1>
+  <p class="subtitle">CRJU 705 · Session 12 · Fall 2026</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Scott M. Mourtgos 
+</div>
+</div>
+</div>
+
+</section>
+<section id="this-week" class="slide level2">
+<h2>This Week</h2>
+<p><strong>Topic:</strong> logistic regression — modeling outcomes that are <em>yes or no</em></p>
+<ul>
+<li>Why <code>lm()</code> breaks when the outcome is 0/1</li>
+<li>Odds, log-odds, and the <strong>odds ratio</strong> — the currency of logistic regression</li>
+<li><code>glm(family = binomial)</code>, predicted probabilities, and the Bayesian version with <code>brms</code></li>
+</ul>
+<p><strong>Learning goals:</strong> fit a logistic regression in both traditions; translate coefficients into odds ratios <em>and</em> predicted probabilities; say the results in plain language without confusing odds with probability.</p>
+<p><strong>Also today:</strong> the course pays off a promise it made in Session 1.</p>
+</section>
+<section id="where-weve-been" class="slide level2">
+<h2>Where We’ve Been</h2>
+<ul>
+<li class="fragment"><strong>Session 10:</strong> correlation — how two continuous variables move together</li>
+<li class="fragment"><strong>Session 11:</strong> multiple regression — a <em>plane</em> through a 3D cloud of points, minimizing squared error, each coefficient’s effect holding the others constant (and lurking variables like the ice-cream/drowning lurker handled by putting them <em>in</em> the model)</li>
+<li class="fragment">Every model so far predicted a <strong>number</strong>: a crime rate, an incident hour, a chick’s weight</li>
+<li class="fragment"><strong>Today:</strong> what happens when the outcome only has two values — arrest or no arrest, reoffend or desist, hit again or not?</li>
+</ul>
+</section>
+<section>
+<section id="the-problem-yesno-outcomes" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>The Problem: Yes/No Outcomes</h1>
+
+</section>
+<section id="criminal-justice-runs-on-binary-outcomes" class="slide level2">
+<h2>Criminal Justice Runs on Binary Outcomes</h2>
+<ul>
+<li>Was an <strong>arrest</strong> made?</li>
+<li>Does the defendant <strong>fail to appear</strong>?</li>
+<li>Is the parolee <strong>re-arrested</strong> within three years?</li>
+<li>Did the crash involve an <strong>intoxicated driver</strong>?</li>
+<li>Is this neighborhood a <strong>high-violence</strong> area?</li>
+</ul>
+<div class="fragment">
+<p>Linear regression predicts <em>continuous</em> outcomes (crime rates, response times). <strong>Logistic regression predicts binary outcomes</strong> — its currency is <strong>probability (0 to 1)</strong>, expressed along the way as odds and log-odds.</p>
+</div>
+</section>
+<section id="session-1-made-you-a-promise" class="slide level2">
+<h2>Session 1 Made You a Promise</h2>
+<p>Remember the opening case study? <strong>40 bank robberies, five zones</strong>, one question: <em>where will they hit next?</em></p>
+<ul>
+<li class="fragment">We built <code>future_hit</code> = 1 if the same zone was hit again within 10 days, 0 otherwise</li>
+<li class="fragment">We fit a model, showed you a coefficient table nobody could read yet, and sent the patrol cars to the <strong>West Zone</strong> — where the robber was caught</li>
+<li class="fragment">That slide said: <em>“Don’t worry about the machinery today — logistic regression is Session 12.”</em></li>
+</ul>
+<div class="fragment">
+<p><strong>Today is Session 12.</strong> Let’s reopen the machinery.</p>
+</div>
+</section>
+<section id="the-machinery-reopened" class="slide level2">
+<h2>The Machinery, Reopened</h2>
+<p>The exact model from Session 1 — one function, one <code>family</code> argument:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>robbery_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb1-2"><a></a>  future_hit <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> <span class="fu">scale</span>(day_of_year) <span class="sc">+</span> prior_robberies_in_zone <span class="sc">+</span> zone,</span>
+<span id="cb1-3"><a></a>  <span class="at">data =</span> robberies, <span class="at">family =</span> binomial</span>
+<span id="cb1-4"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><code>glm()</code> = <em>generalized</em> linear model — regression’s family business</li>
+<li><code>family = binomial</code> is the switch that makes it <strong>logistic</strong>: predict a 0/1 outcome</li>
+<li>Everything else looks exactly like the <code>lm()</code> formulas from Session 11</li>
+</ul>
+</section>
+<section id="the-table-you-couldnt-read-in-august" class="slide level2">
+<h2>The Table You Couldn’t Read in August</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 12%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+<th style="text-align: right;">odds_ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">scale(day_of_year)</td>
+<td style="text-align: right;">0.034</td>
+<td style="text-align: right;">1.055</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.975</td>
+<td style="text-align: right;">1.034</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">prior_robberies_in_zone</td>
+<td style="text-align: right;">-0.033</td>
+<td style="text-align: right;">0.194</td>
+<td style="text-align: right;">-0.171</td>
+<td style="text-align: right;">0.864</td>
+<td style="text-align: right;">0.967</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zoneNorth</td>
+<td style="text-align: right;">-17.528</td>
+<td style="text-align: right;">3956.181</td>
+<td style="text-align: right;">-0.004</td>
+<td style="text-align: right;">0.996</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">zoneSouth</td>
+<td style="text-align: right;">-17.563</td>
+<td style="text-align: right;">2284.020</td>
+<td style="text-align: right;">-0.008</td>
+<td style="text-align: right;">0.994</td>
+<td style="text-align: right;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zoneEast</td>
+<td style="text-align: right;">-1.309</td>
+<td style="text-align: right;">1.328</td>
+<td style="text-align: right;">-0.986</td>
+<td style="text-align: right;">0.324</td>
+<td style="text-align: right;">0.270</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">zoneWest</td>
+<td style="text-align: right;">1.114</td>
+<td style="text-align: right;">2.053</td>
+<td style="text-align: right;">0.543</td>
+<td style="text-align: right;">0.587</td>
+<td style="text-align: right;">3.047</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zoneDowntown</td>
+<td style="text-align: right;">-0.979</td>
+<td style="text-align: right;">1.149</td>
+<td style="text-align: right;">-0.852</td>
+<td style="text-align: right;">0.394</td>
+<td style="text-align: right;">0.376</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="reading-it-with-todays-eyes" class="slide level2">
+<h2>Reading It With Today’s Eyes</h2>
+<ul>
+<li class="fragment">The <code>estimate</code> column is in <strong>log-odds</strong> — that’s why it looked like gibberish in August; by the end of today it won’t</li>
+<li class="fragment"><code>exp(estimate)</code> turns each one into an <strong>odds ratio</strong> — West’s is by far the largest, which is why West had the highest predicted probability of a repeat hit. <em>That’s</em> why the cars went west.</li>
+<li class="fragment">Those −17.5s with standard errors in the thousands? North and South never saw a repeat hit within 10 days — with <strong>zero events</strong>, the model can’t estimate their log-odds. 39 robberies is small data, and the output says so honestly.</li>
+</ul>
+</section>
+<section id="logistic-vs.-linear-the-road-and-the-hill" class="slide level2">
+<h2>Logistic vs.&nbsp;Linear: The Road and the Hill</h2>
+<p>Linear regression is a <strong>straight road</strong> — it keeps going forever in both directions. Logistic regression is a <strong>curved hill</strong> that flattens at 0 and 1, because probabilities can’t go below 0 or above 1.</p>
+
+<img data-src="week-12-logistic_files/figure-revealjs/road-hill-1.png" width="960" class="r-stretch"></section>
+<section id="watch-linear-regression-fail" class="slide level2">
+<h2>Watch Linear Regression Fail</h2>
+<p>Predicting <em>graduated the academy (yes/no)</em> from study hours:</p>
+
+<img data-src="week-12-logistic_files/figure-revealjs/linear-fails-1.png" width="960" class="r-stretch"></section>
+<section id="what-went-wrong" class="slide level2">
+<h2>What Went Wrong</h2>
+<ul>
+<li class="fragment">The linear model happily predicts values like <strong>1.2</strong> and <strong>−0.3</strong> — probabilities that cannot exist</li>
+<li class="fragment">Inside the middle of the data the two lines nearly agree; the damage is at the edges — exactly where predictions get used (“what about a recruit who studies <em>a lot</em>?”)</li>
+<li class="fragment">The fix is the <strong>logit transformation</strong>: instead of modeling the probability directly, model something built from it that a straight line <em>can</em> live on</li>
+<li class="fragment">(The full derivation is Ph.D.-stats material — what you need is the ladder on the next slides)</li>
+</ul>
+</section></section>
+<section>
+<section id="odds-and-log-odds" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Odds and Log-Odds</h1>
+
+</section>
+<section id="the-model-you-already-know" class="slide level2">
+<h2>The Model You Already Know</h2>
+<p><span class="math display">\[Y = b_0 + b_1 X_1 + b_2 X_2 + \varepsilon\]</span></p>
+<ul>
+<li><span class="math inline">\(Y\)</span>: outcome (dependent variable)</li>
+<li><span class="math inline">\(b_0\)</span>: intercept (value of <span class="math inline">\(Y\)</span> when all X’s are zero)</li>
+<li><span class="math inline">\(b_1, b_2\)</span>: slope coefficients (effect of each X, <strong>holding the others constant</strong>)</li>
+<li><span class="math inline">\(\varepsilon\)</span>: error term (what’s left unexplained)</li>
+</ul>
+<div class="fragment">
+<p>The right-hand side is an unbounded straight line. Probability is trapped in [0, 1]. Something has to give.</p>
+</div>
+</section>
+<section id="step-1-probability-to-odds" class="slide level2">
+<h2>Step 1 — Probability to Odds</h2>
+<p>Suppose 3 out of 4 parolees complete supervision: <span class="math inline">\(p = 0.75\)</span>.</p>
+<p><span class="math display">\[\text{odds} = \frac{p}{1-p} = \frac{0.75}{0.25} = 3 \quad \text{("three to one")}\]</span></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Probability</th>
+<th style="text-align: center;">Odds</th>
+<th style="text-align: center;">Log-odds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">0.33</td>
+<td style="text-align: center;">−1.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.50</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.75</td>
+<td style="text-align: center;">3.00</td>
+<td style="text-align: center;">+1.10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 2 — odds to log-odds:</strong> odds run 0 to ∞; <em>log</em>-odds run −∞ to +∞. That’s a scale a straight line can live on.</p>
+</section>
+<section id="the-logistic-model" class="slide level2">
+<h2>The Logistic Model</h2>
+<p>Just treat logit(<span class="math inline">\(p\)</span>) — the log-odds — as your Y. Then…</p>
+<p><span class="math display">\[\text{logit}(p) = \ln\!\left(\frac{p}{1-p}\right) = b_0 + b_1 X_1 + b_2 X_2\]</span></p>
+<ul>
+<li>Same intercept, same slopes, same “holding the others constant”</li>
+<li>The line now predicts <strong>log-odds</strong>, which convert back to a probability that politely stays between 0 and 1 — the curved hill</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-important callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>But the coefficients are log-odds!!!</strong> Nobody thinks in log-odds. So what do we do with them?</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-do-we-do-with-log-odds" class="slide level2">
+<h2>What Do We Do With Log-Odds?</h2>
+<p><br></p>
+<div class="r-fit-text">
+<p><strong>EXPONENTIATE!</strong></p>
+</div>
+<p><br></p>
+<p><code>exp(coefficient)</code> = the <strong>odds ratio</strong>: <em>multiply the odds of the outcome by this much for each one-unit increase in X, holding the other predictors constant.</em></p>
+</section>
+<section id="the-odds-ratio-rosetta-stone-odds-shrink" class="slide level2 smaller">
+<h2>The Odds-Ratio Rosetta Stone: Odds Shrink</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Log-odds coefficient (β)</th>
+<th style="text-align: center;">Odds ratio (e<sup>β</sup>)</th>
+<th style="text-align: center;">Effect on odds</th>
+<th style="text-align: left;">Intuitive interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">−2.0</td>
+<td style="text-align: center;">0.14</td>
+<td style="text-align: center;">↓ 86%</td>
+<td style="text-align: left;">Odds are 86% lower than baseline</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">−1.0</td>
+<td style="text-align: center;">0.37</td>
+<td style="text-align: center;">↓ 63%</td>
+<td style="text-align: left;">Odds are 63% lower than baseline</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">−0.5</td>
+<td style="text-align: center;">0.61</td>
+<td style="text-align: center;">↓ 39%</td>
+<td style="text-align: left;">Odds are 39% lower than baseline</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">No change</td>
+<td style="text-align: left;">Odds unchanged</td>
+</tr>
+</tbody>
+</table>
+<p>Negative log-odds → ratio <strong>below 1</strong> → odds shrink. Zero → ratio of exactly 1 → nothing happens.</p>
+</section>
+<section id="the-odds-ratio-rosetta-stone-odds-grow" class="slide level2 smaller">
+<h2>The Odds-Ratio Rosetta Stone: Odds Grow</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Log-odds coefficient (β)</th>
+<th style="text-align: center;">Odds ratio (e<sup>β</sup>)</th>
+<th style="text-align: center;">Effect on odds</th>
+<th style="text-align: left;">Intuitive interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.0</td>
+<td style="text-align: center;">1.00</td>
+<td style="text-align: center;">No change</td>
+<td style="text-align: left;">Odds unchanged</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.3</td>
+<td style="text-align: center;">1.35</td>
+<td style="text-align: center;">↑ 35%</td>
+<td style="text-align: left;">Odds are 35% higher than baseline</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.7</td>
+<td style="text-align: center;">2.01</td>
+<td style="text-align: center;">↑ 101%</td>
+<td style="text-align: left;">Odds are about twice as high</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1.0</td>
+<td style="text-align: center;">2.72</td>
+<td style="text-align: center;">↑ 172%</td>
+<td style="text-align: left;">Odds are 2.7× higher</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2.0</td>
+<td style="text-align: center;">7.39</td>
+<td style="text-align: center;">↑ 639%</td>
+<td style="text-align: left;">Odds are over seven times higher</td>
+</tr>
+</tbody>
+</table>
+<p>Positive log-odds → ratio <strong>above 1</strong> → odds grow.</p>
+</section></section>
+<section>
+<section id="fitting-it-glm" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Fitting It: glm()</h1>
+
+</section>
+<section id="two-traditions-same-curve" class="slide level2">
+<h2>Two Traditions, Same Curve</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Approach</th>
+<th style="text-align: left;">What it estimates</th>
+<th style="text-align: left;">Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Frequentist</strong></td>
+<td style="text-align: left;">Point estimates and confidence intervals</td>
+<td style="text-align: left;">“If we repeated this 100 times, 95% of the intervals would contain the true β.”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Bayesian</strong></td>
+<td style="text-align: left;">Posterior distributions for each β</td>
+<td style="text-align: left;">“Given our data and priors, there’s a 95% probability β lies in this range.”</td>
+</tr>
+</tbody>
+</table>
+<p>Exactly the split you know from Sessions 6 and 8 — nothing new, just a new model underneath it.</p>
+</section>
+<section id="the-frequentist-version" class="slide level2">
+<h2>The Frequentist Version</h2>
+<p>Toy data first — 32 cars from a 1974 <em>Motor Trend</em> issue, predicting <strong>manual transmission (1) vs.&nbsp;automatic (0)</strong> from horsepower and weight. Small enough to check every number; real CJ data in a few minutes.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb2-2"><a></a>cars_df <span class="ot">&lt;-</span> mtcars <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a></a>  <span class="fu">rownames_to_column</span>(<span class="st">"car"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">as.factor</span>(am))   <span class="co"># 0 = automatic, 1 = manual</span></span>
+<span id="cb2-5"><a></a></span>
+<span id="cb2-6"><a></a>model_freq <span class="ot">&lt;-</span> <span class="fu">glm</span>(am <span class="sc">~</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> cars_df, <span class="at">family =</span> binomial)</span>
+<span id="cb2-7"><a></a><span class="fu">summary</span>(model_freq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="the-frequentist-version-output" class="slide level2 output-location-slide"><h2>The Frequentist Version</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = am ~ hp + wt, family = binomial, data = cars_df)
+
+Coefficients:
+            Estimate Std. Error z value Pr(&gt;|z|)   
+(Intercept) 18.86630    7.44356   2.535  0.01126 * 
+hp           0.03626    0.01773   2.044  0.04091 * 
+wt          -8.08348    3.06868  -2.634  0.00843 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 43.230  on 31  degrees of freedom
+Residual deviance: 10.059  on 29  degrees of freedom
+AIC: 16.059
+
+Number of Fisher Scoring iterations: 8</code></pre>
+</div>
+</div></section><section id="reading-the-output-exponentiate" class="slide level2">
+<h2>Reading the Output: Exponentiate</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">exp</span>(<span class="fu">coef</span>(model_freq))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         (Intercept)                   hp                   wt 
+156145483.5063244998         1.0369208455         0.0003085967 </code></pre>
+</div>
+</div>
+<ul>
+<li class="fragment"><code>hp</code>: log-odds 0.036 → <strong>odds ratio 1.037</strong> — each additional horsepower multiplies the odds of a manual transmission by about 1.04 (+3.7%), <em>holding weight constant</em></li>
+<li class="fragment"><code>wt</code>: log-odds −8.08 → <strong>odds ratio 0.0003</strong> — each additional 1,000 lbs cuts the odds by ~99.97%, <em>holding horsepower constant</em></li>
+<li class="fragment">Wildly different sizes partly because the <strong>units</strong> differ: one horsepower is a nudge; a thousand pounds is a different car</li>
+</ul>
+</section>
+<section id="from-effects-to-cases-predict" class="slide level2">
+<h2>From Effects to Cases: predict()</h2>
+<p>Odds ratios describe <em>effects</em>. For an actual <em>case</em>, ask for the probability directly:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>two_cars <span class="ot">&lt;-</span> cars_df <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a></a>  <span class="fu">filter</span>(car <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Honda Civic"</span>, <span class="st">"Cadillac Fleetwood"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a></a>  <span class="fu">select</span>(car, hp, wt)</span>
+<span id="cb6-4"><a></a></span>
+<span id="cb6-5"><a></a>two_cars <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a></a>  <span class="fu">mutate</span>(<span class="at">p_manual =</span> <span class="fu">predict</span>(model_freq, <span class="at">newdata =</span> two_cars, <span class="at">type =</span> <span class="st">"response"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 car  hp    wt         p_manual
+1 Cadillac Fleetwood 205 5.250 0.00000009787752
+2        Honda Civic  52 1.615 0.99954591741880</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>type = "response"</code> returns probabilities: the light Civic is a near-certain manual (99.95%); the 5,250-lb Fleetwood, near-certain automatic. <strong>Report both:</strong> odds ratios for effects, predicted probabilities for cases.</p>
+</div>
+</section></section>
+<section>
+<section id="seeing-it-the-curved-surface" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Seeing It: The Curved Surface</h1>
+
+</section>
+<section id="session-11s-plane-bent" class="slide level2">
+<h2>Session 11’s Plane, Bent</h2>
+<ul>
+<li class="fragment">Last session: two predictors + linear regression = a <strong>flat plane</strong> floating through the 3D cloud</li>
+<li class="fragment">Same two predictors + logistic regression = a <strong>curved sheet</strong>: a plateau near probability 1, a floor near 0, and an S-shaped cliff between them</li>
+<li class="fragment">The surface <em>is</em> the model: its height at any (hp, wt) combination is the predicted probability of a manual transmission there</li>
+<li class="fragment">Let’s build it from nothing but <code>predict()</code></li>
+</ul>
+</section>
+<section id="building-the-surface" class="slide level2">
+<h2>Building the Surface</h2>
+<p>Ask the model for a prediction at every combination of horsepower and weight — a 40 × 40 grid, 1,600 predictions:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>hp_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(cars_df<span class="sc">$</span>hp), <span class="fu">max</span>(cars_df<span class="sc">$</span>hp), <span class="at">length.out =</span> <span class="dv">40</span>)</span>
+<span id="cb8-2"><a></a>wt_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(cars_df<span class="sc">$</span>wt), <span class="fu">max</span>(cars_df<span class="sc">$</span>wt), <span class="at">length.out =</span> <span class="dv">40</span>)</span>
+<span id="cb8-3"><a></a>grid   <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">hp =</span> hp_seq, <span class="at">wt =</span> wt_seq)</span>
+<span id="cb8-4"><a></a></span>
+<span id="cb8-5"><a></a>grid<span class="sc">$</span>prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_freq, <span class="at">newdata =</span> grid, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb8-6"><a></a></span>
+<span id="cb8-7"><a></a><span class="co"># Reshape the 1,600 predictions into a grid; t() puts rows on the</span></span>
+<span id="cb8-8"><a></a><span class="co"># wt (y) axis and columns on the hp (x) axis, which is what plotly expects</span></span>
+<span id="cb8-9"><a></a>z_matrix <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">matrix</span>(grid<span class="sc">$</span>prob, <span class="at">nrow =</span> <span class="fu">length</span>(hp_seq), <span class="at">ncol =</span> <span class="fu">length</span>(wt_seq)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The observed cars sit at height 0 (automatic) or 1 (manual); the surface passes between them.</p>
+</section>
+<section id="the-3d-logistic-surface" class="slide level2">
+<h2>The 3D Logistic Surface</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>data_points <span class="ot">&lt;-</span> cars_df <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(am)))   <span class="co"># 0 = auto, 1 = manual</span></span>
+<span id="cb9-3"><a></a></span>
+<span id="cb9-4"><a></a><span class="fu">plot_ly</span>(<span class="at">width =</span> <span class="dv">950</span>, <span class="at">height =</span> <span class="dv">520</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a></a>  <span class="fu">add_markers</span>(<span class="at">data =</span> data_points,</span>
+<span id="cb9-6"><a></a>              <span class="at">x =</span> <span class="sc">~</span>hp, <span class="at">y =</span> <span class="sc">~</span>wt, <span class="at">z =</span> <span class="sc">~</span>prob,</span>
+<span id="cb9-7"><a></a>              <span class="at">color =</span> <span class="sc">~</span>am, <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>, <span class="st">"firebrick"</span>),</span>
+<span id="cb9-8"><a></a>              <span class="at">symbol =</span> <span class="fu">I</span>(<span class="st">"circle"</span>), <span class="at">size =</span> <span class="fu">I</span>(<span class="dv">50</span>),</span>
+<span id="cb9-9"><a></a>              <span class="at">name =</span> <span class="st">"Observed Data"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-10"><a></a>  <span class="fu">add_surface</span>(<span class="at">x =</span> hp_seq, <span class="at">y =</span> wt_seq, <span class="at">z =</span> z_matrix,</span>
+<span id="cb9-11"><a></a>              <span class="at">colorscale =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="st">'lightblue'</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="st">'firebrick'</span>)),</span>
+<span id="cb9-12"><a></a>              <span class="at">opacity =</span> <span class="fl">0.6</span>,</span>
+<span id="cb9-13"><a></a>              <span class="at">name =</span> <span class="st">"Predicted Probability Surface"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-14"><a></a>  <span class="fu">layout</span>(</span>
+<span id="cb9-15"><a></a>    <span class="at">title =</span> <span class="st">"Logistic Regression: Curved Probability Surface"</span>,</span>
+<span id="cb9-16"><a></a>    <span class="at">scene =</span> <span class="fu">list</span>(</span>
+<span id="cb9-17"><a></a>      <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Horsepower (hp)"</span>),</span>
+<span id="cb9-18"><a></a>      <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Weight (1000 lbs)"</span>),</span>
+<span id="cb9-19"><a></a>      <span class="at">zaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Probability (Manual Transmission)"</span>)</span>
+<span id="cb9-20"><a></a>    )</span>
+<span id="cb9-21"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="the-3d-logistic-surface-output" class="slide level2 output-location-slide"><h2>The 3D Logistic Surface</h2><div class="cell output-location-slide">
+<div class="cell-output-display">
+<div id="htmlwidget-185b6a3cbd0da17bc15e" style="width:950px;height:520px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-185b6a3cbd0da17bc15e">{"x":{"visdat":{"e0dc62132a28":["function () ","plotlyVisDat"],"e0dc5834da65":["function () ","data"]},"cur_data":"e0dc5834da65","attrs":{"e0dc5834da65":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":{},"y":{},"z":{},"type":"scatter3d","mode":"markers","color":{},"colors":["steelblue","firebrick"],"symbol":["circle"],"size":[50],"name":"Observed Data","inherit":true},"e0dc5834da65.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"z":[[0.99980085770222293,0.99984691700557438,0.99988232458020954,0.99990954324448533,0.99993046659096252,0.99994655046443726,0.99995891410672744,0.99996841795199254,0.99997572345435182,0.99998133909262321,0.99998565574292131,0.99998897387455343,0.99999152445829864,0.9999934850401353,0.99999499209793485,0.9999961505404682,0.99999704100948383,0.99999772549289101,0.99999825163962452,0.99999865607646676,0.99999896695765944,0.99999920592476121,0.99999938961315982,0.99999953081010384,0.9999996393448598,0.99999972277295823,0.99999978690216051,0.99999983619675681,0.99999987408834257,0.99999990321470422,0.99999992560344608,0.99999994281313953,0.99999995604182146,0.99999996621039455,0.99999997402673468,0.99999998003496926,0.99999998465335616,0.9999999882034003,0.99999999093223468,0.99999999302982467],[0.99955217687469111,0.99965573336353608,0.99973534935800912,0.99979655689841063,0.99984361077219752,0.99987978297539282,0.99990758946586655,0.9999289647043289,0.99994539596240339,0.99995802664632216,0.99996773576920339,0.99997519906894095,0.999980936005468,0.99998534589671917,0.99998873570155811,0.99999134137944434,0.99999334431122155,0.99999488392264024,0.99999606738850022,0.99999697709243107,0.99999767636130643,0.99999821387330523,0.99999862704637266,0.9999989446429034,0.99999918877193128,0.99999937642818304,0.99999952067512321,0.9999996315543398,0.99999971678457,0.99999978229902842,0.9999998326584385,0.99999987136852131,0.99999990112404236,0.99999992399640392,0.99999994157784444,0.99999995509227957,0.99999996548050418,0.99999997346568537,0.99999997960370401,0.99999998432185289],[0.99899326620807183,0.99922596744799708,0.9994049130564493,0.99954250785897636,0.99964829946465583,0.99972963417687954,0.99979216323101028,0.99984023314335013,0.99987718648263413,0.99990559349149943,0.99992743038005438,0.99994421652468823,0.9999571200174836,0.99996703885152394,0.99997466335683227,0.99998052421155026,0.99998502935771794,0.99998849238389764,0.9999911543459673,0.9999932005424591,0.99999477341067189,0.99999598244037835,0.9999969117947124,0.99999762616843402,0.99999817529119739,0.99999859738920027,0.99999892184612649,0.99999917124858306,0.99999936295839742,0.9999995103212167,0.99999962359553662,0.99999971066682647,0.99999977759646408,0.99999982904368889,0.99999986858994916,0.99999989898821984,0.99999992235464807,0.9999999403158657,0.99999995412222653,0.99999996473484754],[0.99773837913595964,0.99826063591663794,0.99866245407569576,0.99897154208551331,0.99920926076788352,0.99939206637957734,0.99953263017571925,0.99964070510006608,0.99972379560942093,0.99978767469574037,0.99983678257780195,0.99987453391688008,0.99990355441025669,0.99992586291765573,0.99994301161277543,0.99995619380622514,0.99996632688070708,0.9999741160733826,0.99998010352280942,0.99998470598135492,0.99998824381044715,0.99999096327244652,0.99999305366818581,0.99999466051155639,0.9999958956573044,0.99999684508650455,0.99999757489134899,0.99999813587567943,0.99999856709140422,0.99999889855691682,0.99999915334671319,0.99999934919765088,0.99999949974365543,0.99999961546481519,0.99999970441693353,0.99999977279231944,0.99999982535085696,0.99999986575135691,0.99999989680626156,0.99999992067742849],[0.99492722642667175,0.99609609869794546,0.99699645162595596,0.99768963866230886,0.99822313061969148,0.99863360118314548,0.99894934967514737,0.99919219378313451,0.99937894254228377,0.99952253932591506,0.9996329468085251,0.99971783099330669,0.99978308924509807,0.9998332575010741,0.99987182406750386,0.99990147129134443,0.99992426160152781,0.99994178067652151,0.99995524758962018,0.99996559953163344,0.99997355696866463,0.9999796737471236,0.99998437561994491,0.99998798986768145,0.99999076807161602,0.99999290362132132,0.99999454517372977,0.99999580699964208,0.99999677693733979,0.99999752250663154,0.99999809560874875,0.99999853613914647,0.99999887476463734,0.99999913505814497,0.99999933513965844,0.99999948893760815,0.99999960715846203,0.99999969803203637,0.99999976788440048,0.99999982157825607],[0.98866157179742087,0.99126150046444383,0.99326931792700568,0.99481821709211471,0.99601210669690998,0.99693177095015351,0.99763985026137336,0.99818481807971704,0.99860412675993426,0.99892667890401177,0.9991747587359594,0.99936553557249685,0.99951223071374351,0.999625021054242,0.9997117376088297,0.99977840478742819,0.99982965630472176,0.99986905569775497,0.99989934318387885,0.99992262570061663,0.9999405231539048,0.99995428093561023,0.99996485647216249,0.99997298578735394,0.99997923468822136,0.99998403812261327,0.9999877304396233,0.99999056865432512,0.99999275033333646,0.99999442734451471,0.99999571642689911,0.99999670731609247,0.9999974689903558,0.99999805447201418,0.99999850451828998,0.9999988504584213,0.99999911637452565,0.99999932077799936,0.99999947789813926,0.99999959867268318],[0.97485248127697832,0.98055659459008504,0.98498679198989891,0.98841948637721633,0.9910744246615345,0.99312492781900086,0.99470687770757693,0.99592631500766138,0.99686570177076073,0.9975889915108026,0.99814568098616141,0.99857401745537833,0.99890351948341038,0.99915694770208752,0.99935183936979044,0.99950169964449398,0.99961692422527648,0.99970551267766861,0.99977361918597296,0.99982597734560319,0.99986622754419496,0.99989716911645188,0.99992095446808649,0.99993923847076915,0.99995329340280692,0.9999640973629812,0.99997240226861184,0.99997878614559221,0.99998369333522652,0.99998746540779071,0.99999036492949711,0.99999259373422145,0.99999430697009584,0.99999562389770846,0.99999663619096435,0.9999974143180792,0.99999801244668729,0.99999847221439242,0.99999882562716713,0.99999909728732161],[0.94515819009870838,0.95730273990250547,0.96685223592639202,0.97432321688927737,0.98014493606524244,0.98466746357080703,0.98817229405566465,0.99088338073049753,0.99297746207890603,0.99459315900997902,0.99583868538981468,0.99679821447128958,0.99753703951319261,0.99810570166005663,0.99854325963367108,0.99887986090433489,0.99913875258722051,0.99933784770264023,0.9994909413224452,0.99960865263190291,0.9996991533616274,0.99976873025790092,0.99982221894513212,0.99986333831612317,0.99989494809668955,0.99991924714097935,0.99993792604056198,0.99995228454029095,0.99996332185744907,0.99997180614596648,0.99997832791439534,0.99998334110032228,0.99998719465114227,0.99999015680408865,0.99999243375245483,0.99999418399549533,0.99999552936980962,0.99999656352947053,0.99999735846483129,0.99999796951357367],[0.88455311209594922,0.90882381007164348,0.92840500783225366,0.94403984307986444,0.95642062852636223,0.96616044004588519,0.97378311296487607,0.97972474206492655,0.98434145106462489,0.98791988976735723,0.99068828609521364,0.99282685614248223,0.99447701071819594,0.99574917880441194,0.99672927881183337,0.99748397088622709,0.99806486204630074,0.99851183936786547,0.99885569243278882,0.99912016512340918,0.9993235542056208,0.99947995084870167,0.99960020250494108,0.99969265676134833,0.99976373577331612,0.9998183793885137,0.99986038669498856,0.99989267911079915,0.99991750293986703,0.99993658526406659,0.99995125388740669,0.99996252960143994,0.99997119714719118,0.9999778597853658,0.99998298125703711,0.99998691804602247,0.9999899441830461,0.99999227031496996,0.9999940583645478,0.999995432800029],[0.77305535217184151,0.81588757400483902,0.85218163899788535,0.88235272574103352,0.9070374001747179,0.92697142275072408,0.9429000682234796,0.95552113976095021,0.96545472220082751,0.97323196023034275,0.97929584331511965,0.98400861920021965,0.98766216640033622,0.99048905653005714,0.99267304413128832,0.99435838151304146,0.99565775539785362,0.99665886391630532,0.99742976175262232,0.99802314370578282,0.99847974243373383,0.99883100310501638,0.99910117686535405,0.99930895237654482,0.99946872321898272,0.99959156999405063,0.99968601991499695,0.99975863345424409,0.99981445692396553,0.99985737133378927,0.99989036112310792,0.9999157210684958,0.99993521552912956,0.99995020097355125,0.99996172023318053,0.99997057499418052,0.99997738154471916,0.99998261364103336,0.99998663546610489,0.99998972696926325],[0.60229025730997521,0.66331506666915552,0.71933956402074539,0.76928413794101647,0.81265562775690359,0.84946925901339454,0.88011608460085955,0.90521963947387629,0.92551143534241442,0.94173851155736565,0.95460396654007196,0.96473482393683618,0.97266954591216137,0.97885806751393756,0.98366883016802165,0.98739901476121972,0.99028560612993888,0.9925159588277197,0.99423721901690409,0.99556437448553414,0.99658693825943223,0.99737438772987341,0.99798052780734758,0.99844695430350028,0.99880578172263013,0.99908177918662944,0.99929403557354013,0.99945725332136515,0.99958275116598894,0.99967923979691919,0.99975342097359843,0.99981044976192013,0.99985429085645983,0.9998879930755904,0.99991390071342368,0.99993381621038058,0.99994912531796076,0.99996089338308514,0.99996993940282286,0.9999768929740539],[0.40236743465371339,0.46691716521809368,0.53259384354756933,0.59716009050126229,0.65852577877633323,0.71500480819294032,0.76546926836414531,0.80938020237485708,0.84671606080367567,0.87784280866019471,0.90337012148358586,0.9240246521424722,0.94055481558935272,0.95366879784054215,0.9640004829154587,0.97209565370155182,0.97841123929171347,0.98332194358101754,0.98713032353995467,0.99007784727993775,0.99235553164965218,0.9941134697730305,0.99546899453517679,0.99651346965349796,0.99731782391979795,0.9979369951195991,0.99841346013944521,0.99878001684763873,0.99906196327582675,0.99927879701206657,0.99944553593397811,0.99957374200283222,0.99967231331626993,0.99974809595412295,0.99980635607421164,0.99985114385724472,0.99988557388738764,0.99991204104364928,0.99993238666894813,0.9999480264294901],[0.23036738606613977,0.28026400611400881,0.3362463596707802,0.39723928224128618,0.46160175688474819,0.52727028291493339,0.59200857550071406,0.65370393094078005,0.71063003468716979,0.76161086727071614,0.80606117763084706,0.84392175895217403,0.87553252235857837,0.90148844014877882,0.92251067757360783,0.93934861937421366,0.95271531869493353,0.96325143289533222,0.97151006372003712,0.97795518017120719,0.98296781643553488,0.98685597927420621,0.9898656906245219,0.99219169262468765,0.99398707922445262,0.99537157314986258,0.99643842523483483,0.99726004489787279,0.99789252600253786,0.99837924478737783,0.99875369679737103,0.99904172013261849,0.99926322976186854,0.99943356572264841,0.99956453840015846,0.99966523731561174,0.99974265596731293,0.99980217399324467,0.99984792890005847,0.99988310245431344],[0.11744350609536405,0.14757107558422439,0.18381752087333866,0.226600190084009,0.27597343618490611,0.33149348465201378,0.39213360351969578,0.45629506482356447,0.52194051382013007,0.58683676232166759,0.64885030219237394,0.70621569955306807,0.7577090814382248,0.80269845025094411,0.84108607850865169,0.87318485498546816,0.89957419011397399,0.92096911410314819,0.93811955858616602,0.95174321020779318,0.96248740371522623,0.97091255248582831,0.97748970852798123,0.98260630307183494,0.98657586631338812,0.9896490450363592,0.99202437036399904,0.99385799169255373,0.99527206705075055,0.99636177145005544,0.99720102470236216,0.99784710039903013,0.99834429276997638,0.99872680963929428,0.99902104056373831,0.99924732674386485,0.9994213372384968,0.99955513616519176,0.99965800856948428,0.99973709853231241],[0.055856468825820071,0.07146452744591697,0.091013541151886215,0.11524643308590504,0.14490292816895881,0.18063289375945965,0.22287675894875755,0.27172375269618321,0.32677471722212115,0.38705140915777148,0.45099827624525085,0.51660574440429863,0.58164571857287073,0.64396569647118129,0.70176228535429364,0.75376408099819847,0.79929193444443192,0.83820875549677498,0.87079944108536711,0.89762696700242062,0.91939956240824894,0.93686726559714806,0.95075214957548304,0.96170812127907634,0.97030289288109384,0.97701463955098244,0.98223725513453597,0.98628986678234642,0.9894278175847202,0.99185349203577489,0.99372615035527068,0.99517043205948397,0.99628347404202522,0.99714073682323123,0.99780069782610592,0.99830858827999025,0.99869934318572617,0.99899991517887832,0.99923108072697098,0.99940884491548221],[0.025627683562487857,0.033084863508802277,0.042617037328384719,0.054740073827632164,0.070059324896618647,0.089260899399666499,0.11308519528037118,0.14227497026548791,0.17749144179273069,0.21919716986940377,0.26751533050283621,0.32209075739741516,0.38199368987471694,0.44571256942010906,0.51126718736177379,0.57643652863046813,0.63905094224650394,0.69727030123904654,0.74977605982434592,0.79584156242927284,0.83528953742737155,0.8683759208728018,0.89564636770535999,0.91780162154944733,0.93559136956105271,0.94974181010979764,0.96091330754312165,0.96968085412018823,0.97652978520337264,0.98186052153288783,0.9859978605447024,0.98920191350347386,0.99167898333825699,0.99359149722492868,0.99506662308027882,0.99620349803556774,0.99707915419084325,0.99775329736608176,0.99827211517330483,0.99867128498843594],[0.011558049423769435,0.014984185922280152,0.019405988017757368,0.025099405170732614,0.032407978673184408,0.04175355464874568,0.053644724249934009,0.068679709056841218,0.087538757855339516,0.11095940457772141,0.13968688723803599,0.17439299569870839,0.21556147846212795,0.26334851855742497,0.31744227912855361,0.3769614157489628,0.44043911264415175,0.5059260588400889,0.57121029277944035,0.63410689209705062,0.6927402829776016,0.74574523590162323,0.79234728495275464,0.83232818381678353,0.86591394065696836,0.89363199068147303,0.91617488915273504,0.93429149650411691,0.9487118612655232,0.96010268050525915,0.96904620171891198,0.97603495418365094,0.98147594840092189,0.98569972516586646,0.98897123615867966,0.99150076847237312,0.99345397312570283,0.99496059408168958,0.99612180772289993,0.99701624916443521],[0.005171666197738887,0.0067175617725239384,0.0087214997085661595,0.01131642823102294,0.014672004443021717,0.019003459741611561,0.024581741760933407,0.031744487604291841,0.040906819835043122,0.052570073676925684,0.067325293902288114,0.085846710299015555,0.10886866957959274,0.13713835599194965,0.17133737143462277,0.21196971921663854,0.2592236401330425,0.31282993011552129,0.37195553556286498,0.43517906322418948,0.50058357733330683,0.56596812632587468,0.62913442225236293,0.68817279296597345,0.74167185167496197,0.78880907180627435,0.82932446670972215,0.86341315327586543,0.89158343626658931,0.9145189616003313,0.93296726942166108,0.94766196867209818,0.95927595419673772,0.96839869746488449,0.97552995188711589,0.98108337905750154,0.98539533587573347,0.9887356870157773,0.99131877011396186,0.99331351767070586],[0.0023058376846618062,0.0029976715491506784,0.0038962697065599784,0.0050628686056199777,0.0065764577887765631,0.0085386643819566205,0.011079801513318303,0.014366232112998156,0.018609122448782274,0.024074491264828416,0.031094143719279183,0.040076538101582355,0.051515779386407848,0.06599569608282696,0.084184351079519923,0.10681259594361089,0.13462904544501417,0.16832437072376272,0.20842190597421698,0.2551409930728768,0.30825433166006627,0.36697697618400582,0.42993356648373465,0.49524096257079842,0.56071115868146448,0.62413443209565678,0.6835684201948764,0.73755617437644372,0.78522691233320663,0.8262781712059829,0.86087321853968124,0.88950030699369542,0.91283343423032981,0.9316183083813695,0.94659179416954431,0.95843283867631124,0.96773809938910682,0.97501458036771493,0.98068265396629661,0.9850845655310706],[0.0010264416269535166,0.0013349244807438591,0.0017359564891367269,0.0022571924282214269,0.0029344739026328694,0.0038142000686275063,0.004956348411680354,0.0064382985161140719,0.008359629645504121,0.010848068375353863,0.014066741265518958,0.018222815973874824,0.02357745500139298,0.03045670422483308,0.039262418638778114,0.05048150239579955,0.064690535040989275,0.082551275334308533,0.10479078672635023,0.13215861699043169,0.16535378158830738,0.20491803241629933,0.2511008500652267,0.30371607855505511,0.36202664198371404,0.42470375479147449,0.48989943440362532,0.55544053242178681,0.61910784362842108,0.6789277801832232,0.73339849632969778,0.78160081592875286,0.82318909599035495,0.85829380368318675,0.88738220792328359,0.91111790154538586,0.93024423063331174,0.94550099584883873,0.95757304002697952,0.96706416173880272],[0.00045659471792567258,0.00059391977290597917,0.0007725146786249148,0.0010047600516114954,0.001306735330962682,0.0016993132915636357,0.0022095711468260583,0.0028726047655751692,0.0037338526364248076,0.0048520584192953443,0.0063030232999992299,0.0081843178381460595,0.010621129862962705,0.013773406615277281,0.017844383015438538,0.023090437639231541,0.029831930090303414,0.038464174610476999,0.049466907503501349,0.06340943312348904,0.08094707920015197,0.1028028427159456,0.12972672495114856,0.16242537887983868,0.20145807256242682,0.24710345894275468,0.29921573901012982,0.35710541429334947,0.41949074661403091,0.48456021169068764,0.55015740231994348,0.61405560089714339,0.67425151487546631,0.72919913523030866,0.77793081253066498,0.82005705386500893,0.85567458382685069,0.88522874698405474,0.9093719574306014,0.9288446507269007],[0.0002030439234720162,0.00026413139956174016,0.00034359124177973406,0.00044694466060878811,0.00058136906032413868,0.00075619275413175394,0.00098353600631383045,0.0012791406795047797,0.0016634422829877654,0.0021629523808576255,0.0028120363708933104,0.0036551915401620248,0.0047499523901603346,0.0061705727020130354,0.0080126528300314033,0.010398888929818176,0.013486105220672756,0.017473669095929269,0.022613247158517875,0.029219586019538096,0.037681523148665623,0.048471663325783107,0.062152015685961598,0.079371360014742487,0.10084836275435657,0.12733301702522914,0.15953892480681234,0.19804198127645539,0.24314904300479306,0.2947538546129837,0.35221415089876712,0.41429564559459675,0.4792245111867951,0.54486293435724109,0.6089786693826903,0.66954029250214819,0.72495843440104102,0.77421695309969596,0.81688187228360809,0.85301524244636406],[9.027924922585925e-05,0.00011744450768842491,0.00015278261337072502,0.00019875155664028353,0.00025854797193820974,0.0003363286914759531,0.00043749846646096239,0.00056908341837638308,0.00074021542874695549,0.0009627598549954169,0.0012521280204918031,0.0016283272447675746,0.0021173151164682398,0.0027527415251762913,0.0035781816458734165,0.0046499850256586372,0.006040888476859449,0.0078445599946557545,0.010181250404536355,0.01320471644643819,0.017110522521740591,0.022145694812537885,0.028619440421508727,0.036914185345690555,0.047495442329361925,0.060917911191111999,0.077823716509390267,0.098926944049321078,0.12497713472203079,0.15669416945830988,0.19466969477992191,0.23923780136146508,0.29033094032551104,0.34735368557328444,0.40911953965901021,0.47389354643481763,0.53955830471266952,0.60387803535294471,0.66479480740310137,0.72067676302071404],[4.0138272570014534e-05,5.2216769992765846e-05,6.7929708560615664e-05,8.8370527059826348e-05,0.00011496151214264529,0.0001495526162257016,0.00019454991317277245,0.00025308254153966447,0.0003292196004574134,0.0004282518324857761,0.00055705725509528486,0.00072457543775096068,0.00094242216374889156,0.0012256851097877028,0.001593952296659745,0.0020726387764862225,0.0026946935971137054,0.0035027885407936193,0.0045521119485566206,0.0059139135497461399,0.0076799661814050723,0.0099681209581803897,0.012929121926583517,0.016754794343330364,0.021687595088882287,0.028031265379807248,0.036161886244114566,0.046537920859844123,0.059706751300477832,0.076303748992983936,0.097038182476044177,0.12265871378894198,0.15389085132343197,0.19134113117150056,0.23536990929841548,0.28594748451402169,0.34252482764938447,0.40396350015071764,0.46856852666405413,0.53424469873301172],[1.7845031612044613e-05,2.3215153590456092e-05,3.0201262568725715e-05,3.9289610537743493e-05,5.1112739765554364e-05,6.6493478437090362e-05,8.6502156416025714e-05,0.00011253100583741545,0.00014639089487341841,0.00019043707628126457,0.00024773261592462453,0.00032226072821033046,0.00041920054635518332,0.00054528509621823017,0.00070926566912990735,0.00092251369661647362,0.0011997999595762666,0.0015603018898525777,0.0020289032115004867,0.0026378665061445564,0.0034289785190047182,0.0044562896850220551,0.0057895919941378295,0.0075187996885057399,0.0097594090721675377,0.012659205527665673,0.016406338315465851,0.021238765670336827,0.02745483662109327,0.035424354824327493,0.045598779166190422,0.058518170959990151,0.074811059527388243,0.095181672868675488,0.12037738462848585,0.15112869780571617,0.18805619095150125,0.23154551866090087,0.28160394901262631,0.33772836162926528],[7.93360525443206e-06,1.0321103255416366e-05,1.3427072869873927e-05,1.7467717634222515e-05,2.272429674625967e-05,2.9562697116236914e-05,3.8458891468600609e-05,5.0032051115318478e-05,6.5087612387581761e-05,8.4673284385330179e-05,0.00011015187942453292,0.00014329600651604595,0.00018641116964421866,0.00024249575524686981,0.00031544890256057963,0.00041034048450558244,0.00053376158272091514,0.00069427916038438916,0.00090302541146798751,0.0011744608330486312,0.0015273608001389479,0.0019860886911204248,0.0025822347113242401,0.0033567185673499889,0.0043624756469611828,0.0056678690098781953,0.0073609902363794746,0.0095550250065828506,0.012394853312396746,0.016065010857612305,0.020799027395514671,0.026889933482566169,0.034701323990029564,0.044677701421366844,0.057351808479533424,0.073345252094461535,0.093357009301654637,0.1181327727056133,0.14840742573200569,0.18481475755040583],[3.5271299711250035e-06,4.5885722485562606e-06,5.9694393818877231e-06,7.7658560867790414e-06,1.0102873033645604e-05,1.3143170644611525e-05,1.7098381417756484e-05,2.2243818256055242e-05,2.8937632888607811e-05,3.7645736029696985e-05,4.8974210599712212e-05,6.3711468552403447e-05,8.2883076080421462e-05,0.00010782304699127959,0.00014026653882733353,0.00018247035655375506,0.00023736957114777962,0.00030878101823617678,0.00040166761027358197,0.00052248146840205682,0.00067960909540417096,0.00088394845596346746,0.0011496562391987606,0.0014951141212261347,0.0019441758954079414,0.0025277732004056921,0.0032859763516101892,0.0042706281146706847,0.0055486909016773849,0.0072064689414013481,0.0093548807689011158,0.012135953503598492,0.015730671014487656,0.0203682042192741,0.026336338878537882,0.033992530551701039,0.043774375739340433,0.056207305606695783,0.071905932754877611,0.091563785361017599],[1.5680910489407679e-06,2.0399881408578014e-06,2.6538962942635166e-06,3.4525515606833957e-06,4.4915505703816777e-06,5.8432205468392115e-06,7.6016538020921228e-06,9.8892570432742926e-06,1.2865271174925686e-05,1.6736854290064708e-05,2.1773498696416874e-05,2.8325784445037618e-05,3.6849772906425411e-05,4.7938735205744457e-05,6.2364418636542995e-05,8.1130714255246234e-05,0.00010554344556576423,0.00013730110930977699,0.00017861283908053975,0.00023235172567187684,0.00030225403545982329,0.00039317797207065046,0.00051143961751827711,0.00066524880140742654,0.0008652741635984851,0.0011253749277245436,0.0014635472581797889,0.0019031459064784845,0.0024744574791311057,0.0032167202029380212,0.0041807062197996882,0.0054320050579600839,0.0070551682900581135,0.009158890083117481,0.011882396448511778,0.01540318041680239,0.019946123172960316,0.025793839266172621,0.03329771520816191,0.042888494188569722],[6.9714098498713408e-07,9.069369508810869e-07,1.1798683460813762e-06,1.5349349239686523e-06,1.9968541209663988e-06,2.5977816804265471e-06,3.379550047195604e-06,4.3965803287193971e-06,5.7196704889037005e-06,7.4409234063211735e-06,9.6801577235039255e-06,1.259324754332913e-05,1.6382971144545559e-05,2.1313123282655725e-05,2.7726872378788327e-05,3.6070638633025537e-05,4.6925152129434743e-05,6.1045847623142176e-05,7.9415398932503132e-05,0.00010331203463269815,0.00013439836466534033,0.00017483685725625556,0.00022743993020516898,0.00029586497857095128,0.00038486770159589,0.00050063100246817874,0.0006511917459433355,0.00084699404983081016,0.0011016058840328245,0.0014326459209998217,0.0018629802002683212,0.0024222635607308238,0.0031489191045473803,0.0040926699286183378,0.0053177599300719136,0.0069070221135058034,0.0089669683592899958,0.011634074583470742,0.015082403242206973,0.019532614324514593],[3.0993437413904518e-07,4.032053416200339e-07,5.2454505376911065e-07,6.8240044211944037e-07,8.8776042770249283e-07,1.1549208934281125e-06,1.5024798596729316e-06,1.9546321358059977e-06,2.5428535643007987e-06,3.3080920887418762e-06,4.3036181481584951e-06,5.5987327799682237e-06,7.2835914910163229e-06,9.4754795762281235e-06,1.2326975515641357e-05,1.6036570365196622e-05,2.0862481770769662e-05,2.7140623189653345e-05,3.5307977426719151e-05,4.5932998560111206e-05,5.9755153493015471e-05,7.7736347038976606e-05,0.00010112779565936241,0.00013155698017940033,0.00017114068827322069,0.00022263194443571623,0.00028961093467656356,0.00037673301208605208,0.00049005070152450473,0.00063743153395654905,0.00082909980828647348,0.0010783383243458454,0.0014023961183252582,0.0018236606384643911,0.0023711679556252447,0.00308254267865228,0.0040064800255873792,0.0052059050118382138,0.0067619655625214712,0.0087790326634918248],[1.3779034324880123e-07,1.7925667475271123e-07,2.3320179255521531e-07,3.0338103305289175e-07,3.9467985328885802e-07,5.134539253977495e-07,6.6797157718142421e-07,8.6898937782753347e-07,1.1305009358062768e-06,1.4707110327107e-06,1.9133029011982428e-06,2.4890868584867805e-06,3.2381450483749475e-06,4.2126215703986283e-06,5.4803521849985589e-06,7.1295861998063304e-06,9.275129122426049e-06,1.2066333484264061e-05,1.5697493752828522e-05,2.0421368361467471e-05,2.6566769159125842e-05,3.4561441025356422e-05,4.4961821469272608e-05,5.8491746950096827e-05,7.6092792048570369e-05,9.8989731631575687e-05,0.00012877565911768063,0.00016752264570086924,0.00021792557533606533,0.00028348905233037484,0.00036877019660216503,0.00047969389661353293,0.0006239619049125361,0.0008115833070439629,0.0010555616909076442,0.0013727841512661304,0.0017851694605944858,0.0023211476613270504,0.0030175611736524954,0.0039220980972260915],[6.1258700104011361e-08,7.9693764267629777e-08,1.0367663723073335e-07,1.348768643152275e-07,1.7546641984745096e-07,2.2827090675866888e-07,2.9696625764457695e-07,3.8633463023619763e-07,5.0259731085097255e-07,6.5384779998138027e-07,8.506152278398639e-07,1.1065973197570501e-06,1.4396139331643917e-06,1.872847540708769e-06,2.4364570060296614e-06,3.1696769792146732e-06,4.1235490348596133e-06,5.3644746368143535e-06,6.9788371955843353e-06,9.0790148594761719e-06,1.181120241265457e-05,1.5365586452837318e-05,1.9989581606219824e-05,2.6005048228201132e-05,3.3830688528485331e-05,4.4011177403900478e-05,5.7255051152673223e-05,7.4483983632863987e-05,9.6896866599436297e-05,0.00012605313213586824,0.00016398107871868722,0.00021331867616700712,0.00027749654023959049,0.00036097562635189616,0.00046955587114063643,0.00061077672998237147,0.00079443658499475634,0.0010332656472880786,0.0013437966073595099,0.0017474892762742887],[2.7234333629194719e-08,3.5430176983337215e-08,4.6092460166854467e-08,5.9963428306195684e-08,7.8008696133966218e-08,1.0148446830626207e-07,1.3202498881608353e-07,1.7175630717287132e-07,2.2344428100677675e-07,2.9068711804434968e-07,3.7816586088615139e-07,4.9197025150982573e-07,6.4002265967178325e-07,8.3262958560069749e-07,1.0831991276514901e-06,1.4091743579147999e-06,1.8332475770259933e-06,2.3849399692037303e-06,3.1026566098576526e-06,4.03635985970087e-06,5.2510472113978163e-06,6.8312756283878422e-06,8.8870472193730156e-06,1.156146578097309e-05,1.5040696884502675e-05,1.9566924315294655e-05,2.5455203877760763e-05,3.3115386241779659e-05,4.3080632284138628e-05,5.6044501450291454e-05,7.2909187319040991e-05,9.4848245232634923e-05,0.00012338815670166577,0.00016051437136528033,0.00020880914550226189,0.00027163066599878441,0.0003533457490469592,0.00045963200786109759,0.00059787000928581259,0.00077765184827876578],[1.2107813468947996e-08,1.5751513581334267e-08,2.0491741177480795e-08,2.6658482927218652e-08,3.468103098251702e-08,4.5117867749271595e-08,5.8695544110939861e-08,7.6359257568368248e-08,9.9338651233515342e-08,1.2923341419102326e-07,1.6812464217937098e-07,2.1871971079663059e-07,2.8454074633234697e-07,3.701698142556662e-07,4.8156789360145827e-07,6.2648984180305007e-07,8.1502423641593983e-07,1.0602956727042135e-06,1.3793784041542514e-06,1.7944849235222862e-06,2.3345122185342977e-06,3.0370533300957952e-06,3.951014223242738e-06,5.14001810372484e-06,6.6868341039579399e-06,8.6991385278274122e-06,1.1317009532879604e-05,1.4722676671782254e-05,1.9153203467738718e-05,2.4916985011486029e-05,3.2415207524755769e-05,4.2169761205245798e-05,5.4859545126223334e-05,7.136768415503793e-05,9.2842932385152338e-05,0.00012077951652902522,0.00015712094180324969,0.00020439492627366275,0.00026588875485032047,0.00034587708729489079],[5.3828798517038199e-09,7.0027924926204024e-09,9.110198262231751e-09,1.1851802322001718e-08,1.5418458975392644e-08,2.0058457816106315e-08,2.6094808180300665e-08,3.394772514280447e-08,4.4163882397031222e-08,5.7454468426898534e-08,7.4744695209053916e-08,9.7238205935767248e-08,1.2650086542137985e-07,1.6456976614734315e-07,2.1409503823788469e-07,2.7852433522869115e-07,3.6234283825043347e-07,4.7138548598218147e-07,6.1324316543944704e-07,7.9779113928418977e-07,1.0378764940923583e-06,1.3502124630367693e-06,1.7565418759933397e-06,2.285150722051264e-06,2.9728371769361047e-06,3.8674731457796211e-06,5.0313366041060848e-06,6.5454466529622102e-06,8.5152029642302299e-06,1.1077722023453279e-05,1.4411380575565856e-05,1.8748230123256778e-05,2.439014584124088e-05,3.1729832641699432e-05,4.1278148243724317e-05,5.3699641145356663e-05,6.9858770381744164e-05,9.0880012669116336e-05,0.00011822602102427048,0.00015379924159950403],[2.3931154426818652e-09,3.1132946178912383e-09,4.0502030127003757e-09,5.2690626660233099e-09,6.8547234005899216e-09,8.9175695668155745e-09,1.1601204349512411e-08,1.5092446573255299e-08,1.9634335924512924e-08,2.5543051936512316e-08,3.322992453524486e-08,4.3230068388392379e-08,5.6239634407198392e-08,7.3164271623535757e-08,9.5182173059308893e-08,1.238260944478326e-07,1.6109005542959434e-07,2.0956815106718433e-07,2.7263513681132317e-07,3.5468135799687593e-07,4.6141837796751158e-07,6.0027658033613492e-07,7.8092242322427414e-07,1.0159313521779465e-06,1.321663213462688e-06,1.7194011045724393e-06,2.236832934770322e-06,2.9099788209167462e-06,3.7856984717786267e-06,4.9249530750292264e-06,6.4070487008695342e-06,8.3351565224636445e-06,1.0843493968215032e-05,1.4106666427364101e-05,1.8351819335957358e-05,2.387444577488145e-05,3.1058948615747795e-05,4.0405386267550291e-05,5.2564259907416234e-05,6.8381757112131515e-05],[1.0639289135683726e-09,1.3841054646508157e-09,1.8006352799138853e-09,2.3425147098036382e-09,3.047466205934829e-09,3.9645643357019204e-09,5.1576520641875824e-09,6.7097851247147417e-09,8.7290138688146683e-09,1.1355905093741272e-08,1.4773327472513924e-08,1.9219181789918706e-08,2.5002962187562579e-08,3.2527301312717395e-08,4.2315999214639442e-08,5.5050487190537566e-08,7.1617264971806052e-08,9.3169613535270036e-08,1.2120787960036414e-07,1.5768392070975519e-07,2.0513698168341326e-07,2.6687046126092758e-07,3.4718187420937689e-07,4.5166201720803438e-07,5.8758416417579368e-07,7.6441038368028574e-07,9.9445022383112284e-07,1.2937176159945582e-06,1.683045645815569e-06,2.1895367883962657e-06,2.8484495527120302e-06,3.7056528524538703e-06,4.8208189284902141e-06,6.2715770384608106e-06,8.1589169725400056e-06,1.0614218393226243e-05,1.3808395064396655e-05,1.7963790069918794e-05,2.3369649306431931e-05,3.0402249086049968e-05],[4.7300047131139254e-10,6.1534424799600233e-10,8.005246643322435e-10,1.0414328894038868e-09,1.3548395338427164e-09,1.7625621208686016e-09,2.2929838936190147e-09,2.9830296891696987e-09,3.8807364279282228e-09,5.0485971606847847e-09,6.5679114661038048e-09,8.5444450475829409e-09,1.111579251707671e-08,1.4460955919195504e-08,1.8812805795460571e-08,2.4474292253696018e-08,3.1839534560194289e-08,4.1421257385277102e-08,5.3886483647756266e-08,7.0102968676641436e-08,9.1199608150709889e-08,1.1864502504027753e-07,1.5434980627638083e-07,2.0079950620334019e-07,2.6122767563238093e-07,3.3984096159201446e-07,4.4211194761017633e-07,5.7516011986369872e-07,7.4824747900267933e-07,9.7342329785227607e-07,1.2663629069016917e-06,1.6474588949537789e-06,2.1432406812440439e-06,2.7882212700205669e-06,3.627299728709334e-06,4.7188866038038017e-06,6.1389697929631151e-06,7.9864038230516761e-06,1.0389790586241873e-05,1.3516430266052664e-05],[2.1028608484470386e-10,2.7356914126166003e-10,3.5589646887232786e-10,4.6299921098010589e-10,6.023332292127675e-10,7.835981366591528e-10,1.0194125277543066e-09,1.3261924104353842e-09,1.7252939918332392e-09,2.2445003714967308e-09,2.9199556369571755e-09,3.7986810019457661e-09,4.9418481459413631e-09,6.4290376255950489e-09,8.3637788034348893e-09,1.0880756950863708e-08,1.4155189241192235e-08,1.8415022333590046e-08,2.3956800671026029e-08,3.1166310148168504e-08,4.0545434237350486e-08,5.2747092133775241e-08,6.8620691100890406e-08,8.927125712878613e-08,1.1613636021402013e-07,1.5108618931240934e-07,1.9655374353725439e-07,2.5570420265221859e-07,3.3265526727415005e-07,4.327638073009947e-07,5.6299877288005764e-07,7.324263270038222e-07,9.5284097049109083e-07,1.2395865923307626e-06,1.6126245983096262e-06,2.0979234683731793e-06,2.7292664647309862e-06,3.5506033144427796e-06,4.6191095458836059e-06,6.0091663997949232e-06],[9.348878099478533e-11,1.2162310004548981e-10,1.582241024767996e-10,2.0583973435103539e-10,2.6778471531105857e-10,3.4837128982394393e-10,4.5320942022281007e-10,5.8959731921656811e-10,7.6702950843827036e-10,9.9785777107228653e-10,1.2981510101841392e-09,1.6888138710178215e-09,2.1970419991448775e-09,2.8582152409484312e-09,3.7183605798815271e-09,4.8373562635716921e-09,6.2931001741584535e-09,8.1869326191414929e-09,1.0650691045312337e-08,1.3855887783095678e-08,1.8025649721297245e-08,2.3450251081246959e-08,3.0507320589176027e-08,3.9688129748788755e-08,5.163179224476569e-08,6.7169755231566403e-08,8.738367971778195e-08,1.1368073931853696e-07,1.4789157919962358e-07,1.9239775448410771e-07,2.5029751954147609e-07,3.256215092790118e-07,4.2361332663591969e-07,5.5109456868820982e-07,7.1693970158625499e-07,9.3269384106015467e-07,1.213376442599413e-06,1.5785268458736311e-06,2.0535644519302768e-06,2.6715582103584925e-06]],"type":"surface","x":[52,59.256410256410255,66.512820512820511,73.769230769230774,81.025641025641022,88.282051282051285,95.538461538461547,102.7948717948718,110.05128205128204,117.30769230769231,124.56410256410257,131.82051282051282,139.07692307692309,146.33333333333331,153.58974358974359,160.84615384615384,168.10256410256409,175.35897435897436,182.61538461538461,189.87179487179486,197.12820512820514,204.38461538461539,211.64102564102564,218.89743589743588,226.15384615384616,233.41025641025641,240.66666666666666,247.92307692307693,255.17948717948718,262.43589743589746,269.69230769230768,276.94871794871796,284.20512820512818,291.46153846153845,298.71794871794873,305.97435897435901,313.23076923076923,320.4871794871795,327.74358974358972,335],"y":[1.5129999999999999,1.6132820512820512,1.7135641025641024,1.8138461538461539,1.9141282051282051,2.0144102564102564,2.1146923076923079,2.2149743589743589,2.3152564102564104,2.4155384615384614,2.5158205128205129,2.6161025641025644,2.7163846153846154,2.8166666666666664,2.9169487179487179,3.0172307692307694,3.1175128205128209,3.2177948717948719,3.3180769230769229,3.4183589743589744,3.5186410256410259,3.6189230769230769,3.7192051282051284,3.8194871794871799,3.9197692307692309,4.0200512820512824,4.120333333333333,4.2206153846153853,4.3208974358974359,4.4211794871794874,4.5214615384615389,4.6217435897435895,4.7220256410256418,4.8223076923076924,4.9225897435897439,5.0228717948717954,5.1231538461538459,5.2234358974358983,5.3237179487179489,5.4240000000000004],"colorscale":[["0","lightblue"],["1","firebrick"]],"opacity":0.59999999999999998,"name":"Predicted Probability Surface","inherit":true}},"layout":{"width":950,"height":520,"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Logistic Regression: Curved Probability Surface","scene":{"xaxis":{"title":"Horsepower (hp)"},"yaxis":{"title":"Weight (1000 lbs)"},"zaxis":{"title":"Probability (Manual Transmission)"}},"hovermode":"closest","showlegend":true,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[110,175,105,245,62,95,123,123,180,180,180,205,215,230,97,150,150,245,175],"y":[3.2149999999999999,3.4399999999999999,3.46,3.5699999999999998,3.1899999999999999,3.1499999999999999,3.4399999999999999,3.4399999999999999,4.0700000000000003,3.73,3.7799999999999998,5.25,5.4240000000000004,5.3449999999999998,2.4649999999999999,3.52,3.4350000000000001,3.8399999999999999,3.8450000000000002],"z":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"type":"scatter3d","mode":"markers","name":"Observed Data","marker":{"color":"rgba(70,130,180,1)","size":[50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50],"sizemode":"area","symbol":"circle","line":{"color":"rgba(70,130,180,1)"}},"textfont":{"color":"rgba(70,130,180,1)","size":50},"error_y":{"color":"rgba(70,130,180,1)","width":50},"error_x":{"color":"rgba(70,130,180,1)","width":50},"line":{"color":"rgba(70,130,180,1)","width":50},"frame":null},{"x":[110,110,93,66,52,65,66,91,113,264,175,335,109],"y":[2.6200000000000001,2.875,2.3199999999999998,2.2000000000000002,1.615,1.835,1.9350000000000001,2.1400000000000001,1.5129999999999999,3.1699999999999999,2.77,3.5699999999999998,2.7799999999999998],"z":[1,1,1,1,1,1,1,1,1,1,1,1,1],"type":"scatter3d","mode":"markers","name":"Observed Data","marker":{"color":"rgba(178,34,34,1)","size":[50,50,50,50,50,50,50,50,50,50,50,50,50],"sizemode":"area","symbol":"circle","line":{"color":"rgba(178,34,34,1)"}},"textfont":{"color":"rgba(178,34,34,1)","size":50},"error_y":{"color":"rgba(178,34,34,1)","width":50},"error_x":{"color":"rgba(178,34,34,1)","width":50},"line":{"color":"rgba(178,34,34,1)","width":50},"frame":null},{"colorbar":{"title":"am","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"colorscale":[["0","lightblue"],["1","firebrick"]],"showscale":true,"z":[[0.99980085770222293,0.99984691700557438,0.99988232458020954,0.99990954324448533,0.99993046659096252,0.99994655046443726,0.99995891410672744,0.99996841795199254,0.99997572345435182,0.99998133909262321,0.99998565574292131,0.99998897387455343,0.99999152445829864,0.9999934850401353,0.99999499209793485,0.9999961505404682,0.99999704100948383,0.99999772549289101,0.99999825163962452,0.99999865607646676,0.99999896695765944,0.99999920592476121,0.99999938961315982,0.99999953081010384,0.9999996393448598,0.99999972277295823,0.99999978690216051,0.99999983619675681,0.99999987408834257,0.99999990321470422,0.99999992560344608,0.99999994281313953,0.99999995604182146,0.99999996621039455,0.99999997402673468,0.99999998003496926,0.99999998465335616,0.9999999882034003,0.99999999093223468,0.99999999302982467],[0.99955217687469111,0.99965573336353608,0.99973534935800912,0.99979655689841063,0.99984361077219752,0.99987978297539282,0.99990758946586655,0.9999289647043289,0.99994539596240339,0.99995802664632216,0.99996773576920339,0.99997519906894095,0.999980936005468,0.99998534589671917,0.99998873570155811,0.99999134137944434,0.99999334431122155,0.99999488392264024,0.99999606738850022,0.99999697709243107,0.99999767636130643,0.99999821387330523,0.99999862704637266,0.9999989446429034,0.99999918877193128,0.99999937642818304,0.99999952067512321,0.9999996315543398,0.99999971678457,0.99999978229902842,0.9999998326584385,0.99999987136852131,0.99999990112404236,0.99999992399640392,0.99999994157784444,0.99999995509227957,0.99999996548050418,0.99999997346568537,0.99999997960370401,0.99999998432185289],[0.99899326620807183,0.99922596744799708,0.9994049130564493,0.99954250785897636,0.99964829946465583,0.99972963417687954,0.99979216323101028,0.99984023314335013,0.99987718648263413,0.99990559349149943,0.99992743038005438,0.99994421652468823,0.9999571200174836,0.99996703885152394,0.99997466335683227,0.99998052421155026,0.99998502935771794,0.99998849238389764,0.9999911543459673,0.9999932005424591,0.99999477341067189,0.99999598244037835,0.9999969117947124,0.99999762616843402,0.99999817529119739,0.99999859738920027,0.99999892184612649,0.99999917124858306,0.99999936295839742,0.9999995103212167,0.99999962359553662,0.99999971066682647,0.99999977759646408,0.99999982904368889,0.99999986858994916,0.99999989898821984,0.99999992235464807,0.9999999403158657,0.99999995412222653,0.99999996473484754],[0.99773837913595964,0.99826063591663794,0.99866245407569576,0.99897154208551331,0.99920926076788352,0.99939206637957734,0.99953263017571925,0.99964070510006608,0.99972379560942093,0.99978767469574037,0.99983678257780195,0.99987453391688008,0.99990355441025669,0.99992586291765573,0.99994301161277543,0.99995619380622514,0.99996632688070708,0.9999741160733826,0.99998010352280942,0.99998470598135492,0.99998824381044715,0.99999096327244652,0.99999305366818581,0.99999466051155639,0.9999958956573044,0.99999684508650455,0.99999757489134899,0.99999813587567943,0.99999856709140422,0.99999889855691682,0.99999915334671319,0.99999934919765088,0.99999949974365543,0.99999961546481519,0.99999970441693353,0.99999977279231944,0.99999982535085696,0.99999986575135691,0.99999989680626156,0.99999992067742849],[0.99492722642667175,0.99609609869794546,0.99699645162595596,0.99768963866230886,0.99822313061969148,0.99863360118314548,0.99894934967514737,0.99919219378313451,0.99937894254228377,0.99952253932591506,0.9996329468085251,0.99971783099330669,0.99978308924509807,0.9998332575010741,0.99987182406750386,0.99990147129134443,0.99992426160152781,0.99994178067652151,0.99995524758962018,0.99996559953163344,0.99997355696866463,0.9999796737471236,0.99998437561994491,0.99998798986768145,0.99999076807161602,0.99999290362132132,0.99999454517372977,0.99999580699964208,0.99999677693733979,0.99999752250663154,0.99999809560874875,0.99999853613914647,0.99999887476463734,0.99999913505814497,0.99999933513965844,0.99999948893760815,0.99999960715846203,0.99999969803203637,0.99999976788440048,0.99999982157825607],[0.98866157179742087,0.99126150046444383,0.99326931792700568,0.99481821709211471,0.99601210669690998,0.99693177095015351,0.99763985026137336,0.99818481807971704,0.99860412675993426,0.99892667890401177,0.9991747587359594,0.99936553557249685,0.99951223071374351,0.999625021054242,0.9997117376088297,0.99977840478742819,0.99982965630472176,0.99986905569775497,0.99989934318387885,0.99992262570061663,0.9999405231539048,0.99995428093561023,0.99996485647216249,0.99997298578735394,0.99997923468822136,0.99998403812261327,0.9999877304396233,0.99999056865432512,0.99999275033333646,0.99999442734451471,0.99999571642689911,0.99999670731609247,0.9999974689903558,0.99999805447201418,0.99999850451828998,0.9999988504584213,0.99999911637452565,0.99999932077799936,0.99999947789813926,0.99999959867268318],[0.97485248127697832,0.98055659459008504,0.98498679198989891,0.98841948637721633,0.9910744246615345,0.99312492781900086,0.99470687770757693,0.99592631500766138,0.99686570177076073,0.9975889915108026,0.99814568098616141,0.99857401745537833,0.99890351948341038,0.99915694770208752,0.99935183936979044,0.99950169964449398,0.99961692422527648,0.99970551267766861,0.99977361918597296,0.99982597734560319,0.99986622754419496,0.99989716911645188,0.99992095446808649,0.99993923847076915,0.99995329340280692,0.9999640973629812,0.99997240226861184,0.99997878614559221,0.99998369333522652,0.99998746540779071,0.99999036492949711,0.99999259373422145,0.99999430697009584,0.99999562389770846,0.99999663619096435,0.9999974143180792,0.99999801244668729,0.99999847221439242,0.99999882562716713,0.99999909728732161],[0.94515819009870838,0.95730273990250547,0.96685223592639202,0.97432321688927737,0.98014493606524244,0.98466746357080703,0.98817229405566465,0.99088338073049753,0.99297746207890603,0.99459315900997902,0.99583868538981468,0.99679821447128958,0.99753703951319261,0.99810570166005663,0.99854325963367108,0.99887986090433489,0.99913875258722051,0.99933784770264023,0.9994909413224452,0.99960865263190291,0.9996991533616274,0.99976873025790092,0.99982221894513212,0.99986333831612317,0.99989494809668955,0.99991924714097935,0.99993792604056198,0.99995228454029095,0.99996332185744907,0.99997180614596648,0.99997832791439534,0.99998334110032228,0.99998719465114227,0.99999015680408865,0.99999243375245483,0.99999418399549533,0.99999552936980962,0.99999656352947053,0.99999735846483129,0.99999796951357367],[0.88455311209594922,0.90882381007164348,0.92840500783225366,0.94403984307986444,0.95642062852636223,0.96616044004588519,0.97378311296487607,0.97972474206492655,0.98434145106462489,0.98791988976735723,0.99068828609521364,0.99282685614248223,0.99447701071819594,0.99574917880441194,0.99672927881183337,0.99748397088622709,0.99806486204630074,0.99851183936786547,0.99885569243278882,0.99912016512340918,0.9993235542056208,0.99947995084870167,0.99960020250494108,0.99969265676134833,0.99976373577331612,0.9998183793885137,0.99986038669498856,0.99989267911079915,0.99991750293986703,0.99993658526406659,0.99995125388740669,0.99996252960143994,0.99997119714719118,0.9999778597853658,0.99998298125703711,0.99998691804602247,0.9999899441830461,0.99999227031496996,0.9999940583645478,0.999995432800029],[0.77305535217184151,0.81588757400483902,0.85218163899788535,0.88235272574103352,0.9070374001747179,0.92697142275072408,0.9429000682234796,0.95552113976095021,0.96545472220082751,0.97323196023034275,0.97929584331511965,0.98400861920021965,0.98766216640033622,0.99048905653005714,0.99267304413128832,0.99435838151304146,0.99565775539785362,0.99665886391630532,0.99742976175262232,0.99802314370578282,0.99847974243373383,0.99883100310501638,0.99910117686535405,0.99930895237654482,0.99946872321898272,0.99959156999405063,0.99968601991499695,0.99975863345424409,0.99981445692396553,0.99985737133378927,0.99989036112310792,0.9999157210684958,0.99993521552912956,0.99995020097355125,0.99996172023318053,0.99997057499418052,0.99997738154471916,0.99998261364103336,0.99998663546610489,0.99998972696926325],[0.60229025730997521,0.66331506666915552,0.71933956402074539,0.76928413794101647,0.81265562775690359,0.84946925901339454,0.88011608460085955,0.90521963947387629,0.92551143534241442,0.94173851155736565,0.95460396654007196,0.96473482393683618,0.97266954591216137,0.97885806751393756,0.98366883016802165,0.98739901476121972,0.99028560612993888,0.9925159588277197,0.99423721901690409,0.99556437448553414,0.99658693825943223,0.99737438772987341,0.99798052780734758,0.99844695430350028,0.99880578172263013,0.99908177918662944,0.99929403557354013,0.99945725332136515,0.99958275116598894,0.99967923979691919,0.99975342097359843,0.99981044976192013,0.99985429085645983,0.9998879930755904,0.99991390071342368,0.99993381621038058,0.99994912531796076,0.99996089338308514,0.99996993940282286,0.9999768929740539],[0.40236743465371339,0.46691716521809368,0.53259384354756933,0.59716009050126229,0.65852577877633323,0.71500480819294032,0.76546926836414531,0.80938020237485708,0.84671606080367567,0.87784280866019471,0.90337012148358586,0.9240246521424722,0.94055481558935272,0.95366879784054215,0.9640004829154587,0.97209565370155182,0.97841123929171347,0.98332194358101754,0.98713032353995467,0.99007784727993775,0.99235553164965218,0.9941134697730305,0.99546899453517679,0.99651346965349796,0.99731782391979795,0.9979369951195991,0.99841346013944521,0.99878001684763873,0.99906196327582675,0.99927879701206657,0.99944553593397811,0.99957374200283222,0.99967231331626993,0.99974809595412295,0.99980635607421164,0.99985114385724472,0.99988557388738764,0.99991204104364928,0.99993238666894813,0.9999480264294901],[0.23036738606613977,0.28026400611400881,0.3362463596707802,0.39723928224128618,0.46160175688474819,0.52727028291493339,0.59200857550071406,0.65370393094078005,0.71063003468716979,0.76161086727071614,0.80606117763084706,0.84392175895217403,0.87553252235857837,0.90148844014877882,0.92251067757360783,0.93934861937421366,0.95271531869493353,0.96325143289533222,0.97151006372003712,0.97795518017120719,0.98296781643553488,0.98685597927420621,0.9898656906245219,0.99219169262468765,0.99398707922445262,0.99537157314986258,0.99643842523483483,0.99726004489787279,0.99789252600253786,0.99837924478737783,0.99875369679737103,0.99904172013261849,0.99926322976186854,0.99943356572264841,0.99956453840015846,0.99966523731561174,0.99974265596731293,0.99980217399324467,0.99984792890005847,0.99988310245431344],[0.11744350609536405,0.14757107558422439,0.18381752087333866,0.226600190084009,0.27597343618490611,0.33149348465201378,0.39213360351969578,0.45629506482356447,0.52194051382013007,0.58683676232166759,0.64885030219237394,0.70621569955306807,0.7577090814382248,0.80269845025094411,0.84108607850865169,0.87318485498546816,0.89957419011397399,0.92096911410314819,0.93811955858616602,0.95174321020779318,0.96248740371522623,0.97091255248582831,0.97748970852798123,0.98260630307183494,0.98657586631338812,0.9896490450363592,0.99202437036399904,0.99385799169255373,0.99527206705075055,0.99636177145005544,0.99720102470236216,0.99784710039903013,0.99834429276997638,0.99872680963929428,0.99902104056373831,0.99924732674386485,0.9994213372384968,0.99955513616519176,0.99965800856948428,0.99973709853231241],[0.055856468825820071,0.07146452744591697,0.091013541151886215,0.11524643308590504,0.14490292816895881,0.18063289375945965,0.22287675894875755,0.27172375269618321,0.32677471722212115,0.38705140915777148,0.45099827624525085,0.51660574440429863,0.58164571857287073,0.64396569647118129,0.70176228535429364,0.75376408099819847,0.79929193444443192,0.83820875549677498,0.87079944108536711,0.89762696700242062,0.91939956240824894,0.93686726559714806,0.95075214957548304,0.96170812127907634,0.97030289288109384,0.97701463955098244,0.98223725513453597,0.98628986678234642,0.9894278175847202,0.99185349203577489,0.99372615035527068,0.99517043205948397,0.99628347404202522,0.99714073682323123,0.99780069782610592,0.99830858827999025,0.99869934318572617,0.99899991517887832,0.99923108072697098,0.99940884491548221],[0.025627683562487857,0.033084863508802277,0.042617037328384719,0.054740073827632164,0.070059324896618647,0.089260899399666499,0.11308519528037118,0.14227497026548791,0.17749144179273069,0.21919716986940377,0.26751533050283621,0.32209075739741516,0.38199368987471694,0.44571256942010906,0.51126718736177379,0.57643652863046813,0.63905094224650394,0.69727030123904654,0.74977605982434592,0.79584156242927284,0.83528953742737155,0.8683759208728018,0.89564636770535999,0.91780162154944733,0.93559136956105271,0.94974181010979764,0.96091330754312165,0.96968085412018823,0.97652978520337264,0.98186052153288783,0.9859978605447024,0.98920191350347386,0.99167898333825699,0.99359149722492868,0.99506662308027882,0.99620349803556774,0.99707915419084325,0.99775329736608176,0.99827211517330483,0.99867128498843594],[0.011558049423769435,0.014984185922280152,0.019405988017757368,0.025099405170732614,0.032407978673184408,0.04175355464874568,0.053644724249934009,0.068679709056841218,0.087538757855339516,0.11095940457772141,0.13968688723803599,0.17439299569870839,0.21556147846212795,0.26334851855742497,0.31744227912855361,0.3769614157489628,0.44043911264415175,0.5059260588400889,0.57121029277944035,0.63410689209705062,0.6927402829776016,0.74574523590162323,0.79234728495275464,0.83232818381678353,0.86591394065696836,0.89363199068147303,0.91617488915273504,0.93429149650411691,0.9487118612655232,0.96010268050525915,0.96904620171891198,0.97603495418365094,0.98147594840092189,0.98569972516586646,0.98897123615867966,0.99150076847237312,0.99345397312570283,0.99496059408168958,0.99612180772289993,0.99701624916443521],[0.005171666197738887,0.0067175617725239384,0.0087214997085661595,0.01131642823102294,0.014672004443021717,0.019003459741611561,0.024581741760933407,0.031744487604291841,0.040906819835043122,0.052570073676925684,0.067325293902288114,0.085846710299015555,0.10886866957959274,0.13713835599194965,0.17133737143462277,0.21196971921663854,0.2592236401330425,0.31282993011552129,0.37195553556286498,0.43517906322418948,0.50058357733330683,0.56596812632587468,0.62913442225236293,0.68817279296597345,0.74167185167496197,0.78880907180627435,0.82932446670972215,0.86341315327586543,0.89158343626658931,0.9145189616003313,0.93296726942166108,0.94766196867209818,0.95927595419673772,0.96839869746488449,0.97552995188711589,0.98108337905750154,0.98539533587573347,0.9887356870157773,0.99131877011396186,0.99331351767070586],[0.0023058376846618062,0.0029976715491506784,0.0038962697065599784,0.0050628686056199777,0.0065764577887765631,0.0085386643819566205,0.011079801513318303,0.014366232112998156,0.018609122448782274,0.024074491264828416,0.031094143719279183,0.040076538101582355,0.051515779386407848,0.06599569608282696,0.084184351079519923,0.10681259594361089,0.13462904544501417,0.16832437072376272,0.20842190597421698,0.2551409930728768,0.30825433166006627,0.36697697618400582,0.42993356648373465,0.49524096257079842,0.56071115868146448,0.62413443209565678,0.6835684201948764,0.73755617437644372,0.78522691233320663,0.8262781712059829,0.86087321853968124,0.88950030699369542,0.91283343423032981,0.9316183083813695,0.94659179416954431,0.95843283867631124,0.96773809938910682,0.97501458036771493,0.98068265396629661,0.9850845655310706],[0.0010264416269535166,0.0013349244807438591,0.0017359564891367269,0.0022571924282214269,0.0029344739026328694,0.0038142000686275063,0.004956348411680354,0.0064382985161140719,0.008359629645504121,0.010848068375353863,0.014066741265518958,0.018222815973874824,0.02357745500139298,0.03045670422483308,0.039262418638778114,0.05048150239579955,0.064690535040989275,0.082551275334308533,0.10479078672635023,0.13215861699043169,0.16535378158830738,0.20491803241629933,0.2511008500652267,0.30371607855505511,0.36202664198371404,0.42470375479147449,0.48989943440362532,0.55544053242178681,0.61910784362842108,0.6789277801832232,0.73339849632969778,0.78160081592875286,0.82318909599035495,0.85829380368318675,0.88738220792328359,0.91111790154538586,0.93024423063331174,0.94550099584883873,0.95757304002697952,0.96706416173880272],[0.00045659471792567258,0.00059391977290597917,0.0007725146786249148,0.0010047600516114954,0.001306735330962682,0.0016993132915636357,0.0022095711468260583,0.0028726047655751692,0.0037338526364248076,0.0048520584192953443,0.0063030232999992299,0.0081843178381460595,0.010621129862962705,0.013773406615277281,0.017844383015438538,0.023090437639231541,0.029831930090303414,0.038464174610476999,0.049466907503501349,0.06340943312348904,0.08094707920015197,0.1028028427159456,0.12972672495114856,0.16242537887983868,0.20145807256242682,0.24710345894275468,0.29921573901012982,0.35710541429334947,0.41949074661403091,0.48456021169068764,0.55015740231994348,0.61405560089714339,0.67425151487546631,0.72919913523030866,0.77793081253066498,0.82005705386500893,0.85567458382685069,0.88522874698405474,0.9093719574306014,0.9288446507269007],[0.0002030439234720162,0.00026413139956174016,0.00034359124177973406,0.00044694466060878811,0.00058136906032413868,0.00075619275413175394,0.00098353600631383045,0.0012791406795047797,0.0016634422829877654,0.0021629523808576255,0.0028120363708933104,0.0036551915401620248,0.0047499523901603346,0.0061705727020130354,0.0080126528300314033,0.010398888929818176,0.013486105220672756,0.017473669095929269,0.022613247158517875,0.029219586019538096,0.037681523148665623,0.048471663325783107,0.062152015685961598,0.079371360014742487,0.10084836275435657,0.12733301702522914,0.15953892480681234,0.19804198127645539,0.24314904300479306,0.2947538546129837,0.35221415089876712,0.41429564559459675,0.4792245111867951,0.54486293435724109,0.6089786693826903,0.66954029250214819,0.72495843440104102,0.77421695309969596,0.81688187228360809,0.85301524244636406],[9.027924922585925e-05,0.00011744450768842491,0.00015278261337072502,0.00019875155664028353,0.00025854797193820974,0.0003363286914759531,0.00043749846646096239,0.00056908341837638308,0.00074021542874695549,0.0009627598549954169,0.0012521280204918031,0.0016283272447675746,0.0021173151164682398,0.0027527415251762913,0.0035781816458734165,0.0046499850256586372,0.006040888476859449,0.0078445599946557545,0.010181250404536355,0.01320471644643819,0.017110522521740591,0.022145694812537885,0.028619440421508727,0.036914185345690555,0.047495442329361925,0.060917911191111999,0.077823716509390267,0.098926944049321078,0.12497713472203079,0.15669416945830988,0.19466969477992191,0.23923780136146508,0.29033094032551104,0.34735368557328444,0.40911953965901021,0.47389354643481763,0.53955830471266952,0.60387803535294471,0.66479480740310137,0.72067676302071404],[4.0138272570014534e-05,5.2216769992765846e-05,6.7929708560615664e-05,8.8370527059826348e-05,0.00011496151214264529,0.0001495526162257016,0.00019454991317277245,0.00025308254153966447,0.0003292196004574134,0.0004282518324857761,0.00055705725509528486,0.00072457543775096068,0.00094242216374889156,0.0012256851097877028,0.001593952296659745,0.0020726387764862225,0.0026946935971137054,0.0035027885407936193,0.0045521119485566206,0.0059139135497461399,0.0076799661814050723,0.0099681209581803897,0.012929121926583517,0.016754794343330364,0.021687595088882287,0.028031265379807248,0.036161886244114566,0.046537920859844123,0.059706751300477832,0.076303748992983936,0.097038182476044177,0.12265871378894198,0.15389085132343197,0.19134113117150056,0.23536990929841548,0.28594748451402169,0.34252482764938447,0.40396350015071764,0.46856852666405413,0.53424469873301172],[1.7845031612044613e-05,2.3215153590456092e-05,3.0201262568725715e-05,3.9289610537743493e-05,5.1112739765554364e-05,6.6493478437090362e-05,8.6502156416025714e-05,0.00011253100583741545,0.00014639089487341841,0.00019043707628126457,0.00024773261592462453,0.00032226072821033046,0.00041920054635518332,0.00054528509621823017,0.00070926566912990735,0.00092251369661647362,0.0011997999595762666,0.0015603018898525777,0.0020289032115004867,0.0026378665061445564,0.0034289785190047182,0.0044562896850220551,0.0057895919941378295,0.0075187996885057399,0.0097594090721675377,0.012659205527665673,0.016406338315465851,0.021238765670336827,0.02745483662109327,0.035424354824327493,0.045598779166190422,0.058518170959990151,0.074811059527388243,0.095181672868675488,0.12037738462848585,0.15112869780571617,0.18805619095150125,0.23154551866090087,0.28160394901262631,0.33772836162926528],[7.93360525443206e-06,1.0321103255416366e-05,1.3427072869873927e-05,1.7467717634222515e-05,2.272429674625967e-05,2.9562697116236914e-05,3.8458891468600609e-05,5.0032051115318478e-05,6.5087612387581761e-05,8.4673284385330179e-05,0.00011015187942453292,0.00014329600651604595,0.00018641116964421866,0.00024249575524686981,0.00031544890256057963,0.00041034048450558244,0.00053376158272091514,0.00069427916038438916,0.00090302541146798751,0.0011744608330486312,0.0015273608001389479,0.0019860886911204248,0.0025822347113242401,0.0033567185673499889,0.0043624756469611828,0.0056678690098781953,0.0073609902363794746,0.0095550250065828506,0.012394853312396746,0.016065010857612305,0.020799027395514671,0.026889933482566169,0.034701323990029564,0.044677701421366844,0.057351808479533424,0.073345252094461535,0.093357009301654637,0.1181327727056133,0.14840742573200569,0.18481475755040583],[3.5271299711250035e-06,4.5885722485562606e-06,5.9694393818877231e-06,7.7658560867790414e-06,1.0102873033645604e-05,1.3143170644611525e-05,1.7098381417756484e-05,2.2243818256055242e-05,2.8937632888607811e-05,3.7645736029696985e-05,4.8974210599712212e-05,6.3711468552403447e-05,8.2883076080421462e-05,0.00010782304699127959,0.00014026653882733353,0.00018247035655375506,0.00023736957114777962,0.00030878101823617678,0.00040166761027358197,0.00052248146840205682,0.00067960909540417096,0.00088394845596346746,0.0011496562391987606,0.0014951141212261347,0.0019441758954079414,0.0025277732004056921,0.0032859763516101892,0.0042706281146706847,0.0055486909016773849,0.0072064689414013481,0.0093548807689011158,0.012135953503598492,0.015730671014487656,0.0203682042192741,0.026336338878537882,0.033992530551701039,0.043774375739340433,0.056207305606695783,0.071905932754877611,0.091563785361017599],[1.5680910489407679e-06,2.0399881408578014e-06,2.6538962942635166e-06,3.4525515606833957e-06,4.4915505703816777e-06,5.8432205468392115e-06,7.6016538020921228e-06,9.8892570432742926e-06,1.2865271174925686e-05,1.6736854290064708e-05,2.1773498696416874e-05,2.8325784445037618e-05,3.6849772906425411e-05,4.7938735205744457e-05,6.2364418636542995e-05,8.1130714255246234e-05,0.00010554344556576423,0.00013730110930977699,0.00017861283908053975,0.00023235172567187684,0.00030225403545982329,0.00039317797207065046,0.00051143961751827711,0.00066524880140742654,0.0008652741635984851,0.0011253749277245436,0.0014635472581797889,0.0019031459064784845,0.0024744574791311057,0.0032167202029380212,0.0041807062197996882,0.0054320050579600839,0.0070551682900581135,0.009158890083117481,0.011882396448511778,0.01540318041680239,0.019946123172960316,0.025793839266172621,0.03329771520816191,0.042888494188569722],[6.9714098498713408e-07,9.069369508810869e-07,1.1798683460813762e-06,1.5349349239686523e-06,1.9968541209663988e-06,2.5977816804265471e-06,3.379550047195604e-06,4.3965803287193971e-06,5.7196704889037005e-06,7.4409234063211735e-06,9.6801577235039255e-06,1.259324754332913e-05,1.6382971144545559e-05,2.1313123282655725e-05,2.7726872378788327e-05,3.6070638633025537e-05,4.6925152129434743e-05,6.1045847623142176e-05,7.9415398932503132e-05,0.00010331203463269815,0.00013439836466534033,0.00017483685725625556,0.00022743993020516898,0.00029586497857095128,0.00038486770159589,0.00050063100246817874,0.0006511917459433355,0.00084699404983081016,0.0011016058840328245,0.0014326459209998217,0.0018629802002683212,0.0024222635607308238,0.0031489191045473803,0.0040926699286183378,0.0053177599300719136,0.0069070221135058034,0.0089669683592899958,0.011634074583470742,0.015082403242206973,0.019532614324514593],[3.0993437413904518e-07,4.032053416200339e-07,5.2454505376911065e-07,6.8240044211944037e-07,8.8776042770249283e-07,1.1549208934281125e-06,1.5024798596729316e-06,1.9546321358059977e-06,2.5428535643007987e-06,3.3080920887418762e-06,4.3036181481584951e-06,5.5987327799682237e-06,7.2835914910163229e-06,9.4754795762281235e-06,1.2326975515641357e-05,1.6036570365196622e-05,2.0862481770769662e-05,2.7140623189653345e-05,3.5307977426719151e-05,4.5932998560111206e-05,5.9755153493015471e-05,7.7736347038976606e-05,0.00010112779565936241,0.00013155698017940033,0.00017114068827322069,0.00022263194443571623,0.00028961093467656356,0.00037673301208605208,0.00049005070152450473,0.00063743153395654905,0.00082909980828647348,0.0010783383243458454,0.0014023961183252582,0.0018236606384643911,0.0023711679556252447,0.00308254267865228,0.0040064800255873792,0.0052059050118382138,0.0067619655625214712,0.0087790326634918248],[1.3779034324880123e-07,1.7925667475271123e-07,2.3320179255521531e-07,3.0338103305289175e-07,3.9467985328885802e-07,5.134539253977495e-07,6.6797157718142421e-07,8.6898937782753347e-07,1.1305009358062768e-06,1.4707110327107e-06,1.9133029011982428e-06,2.4890868584867805e-06,3.2381450483749475e-06,4.2126215703986283e-06,5.4803521849985589e-06,7.1295861998063304e-06,9.275129122426049e-06,1.2066333484264061e-05,1.5697493752828522e-05,2.0421368361467471e-05,2.6566769159125842e-05,3.4561441025356422e-05,4.4961821469272608e-05,5.8491746950096827e-05,7.6092792048570369e-05,9.8989731631575687e-05,0.00012877565911768063,0.00016752264570086924,0.00021792557533606533,0.00028348905233037484,0.00036877019660216503,0.00047969389661353293,0.0006239619049125361,0.0008115833070439629,0.0010555616909076442,0.0013727841512661304,0.0017851694605944858,0.0023211476613270504,0.0030175611736524954,0.0039220980972260915],[6.1258700104011361e-08,7.9693764267629777e-08,1.0367663723073335e-07,1.348768643152275e-07,1.7546641984745096e-07,2.2827090675866888e-07,2.9696625764457695e-07,3.8633463023619763e-07,5.0259731085097255e-07,6.5384779998138027e-07,8.506152278398639e-07,1.1065973197570501e-06,1.4396139331643917e-06,1.872847540708769e-06,2.4364570060296614e-06,3.1696769792146732e-06,4.1235490348596133e-06,5.3644746368143535e-06,6.9788371955843353e-06,9.0790148594761719e-06,1.181120241265457e-05,1.5365586452837318e-05,1.9989581606219824e-05,2.6005048228201132e-05,3.3830688528485331e-05,4.4011177403900478e-05,5.7255051152673223e-05,7.4483983632863987e-05,9.6896866599436297e-05,0.00012605313213586824,0.00016398107871868722,0.00021331867616700712,0.00027749654023959049,0.00036097562635189616,0.00046955587114063643,0.00061077672998237147,0.00079443658499475634,0.0010332656472880786,0.0013437966073595099,0.0017474892762742887],[2.7234333629194719e-08,3.5430176983337215e-08,4.6092460166854467e-08,5.9963428306195684e-08,7.8008696133966218e-08,1.0148446830626207e-07,1.3202498881608353e-07,1.7175630717287132e-07,2.2344428100677675e-07,2.9068711804434968e-07,3.7816586088615139e-07,4.9197025150982573e-07,6.4002265967178325e-07,8.3262958560069749e-07,1.0831991276514901e-06,1.4091743579147999e-06,1.8332475770259933e-06,2.3849399692037303e-06,3.1026566098576526e-06,4.03635985970087e-06,5.2510472113978163e-06,6.8312756283878422e-06,8.8870472193730156e-06,1.156146578097309e-05,1.5040696884502675e-05,1.9566924315294655e-05,2.5455203877760763e-05,3.3115386241779659e-05,4.3080632284138628e-05,5.6044501450291454e-05,7.2909187319040991e-05,9.4848245232634923e-05,0.00012338815670166577,0.00016051437136528033,0.00020880914550226189,0.00027163066599878441,0.0003533457490469592,0.00045963200786109759,0.00059787000928581259,0.00077765184827876578],[1.2107813468947996e-08,1.5751513581334267e-08,2.0491741177480795e-08,2.6658482927218652e-08,3.468103098251702e-08,4.5117867749271595e-08,5.8695544110939861e-08,7.6359257568368248e-08,9.9338651233515342e-08,1.2923341419102326e-07,1.6812464217937098e-07,2.1871971079663059e-07,2.8454074633234697e-07,3.701698142556662e-07,4.8156789360145827e-07,6.2648984180305007e-07,8.1502423641593983e-07,1.0602956727042135e-06,1.3793784041542514e-06,1.7944849235222862e-06,2.3345122185342977e-06,3.0370533300957952e-06,3.951014223242738e-06,5.14001810372484e-06,6.6868341039579399e-06,8.6991385278274122e-06,1.1317009532879604e-05,1.4722676671782254e-05,1.9153203467738718e-05,2.4916985011486029e-05,3.2415207524755769e-05,4.2169761205245798e-05,5.4859545126223334e-05,7.136768415503793e-05,9.2842932385152338e-05,0.00012077951652902522,0.00015712094180324969,0.00020439492627366275,0.00026588875485032047,0.00034587708729489079],[5.3828798517038199e-09,7.0027924926204024e-09,9.110198262231751e-09,1.1851802322001718e-08,1.5418458975392644e-08,2.0058457816106315e-08,2.6094808180300665e-08,3.394772514280447e-08,4.4163882397031222e-08,5.7454468426898534e-08,7.4744695209053916e-08,9.7238205935767248e-08,1.2650086542137985e-07,1.6456976614734315e-07,2.1409503823788469e-07,2.7852433522869115e-07,3.6234283825043347e-07,4.7138548598218147e-07,6.1324316543944704e-07,7.9779113928418977e-07,1.0378764940923583e-06,1.3502124630367693e-06,1.7565418759933397e-06,2.285150722051264e-06,2.9728371769361047e-06,3.8674731457796211e-06,5.0313366041060848e-06,6.5454466529622102e-06,8.5152029642302299e-06,1.1077722023453279e-05,1.4411380575565856e-05,1.8748230123256778e-05,2.439014584124088e-05,3.1729832641699432e-05,4.1278148243724317e-05,5.3699641145356663e-05,6.9858770381744164e-05,9.0880012669116336e-05,0.00011822602102427048,0.00015379924159950403],[2.3931154426818652e-09,3.1132946178912383e-09,4.0502030127003757e-09,5.2690626660233099e-09,6.8547234005899216e-09,8.9175695668155745e-09,1.1601204349512411e-08,1.5092446573255299e-08,1.9634335924512924e-08,2.5543051936512316e-08,3.322992453524486e-08,4.3230068388392379e-08,5.6239634407198392e-08,7.3164271623535757e-08,9.5182173059308893e-08,1.238260944478326e-07,1.6109005542959434e-07,2.0956815106718433e-07,2.7263513681132317e-07,3.5468135799687593e-07,4.6141837796751158e-07,6.0027658033613492e-07,7.8092242322427414e-07,1.0159313521779465e-06,1.321663213462688e-06,1.7194011045724393e-06,2.236832934770322e-06,2.9099788209167462e-06,3.7856984717786267e-06,4.9249530750292264e-06,6.4070487008695342e-06,8.3351565224636445e-06,1.0843493968215032e-05,1.4106666427364101e-05,1.8351819335957358e-05,2.387444577488145e-05,3.1058948615747795e-05,4.0405386267550291e-05,5.2564259907416234e-05,6.8381757112131515e-05],[1.0639289135683726e-09,1.3841054646508157e-09,1.8006352799138853e-09,2.3425147098036382e-09,3.047466205934829e-09,3.9645643357019204e-09,5.1576520641875824e-09,6.7097851247147417e-09,8.7290138688146683e-09,1.1355905093741272e-08,1.4773327472513924e-08,1.9219181789918706e-08,2.5002962187562579e-08,3.2527301312717395e-08,4.2315999214639442e-08,5.5050487190537566e-08,7.1617264971806052e-08,9.3169613535270036e-08,1.2120787960036414e-07,1.5768392070975519e-07,2.0513698168341326e-07,2.6687046126092758e-07,3.4718187420937689e-07,4.5166201720803438e-07,5.8758416417579368e-07,7.6441038368028574e-07,9.9445022383112284e-07,1.2937176159945582e-06,1.683045645815569e-06,2.1895367883962657e-06,2.8484495527120302e-06,3.7056528524538703e-06,4.8208189284902141e-06,6.2715770384608106e-06,8.1589169725400056e-06,1.0614218393226243e-05,1.3808395064396655e-05,1.7963790069918794e-05,2.3369649306431931e-05,3.0402249086049968e-05],[4.7300047131139254e-10,6.1534424799600233e-10,8.005246643322435e-10,1.0414328894038868e-09,1.3548395338427164e-09,1.7625621208686016e-09,2.2929838936190147e-09,2.9830296891696987e-09,3.8807364279282228e-09,5.0485971606847847e-09,6.5679114661038048e-09,8.5444450475829409e-09,1.111579251707671e-08,1.4460955919195504e-08,1.8812805795460571e-08,2.4474292253696018e-08,3.1839534560194289e-08,4.1421257385277102e-08,5.3886483647756266e-08,7.0102968676641436e-08,9.1199608150709889e-08,1.1864502504027753e-07,1.5434980627638083e-07,2.0079950620334019e-07,2.6122767563238093e-07,3.3984096159201446e-07,4.4211194761017633e-07,5.7516011986369872e-07,7.4824747900267933e-07,9.7342329785227607e-07,1.2663629069016917e-06,1.6474588949537789e-06,2.1432406812440439e-06,2.7882212700205669e-06,3.627299728709334e-06,4.7188866038038017e-06,6.1389697929631151e-06,7.9864038230516761e-06,1.0389790586241873e-05,1.3516430266052664e-05],[2.1028608484470386e-10,2.7356914126166003e-10,3.5589646887232786e-10,4.6299921098010589e-10,6.023332292127675e-10,7.835981366591528e-10,1.0194125277543066e-09,1.3261924104353842e-09,1.7252939918332392e-09,2.2445003714967308e-09,2.9199556369571755e-09,3.7986810019457661e-09,4.9418481459413631e-09,6.4290376255950489e-09,8.3637788034348893e-09,1.0880756950863708e-08,1.4155189241192235e-08,1.8415022333590046e-08,2.3956800671026029e-08,3.1166310148168504e-08,4.0545434237350486e-08,5.2747092133775241e-08,6.8620691100890406e-08,8.927125712878613e-08,1.1613636021402013e-07,1.5108618931240934e-07,1.9655374353725439e-07,2.5570420265221859e-07,3.3265526727415005e-07,4.327638073009947e-07,5.6299877288005764e-07,7.324263270038222e-07,9.5284097049109083e-07,1.2395865923307626e-06,1.6126245983096262e-06,2.0979234683731793e-06,2.7292664647309862e-06,3.5506033144427796e-06,4.6191095458836059e-06,6.0091663997949232e-06],[9.348878099478533e-11,1.2162310004548981e-10,1.582241024767996e-10,2.0583973435103539e-10,2.6778471531105857e-10,3.4837128982394393e-10,4.5320942022281007e-10,5.8959731921656811e-10,7.6702950843827036e-10,9.9785777107228653e-10,1.2981510101841392e-09,1.6888138710178215e-09,2.1970419991448775e-09,2.8582152409484312e-09,3.7183605798815271e-09,4.8373562635716921e-09,6.2931001741584535e-09,8.1869326191414929e-09,1.0650691045312337e-08,1.3855887783095678e-08,1.8025649721297245e-08,2.3450251081246959e-08,3.0507320589176027e-08,3.9688129748788755e-08,5.163179224476569e-08,6.7169755231566403e-08,8.738367971778195e-08,1.1368073931853696e-07,1.4789157919962358e-07,1.9239775448410771e-07,2.5029751954147609e-07,3.256215092790118e-07,4.2361332663591969e-07,5.5109456868820982e-07,7.1693970158625499e-07,9.3269384106015467e-07,1.213376442599413e-06,1.5785268458736311e-06,2.0535644519302768e-06,2.6715582103584925e-06]],"type":"surface","x":[52,59.256410256410255,66.512820512820511,73.769230769230774,81.025641025641022,88.282051282051285,95.538461538461547,102.7948717948718,110.05128205128204,117.30769230769231,124.56410256410257,131.82051282051282,139.07692307692309,146.33333333333331,153.58974358974359,160.84615384615384,168.10256410256409,175.35897435897436,182.61538461538461,189.87179487179486,197.12820512820514,204.38461538461539,211.64102564102564,218.89743589743588,226.15384615384616,233.41025641025641,240.66666666666666,247.92307692307693,255.17948717948718,262.43589743589746,269.69230769230768,276.94871794871796,284.20512820512818,291.46153846153845,298.71794871794873,305.97435897435901,313.23076923076923,320.4871794871795,327.74358974358972,335],"y":[1.5129999999999999,1.6132820512820512,1.7135641025641024,1.8138461538461539,1.9141282051282051,2.0144102564102564,2.1146923076923079,2.2149743589743589,2.3152564102564104,2.4155384615384614,2.5158205128205129,2.6161025641025644,2.7163846153846154,2.8166666666666664,2.9169487179487179,3.0172307692307694,3.1175128205128209,3.2177948717948719,3.3180769230769229,3.4183589743589744,3.5186410256410259,3.6189230769230769,3.7192051282051284,3.8194871794871799,3.9197692307692309,4.0200512820512824,4.120333333333333,4.2206153846153853,4.3208974358974359,4.4211794871794874,4.5214615384615389,4.6217435897435895,4.7220256410256418,4.8223076923076924,4.9225897435897439,5.0228717948717954,5.1231538461538459,5.2234358974358983,5.3237179487179489,5.4240000000000004],"opacity":0.59999999999999998,"name":"Predicted Probability Surface","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div></section><section id="the-guided-tour-recorded" class="slide level2">
+<h2>The Guided Tour (Recorded)</h2>
+<p>Rotate the live surface yourself on the previous slide — or rewatch the recorded walkthrough anytime:</p>
+<video src="../media/week-12/3d-logistic.mp4" controls="" preload="metadata">
+</video>
+</section></section>
+<section>
+<section id="the-bayesian-version" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>The Bayesian Version</h1>
+
+</section>
+<section id="same-formula-bayesian-machinery" class="slide level2">
+<h2>Same Formula, Bayesian Machinery</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>model_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(am <span class="sc">~</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> cars_df,</span>
+<span id="cb10-2"><a></a>                   <span class="at">family =</span> <span class="fu">bernoulli</span>(),</span>
+<span id="cb10-3"><a></a>                   <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment"><code>family = bernoulli()</code> is brms’s name for a 0/1 outcome — the switch that <code>family = binomial</code> flips in <code>glm()</code></li>
+<li class="fragment">Everything else is the Session 8 pattern: <code>chains = 2, iter = 2000</code>, the compile pause, <code>refresh = 0</code> to silence the log</li>
+<li class="fragment">Instead of one estimate per coefficient, we get a full <strong>posterior distribution</strong> for each log-odds coefficient</li>
+</ul>
+</section>
+<section id="posterior-odds-ratios" class="slide level2">
+<h2>Posterior Odds Ratios</h2>
+<p>Exponentiate the posterior summaries — dropping the intercept row, whose posterior is astronomically wide with only 32 cars:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">exp</span>(<span class="fu">fixef</span>(model_bayes)[<span class="sc">-</span><span class="dv">1</span>, <span class="fu">c</span>(<span class="st">"Estimate"</span>, <span class="st">"Q2.5"</span>, <span class="st">"Q97.5"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Estimate               Q2.5       Q97.5
+hp 1.05233926370 1.0168277428244001 1.120707968
+wt 0.00001855298 0.0000000008757284 0.006666486</code></pre>
+</div>
+</div>
+<ul>
+<li class="fragment">Same story as <code>glm()</code>: horsepower nudges the odds of a manual up; weight crushes them</li>
+<li class="fragment">The payoff is the sentence you’re <em>allowed to say</em>: “Given the data and priors, there’s a 95% probability the true odds ratio lies in this interval” — and with 32 cars, those honest intervals are huge. Watch them tighten on real data next.</li>
+</ul>
+</section></section>
+<section>
+<section id="real-data-chicago-neighborhoods" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Real Data: Chicago Neighborhoods</h1>
+
+</section>
+<section id="the-question" class="slide level2">
+<h2>The Question</h2>
+<p>What separates Chicago’s <strong>high-violence</strong> community areas from the rest?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>areas <span class="sc">|&gt;</span> <span class="fu">count</span>(high_violence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  high_violence     n
+  &lt;lgl&gt;         &lt;int&gt;
+1 FALSE            39
+2 TRUE             38</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>high_violence</code> ships in the file (it’s in the <a href="../chicago-data.html">codebook</a>): is the area’s violent-crime rate above the <strong>citywide median</strong>? 38 above, 39 at or below.</p>
+</div>
+</section>
+<section id="making-a-binary-outcome" class="slide level2">
+<h2>Making a Binary Outcome</h2>
+<p>The line that built it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>areas <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">high_violence =</span> violent_rate <span class="sc">&gt;</span> <span class="fu">median</span>(violent_rate))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">R treats <code>TRUE</code> as 1 and <code>FALSE</code> as 0, so a logical column drops straight into <code>glm()</code></li>
+<li class="fragment">If your project outcome isn’t binary yet, it may be one <code>mutate()</code> away too</li>
+<li class="fragment">One caution: cutting a continuous variable in half <strong>throws away information</strong> — defensible when the yes/no version is the question you actually care about</li>
+</ul>
+</section>
+<section id="look-first-always" class="slide level2">
+<h2>Look First (Always)</h2>
+<p>One predictor at a time before the model — unemployment against the outcome, with the fitted logistic curve:</p>
+
+<img data-src="week-12-logistic_files/figure-revealjs/chicago-curve-1.png" width="960" class="r-stretch"></section>
+<section id="fit-it" class="slide level2">
+<h2>Fit It</h2>
+<p>Two predictors: unemployment and vacant housing — both plausible markers of concentrated disadvantage:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>v_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(high_violence <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant,</span>
+<span id="cb16-2"><a></a>               <span class="at">data =</span> areas, <span class="at">family =</span> binomial)</span>
+<span id="cb16-3"><a></a><span class="fu">summary</span>(v_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="fit-it-output" class="slide level2 output-location-slide"><h2>Fit It</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = high_violence ~ unemployment_rate + pct_vacant, 
+    family = binomial, data = areas)
+
+Coefficients:
+                  Estimate Std. Error z value  Pr(&gt;|z|)    
+(Intercept)        -5.8208     1.3747  -4.234 0.0000229 ***
+unemployment_rate   0.3699     0.1100   3.363  0.000771 ***
+pct_vacant          0.2849     0.1428   1.995  0.046007 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 106.73  on 76  degrees of freedom
+Residual deviance:  52.06  on 74  degrees of freedom
+AIC: 58.06
+
+Number of Fisher Scoring iterations: 6</code></pre>
+</div>
+</div></section><section id="the-coefficients-translated" class="slide level2">
+<h2>The Coefficients, Translated</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">exp</span>(<span class="fu">cbind</span>(<span class="at">OR =</span> <span class="fu">coef</span>(v_model), <span class="fu">confint</span>(v_model)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           OR        2.5 %     97.5 %
+(Intercept)       0.002965276 0.0001115289 0.02846386
+unemployment_rate 1.447590364 1.1934960639 1.84714872
+pct_vacant        1.329619347 1.0371047252 1.83804694</code></pre>
+</div>
+</div>
+<ul>
+<li class="fragment"><strong>Unemployment: OR 1.45</strong> [1.19, 1.85] — each additional point of unemployment multiplies an area’s odds of high-violence status by ~1.45 (+45%), holding vacancy constant</li>
+<li class="fragment"><strong>Vacancy: OR 1.33</strong> [1.04, 1.84] — +33% odds per point, holding unemployment constant</li>
+<li class="fragment">For a <em>ratio</em>, no effect = <strong>1</strong>, not 0 — both intervals exclude it. And these are associations, <strong>not causes</strong>: nobody randomly assigned unemployment to neighborhoods</li>
+</ul>
+</section>
+<section id="coefficients-into-cases" class="slide level2">
+<h2>Coefficients Into Cases</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>two_areas <span class="ot">&lt;-</span> areas <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a></a>  <span class="fu">filter</span>(community <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Forest Glen"</span>, <span class="st">"West Garfield Park"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a></a>  <span class="fu">select</span>(community, unemployment_rate, pct_vacant)</span>
+<span id="cb20-4"><a></a></span>
+<span id="cb20-5"><a></a>two_areas <span class="sc">|&gt;</span></span>
+<span id="cb20-6"><a></a>  <span class="fu">mutate</span>(<span class="at">p_high_violence =</span> <span class="fu">predict</span>(v_model, <span class="at">newdata =</span> two_areas,</span>
+<span id="cb20-7"><a></a>                                   <span class="at">type =</span> <span class="st">"response"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  community          unemployment_rate pct_vacant p_high_violence
+  &lt;chr&gt;                          &lt;dbl&gt;      &lt;dbl&gt;           &lt;dbl&gt;
+1 Forest Glen                      4.2        2.6          0.0286
+2 West Garfield Park              18.9       20            0.999 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>In plain language: for an area like Forest Glen (4.2% unemployment, 2.6% vacant), the model puts the probability of high-violence status at about <strong>3%</strong>. For one like West Garfield Park (18.9%, 20.0%), it’s over <strong>99%</strong>. That’s a sentence a chief — or a city council — can actually use.</p>
+</div>
+</section>
+<section id="the-bayesian-version-real-data" class="slide level2">
+<h2>The Bayesian Version, Real Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>v_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(high_violence <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant,</span>
+<span id="cb22-2"><a></a>               <span class="at">data =</span> areas, <span class="at">family =</span> <span class="fu">bernoulli</span>(),</span>
+<span id="cb22-3"><a></a>               <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">exp</span>(<span class="fu">fixef</span>(v_bayes)[, <span class="fu">c</span>(<span class="st">"Estimate"</span>, <span class="st">"Q2.5"</span>, <span class="st">"Q97.5"</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     Estimate          Q2.5      Q97.5
+Intercept         0.001792006 0.00007756542 0.02117534
+unemployment_rate 1.492292997 1.21912215721 1.92093080
+pct_vacant        1.366238869 1.03527533301 1.87703700</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Both traditions land in the same place: posterior odds ratios near the <code>glm()</code> estimates, credible intervals excluding 1. With 77 areas instead of 32 cars, the intervals are usably tight.</p>
+</div>
+</section>
+<section id="how-to-report-it-frequentist" class="slide level2">
+<h2>How to Report It: Frequentist</h2>
+<blockquote>
+<p>“Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high-violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most.”</p>
+</blockquote>
+<div class="fragment">
+<p>The effect (as an odds ratio), the uncertainty, and a <strong>probability a reader can feel</strong> — all three, every time.</p>
+</div>
+</section>
+<section id="how-to-report-it-bayesian" class="slide level2">
+<h2>How to Report It: Bayesian</h2>
+<blockquote>
+<p>“Given the data and priors, each one-point increase in unemployment multiplied the odds of high-violence status by about 1.5 (posterior mean OR 1.49, 95% credible interval [1.22, 1.92]).”</p>
+</blockquote>
+<div class="fragment">
+<p>Same three ingredients — and this one gets to make a direct probability statement about the odds ratio itself.</p>
+</div>
+</section>
+<section id="your-turn-3-minutes-with-a-neighbor" class="slide level2">
+<h2>Your Turn (3 minutes, with a neighbor)</h2>
+<div class="your-turn">
+<p>A reentry study models <strong>re-arrest within 12 months</strong> and reports two log-odds coefficients: <strong>risk score (per point): 0.7</strong> · <strong>completed programming: −0.5</strong></p>
+<ol type="1">
+<li>Convert both to odds ratios (Rosetta Stone, or <code>exp()</code> in R)</li>
+<li>Say each in a sentence a police chief would understand</li>
+<li>Audit your neighbor: did they say <strong><em>odds</em></strong> — or slip into <em>probability</em>?</li>
+</ol>
+</div>
+<div class="fragment">
+<p><code>exp(0.7)</code> ≈ 2.0 — each risk point roughly <strong>doubles the odds</strong>. <code>exp(−0.5)</code> ≈ 0.61 — about <strong>39% lower odds</strong>. Neither is a statement about <em>probability</em>.</p>
+</div>
+</section>
+<section id="the-toolbox-is-complete" class="slide level2">
+<h2>The Toolbox Is Complete</h2>
+<ul>
+<li class="fragment">In Session 1 we predicted a robber’s next move with a table you couldn’t read. <strong>You’ve now earned the tool the course opened with</strong> — that table is just log-odds, and log-odds are just <code>exp()</code> away from sense</li>
+<li class="fragment">Descriptives → probability → inference → group comparison → correlation → regression → <strong>logistic regression</strong></li>
+<li class="fragment">Nothing in your final project requires a method you haven’t now practiced in both traditions</li>
+<li class="fragment"><strong>Checkpoint 4 — the final one — is in this week’s homework:</strong> fit and interpret <em>your</em> final model</li>
+</ul>
+</section>
+<section id="todays-lab-homework" class="slide level2">
+<h2>Today’s Lab &amp; Homework</h2>
+<ul>
+<li><strong>Lab 12:</strong> the whole logistic workflow — Chicago neighborhoods, then Alaska crashes at night (<a href="../labs/lab-12-logistic.html">lab page</a>)</li>
+<li><strong>Homework 12:</strong> your final-project model + <strong>Project Checkpoint 4 (final)</strong> — cleaned variables, model equation, fitted model, and the three sentences you’d say about it (<a href="../homework/hw-12.html">assignment</a>)</li>
+<li><strong>Session 13 is the project help session</strong> — no new reading; bring your project code, your data, and your two most stuck-on problems</li>
+<li>Full project due via Canvas <strong>before midnight Sunday</strong> ahead of Session 14 (<a href="../final-project.html">details</a>)</li>
+</ul>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>CRJU 705 · Session 12</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
