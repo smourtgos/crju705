@@ -33,10 +33,30 @@ website:
             text: "Session 4 · Sampling Distributions"
           - href: weeks/week-05.qmd
             text: "Session 5 · Confidence Intervals"
+          - href: weeks/week-06.qmd
+            text: "Session 6 · Hypothesis Testing (Freq + Bayes)"
+          - href: weeks/week-07.qmd
+            text: "Session 7 · Applied Data Workshop"
+          - href: weeks/week-08.qmd
+            text: "Session 8 · ANOVA"
+          - href: weeks/week-09.qmd
+            text: "Session 9 · Midterm"
+          - href: weeks/week-10.qmd
+            text: "Session 10 · Correlation"
+          - href: weeks/week-11.qmd
+            text: "Session 11 · Multiple Regression"
+          - href: weeks/week-12.qmd
+            text: "Session 12 · Logistic Regression"
+          - href: weeks/week-13.qmd
+            text: "Session 13 · Project Help Session"
+          - href: weeks/week-14.qmd
+            text: "Session 14 · Presentations"
       - href: resources.qmd
         text: Resources
       - href: chicago-data.qmd
         text: Data Codebook
+      - href: final-project.qmd
+        text: Final Project
     right:
       - icon: github
         href: https://github.com/smourtgos/crju705

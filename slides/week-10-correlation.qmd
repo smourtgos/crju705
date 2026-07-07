@@ -1,0 +1,634 @@
+---
+title: "Associations Between Variables: Correlation"
+subtitle: "CRJU 705 · Session 10 · Fall 2026"
+author: "Scott M. Mourtgos"
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    footer: "CRJU 705 · Session 10"
+    theme: [default, custom-slides.scss]
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(correlation)
+library(patchwork)
+source(here::here("R/setup.R"))
+theme_set(theme_minimal(base_size = 18))
+set.seed(705)
+areas <- read_csv(here::here("data/chicago-areas.csv"), show_col_types = FALSE)
+```
+
+## This Week
+
+**Topic:** measuring how two *numeric* variables move together
+
+- Association vs. causation (and the lurking third variable)
+- Covariance → **Pearson's r**: one number for direction and strength
+- What r *cannot* see — and why you always plot first
+- Inference on r: frequentist `cor.test()` **and** Bayesian, via the `correlation` package
+- Real data: which structural features of Chicago's 77 areas track violence — and what that does **not** say about individuals
+
+**Learning goals:** interpret r's sign and size; test it in both traditions; explain the ecological fallacy in one sentence.
+
+## Where We've Been
+
+::: incremental
+- **Session 6:** two group means — is *this* mean different from *that* one?
+- **Session 8:** three or more group means — ANOVA
+- Both had the same shape: a **categorical** IV (the groups) and a **numeric** DV
+- **Session 9:** the midterm. You survived. Welcome to the second half.
+- **Today:** *both* variables are numeric — no groups at all. The question changes from "do groups differ?" to "**do two measures move together?**"
+- This is the doorway to regression (Sessions 11–12), where your final projects live
+:::
+
+# A New Kind of Question {background-color="#73000A"}
+
+## What Does Correlation Tell Us?
+
+When two variables move together, how can we describe that relationship?
+
+- One goes up when the other goes up → **positive correlation**
+- One goes up when the other goes down → **negative correlation**
+- Changes in one don't track changes in the other → **no correlation**
+
+. . .
+
+Direction is only half the story. The **strength** of the relationship tells how tightly the changes are linked — that's the number we build today.
+
+## Which Is Which?
+
+Positive, negative, or nothing? Make your call for each panel:
+
+```{r}
+#| label: guess-panels
+#| echo: false
+#| fig-height: 4.5
+set.seed(705)   # inline seed: keeps these particular clouds (and their r values) stable
+guess <- bind_rows(
+  tibble(panel = "A", x = 1:30, y = 30:1 + rnorm(30, 0, 3)),
+  tibble(panel = "B", x = 1:30, y = 1:30 + rnorm(30, 0, 3)),
+  tibble(panel = "C", x = 1:30, y = rnorm(30, 15, 8))
+)
+
+ggplot(guess, aes(x, y)) +
+  geom_point(size = 2.5, color = crju_colors["navy"]) +
+  facet_wrap(~panel) +
+  labs(x = "Variable X", y = "Variable Y")
+```
+
+## Which Is Which? — Revealed
+
+```{r}
+#| label: guess-reveal
+#| echo: false
+#| fig-height: 4.5
+guess_r <- guess |>
+  summarize(r = cor(x, y), .by = panel) |>
+  mutate(label = paste0(panel, ":  r = ", sprintf("%.2f", r)))
+
+guess |>
+  left_join(guess_r, by = "panel") |>
+  ggplot(aes(x, y)) +
+  geom_point(size = 2.5, color = crju_colors["navy"]) +
+  geom_smooth(method = "lm", se = FALSE, color = crju_colors["garnet"]) +
+  facet_wrap(~label) +
+  labs(x = "Variable X", y = "Variable Y")
+```
+
+. . .
+
+The lines make it obvious — and the r values put a number on what your eye already knew.
+
+## Real-World Examples
+
+- **Positive:** hours studied ↑, exam scores ↑
+- **Negative:** officers on shift ↑, response times ↓
+- **Near zero:** shoe size vs. GPA
+
+. . .
+
+**Your turn:** give me a CJ example of each — *and* one pair you suspect people **believe** is correlated but isn't.
+
+## Correlation Does NOT Mean Causation
+
+::: incremental
+- Correlation shows **association**, not cause and effect
+- Ice cream sales and violent crime rise together every year. Does ice cream cause violence???
+- Two variables can move together because of a **third variable** — summer heat drives both — or by pure coincidence
+- When you see a correlation, ask: does X cause Y? Y cause X? Does Z drive both? Or is it luck?
+- Correlation is a **pattern**, not proof of cause. **Beware the evil lurking third variable!**
+:::
+
+# From Covariance to r {background-color="#1B2A4A"}
+
+## Covariance: Moving Together, in Raw Units
+
+Observation by observation: do x and y sit on the *same side* of their means?
+
+$$\text{cov}(x, y) \;=\; \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{n - 1}$$
+
+::: incremental
+- Both above average (or both below) → positive products → **positive covariance**; opposite sides → **negative covariance**
+- The **sign** is trustworthy: covariance tells you *whether* two variables move together
+- The **size** is not — watch what happens on real data
+:::
+
+## The Units Problem
+
+Two covariances with violent crime, from our 77 Chicago community areas:
+
+```{r}
+#| label: cov-units
+cov(areas$unemployment_rate, areas$violent_rate)
+cov(areas$median_income,     areas$violent_rate)
+```
+
+. . .
+
+Is −482,660 a "stronger" relationship than 108? No idea — the first number lives in *dollars × crimes per 1,000*, the second in *percentage points × crimes per 1,000*. **Covariance is glued to its units.** You can't compare across pairs.
+
+## Correlation Rescales It
+
+Divide the covariance by both standard deviations and the units cancel:
+
+$$r \;=\; \frac{\text{cov}(x, y)}{s_x \, s_y}$$
+
+```{r}
+#| label: r-standardize
+cov(areas$unemployment_rate, areas$violent_rate) /
+  (sd(areas$unemployment_rate) * sd(areas$violent_rate))
+
+cor(areas$unemployment_rate, areas$violent_rate)   # same thing, one function
+```
+
+. . .
+
+Always between **−1 and +1**, unit-free, comparable: income runs r = −0.71 with violence — so unemployment (0.84) tracks violence more tightly than income does, direction aside.
+
+## Reading r: The Conventional Bands {.smaller}
+
+| Range of r | Strength | Direction | Example interpretation |
+|---|---|---|---|
+| +0.8 to +1.0 | Very strong | Positive | More prior arrests → much higher recidivism score |
+| +0.4 to +0.7 | Moderate | Positive | More training hours → higher confidence |
+| 0 to +0.3 | Weak | Positive | Slight upward trend |
+| −0.3 to 0 | Weak | Negative | Slight inverse trend |
+| −0.7 to −0.4 | Moderate | Negative | More absences → lower grades |
+| −1.0 to −0.8 | Very strong | Negative | More speed → less accuracy |
+
+: {tbl-colwidths="[22,18,18,42]"}
+
+. . .
+
+These bands are **conventions, not laws** — in messy social-science data, a "moderate" r can be a major finding.
+
+## Calibrate Your Eye
+
+```{r}
+#| label: r-grid
+#| echo: false
+#| fig-height: 5.5
+set.seed(705)   # inline seed: stable panels
+r_targets <- c(0.9, 0.5, 0.2, 0, -0.5, -0.9)
+
+r_grid <- map(r_targets, \(r) {
+  x <- rnorm(150)
+  y <- r * x + sqrt(1 - r^2) * rnorm(150)
+  tibble(label = paste0("r = ", sprintf("%.2f", cor(x, y))), x = x, y = y)
+}) |>
+  list_rbind() |>
+  mutate(label = fct_inorder(label))
+
+ggplot(r_grid, aes(x, y)) +
+  geom_point(alpha = 0.5, size = 1.6, color = crju_colors["navy"]) +
+  facet_wrap(~label, nrow = 2) +
+  labs(title = "Six simulated datasets, 150 points each",
+       x = NULL, y = NULL) +
+  theme(axis.text = element_blank())
+```
+
+By ±0.5 the trend is visible; below ±0.2 your eye mostly sees noise — and it's right.
+
+# What r Cannot See {background-color="#73000A"}
+
+## Anscombe's Quartet: Four Identical Summaries
+
+```{r}
+#| label: anscombe-stats
+anscombe_long <- anscombe |>
+  pivot_longer(everything(), names_to = c(".value", "set"), names_pattern = "(.)(.)")
+
+anscombe_long |>
+  summarize(mean_x = mean(x), mean_y = mean(y), r = cor(x, y), .by = set)
+```
+
+. . .
+
+Four little datasets that ship with R (Anscombe, 1973). Same means, same r = 0.82 to two decimals — statistically interchangeable. Right?
+
+## Anscombe's Quartet, Seen
+
+```{r}
+#| label: anscombe-plot
+#| echo: false
+#| fig-height: 5.5
+ggplot(anscombe_long, aes(x, y)) +
+  geom_point(size = 2.5, color = crju_colors["navy"]) +
+  geom_smooth(method = "lm", se = FALSE, color = crju_colors["garnet"], linewidth = 0.8) +
+  facet_wrap(~set, labeller = labeller(set = \(s) paste0("Set ", s, " — r = 0.82"))) +
+  labs(title = "Same r, four completely different stories",
+       x = NULL, y = NULL)
+```
+
+Only Set 1 is what you picture when someone says "r = 0.82." **Always plot before you correlate.**
+
+## Limitation 1: r Only Sees Straight Lines
+
+```{r}
+#| label: u-shape
+#| echo: false
+#| fig-height: 5
+set.seed(705)   # inline seed: stable curve
+u_data <- tibble(
+  x = seq(-4, 4, length.out = 50),
+  y = x^2 + rnorm(50, 0, 1)
+)
+
+ggplot(u_data, aes(x, y)) +
+  geom_point(size = 2.5, color = crju_colors["rust"]) +
+  geom_smooth(method = "loess", se = FALSE, color = crju_colors["rust"]) +
+  labs(title = "A clear relationship that r cannot see",
+       subtitle = paste0("Pearson's r = ", sprintf("%.2f", cor(u_data$x, u_data$y)),
+                         " — the data follow a curved (U-shaped) pattern"),
+       x = "Variable X", y = "Variable Y")
+```
+
+Think stress vs. performance: an inverted U. r ≈ 0 means no **linear** relationship — not no relationship.
+
+## Limitation 2: One Point Can Manufacture a Correlation
+
+```{r}
+#| label: outlier-demo
+#| echo: false
+#| fig-height: 5
+set.seed(705)   # inline seed: stable demo (numbers cited on the next slide)
+base_data    <- tibble(x = 1:20, y = rnorm(20, 10, 4))   # pure noise
+outlier_data <- bind_rows(base_data, tibble(x = 25, y = 100))
+
+p_base <- ggplot(base_data, aes(x, y)) +
+  geom_point(size = 2.5, color = "grey35") +
+  geom_smooth(method = "lm", se = FALSE, color = crju_colors["navy"]) +
+  labs(title = "20 points of pure noise",
+       subtitle = paste0("r = ", sprintf("%.2f", cor(base_data$x, base_data$y))),
+       x = "Variable X", y = "Variable Y")
+
+p_out <- ggplot(outlier_data, aes(x, y)) +
+  geom_point(size = 2.5, color = "grey35") +
+  geom_point(data = filter(outlier_data, y > 50), color = crju_colors["garnet"], size = 4.5) +
+  geom_smooth(method = "lm", se = FALSE, color = crju_colors["navy"]) +
+  labs(title = "Same noise + ONE outlier",
+       subtitle = paste0("r = ", sprintf("%.2f", cor(outlier_data$x, outlier_data$y))),
+       x = "Variable X", y = "Variable Y")
+
+p_base + p_out
+```
+
+## What Just Happened
+
+::: incremental
+- Twenty points of pure noise happened to give r = −0.28 — **small samples produce correlations out of nothing**; that's why we'll test, not just compute
+- Adding **one** extreme pair swung r from −0.28 to **+0.42** — a single point flipped the sign *and* manufactured a "moderate positive" correlation
+- Neither number describes a real relationship
+- Outliers can also work the other way, *hiding* a real correlation
+- Defenses: **plot first** (you'd catch this instantly) — and a correlation that doesn't care about wild values —
+:::
+
+## A Rank-Based Backup: Spearman's rho
+
+Replace each value with its **rank** (1st, 2nd, 3rd…), then correlate the ranks. Spearman asks only: *is the relationship consistently up or consistently down?*
+
+```{r}
+#| label: spearman-outlier
+c(pearson  = cor(outlier_data$x, outlier_data$y),
+  spearman = cor(outlier_data$x, outlier_data$y, method = "spearman"))
+```
+
+. . .
+
+To Spearman, the wild point is just "rank 21": it drifts from `r sprintf("%.2f", cor(base_data$x, base_data$y, method = "spearman"))` to `r sprintf("%.2f", cor(outlier_data$x, outlier_data$y, method = "spearman"))` — sign intact, still weak — while Pearson swung 0.70 and flipped sign. When data are skewed or outlier-prone, check Spearman alongside Pearson.
+
+# Real Data: Structure and Violence Across Chicago {background-color="#1B2A4A"}
+
+## From Incidents to Areas
+
+The anchor data's **second level** ([codebook](../chicago-data.qmd)): all 237,472 of 2025's incidents, aggregated to the **77 community areas** and joined with Census measures:
+
+```{r}
+#| label: areas-peek
+areas |>
+  select(community, violent_rate, unemployment_rate, median_income, pct_vacant) |>
+  head(3)
+```
+
+. . .
+
+A classic criminology-of-place question: **which structural features of a neighborhood track its violence?** Correlation is exactly the right first tool.
+
+## Look First: Unemployment and Violence
+
+```{r}
+#| label: unemp-scatter
+#| echo: false
+#| fig-height: 5.5
+ggplot(areas, aes(unemployment_rate, violent_rate)) +
+  geom_point(size = 3, alpha = 0.7, color = crju_colors["garnet"]) +
+  geom_smooth(method = "lm", se = FALSE, color = crju_colors["navy"]) +
+  labs(title = "Violent-crime rate vs. unemployment rate — 77 community areas",
+       subtitle = paste0("r = ", sprintf("%.2f", cor(areas$unemployment_rate, areas$violent_rate))),
+       x = "Unemployment rate (%)", y = "Violent crimes per 1,000 residents")
+```
+
+One dot = one community area. This is about as strong as area-level associations get in criminology.
+
+## The Full Menu, in One Dataset
+
+```{r}
+#| label: four-covariates
+#| echo: false
+#| fig-height: 5.5
+areas |>
+  select(violent_rate, unemployment_rate, pct_renter, median_income, median_age) |>
+  pivot_longer(-violent_rate, names_to = "covariate", values_to = "value") |>
+  mutate(covariate = case_match(covariate,
+    "unemployment_rate" ~ paste0("Unemployment rate — r = ",
+      sprintf("%.2f", cor(areas$unemployment_rate, areas$violent_rate))),
+    "pct_renter" ~ paste0("% renter-occupied — r = ",
+      sprintf("%.2f", cor(areas$pct_renter, areas$violent_rate))),
+    "median_income" ~ paste0("Median income — r = ",
+      sprintf("%.2f", cor(areas$median_income, areas$violent_rate))),
+    "median_age" ~ paste0("Median age — r = ",
+      sprintf("%.2f", cor(areas$median_age, areas$violent_rate))))) |>
+  ggplot(aes(value, violent_rate)) +
+  geom_point(alpha = 0.6, size = 2, color = crju_colors["navy"]) +
+  geom_smooth(method = "lm", se = FALSE, color = crju_colors["garnet"], linewidth = 0.8) +
+  facet_wrap(~covariate, scales = "free_x") +
+  labs(title = "Violent-crime rate vs. four structural covariates",
+       x = NULL, y = "Violent crimes per 1,000")
+```
+
+Strong positive, moderate positive, strong negative — and one genuine *nothing* (median age). Real data span the whole menu.
+
+## These Are Areas, Not People
+
+Our r = 0.84 says: **community areas** with higher unemployment rates record more violent crime per 1,000 residents.
+
+::: {.callout-important appearance="simple"}
+**The ecological fallacy:** using an aggregate-level association to make claims about individuals. Our data contain **no individuals** — every resident of an area gets the same 77 values. Nothing here says *unemployed people* commit violence.
+:::
+
+. . .
+
+The classic demonstration (Robinson, 1950): across U.S. **states**, more foreign-born residents went with *higher* literacy; across **individuals**, foreign-born residents had *lower* literacy. Same data, opposite signs — immigrants had settled in high-literacy states. Aggregation can weaken, exaggerate, or even **flip** an individual-level relationship.
+
+## Saying It Out Loud (Area-Data Edition)
+
+✅ **Defensible:**
+
+> "Community areas with higher unemployment rates recorded higher violent-crime rates (r = 0.84)."
+
+❌ **Not defensible:**
+
+> "Unemployed residents commit more violent crime." *(An individual-level claim — these data can't see individuals.)*
+
+> "Unemployment drives up violence." *(A causal claim — concentrated disadvantage, disinvestment, and policing patterns all lurk behind both variables.)*
+
+## Income: When Pearson and Spearman Disagree
+
+```{r}
+#| label: income-scatter
+#| echo: false
+#| fig-height: 5
+ggplot(areas, aes(median_income, violent_rate)) +
+  geom_point(size = 3, alpha = 0.7, color = crju_colors["navy"]) +
+  geom_smooth(method = "loess", se = FALSE, color = crju_colors["garnet"]) +
+  scale_x_continuous(labels = scales::dollar_format(scale = 1/1000, suffix = "k")) +
+  labs(title = "Violent-crime rate vs. median household income",
+       subtitle = paste0("Pearson r = ", sprintf("%.2f", cor(areas$median_income, areas$violent_rate)),
+                         "  ·  Spearman rho = ",
+                         sprintf("%.2f", cor(areas$median_income, areas$violent_rate, method = "spearman"))),
+       x = "Median household income", y = "Violent crimes per 1,000")
+```
+
+The decline is real but **bent** — steep across the lower-income areas, nearly flat past ~$90k — and income is right-skewed. The rank-based Spearman (−0.82) runs stronger than Pearson (−0.71) because it only asks "downhill?", not "straight line?".
+
+# Putting Uncertainty on r {background-color="#73000A"}
+
+## From Description to Inference
+
+We can *see* r = 0.84. Two honest questions remain — one per tradition:
+
+::: incremental
+- **Frequentist:** if nothing truly connected these variables, how often would 77 paired observations line up this tightly by luck?
+- **Bayesian:** given the data, what *range* of correlation values is credible?
+- One wrinkle: these 77 areas are **all of Chicago**, not a sample from a bag of Chicagos. Read the null as a claim about the *process generating neighborhood outcomes*, not about a larger population of areas we sampled from.
+:::
+
+## The Frequentist Test on r
+
+- **Null hypothesis: ρ = 0** — no linear association in the process that generated the data
+- Test statistic: a **t** with **n − 2** degrees of freedom — the same machinery as Sessions 6–8
+- Same logic as every test we've run: *if ρ were zero, how surprising is an r like ours?*
+
+. . .
+
+In R, one function does the whole thing — and hands you a confidence interval too.
+
+## `cor.test()`
+
+```{r}
+#| label: cor-test
+cor.test(areas$unemployment_rate, areas$violent_rate)
+```
+
+## Reading It Honestly
+
+::: incremental
+- **r = 0.84, t(75) = 13.4, p < .001** — a null world essentially never makes 77 paired observations line up this tightly
+- **95% CI [0.76, 0.90]** — Session 5's reading still applies: the *procedure* captures the true value in 95% of replications; this particular interval either does or doesn't
+- Perspective: with n = 77, any |r| above about **0.22** clears p < .05. Significance is a low bar — **the strength is the story**
+- And nothing in this output upgrades association to causation, or areas to individuals
+:::
+
+## The Whole Matrix at Once
+
+Real analyses rarely stop at one pair. `cor()` takes every numeric column you feed it:
+
+```{r}
+#| label: cor-matrix
+areas |>
+  select(violent_rate, unemployment_rate, median_income, pct_vacant) |>
+  cor() |>
+  round(2)
+```
+
+. . .
+
+Symmetric, 1s on the diagonal — a compact map of the association structure. But: no tests, no intervals.
+
+## Same Matrix, With Uncertainty: `correlation()`
+
+The **correlation** package (easystats) tests every pair and attaches CIs — and it **Holm-adjusts the p-values** for the number of pairs. Six tests at once is exactly Session 8's pile-of-tests problem, and the package handles it by default:
+
+```{r}
+#| label: corr-pkg
+#| output-location: slide
+areas |>
+  select(violent_rate, unemployment_rate, median_income, pct_vacant) |>
+  correlation()
+```
+
+# The Bayesian Version {background-color="#1B2A4A"}
+
+## Bayesian Correlation: The Idea
+
+::: incremental
+- Instead of a single r and a p-value, you get a **posterior distribution** of plausible correlation values (ρ)
+- You can ask direct questions: *given my data, what's the probability ρ > 0?*
+- The prior encodes mild skepticism — real-world correlations are rarely extreme — gently pulling estimates toward 0
+- Same package, one new argument: `bayesian = TRUE`
+- And unlike `brms` in Session 8, **no compilation wait** — this samples in a blink
+:::
+
+## `correlation(..., bayesian = TRUE)`
+
+```{r}
+#| label: bayes-pair
+set.seed(705)   # inline seed: posterior sampling, keeps printed values stable
+bayes_pair <- areas |>
+  select(violent_rate, unemployment_rate) |>
+  correlation(bayesian = TRUE)
+bayes_pair
+```
+
+## Reading the Bayesian Output
+
+::: incremental
+- **rho = `r sprintf("%.2f", bayes_pair$rho)`** — the posterior *median*, a touch below the frequentist 0.84: that's the prior's gentle pull toward zero
+- **95% CI [`r sprintf("%.2f", bayes_pair$CI_low)`, `r sprintf("%.2f", bayes_pair$CI_high)`]** — a **credible interval**: given data and prior, 95% probability ρ lies in this range. *The direct statement Session 5 taught you the confidence interval can't make.*
+- **pd = 100%** — the posterior probability the correlation is positive — and **0% in ROPE**: none of the posterior sits in a "practically zero" band
+- **BF ≈ 10¹⁷** — the data are astronomically more likely under "correlated" than "not." On Session 6's scale, anything past 100 is extreme evidence; this is 10¹⁷.
+:::
+
+## The Posterior, Seen
+
+```{r}
+#| label: bayes-posterior
+#| echo: false
+#| fig-height: 5
+set.seed(705)
+post_sketch <- tibble(
+  rho = rnorm(5000,
+              mean = bayes_pair$rho,
+              sd   = (bayes_pair$CI_high - bayes_pair$CI_low) / (2 * 1.96))
+)
+
+ggplot(post_sketch, aes(rho)) +
+  geom_density(fill = crju_colors["blue"], alpha = 0.6, color = crju_colors["navy"]) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  coord_cartesian(xlim = c(-0.1, 1)) +
+  labs(title = "Approximate posterior distribution of ρ",
+       subtitle = paste0("Normal sketch from the posterior summary: median = ",
+                         sprintf("%.2f", bayes_pair$rho),
+                         ", 95% CI [", sprintf("%.2f", bayes_pair$CI_low),
+                         ", ", sprintf("%.2f", bayes_pair$CI_high), "]"),
+       x = "Correlation (ρ)", y = "Density")
+```
+
+The entire heap of credible values sits far from 0 (dashed line). *That picture* is what pd = 100% and the huge BF are summarizing.
+
+## The Bayesian Matrix
+
+```{r}
+#| label: bayes-matrix
+set.seed(705)   # inline seed: posterior sampling
+areas |>
+  select(violent_rate, unemployment_rate, median_income, pct_vacant) |>
+  correlation(bayesian = TRUE) |>
+  summary()
+```
+
+. . .
+
+Same map as the frequentist matrix, but every entry is now a posterior median with full uncertainty machinery behind it.
+
+## But the Priors…
+
+The default prior is `"medium"` skepticism. Loosen it and see what moves:
+
+```{r}
+#| label: bayes-wide
+set.seed(705)   # inline seed: posterior sampling
+areas |>
+  select(violent_rate, unemployment_rate) |>
+  correlation(bayesian = TRUE, bayesian_prior = "wide")
+```
+
+## What Changed? Almost Nothing — Here
+
+::: incremental
+- The wide prior is *less* skeptical of big correlations, so it shrinks rho toward 0 slightly less — the estimate creeps closer to the raw r = 0.84
+- With **77 areas of strongly correlated data, the data dominate**: the prior choice moves the second decimal
+- With 15 areas and a modest correlation, the same choice could visibly move the estimate — priors matter most when data are thin
+- Practical rule for this course: **defaults are fine — but say which prior you used.** If your conclusion survives medium *and* wide, say that too; it's a free robustness check.
+:::
+
+## Frequentist vs. Bayesian Correlation {.smaller}
+
+| Feature | Frequentist (Pearson's r) | Bayesian (ρ) |
+|---|---|---|
+| Output | Single value, r | Posterior distribution of ρ |
+| Uncertainty | 95% confidence interval | 95% credible interval |
+| Evidence measure | p-value | Posterior probability, Bayes factor |
+| Prior information | None | Included (by prior width) |
+| Interpretation | "If no true correlation…" | "Given data, how probable is each value of ρ?" |
+
+: {tbl-colwidths="[24,38,38]"}
+
+## How to Report It
+
+> **Frequentist:** "Across Chicago's 77 community areas, unemployment was strongly associated with the violent-crime rate, r = .84, t(75) = 13.4, p < .001, 95% CI [.76, .90]. This is an area-level association; it does not speak to individuals."
+
+> **Bayesian:** "The posterior median correlation was ρ ≈ .82, 95% credible interval [.73, .87], BF₁₀ ≈ 10¹⁷ — overwhelming evidence for a strong positive area-level association."
+
+Direction, strength, uncertainty, and the level of analysis — every time.
+
+## Your Turn (5 Minutes)
+
+`pct_no_hs_diploma` — the share of an area's adults without a high-school diploma. **Before you compute anything:** write down your predicted sign and rough size of its correlation with `violent_rate`.
+
+```r
+areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv")
+
+ggplot(areas, aes(pct_no_hs_diploma, violent_rate)) + geom_point()
+cor.test(areas$pct_no_hs_diploma, areas$violent_rate)
+```
+
+. . .
+
+Most people predict a strong positive. The data: **r = 0.17, p = .14** — indistinguishable from nothing. Yet `pct_bachelors` runs a solid **−0.45**. Plausible-sounding covariates can fail, and correlated predictors tangle — untangling them is *exactly* Session 11's job.
+
+## Today's Lab & Homework
+
+- **Lab 10:** the full correlation workflow — Chicago areas, then neighborhoods and officers, including one dataset where the honest answer is *"there's nothing here"* ([lab page](../labs/lab-10-correlation.qmd))
+- **Homework 10:** correlation in both traditions on the Chicago areas — *plus* **Project Checkpoint 2**: the first associations in **your** project dataset, feeding straight into Checkpoint 3's regression ([Session 10 page](../weeks/week-10.qmd))
+- **Read before Session 11:** Stanton Ch. 8 — multiple regression, where today's scatterplots grow a second predictor

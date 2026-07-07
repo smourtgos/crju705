@@ -1,0 +1,32 @@
+---
+title: "Session 12 · Logistic Regression: Yes/No Outcomes"
+subtitle: "Odds and log-odds · glm(family = binomial) · odds ratios + predicted probabilities · the 3D logistic surface · Bayesian logistic with brms · Project Checkpoint 4 (final)"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Logistic Regression](../slides/week-12-logistic.qmd)** · **[🧪 Lab 12: Logistic Regression — Chicago Neighborhoods, Then Alaska Nights](../labs/lab-12-logistic.qmd)** · **[📝 Homework 12 + Project Checkpoint 4](../homework/hw-12.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 10** (Logistic Regression)
+- No new packages — `brms` (installed for Session 8) covers the Bayesian side. If you want to spin the 3D surface on your own machine, `install.packages("plotly")` is optional.
+- Bring your laptop **and your final-project data** — this week's homework contains **Checkpoint 4, the final checkpoint**, and it asks you to fit your actual project model
+- This is the last session with new statistical content: Session 13 is the project help session, Session 14 is presentations
+
+## In class
+
+- Why criminal justice runs on binary outcomes (arrest, failure to appear, re-arrest, intoxicated or not) — and why `lm()` predicts impossible probabilities when you feed it one
+- **Closing the loop on Session 1:** the bank-robbery case study that opened the course was a logistic regression — we re-fit the exact model and finally read its table (coefficients are log-odds; `exp()` them into odds ratios; West Zone's odds ratio is why the cars went west)
+- The ladder: probability → odds → log-odds, and why a straight line can only live on the last rung
+- `glm(family = binomial)` — one argument away from `lm()` — and the two interpretation moves: **odds ratios** for effects, **predicted probabilities** for cases
+- **The 3D logistic surface:** Session 11's flat plane, bent into an S-shaped probability sheet — built live from `predict()` on a 40 × 40 grid, plus the recorded guided tour
+- The **Bayesian version**: `brm(family = bernoulli())` with the Session 8 settings, posterior odds ratios, and the credible-interval sentence you're allowed to say
+- Real-data thread: which Chicago community areas are **high-violence**? Unemployment (OR ≈ 1.45 per point) and vacant housing (OR ≈ 1.33 per point) both raise the odds; predicted probabilities run from ~3% (Forest Glen) to over 99% (West Garfield Park). Associations, not causes — and we say so.
+- **Lab 12:** the whole workflow yourself — Chicago walkthrough, then intoxicated-crash odds in the Alaska data with lubridate-built night/weekend flags, plus odds-ratio translation drills
+
+## Homework
+
+- **[Homework 12](../homework/hw-12.qmd)** — entirely about **your** project this week: `summary()`/`str()` proof of your cleaned model variables, your model equation (linear or logistic, and why), **plus Project Checkpoint 4 (final)**: fit and interpret your final model, produce one presentation-ready table or figure, and write the three sentences you'd say to a non-statistician. Submit your `.R` file via Canvas **before noon Tuesday**.
+- **Next session (13) is the [project help session](week-13.qmd)** — no new reading, no new stats. Bring your project code, your data, and your two most stuck-on problems; Checkpoint 4 feedback comes back before then so you know what to bring.
+- The **full project** — script, dataset, written report — is due via Canvas **before midnight the Sunday before Session 14** ([details and rubric](../final-project.qmd)), with presentations in class at Session 14.

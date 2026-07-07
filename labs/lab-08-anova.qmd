@@ -1,0 +1,216 @@
+---
+title: "Lab 8 · ANOVA: Three Classrooms, Then Real Crashes"
+subtitle: "CRJU 705 · Session 8"
+---
+
+**Goal:** run the complete ANOVA workflow from today's lecture — the two variances by hand, `aov()` + Tukey's HSD, and the Bayesian version with `brms` + `emmeans` — first on a small classroom example where you can check every number, then on real Alaska crash data.
+
+The R4DS wrangling thread wrapped up before the break, so there's no new data-skills content today: this lab is pure statistics practice.
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+library(brms)
+library(emmeans)
+
+crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv")
+```
+
+::: {.callout-warning appearance="simple"}
+**First time using `brms`?** Install both new packages before anything else: `install.packages(c("emmeans", "brms"))`. And when you run your first `brm()` model of a session, R will sit at `Compiling Stan program...` for a minute before sampling starts. That's normal — Stan is compiling your model into C++. It is not frozen. If instead you get an error mentioning a *compiler* or *toolchain*, flag me down.
+:::
+
+Our walkthrough data are the three classrooms from lecture — typed in by hand, because 15 numbers you can see beat 15,000 you can't when you're learning what a method *does*:
+
+```{r}
+#| label: classrooms-data
+classrooms <- tibble(
+  score     = c(75, 80, 78, 74, 77,    # Class 1
+                88, 90, 92, 85, 87,    # Class 2
+                70, 65, 68, 72, 66),   # Class 3
+  classroom = factor(rep(c("Class 1", "Class 2", "Class 3"), each = 5))
+)
+```
+
+**The question:** did these three classrooms perform differently, or are the differences just the usual student-to-student bounce?
+
+## Walkthrough
+
+### Look first
+
+Always. Before any test:
+
+```{r}
+#| label: look-first
+class_means <- classrooms |>
+  summarize(mean_score = mean(score), .by = classroom)
+
+ggplot(classrooms, aes(classroom, score)) +
+  geom_jitter(width = 0.08, height = 0, size = 3, alpha = 0.6) +
+  geom_boxplot(alpha = 0.2, width = 0.3) +
+  geom_point(data = class_means, aes(y = mean_score),
+             shape = 23, size = 5, fill = "firebrick") +
+  labs(title = "Test scores by classroom",
+       subtitle = "Dots = individual students · Diamonds = class means",
+       x = NULL, y = "Test score")
+```
+
+Class 2 sits high, Class 3 sits low, and the spread *inside* each class is modest. That's the whole ANOVA story in one picture — the rest of the lab is putting numbers on it.
+
+### The two variances, by hand
+
+**Within-group variance** = the average spread inside a class. **Between-group variance** = the spread of the class means themselves.
+
+```{r}
+#| label: hand-variances
+class_stats <- classrooms |>
+  summarize(class_mean = mean(score), class_var = var(score), .by = classroom)
+class_stats
+
+within_var  <- mean(class_stats$class_var)    # average spread inside a class
+between_var <- var(class_stats$class_mean)    # spread of the class means
+
+within_var
+between_var
+between_var / within_var                      # signal-to-noise ratio
+```
+
+The class means are about **14.5 times** more spread out than chance bouncing within classes would produce. Strong signal.
+
+::: {.callout-note collapse="true"}
+## Why won't this ratio match `aov()`'s F?
+
+Because `aov()` scales the between-group signal by the **group size** before comparing it to the noise: a gap between means built on 5 students each is stronger evidence than the same gap built on 2. With equal groups, F = group size × our hand ratio — here, 5 × 14.5 ≈ 72.7. Watch for exactly that number below. Same logic, different units.
+:::
+
+### The frequentist ANOVA
+
+```{r}
+#| label: aov-classrooms
+class_model <- aov(score ~ classroom, data = classrooms)
+summary(class_model)
+```
+
+Reading the table against our hand math:
+
+- **Mean Sq Residuals = 7.1** — our within-group variance, exactly
+- **Mean Sq classroom = 513.8** — our between-group variance × 5 (the group size): 5 × 102.76
+- **F(2, 12) = 72.7, p ≈ 0.0000002** — far beyond anything a null world produces. *Something* differs.
+
+### Which classes differ? Tukey's HSD
+
+The omnibus F never says *which* pairs. Tukey's HSD tests every pair while keeping the family-wise false-alarm rate at 5% (remember the pile-of-t-tests problem from lecture):
+
+```{r}
+#| label: tukey-classrooms
+TukeyHSD(class_model)
+```
+
+All three intervals exclude 0 with tiny adjusted p-values: every class differs from every other class.
+
+### The Bayesian version
+
+Same formula, Bayesian machinery. Fit once, then let `emmeans` do the summarizing:
+
+```{r}
+#| label: brm-classrooms
+#| output: false
+class_bayes <- brm(score ~ classroom, data = classrooms,
+                   chains = 2, iter = 2000, seed = 705, refresh = 0)
+```
+
+```{r}
+#| label: emmeans-classrooms
+class_post <- emmeans(class_bayes, ~ classroom)
+class_post
+```
+
+One row per class: posterior median and 95% HPD interval for that class's mean.
+
+```{r}
+#| label: pairs-classrooms
+pairs(class_post)
+```
+
+```{r}
+#| label: plot-pairs-classrooms
+#| fig-height: 3
+plot(pairs(class_post)) +
+  geom_vline(xintercept = 0, linetype = 2)
+```
+
+**The interpretation rule for pairwise differences:** if an interval **crosses 0**, zero ("no difference") remains a credible value — no credible difference. If it **excludes 0**, the difference is credible. Here none of the three intervals crosses 0, so the Bayesian analysis agrees with Tukey: all three classes differ.
+
+## Your Turn
+
+Work in your own script. Comment each answer.
+
+**1. Flatten the classrooms.** Erase the group differences but keep the within-class spread:
+
+```{r}
+#| label: yt-1
+#| eval: false
+classrooms_flat <- classrooms |>
+  mutate(score = case_when(
+    classroom == "Class 2" ~ score - 12,
+    classroom == "Class 3" ~ score + 8,
+    .default = score
+  ))
+# Now recompute: class means, within_var, between_var, the ratio,
+# and rerun aov() + TukeyHSD() on classrooms_flat.
+```
+
+In comments: which numbers changed, which stayed the same, and *why*? What does `aov()` conclude now, and what do the Tukey intervals do?
+
+**2. Real data — do injuries differ by crash cause?** The `crashes` data (20,000 real-world-style Alaska crashes, from Lab 5 and Homework 5) record each crash's `primary_cause`. Keep three causes and look first:
+
+```{r}
+#| label: yt-2
+#| eval: false
+crash3 <- crashes |>
+  filter(primary_cause %in% c("speeding", "distracted", "wildlife"))
+
+# a) Compute mean, SD, and n of `injuries` for each cause (.by = primary_cause)
+# b) Make the look-first plot (boxplot + mean diamonds, as in the Walkthrough).
+#    Injuries are small whole numbers, so the boxes will look blocky —
+#    that's the data, not a bug. The diamonds are doing the real work here.
+```
+
+**3. Both traditions on `crash3`.** Run `aov()` + `summary()`, then `TukeyHSD()`. In comments: which pairs differ? One pair should *not* — name it, and report the interval that told you so. Then fit the Bayesian version (this one samples on ~8,800 rows — give it a minute or two) and check `pairs()`:
+
+```{r}
+#| label: yt-3
+#| eval: false
+# aov() + summary() + TukeyHSD() on crash3
+# then:
+# crash_bayes <- brm(injuries ~ primary_cause, data = crash3,
+#                    chains = 2, iter = 2000, seed = 705, refresh = 0)
+# crash_post  <- emmeans(crash_bayes, ~ primary_cause)
+# pairs(crash_post)
+```
+
+Do the two traditions agree about which pair shows no real difference? And practically: how many *more* people are injured in the average speeding crash than the average wildlife crash?
+
+**4. *(Stretch)* All nine causes.** Rerun `aov()` and `TukeyHSD()` on the full `crashes` data — 9 groups means 36 pairwise comparisons. How many come out significant? Why would running 36 *unadjusted* t-tests instead be a terrible idea? (Lecture's false-alarm table has the number.)
+
+```{r}
+#| label: yt-4
+#| eval: false
+# your code here
+```
+
+## Exit Ticket
+
+Submit a short R script to Canvas before you leave, containing:
+
+1. One sentence each, in comments: what within-group variance measures, what between-group variance measures, and what F compares
+2. Your crash-cause conclusion, two ways: one frequentist sentence (F and a Tukey pair) and one Bayesian sentence (an HPD interval) — each including the size of the difference in injuries, not just "significant"
+3. A comment naming the pair of crash causes that showed *no* credible difference, and what its interval looked like in each tradition
+4. A comment: why is ANOVA-then-Tukey better than running a pile of unadjusted t-tests?

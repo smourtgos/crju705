@@ -1,0 +1,204 @@
+---
+title: "Lab 10 · Correlation: Chicago Areas, Then a Null Worth Reporting"
+subtitle: "CRJU 705 · Session 10"
+---
+
+**Goal:** run the complete correlation workflow from today's lecture — scatterplots first, then `cor()` and the correlation matrix, then inference in both traditions with `cor.test()` and the `correlation` package — on the Chicago community areas, and then on two lab datasets you already know. One of them has real associations to find. The other has *nothing*, and learning to say "there's nothing here" out loud is half of this lab's point.
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+library(correlation)
+
+areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv")
+```
+
+::: {.callout-warning appearance="simple"}
+**One new package this week:** `install.packages("correlation")`. Good news after Session 8's `brms` marathon — it's a small install, and its Bayesian correlations sample instantly. No "Compiling Stan program..." pause this time.
+:::
+
+`areas` is the anchor dataset's second level ([codebook](../chicago-data.qmd)): Chicago's 77 community areas, each with 2025 crime rates and Census-based structural measures. One row = one community area — **not** one person. Keep that in mind all lab; it decides what your sentences are allowed to claim.
+
+## Walkthrough
+
+### Look first
+
+Always. Before any correlation:
+
+```{r}
+#| label: look-first
+#| fig-height: 4
+ggplot(areas, aes(unemployment_rate, violent_rate)) +
+  geom_point(size = 2.5, alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Violent-crime rate vs. unemployment rate — 77 community areas",
+       x = "Unemployment rate (%)", y = "Violent crimes per 1,000 residents")
+```
+
+A strong, roughly linear, positive association — and no wild outlier manufacturing it. *Now* it's safe to summarize with one number:
+
+```{r}
+#| label: single-r
+cor(areas$unemployment_rate, areas$violent_rate)
+```
+
+r = 0.84: very strong and positive, matching what the plot already told us.
+
+### The correlation matrix
+
+Real analyses look at several candidate variables at once. `cor()` takes every numeric column you feed it:
+
+```{r}
+#| label: cor-matrix-lab
+areas |>
+  select(violent_rate, unemployment_rate, median_income, pct_bachelors) |>
+  cor() |>
+  round(2)
+```
+
+Read it like a mileage chart: symmetric, 1s on the diagonal. Violence correlates strongly with unemployment (0.84), strongly and negatively with income (−0.71), moderately and negatively with college education (−0.45). But this table carries **no uncertainty** — no tests, no intervals.
+
+### The `correlation()` upgrade
+
+The `correlation` package tests every pair and attaches confidence intervals — and it Holm-adjusts the p-values because six tests at once is exactly the pile-of-tests problem from Session 8:
+
+```{r}
+#| label: corr-pkg-lab
+areas |>
+  select(violent_rate, unemployment_rate, median_income, pct_bachelors) |>
+  correlation()
+```
+
+Same r values as the matrix, now each with a 95% CI and an adjusted p-value.
+
+### Frequentist inference on one pair
+
+When one relationship is the star of your analysis, `cor.test()` gives the full readout:
+
+```{r}
+#| label: cor-test-lab
+cor.test(areas$unemployment_rate, areas$violent_rate)
+```
+
+The reporting sentence, built from that output:
+
+> "Across Chicago's 77 community areas, unemployment was strongly associated with the violent-crime rate, r = .84, t(75) = 13.4, p < .001, 95% CI [.76, .90]."
+
+Note what the sentence does *not* say: nothing about unemployed *people* (ecological fallacy — these are areas), and nothing about unemployment *causing* violence.
+
+### The Bayesian version
+
+Same package, one new argument:
+
+```{r}
+#| label: bayes-lab
+set.seed(705)   # the Bayesian version samples from the posterior — seed keeps output stable
+areas |>
+  select(violent_rate, unemployment_rate) |>
+  correlation(bayesian = TRUE)
+```
+
+Four things to read, all lecture echoes:
+
+- **rho** ≈ 0.82 — the posterior median, pulled *slightly* toward 0 relative to the frequentist 0.84 by the mildly skeptical prior
+- **95% CI** — a *credible* interval: given data and prior, 95% probability the correlation lies in this range (the direct statement a confidence interval can't make)
+- **pd** = 100% — the posterior probability the correlation is positive
+- **BF** ≈ 10¹⁷ — on Session 6's scale, evidence beyond "extreme." Hold this number in mind: in Your Turn 2 you'll meet its opposite.
+
+### "r is blind" — Anscombe's quartet, hands on
+
+From lecture: four datasets that ship with R, statistically identical, visually nothing alike. The pivot gymnastics below just reshape `anscombe`'s eight columns into tidy (set, x, y) rows — copy it as given; the payoff is the summary and the plot:
+
+```{r}
+#| label: anscombe-lab
+anscombe_long <- anscombe |>
+  pivot_longer(everything(),
+               names_to = c(".value", "set"), names_pattern = "(.)(.)")
+
+anscombe_long |>
+  summarize(mean_x = mean(x), mean_y = mean(y), r = cor(x, y), .by = set)
+```
+
+```{r}
+#| label: anscombe-plot-lab
+#| fig-height: 4
+ggplot(anscombe_long, aes(x, y)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.7) +
+  facet_wrap(~set)
+```
+
+Four times r = 0.82: one genuine linear trend, one curve, one outlier-hijacked line, one vertical stack with a single point doing all the work. **r summarizes a shape it never checks.** Plot first, every time.
+
+## Your Turn
+
+Work in your own script. Comment each answer.
+
+**1. Neighborhoods — real associations.** Back to the 500 simulated-but-realistic neighborhoods from Lab 3:
+
+```{r}
+#| label: yt-1
+#| eval: false
+nbhd <- read_csv("https://smourtgos.github.io/crju705/data/neighborhoods.csv")
+
+# a) Run correlation() on poverty_rate, unemployment_rate, and assaults.
+#    Which pair is strongest? Which is weakest?
+# b) Scatterplot the strongest pair (put assaults on the y-axis if it's involved),
+#    with a fitted line. Does the shape look linear enough for r to be a fair summary?
+# c) cor.test() on poverty_rate and assaults. Write the one-sentence report,
+#    lecture style: r, df, p, CI, direction, strength.
+# d) These rows are neighborhoods, not residents. Reread your sentence from (c):
+#    does it accidentally make a claim about people? Fix it if so.
+```
+
+**2. Officers — an honest null.** The 200 correctional officers from Lab 6, and a question the wellness literature cares about: does overtime track burnout?
+
+```{r}
+#| label: yt-2
+#| eval: false
+officers <- read_csv("https://smourtgos.github.io/crju705/data/officers.csv")
+
+# a) Run correlation() on overtime_hours_mo, burnout, sleep_hours, job_satisfaction.
+#    Describe what you see. (Expect to be underwhelmed. That's the data, not a bug.)
+# b) Now the Bayesian version on just overtime_hours_mo and burnout:
+#    officers |>
+#      select(overtime_hours_mo, burnout) |>
+#      correlation(bayesian = TRUE)
+#    Look at the BF. It's BELOW 1 — remember Session 6: a BF < 1 is evidence FOR
+#    the null. Compute 1/BF: how many times more consistent are these data with
+#    "no correlation" than with a correlation?
+# c) In a comment, report this result honestly in both traditions:
+#    one frequentist sentence (r, p — what are you allowed to conclude? recall
+#    Session 6: can a p-value ever SUPPORT the null?), and one Bayesian sentence
+#    (what the BF lets you say that the p-value doesn't).
+```
+
+**3. *(Stretch)* Rank correlation on an ordinal variable.** `disorder_level` is ordered categories (Low → Very High) — Pearson's r has no business there, but Spearman's rank correlation is fine:
+
+```{r}
+#| label: yt-3
+#| eval: false
+nbhd |>
+  mutate(disorder_rank = as.numeric(factor(disorder_level,
+    levels = c("Low", "Moderate", "High", "Very High")))) |>
+  with(cor.test(disorder_rank, assaults, method = "spearman"))
+
+# In comments: what does rho say about disorder and assaults?
+# And why was Spearman the right tool here when Pearson wasn't?
+```
+
+## Exit Ticket
+
+Submit a short R script to Canvas before you leave, containing:
+
+1. A comment, 2–3 sentences: what Pearson's r measures, its possible range, and one thing r = 0 does **not** mean
+2. The strongest and the weakest association you found across Your Turn 1 and 2, each with its r value and a plain-English direction/strength label
+3. Your two honest sentences about overtime and burnout from Your Turn 2c — the frequentist one and the Bayesian one
+4. A comment: what Anscombe's quartet proves about correlation coefficients, and the habit it should build into every analysis you run from now on

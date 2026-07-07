@@ -1,0 +1,79 @@
+---
+title: "Homework 11 · Cleaning Data for Regression + Project Checkpoint 3"
+subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 12"
+format:
+  html: default
+  docx: default
+format-links: [docx]
+---
+
+**Instructions:** complete the following exercises in a single `.R` script file. Your script must run top-to-bottom when I execute it, with answers to interpretive questions in `#comments`. Submit your `.R` file via **Canvas** for credit.
+
+As you begin working with your final-project data, you will quickly discover that most of your time is spent **cleaning** the data — getting it into a shape where a model will even run, and where the numbers it returns mean what you think they mean. That's not a detour from analysis; it *is* analysis. This homework makes the point the honest way: you'll clean a dirty file, then watch what regression does **before and after** you cleaned it.
+
+Do not shortcut Part 1. Every minute you spend on these verbs now is an hour saved on your final project. (If any verb feels shaky, the reference chapter is [R4DS Ch. 3, Data transformation](https://r4ds.hadley.nz/data-transform.html) — the same toolkit from Labs 3–6.)
+
+## Setup
+
+```r
+library(tidyverse)
+library(brms)
+library(car)
+
+officers <- read_csv("https://smourtgos.github.io/crju705/data/officers.csv")
+glimpse(officers)
+```
+
+The file holds survey records for **200 correctional officers** (simulated, but realistically messy): facility, shift, tenure, monthly overtime hours, hours of sleep, and a **burnout score that is supposed to run 0–100**. Your eventual model: `burnout ~ overtime_hours_mo + sleep_hours`.
+
+## Part 1: Find the Dirt, Fix the Dirt
+
+1. **First pass.** Run `summary()` on the data (or on the numeric columns). **In a comment:** identify **two impossible values** hiding in variables your model needs. (Hint: check each variable's minimum and maximum against what the variable *is*.)
+
+2. **Categorical hygiene.** Run `count(officers, shift)`. **In a comment:** what went wrong in data entry? Fix it with `mutate()` + `str_to_title()`, then re-run `count()` to confirm exactly three shifts remain — and report the three counts.
+
+3. **Sentinels to NA.** The burnout instrument's codebook says **999 = "declined to answer."** That is a *code*, not a score — left as a number, it will poison every mean, SD, and slope downstream. Convert it: `mutate(burnout = na_if(burnout, 999))`. Then deal with the impossible overtime value the same general way (negative hours cannot happen; make it `NA` — `if_else()` is one route). **In a comment:** how many `NA`s does each of your two repaired variables now contain?
+
+4. **Build the analysis file.** Create `officers_clean` by dropping the rows with `NA` on any model variable: `drop_na(burnout, overtime_hours_mo, sleep_hours)`. **In a comment:** how many rows did you lose, and out of how many?
+
+5. **Grouped summary practice.** On `officers_clean`, compute the mean burnout score and the number of officers **per facility** (`summarize()` with `.by = facility`), and `arrange()` the result in descending order. **In a comment:** which facility reports the highest average burnout, and is the gap between facilities large relative to burnout's SD?
+
+## Part 2: Regression, Before and After Cleaning
+
+6. **Fit the dirty model.** On the **original** `officers` data, fit `lm(burnout ~ overtime_hours_mo + sleep_hours)`. Look at `summary()`, then make the residuals-vs-fitted plot from Lab 11. **In a comment:** what in the plot (and in the residual standard error) screams that something is wrong? Remember the outcome is supposed to live between 0 and 100.
+
+7. **Fit the clean model.** Same formula on `officers_clean`. **In a comment:** compare the residual standard error across the two fits, and explain *why* a handful of 999s did that much damage. (Think about what least squares does to a residual of ~900 when it **squares** it.)
+
+8. **Interpret the clean model honestly.** Look at the coefficients and `confint()`, and run `vif()`. **In comments:**
+   - One holding-constant sentence per predictor — *including the direction and size* of each estimated coefficient.
+   - Neither predictor reaches conventional significance in this sample. Write the honest version of that finding in one sentence — what the data do and don't show about overtime, sleep, and burnout here. ("We found no reliable association…" is a legitimate scientific result, not a failure. You will need this sentence again in your career, probably often.)
+   - What does the VIF tell you about these two predictors?
+
+9. **The Bayesian check.** Fit the clean model with `brms`:
+
+   ```r
+   burnout_bayes <- brm(burnout ~ overtime_hours_mo + sleep_hours,
+                        data = officers_clean,
+                        chains = 2, iter = 2000, seed = 705, refresh = 0)
+   summary(burnout_bayes)
+   ```
+
+   **In a comment:** do the 95% credible intervals include 0? Write one Bayesian sentence about the sleep coefficient, and say whether the two traditions agree here.
+
+## Part 3: Project Checkpoint 3
+
+::: {.callout-important appearance="simple"}
+**This section uses YOUR final-project dataset.** Checkpoint 3 of 4: you described your variables in Checkpoint 1 and explored the bivariate relationships in Checkpoint 2 — now you fit the **first regression model** of your project. Like the others, it is graded on **completion and quality of reasoning** — not on whether the model comes out significant, and not on polish. A model that comes out null, weird, or broken — *noticed and discussed* — is a successful checkpoint.
+:::
+
+In a clearly marked section at the end of your `.R` script (e.g., `# ---- PROJECT CHECKPOINT 3 ----`):
+
+1. **Fit a first regression model:** your outcome regressed on **2–3 predictors** (the ones your Checkpoint 2 exploration made most promising).
+   - If your outcome is **continuous** (or close to it), use `lm()` — this is your tool.
+   - If your outcome is **binary** (yes/no, arrest/no arrest, recidivated/didn't), **say so in a comment** — the right tool is *logistic regression*, which is exactly what Session 12 covers. For now, fit the linear model anyway as a rough first pass (with a binary outcome its coefficients read approximately as changes in the *probability* of a "yes"), and label it clearly as a placeholder you'll replace next week.
+
+2. **Report and interpret the coefficients:** one plain-language, holding-constant sentence per predictor, **with units** — plus one sentence on R² (or note that R² will make more sense post-logistic if your outcome is binary).
+
+3. **One diagnostic check:** a residuals-vs-fitted plot *or* `vif()` (VIF only makes sense with 2+ predictors — running both earns no extra credit but will earn my respect). One comment on what it shows.
+
+4. **Write a short paragraph** (comment block, roughly 5–8 sentences): what does this first model say about your research question? Which coefficient is most interesting, and is its direction what you predicted in Checkpoint 1? Name **one lurking variable your model cannot hold constant** because your dataset doesn't measure it. And if anything looks broken — a nonsense coefficient, an outcome that clearly isn't continuous, residuals doing something alarming — say so plainly and come see me. Catching it *now* is the checkpoint working.

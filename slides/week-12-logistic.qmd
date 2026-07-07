@@ -1,0 +1,605 @@
+---
+title: "Logistic Regression: Yes/No Outcomes"
+subtitle: "CRJU 705 · Session 12 · Fall 2026"
+author: "Scott M. Mourtgos"
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    footer: "CRJU 705 · Session 12"
+    theme: [default, custom-slides.scss]
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(brms)
+library(plotly)
+source(here::here("R/setup.R"))
+theme_set(theme_minimal(base_size = 18))
+set.seed(705)
+areas <- read_csv(here::here("data/chicago-areas.csv"), show_col_types = FALSE)
+```
+
+## This Week
+
+**Topic:** logistic regression — modeling outcomes that are *yes or no*
+
+- Why `lm()` breaks when the outcome is 0/1
+- Odds, log-odds, and the **odds ratio** — the currency of logistic regression
+- `glm(family = binomial)`, predicted probabilities, and the Bayesian version with `brms`
+
+**Learning goals:** fit a logistic regression in both traditions; translate coefficients into odds ratios *and* predicted probabilities; say the results in plain language without confusing odds with probability.
+
+**Also today:** the course pays off a promise it made in Session 1.
+
+## Where We've Been
+
+::: incremental
+- **Session 10:** correlation — how two continuous variables move together
+- **Session 11:** multiple regression — a *plane* through a 3D cloud of points, minimizing squared error, each coefficient's effect holding the others constant (and lurking variables like the ice-cream/drowning lurker handled by putting them *in* the model)
+- Every model so far predicted a **number**: a crime rate, an incident hour, a chick's weight
+- **Today:** what happens when the outcome only has two values — arrest or no arrest, reoffend or desist, hit again or not?
+:::
+
+# The Problem: Yes/No Outcomes {background-color="#73000A"}
+
+## Criminal Justice Runs on Binary Outcomes
+
+- Was an **arrest** made?
+- Does the defendant **fail to appear**?
+- Is the parolee **re-arrested** within three years?
+- Did the crash involve an **intoxicated driver**?
+- Is this neighborhood a **high-violence** area?
+
+. . .
+
+Linear regression predicts *continuous* outcomes (crime rates, response times). **Logistic regression predicts binary outcomes** — its currency is **probability (0 to 1)**, expressed along the way as odds and log-odds.
+
+## Session 1 Made You a Promise
+
+Remember the opening case study? **40 bank robberies, five zones**, one question: *where will they hit next?*
+
+::: incremental
+- We built `future_hit` = 1 if the same zone was hit again within 10 days, 0 otherwise
+- We fit a model, showed you a coefficient table nobody could read yet, and sent the patrol cars to the **West Zone** — where the robber was caught
+- That slide said: *"Don't worry about the machinery today — logistic regression is Session 12."*
+:::
+
+. . .
+
+**Today is Session 12.** Let's reopen the machinery.
+
+```{r}
+#| label: robbery-sim
+#| include: false
+# Same simulation as the Session 1 deck (seed 58 preserved so the numbers match)
+set.seed(58)
+n <- 40
+zones <- c("North", "South", "East", "West", "Downtown")
+
+robberies <- tibble(
+  robbery_id = 1:n,
+  date = as.Date("2024-01-01") + cumsum(rpois(n, 5)),
+  zone = sample(zones, size = n, replace = TRUE,
+                prob = c(0.1, 0.1, 0.1, 0.5, 0.2))
+) |>
+  arrange(date) |>
+  mutate(
+    day_of_year = yday(date),
+    zone = factor(zone, levels = zones),
+    prior_robberies_in_zone = row_number() - 1,
+    .by = zone
+  ) |>
+  arrange(date)
+
+robberies <- robberies |>
+  arrange(date) |>
+  mutate(
+    future_hit = map_int(row_number(), \(i) {
+      if (i == nrow(robberies)) return(NA_integer_)
+      later <- robberies[(i + 1):nrow(robberies), ]
+      as.integer(any(later$zone == zone[i] & later$date <= date[i] + 10))
+    })
+  ) |>
+  filter(!is.na(future_hit))
+```
+
+## The Machinery, Reopened
+
+The exact model from Session 1 — one function, one `family` argument:
+
+```{r}
+#| label: robbery-fit
+robbery_model <- glm(
+  future_hit ~ 0 + scale(day_of_year) + prior_robberies_in_zone + zone,
+  data = robberies, family = binomial
+)
+```
+
+- `glm()` = *generalized* linear model — regression's family business
+- `family = binomial` is the switch that makes it **logistic**: predict a 0/1 outcome
+- Everything else looks exactly like the `lm()` formulas from Session 11
+
+## The Table You Couldn't Read in August
+
+```{r}
+#| label: robbery-table
+#| echo: false
+broom::tidy(robbery_model) |>
+  mutate(odds_ratio = exp(estimate)) |>
+  mutate(across(where(is.numeric), \(x) round(x, 3))) |>
+  knitr::kable()
+```
+
+## Reading It With Today's Eyes
+
+::: incremental
+- The `estimate` column is in **log-odds** — that's why it looked like gibberish in August; by the end of today it won't
+- `exp(estimate)` turns each one into an **odds ratio** — West's is by far the largest, which is why West had the highest predicted probability of a repeat hit. *That's* why the cars went west.
+- Those −17.5s with standard errors in the thousands? North and South never saw a repeat hit within 10 days — with **zero events**, the model can't estimate their log-odds. 39 robberies is small data, and the output says so honestly.
+:::
+
+## Logistic vs. Linear: The Road and the Hill
+
+Linear regression is a **straight road** — it keeps going forever in both directions. Logistic regression is a **curved hill** that flattens at 0 and 1, because probabilities can't go below 0 or above 1.
+
+```{r}
+#| label: road-hill
+#| echo: false
+#| fig-height: 4.2
+analogy <- tibble(x = seq(-6, 6, length.out = 200)) |>
+  mutate(
+    Linear   = 0.1 * x + 0.5,
+    Logistic = 1 / (1 + exp(-x))
+  ) |>
+  pivot_longer(c(Linear, Logistic), names_to = "model", values_to = "predicted")
+
+ggplot(analogy, aes(x, predicted, color = model)) +
+  geom_hline(yintercept = c(0, 1), linetype = 2, color = "grey60") +
+  geom_line(linewidth = 1.3) +
+  scale_color_manual(values = unname(crju_colors[c("garnet", "blue")])) +
+  scale_y_continuous(limits = c(-0.2, 1.2), breaks = seq(0, 1, 0.2)) +
+  labs(x = "Predictor (X)", y = "Predicted value / probability", color = NULL)
+```
+
+## Watch Linear Regression Fail
+
+Predicting *graduated the academy (yes/no)* from study hours:
+
+```{r}
+#| label: linear-fails
+#| echo: false
+#| fig-height: 5
+set.seed(42)   # same simulated recruits as the 2025 lecture
+recruits <- tibble(study_hours = runif(100, 0, 10)) |>
+  mutate(
+    prob_grad = 1 / (1 + exp(-(-4 + 0.8 * study_hours))),
+    graduated = rbinom(100, 1, prob_grad)
+  )
+
+model_linear <- lm(graduated ~ study_hours, data = recruits)
+model_logit  <- glm(graduated ~ study_hours, data = recruits, family = binomial)
+
+grid_hours <- tibble(study_hours = seq(-5, 15, length.out = 400)) |>
+  mutate(
+    Linear   = predict(model_linear, newdata = pick(study_hours)),
+    Logistic = predict(model_logit, newdata = pick(study_hours), type = "response")
+  ) |>
+  pivot_longer(c(Linear, Logistic), names_to = "model", values_to = "pred")
+
+ggplot(recruits, aes(study_hours, graduated)) +
+  geom_jitter(height = 0.05, width = 0, alpha = 0.5, color = "grey40") +
+  geom_hline(yintercept = c(0, 1), linetype = 2, color = "grey60") +
+  geom_line(data = grid_hours, aes(y = pred, color = model), linewidth = 1.2) +
+  scale_color_manual(values = unname(crju_colors[c("garnet", "blue")])) +
+  scale_y_continuous(limits = c(-1.5, 2.5), breaks = seq(0, 1, 0.5)) +
+  annotate("text", x = -3, y = 2.1, label = "Impossible (>1)",
+           color = crju_colors["garnet"], fontface = "bold", size = 5) +
+  annotate("text", x = 13, y = -1.1, label = "Impossible (<0)",
+           color = crju_colors["garnet"], fontface = "bold", size = 5) +
+  labs(x = "Study hours", y = "Predicted probability of graduating", color = NULL)
+```
+
+## What Went Wrong
+
+::: incremental
+- The linear model happily predicts values like **1.2** and **−0.3** — probabilities that cannot exist
+- Inside the middle of the data the two lines nearly agree; the damage is at the edges — exactly where predictions get used ("what about a recruit who studies *a lot*?")
+- The fix is the **logit transformation**: instead of modeling the probability directly, model something built from it that a straight line *can* live on
+- (The full derivation is Ph.D.-stats material — what you need is the ladder on the next slides)
+:::
+
+# Odds and Log-Odds {background-color="#1B2A4A"}
+
+## The Model You Already Know
+
+$$Y = b_0 + b_1 X_1 + b_2 X_2 + \varepsilon$$
+
+- $Y$: outcome (dependent variable)
+- $b_0$: intercept (value of $Y$ when all X's are zero)
+- $b_1, b_2$: slope coefficients (effect of each X, **holding the others constant**)
+- $\varepsilon$: error term (what's left unexplained)
+
+. . .
+
+The right-hand side is an unbounded straight line. Probability is trapped in [0, 1]. Something has to give.
+
+## Step 1 — Probability to Odds
+
+Suppose 3 out of 4 parolees complete supervision: $p = 0.75$.
+
+$$\text{odds} = \frac{p}{1-p} = \frac{0.75}{0.25} = 3 \quad \text{("three to one")}$$
+
+| Probability | Odds | Log-odds |
+|:---:|:---:|:---:|
+| 0.25 | 0.33 | −1.10 |
+| 0.50 | 1.00 | 0.00 |
+| 0.75 | 3.00 | +1.10 |
+
+**Step 2 — odds to log-odds:** odds run 0 to ∞; *log*-odds run −∞ to +∞. That's a scale a straight line can live on.
+
+## The Logistic Model
+
+Just treat logit($p$) — the log-odds — as your Y. Then...
+
+$$\text{logit}(p) = \ln\!\left(\frac{p}{1-p}\right) = b_0 + b_1 X_1 + b_2 X_2$$
+
+- Same intercept, same slopes, same "holding the others constant"
+- The line now predicts **log-odds**, which convert back to a probability that politely stays between 0 and 1 — the curved hill
+
+. . .
+
+::: {.callout-important appearance="simple"}
+**But the coefficients are log-odds!!!** Nobody thinks in log-odds. So what do we do with them?
+:::
+
+## What Do We Do With Log-Odds?
+
+<br>
+
+::: {.r-fit-text}
+**EXPONENTIATE!**
+:::
+
+<br>
+
+`exp(coefficient)` = the **odds ratio**: *multiply the odds of the outcome by this much for each one-unit increase in X, holding the other predictors constant.*
+
+## The Odds-Ratio Rosetta Stone: Odds Shrink {.smaller}
+
+| Log-odds coefficient (β) | Odds ratio (e^β^) | Effect on odds | Intuitive interpretation |
+|:---:|:---:|:---:|:---|
+| −2.0 | 0.14 | ↓ 86% | Odds are 86% lower than baseline |
+| −1.0 | 0.37 | ↓ 63% | Odds are 63% lower than baseline |
+| −0.5 | 0.61 | ↓ 39% | Odds are 39% lower than baseline |
+| 0.0 | 1.00 | No change | Odds unchanged |
+
+Negative log-odds → ratio **below 1** → odds shrink. Zero → ratio of exactly 1 → nothing happens.
+
+## The Odds-Ratio Rosetta Stone: Odds Grow {.smaller}
+
+| Log-odds coefficient (β) | Odds ratio (e^β^) | Effect on odds | Intuitive interpretation |
+|:---:|:---:|:---:|:---|
+| 0.0 | 1.00 | No change | Odds unchanged |
+| 0.3 | 1.35 | ↑ 35% | Odds are 35% higher than baseline |
+| 0.7 | 2.01 | ↑ 101% | Odds are about twice as high |
+| 1.0 | 2.72 | ↑ 172% | Odds are 2.7× higher |
+| 2.0 | 7.39 | ↑ 639% | Odds are over seven times higher |
+
+Positive log-odds → ratio **above 1** → odds grow.
+
+# Fitting It: glm() {background-color="#73000A"}
+
+## Two Traditions, Same Curve
+
+| Approach | What it estimates | Interpretation |
+|:---|:---|:---|
+| **Frequentist** | Point estimates and confidence intervals | "If we repeated this 100 times, 95% of the intervals would contain the true β." |
+| **Bayesian** | Posterior distributions for each β | "Given our data and priors, there's a 95% probability β lies in this range." |
+
+Exactly the split you know from Sessions 6 and 8 — nothing new, just a new model underneath it.
+
+## The Frequentist Version
+
+Toy data first — 32 cars from a 1974 *Motor Trend* issue, predicting **manual transmission (1) vs. automatic (0)** from horsepower and weight. Small enough to check every number; real CJ data in a few minutes.
+
+```{r}
+#| label: mtcars-glm
+#| output-location: slide
+data(mtcars)
+cars_df <- mtcars |>
+  rownames_to_column("car") |>
+  mutate(am = as.factor(am))   # 0 = automatic, 1 = manual
+
+model_freq <- glm(am ~ hp + wt, data = cars_df, family = binomial)
+summary(model_freq)
+```
+
+## Reading the Output: Exponentiate
+
+```{r}
+#| label: mtcars-or
+exp(coef(model_freq))
+```
+
+::: incremental
+- `hp`: log-odds 0.036 → **odds ratio 1.037** — each additional horsepower multiplies the odds of a manual transmission by about 1.04 (+3.7%), *holding weight constant*
+- `wt`: log-odds −8.08 → **odds ratio 0.0003** — each additional 1,000 lbs cuts the odds by ~99.97%, *holding horsepower constant*
+- Wildly different sizes partly because the **units** differ: one horsepower is a nudge; a thousand pounds is a different car
+:::
+
+## From Effects to Cases: predict()
+
+Odds ratios describe *effects*. For an actual *case*, ask for the probability directly:
+
+```{r}
+#| label: mtcars-pred
+two_cars <- cars_df |>
+  filter(car %in% c("Honda Civic", "Cadillac Fleetwood")) |>
+  select(car, hp, wt)
+
+two_cars |>
+  mutate(p_manual = predict(model_freq, newdata = two_cars, type = "response"))
+```
+
+. . .
+
+`type = "response"` returns probabilities: the light Civic is a near-certain manual (99.95%); the 5,250-lb Fleetwood, near-certain automatic. **Report both:** odds ratios for effects, predicted probabilities for cases.
+
+# Seeing It: The Curved Surface {background-color="#1B2A4A"}
+
+## Session 11's Plane, Bent
+
+::: incremental
+- Last session: two predictors + linear regression = a **flat plane** floating through the 3D cloud
+- Same two predictors + logistic regression = a **curved sheet**: a plateau near probability 1, a floor near 0, and an S-shaped cliff between them
+- The surface *is* the model: its height at any (hp, wt) combination is the predicted probability of a manual transmission there
+- Let's build it from nothing but `predict()`
+:::
+
+## Building the Surface
+
+Ask the model for a prediction at every combination of horsepower and weight — a 40 × 40 grid, 1,600 predictions:
+
+```{r}
+#| label: surface-grid
+hp_seq <- seq(min(cars_df$hp), max(cars_df$hp), length.out = 40)
+wt_seq <- seq(min(cars_df$wt), max(cars_df$wt), length.out = 40)
+grid   <- expand.grid(hp = hp_seq, wt = wt_seq)
+
+grid$prob <- predict(model_freq, newdata = grid, type = "response")
+
+# Reshape the 1,600 predictions into a grid; t() puts rows on the
+# wt (y) axis and columns on the hp (x) axis, which is what plotly expects
+z_matrix <- t(matrix(grid$prob, nrow = length(hp_seq), ncol = length(wt_seq)))
+```
+
+The observed cars sit at height 0 (automatic) or 1 (manual); the surface passes between them.
+
+## The 3D Logistic Surface
+
+```{r}
+#| label: surface-plot
+#| output-location: slide
+data_points <- cars_df |>
+  mutate(prob = as.numeric(as.character(am)))   # 0 = auto, 1 = manual
+
+plot_ly(width = 950, height = 520) |>
+  add_markers(data = data_points,
+              x = ~hp, y = ~wt, z = ~prob,
+              color = ~am, colors = c("steelblue", "firebrick"),
+              symbol = I("circle"), size = I(50),
+              name = "Observed Data") |>
+  add_surface(x = hp_seq, y = wt_seq, z = z_matrix,
+              colorscale = list(c(0, 'lightblue'), c(1, 'firebrick')),
+              opacity = 0.6,
+              name = "Predicted Probability Surface") |>
+  layout(
+    title = "Logistic Regression: Curved Probability Surface",
+    scene = list(
+      xaxis = list(title = "Horsepower (hp)"),
+      yaxis = list(title = "Weight (1000 lbs)"),
+      zaxis = list(title = "Probability (Manual Transmission)")
+    )
+  )
+```
+
+## The Guided Tour (Recorded)
+
+Rotate the live surface yourself on the previous slide — or rewatch the recorded walkthrough anytime:
+
+<video src="../media/week-12/3d-logistic.mp4" controls preload="metadata"></video>
+
+# The Bayesian Version {background-color="#73000A"}
+
+## Same Formula, Bayesian Machinery
+
+```{r}
+#| label: mtcars-brm
+#| output: false
+model_bayes <- brm(am ~ hp + wt, data = cars_df,
+                   family = bernoulli(),
+                   chains = 2, iter = 2000, seed = 705, refresh = 0)
+```
+
+::: incremental
+- `family = bernoulli()` is brms's name for a 0/1 outcome — the switch that `family = binomial` flips in `glm()`
+- Everything else is the Session 8 pattern: `chains = 2, iter = 2000`, the compile pause, `refresh = 0` to silence the log
+- Instead of one estimate per coefficient, we get a full **posterior distribution** for each log-odds coefficient
+:::
+
+## Posterior Odds Ratios
+
+Exponentiate the posterior summaries — dropping the intercept row, whose posterior is astronomically wide with only 32 cars:
+
+```{r}
+#| label: mtcars-brm-or
+exp(fixef(model_bayes)[-1, c("Estimate", "Q2.5", "Q97.5")])
+```
+
+::: incremental
+- Same story as `glm()`: horsepower nudges the odds of a manual up; weight crushes them
+- The payoff is the sentence you're *allowed to say*: "Given the data and priors, there's a 95% probability the true odds ratio lies in this interval" — and with 32 cars, those honest intervals are huge. Watch them tighten on real data next.
+:::
+
+# Real Data: Chicago Neighborhoods {background-color="#1B2A4A"}
+
+## The Question
+
+What separates Chicago's **high-violence** community areas from the rest?
+
+```{r}
+#| label: chicago-outcome
+areas |> count(high_violence)
+```
+
+. . .
+
+`high_violence` ships in the file (it's in the [codebook](../chicago-data.qmd)): is the area's violent-crime rate above the **citywide median**? 38 above, 39 at or below.
+
+## Making a Binary Outcome
+
+The line that built it:
+
+```r
+areas |> mutate(high_violence = violent_rate > median(violent_rate))
+```
+
+::: incremental
+- R treats `TRUE` as 1 and `FALSE` as 0, so a logical column drops straight into `glm()`
+- If your project outcome isn't binary yet, it may be one `mutate()` away too
+- One caution: cutting a continuous variable in half **throws away information** — defensible when the yes/no version is the question you actually care about
+:::
+
+## Look First (Always)
+
+One predictor at a time before the model — unemployment against the outcome, with the fitted logistic curve:
+
+```{r}
+#| label: chicago-curve
+#| echo: false
+#| fig-height: 5
+ggplot(areas, aes(unemployment_rate, as.numeric(high_violence))) +
+  geom_jitter(height = 0.04, width = 0, size = 2.5, alpha = 0.6,
+              color = crju_colors["garnet"]) +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"),
+              se = FALSE, color = crju_colors["navy"], linewidth = 1.2) +
+  labs(title = "The S-curve, on real data",
+       subtitle = "77 community areas; curve = single-predictor logistic fit",
+       x = "Unemployment rate (%)", y = "High-violence area (0/1)")
+```
+
+## Fit It
+
+Two predictors: unemployment and vacant housing — both plausible markers of concentrated disadvantage:
+
+```{r}
+#| label: chicago-glm
+#| output-location: slide
+v_model <- glm(high_violence ~ unemployment_rate + pct_vacant,
+               data = areas, family = binomial)
+summary(v_model)
+```
+
+## The Coefficients, Translated
+
+```{r}
+#| label: chicago-or
+exp(cbind(OR = coef(v_model), confint(v_model)))
+```
+
+::: incremental
+- **Unemployment: OR 1.45** [1.19, 1.85] — each additional point of unemployment multiplies an area's odds of high-violence status by ~1.45 (+45%), holding vacancy constant
+- **Vacancy: OR 1.33** [1.04, 1.84] — +33% odds per point, holding unemployment constant
+- For a *ratio*, no effect = **1**, not 0 — both intervals exclude it. And these are associations, **not causes**: nobody randomly assigned unemployment to neighborhoods
+:::
+
+## Coefficients Into Cases
+
+```{r}
+#| label: chicago-pred
+two_areas <- areas |>
+  filter(community %in% c("Forest Glen", "West Garfield Park")) |>
+  select(community, unemployment_rate, pct_vacant)
+
+two_areas |>
+  mutate(p_high_violence = predict(v_model, newdata = two_areas,
+                                   type = "response"))
+```
+
+. . .
+
+In plain language: for an area like Forest Glen (4.2% unemployment, 2.6% vacant), the model puts the probability of high-violence status at about **3%**. For one like West Garfield Park (18.9%, 20.0%), it's over **99%**. That's a sentence a chief — or a city council — can actually use.
+
+## The Bayesian Version, Real Data
+
+```{r}
+#| label: chicago-brm
+#| output: false
+v_bayes <- brm(high_violence ~ unemployment_rate + pct_vacant,
+               data = areas, family = bernoulli(),
+               chains = 2, iter = 2000, seed = 705, refresh = 0)
+```
+
+```{r}
+#| label: chicago-brm-or
+exp(fixef(v_bayes)[, c("Estimate", "Q2.5", "Q97.5")])
+```
+
+. . .
+
+Both traditions land in the same place: posterior odds ratios near the `glm()` estimates, credible intervals excluding 1. With 77 areas instead of 32 cars, the intervals are usably tight.
+
+## How to Report It: Frequentist
+
+> "Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high-violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most."
+
+. . .
+
+The effect (as an odds ratio), the uncertainty, and a **probability a reader can feel** — all three, every time.
+
+## How to Report It: Bayesian
+
+> "Given the data and priors, each one-point increase in unemployment multiplied the odds of high-violence status by about 1.5 (posterior mean OR 1.49, 95% credible interval [1.22, 1.92])."
+
+. . .
+
+Same three ingredients — and this one gets to make a direct probability statement about the odds ratio itself.
+
+## Your Turn (3 minutes, with a neighbor)
+
+::: {.your-turn}
+A reentry study models **re-arrest within 12 months** and reports two log-odds coefficients: **risk score (per point): 0.7** · **completed programming: −0.5**
+
+1. Convert both to odds ratios (Rosetta Stone, or `exp()` in R)
+2. Say each in a sentence a police chief would understand
+3. Audit your neighbor: did they say ***odds*** — or slip into *probability*?
+:::
+
+. . .
+
+`exp(0.7)` ≈ 2.0 — each risk point roughly **doubles the odds**. `exp(−0.5)` ≈ 0.61 — about **39% lower odds**. Neither is a statement about *probability*.
+
+## The Toolbox Is Complete
+
+::: incremental
+- In Session 1 we predicted a robber's next move with a table you couldn't read. **You've now earned the tool the course opened with** — that table is just log-odds, and log-odds are just `exp()` away from sense
+- Descriptives → probability → inference → group comparison → correlation → regression → **logistic regression**
+- Nothing in your final project requires a method you haven't now practiced in both traditions
+- **Checkpoint 4 — the final one — is in this week's homework:** fit and interpret *your* final model
+:::
+
+## Today's Lab & Homework
+
+- **Lab 12:** the whole logistic workflow — Chicago neighborhoods, then Alaska crashes at night ([lab page](../labs/lab-12-logistic.qmd))
+- **Homework 12:** your final-project model + **Project Checkpoint 4 (final)** — cleaned variables, model equation, fitted model, and the three sentences you'd say about it ([assignment](../homework/hw-12.qmd))
+- **Session 13 is the project help session** — no new reading; bring your project code, your data, and your two most stuck-on problems
+- Full project due via Canvas **before midnight Sunday** ahead of Session 14 ([details](../final-project.qmd))

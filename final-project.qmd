@@ -1,0 +1,63 @@
+---
+title: "Final Project"
+subtitle: "The culminating assignment — real data, real analysis, your question"
+---
+
+The final project integrates conceptual understanding with applied statistical skills in R. You will identify a research question, analyze a real criminal justice dataset, and interpret your findings using the tools from this course — building it **incrementally across the second half of the semester** rather than in a December scramble.
+
+::: {.callout-important appearance="simple"}
+**Due: in class at Session 14 (final presentations).** There will be *absolutely* no assignments or projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part by the deadline results in a zero. No appeals. Plan ahead.
+:::
+
+## The timeline (how the project is paced)
+
+| When | Milestone |
+|------|-----------|
+| Session 6 | Start scouting datasets (guidance in class) |
+| **Session 7** | **Dataset selection due** (workshop day — you'll work with your data in class) |
+| Session 8 HW | Checkpoint 1: descriptives + a plot of your outcome variable |
+| Session 10 HW | Checkpoint 2: measures of association among your key variables |
+| Session 11 HW | Checkpoint 3: a first regression model |
+| Session 12 HW | Checkpoint 4: refined model (linear or logistic) + interpretation |
+| Session 13 | Help session — open Q&A and code clinic |
+| Weekend before Session 14 | **Full submission due via Canvas (before midnight Sunday)** |
+| **Session 14** | **In-class presentation** (a substantial part of your grade) |
+
+By presentation day, every piece of your analysis will already exist — the project is assembled, not started, at the end.
+
+## 1. Purpose
+
+Demonstrate your ability to apply statistical reasoning and R coding skills to a real-world criminal justice dataset: identify a research question, analyze data, and interpret findings using the concepts learned throughout the course.
+
+## 2. Project components
+
+Your submission must include **all** of the following:
+
+- **R script (`.R`)** — fully runnable code that produces your results
+- **Your dataset** — submitted so I can reproduce your analysis
+- **Output** — tables, figures, and statistical output from R, as applicable, incorporated in your written report
+- **Written report (`.docx`)** — a short report (3–5 pages) explaining your research question, dataset, methods, results, and interpretation
+
+## 3. Steps and expectations
+
+**Step 1 — Find a dataset.** Select a dataset related to criminal justice (policing, courts, corrections, crime, public opinion, etc.) that can be imported into R (CSV, Excel, or an R dataset). It must include enough numeric variables for regression analysis. *(Formal selection criteria and the submission form are part of the [Session 7 assignment](homework/hw-07.qmd).)*
+
+**Step 2 — Define your research question.** Keep it focused and testable. Examples: *"Are violent crime rates associated with police staffing levels?"* or *"Do education and income predict victimization (or arrests)?"*
+
+**Step 3 — Apply statistical tools from class.** Use descriptive statistics, visualizations, and measures of association. You **must** include a linear regression or logistic regression for credit. You may choose frequentist or Bayesian analysis — but whichever you choose, provide the correct interpretation, as discussed in class.
+
+**Step 4 — Write and submit your report.** Organize clearly: Introduction, Methods, Results, Discussion. Interpret results in plain language.
+
+## 4. Grading criteria
+
+- **Quality of analysis** — appropriate use of statistical tools and R coding
+- **Interpretation and communication** — clarity and accuracy in describing results and their meaning
+- **Organization, presentation, and grammar** — report structure, labeled figures/tables, code readability, graduate-level writing
+- **Completeness and reproducibility** — all required components submitted and reproducible
+- **The in-class presentation** — you will present your project and explain how and why your code works. If you cannot confidently explain your own code, your grade will be affected (see the [syllabus AI policy](syllabus.qmd#use-of-artificial-intelligence-tools))
+
+## 5. Submission details
+
+Submit all files via **Canvas before midnight the Sunday before Session 14**. Late submissions will not be accepted. You will present your project during class at Session 14.
+
+*Exact calendar dates will be confirmed on Canvas once the Fall 2026 schedule is finalized.*

@@ -1,0 +1,73 @@
+---
+title: "Homework 6 · Bayesian and Frequentist Inference"
+subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 7"
+format:
+  html: default
+  docx: default
+format-links: [docx]
+---
+
+**Instructions:** submit a single `.R` script via **Canvas**. Parts 1 and 2 are written questions — answer each in **3–5 sentences**, as comments (`#`) in your script. Part 3 requires code; include comments interpreting your output. Write in your own words — these questions are about whether *you* can explain the ideas, not whether you can locate a definition.
+
+## Part 1: Core Concepts
+
+1. In your own words, what does a **p-value** mean in the frequentist framework?
+
+2. How is a Bayesian probability statement — e.g., $P(\text{hypothesis} \mid \text{data})$ — different from a frequentist one?
+
+3. What role do **priors** play in Bayesian analysis, and why are they important?
+
+4. Why might ignoring priors lead to misleading conclusions in criminal justice research? *(The Ianfluenza screening example from class is fair game, but a CJ example of your own is better.)*
+
+## Part 2: Interpretation & Reflection
+
+5. In the recidivism example from class, the frequentist test reported **p = 0.20**, while the Bayesian analysis found a **91% probability** that treatment recidivism is lower than control. What do these two results each tell us, and why do they sound so different?
+
+6. Which result do you think would be easier for **policymakers** to interpret, and why?
+
+7. What is one **advantage of the frequentist** approach over the Bayesian?
+
+8. What is one **advantage of the Bayesian** approach over the frequentist?
+
+9. Think of a criminal justice research example (outside of recidivism) where Bayesian reasoning could give clearer insights than a p-value. Briefly explain.
+
+10. Imagine you are explaining Bayesian inference to a colleague who has only ever used p-values. How would you summarize the "teaching payoff" in one or two sentences?
+
+## Part 3: Both Tests on Real Data
+
+In class we compared violent and property crimes by hour of day. Your question is different: **do domestic incidents happen at a different time of day than non-domestic incidents?**
+
+1. Load the packages and the Chicago incident data:
+
+   ```r
+   library(tidyverse)
+   library(BayesFactor)   # install.packages("BayesFactor") first, if needed
+
+   crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
+   ```
+
+2. Compute the mean `hour` separately for domestic and non-domestic incidents (`.by = domestic`). **In a comment:** which group happens earlier in the day, on average, and by roughly how many minutes?
+
+3. Run the **frequentist** test:
+
+   ```r
+   t.test(hour ~ domestic, data = crimes)
+   ```
+
+   **In a comment:** report the p-value and the 95% confidence interval, then interpret the result in plain English — one sentence a police commander would understand. *(Watch the direction: with a logical grouping variable, R computes `FALSE` minus `TRUE`.)*
+
+4. Run the **Bayesian** test on the same question:
+
+   ```r
+   dom_hours    <- crimes$hour[crimes$domestic]
+   nondom_hours <- crimes$hour[!crimes$domestic]
+
+   bf <- ttestBF(x = dom_hours, y = nondom_hours)
+   extractBF(bf)$bf
+   ```
+
+   **In a comment:** report the Bayes factor and interpret it in plain English. Which hypothesis do the data support, and how strongly?
+
+5. **Interpretation (in comments):**
+   - Do the frequentist and Bayesian results **agree** here? In class, on the violent-vs-property question, they pointed in different directions — why do you think these two analyses line up (or don't)?
+   - Is this difference **practically important**? Consider the size of the gap in minutes against the spread of incident times across a 24-hour day, and answer in one or two sentences.

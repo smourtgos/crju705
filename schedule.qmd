@@ -16,14 +16,14 @@ Readings are due **before** the start of the listed class session. "R4DS" = [*R 
 | 3 | Probability, via simulation | Ch. 2 | Ch. 3 (Data transformation), Ch. 4 (Workflow: code style) | [Session page](weeks/week-03.qmd) · [Slides](slides/week-03-probability.qmd) · [Lab](labs/lab-03-transform.qmd) · [HW](homework/hw-03.qmd) |
 | 4 | Sampling distributions, via simulation | Ch. 3 | Ch. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects) | [Session page](weeks/week-04.qmd) · [Slides](slides/week-04-sampling-distributions.qmd) · [Lab](labs/lab-04-tidy.qmd) · [HW](homework/hw-04.qmd) |
 | 5 | Confidence intervals on real data | Ch. 4 | Ch. 7 (Data import), Ch. 8 (Workflow: getting help) | [Session page](weeks/week-05.qmd) · [Slides](slides/week-05-confidence-intervals.qmd) · [Lab](labs/lab-05-import.qmd) · [HW](homework/hw-05.qmd) |
-| 6 | Hypothesis testing: frequentist **and** Bayesian t-tests | Ch. 5 | Ch. 19 (Joins); Ch. 18 (Missing values, skim) | *coming soon* |
-| 7 | **Applied data workshop** — full pipeline on messy data · **Final-project dataset selection due** | — | (capstone of the R4DS thread) | *coming soon* |
-| 8 | ANOVA · project checkpoints begin | Ch. 6 | — | *coming soon* |
-| 9 | **Midterm exam** (in class, covers sessions 1–8) | — | — | |
-| 10 | Measures of association / correlation · project checkpoint | Ch. 7 | — | *coming soon* |
-| 11 | Multiple linear regression · project checkpoint | Ch. 8 | — | *coming soon* |
-| 12 | Logistic regression · project checkpoint | Ch. 10 | — | *coming soon* |
-| 13 | **Final-project help session** — open Q&A and code clinic | — | — | |
-| 14 | **Final project presentations** | — | — | |
+| 6 | Hypothesis testing: frequentist **and** Bayesian t-tests | Ch. 5 | Ch. 19 (Joins); Ch. 18 (Missing values, skim) | [Session page](weeks/week-06.qmd) · [Slides](slides/week-06-hypothesis-testing.qmd) · [Lab](labs/lab-06-joins.qmd) · [HW](homework/hw-06.qmd) |
+| 7 | **Applied data workshop** — full pipeline on messy data · **Final-project dataset selection due** | — | (capstone of the R4DS thread) | [Session page](weeks/week-07.qmd) · [Slides](slides/week-07-workshop.qmd) · [Lab](labs/lab-07-workshop.qmd) · [HW](homework/hw-07.qmd) |
+| 8 | ANOVA · project checkpoints begin | Ch. 6 | — | [Session page](weeks/week-08.qmd) · [Slides](slides/week-08-anova.qmd) · [Lab](labs/lab-08-anova.qmd) · [HW](homework/hw-08.qmd) |
+| 9 | **Midterm exam** (in class, covers sessions 1–8) | — | — | [Session page](weeks/week-09.qmd) · [Study guide](midterm.qmd) |
+| 10 | Measures of association / correlation · project checkpoint | Ch. 7 | — | [Session page](weeks/week-10.qmd) · [Slides](slides/week-10-correlation.qmd) · [Lab](labs/lab-10-correlation.qmd) · [HW](homework/hw-10.qmd) |
+| 11 | Multiple linear regression · project checkpoint | Ch. 8 | — | [Session page](weeks/week-11.qmd) · [Slides](slides/week-11-regression.qmd) · [Lab](labs/lab-11-regression.qmd) · [HW](homework/hw-11.qmd) |
+| 12 | Logistic regression · project checkpoint | Ch. 10 | — | [Session page](weeks/week-12.qmd) · [Slides](slides/week-12-logistic.qmd) · [Lab](labs/lab-12-logistic.qmd) · [HW](homework/hw-12.qmd) |
+| 13 | **Final-project help session** — open Q&A and code clinic | — | — | [Session page](weeks/week-13.qmd) · [Project details](final-project.qmd) |
+| 14 | **Final project presentations** | — | — | [Session page](weeks/week-14.qmd) · [Project details](final-project.qmd) |
 
 : {.schedule-table .striped .hover tbl-colwidths="[4,40,10,26,20]"}

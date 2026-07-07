@@ -1,0 +1,101 @@
+---
+title: "Midterm Study Guide"
+subtitle: "Session 9 · in class · covers Sessions 1–8"
+---
+
+::: {.callout-important appearance="simple"}
+The midterm is **in class and monitored**. You write and troubleshoot real R code. You may use your **printed** notes and homework — no internet, no AI tools. (This is the assessment the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools) warns you about: if AI has been writing your homework, this is where it shows.)
+:::
+
+## 1. Data & measurement
+
+- Explain the four levels of measurement (nominal, ordinal, interval, ratio)
+- Give examples of each, especially from criminal justice research
+
+## 2. Descriptive statistics
+
+- Calculate mean, median, and mode in R
+- Compute variance and standard deviation in R
+- Explain what the standard deviation means in plain language
+- Make and interpret a histogram
+- Explain why an outlier affects the mean more than the median or mode
+
+## 3. Probability & sampling
+
+- Simulate random events (e.g., `sample()`, `rbinom()`)
+- Count outcomes with `count()` or `table()`
+- The difference between small and large samples (law of large numbers)
+- Build and interpret a contingency table
+- Calculate and interpret a conditional probability from a table
+
+## 4. Inference & confidence intervals
+
+- Compute group means
+- Make and interpret a boxplot
+- Run a two-sample t-test with `t.test()`
+- Interpret a 95% confidence interval (what it means when the CI includes 0 vs. not)
+
+## 5. Frequentist vs. Bayesian thinking
+
+- What a p-value means (and doesn't mean)
+- How Bayesian probability statements differ — P(hypothesis | data)
+- Why priors matter and how ignoring them can mislead
+- The recidivism example: same data, different interpretations
+- Run and interpret a Bayesian t-test with `ttestBF()`
+
+## 6. Comparing groups / ANOVA
+
+- Make a boxplot of groups
+- Run a one-way ANOVA with `aov()` and interpret the output (at least one group mean differs)
+- Run a Bayesian ANOVA using the workflow we practiced (`brms` + `emmeans`)
+- Interpret pairwise comparisons (posterior interval crossing 0 = no credible difference)
+
+## General advice
+
+- **Practice running the R code from your homework, labs, and in-class exercises** — the midterm only asks you to do things we've already done.
+- Make sure you can both *run* the code and *explain in words* what the output means.
+- Focus on big ideas: variability, sampling, inference, and comparing groups.
+- Don't overthink the Bayesian part — it will be at the same level as what you've already done in class and on homework.
+
+## R you should know cold
+
+```r
+mean(x); median(x)
+library(modeest); mfv(x)                  # mode
+var(x); sd(x)
+
+# plots (ggplot as practiced in lab; base equivalents also fine)
+ggplot(df, aes(x)) + geom_histogram()
+ggplot(df, aes(group, y)) + geom_boxplot()
+
+# counting & contingency tables
+df |> count(x, y)
+table(df$x, df$y)
+
+# inference
+t.test(y ~ group, data = df)              # two-sample t-test + CI
+library(BayesFactor); ttestBF(...)        # Bayesian t-test
+
+# ANOVA
+aov(y ~ group, data = df) |> summary()
+
+# Bayesian ANOVA workflow
+library(brms); library(emmeans)
+bayes_model <- brm(y ~ group, data = df, chains = 2, iter = 2000, seed = 123)
+bayes_anova <- emmeans(bayes_model, ~ group)
+plot(bayes_anova)
+pairs(bayes_anova)                         # interval crossing 0 = no difference
+```
+
+## Concepts you should be able to explain
+
+- **Levels of measurement** — nominal, ordinal, interval, ratio (with examples)
+- **Mean/median/mode** — what each tells you; effect of outliers
+- **Variance & SD** — measure of spread; SD ≈ typical distance from the mean
+- **Law of large numbers** — small samples fluctuate; large samples stabilize
+- **Contingency tables** — marginal totals, conditional probability
+- **Confidence intervals** — CI includes 0 → difference not supported; excludes 0 → supported
+- **p-value** — probability of data this extreme (or more) *if the null is true*
+- **Bayesian probability** — probability of the hypothesis *given the data*; priors matter
+- **ANOVA** — compares variance between groups vs. within groups
+- **Bayesian ANOVA** — pairwise posterior intervals; crossing 0 = no credible difference

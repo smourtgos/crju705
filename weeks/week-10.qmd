@@ -1,0 +1,31 @@
+---
+title: "Session 10 · Measures of Association: Correlation"
+subtitle: "Covariance → Pearson's r · always plot first · cor.test() · Bayesian correlation with the correlation package · the ecological fallacy · Project Checkpoint 2"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Associations Between Variables — Correlation](../slides/week-10-correlation.qmd)** · **[🧪 Lab 10: Correlation — Chicago Areas, Then a Null Worth Reporting](../labs/lab-10-correlation.qmd)** · **[📝 Homework 10 + Project Checkpoint 2](../homework/hw-10.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 7** (Measures of Association)
+- Install one new package **before** class: `install.packages("correlation")`. It's a quick install — no compiling this time — and it runs both our frequentist and Bayesian correlations this week.
+- Bring your laptop **and your final-project dataset** — Homework 10 contains Project Checkpoint 2, which computes the first associations in *your* data
+- No new R4DS reading
+
+## In class
+
+- A new kind of question: both variables numeric, no groups — do two measures *move together*? (The doorway to regression in Sessions 11–12.)
+- Association vs. causation: ice cream and violent crime, and the lurking third variable
+- **Covariance** — the right idea, glued to its units — and **Pearson's r**, the rescaled version that always lands between −1 and +1
+- What r *cannot* see: **Anscombe's quartet** (four datasets, identical r, wildly different shapes), curved relationships, and one outlier manufacturing a correlation out of noise — plus **Spearman's rho**, the rank-based backup
+- Real-data thread moves to the anchor dataset's **second level** ([codebook](../chicago-data.qmd)): Chicago's 77 community areas. Unemployment tracks violent-crime rates at r = 0.84; median age gives a genuine zero; income shows why Pearson and Spearman can disagree
+- **The ecological fallacy**, named and practiced: area-level associations license *no* claims about individuals — the codebook has been promising this conversation all semester
+- Inference on r, both traditions: `cor.test()` (t on n − 2 df, CI) and the **correlation** package — correlation matrices with Holm-adjusted p-values, then `bayesian = TRUE` for posterior medians, credible intervals, pd, and Bayes factors, including what the `"medium"` vs. `"wide"` prior actually changes
+- **Lab 10:** the full workflow yourself — Chicago areas, then the Lab 3 neighborhoods (real associations) and the Lab 6 officers, where the honest answer is a null and the Bayes factor lets you *say so*
+
+## Homework
+
+- **[Homework 10](../homework/hw-10.qmd)** — the correlation workflow, both traditions, on the Chicago community areas, **plus Project Checkpoint 2**: compute and visualize the associations between your outcome and your 2–3 candidate predictors in *your* project dataset, interpret them, and flag any surprises. These associations feed directly into the regression you'll run in Checkpoint 3. Submit your `.R` file via Canvas **before noon Tuesday**.
+- **Read before Session 11:** Stanton **Ch. 8** (Multiple Regression) — today's scatterplots grow a second predictor, and your project's candidate predictors finally get to compete.

@@ -1,0 +1,248 @@
+---
+title: "Lab 6 · Joining Data"
+subtitle: "CRJU 705 · Session 6"
+---
+
+**Goal:** combine two datasets into one — correctly — and learn to spot the ways joins quietly go wrong. This lab assumes you've read R4DS [Ch. 19 (Joins)](https://r4ds.hadley.nz/joins.html) and skimmed [Ch. 18 (Missing values)](https://r4ds.hadley.nz/missing-values.html).
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+
+crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
+areas  <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv")
+```
+
+You know both of these files already — they're the two levels of our Chicago anchor data. Look at what each one knows:
+
+```{r}
+#| label: glimpse-crimes
+glimpse(crimes)
+```
+
+```{r}
+#| label: glimpse-areas
+areas |> select(community_area, community, median_income, unemployment_rate) |> head(3)
+```
+
+## Walkthrough
+
+### A question neither file can answer alone
+
+**Do incidents in lower-income community areas end in arrest at a different rate than incidents in higher-income areas?**
+
+Look at what that question needs: `arrest` lives in `crimes` (one row per *incident*), and `median_income` lives in `areas` (one row per *community area*). No single file has both. This is the everyday reality of CJ data — incidents in one system, census context in another, personnel records in a third. Joins are how you put them together.
+
+### Keys first, join second
+
+A join matches rows using a **key**. Before joining anything, identify:
+
+- the **primary key** — the column(s) that uniquely identify each row of one table
+- the **foreign key** — the matching column in the other table
+
+`community_area` should be the primary key of `areas`: one row per area. **Never assume — check:**
+
+```{r}
+#| label: pk-check
+areas |> count(community_area) |> filter(n > 1)
+```
+
+Zero rows means no duplicates — `community_area` really does uniquely identify each of the 77 areas. In `crimes`, `community_area` is a *foreign* key: thousands of incidents point to each area. That's a **many-to-one** join — many incidents, one area each.
+
+### `left_join()` — and a trap on the very first try
+
+```{r}
+#| label: join-naive
+joined_naive <- crimes |> left_join(areas, by = "community_area")
+
+joined_naive |> select(id, community.x, community.y) |> head(3)
+```
+
+Where did `community.x` and `community.y` come from? **Both** tables have a column named `community`, and it wasn't part of the key — so R kept both copies and slapped suffixes on them. Harmless here (they agree), but confusing, and with messier data the two versions might *not* agree.
+
+The cleaner habit: **select just the columns you need from the right-hand table before joining.**
+
+```{r}
+#| label: join-clean
+joined <- crimes |>
+  left_join(
+    areas |> select(community_area, median_income, unemployment_rate),
+    by = "community_area"
+  )
+
+joined |> select(id, community, arrest, median_income) |> head(3)
+```
+
+### Row-count discipline
+
+A many-to-one join should return **exactly the rows of the left table**, just wider. Verify it every time:
+
+```{r}
+#| label: row-check
+nrow(crimes)
+nrow(joined)
+```
+
+If the joined table had *grown*, that would mean the "one" side secretly had duplicate keys — every duplicate multiplies your rows and silently corrupts every count and mean downstream. `nrow()` before and after is a two-second insurance policy.
+
+### Now answer the question
+
+Split areas at the median of `median_income` and compare arrest rates:
+
+```{r}
+#| label: answer
+joined |>
+  mutate(income_group = if_else(median_income < median(areas$median_income),
+                                "Lower-income area", "Higher-income area")) |>
+  summarize(arrest_rate = mean(arrest), n = n(), .by = income_group)
+```
+
+Incidents in lower-income areas end in arrest about **18%** of the time, versus about **13%** in higher-income areas — a gap we could not have computed from either file alone.
+
+::: {.callout-warning appearance="simple"}
+**Interpret with care.** This is an *area-level* pattern attached to incidents. It does not tell us *why* — the mix of offense types differs across areas, police deployment differs, reporting differs. And `median_income` describes the *area*, not the people involved in any incident. Joins expand what you can ask; they don't excuse you from thinking about what the answer means.
+:::
+
+### When keys don't match: a small disaster on purpose
+
+Our Chicago files join perfectly, which is lovely and completely unrepresentative of real life. Here's a tiny example with the kind of flaws you'll actually meet — a table of incidents and a lookup table of district commanders:
+
+```{r}
+#| label: toy-tables
+incidents_toy <- tribble(
+  ~incident_id, ~district,
+  101, "Central",
+  102, "Central",
+  103, "Harrison",
+  104, "Shakespeare"
+)
+
+district_info <- tribble(
+  ~district,    ~commander,
+  "Central",    "Diaz",
+  "Harrison",   "Okafor",
+  "Town Hall",  "Reyes"
+)
+```
+
+Incident 104 is in a district the lookup table doesn't know; Town Hall has a commander but no incidents. Watch what each join does with the mismatches:
+
+```{r}
+#| label: toy-left
+incidents_toy |> left_join(district_info, by = "district")
+```
+
+`left_join()` **keeps every left-hand row** and fills the holes with `NA` — incident 104 survives, commander unknown.
+
+```{r}
+#| label: toy-inner
+incidents_toy |> inner_join(district_info, by = "district")
+```
+
+`inner_join()` **keeps only rows that match** — incident 104 is *silently gone*. Four incidents in, three out, no warning. If you didn't check row counts, you'd never know you dropped data.
+
+### `anti_join()` — find the orphans *before* you commit
+
+`anti_join()` returns the left-hand rows that have **no match** — it's the diagnostic you run before choosing a join:
+
+```{r}
+#| label: toy-anti
+incidents_toy |> anti_join(district_info, by = "district")   # incidents with no district info
+district_info |> anti_join(incidents_toy, by = "district")   # districts with no incidents
+```
+
+Run it both directions on our real files:
+
+```{r}
+#| label: real-anti
+crimes |> anti_join(areas, by = "community_area") |> nrow()
+areas  |> anti_join(crimes, by = "community_area") |> nrow()
+```
+
+Zero and zero: every incident matches an area, every area has incidents. Our keys are clean — **and the only reason we know that is that we checked.**
+
+### The missing-values moment (the Ch. 18 skim, cashed in)
+
+That `NA` commander `left_join()` created is a genuine missing value, and `NA`s are *contagious by design*:
+
+```{r}
+#| label: na-contagion
+toy_joined <- incidents_toy |> left_join(district_info, by = "district")
+
+toy_joined |> filter(is.na(commander))   # locate the missing
+```
+
+The same discipline applies to missingness that arrives *with* the data. Our crime file has incidents with no coordinates (blocked addresses, data-entry gaps):
+
+```{r}
+#| label: na-real
+sum(is.na(crimes$latitude))
+mean(crimes$latitude)
+mean(crimes$latitude, na.rm = TRUE)
+```
+
+One missing value poisons the whole mean until you decide — *explicitly* — what to do about it. `na.rm = TRUE` is a decision ("compute on the cases we have"), not a reflex. The worst option is not noticing the `NA`s exist; that's what `sum(is.na(...))` is for.
+
+## Your Turn
+
+Two lab datasets you've met before: correctional **officers** and **prisoners**. Both have a `facility` column.
+
+```r
+officers  <- read_csv("https://smourtgos.github.io/crju705/data/officers.csv")
+prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
+```
+
+**1.** Read in both files. What does one row represent in each table? Is `facility` a primary key in *either* table? Check with `count()` — and in a comment, say what kind of join relationship prisoners-to-officers would be (one-to-one? many-to-one? many-to-many?).
+
+```{r}
+#| label: yt-1
+#| eval: false
+# your code here
+```
+
+**2.** Before running it: predict how many rows `prisoners |> left_join(officers, by = "facility")` returns. Then run it. Explain (in a comment) where the row count came from and why dplyr printed a warning. *(Hint: every prisoner matches every officer in their facility.)*
+
+```{r}
+#| label: yt-2
+#| eval: false
+# your code here
+```
+
+**3.** The many-to-many join in #2 answered no question at all. The right move is to **aggregate first, then join**: summarize mean `burnout` by facility from `officers`, summarize mean `stress` by facility from `prisoners`, and join the two small tables. Do facilities where officers report more burnout also hold prisoners reporting more stress? *(Three facilities is far too few to generalize — just describe what you see.)*
+
+```{r}
+#| label: yt-3
+#| eval: false
+# your code here
+```
+
+**4.** Use `anti_join()` in both directions to confirm no prisoner sits in a facility with no officers, and no officer works in a facility with no prisoners. In a comment: which join type in #3 would have *hidden* a mismatch like that, had one existed?
+
+```{r}
+#| label: yt-4
+#| eval: false
+# your code here
+```
+
+**5.** *(Stretch)* Staffing ratios: `count()` prisoners per facility, `count()` officers per facility, join the two counts, and compute prisoners-per-officer. Which facility is stretched thinnest?
+
+```{r}
+#| label: yt-5
+#| eval: false
+# your code here
+```
+
+## Exit Ticket
+
+Submit a short R script to Canvas before you leave, containing:
+
+1. The code for one join you ran today, plus a comment saying what one row of the *result* represents
+2. A comment (2–3 sentences): when would `left_join()` and `inner_join()` give you different answers to the same research question, and which default do you plan to reach for?
+3. A comment naming one thing about joins or missing values that is still confusing

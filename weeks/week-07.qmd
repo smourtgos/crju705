@@ -1,0 +1,29 @@
+---
+title: "Session 7 · Applied Data Workshop"
+subtitle: "The full pipeline on messy data · import → tidy → describe → visualize → test · final-project dataset selection due"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Applied Data Workshop](../slides/week-07-workshop.qmd)** · **[🧪 Lab 7: The Full Pipeline](../labs/lab-07-workshop.qmd)** · **[📝 Homework 7](../homework/hw-07.qmd)**
+:::
+
+## Before class
+
+- **No new Stanton reading this week** — use the breathing room to catch up if you're behind
+- **Bring a candidate dataset for your final project** (two, if you're torn) — requirements are on the [final project page](../final-project.qmd). Have the actual file(s) *downloaded to your laptop* before class; hunting for data during the workshop wastes your workshop
+- Skim back over R4DS [Ch. 1–8](https://r4ds.hadley.nz/) wherever you feel shaky — today assembles all of it
+- Bring your laptop
+
+## In class
+
+- Why real analysis is 80% preparation — and why every dataset so far arrived suspiciously clean
+- The pipeline map: import → tidy → transform → visualize → model/test, tied back to the session that taught each step
+- One worked pass, start to finish, on the Alaska crash data: import with type fixes, derived time-of-day variables, group summaries, two polished plots, and the Homework 5 question settled with a t-test run **both ways** — `t.test()` and `ttestBF()`
+- **Most of the session is Lab 7**: the same pipeline, run on the dataset *you're* proposing for the final project — import it, audit its missingness, summarize it, plot it, and write an honest feasibility memo
+- Exit ticket: your dataset's name and source, plus the biggest cleaning obstacle you hit
+
+## Homework
+
+- **[Homework 7](../homework/hw-07.qmd)** — the workshop write-up **plus your formal final-project dataset selection**; submit your `.R` file via Canvas **before noon Tuesday** ahead of Session 8
+- Bring your dataset and script to Session 8 — **project checkpoints begin there**, and we'll discuss your data source, question, and import battles
+- Read Stanton **Ch. 6** (ANOVA) before Session 8

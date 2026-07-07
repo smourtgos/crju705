@@ -1,0 +1,56 @@
+---
+title: "Homework 7 · Workshop Write-Up & Final-Project Dataset Selection"
+subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 8"
+format:
+  html: default
+  docx: default
+format-links: [docx]
+---
+
+**Instructions:** complete the following in a single `.R` script file. Include comments explaining your code and answering the interpretive prompts. Submit your `.R` file via **Canvas** for credit.
+
+This homework finishes what Lab 7 started: the pipeline, run on **the dataset you're proposing for your final project** — and it doubles as your **formal dataset selection**, which is due now so your project can start moving at the Session 8 checkpoint. Requirements and milestones for the project live on the [final project page](../final-project.qmd).
+
+If Lab 7 went well, most of Part 1 is already sitting in your lab script — clean it up, complete what's missing, and answer every prompt below in comments. If your lab dataset died on the operating table (it happens, and it's why we workshop first), find its replacement, run the same pipeline on it, and say in a comment what killed candidate #1.
+
+## Part 1: The Pipeline Write-Up
+
+Run each step on your proposed dataset. Every prompt marked **(comment)** gets an explicit written answer in your script.
+
+1. **Import.** Working code that reads your dataset into R (`read_csv()`, `read_excel()`, or whatever the format requires), including any fixes for columns R guessed wrong — dates especially. I will run your script, so if the data can't be downloaded from a URL, say where the file comes from in a comment and use a plain relative path (no `setwd()`, no absolute paths).
+
+2. **Data source (comment).** Where the data comes from: who collected it, what it covers (years, geography), and a link or citation. If you had to request, scrape, or hand-download it, say so.
+
+3. **Unit of analysis (comment).** One row = one *what*? (One incident? One person? One agency-year? One neighborhood?) If the answer took you a while to figure out, note what confused you — that confusion is diagnostic.
+
+4. **Key variables and levels of measurement (comment).** List the variables you plan to use in the final project. For each, give its level of measurement — nominal, ordinal, interval, or ratio, from Session 1 — and note whether R currently stores it sensibly (a nominal variable stored as numbers, like `race = 1, 2, 3`, is a trap worth flagging now).
+
+5. **Missingness.** Count missing values in every column (the `across()` + `pivot_longer()` pattern from Lab 7 or any equivalent). **(comment)** Which of *your* key variables are affected, why is the data missing (structural, or trouble?), and what is your plan — drop rows, drop a variable, or find supplemental data?
+
+6. **One descriptive finding.** A summary table (`summarize()` or `count()`) that shows something substantively interesting about a key variable. **(comment)** State the finding in one precise sentence — numbers included, no more claimed than the table shows.
+
+7. **One visualization.** A polished ggplot — labeled axes, title, units. **(comment)** One sentence on what the plot shows, and one on any surprise or complication it revealed.
+
+## Part 2: Formal Dataset Selection
+
+This section is your dataset-selection submission for the final project — the declaration the rest of the semester builds on. Parts of it (source, import, preview) already exist in your Part 1 code; what's new is the commitment. Add a clearly-marked final section to your script that provides:
+
+1. **Dataset name and source** — repeated in one place, even if it appears in Part 1.
+
+2. **Your research question**, stated in one sentence. A question, not a topic: "does X differ by / relate to Y," not "sentencing."
+
+3. **The variables you plan to use to answer it**, with each one's type (numeric, categorical) — a short list, drawn from your Part 1 inventory.
+
+4. **A selection-criteria check (comments)** — confirm, honestly, that your dataset:
+   - concerns a **criminal-justice topic** (e.g., policing, crime rates, courts, corrections, public opinion);
+   - **reads into R successfully** — via `read_csv()`, `read_excel()`, or `data()` for a built-in set (your Part 1 import code is the proof);
+   - includes **numeric variables suitable for correlation and regression analysis** — the techniques coming in Sessions 10–11, which your final project will use.
+
+5. **A basic preview** — `glimpse()` and/or `summary()` of your imported data, with the call left in the script so I see its output when I run it.
+
+**Can't decide between two datasets?** That's allowed at this stage: run Part 1 on your primary candidate, include import code and the Part 2 declaration for *both*, and come to Session 8 ready to discuss the tradeoff — we'll settle it at your project checkpoint.
+
+## Deliverable and Due Date
+
+- Submit your `.R` script via **Canvas before noon Tuesday** ahead of Session 8.
+- **Bring your dataset(s) and script to Session 8.** Project checkpoints begin that week: be prepared to discuss your data source, your research question, and any issues you encountered importing or cleaning your data.

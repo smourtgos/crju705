@@ -1,0 +1,31 @@
+---
+title: "Session 8 · ANOVA: Comparing Three or More Groups"
+subtitle: "Two kinds of variance · the F-ratio · aov() + Tukey's HSD · Bayesian ANOVA with brms + emmeans · Project Checkpoint 1"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Comparing Groups and Analyzing Experiments](../slides/week-08-anova.qmd)** · **[🧪 Lab 8: ANOVA — Three Classrooms, Then Real Crashes](../labs/lab-08-anova.qmd)** · **[📝 Homework 8 + Project Checkpoint 1](../homework/hw-08.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 6** (Comparing Groups and Analyzing Experiments)
+- Install two new packages **before** class: `install.packages(c("emmeans", "brms"))`. `brms` compiles models on your machine, so the install can take a while and the first model of a session pauses at "Compiling Stan program..." — both are normal. If the install errors, email me the message before class.
+- Bring your laptop **and make sure your final-project dataset (selected in Session 7) opens on it** — Homework 8 contains your first project checkpoint
+- No new R4DS reading — the wrangling thread is complete
+
+## In class
+
+- Why comparing 3+ group means with a pile of t-tests backfires (false-alarm rates compound), and how ANOVA asks one omnibus question instead
+- The core idea: **within-group variance** (noise) vs. **between-group variance** (signal), built by hand on three small classrooms
+- Stanton's rain example: three random groups from the *same* 70 cities, where the null is true by construction — and why between-group variance collapses when nothing differs (Session 4's sampling distributions, cashed in again)
+- The **F-ratio** and the F distribution; `aov()` and how its table is just our two variances with the group size baked into the signal
+- A significant F only says *something* differs — **Tukey's HSD** finds which pairs, with the family-wise false-alarm rate held at 5%
+- The **Bayesian version**: `brm()` with the same formula, then `emmeans()` for posterior group means and `pairs()` for differences — the interval-crossing-zero reading
+- Real-data thread: does mean incident hour differ across Chicago's Violent / Property / Other categories? Both traditions say yes for every pair — by 15 to 41 minutes. Detectable ≠ dramatic, now with three groups.
+- **Lab 8:** the full workflow yourself — the classrooms, then injuries by crash cause in the Alaska data (including one pair with *no* credible difference, so you practice saying that out loud)
+
+## Homework
+
+- **[Homework 8](../homework/hw-08.qmd)** — the ANOVA workflow, both traditions, on Stanton's `chickwts` data, **plus Project Checkpoint 1**: descriptive statistics and one plot on *your* final-project dataset, with a paragraph on your outcome variable and 2–3 candidate predictors. Submit your `.R` file via Canvas **before noon Tuesday**.
+- **Session 9 is the MIDTERM**, covering Sessions 1–8. The **[study guide](../midterm.qmd)** is on the site. No new reading — review Stanton Ch. 1–6, the session pages, and your labs and homework. Parts 1–3 of Homework 8 double as ANOVA review.

@@ -1,0 +1,31 @@
+---
+title: "Session 11 · Multiple Linear Regression"
+subtitle: "Least squares · the best-fitting plane in 3D · R² · holding constant · VIF · Bayesian regression with brms · Project Checkpoint 3"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Multiple Linear Regression](../slides/week-11-regression.qmd)** · **[🧪 Lab 11: Multiple Regression — Chicago's 77 Areas, Then 500 Neighborhoods](../labs/lab-11-regression.qmd)** · **[📝 Homework 11 + Project Checkpoint 3](../homework/hw-11.qmd)**
+:::
+
+## Before class
+
+- Read: Stanton **Ch. 8** (Linear Multiple Regression)
+- Install one new package **before** class: `install.packages("car")` — we use it for multicollinearity checks (VIF). (`brms` you already have from ANOVA week; `bayesplot` rode along with it. The usual reminder applies: the first `brm()` of a session pauses at "Compiling Stan program..." — that's normal.)
+- Bring your laptop **and your final-project dataset** — Homework 11 contains **Checkpoint 3**, the first regression model on your own data
+
+## In class
+
+- From Session 10's correlation to today's sharper question: not *do* two variables move together, but **how much does the outcome change per unit of a predictor — holding the others constant**
+- **Least squares from scratch:** three candidate lines through ten students' study hours and exam scores, a sum-of-squared-residuals ruler to judge them, and `lm()` finding the one line no other line beats — then the animated best-fit search, and **R²** (which, with one predictor, is exactly Session 10's *r*, squared)
+- **Two predictors = a plane in 3D** — the interactive plotly plane you can grab and spin in the browser, regenerated live from code, plus the recorded guided tour
+- **Why "holding constant" earns its keep:** ice cream sales "significantly predict" drownings until temperature enters the model and the association evaporates — and an added-variable plot to *see* the partialing happen
+- Real-data thread: **violent-crime rates across Chicago's 77 community areas** — unemployment alone (slope ~3.3, R² ≈ .71), then vacancy added (unemployment's slope drops to ~2.1, R² ≈ .82: shared variance reassigned before your eyes), a third predictor that *doesn't* earn its keep, and a units lesson (a −0.0006 coefficient that's actually ~6 fewer violent crimes per 1,000 residents per $10,000 of income)
+- **Diagnostics:** the residuals-vs-fitted plot read honestly (ours fans out at high fitted values — we say so), and **VIF** for multicollinearity
+- **The Bayesian version:** same formula in `brm()`, posterior distributions for each coefficient visualized with `bayesplot`, and the credible-interval sentence the confidence interval never allowed — plus model reporting sentences in both traditions
+- Standing warnings, now attached to coefficients: adjusted associations are not causal effects, and area-level associations are not people-level claims (the ecological fallacy rides along)
+- **Lab 11:** the full workflow yourself — Chicago start to finish, then your own model on the Lab 3 neighborhoods (including the residual plot's tell that a count outcome is starting to strain the linear model)
+
+## Homework
+
+- **[Homework 11](../homework/hw-11.qmd)** — cleaning data *for* regression (a survey file with 999 sentinels and worse), the same regression before and after cleaning, **plus Project Checkpoint 3**: fit the first regression model on *your* project data — linear if your outcome is continuous; if it's binary, flag it (that's next session's tool) — interpret the coefficients, and run one diagnostic. Submit your `.R` file via Canvas **before noon Tuesday**.
+- **Read before Session 12:** Stanton **Ch. 10** — logistic regression, for yes/no outcomes. If your project outcome is binary, next session hands you the right tool.

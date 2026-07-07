@@ -1,0 +1,502 @@
+---
+title: "Comparing Groups and Analyzing Experiments"
+subtitle: "CRJU 705 · Session 8 · Fall 2026"
+author: "Scott M. Mourtgos"
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    chalkboard: true
+    footer: "CRJU 705 · Session 8"
+    theme: [default, custom-slides.scss]
+    fig-align: center
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(brms)
+library(emmeans)
+source(here::here("R/setup.R"))
+theme_set(theme_minimal(base_size = 18))
+set.seed(705)
+crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
+```
+
+## This Week
+
+**Topic:** ANOVA — comparing three or more group means at once
+
+- Why "just run a bunch of t-tests" backfires
+- The core idea: two kinds of variance and their ratio, F
+- `aov()` + Tukey's HSD, then Bayesian `brms` + `emmeans`
+- Real data: does Chicago's clock differ by crime category?
+
+**Learning goals:** explain what F compares; run and read a one-way ANOVA in both traditions; follow a significant F with an honest pairwise answer.
+
+**Also this week:** Homework 8 includes **Project Checkpoint 1** — your first graded step on your final-project dataset.
+
+## Where We've Been
+
+::: incremental
+- **Session 6:** two groups — is *this* mean different from *that* one? t-tests, in both the frequentist and Bayesian traditions
+- **Session 7:** the applied workshop — you took a messy file through the whole pipeline and **picked your final-project dataset**
+- **Today:** the question that comes up constantly in real research — what if there are *three* groups? Or six?
+:::
+
+# Experiments and Group Comparisons {background-color="#73000A"}
+
+## Experiments: IVs and DVs
+
+**Independent variable (IV):** what we change or compare — the *groups*.
+
+**Dependent variable (DV):** what we measure — the *outcome* that (maybe) depends on the IV.
+
+| Independent variable | Dependent variable |
+|---|---|
+| Type of training program | Test score |
+| Type of fertilizer | Plant height |
+| Region of the country | Annual precipitation |
+| Patrol strategy assigned to a beat | Response time (minutes) |
+
+: {tbl-colwidths="[50,50]"}
+
+## Why ANOVA?
+
+::: incremental
+- A **t-test** compares **2** means
+- **ANOVA** compares **3+** means
+- Use it when the **IV is categorical** (the groups) and the **DV is numeric** (the outcome)
+- The name is strange: **AN**alysis **O**f **VA**riance — we're asking about *means*, but the test works by comparing *variances*. That's the whole trick, and it's coming up.
+:::
+
+## Why Not Just Run a Pile of t-Tests?
+
+Three groups means 3 pairwise tests. Six groups means 15. Each test carries its own 5% false-alarm risk, and the risks pile up:
+
+```{r}
+#| label: alpha-inflation
+tibble(groups = c(2, 3, 4, 6, 10)) |>
+  mutate(
+    pairwise_tests   = choose(groups, 2),
+    p_false_alarm    = round(1 - 0.95^pairwise_tests, 2)
+  )
+```
+
+## ANOVA's Answer: One Omnibus Question
+
+By six groups you have a coin-flip's chance of at least one bogus "significant" difference.
+
+. . .
+
+ANOVA asks **one omnibus question** — *are all the group means plausibly equal?* — at a single 5% risk. (When we go pairwise afterward, we'll adjust for this. Hold that thought.)
+
+# The Core Idea: Two Kinds of Variance {background-color="#1B2A4A"}
+
+## Imagine Three Classrooms
+
+```{r}
+#| label: classrooms
+classrooms <- tibble(
+  score     = c(75, 80, 78, 74, 77,    # Class 1
+                88, 90, 92, 85, 87,    # Class 2
+                70, 65, 68, 72, 66),   # Class 3
+  classroom = factor(rep(c("Class 1", "Class 2", "Class 3"), each = 5))
+)
+
+class_stats <- classrooms |>
+  summarize(class_mean = mean(score), class_var = var(score), .by = classroom)
+class_stats
+```
+
+Two different kinds of "spread" are hiding in this table.
+
+## Two Kinds of Variance
+
+**Within-group variance:** how much scores bounce around *inside* each classroom.
+
+**Between-group variance:** how much the classroom *averages* differ from each other.
+
+```{r}
+#| label: classrooms-two-vars
+mean(class_stats$class_var)   # WITHIN: average spread inside a class
+var(class_stats$class_mean)   # BETWEEN: spread of the class means
+```
+
+. . .
+
+Between (**102.8**) dwarfs within (**7.1**) — the class averages are far more spread out than chance bouncing inside classes would suggest. Signal-to-noise ratio ≈ 14.5. These classes look genuinely different.
+
+## The Picture
+
+```{r}
+#| label: classrooms-plot
+#| echo: false
+#| fig-height: 5.5
+ggplot(classrooms, aes(classroom, score)) +
+  geom_boxplot(alpha = 0.2, width = 0.3) +
+  geom_jitter(width = 0.08, size = 3, alpha = 0.6, color = crju_colors["navy"]) +
+  geom_point(data = class_stats, aes(y = class_mean),
+             shape = 23, size = 5, fill = crju_colors["garnet"], color = "white") +
+  labs(title = "Within vs. between group variance",
+       subtitle = "Within = spread inside each box · Between = spread OF the garnet diamonds (class means)",
+       x = NULL, y = "Test score")
+```
+
+## Stanton's Rain Example (From the Book)
+
+Now flip the situation: three groups where **nothing differs** — by construction. `precip` holds annual precipitation for 70 U.S. cities. Draw three random groups of 20 from the *same* 70 cities:
+
+```{r}
+#| label: rain-groups
+data("precip")
+set.seed(705)   # so we all draw the same "random" groups
+group1 <- sample(precip, 20)
+group2 <- sample(precip, 20)
+group3 <- sample(precip, 20)
+
+c(mean(group1), mean(group2), mean(group3))
+```
+
+. . .
+
+The means differ a little — but any differences here are **pure sampling luck**. The null hypothesis is *true by construction*.
+
+## Rain: Within vs. Between
+
+```{r}
+#| label: rain-two-vars
+mean(c(var(group1), var(group2), var(group3)))    # WITHIN
+var(c(mean(group1), mean(group2), mean(group3)))  # BETWEEN
+```
+
+. . .
+
+Within ≈ **133**, between ≈ **2.3**. The classrooms gave us 7.1 vs. 102.8 — completely flipped. Why?
+
+## Why So Lopsided?
+
+::: incremental
+- City-to-city rainfall varies a *lot* (Phoenix vs. Mobile) → big **within**-group variance
+- But each group's **mean** averages 20 cities — and Session 4 taught us means fluctuate far less than raw values ($SE = \sigma/\sqrt{n}$)
+- With no real group differences, between-group variance is nothing but the tiny sampling noise of three means
+- So the diagnostic: **between ≫ within → something real is separating the groups. Between ≪ within → nothing but noise.**
+- All we need is a ruler for "how much bigger is big enough" —
+:::
+
+## The F-Statistic
+
+$$F \;=\; \frac{\text{between-group variance}}{\text{within-group variance}} \;=\; \frac{\text{signal}}{\text{noise}}$$
+
+::: incremental
+- When the null is true, F bounces around low values by luck of the draw
+- If our F lands **far in the tail** of the F distribution → our data are *unlikely under the null* — same logic as every test we've run
+- The **F distribution** describes the F values a null world produces. Its shape depends on two df: **groups − 1** and **N − groups**
+:::
+
+## What F Looks Like When the Null Is True
+
+```{r}
+#| label: f-dist
+#| output-location: slide
+#| fig-height: 6
+set.seed(705)
+f_null <- tibble(
+  design = rep(c("F(2, 57) — our rain design",
+                 "F(8, 101) — more groups, bigger N"), each = 10000) |> fct_inorder(),
+  f      = c(rf(10000, df1 = 2, df2 = 57), rf(10000, df1 = 8, df2 = 101))
+)
+cutoffs <- f_null |> summarize(cut = quantile(f, 0.95), .by = design)
+
+ggplot(f_null, aes(f)) +
+  geom_histogram(bins = 60, fill = crju_colors["blue"], color = "white") +
+  geom_vline(data = cutoffs, aes(xintercept = cut),
+             color = crju_colors["garnet"], linewidth = 1.1) +
+  facet_wrap(~design, ncol = 1) +
+  labs(title = "10,000 F values from a null world, for two designs",
+       subtitle = "Garnet line = 95th percentile — F values beyond it are rare when nothing differs",
+       x = "F value", y = "Count")
+```
+
+# Running the ANOVA {background-color="#73000A"}
+
+## First, We Need a Data Frame
+
+`aov()` wants the data in the long format we've used all semester — one row per observation, one column saying which group it belongs to:
+
+```{r}
+#| label: rain-df
+rain <- tibble(
+  rainfall = c(group1, group2, group3),
+  group    = factor(rep(c("Group 1", "Group 2", "Group 3"), each = 20))
+)
+rain
+```
+
+## `aov()` Does the Whole Thing
+
+```{r}
+#| label: rain-aov
+rain_model <- aov(rainfall ~ group, data = rain)
+summary(rain_model)
+```
+
+. . .
+
+**F = 0.34, p = 0.71.** That F sits squarely in the fat part of F(2, 57) — nowhere near the 95% cutoff (≈ 3.2). No evidence the groups differ. *Correct answer* — they're the same population by construction.
+
+## The Table Is Our Two Variances, Dressed Up
+
+::: incremental
+- **Mean Sq Residuals = 132.7** — exactly the within-group variance we computed by hand ✓
+- **Mean Sq group = 45.2 = 20 × 2.26** — our between-group variance, *scaled by the group size*
+- Why × 20? A 2-inch gap between means built on **20 cities each** is far stronger evidence than the same gap built on 2. `aov()` bakes the sample size into the signal.
+- **F = 45.2 / 132.7 = 0.34.** So when your hand-computed ratio and `aov()`'s F disagree, this scaling is why — same logic, different units.
+:::
+
+## Let's Make a Difference Artificially
+
+Shift Group 3 down 15 inches — now there *is* a real difference, and we know exactly where it lives:
+
+```{r}
+#| label: rain-shift
+rain_shifted <- rain |>
+  mutate(rainfall = if_else(group == "Group 3", rainfall - 15, rainfall))
+
+rain_shifted |> summarize(mean_rain = mean(rainfall), .by = group)
+```
+
+## Original vs. Shifted, Seen
+
+```{r}
+#| label: rain-shift-plot
+#| echo: false
+#| fig-height: 5.5
+bind_rows(
+  rain         |> mutate(version = "Original: all three from the same population"),
+  rain_shifted |> mutate(version = "Group 3 shifted down 15 inches")
+) |>
+  mutate(version = fct_inorder(version)) |>
+  ggplot(aes(group, rainfall, fill = group)) +
+  geom_boxplot(show.legend = FALSE) +
+  scale_fill_manual(values = unname(crju_colors[c("blue", "gold", "garnet")])) +
+  facet_wrap(~version) +
+  labs(x = NULL, y = "Annual precipitation (inches)")
+```
+
+## Redo the ANOVA
+
+```{r}
+#| label: rain-aov-shifted
+shifted_model <- aov(rainfall ~ group, data = rain_shifted)
+summary(shifted_model)
+```
+
+. . .
+
+The within-group noise didn't move (132.7 — shifting a whole group doesn't change the spread *inside* it). The between-group signal exploded. **F = 14.2, p ≈ 0.00001** — deep in the tail.
+
+## A Significant F Only Says "*Something* Differs"
+
+Which pairs? **Tukey's HSD**: all pairwise comparisons, with the family-wise 5% false-alarm rate restored — the fix for the t-test pile-up problem from the top of class:
+
+```{r}
+#| label: rain-tukey
+TukeyHSD(shifted_model)
+```
+
+## Reading the Tukey Output
+
+::: incremental
+- **Group 3 differs from both others** — intervals exclude 0, adjusted p-values tiny. Exactly where we put the difference.
+- **Group 1 vs. Group 2:** interval spans 0, p = 0.81 — no evidence, *as designed*
+- The omnibus F said "something's there"; Tukey pointed at *what*, without inflating the false-alarm rate
+:::
+
+# The Bayesian Version {background-color="#1B2A4A"}
+
+## Two New Packages
+
+- **brms** — **B**ayesian **R**egression **M**odels using **S**tan: writes the model, compiles it, samples the posterior
+- **emmeans** — **e**stimated **m**arginal **means**: takes any fitted model and returns group means and group *differences*
+
+```r
+install.packages(c("emmeans", "brms"))
+```
+
+::: {.callout-warning appearance="simple"}
+`brms` compiles models with your computer's C++ toolchain. Install **before** the lab, and expect the *first* model of each session to pause ~a minute at "Compiling Stan program..." — that's normal, not a crash.
+:::
+
+## Same Formula, Bayesian Machinery
+
+```{r}
+#| label: brm-rain
+#| output: false
+bayes_rain <- brm(rainfall ~ group, data = rain,
+                  chains = 2, iter = 2000, seed = 705, refresh = 0)
+```
+
+::: incremental
+- Identical formula syntax to `aov()` — this pattern carries through the rest of the course
+- Default priors: flat on the group coefficients — the data do the talking
+- `chains = 2, iter = 2000`: two independent MCMC runs, 2,000 draws each → a full **posterior distribution** for every group mean
+- `refresh = 0` just silences the sampling progress log
+:::
+
+## Posterior Group Means
+
+```{r}
+#| label: emmeans-rain
+rain_post <- emmeans(bayes_rain, ~ group)
+rain_post
+```
+
+. . .
+
+One row per group: the posterior median and a 95% **HPD interval** — the range holding the most credible values for that group's mean, given the data.
+
+## Posterior Means, Seen
+
+```{r}
+#| label: plot-emmeans-rain
+#| fig-height: 4.5
+plot(rain_post) +
+  geom_vline(xintercept = mean(rain$rainfall),
+             linetype = 2, color = crju_colors["garnet"]) +
+  labs(x = "Posterior mean rainfall (inches)", y = NULL)
+```
+
+All three intervals swallow the grand mean (dashed line). No group separates from the pack.
+
+## What We Really Care About Are Differences
+
+```{r}
+#| label: pairs-rain
+pairs(rain_post)
+```
+
+::: incremental
+- Every 95% HPD interval for a pairwise difference **crosses 0**
+- Bayesian reading: *zero — "no difference" — remains a credible value for every contrast*. No credible difference between any pair.
+- Same verdict as F = 0.34, p = 0.71. Two traditions, one conclusion.
+:::
+
+## Differences, Seen
+
+```{r}
+#| label: plot-pairs-rain
+#| fig-height: 4.5
+plot(pairs(rain_post)) +
+  geom_vline(xintercept = 0, linetype = 2, color = crju_colors["garnet"])
+```
+
+Zero sits comfortably inside every interval. When a difference is *real*, its interval abandons 0 — watch what real data do next.
+
+# Real Data: Does the Clock Differ by Crime Type? {background-color="#73000A"}
+
+## The Question
+
+In Session 5 we found violent crimes average slightly *later* in the day than property crimes — two groups. But our Chicago data sort every incident into **three** categories. ANOVA takes all three in one shot:
+
+```{r}
+#| label: chicago-means
+crimes |> summarize(mean_hour = mean(hour), sd_hour = sd(hour),
+                    n = n(), .by = crime_category)
+```
+
+. . .
+
+Violent runs latest (12.8), Other earliest (12.1). Gaps of fractions of an hour, with SDs near 7. Real structure, or noise? And remember: n = 30,000 — big samples detect *tiny* things.
+
+## Look First
+
+```{r}
+#| label: chicago-box
+#| echo: false
+#| fig-height: 5.5
+chicago_cat_means <- crimes |>
+  summarize(mean_hour = mean(hour), .by = crime_category)
+
+ggplot(crimes, aes(crime_category, hour)) +
+  geom_boxplot(fill = "grey92", width = 0.45) +
+  geom_point(data = chicago_cat_means, aes(y = mean_hour),
+             shape = 23, size = 5, fill = crju_colors["garnet"], color = "white") +
+  labs(title = "Incident hour by crime category — 30,000 incidents",
+       subtitle = "Garnet diamonds = group means. The boxes nearly coincide; the eye can't settle this one.",
+       x = NULL, y = "Hour of day (0–23)")
+```
+
+## Frequentist: `aov()`
+
+```{r}
+#| label: chicago-aov
+chicago_model <- aov(hour ~ crime_category, data = crimes)
+summary(chicago_model)
+```
+
+. . .
+
+**F(2, 29997) = 25.3, p ≈ 10⁻¹¹.** *Something* differs, emphatically. But that's all the omnibus F will ever tell us — which pairs, and by how much?
+
+## Which Pairs? Tukey
+
+```{r}
+#| label: chicago-tukey
+TukeyHSD(chicago_model)
+```
+
+. . .
+
+All three intervals exclude 0 — every category differs from every other. Now look at the **sizes**: 0.25 to 0.68 hours. That's **15 to 41 minutes**.
+
+## Bayesian: Same Workflow, Real Data
+
+```{r}
+#| label: brm-chicago
+#| output: false
+bayes_chicago <- brm(hour ~ crime_category, data = crimes,
+                     chains = 2, iter = 2000, seed = 705, refresh = 0)
+```
+
+The exact pattern from the rain example — `brm()`, then `emmeans()`, then `pairs()`. Nothing new to learn; only the data changed.
+
+## Bayesian Differences
+
+```{r}
+#| label: pairs-chicago
+chicago_post <- emmeans(bayes_chicago, ~ crime_category)
+pairs(chicago_post)
+```
+
+. . .
+
+Every HPD interval **excludes 0** — all three differences are credible. (Watch the signs: `emmeans` orders groups alphabetically, so these are Other − Property, Other − Violent, Property − Violent — the mirror image of Tukey's table. Same gaps.)
+
+## Detectable ≠ Dramatic (Reprise)
+
+::: incremental
+- Both traditions agree: mean incident hour genuinely differs across all three categories
+- But the biggest gap is **41 minutes** and the smallest is **15 minutes** — on a 24-hour clock, with SDs near 7 hours
+- 30,000 incidents give us the power to detect differences this small. Detecting them is not the same as their *mattering*.
+- Your job as the analyst: report **direction** *and* **size**, every time. "Significant" without magnitude is malpractice — Session 6's lesson, now with three groups.
+:::
+
+## How to Report It
+
+> **Frequentist:** "Mean incident hour differed across crime categories, F(2, 29997) = 25.3, p < .001. Tukey's HSD: violent crimes averaged 0.25 hours (≈ 15 minutes) later than property crimes, 95% CI [0.02, 0.48], with similarly small gaps for the other pairs."
+
+> **Bayesian:** "The posterior difference in mean hour (Violent − Property) was 0.26 hours, 95% HPD [0.06, 0.45], excluding zero — a credible but small difference."
+
+Both sentences state the difference, the uncertainty, **and the magnitude**.
+
+## Today's Lab & Homework
+
+- **Lab 8:** the full ANOVA workflow, both traditions — three classrooms, then Alaska crash data ([lab page](../labs/lab-08-anova.qmd))
+- **Homework 8:** ANOVA on Stanton's `chickwts` data — *plus* **Project Checkpoint 1**: descriptive statistics and one plot on **your** final-project dataset ([Session 8 page](../weeks/week-08.qmd))
+- **Session 9 is the MIDTERM** — covers Sessions 1–8. Study guide on the site; no new reading. Review Stanton Ch. 1–6, the session pages, and your labs and homework.

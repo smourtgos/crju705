@@ -1,0 +1,82 @@
+---
+title: "Homework 8 · ANOVA with chickwts + Project Checkpoint 1"
+subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 9"
+format:
+  html: default
+  docx: default
+format-links: [docx]
+---
+
+**Instructions:** complete the following exercises in a single `.R` script file. Include comments explaining your code and answers to any interpretive questions. Submit your `.R` file via **Canvas** for credit. *(Session 9 is the midterm — Parts 1–3 double as review of the full ANOVA workflow.)*
+
+Parts 1–3 replicate the ANOVA workflow from class on R's built-in `chickwts` data — Stanton's example: 71 chicks, each raised on one of six feed types. Your **DV is `weight`** (grams at six weeks) and your **IV is `feed`**.
+
+## Setup
+
+```r
+library(tidyverse)
+library(brms)
+library(emmeans)
+
+data("chickwts")
+chicks <- as_tibble(chickwts)
+glimpse(chicks)   # confirm: weight is numeric, feed is already a factor
+```
+
+## Part 1: Variance and the F-Ratio (Conceptual Mechanics)
+
+1. Make a **boxplot** of `weight` by `feed` to see the within-group spread and the between-group differences. (Bonus points for adding the group means as diamonds, as in Lab 8.)
+
+2. Compute the **mean weight for each feed group** (`summarize()` with `.by = feed`).
+
+3. Compute the **within-group variance**: the average of the six group variances.
+
+4. Compute the **between-group variance**: the variance of the six group means.
+
+5. Compute the **ratio** (between ÷ within). **In a comment:** what does this ratio represent, in signal-and-noise terms?
+
+   *(Heads-up: your ratio will be much smaller than the F value `aov()` reports in Part 2 — that's expected. `aov()` scales the between-group signal by the group size, roughly 12 chicks per feed here, before comparing it to the noise. In a comment: why should more chicks per group make the same mean differences more convincing?)*
+
+## Part 2: Frequentist ANOVA
+
+6. Fit a one-way ANOVA with `aov()` and look at `summary()`. **In a comment:** interpret the F value and p-value — what do they say about the six feed means?
+
+7. Run `TukeyHSD()` on your fitted model. **In a comment:** how many of the 15 pairwise comparisons are significant after the family-wise adjustment? Name **two pairs that differ** and **one pair that doesn't**, citing the interval or adjusted p-value for each.
+
+## Part 3: Bayesian ANOVA (brms + emmeans)
+
+8. Fit the Bayesian version, leaving the priors at their defaults:
+
+   ```r
+   chick_bayes <- brm(weight ~ feed, data = chicks,
+                      chains = 2, iter = 2000, seed = 705, refresh = 0)
+   ```
+
+   *(Expect a pause at "Compiling Stan program..." — that's normal.)*
+
+9. Extract the **posterior group means** with `emmeans()`, and plot them with a vertical line at the **grand mean** (`mean(chicks$weight)`).
+
+10. Generate the **pairwise comparisons** with `pairs()`. Do **NOT** plot these — 15 contrasts make an unreadable plot; read the table instead.
+
+11. **Interpretation (in comments):**
+    - If a pairwise interval **crosses 0**, what does that mean about the difference between those two feeds?
+    - Pick one contrast whose interval excludes 0 and state the conclusion in one sentence — including the *size* of the difference in grams, not just that it exists.
+    - Do the Bayesian conclusions broadly agree with Tukey's from Part 2?
+
+## Part 4: Project Checkpoint 1
+
+::: {.callout-important appearance="simple"}
+**This section uses YOUR final-project dataset** — the one you selected in Session 7. It is the first of four short checkpoints attached to homework between now and the end of the semester, each adding one graded step toward the final project, so nothing about the project is a surprise in the last week. Checkpoint 1 is graded on **completion and quality of reasoning** — not polish, and not whether your dataset turns out to be perfect.
+:::
+
+In a clearly marked section at the end of your `.R` script (e.g., `# ---- PROJECT CHECKPOINT 1 ----`):
+
+1. **Load your dataset** and run **descriptive statistics** on your intended **outcome variable** and on **2–3 candidate predictors**: for numeric variables, at least the mean, median, SD, and range; for categorical variables, counts or proportions per category.
+
+2. Make **one plot** that shows something about your outcome variable (histogram, boxplot, bar chart — whatever suits its type).
+
+3. **Write a paragraph** (as a comment block, roughly 5–8 sentences) covering:
+   - what your **outcome variable** measures, what type of variable it is, and what the descriptives and plot show about its distribution (skew? outliers? mostly zeros?);
+   - your **2–3 candidate predictors**, with one sentence each on *why* that variable plausibly relates to your outcome.
+
+If Step 1 reveals a problem — the outcome is nearly constant, a key variable is mostly missing, the file won't load cleanly — **say so in your paragraph** and come talk to me. Catching that *now* is exactly what this checkpoint is for.

@@ -1,0 +1,297 @@
+---
+title: "Lab 7 · The Full Pipeline: Applied Data Workshop"
+subtitle: "CRJU 705 · Session 7"
+---
+
+**Goal:** run the entire analysis pipeline — import → tidy → transform → visualize → test — twice in one sitting: once with me on the Alaska crash data, and once on **the dataset you're proposing for your final project**. This lab is the capstone of the R4DS thread (Sessions 2–6); nothing here is new, but it's the first time you assemble all of it without scaffolding. Skim back over R4DS [Ch. 1–8](https://r4ds.hadley.nz/) wherever you feel wobbly.
+
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+
+**This lab is longer than usual on purpose** — the walkthrough moves fast (you have seen every piece before), and most of today's class time belongs to the Your Turn section, where the data is yours and the problems are real. The script you build today becomes the backbone of [Homework 7](../homework/hw-07.qmd).
+
+## Setup
+
+Open RStudio, start a new R script, and run:
+
+```{r}
+#| label: lab-setup
+#| message: false
+library(tidyverse)
+library(BayesFactor)
+library(readxl)
+
+crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv")
+```
+
+Old friend: 20,000 Alaska traffic-crash incidents (simulated, but realistic) — the same file you imported in Lab 5 and tested in Homework 5. Today it plays the role of *your project dataset*: we'll take it from raw file to finished test, and every step is one you'll repeat on your own data within the hour.
+
+## Walkthrough
+
+### Import — done right, done fast
+
+In Lab 5 we discovered `read_csv()` leaves `date` as character (it stores `"02/20/2023"`, and readr only auto-detects ISO dates). You know two fixes; use whichever you like, but **verify the parse either way**:
+
+```{r}
+#| label: import-fix
+crashes <- crashes |>
+  mutate(date = mdy(date))          # Lab 5 habit; or col_types at import
+
+sum(is.na(crashes$date))            # 0 new NAs = every value parsed
+range(crashes$date)                 # and the dates are plausible
+```
+
+Both checks matter. `sum(is.na())` catches values that failed to parse; `range()` catches values that parsed into nonsense (a typo like `02/20/0223` parses *fine* — into the third century).
+
+::: {.callout-note}
+### If your project data arrives as Excel
+
+Most agency data does. Remember the three traps from Lab 5 — a junk `...1` column, dates/times imported as datetimes, and the *text* `"NA"` masquerading as missing — and the one-block fix pattern:
+
+```{r}
+#| label: xlsx-recap
+#| eval: false
+mydata <- read_excel("my-file.xlsx", na = c("", "NA")) |>
+  select(-`...1`) |>                     # only if the junk column exists
+  mutate(date = as_date(date))           # flatten datetime to date
+
+# Full story: Lab 5, "The messier cousin: Excel"
+```
+:::
+
+### Audit the damage: missingness
+
+Before you trust any column, count what's missing in all of them. This pattern — summarize every column, then pivot the one-row result into a readable table — reuses `across()` and `pivot_longer()` from Sessions 3–4:
+
+```{r}
+#| label: missingness
+crashes |>
+  summarize(across(everything(), \(x) sum(is.na(x)))) |>
+  pivot_longer(everything(), names_to = "column", values_to = "n_missing") |>
+  filter(n_missing > 0)
+```
+
+Four columns have missing values — and **all four are missing for a reason**. `vehicle2_make`, `vehicle2_model`, and `vehicle2_year` are `NA` exactly 4,019 times: the number of single-vehicle crashes, which have no second vehicle to describe. `secondary_cause` is `NA` when a crash had only one recorded cause. This is *structural* missingness — the `NA`s are correct, not broken.
+
+**The question to ask of your own data is never just "how much is missing?" but "why is it missing?"** Structural gaps are fine. Gaps in a variable you need, for reasons you can't explain, are a feasibility problem.
+
+### Derive the variables you actually need
+
+The crash file has `date` and `time` — but our questions are about *weekends* and *late nights*, and no file ever ships with your analysis variables built. `mutate()` + lubridate:
+
+```{r}
+#| label: derive
+crashes <- crashes |>
+  mutate(
+    hour    = hour(time),
+    weekend = wday(date, week_start = 1) >= 6,   # Mon = 1 … Sat = 6, Sun = 7
+    night   = hour >= 22 | hour < 4              # 10 p.m. – 3:59 a.m.
+  )
+```
+
+Always check a derived variable before using it — a `count()` catches most logic errors instantly:
+
+```{r}
+#| label: derive-check
+crashes |> count(weekend)
+crashes |> count(night)
+```
+
+Sanity check the magnitudes: weekends are 2 of 7 days (29%) and hold 28% of crashes; the night window is 6 of 24 hours (25%) and holds 25% of crashes. Neither flag *concentrates* crashes — so far. The payoff comes next.
+
+### Describe: group summaries
+
+Two questions, two `summarize()` calls. First — when do intoxication-involved crashes happen?
+
+```{r}
+#| label: summary-night
+crashes |>
+  summarize(
+    crashes   = n(),
+    pct_intox = mean(intox_any),    # mean of a 0/1 variable = proportion
+    .by = night
+  )
+```
+
+Intoxication involvement is 11.9% at night versus 6.3% in daytime — nearly double. (Weekends show a much smaller bump: 8.9% vs. 7.3%. Try it.) Crashes don't pile up at night, but *intoxicated* crashes do.
+
+Second — the Homework 5 question, revisited with the whole pipeline behind it: **do crashes involving an intoxicated driver injure more people?** Build the labeled factor now; the plots and both tests below all use it:
+
+```{r}
+#| label: summary-intox
+crashes <- crashes |>
+  mutate(intox_group = factor(intox_any,
+                              labels = c("No intoxication", "Intoxication involved")))
+
+crashes |>
+  summarize(
+    crashes  = n(),
+    mean_inj = mean(injuries),
+    sd_inj   = sd(injuries),
+    .by = intox_group
+  )
+```
+
+0.74 vs. 1.13 injured people per crash, with the intoxication group also more variable. Point estimates so far — inference comes two steps down the pipeline.
+
+### Visualize: two polished plots
+
+"Polished" means: real labels, real title, units on the axes, and a caption saying where the data came from. A plot you could paste into a report — which is exactly what Homework 7 asks for.
+
+**Plot 1 — the derived variables earn their keep.** Share of crashes involving intoxication, by hour of day:
+
+```{r}
+#| label: plot-hourly
+#| fig-height: 4.5
+hourly <- crashes |>
+  summarize(pct_intox = mean(intox_any), .by = hour) |>
+  arrange(hour)
+
+ggplot(hourly, aes(hour, pct_intox)) +
+  annotate("rect", xmin = 21.5, xmax = 23.5, ymin = 0, ymax = Inf,
+           fill = "#73000A", alpha = 0.08) +
+  annotate("rect", xmin = -0.5, xmax = 3.5, ymin = 0, ymax = Inf,
+           fill = "#73000A", alpha = 0.08) +
+  geom_line(color = "#73000A", linewidth = 1) +
+  geom_point(color = "#73000A", size = 2) +
+  scale_x_continuous(breaks = seq(0, 23, 3)) +
+  scale_y_continuous(labels = scales::label_percent(), limits = c(0, NA)) +
+  labs(
+    title = "Intoxication involvement roughly doubles overnight",
+    subtitle = "Share of crashes involving an intoxicated driver, by hour (shaded: 10 p.m.–4 a.m.)",
+    x = "Hour of day", y = "Share involving intoxication",
+    caption = "Alaska crash data, n = 20,000 crashes, Jan 2022–Jan 2026"
+  )
+```
+
+Read it honestly: the elevated window runs from about 10 p.m. through 3 a.m. (11–13%), daytime mostly sits between 5% and 8%, and 9 p.m. is actually the *lowest* hour of the day. Real patterns have ragged edges — describe the pattern you see, not the one you expected.
+
+**Plot 2 — set up the test.** Group means with 95% confidence intervals, computed by hand exactly as in Session 5:
+
+```{r}
+#| label: plot-ci
+#| fig-height: 4
+inj_summary <- crashes |>
+  summarize(n = n(), mean_inj = mean(injuries), sd_inj = sd(injuries),
+            .by = intox_group) |>
+  mutate(
+    se    = sd_inj / sqrt(n),
+    ci_lo = mean_inj - 1.96 * se,
+    ci_hi = mean_inj + 1.96 * se
+  )
+
+ggplot(inj_summary, aes(intox_group, mean_inj)) +
+  geom_pointrange(aes(ymin = ci_lo, ymax = ci_hi),
+                  color = "#73000A", linewidth = 1, size = 0.9) +
+  labs(
+    title = "Crashes involving an intoxicated driver injure more people",
+    subtitle = "Group means with 95% confidence intervals",
+    x = NULL, y = "Mean injuries per crash",
+    caption = "Alaska crash data, n = 20,000 crashes, Jan 2022–Jan 2026"
+  )
+```
+
+The intervals are narrow (huge samples) and nowhere near overlapping. You can already guess what the tests will say — good. A test should rarely *surprise* you after honest descriptives; it should *formalize* what you can see.
+
+### The test, both ways
+
+The frequentist test, exactly as in Homework 5:
+
+```{r}
+#| label: ttest-freq
+t.test(injuries ~ intox_any, data = crashes)
+```
+
+Same reading as Homework 5: R computes group 0 − group 1, so the negative t and negative interval mean the *intoxication* group is higher. Flip the signs when you write it up in the other direction.
+
+Now the same comparison in the Bayesian framework from Session 6. Two quirks of `ttestBF()`: the grouping variable must be a **factor** (our `intox_group`, built above), and if you pass it a tibble it politely converts it to a plain data frame (you may see a warning saying so — harmless):
+
+```{r}
+#| label: ttest-bayes
+ttestBF(formula = injuries ~ intox_group, data = crashes)
+```
+
+### Write it up
+
+The pipeline ends in *sentences*, not output blocks. A write-up that would earn full credit in Homework 7:
+
+> Crashes involving an intoxicated driver injured more people on average (M = 1.13, SD = 1.18, n = 1,545) than crashes with no intoxication involved (M = 0.74, SD = 1.00, n = 18,455). A Welch two-sample t-test found the difference statistically significant, t(1732.6) = 12.5, p < .001, with a 95% confidence interval of 0.33 to 0.45 additional injured people per intoxication-involved crash. A Bayesian t-test agreed emphatically: BF~10~ ≈ 2 × 10^43^, meaning the data are astronomically better predicted by a model with a group difference than one without. Because this is an observational comparison, the difference describes these crashes but does not isolate intoxication's causal effect — intoxication-involved crashes also differ in when and where they occur.
+
+Every number in that paragraph came from output you just produced. Notice what the paragraph does: reports both group descriptives, both tests, the interval in plain units, *and* names the limit of what the comparison can claim.
+
+### Save the clean version
+
+You just spent real effort getting `crashes` into shape. Bank it:
+
+```{r}
+#| label: write-clean
+#| eval: false
+write_csv(crashes, "crash-ak-clean.csv")
+```
+
+Do the same with your project data once its cleaning stabilizes — raw file untouched, clean file separately named, and the script that turns one into the other saved. That *script* is the actual asset: anyone (including future you) can rebuild your clean data from the raw file.
+
+## Your Turn: Your Project Data
+
+From here, the dataset is **the one you're proposing for your final project** — see the [final project page](../final-project.qmd) for what qualifies. Work in the same script, and comment as you go: this becomes Homework 7.
+
+A few ground rules:
+
+- **Brought two candidate datasets?** Run this sequence on the one you think is stronger; repeat what you can on the second and compare their damage reports.
+- **Download fell through / still dataset-hunting?** Use the course Chicago data (`https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv`) as a stand-in *today* so you still practice the sequence — but Homework 7 requires your own dataset, so the hunt continues tonight.
+- **If a step fails, that is a finding, not a failure.** Capture the error message in a comment. "My date column won't parse and here is why" is exactly the kind of thing today exists to surface.
+
+**1. Import it.** Get your dataset into R with `read_csv()`, `read_excel()`, or whatever its format demands. If the import fights you — encoding, headers, multiple sheets, the `...1` column — document the fight in comments. Fix anything R guessed wrong (dates as character are the classic; you know two repairs).
+
+```{r}
+#| label: yt-1
+#| eval: false
+# your code here
+```
+
+**2. First look.** `glimpse()` it. In comments: how many rows, how many columns, and — most important — **what is the unit of analysis?** (One row = one what? One crime? One person? One agency-year? If you can't answer this, nothing downstream is interpretable.)
+
+```{r}
+#| label: yt-2
+#| eval: false
+# your code here
+```
+
+**3. Count the missingness.** Use the `across()` + `pivot_longer()` pattern from the walkthrough. In a comment: which variables have gaps, and — the real question — do you know *why*? Structural, or trouble?
+
+```{r}
+#| label: yt-3
+#| eval: false
+# your code here
+```
+
+**4. One summary table.** A `summarize()` (grouped, if that suits your data) or a `count()` of a variable you actually plan to use in the final project. In a comment, state what it shows in one precise sentence.
+
+```{r}
+#| label: yt-4
+#| eval: false
+# your code here
+```
+
+**5. One plot.** A polished ggplot — labels, title, units — showing something real about a key variable: its distribution, a group comparison, a trend. If your first attempt looks like nothing, say so and try a different variable; discovering that a variable is unusable *is progress*.
+
+```{r}
+#| label: yt-5
+#| eval: false
+# your code here
+```
+
+**6. The feasibility memo.** In comments, write **three sentences**: (1) whether this dataset can plausibly answer your research question, (2) the single biggest cleaning or measurement obstacle you found today, and (3) what you would need to fix, learn, or obtain before Session 8. Be honest — a dataset that dies today costs you nothing; one that dies in November costs you the project.
+
+```{r}
+#| label: yt-6
+#| eval: false
+# your code here
+```
+
+## Exit Ticket
+
+Submit a short note to Canvas before you leave, containing:
+
+1. Your proposed dataset's **name and source** (agency, repository, or URL) — both candidates if you're still deciding
+2. The **biggest cleaning obstacle** you found in it today, in one or two sentences
+3. One thing you still need to figure out or confirm before formally committing to this dataset in Homework 7

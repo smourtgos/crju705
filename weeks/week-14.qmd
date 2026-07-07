@@ -1,0 +1,23 @@
+---
+title: "Session 14 · Final Project Presentations"
+subtitle: "The finish line"
+---
+
+::: {.callout-important appearance="simple"}
+Your complete project — R script, dataset, written report — was due **via Canvas before midnight Sunday**. No late submissions, no appeals. Presentations happen in class today.
+:::
+
+## Format
+
+- Short presentation of your project to the class: your research question, data, methods, results, and what they mean
+- **You will walk through your code and explain how and why it works.** Being unable to confidently explain your own code will affect your grade — this is the point of the [AI policy](../syllabus.qmd#use-of-artificial-intelligence-tools)
+- Questions from the class and from me
+
+## What makes a good presentation
+
+- Lead with the question, not the code
+- One clear visualization beats three cluttered ones
+- Interpret in plain language: what would you tell a police chief, a judge, or a journalist?
+- Own your limitations — every real analysis has them, and naming them is a strength
+
+Thank you for a great semester. 🎓

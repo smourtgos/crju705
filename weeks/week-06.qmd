@@ -1,0 +1,35 @@
+---
+title: "Session 6 · Hypothesis Testing: Frequentist and Bayesian"
+subtitle: "NHST and its fine print · p-values · Bayes' theorem and priors · Bayes factors · posterior distributions · joins"
+---
+
+::: {.callout-tip appearance="simple"}
+**[📽️ Slides: Hypothesis Testing: Frequentist and Bayesian](../slides/week-06-hypothesis-testing.qmd)** · **[🧪 Lab 6: Joining Data](../labs/lab-06-joins.qmd)** · **[📝 Homework 6](../homework/hw-06.qmd)**
+:::
+
+This is the signature week of the course: the same research question answered by **both** of statistics' great traditions, side by side — the reason we use the Stanton book at all.
+
+## Before class
+
+- Read: Stanton **Ch. 5** (Bayesian & Frequentist Hypothesis Testing)
+- Read: Mourtgos, S. M. (2023). "Bayesian Inference in Criminological Research." *Police Forum*, 32(1), 7–16 — PDF posted on Canvas. Yes, I assigned my own article; consider it a preview of where your instructor's sympathies lie, and feel free to argue with it in class
+- Read: R4DS **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)**; skim **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)**
+- Install the Bayesian engine before class so we can use it together: `install.packages("BayesFactor")`
+
+## In class
+
+- From Session 5's confidence intervals to the **Null Hypothesis Significance Test**: bootstrap logic, the null, the verdict machine — and an animation of what the p-value is actually doing
+- What a p-value is, and the long list of things it is not
+- The fine print: NHST never scores the alternative hypothesis, and rarely checks the distribution it assumes
+- **Bayes' theorem**: priors, likelihoods, posteriors — watching beliefs update live, and why base rates make a "90% accurate" test mean only ~15% in a rare-event world
+- Why Bayes was long impractical (the intractable denominator) and how **MCMC** solved it, watched live
+- Both traditions on our real Chicago question — `t.test()` says *significant*, `ttestBF()` mildly favors the null, the posterior says the difference is almost surely real *and* almost surely trivial. Sorting out that collision (effect sizes!) is the heart of the week
+- The recidivism trial: p = 0.20 vs. a 91% posterior probability the program works — same data, different questions
+- Sample size pathologies, animated: p-values dive below .05 for trivial effects as *n* grows; posteriors just sharpen around the truth
+- **Lab 6:** joining the two Chicago files — `left_join()`, `inner_join()`, `anti_join()`, key checks, and the missing-values discipline ([lab page](../labs/lab-06-joins.qmd))
+
+## Homework
+
+- **[Homework 6](../homework/hw-06.qmd)** — Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question; submit your `.R` file via Canvas **before noon Tuesday**
+- No new Stanton chapter before Session 7 — the **applied data workshop**, where we run the full messy-data pipeline end to end (the capstone of the R4DS thread)
+- **Final-project dataset selection is due at Session 7.** Come with a candidate dataset and be ready to say what one row represents, what the interesting variables are, and what question you might ask of it — details on the [final project page](../final-project.qmd)

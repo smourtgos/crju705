@@ -1,0 +1,24 @@
+---
+title: "Session 9 · Midterm Exam"
+subtitle: "In class · covers Sessions 1–8"
+---
+
+::: {.callout-important appearance="simple"}
+**In-class, monitored exam.** You write and troubleshoot real R code. Printed notes and homework allowed — **no internet, no AI tools.**
+:::
+
+## Before class
+
+- Work through the **[Midterm Study Guide](../midterm.qmd)** — it lists every skill and concept on the exam
+- Re-run your homework and lab code from Sessions 1–8; the exam only asks things we've already done
+- Charge your laptop; arrive a few minutes early
+
+## In class
+
+- The midterm (delivered as an `.R` script you complete: code answers run in R, conceptual answers written in comments)
+
+## After class
+
+- No problem set this week
+- Read **Stanton Ch. 7** (Measures of Association) before Session 10
+- Keep working with your project dataset — Checkpoint 2 arrives with the Session 10 homework

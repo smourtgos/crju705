@@ -1,0 +1,23 @@
+---
+title: "Session 13 · Final-Project Help Session"
+subtitle: "Open Q&A · code clinic · project check-ins"
+---
+
+No new material this session — it exists entirely to get your final project over the line.
+
+## Before class
+
+- Bring your **project code and data**, in whatever state they're in
+- Review your [checkpoint feedback](../final-project.qmd) from Sessions 8–12
+- Write down your two most stuck-on problems (code errors, interpretation doubts, "is this the right test?" questions)
+
+## In class
+
+- Open code clinic — bring errors, we debug them live
+- Interpretation workshopping — say your results out loud in plain language before you write them
+- Presentation logistics for Session 14 (order, timing, what to have on screen)
+
+## After class
+
+- **Full project submission is due via Canvas before midnight Sunday** — R script, dataset, and written report ([details](../final-project.qmd))
+- Presentations are in class at Session 14
