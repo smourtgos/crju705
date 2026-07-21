@@ -211,7 +211,26 @@ Scott M. Mourtgos
 <h2>This Week</h2>
 <p><strong>Topic:</strong> probabilities in the long run and sampling distributions — taught by <em>simulation</em>. We won’t derive anything today; we’ll draw thousands of samples in R and watch the theory appear on screen.</p>
 <p><strong>Learning goals:</strong> explain in your own words — <em>law of large numbers, sampling distribution, standard error, central limit theorem</em> — and say why R’s <code>var()</code> and <code>sd()</code> divide by n − 1 (Session 2’s IOU gets paid today).</p>
-<p><strong>R4DS thread:</strong> you read Ch. 5 (Data tidying) &amp; Ch. 6 (Workflow: scripts and projects) — today’s lab puts both to work.</p>
+</section>
+<section id="where-weve-been" class="slide level2">
+<h2>Where We’ve Been</h2>
+<ul>
+<li class="fragment"><strong>Session 2:</strong> describing data — center, spread, and the shapes distributions take</li>
+<li class="fragment"><strong>Session 3:</strong> probability as the long run; conditioning as <em>shrink the world, re-proportion</em>; and Bayes’ theorem — the base rate is never optional</li>
+<li class="fragment"><strong>Today:</strong> what happens to <em>statistics themselves</em> — means, proportions — when sampling repeats. This is the engine under every inference we make for the rest of the course</li>
+</ul>
+</section>
+<section id="two-threads-one-course" class="slide level2">
+<h2>Two Threads, One Course</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Statistics thread</strong> — lecture + homework</p>
+<p>Stanton Ch. 3 → sampling distributions, the standard error, and the CLT</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Wrangling thread</strong> — lab</p>
+<p>R4DS Ch. 5–6 → <code>pivot_longer()</code>, <code>pivot_wider()</code>, and tidy data</p>
+</div></div>
+<p>The two threads meet at the Session 7 workshop — today’s lab skill (reshaping) is what real agency data always needs first.</p>
 </section>
 <section id="a-question-to-start" class="slide level2">
 <h2>A Question to Start</h2>
@@ -299,6 +318,16 @@ heads tails
 <div class="fragment">
 <p><strong>Discussion:</strong> even with a <em>low</em> false positive rate, false positives occur regularly in practice. What do we think about this? Does it matter?</p>
 </div>
+</section>
+<section id="what-does-a-positive-test-mean-session-3-redux" class="slide level2">
+<h2>What Does a Positive Test <em>Mean</em>? (Session 3 Redux)</h2>
+<p>Our simulation showed false positives are routine. “Does it matter?” has a Session 3 answer — count it out:</p>
+<ul>
+<li class="fragment">Suppose <strong>2%</strong> of tested drivers actually carry. In 1,000 tests: <strong>20 carriers</strong>, 980 clean</li>
+<li class="fragment">A 5% false-positive rate on the 980 clean drivers → <strong>~49 false alarms</strong></li>
+<li class="fragment">Even if the test catches <em>all 20</em> carriers: 69 positives in total, of which 20 are real → <span class="math inline">\(P(\text{carrier} \mid +) = 20/69 \approx 29\%\)</span></li>
+<li class="fragment">The “5%” describes <span class="math inline">\(P(+ \mid \text{clean})\)</span>. The courtroom cares about <span class="math inline">\(P(\text{clean} \mid +)\)</span>. <strong>Never confuse the direction</strong></li>
+</ul>
 </section>
 <section id="simulating-probabilities-in-cj-2" class="slide level2">
 <h2>Simulating Probabilities in CJ (2)</h2>
@@ -422,7 +451,10 @@ heads tails
 # ℹ 994 more rows</code></pre>
 </div>
 </div>
-</section>
+
+<aside><div>
+<p><code>map_dbl(draw, \(d) …)</code> reads as “for each draw, do this and return one number” — Session 3’s <code>replicate()</code>, tibble-flavored. See the <a href="../resources.html#simulation-verbs">simulation verbs reference</a>.</p>
+</div></aside></section>
 <section id="the-sampling-distribution-of-the-mean" class="slide level2">
 <h2>The Sampling Distribution of the Mean</h2>
 <div class="cell">
@@ -567,7 +599,10 @@ heads tails
 <span id="cb33-7"><a></a>    <span class="at">var_div_nm1  =</span> <span class="fu">map_dbl</span>(s, \(x) <span class="fu">var</span>(x))          <span class="co"># R's built-in: n - 1</span></span>
 <span id="cb33-8"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
+
+<aside><div>
+<p><code>map()</code> builds a <em>list column</em> — each row’s <code>s</code> holds an entire 5-value sample; <code>map_dbl()</code> then computes one number per sample. Don’t worry about the list-column mechanics — watch the two averages on the next slide.</p>
+</div></aside></section>
 <section id="divide-by-n-and-youre-biased" class="slide level2">
 <h2>Divide by n, and You’re Biased</h2>
 <div class="cell">

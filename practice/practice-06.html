@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Practice Problems · Session 6 – CRJU 705</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">CRJU 705</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">
+<li>
+    <a class="dropdown-item" href="../weeks/week-01.html">
+ <span class="dropdown-text">Session 1 · Intro &amp; R Setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-02.html">
+ <span class="dropdown-text">Session 2 · Descriptive Statistics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-03.html">
+ <span class="dropdown-text">Session 3 · Probability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-04.html">
+ <span class="dropdown-text">Session 4 · Sampling Distributions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-05.html">
+ <span class="dropdown-text">Session 5 · Confidence Intervals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-06.html">
+ <span class="dropdown-text">Session 6 · Hypothesis Testing (Freq + Bayes)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-07.html">
+ <span class="dropdown-text">Session 7 · Applied Data Workshop</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-08.html">
+ <span class="dropdown-text">Session 8 · ANOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-09.html">
+ <span class="dropdown-text">Session 9 · Midterm</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 10 · Correlation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-11.html">
+ <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-12.html">
+ <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-13.html">
+ <span class="dropdown-text">Session 13 · Project Help Session</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-14.html">
+ <span class="dropdown-text">Session 14 · Presentations</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../chicago-data.html"> 
+<span class="menu-text">Data Codebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../final-project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/smourtgos/crju705"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#problem-1-what-a-p-value-promises" id="toc-problem-1-what-a-p-value-promises" class="nav-link active" data-scroll-target="#problem-1-what-a-p-value-promises">Problem 1 · What a p-value promises</a></li>
+  <li><a href="#problem-2-translate-the-evidence" id="toc-problem-2-translate-the-evidence" class="nav-link" data-scroll-target="#problem-2-translate-the-evidence">Problem 2 · Translate the evidence</a></li>
+  <li><a href="#problem-3-both-tests-one-new-question" id="toc-problem-3-both-tests-one-new-question" class="nav-link" data-scroll-target="#problem-3-both-tests-one-new-question">Problem 3 · Both tests, one new question</a></li>
+  <li><a href="#problem-4-the-number-the-star-hides" id="toc-problem-4-the-number-the-star-hides" class="nav-link" data-scroll-target="#problem-4-the-number-the-star-hides">Problem 4 · The number the star hides</a></li>
+  <li><a href="#problem-5-the-sentence-youre-licensed-to-say" id="toc-problem-5-the-sentence-youre-licensed-to-say" class="nav-link" data-scroll-target="#problem-5-the-sentence-youre-licensed-to-say">Problem 5 · The sentence you’re licensed to say</a></li>
+  <li><a href="#problem-6-the-diversion-program-trial" id="toc-problem-6-the-diversion-program-trial" class="nav-link" data-scroll-target="#problem-6-the-diversion-program-trial">Problem 6 · The diversion-program trial</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Practice Problems · Session 6</h1>
+<p class="subtitle lead">Hypothesis testing, both ways: p-values, Bayes factors, and posteriors</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Ungraded self-checks.</strong> Work each problem in your own R session <em>before</em> clicking the solution. These use different questions and numbers than the homework on purpose — if you can run <em>and read</em> both traditions cold here, Homework 6 (and the midterm’s inference questions) will feel routine.</p>
+</div>
+</div>
+</div>
+<p>All problems that use data need only:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/">BayesFactor</a></span><span class="op">)</span>   <span class="co"># install.packages("BayesFactor") once, if needed</span></span>
+<span><span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="problem-1-what-a-p-value-promises" class="level2"><h2 class="anchored" data-anchor-id="problem-1-what-a-p-value-promises">Problem 1 · What a p-value promises</h2>
+<p>A study compares case-processing times in two courts and reports <strong>p = 0.03</strong>. Three readings:</p>
+<blockquote class="blockquote">
+<ol type="a">
+<li><p>“There is a 3% chance the courts truly process cases at the same speed.”</p></li>
+<li><p>“If the courts truly processed cases at the same speed, a gap this large or larger would show up in about 3% of studies like this one.”</p></li>
+<li><p>“There is a 97% chance the courts differ.”</p></li>
+</ol>
+</blockquote>
+<p>Pick the correct one. Then verify the machinery’s actual promise by simulation: run 5,000 t-tests comparing two groups drawn from the <em>same</em> normal distribution (n = 40 each) and compute how often p &lt; .05.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Solution</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
+<span><span class="va">null_world_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">5000</span>, <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">40</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">40</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">null_world_p</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0552</code></pre>
+</div>
+</div>
+<p><strong>(b)</strong> — and only (b). A <strong>p-value</strong> is <span class="math inline">\(P(\text{data this extreme} \mid H_0)\)</span>, a statement about <em>data under an assumed null</em>; (a) and (c) both flip it into <span class="math inline">\(P(H \mid \text{data})\)</span>, which frequentism never computes (that flip is Bayes’ job, and it costs a prior). The simulation shows the promise being kept: in a world where the null is <em>true</em>, about 5.5% of our 5,000 tests came up “significant” — right around the advertised 5% false-alarm rate, and no better.</p>
+</div>
+</div>
+</div>
+</section><section id="problem-2-translate-the-evidence" class="level2"><h2 class="anchored" data-anchor-id="problem-2-translate-the-evidence">Problem 2 · Translate the evidence</h2>
+<p>Four studies report Bayes factors: <span class="math inline">\(BF_{10}\)</span> = <strong>0.24</strong>, <strong>2.6</strong>, <strong>18</strong>, and <strong>240</strong>. For each, compute <span class="math inline">\(BF_{01}\)</span> and classify the evidence on the extended scale (1–3 barely worth mentioning · 3–10 moderate · 10–30 strong · 30–100 very strong · 100+ extreme). Which study’s data actually <em>favor the null</em> — and how strongly?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Solution</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bf10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.24</span>, <span class="fl">2.6</span>, <span class="fl">18</span>, <span class="fl">240</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="va">bf10</span>, <span class="fl">3</span><span class="op">)</span>   <span class="co"># BF01: the same evidence, read for the null</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.167 0.385 0.056 0.004</code></pre>
+</div>
+</div>
+<p>A <strong>Bayes factor</strong> is a ratio of predictions, so below 1 means the <em>null</em> predicted the data better: the first study’s <span class="math inline">\(BF_{10}\)</span> = 0.24 is <span class="math inline">\(BF_{01}\)</span> ≈ 4.2 — <strong>moderate evidence for no effect</strong> (something a p-value can never report). The rest, on the scale: 2.6 is barely worth mentioning, 18 is strong, and 240 is extreme evidence for a difference. Same scale in both directions — just flip the fraction.</p>
+</div>
+</div>
+</div>
+</section><section id="problem-3-both-tests-one-new-question" class="level2"><h2 class="anchored" data-anchor-id="problem-3-both-tests-one-new-question">Problem 3 · Both tests, one new question</h2>
+<p>Do crimes on the <strong>street</strong> happen at different hours than crimes inside a <strong>residence</strong>? Filter <code>crimes</code> to <code>location_description %in% c("STREET", "RESIDENCE")</code>, compare mean <code>hour</code> by group, then run <strong>both</strong> tests: <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> and <code><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF()</a></code>. Watch each tool’s direction, and say whether the two traditions agree here — in class, on violent-vs-property, they didn’t.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Solution</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sr</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">location_description</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STREET"</span>, <span class="st">"RESIDENCE"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sr</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>, sd_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>                .by <span class="op">=</span> <span class="va">location_description</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  location_description mean_hour sd_hour     n
+  &lt;chr&gt;                    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+1 STREET                    12.6    7.36  7907
+2 RESIDENCE                 11.9    6.97  3587</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">hour</span> <span class="op">~</span> <span class="va">location_description</span>, data <span class="op">=</span> <span class="va">sr</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  hour by location_description
+t = -5.471, df = 7283.7, p-value = 4.623e-08
+alternative hypothesis: true difference in means between group RESIDENCE and group STREET is not equal to 0
+95 percent confidence interval:
+ -1.0611136 -0.5012974
+sample estimates:
+mean in group RESIDENCE    mean in group STREET 
+               11.85949                12.64070 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">street_hours</span>    <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"STREET"</span><span class="op">]</span></span>
+<span><span class="va">residence_hours</span> <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"RESIDENCE"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">bf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">street_hours</span>, y <span class="op">=</span> <span class="va">residence_hours</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/extractBF-methods.html">extractBF</a></span><span class="op">(</span><span class="va">bf</span><span class="op">)</span><span class="op">$</span><span class="va">bf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37975.69</code></pre>
+</div>
+</div>
+<p>Street incidents average hour 12.6 vs 11.9 in residences — about 47 minutes later. Directions differ by tool: <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> sorts alphabetically (RESIDENCE − STREET, hence the negative t ≈ −5.5 and CI of −1.06 to −0.50 hours), while we handed <code><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF()</a></code> x = street, y = residence, so its difference runs positive. This time the two traditions <strong>agree</strong>: p ≈ 5 × 10⁻⁸ and <span class="math inline">\(BF_{10}\)</span> ≈ 38,000 — extreme evidence for a real difference. Unlike class’s 15-minute violent-vs-property gap, this one is large enough (relative to its precision) that “some difference” out-predicts “no difference” by a mile.</p>
+</div>
+</div>
+</div>
+</section><section id="problem-4-the-number-the-star-hides" class="level2"><h2 class="anchored" data-anchor-id="problem-4-the-number-the-star-hides">Problem 4 · The number the star hides</h2>
+<p>Both frameworks just endorsed the street-vs-residence difference. Before anyone re-draws a patrol schedule: compute <strong>Cohen’s d</strong> (pooled-SD version, as in class) and the gap in <strong>minutes</strong>. What’s the full, honest verdict?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Solution</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sr</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">location_description</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STREET"</span>, <span class="st">"RESIDENCE"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">street_hours</span>    <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"STREET"</span><span class="op">]</span></span>
+<span><span class="va">residence_hours</span> <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"RESIDENCE"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">sd_pooled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">street_hours</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">residence_hours</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">street_hours</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">residence_hours</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">sd_pooled</span>   <span class="co"># Cohen's d</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1090122</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">street_hours</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">residence_hours</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">60</span>          <span class="co"># gap in minutes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 46.87233</code></pre>
+</div>
+</div>
+<p>d ≈ 0.11 — below even the 0.2 “small” benchmark: a 47-minute shift against SDs of about 7 <em>hours</em>. The full verdict has three parts and needs all of them: the difference is almost certainly real (both tests), and it is modest in size (<strong>effect size</strong>). “Significant” and “decisive” describe our <em>certainty</em>, never the <em>magnitude</em> — report the units a human cares about, every time.</p>
+</div>
+</div>
+</div>
+</section><section id="problem-5-the-sentence-youre-licensed-to-say" class="level2"><h2 class="anchored" data-anchor-id="problem-5-the-sentence-youre-licensed-to-say">Problem 5 · The sentence you’re licensed to say</h2>
+<p>Session 5 forbade “there’s a 95% probability the truth is in this interval.” Buy the license: draw 10,000 posterior samples from Problem 3’s Bayes-factor model with <code><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior()</a></code>, get the 95% <strong>credible interval</strong> for the difference, and compute the posterior probability the difference is positive. Then write the sentence — in minutes.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Solution</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sr</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">location_description</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STREET"</span>, <span class="st">"RESIDENCE"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">street_hours</span>    <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"STREET"</span><span class="op">]</span></span>
+<span><span class="va">residence_hours</span> <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"RESIDENCE"</span><span class="op">]</span></span>
+<span><span class="va">bf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">street_hours</span>, y <span class="op">=</span> <span class="va">residence_hours</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
+<span><span class="va">post</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">bf</span>, iterations <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">diff_post</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">post</span><span class="op">[</span>, <span class="st">"beta (x - y)"</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">diff_post</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5%     97.5% 
+0.4955419 1.0640839 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">diff_post</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>The licensed sentence: <em>“Given the model and prior, there is a 95% probability that street crimes occur, on average, between about 30 and 64 minutes later in the day than in-residence crimes.”</em> That is exactly what a <strong>credible interval</strong> means — probability attached to the parameter itself, the reading everyone <em>wants</em> to give a confidence interval. And every one of the 10,000 posterior draws came out positive, so the direction is about as settled as this model can make it.</p>
+</div>
+</div>
+</div>
+</section><section id="problem-6-the-diversion-program-trial" class="level2"><h2 class="anchored" data-anchor-id="problem-6-the-diversion-program-trial">Problem 6 · The diversion-program trial</h2>
+<p>A county pilots a <strong>pretrial diversion program</strong> to reduce failures to appear (FTA). Historically, about <strong>25%</strong> of defendants fail to appear — encode that as a <strong>Beta(3, 9)</strong> prior (mean 0.25, worth about 12 observations). The pilot randomizes 120 defendants: of <strong>60 diversion clients, 12</strong> fail to appear; of <strong>60 controls, 19</strong> do.</p>
+<ol type="1">
+<li>Run the frequentist test: <code>prop.test(x = c(12, 19), n = c(60, 60))</code>.</li>
+<li>Update the prior for each group with <code><a href="https://rdrr.io/r/stats/Beta.html">rbeta()</a></code> (as in the class recidivism example) and compute <strong>P(diversion FTA rate &lt; control FTA rate)</strong>.</li>
+<li>Write one sentence for the county board.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Solution</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">19</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(12, 19) out of c(60, 60)
+X-squared = 1.5658, df = 1, p-value = 0.2108
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.28856877  0.05523544
+sample estimates:
+   prop 1    prop 2 
+0.2000000 0.3166667 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
+<span><span class="va">theta_div</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">3</span> <span class="op">+</span> <span class="fl">12</span>, <span class="fl">9</span> <span class="op">+</span> <span class="fl">48</span><span class="op">)</span>   <span class="co"># posterior, diversion group</span></span>
+<span><span class="va">theta_control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">3</span> <span class="op">+</span> <span class="fl">19</span>, <span class="fl">9</span> <span class="op">+</span> <span class="fl">41</span><span class="op">)</span>   <span class="co"># posterior, control group</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">theta_div</span> <span class="op">&lt;</span> <span class="va">theta_control</span><span class="op">)</span>                 <span class="co"># P(program reduces FTA)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9111</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">theta_div</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">theta_control</span><span class="op">)</span><span class="op">)</span>         <span class="co"># posterior means</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2079942 0.3054083</code></pre>
+</div>
+</div>
+<p>The frequentist verdict: p ≈ 0.21 — an 11.7-point gap like this could plausibly arise if the program did nothing, so “not significant,” and the grant report probably ends there. The <strong>posterior probability</strong> tells the board what it actually asked: given prior experience and the pilot data, there is about a <strong>91% probability the diversion program lowers failure-to-appear</strong> (posterior means ≈ 21% vs 31%). One board-ready sentence: <em>“The pilot is too small for a definitive verdict, but the evidence currently runs about 9-to-1 that diversion reduces failures to appear.”</em> Both statements are true of the same data — they answer different questions, and only one of them helps a decision-maker.</p>
+</div>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CRJU 705 · Fall 2026 · Scott M. Mourtgos · University of South Carolina</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

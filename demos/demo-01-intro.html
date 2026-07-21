@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Demo Walkthrough · Session 1 – CRJU 705</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">CRJU 705</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">
+<li>
+    <a class="dropdown-item" href="../weeks/week-01.html">
+ <span class="dropdown-text">Session 1 · Intro &amp; R Setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-02.html">
+ <span class="dropdown-text">Session 2 · Descriptive Statistics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-03.html">
+ <span class="dropdown-text">Session 3 · Probability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-04.html">
+ <span class="dropdown-text">Session 4 · Sampling Distributions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-05.html">
+ <span class="dropdown-text">Session 5 · Confidence Intervals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-06.html">
+ <span class="dropdown-text">Session 6 · Hypothesis Testing (Freq + Bayes)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-07.html">
+ <span class="dropdown-text">Session 7 · Applied Data Workshop</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-08.html">
+ <span class="dropdown-text">Session 8 · ANOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-09.html">
+ <span class="dropdown-text">Session 9 · Midterm</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 10 · Correlation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-11.html">
+ <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-12.html">
+ <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-13.html">
+ <span class="dropdown-text">Session 13 · Project Help Session</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-14.html">
+ <span class="dropdown-text">Session 14 · Presentations</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../chicago-data.html"> 
+<span class="menu-text">Data Codebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../final-project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/smourtgos/crju705"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#what-youll-build" id="toc-what-youll-build" class="nav-link active" data-scroll-target="#what-youll-build">What you’ll build</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#the-case-study-catching-a-bank-robber" id="toc-the-case-study-catching-a-bank-robber" class="nav-link" data-scroll-target="#the-case-study-catching-a-bank-robber">The case study: catching a bank robber</a></li>
+  <li><a href="#arithmetic-assignment-and-your-first-functions" id="toc-arithmetic-assignment-and-your-first-functions" class="nav-link" data-scroll-target="#arithmetic-assignment-and-your-first-functions">1 · Arithmetic, assignment, and your first functions</a></li>
+  <li><a href="#logical-indexing-ask-the-data-a-question" id="toc-logical-indexing-ask-the-data-a-question" class="nav-link" data-scroll-target="#logical-indexing-ask-the-data-a-question">2 · Logical indexing — ask the data a question</a></li>
+  <li><a href="#characters-and-factors" id="toc-characters-and-factors" class="nav-link" data-scroll-target="#characters-and-factors">3 · Characters and factors</a></li>
+  <li>
+<a href="#scale-determines-the-math" id="toc-scale-determines-the-math" class="nav-link" data-scroll-target="#scale-determines-the-math">4 · Scale determines the math</a>
+  <ul class="collapse">
+<li><a href="#nominal-the-mean-zone-is-meaningless" id="toc-nominal-the-mean-zone-is-meaningless" class="nav-link" data-scroll-target="#nominal-the-mean-zone-is-meaningless">Nominal: the “mean zone” is meaningless</a></li>
+  <li><a href="#ordinal-order-yes-arithmetic-no" id="toc-ordinal-order-yes-arithmetic-no" class="nav-link" data-scroll-target="#ordinal-order-yes-arithmetic-no">Ordinal: order yes, arithmetic no</a></li>
+  <li><a href="#interval-vs.-ratio-the-true-zero-test" id="toc-interval-vs.-ratio-the-true-zero-test" class="nav-link" data-scroll-target="#interval-vs.-ratio-the-true-zero-test">Interval vs.&nbsp;ratio: the true-zero test</a></li>
+  </ul>
+</li>
+  <li><a href="#plots-that-match-the-scale" id="toc-plots-that-match-the-scale" class="nav-link" data-scroll-target="#plots-that-match-the-scale">5 · Plots that match the scale</a></li>
+  <li><a href="#five-dplyr-verbs-youll-use-every-week" id="toc-five-dplyr-verbs-youll-use-every-week" class="nav-link" data-scroll-target="#five-dplyr-verbs-youll-use-every-week">6 · Five dplyr verbs you’ll use every week</a></li>
+  <li><a href="#coming-attractions-real-data-all-semester" id="toc-coming-attractions-real-data-all-semester" class="nav-link" data-scroll-target="#coming-attractions-real-data-all-semester">7 · Coming attractions: real data, all semester</a></li>
+  <li><a href="#try-a-variation" id="toc-try-a-variation" class="nav-link" data-scroll-target="#try-a-variation">Try a variation</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Demo Walkthrough · Session 1</h1>
+<p class="subtitle lead">First R commands, levels of measurement, and why the scale controls the math</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>What this page is.</strong> The Session 1 lecture demos, written down step by step. Every chunk below is self-contained — copy any of them into your own R session and they run as-is. Use this page to catch up after a missed class, or to re-run what happened on screen at your own pace.</p>
+</div>
+</div>
+</div>
+<section id="what-youll-build" class="level2"><h2 class="anchored" data-anchor-id="what-youll-build">What you’ll build</h2>
+<ol type="1">
+<li>Your first R commands: arithmetic, vectors, and the functions you’ll use all semester</li>
+<li>Logical indexing — asking a vector a question and keeping only the rows that say yes</li>
+<li>Factors, R’s container for categorical data</li>
+<li>The “scale determines the math” demos: why a <em>mean zone</em> is nonsense, and why °C and age play by different rules</li>
+<li>The 2×2 of plots that match each level of measurement</li>
+<li>A five-verb dplyr tour, and a first look at the real Chicago data we’ll use all semester</li>
+</ol></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Everything below needs the tidyverse, plus <strong>patchwork</strong> for one plot-arranging trick near the end (<code>install.packages("patchwork")</code> once, if you don’t have it):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>,</span>
+<span>                   show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="the-case-study-catching-a-bank-robber" class="level2"><h2 class="anchored" data-anchor-id="the-case-study-catching-a-bank-robber">The case study: catching a bank robber</h2>
+<p>Session 1 opened with a serial offender hitting 40 banks across a city’s five zones, and a police department with nothing to go on but <em>when</em> and <em>where</em> each robbery happened. A crime analyst turned that thin dataset into a logistic regression predicting which zone would be hit next; the model pointed to the West Zone, units were deployed there, and the robber was arrested days later approaching a bank. The animated timeline, map, and deployment visuals are built with tools from later in the course — watch them in the <a href="../slides/week-01-stats-is-awesome.html">Session 1 slides</a>; by Session 12 you’ll be able to build the model yourself.</p>
+<p>One more thing worth naming: you already reasoned like a <strong>Bayesian</strong> while watching that story. You started with a vague hunch spread across five zones (a <em>prior</em>), treated each new robbery as <em>evidence</em> that reshaped the hunch, read the model’s risk-by-zone output as an <em>updated belief given the data</em>, and then made a deployment decision under quantified uncertainty. That whole loop has a formal name — <strong>Bayesian updating</strong>. The formula shows up in Session 3, and the full machinery in Session 6, side by side with the other great tradition, the frequentist one.</p>
+<p>The rest of this page is the part of Session 1 you can run right now: your first R commands, and the levels-of-measurement demos.</p>
+</section><section id="arithmetic-assignment-and-your-first-functions" class="level2"><h2 class="anchored" data-anchor-id="arithmetic-assignment-and-your-first-functions">1 · Arithmetic, assignment, and your first functions</h2>
+<p>R is a calculator first:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">3</span> <span class="op">+</span> <span class="fl">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+</div>
+<p>The arrow <code>&lt;-</code> <strong>assigns</strong> a value to a name. <code>1:10</code> builds the vector 1, 2, 3, …, 10, and functions like <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code>, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, and <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code> eat whole vectors at once:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.5</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.02765</code></pre>
+</div>
+</div>
+<p>Every function has a help page — get in the habit of pulling them up constantly:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">mean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="logical-indexing-ask-the-data-a-question" class="level2"><h2 class="anchored" data-anchor-id="logical-indexing-ask-the-data-a-question">2 · Logical indexing — ask the data a question</h2>
+<p>Comparing a vector to a value asks the question element by element:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+</div>
+<p>Put that question inside square brackets and R keeps only the values that answered TRUE:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  7  8  9 10</code></pre>
+</div>
+</div>
+<p>This one move — <em>build a logical test, use it to subset</em> — is the ancestor of every <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> you’ll ever write.</p>
+</section><section id="characters-and-factors" class="level2"><h2 class="anchored" data-anchor-id="characters-and-factors">3 · Characters and factors</h2>
+<p>Text lives in <strong>character</strong> vectors; categories that will be <em>analyzed</em> belong in <strong>factors</strong>, which know their full set of possible levels:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">student_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carol"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">student_names</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">f</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] red  blue red 
+Levels: blue red</code></pre>
+</div>
+</div>
+<p>Notice the printout: a factor reports its <code>Levels</code> — the categories that exist, whether or not each one appears in this particular vector.</p>
+</section><section id="scale-determines-the-math" class="level2"><h2 class="anchored" data-anchor-id="scale-determines-the-math">4 · Scale determines the math</h2>
+<p>Session 1’s central claim: a variable’s <strong>level of measurement</strong> (nominal, ordinal, interval, ratio) determines what math is allowed. To demonstrate, simulate a small robbery-style dataset with one variable at each level:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">58</span><span class="op">)</span>   <span class="co"># same seed as the lecture, so these numbers match the slides</span></span>
+<span><span class="va">rob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  zone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"North"</span>, <span class="st">"South"</span>, <span class="st">"East"</span>, <span class="st">"West"</span>, <span class="st">"Downtown"</span><span class="op">)</span>, <span class="fl">200</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  prior_robberies_in_zone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">3</span><span class="op">)</span>,    <span class="co"># discrete count (ratio)</span></span>
+<span>  risk_likert <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="fl">200</span>, <span class="cn">TRUE</span><span class="op">)</span>,       <span class="co"># ordinal</span></span>
+<span>  temp_c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span>,                 <span class="co"># interval</span></span>
+<span>  age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">40</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,  <span class="co"># ratio</span></span>
+<span>  caught <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span><span class="fl">200</span>, <span class="fl">1</span>, <span class="fl">0.35</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No"</span>, <span class="st">"Yes"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="nominal-the-mean-zone-is-meaningless" class="level3"><h3 class="anchored" data-anchor-id="nominal-the-mean-zone-is-meaningless">Nominal: the “mean zone” is meaningless</h3>
+<p>R will happily convert factor levels to their underlying codes and average them. That doesn’t make the answer mean anything:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># WRONG: the "mean zone" is meaningless</span></span>
+<span><span class="va">rob</span><span class="op">$</span><span class="va">zone</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.17</code></pre>
+</div>
+</div>
+<p>3.17 of… what? Zone 3.17 doesn’t exist — the numbers are just labels in disguise. The <em>right</em> math for nominal data is counts and percentages:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># RIGHT: counts and percentages</span></span>
+<span><span class="va">rob</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">zone</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pct <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">n</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  zone         n   pct
+  &lt;fct&gt;    &lt;int&gt; &lt;dbl&gt;
+1 Downtown    32  16  
+2 East        28  14  
+3 North       59  29.5
+4 South       36  18  
+5 West        45  22.5</code></pre>
+</div>
+</div>
+</section><section id="ordinal-order-yes-arithmetic-no" class="level3"><h3 class="anchored" data-anchor-id="ordinal-order-yes-arithmetic-no">Ordinal: order yes, arithmetic no</h3>
+<p>A 1–7 risk rating is <em>ordered</em>, but the gaps between points aren’t guaranteed equal — so summarize with the median and IQR, and measure association with a rank-based (Spearman) correlation:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rob</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>med <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">risk_likert</span><span class="op">)</span>, iqr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/IQR.html">IQR</a></span><span class="op">(</span><span class="va">risk_likert</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+    med   iqr
+  &lt;dbl&gt; &lt;dbl&gt;
+1     4     3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">rob</span><span class="op">$</span><span class="va">risk_likert</span>, <span class="va">rob</span><span class="op">$</span><span class="va">prior_robberies_in_zone</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.001707403</code></pre>
+</div>
+</div>
+<p>(That correlation is essentially zero — as it should be, since we simulated these two variables independently. A good sanity check.)</p>
+</section><section id="interval-vs.-ratio-the-true-zero-test" class="level3"><h3 class="anchored" data-anchor-id="interval-vs.-ratio-the-true-zero-test">Interval vs.&nbsp;ratio: the true-zero test</h3>
+<p>Temperature in °C is <strong>interval</strong>: differences are meaningful, but there’s no true zero — 0 °C is just where water freezes. Watch what unit conversion does to the mean:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rob</span><span class="op">$</span><span class="va">temp_c</span><span class="op">)</span>             <span class="co"># about 20 °C</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20.07643</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rob</span><span class="op">$</span><span class="va">temp_c</span> <span class="op">*</span> <span class="fl">1.8</span> <span class="op">+</span> <span class="fl">32</span><span class="op">)</span>  <span class="co"># the same temperatures, in °F</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.13757</code></pre>
+</div>
+</div>
+<p>Same warmth, different number. “30 °C is 10 °C warmer than 20 °C” is fine; “20 °C is <em>twice as hot</em> as 10 °C” is meaningless — the ratio depends on which scale you happen to be using.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">rob</span><span class="op">$</span><span class="va">age</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 40.605</code></pre>
+</div>
+</div>
+<p>Age is <strong>ratio</strong>: it has a true zero, so a 40-year-old really <em>is</em> twice as old as a 20-year-old. Differences <em>and</em> ratios both work.</p>
+</section></section><section id="plots-that-match-the-scale" class="level2"><h2 class="anchored" data-anchor-id="plots-that-match-the-scale">5 · Plots that match the scale</h2>
+<p>The same logic governs graphics. One plot per level of measurement, arranged in a 2×2 with patchwork (<code>p1 + p2</code> puts plots side by side; <code>/</code> stacks rows):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rob</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">zone</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Nominal: bar chart"</span>, x <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rob</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">risk_likert</span>, levels <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">7</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"navy"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Ordinal: ordered bars"</span>, x <span class="op">=</span> <span class="st">"Risk (1–7)"</span><span class="op">)</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rob</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span>, fill <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Continuous (ratio): histogram"</span><span class="op">)</span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rob</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">prior_robberies_in_zone</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"goldenrod"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Discrete counts: bars"</span>, x <span class="op">=</span> <span class="st">"Prior robberies"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">(</span><span class="va">p1</span> <span class="op">+</span> <span class="va">p2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">p3</span> <span class="op">+</span> <span class="va">p4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-01-intro_files/figure-html/scale-plots-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Categories get bars; continuous measurements get histograms; discrete counts get one bar per whole number. If you ever catch yourself histogramming a nominal variable, stop and check the scale.</p>
+</section><section id="five-dplyr-verbs-youll-use-every-week" class="level2"><h2 class="anchored" data-anchor-id="five-dplyr-verbs-youll-use-every-week">6 · Five dplyr verbs you’ll use every week</h2>
+<p>The tidyverse works on <strong>tibbles</strong> (modern data frames). The <code>|&gt;</code> symbol is the <strong>pipe</strong>: <code>x |&gt; f()</code> means <code>f(x)</code> — “take x, <em>then</em> do f.” (Older code, including the Stanton book, writes it <code>%&gt;%</code>; they work the same for everything we do.)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cars_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">mtcars</span>, rownames <span class="op">=</span> <span class="st">"model"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cars_data</span>, <span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 12
+  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4
+2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+3 Datsun 710    22.8     4   108    93  3.85  2.32  18.6     1     1     4     1
+4 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1</code></pre>
+</div>
+</div>
+<p><code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> picks <strong>columns</strong>; <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> picks <strong>rows</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cars_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">mpg</span>, <span class="va">cyl</span>, <span class="va">hp</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  model            mpg   cyl    hp
+  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Mazda RX4       21       6   110
+2 Mazda RX4 Wag   21       6   110
+3 Datsun 710      22.8     4    93
+4 Hornet 4 Drive  21.4     6   110</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cars_data</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 12
+  model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 Mazda RX4     21       6   160   110  3.9   2.62  16.5     0     1     4     4
+2 Mazda RX4 W…  21       6   160   110  3.9   2.88  17.0     0     1     4     4
+3 Hornet 4 Dr…  21.4     6   258   110  3.08  3.22  19.4     1     0     3     1
+4 Valiant       18.1     6   225   105  2.76  3.46  20.2     1     0     3     1</code></pre>
+</div>
+</div>
+<p><code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> builds new columns; <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> collapses many rows to a few numbers — here, per group with <code>.by</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cars_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>mpg_per_hp <span class="op">=</span> <span class="va">mpg</span> <span class="op">/</span> <span class="va">hp</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">mpg</span>, <span class="va">hp</span>, <span class="va">mpg_per_hp</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  model            mpg    hp mpg_per_hp
+  &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1 Mazda RX4       21     110      0.191
+2 Mazda RX4 Wag   21     110      0.191
+3 Datsun 710      22.8    93      0.245
+4 Hornet 4 Drive  21.4   110      0.195</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cars_data</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avg_mpg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+    cyl avg_mpg     n
+  &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+1     6    19.7     7
+2     4    26.7    11
+3     8    15.1    14</code></pre>
+</div>
+</div>
+</section><section id="coming-attractions-real-data-all-semester" class="level2"><h2 class="anchored" data-anchor-id="coming-attractions-real-data-all-semester">7 · Coming attractions: real data, all semester</h2>
+<p>Starting in Session 2, the running example is <strong>real</strong>: a 30,000-incident sample of every crime reported in Chicago in 2025 (already loaded in Setup). Here’s the count-and-bar-chart pattern from this session, applied to it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crimes</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">primary_type</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_reorder.html">fct_reorder</a></span><span class="op">(</span><span class="va">primary_type</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Ten most common reported crimes, Chicago 2025"</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"30,000-incident sample · Chicago Police Department data portal"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Incidents"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-01-intro_files/figure-html/chicago-teaser-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Theft tops the list at about 7,000 incidents. And note what kind of variable <code>primary_type</code> is — nominal — which is exactly why this is a bar chart and not a histogram.</p>
+</section><section id="try-a-variation" class="level2"><h2 class="anchored" data-anchor-id="try-a-variation">Try a variation</h2>
+<ol type="1">
+<li>Build a vector of seven ages with <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. Compute the mean and SD, subset the values over 30, then use <code><a href="https://rdrr.io/r/base/seq.html">?seq</a></code> to figure out how to generate <code>seq(0, 1, by = 0.2)</code>.</li>
+<li>Using the built-in <code>mpg</code> data (type <code>mpg</code> in the console — ggplot2 ships it), find the top-3 models by <code>hwy</code> and the average <code>cty</code> by <code>class</code>. <em>(Hints: <code>arrange(desc(...))</code>, <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head()</a></code>, <code>summarize(..., .by = ...)</code>.)</em>
+</li>
+<li>In the Chicago chunk, swap <code>primary_type</code> for <code>location_description</code>. Where does crime actually happen in Chicago?</li>
+<li>The ordinal trap: run <code>educ &lt;- rep(1:5, each = 50)</code> and <code>income &lt;- rep(c(1, 2, 3, 4, 1000), each = 50)</code>, then <code>cor(educ, income)</code>. Pearson’s r looks impressive — why is it misleading here? <em>(Hint: are the education codes equally spaced in any real sense?)</em>
+</li>
+</ol>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CRJU 705 · Fall 2026 · Scott M. Mourtgos · University of South Carolina</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

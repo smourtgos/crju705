@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -230,10 +231,22 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-11-regression.html">📽️ Slides: Multiple Linear Regression</a></strong> · <strong><a href="../labs/lab-11-regression.html">🧪 Lab 11: Multiple Regression — Chicago’s 77 Areas, Then 500 Neighborhoods</a></strong> · <strong><a href="../homework/hw-11.html">📝 Homework 11 + Project Checkpoint 3</a></strong></p>
+<p><strong><a href="../slides/week-11-regression.html">📽️ Slides: Multiple Linear Regression</a></strong> · <strong><a href="../labs/lab-11-regression.html">🧪 Lab 11: Multiple Regression — Chicago’s 77 Areas, Then 500 Neighborhoods</a></strong> · <strong><a href="../homework/hw-11.html">📝 Homework 11 + Project Checkpoint 3</a></strong> · <strong><a href="../demos/demo-11-regression.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-11.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
+<p>Session 10’s correlation said <em>that</em> two variables travel together; regression answers the sharper question — <em>how much</em> the outcome changes per unit of a predictor, and with several predictors, how much each matters after accounting for the others. Least squares gets built from scratch on ten students’ study hours, then scaled up to the interactive 3D plane through Chicago’s 77 community areas, where you watch shared variance get reassigned as a second predictor enters. The humility rules ride along: adjusted associations still aren’t causal effects, and area-level patterns still aren’t people-level claims. Checkpoint 3 fits the first regression on your own project data — and if your outcome is a yes/no, Session 12 hands you the right tool.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>fit and interpret <code>lm()</code> with several predictors, reading each coefficient as “holding the others constant”</li>
+<li>explain R² — and what happens to a coefficient when a correlated predictor joins the model</li>
+<li>run the basic diagnostics: a residuals-vs-fitted plot read honestly, and VIF for multicollinearity</li>
+<li>fit the Bayesian version with <code>brm()</code> and report a coefficient with the credible-interval sentence</li>
+<li>state what a regression coefficient does — and doesn’t — license you to claim</li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
@@ -255,6 +268,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Standing warnings, now attached to coefficients: adjusted associations are not causal effects, and area-level associations are not people-level claims (the ecological fallacy rides along)</li>
 <li><strong>Lab 11:</strong> the full workflow yourself — Chicago start to finish, then your own model on the Lab 3 neighborhoods (including the residual plot’s tell that a count outcome is starting to strain the linear model)</li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-11-regression.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>

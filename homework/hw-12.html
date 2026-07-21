@@ -296,12 +296,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>In a clearly marked section at the end of your <code>.R</code> script (e.g., <code># ---- PROJECT CHECKPOINT 4 ----</code>):</p>
 <ol type="1">
-<li><p><strong>Fit your final model</strong> — <code>lm()</code> for a continuous outcome, <code>glm(family = binomial)</code> for a binary one (or the <code>brm()</code> equivalent if you’re going Bayesian; either tradition is welcome). The fitted model must match your Part 2 equation.</p></li>
+<li><p><strong>Fit your final model — in both traditions.</strong> The frequentist fit (<code>lm()</code> for a continuous outcome, <code>glm(family = binomial)</code> for a binary one) <em>and</em> the Bayesian fit (<code>brm()</code> with the same formula — default priors are fine, standard settings: <code>chains = 2, iter = 2000, seed = 705, refresh = 0</code>; expect the compile pause). Both fits must match your Part 2 equation. <em>(This is the final-project requirement — see <a href="../final-project.html">Step 3</a> — so Checkpoint 4 is where you get it running with a week of slack.)</em></p></li>
 <li><p><strong>Interpret the key coefficients</strong> in comments, on the right scale:</p>
 <ul>
 <li><em>Linear:</em> the change in your outcome per one-unit change in each predictor, holding the others constant — with units.</li>
 <li><em>Logistic:</em> exponentiate. Odds ratios per one-unit change, holding the others constant — and at least one <strong>predicted probability</strong> for a concrete, meaningful case, as we did in class.</li>
-<li>Either way: include the uncertainty (CI or credible interval), not just the estimate.</li>
+<li>Include the uncertainty from <strong>both</strong> fits — the 95% CI <em>and</em> the 95% credible interval — plus <strong>one sentence comparing them</strong>: do the two traditions agree here, and what does the posterior let you <em>say</em> that the p-value doesn’t?</li>
 </ul></li>
 <li><p><strong>Produce ONE table or figure you plan to show at presentations.</strong> A tidy coefficient table, a plot of predicted values or probabilities, a well-labeled scatterplot with your fitted line — your choice, but it must be presentation-ready: real variable names, labeled axes or columns, a title. Not raw console output.</p></li>
 <li><p><strong>Write the three sentences you’d say about it to a non-statistician.</strong> As a comment block. Imagine a police chief, a judge, or a city council member: no “log-odds,” no “p &lt; .05,” no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 14 presentation — write them now and presentation prep gets much easier.</p></li>

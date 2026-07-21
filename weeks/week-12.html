@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -230,10 +231,21 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-12-logistic.html">📽️ Slides: Logistic Regression</a></strong> · <strong><a href="../labs/lab-12-logistic.html">🧪 Lab 12: Logistic Regression — Chicago Neighborhoods, Then Alaska Nights</a></strong> · <strong><a href="../homework/hw-12.html">📝 Homework 12 + Project Checkpoint 4</a></strong></p>
+<p><strong><a href="../slides/week-12-logistic.html">📽️ Slides: Logistic Regression</a></strong> · <strong><a href="../labs/lab-12-logistic.html">🧪 Lab 12: Logistic Regression — Chicago Neighborhoods, Then Alaska Nights</a></strong> · <strong><a href="../homework/hw-12.html">📝 Homework 12 + Project Checkpoint 4</a></strong> · <strong><a href="../demos/demo-12-logistic.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-12.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
+<p>Every model so far predicted a <em>number</em>; this week the outcome is yes or no — arrest or not, reoffend or desist — which is the form most criminal-justice questions actually take. A straight line can’t live on a 0/1 outcome, so probability climbs the ladder to odds and log-odds, and <code>lm()</code> becomes <code>glm(family = binomial)</code>. It’s also the week the course pays off its opening promise: the Session 1 bank-robbery model you couldn’t read gets re-fit and finally read, line by line. This is the last session of new statistical content — the toolbox is complete, and Checkpoint 4 (the final one) fits your actual project model.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>explain why <code>lm()</code> fails on a 0/1 outcome, and how the probability → odds → log-odds ladder fixes it</li>
+<li>fit a logistic regression in both traditions: <code>glm(family = binomial)</code> and <code>brm(family = bernoulli())</code></li>
+<li>translate coefficients into odds ratios <em>and</em> predicted probabilities — and keep the two straight</li>
+<li>say logistic results in plain language a police chief could act on, without confusing odds with probability</li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
@@ -255,6 +267,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Real-data thread: which Chicago community areas are <strong>high-violence</strong>? Unemployment (OR ≈ 1.45 per point) and vacant housing (OR ≈ 1.33 per point) both raise the odds; predicted probabilities run from ~3% (Forest Glen) to over 99% (West Garfield Park). Associations, not causes — and we say so.</li>
 <li><strong>Lab 12:</strong> the whole workflow yourself — Chicago walkthrough, then intoxicated-crash odds in the Alaska data with lubridate-built night/weekend flags, plus odds-ratio translation drills</li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-12-logistic.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>

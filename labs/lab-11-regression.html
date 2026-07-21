@@ -459,6 +459,7 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <span><span class="co">#                   chains = 2, iter = 2000, seed = 705, refresh = 0)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>5. <em>(Stretch)</em> Does disorder earn its keep?</strong> Add <code>disorder_level</code> to the frequentist model (make it a factor with levels Low → Moderate → High → Very High first). Check the coefficients and the <strong>adjusted</strong> R². Does observed disorder tell you anything about assaults that poverty and unemployment didn’t already? Connect your answer to lecture’s third-predictor slide.</p>
+<p><em>(Reading a factor in <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>: R drops the first level — Low — as the reference, so each <code>disorder_level</code> coefficient is that level’s difference from Low, holding the other predictors constant. Same idea as ANOVA’s group comparisons, wearing regression clothes.)</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>

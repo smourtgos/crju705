@@ -215,14 +215,27 @@ Scott M. Mourtgos
 </section>
 <section id="this-week" class="slide level2">
 <h2>This Week</h2>
-<p><strong>Topic:</strong> Essentials of probability (Stanton Ch. 2)</p>
+<p><strong>Topic:</strong> Essentials of probability</p>
 <ul>
 <li>Outcome tables — toast drops in place of coin tosses</li>
 <li>The binomial distribution; generating random data</li>
 <li>Contingency tables: marginal, joint, and conditional probability</li>
+<li>A first pass at <strong>Bayes’ theorem</strong> and base rates</li>
 </ul>
-<p><strong>Learning goals:</strong> use outcome tables to reason about a simple set of random events, and contingency tables to reason about <em>linked</em> events; generate and plot random distributions in R.</p>
+<p><strong>Learning goals:</strong> reason with outcome and contingency tables; generate random distributions in R; reverse a conditional with Bayes’ theorem.</p>
 <p><strong>Today’s rule:</strong> don’t take a probability claim on faith — <strong>simulate it and watch it happen</strong>.</p>
+</section>
+<section id="two-threads-one-course" class="slide level2">
+<h2>Two Threads, One Course</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Statistics thread</strong> — lecture + homework</p>
+<p>Stanton Ch. 2 → probability, conditional thinking, and a first pass at Bayes’ theorem</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Wrangling thread</strong> — lab</p>
+<p>R4DS Ch. 3–4 → the dplyr verbs: <code>filter()</code>, <code>arrange()</code>, <code>mutate()</code>, <code>summarize()</code>, <code>count()</code></p>
+</div></div>
+<p>The two threads meet at the Session 7 workshop — the stats thread makes you a careful consumer of evidence; the wrangling thread is why your final project won’t hurt.</p>
 </section>
 <section>
 <section id="what-is-a-probability" class="title-slide slide level1 center" data-background-color="#73000A">
@@ -255,6 +268,19 @@ Scott M. Mourtgos
 <p>Ten flips is <strong>not</strong> the long run — batches of 10 bounce around, and none is entitled to land exactly on 0.5.</p>
 </div>
 </section>
+<section id="our-simulation-verbs-in-words" class="slide level2">
+<h2>Our Simulation Verbs, In Words</h2>
+<p>You just met the two verbs that power every simulation this semester:</p>
+<ul>
+<li><code>sample()</code> — run one random event (flip the coins, drop the toast)</li>
+<li><code>replicate(k, expr)</code> — repeat the whole recipe <code>k</code> times and collect the answers</li>
+<li>One run = a <strong>trial</strong>; many runs = the <strong>long run</strong></li>
+<li>Later today, <code>rbinom()</code> compresses “flip six coins and count the heads” into a single call</li>
+</ul>
+
+<aside><div>
+<p>A plain-language reference for all the course’s simulation verbs lives on the <a href="../resources.html#simulation-verbs">Resources page</a>.</p>
+</div></aside></section>
 <section id="the-long-run-seen" class="slide level2">
 <h2>The Long Run, Seen</h2>
 <div class="cell">
@@ -560,7 +586,7 @@ Scott M. Mourtgos
 <section id="super-challenge-the-verdict" class="slide level2">
 <h2>Super Challenge: The Verdict</h2>
 <p>Even with <strong>no real difference</strong>, chance alone produces a gap at least this big well over half the time. Ten drops can’t answer the question.</p>
-<p><em>(This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)</em></p>
+<p><em>(This simulate-a-boring-world move is the seed of hypothesis testing — coming in Session 6.)</em></p>
 </section>
 <section id="a-real-contingency-table" class="slide level2">
 <h2>A Real Contingency Table</h2>
@@ -676,7 +702,7 @@ Scott M. Mourtgos
 <span id="cb42-4"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p_day_given_bill))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
-<p>Most likely Saturday (0.26). That renormalization — <em>shrink the world to the condition, then re-proportion</em> — <strong>is</strong> conditional probability, and it’s the core move behind Bayes’ theorem later in the course.</p>
+<p>Most likely Saturday (0.26). That renormalization — <em>shrink the world to the condition, then re-proportion</em> — <strong>is</strong> conditional probability, and it’s the core move behind Bayes’ theorem at the end of today.</p>
 </section>
 <section id="question-1-bill-is-your-server-what-day-is-it-output" class="slide level2 output-location-slide"><h2>Question 1: Bill Is Your Server — What Day Is It?</h2><div class="cell output-location-slide">
 <div class="cell-output cell-output-stdout">
@@ -708,7 +734,7 @@ Scott M. Mourtgos
 4 Monday Devon      8                 0.421</code></pre>
 </div>
 </div>
-<p>Devon (0.42). Note the asymmetry: P(Saturday | Bill) and P(Bill | Saturday) are <strong>different questions with different answers</strong>. The direction of conditioning matters — a lot, as we’ll see when we get to Bayes.</p>
+<p>Devon (0.42). Note the asymmetry: P(Saturday | Bill) and P(Bill | Saturday) are <strong>different questions with different answers</strong>. The direction of conditioning matters — a lot. Bayes’ theorem, in a few minutes, is the formula for flipping it.</p>
 </section>
 <section id="conditioning-filter-then-proportion" class="slide level2">
 <h2>Conditioning = filter(), Then Proportion</h2>
@@ -767,13 +793,117 @@ Scott M. Mourtgos
 <section id="independence-defined" class="slide level2">
 <h2>Independence, Defined</h2>
 <p><strong>Definition:</strong> A and B are <strong>independent</strong> when P(A | B) = P(A). Conditioning that moves the number = dependence; conditioning that doesn’t = independence.</p>
+</section></section>
+<section>
+<section id="reversing-the-conditional-bayes-theorem" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Reversing the Conditional: Bayes’ Theorem</h1>
+
+</section>
+<section id="the-question-we-keep-almost-asking" class="slide level2">
+<h2>The Question We Keep Almost Asking</h2>
+<ul>
+<li class="fragment">The restaurant taught us direction matters: P(Saturday | Bill) ≠ P(Bill | Saturday)</li>
+<li class="fragment">The narcotics trap was the same lesson with teeth: P(arrest | narcotics) ≈ .97 is <strong>not</strong> P(narcotics | arrest)</li>
+<li class="fragment">Real life keeps handing you one conditional — test accuracy, match rates, hit rates — and asking you for the <em>other one</em></li>
+<li class="fragment">There is a formula for flipping the direction — legally</li>
+</ul>
+</section>
+<section id="enter-bayes-theorem" class="slide level2">
+<h2>Enter Bayes’ Theorem</h2>
+<p><span class="math display">\[
+\underbrace{P(H \mid \text{data})}_{\textbf{posterior}} \;=\;
+\frac{\overbrace{P(\text{data} \mid H)}^{\textbf{likelihood}} \;\times\; \overbrace{P(H)}^{\textbf{prior}}}
+{\underbrace{P(\text{data})}_{\textbf{evidence}}}
+\]</span></p>
+<ul>
+<li class="fragment">The left side is the <em>flipped</em> conditional — P(claim | evidence), built from P(evidence | claim). Read <span class="math inline">\(H\)</span> as any claim: “this patient is sick”</li>
+<li class="fragment">The denominator is today’s re-proportioning move: shrink the world to the evidence you saw, re-scale to 1</li>
+<li class="fragment">The price of admission: a stated <strong>prior</strong> — what you believed before looking</li>
+</ul>
+</section>
+<section id="bayesian-updating-watched-live" class="slide level2">
+<h2>Bayesian Updating, Watched Live</h2>
+<p>Start moderately confident a coin is fair — a prior belief centered on “fair” — then flip it 100 times and update after every flip:</p>
+
+<img data-src="../media/week-03/coinflip_updating.gif" class="r-stretch"><p>This morning we watched a coin’s <em>long-run proportion</em> converge. Same coin, new question: what do <em>we believe</em> about it, updated flip by flip? Beliefs are provisional, quantified, and revised by evidence — that is the entire philosophy in one gif.</p>
+</section>
+<section id="the-dreaded-adamsitis-strain-of-ianfluenza" class="slide level2">
+<h2>The Dreaded <em>Adamsitis</em> Strain of <em>Ianfluenza</em></h2>
+<p>A screening problem (any resemblance to a frequent co-author is coincidental):</p>
+<ul>
+<li>Prevalence <strong>1%</strong> — 10 cases per 1,000 people</li>
+<li>Sensitivity <strong>.90</strong> — catches 90% of true cases</li>
+<li>Specificity <strong>.95</strong> — clears 95% of the healthy</li>
+</ul>
+<p>Two questions that <em>sound</em> identical — and are not:</p>
+<ol type="1">
+<li><span class="math inline">\(P(\text{test says} + \mid \text{actually sick})\)</span> — what the brochure advertises</li>
+<li><span class="math inline">\(P(\text{actually sick} \mid \text{test says} +)\)</span> — what you want in the exam room</li>
+</ol>
+</section>
+<section id="count-it-out-1000-people" class="slide level2">
+<h2>Count It Out: 1,000 People</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: right;">Test says <strong>+</strong></th>
+<th style="text-align: right;">Test says <strong>−</strong></th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Sick</strong> (1%)</td>
+<td style="text-align: right;"><strong>9</strong> caught</td>
+<td style="text-align: right;">1 missed</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td><strong>Healthy</strong></td>
+<td style="text-align: right;"><strong>~50</strong> false alarms</td>
+<td style="text-align: right;">~941 cleared</td>
+<td style="text-align: right;">990</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td style="text-align: right;">~59</td>
+<td style="text-align: right;">~942</td>
+<td style="text-align: right;">1,000</td>
+</tr>
+</tbody>
+</table>
+<p>Look closely — this is a <em>contingency table</em>, and P(sick | +) is the same move as P(day | Bill): shrink to the “test says +” column, re-proportion.</p>
+<div class="fragment">
+<p><span class="math display">\[
+P(\text{sick} \mid +) \;=\; \frac{9}{9 + 50} \;\approx\; 15\%
+\]</span></p>
+<p>The test is “90% accurate” — and a positive result still means you are <em>probably fine</em>.</p>
+</div>
+</section>
+<section id="priors-matter" class="slide level2">
+<h2>Priors Matter</h2>
+<ul>
+<li class="fragment">Read the test result the intuitive way — “the test is 90% accurate, so I’m 90% sick” — and you have silently treated <span class="math inline">\(P(\text{data} \mid H)\)</span> as <span class="math inline">\(P(H \mid \text{data})\)</span></li>
+<li class="fragment">The <strong>base rate</strong> (the prior: 1%) is what separates 90% from 15%. Ignoring it makes the test look far more powerful than it really is</li>
+<li class="fragment">Criminal justice runs on rare events: false confessions, officer-involved shootings, risk-assessment flags, gunshot-residue matches. Base-rate neglect is not a party trick here — it convicts people</li>
+</ul>
+</section>
+<section id="hold-this-thought-until-session-6" class="slide level2">
+<h2>Hold This Thought Until Session 6</h2>
+<ul>
+<li class="fragment">Today planted <strong>two seeds</strong>: the Super Challenge (simulate the boring world, see if chance explains your gap) and Bayes’ theorem (update beliefs by evidence)</li>
+<li class="fragment">Those are the two great traditions of statistical inference — frequentist and Bayesian</li>
+<li class="fragment"><strong>Session 6</strong> runs both, side by side, on one real Chicago question</li>
+<li class="fragment">Until then: every conditional probability you meet, ask <em>which direction is this?</em></li>
+</ul>
 </section>
 <section id="todays-lab-homework" class="slide level2">
 <h2>Today’s Lab &amp; Homework</h2>
 <ul>
 <li><strong>In-class exercise:</strong> factory-accidents contingency table — on paper first, then in R (folded into Lab 3)</li>
 <li><strong>Lab 3:</strong> data transformation with dplyr — <code>filter()</code>, <code>arrange()</code>, <code>mutate()</code>, <code>summarize()</code>, <code>count()</code> (<a href="../labs/lab-03-transform.html">lab page</a>)</li>
-<li><strong>Homework 3:</strong> probability and conditional thinking (posted on the <a href="../weeks/week-03.html">Session 3 page</a>)</li>
+<li><strong>Homework 3:</strong> probability, conditional thinking, and a first Bayes’-theorem problem (posted on the <a href="../weeks/week-03.html">Session 3 page</a>)</li>
 <li><strong>Read before Session 4:</strong> Stanton Ch. 3 · R4DS <a href="https://r4ds.hadley.nz/data-tidy.html">Ch. 5 (Data tidying)</a> &amp; <a href="https://r4ds.hadley.nz/workflow-scripts.html">Ch. 6 (Workflow: scripts and projects)</a></li>
 </ul>
 

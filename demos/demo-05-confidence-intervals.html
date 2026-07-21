@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Demo Walkthrough · Session 5 – CRJU 705</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="navbar navbar-expand-lg " data-bs-theme="dark"><div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">CRJU 705</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+<li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">
+<li>
+    <a class="dropdown-item" href="../weeks/week-01.html">
+ <span class="dropdown-text">Session 1 · Intro &amp; R Setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-02.html">
+ <span class="dropdown-text">Session 2 · Descriptive Statistics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-03.html">
+ <span class="dropdown-text">Session 3 · Probability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-04.html">
+ <span class="dropdown-text">Session 4 · Sampling Distributions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-05.html">
+ <span class="dropdown-text">Session 5 · Confidence Intervals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-06.html">
+ <span class="dropdown-text">Session 6 · Hypothesis Testing (Freq + Bayes)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-07.html">
+ <span class="dropdown-text">Session 7 · Applied Data Workshop</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-08.html">
+ <span class="dropdown-text">Session 8 · ANOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-09.html">
+ <span class="dropdown-text">Session 9 · Midterm</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 10 · Correlation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-11.html">
+ <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-12.html">
+ <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-13.html">
+ <span class="dropdown-text">Session 13 · Project Help Session</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weeks/week-14.html">
+ <span class="dropdown-text">Session 14 · Presentations</span></a>
+  </li>  
+    </ul>
+</li>
+  <li class="nav-item">
+    <a class="nav-link" href="../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../chicago-data.html"> 
+<span class="menu-text">Data Codebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../final-project.html"> 
+<span class="menu-text">Final Project</span></a>
+  </li>  
+</ul>
+<ul class="navbar-nav navbar-nav-scroll ms-auto">
+<li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/smourtgos/crju705"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+</div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
+   
+  <ul>
+<li><a href="#what-youll-build" id="toc-what-youll-build" class="nav-link active" data-scroll-target="#what-youll-build">What you’ll build</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#inference-in-1854" id="toc-inference-in-1854" class="nav-link" data-scroll-target="#inference-in-1854">1 · Inference, in 1854</a></li>
+  <li><a href="#a-rare-luxury-we-know-the-truth" id="toc-a-rare-luxury-we-know-the-truth" class="nav-link" data-scroll-target="#a-rare-luxury-we-know-the-truth">2 · A rare luxury: we know the truth</a></li>
+  <li><a href="#caution-samples-fluctuate" id="toc-caution-samples-fluctuate" class="nav-link" data-scroll-target="#caution-samples-fluctuate">3 · Caution! Samples fluctuate</a></li>
+  <li><a href="#the-confidence-interval" id="toc-the-confidence-interval" class="nav-link" data-scroll-target="#the-confidence-interval">4 · The confidence interval</a></li>
+  <li><a href="#the-classic-picture-100-samples-100-intervals" id="toc-the-classic-picture-100-samples-100-intervals" class="nav-link" data-scroll-target="#the-classic-picture-100-samples-100-intervals">5 · The classic picture: 100 samples, 100 intervals</a></li>
+  <li><a href="#saying-it-out-loud" id="toc-saying-it-out-loud" class="nav-link" data-scroll-target="#saying-it-out-loud">6 · Saying it out loud</a></li>
+  <li><a href="#sample-size-buys-precision" id="toc-sample-size-buys-precision" class="nav-link" data-scroll-target="#sample-size-buys-precision">7 · Sample size buys precision</a></li>
+  <li><a href="#comparing-two-groups-do-violent-crimes-happen-later-in-the-day" id="toc-comparing-two-groups-do-violent-crimes-happen-later-in-the-day" class="nav-link" data-scroll-target="#comparing-two-groups-do-violent-crimes-happen-later-in-the-day">8 · Comparing two groups: do violent crimes happen later in the day?</a></li>
+  <li><a href="#try-a-variation" id="toc-try-a-variation" class="nav-link" data-scroll-target="#try-a-variation">Try a variation</a></li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Demo Walkthrough · Session 5</h1>
+<p class="subtitle lead">Confidence intervals — turning one sample into an honest range</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>What this page is.</strong> The Session 5 lecture demos, written down step by step. Every chunk below is self-contained — copy any of them into your own R session and they run as-is. Use this page to catch up after a missed class, or to re-run what happened on screen at your own pace.</p>
+</div>
+</div>
+</div>
+<section id="what-youll-build" class="level2"><h2 class="anchored" data-anchor-id="what-youll-build">What you’ll build</h2>
+<ol type="1">
+<li>John Snow’s 1854 cholera inference, recomputed from his original data — the classic example of reasoning from a sample to the world</li>
+<li>A demonstration that point estimates fluctuate: 1,000 samples from a population whose truth we secretly know</li>
+<li>A 95% confidence interval from <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>, and <strong>the 100-intervals plot</strong> — the picture that shows what “95% confident” actually means</li>
+<li>Sentences you can and cannot say when reporting an interval</li>
+<li>How sample size buys precision, and a CI for a two-group difference with <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>
+</li>
+</ol></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Two packages today: the tidyverse, plus <strong>HistData</strong>, which ships John Snow’s original cholera data (<code>Snow.deaths</code> and <code>Snow.pumps</code>):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://friendly.github.io/HistData/">HistData</a></span><span class="op">)</span>   <span class="co"># install.packages("HistData")  — once, if you don't have it</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>,</span>
+<span>                   show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section><section id="inference-in-1854" class="level2"><h2 class="anchored" data-anchor-id="inference-in-1854">1 · Inference, in 1854</h2>
+<p>Cholera breaks out in Soho, London. The debate: bad air (“miasma”) or contaminated water? John Snow couldn’t test every household in London — that’s the whole population. So he mapped the <strong>sample of evidence</strong> he could get: deaths, and where people drew their water.</p>
+<p>We can rerun his reasoning. For each of the 578 recorded deaths, find the <em>nearest</em> pump. Two verbs arrive ahead of schedule here — <code><a href="https://tidyr.tidyverse.org/reference/expand.html">crossing()</a></code> builds every death–pump pair, and <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> looks up each point’s coordinates. Joins get their full treatment in next week’s lab; today, read them as “pair up, then look up” and focus on the logic:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">deaths</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">Snow.deaths</span><span class="op">)</span></span>
+<span><span class="va">pumps</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">Snow.pumps</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html">crossing</a></span><span class="op">(</span>case <span class="op">=</span> <span class="va">deaths</span><span class="op">$</span><span class="va">case</span>, pump <span class="op">=</span> <span class="va">pumps</span><span class="op">$</span><span class="va">pump</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">deaths</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">case</span>, dx <span class="op">=</span> <span class="va">x</span>, dy <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"case"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">pumps</span>  <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">pump</span>, <span class="va">label</span>, px <span class="op">=</span> <span class="va">x</span>, py <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"pump"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dist <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">dx</span> <span class="op">-</span> <span class="va">px</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="op">(</span><span class="va">dy</span> <span class="op">-</span> <span class="va">py</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">nearest</span> <span class="op">&lt;-</span> <span class="va">pairs</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">dist</span>, n <span class="op">=</span> <span class="fl">1</span>, by <span class="op">=</span> <span class="va">case</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">nearest</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">label</span>, name <span class="op">=</span> <span class="st">"deaths_nearest"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">deaths_nearest</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   label          deaths_nearest
+   &lt;chr&gt;                   &lt;int&gt;
+ 1 Broad St                  359
+ 2 So Soho                    64
+ 3 Crown Chapel               61
+ 4 Briddle St                 27
+ 5 Oxford St #2               24
+ 6 Warwick                    16
+ 7 Oxford St #1               12
+ 8 Gt Marlborough              6
+ 9 Vigo St                     4
+10 Coventry St                 2
+11 Dean St                     2
+12 Castle St E                 1</code></pre>
+</div>
+</div>
+<p>One pump — <strong>Broad St</strong> — is the nearest pump for 359 of the 578 deaths. Seen on the map:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">broad</span> <span class="op">&lt;-</span> <span class="va">pumps</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">label</span> <span class="op">==</span> <span class="st">"Broad St"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">deaths</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"firebrick"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, size <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pumps</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"navy"</span>, size <span class="op">=</span> <span class="fl">3</span>, shape <span class="op">=</span> <span class="fl">17</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"label"</span>, x <span class="op">=</span> <span class="va">broad</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">broad</span><span class="op">$</span><span class="va">y</span> <span class="op">-</span> <span class="fl">0.8</span>, label <span class="op">=</span> <span class="st">"Broad St. pump"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_equal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Cholera deaths cluster around a single pump"</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Red dots = deaths · navy triangles = water pumps"</span>,</span>
+<span>       x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-05-confidence-intervals_files/figure-html/snow-map-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Snow wasn’t just <em>describing</em> this map — he was making a bigger claim about the whole city, and about cholera itself. <strong>That jump — from the data you have to the world you don’t — is what we mean by inference.</strong> And the fine print from lecture: you cannot <em>PROVE</em> anything from samples. We collect data and analyze it to build up a <strong>weight of evidence</strong> that shifts our certainty toward one conclusion or another.</p>
+</section><section id="a-rare-luxury-we-know-the-truth" class="level2"><h2 class="anchored" data-anchor-id="a-rare-luxury-we-know-the-truth">2 · A rare luxury: we know the truth</h2>
+<p>Our Chicago file holds ~30,000 incidents from 2025. Today, <em>pretend the file is the whole population</em> — then we can check every inference against the truth:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>pop_arrest_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arrest</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  pop_arrest_rate     n
+            &lt;dbl&gt; &lt;int&gt;
+1           0.161 30000</code></pre>
+</div>
+</div>
+<p>The “true” citywide arrest proportion is <strong>16.1%</strong>. Lock that in — in real research you never get to see this number.</p>
+<p>Now act like a researcher who can only afford to pull 250 case files:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sample_250</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">250</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sample_250</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>sample_arrest_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arrest</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  sample_arrest_rate
+               &lt;dbl&gt;
+1              0.148</code></pre>
+</div>
+</div>
+<p>This is a <strong>point estimate</strong> — the sample’s best single guess at the population value. About 14.8% versus the true 16.1%. Close-ish. But how good is this estimate? How <em>certain</em> are we?</p>
+</section><section id="caution-samples-fluctuate" class="level2"><h2 class="anchored" data-anchor-id="caution-samples-fluctuate">3 · Caution! Samples fluctuate</h2>
+<p>Draw a fresh sample of 250 and the estimate moves. Do it 1,000 times:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">many_estimates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span>, \<span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">250</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arrest</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>p <span class="op">=</span> <span class="va">many_estimates</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">30</span>, fill <span class="op">=</span> <span class="st">"steelblue"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"firebrick"</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"1,000 sample estimates of the arrest rate (n = 250 each)"</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Red line = the true population value"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Sample arrest proportion"</span>, y <span class="op">=</span> <span class="st">"Number of samples"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-05-confidence-intervals_files/figure-html/many-samples-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>That’s Session 4’s sampling distribution, live. Where did the middle 95% of estimates land?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">many_estimates</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 2.5% 97.5% 
+0.120 0.208 </code></pre>
+</div>
+</div>
+<p>Roughly <strong>12% to 21%</strong> — any <em>single</em> sample’s estimate could easily be a couple points off the truth. So reporting “14.8%” alone is <strong>overconfident</strong>; we owe our reader a range that reflects the fluctuation. Problem: this exercise required 1,000 samples and a known population. A real researcher has <strong>one sample</strong>. Now what?</p>
+</section><section id="the-confidence-interval" class="level2"><h2 class="anchored" data-anchor-id="the-confidence-interval">4 · The confidence interval</h2>
+<p>The confidence interval turns <em>one</em> sample into an honest range, using what Session 4 taught us about how sample statistics behave:</p>
+<p><span class="math display">\[\text{estimate} \; \pm \; \underbrace{1.96 \times SE}_{\text{margin of error}}\]</span></p>
+<p>The <strong>SE</strong> (standard error) is the standard deviation of the sampling distribution, <em>estimated from the one sample you have</em>; <strong>1.96</strong> comes from the normal distribution — ±1.96 SDs covers the middle 95%. R does the whole thing for us:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">sample_250</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">250</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1-sample proportions test with continuity correction
+
+data:  sum(sample_250$arrest) out of 250, null probability 0.5
+X-squared = 122.5, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: true p is not equal to 0.5
+95 percent confidence interval:
+ 0.1075899 0.1995409
+sample estimates:
+    p 
+0.148 </code></pre>
+</div>
+</div>
+<p>Our one sample of 250 says: point estimate <strong>14.8%</strong>, 95% CI <strong>10.8% to 20.0%</strong>. The true value (16.1%) is inside — <em>this time</em>. But “95% confident” of what, exactly?</p>
+</section><section id="the-classic-picture-100-samples-100-intervals" class="level2"><h2 class="anchored" data-anchor-id="the-classic-picture-100-samples-100-intervals">5 · The classic picture: 100 samples, 100 intervals</h2>
+<p>Draw 100 samples; build a 95% CI from each. (<code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> runs the procedure 100 times and <code><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind()</a></code> stacks the 100 one-row results into one tibble — Session 3’s <code><a href="https://rdrr.io/r/base/lapply.html">replicate()</a></code>, tibble-flavored; see the <a href="../resources.html#simulation-verbs">simulation verbs reference</a>.)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ci_100</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, \<span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">s</span>  <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">250</span><span class="op">)</span></span>
+<span>  <span class="va">ci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">250</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="va">i</span>, estimate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span>, lo <span class="op">=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, hi <span class="op">=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>captured <span class="op">=</span> <span class="va">lo</span> <span class="op">&lt;=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="va">hi</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ci_100</span><span class="op">$</span><span class="va">captured</span><span class="op">)</span>   <span class="co"># how many of the 100 intervals caught the truth?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 97</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">ci_100</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">sample</span>, <span class="va">estimate</span>, color <span class="op">=</span> <span class="va">captured</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">crimes</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"grey30"</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">lo</span>, ymax <span class="op">=</span> <span class="va">hi</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">0.7</span>, size <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"TRUE"</span> <span class="op">=</span> <span class="st">"grey65"</span>, <span class="st">"FALSE"</span> <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"100 samples, 100 confidence intervals — "</span>,</span>
+<span>                      <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ci_100</span><span class="op">$</span><span class="va">captured</span><span class="op">)</span>, <span class="st">" capture the truth"</span><span class="op">)</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Horizontal line = true population arrest rate; red = intervals that missed"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Sample number"</span>, y <span class="op">=</span> <span class="st">"Arrest proportion"</span>, color <span class="op">=</span> <span class="st">"Captured?"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-05-confidence-intervals_files/figure-html/ci-sim-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In plain language: each vertical bar is one research team’s interval, the truth never moves, and about 95 of 100 intervals catch it. Each sample produced a <em>different</em> interval — the interval is a <strong>random quantity</strong>; the population value is <strong>fixed</strong>. In our run, 97 of 100 captured the truth. The teams who drew the red samples did nothing wrong — and their data give <strong>no warning</strong> that theirs are the unlucky intervals.</p>
+<p>That long-run capture rate is <em>the entire meaning</em> of “95% confident”: if we reran the whole study many times, in 95% of those replications the interval would contain the true value. Three things follow:</p>
+<ol type="1">
+<li>Our 95% CI does <strong>not</strong> necessarily contain the true population value</li>
+<li>Our 95% CI is <strong>not</strong> a statement about the probability that <em>this particular</em> interval is correct</li>
+<li>It is a <strong>long-run prediction</strong> based on numerous replications</li>
+</ol>
+<p>(Everyone reacts to this with some version of “WTF?!?” — stare at the plot until it clicks.)</p>
+</section><section id="saying-it-out-loud" class="level2"><h2 class="anchored" data-anchor-id="saying-it-out-loud">6 · Saying it out loud</h2>
+<p>Defensible sentences:</p>
+<blockquote class="blockquote">
+<p>“We estimate the citywide arrest rate at 14.8% (95% CI: 10.8% to 20.0%). Values in this range are consistent with our data.”</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“The method we used captures the true value 95% of the time.”</p>
+</blockquote>
+<p>Not defensible:</p>
+<blockquote class="blockquote">
+<p>“There is a 95% probability the true arrest rate is between 10.8% and 20.0%.” — the truth is fixed; it’s either in there or it isn’t.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>“95% of arrest rates fall in this interval.” — the CI is about the population parameter, not individual observations.</p>
+</blockquote>
+<p>The forbidden first sentence is forbidden only under <strong>frequentist rules</strong>, where probability attaches to the <em>procedure</em>, never to the parameter. Attaching probability to a claim itself is exactly what Session 3’s Bayes’ theorem does — and next session we compute an interval you <em>can</em> say that sentence about: the <strong>credible interval</strong>. If the forbidden sentence felt like the natural reading all along, your intuitions were Bayesian. You’re in good company.</p>
+</section><section id="sample-size-buys-precision" class="level2"><h2 class="anchored" data-anchor-id="sample-size-buys-precision">7 · Sample size buys precision</h2>
+<p>Same procedure, four sample sizes, one draw each:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">250</span>, <span class="fl">1000</span>, <span class="fl">4000</span><span class="op">)</span>, \<span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">s</span>  <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="va">ci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, estimate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">s</span><span class="op">$</span><span class="va">arrest</span><span class="op">)</span>,</span>
+<span>         lo <span class="op">=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, hi <span class="op">=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, width <span class="op">=</span> <span class="va">ci</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">-</span> <span class="va">ci</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html">list_rbind</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+      n estimate    lo    hi  width
+  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1   100    0.22  0.146 0.316 0.170 
+2   250    0.192 0.146 0.247 0.101 
+3  1000    0.154 0.132 0.178 0.0457
+4  4000    0.163 0.152 0.175 0.0231</code></pre>
+</div>
+</div>
+<p>Quadrupling <em>n</em> roughly <strong>halves</strong> the width — precision grows with <span class="math inline">\(\sqrt{n}\)</span>, so it gets expensive fast.</p>
+</section><section id="comparing-two-groups-do-violent-crimes-happen-later-in-the-day" class="level2"><h2 class="anchored" data-anchor-id="comparing-two-groups-do-violent-crimes-happen-later-in-the-day">8 · Comparing two groups: do violent crimes happen later in the day?</h2>
+<p>Street lore says violence is a nighttime phenomenon; property crime, the daytime hustle. Our data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vp</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">crime_category</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Violent"</span>, <span class="st">"Property"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vp</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>, sd_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>,</span>
+<span>                n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">crime_category</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  crime_category mean_hour sd_hour     n
+  &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+1 Violent             12.8    6.87  9148
+2 Property            12.5    6.63 10371</code></pre>
+</div>
+</div>
+<p>Two point estimates: violent crimes average hour 12.8, property 12.5. Is that ~15-minute gap real, or sample fluctuation?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">vp</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">crime_category</span>, <span class="va">hour</span>, fill <span class="op">=</span> <span class="va">crime_category</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"steelblue"</span>, <span class="st">"firebrick"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Hour of day (0–23)"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-05-confidence-intervals_files/figure-html/two-group-box-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The boxes nearly coincide — the eye can’t settle this one. So resample: pull a bootstrap sample from each group, compute the difference in means, repeat 1,000 times:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">violent_hours</span>  <span class="op">&lt;-</span> <span class="va">vp</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">vp</span><span class="op">$</span><span class="va">crime_category</span> <span class="op">==</span> <span class="st">"Violent"</span><span class="op">]</span></span>
+<span><span class="va">property_hours</span> <span class="op">&lt;-</span> <span class="va">vp</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">vp</span><span class="op">$</span><span class="va">crime_category</span> <span class="op">==</span> <span class="st">"Property"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">mean_diffs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">violent_hours</span>,  <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">violent_hours</span><span class="op">)</span>,  replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">property_hours</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">property_hours</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">mean_diffs</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      2.5%      97.5% 
+0.05568685 0.43652029 </code></pre>
+</div>
+</div>
+<p>The middle 95% of resampled differences (Violent − Property) runs from about <strong>0.06 to 0.44 hours</strong> — all above zero. The two-sample t-test gives the CI directly, no loop required:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">hour</span> <span class="op">~</span> <span class="va">crime_category</span>, data <span class="op">=</span> <span class="va">vp</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  hour by crime_category
+t = -2.6061, df = 19021, p-value = 0.009164
+alternative hypothesis: true difference in means between group Property and group Violent is not equal to 0
+95 percent confidence interval:
+ -0.44272107 -0.06263688
+sample estimates:
+mean in group Property  mean in group Violent 
+              12.54334               12.79602 </code></pre>
+</div>
+</div>
+<p>Watch the direction: R orders groups alphabetically, so this tests <strong>Property − Violent</strong> — the mirror image of our resampled differences. Same finding, flipped sign:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">hour</span> <span class="op">~</span> <span class="va">crime_category</span>, data <span class="op">=</span> <span class="va">vp</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.44272107 -0.06263688
+attr(,"conf.level")
+[1] 0.95</code></pre>
+</div>
+</div>
+<p>Reading it honestly: the 95% CI for the difference runs from <strong>−0.44 to −0.06 hours</strong> — it excludes zero, so the data are consistent with violent crimes genuinely averaging later. But look at the <em>magnitude</em>: somewhere between about <strong>4 and 27 minutes</strong>. Detectable ≠ dramatic. With ~19,500 incidents we can detect tiny differences; the CI hands you both facts at once — <em>direction</em> (probably real) and <em>size</em> (small). <strong>Never report the first without the second.</strong> This is your vaccination against next session’s topic: a “significant” result can be substantively trivial.</p>
+</section><section id="try-a-variation" class="level2"><h2 class="anchored" data-anchor-id="try-a-variation">Try a variation</h2>
+<ol type="1">
+<li>Compute a 95% CI for the proportion of incidents flagged as <strong>domestic</strong>: <code>prop.test(sum(crimes$domestic), nrow(crimes))</code>. Then write one <em>defensible</em> sentence reporting it — and audit yourself: did you claim a probability about <em>this</em> interval?</li>
+<li>Add <code>conf.level = 0.80</code> to a <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> call. Does the interval get wider or narrower — and what did you trade to get it?</li>
+<li>In the 100-intervals simulation, change <code>n = 250</code> to <code>n = 1000</code> in both places. What changes: the capture rate, or the widths?</li>
+<li>Remove the Broad Street pump before the <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min()</a></code> step (<code>filter(pump != 7)</code> on the pairs). Which pump inherits the deaths — and why should that make you <em>more</em> confident in Snow’s inference, not less?</li>
+</ol>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CRJU 705 · Fall 2026 · Scott M. Mourtgos · University of South Carolina</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

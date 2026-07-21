@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -230,10 +231,21 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-05-confidence-intervals.html">📽️ Slides: The Logic of Inference: Confidence Intervals</a></strong> · <strong><a href="../labs/lab-05-import.html">🧪 Lab 5: Importing Real Data</a></strong> · <strong><a href="../homework/hw-05.html">📝 Homework 5</a></strong></p>
+<p><strong><a href="../slides/week-05-confidence-intervals.html">📽️ Slides: The Logic of Inference: Confidence Intervals</a></strong> · <strong><a href="../labs/lab-05-import.html">🧪 Lab 5: Importing Real Data</a></strong> · <strong><a href="../homework/hw-05.html">📝 Homework 5</a></strong> · <strong><a href="../demos/demo-05-confidence-intervals.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-05.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
+<p>Session 4 showed that sample statistics fluctuate in predictable ways; this week cashes that in. If we know how estimates behave, we can attach an honest statement of uncertainty to a single sample’s number — a confidence interval. The hard part isn’t computing the interval (R does that); it’s saying what it means out loud without lying, and reporting size along with direction — detectable ≠ dramatic. That habit is your vaccination for Session 6, where “significant” enters the vocabulary.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>explain what a 95% confidence interval does — and does <strong>not</strong> — mean</li>
+<li>compute CIs for a proportion (<code>prop.test()</code>) and a difference in means (<code>t.test()</code>) on real data</li>
+<li>report an interval in one defensible sentence that gives both direction and magnitude</li>
+<li>import real files with <code>read_csv()</code> and <code>read_excel()</code>, fix column types, parse dates, and work through what <code>problems()</code> tells you</li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
@@ -244,6 +256,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
+<p><strong>This week’s two threads:</strong> confidence intervals (lecture + homework) · data import (lab).</p>
 <ul>
 <li>What statistical inference is: inductive reasoning under uncertainty (you can’t <em>prove</em> anything from a sample)</li>
 <li>John Snow and the Broad Street pump — the founding example of inference from sampled evidence, rebuilt live in R</li>
@@ -252,6 +265,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Real-data thread: the citywide arrest proportion from one modest sample vs.&nbsp;the truth; do violent crimes happen later in the day than property crimes? (detectable ≠ dramatic)</li>
 <li><strong>Lab 5:</strong> importing real data — <code>read_csv()</code> from the web, <code>read_excel()</code> on a messy download, <code>col_types</code>, <code>mdy()</code>, <code>problems()</code>, and how to ask for help</li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-05-confidence-intervals.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>

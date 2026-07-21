@@ -213,18 +213,30 @@ Scott M. Mourtgos
 <ul>
 <li>The Null Hypothesis Significance Test: its logic, and its fine print</li>
 <li>p-values: what they are — and what they are not</li>
-<li>Bayes’ theorem: priors, updating, and the probability you actually wanted</li>
+<li>Bayes’ theorem — back from Session 3, now pointed at hypotheses instead of diagnoses</li>
 <li>Bayes factors and posteriors with the <strong>BayesFactor</strong> package</li>
 </ul>
 <p><strong>Learning goals:</strong> run <code>t.test()</code> <em>and</em> <code>ttestBF()</code> on the same question; state correctly what each output licenses you to claim.</p>
-<p><strong>R4DS thread:</strong> Ch. 19 (Joins) + Ch. 18 skim → Lab 6 joins our two Chicago files.</p>
+</section>
+<section id="two-threads-one-course" class="slide level2">
+<h2>Two Threads, One Course</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Statistics thread</strong> — lecture + homework</p>
+<p>Stanton Ch. 5 → hypothesis testing, both ways: <code>t.test()</code> and <code>ttestBF()</code></p>
+</div><div class="column" style="width:50%;">
+<p><strong>Wrangling thread</strong> — lab</p>
+<p>R4DS Ch. 19 (+ Ch. 18 skim) → <code>left_join()</code> on our two Chicago files</p>
+</div></div>
+<p>Last new wrangling skill before next week’s workshop — after today, you own the whole pipeline.</p>
 </section>
 <section id="where-weve-been" class="slide level2">
 <h2>Where We’ve Been</h2>
 <ul>
+<li class="fragment"><strong>Session 3:</strong> Bayes’ theorem — beliefs update by evidence; ignore the base rate and “90% accurate” becomes a 15% answer</li>
 <li class="fragment"><strong>Session 4:</strong> sampling distributions — sample statistics fluctuate in predictable ways</li>
-<li class="fragment"><strong>Session 5:</strong> confidence intervals — one sample, an honest range. Our violent-vs-property time gap was <em>detectable but tiny</em>: somewhere between about 4 and 27 minutes</li>
-<li class="fragment"><strong>Today:</strong> the formal machinery for “is there a difference?” — and then a second tradition that answers the question you probably <em>meant</em> to ask</li>
+<li class="fragment"><strong>Session 5:</strong> confidence intervals — an honest range; our violent-vs-property gap came out <em>detectable but tiny</em> (≈4–27 min)</li>
+<li class="fragment"><strong>Today:</strong> the formal machinery for “is there a difference?” — then a second tradition answering the question you <em>meant</em> to ask</li>
 </ul>
 <div class="fragment">
 <p>If this course has a thesis, today is it: <strong>the two traditions are complements, not rivals</strong> — and you will leave able to use both.</p>
@@ -395,90 +407,20 @@ mean in group Property  mean in group Violent
 <img data-src="week-06-hypothesis-testing_files/figure-revealjs/sketch-dist-many-1.png" width="960" class="r-stretch"><p>How often do researchers <em>test</em> those assumptions before trusting the p-value? Less often than you’d hope.</p>
 </section></section>
 <section>
-<section id="act-ii-thinking-like-a-bayesian" class="title-slide slide level1 center" data-background-color="#73000A">
-<h1>Act II · Thinking Like a Bayesian</h1>
+<section id="act-ii-bayes-recapped" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Act II · Bayes, Recapped</h1>
 
 </section>
-<section id="enter-bayes-theorem" class="slide level2">
-<h2>Enter Bayes’ Theorem</h2>
+<section id="bayes-theorem-recap-from-session-3" class="slide level2">
+<h2>Bayes’ Theorem — Recap from Session 3</h2>
 <p><span class="math display">\[
-\underbrace{P(H \mid \text{data})}_{\textbf{posterior}} \;=\;
-\frac{\overbrace{P(\text{data} \mid H)}^{\textbf{likelihood}} \;\times\; \overbrace{P(H)}^{\textbf{prior}}}
-{\underbrace{P(\text{data})}_{\textbf{evidence}}}
+P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
+\qquad \small{\text{posterior} = \text{likelihood} \times \text{prior} / \text{evidence}}
 \]</span></p>
 <ul>
-<li class="fragment">The p-value lives entirely in the <strong>likelihood</strong> world: <span class="math inline">\(P(\text{data} \mid H_0)\)</span></li>
-<li class="fragment">Bayes flips the conditional: <span class="math inline">\(P(H \mid \text{data})\)</span> — the question your chief, your judge, your city council actually asked</li>
-<li class="fragment">The price of admission: a stated <strong>prior</strong> — what you believed before the data</li>
-</ul>
-</section>
-<section id="bayesian-updating-watched-live" class="slide level2">
-<h2>Bayesian Updating, Watched Live</h2>
-<p>Start moderately confident a coin is fair — prior Beta(20, 20) — then flip it 100 times and update after every flip:</p>
-
-<img data-src="../media/week-06/coinflip_updating.gif" class="r-stretch"><p>Each flip reshapes the curve. Beliefs are provisional, quantified, and revised by evidence — that is the entire philosophy in one gif.</p>
-</section>
-<section id="the-dreaded-adamsitis-strain-of-ianfluenza" class="slide level2">
-<h2>The Dreaded <em>Adamsitis</em> Strain of <em>Ianfluenza</em></h2>
-<p>A screening problem (any resemblance to a frequent co-author is coincidental):</p>
-<ul>
-<li>Prevalence <strong>1%</strong> — 10 cases per 1,000 people</li>
-<li>Sensitivity <strong>.90</strong> — catches 90% of true cases</li>
-<li>Specificity <strong>.95</strong> — clears 95% of the healthy</li>
-</ul>
-</section>
-<section id="two-questions-that-sound-identical-and-are-not" class="slide level2">
-<h2>Two Questions That <em>Sound</em> Identical — and Are Not</h2>
-<ol type="1">
-<li><span class="math inline">\(P(\text{test says} + \mid \text{actually sick})\)</span> — what the brochure advertises</li>
-<li><span class="math inline">\(P(\text{actually sick} \mid \text{test says} +)\)</span> — what you want in the exam room</li>
-</ol>
-</section>
-<section id="count-it-out-1000-people" class="slide level2">
-<h2>Count It Out: 1,000 People</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: right;">Test says <strong>+</strong></th>
-<th style="text-align: right;">Test says <strong>−</strong></th>
-<th style="text-align: right;">Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Sick</strong> (1%)</td>
-<td style="text-align: right;"><strong>9</strong> caught</td>
-<td style="text-align: right;">1 missed</td>
-<td style="text-align: right;">10</td>
-</tr>
-<tr class="even">
-<td><strong>Healthy</strong></td>
-<td style="text-align: right;"><strong>~50</strong> false alarms</td>
-<td style="text-align: right;">~941 cleared</td>
-<td style="text-align: right;">990</td>
-</tr>
-<tr class="odd">
-<td><strong>Total</strong></td>
-<td style="text-align: right;">~59</td>
-<td style="text-align: right;">~942</td>
-<td style="text-align: right;">1,000</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<p><span class="math display">\[
-P(\text{sick} \mid +) \;=\; \frac{9}{9 + 50} \;\approx\; 15\%
-\]</span></p>
-<p>The test is “90% accurate” — and a positive result still means you are <em>probably fine</em>.</p>
-</div>
-</section>
-<section id="priors-matter" class="slide level2">
-<h2>Priors Matter</h2>
-<ul>
-<li class="fragment">Read the test result the intuitive way — “the test is 90% accurate, so I’m 90% sick” — and you have silently treated <span class="math inline">\(P(\text{data} \mid H)\)</span> as <span class="math inline">\(P(H \mid \text{data})\)</span></li>
-<li class="fragment">The <strong>base rate</strong> (the prior: 1%) is what separates 90% from 15%. Ignoring it makes the test look far more powerful than it really is</li>
-<li class="fragment">Criminal justice runs on rare events: false confessions, officer-involved shootings, risk-assessment flags, gunshot-residue matches. Base-rate neglect is not a party trick here — it convicts people</li>
+<li class="fragment">Session 3’s move: conditioning is <em>shrink the world, re-proportion</em> — Bayes’ theorem reverses the direction. Ianfluenza: prior 1% + “90% accurate” → posterior ≈ <strong>15%</strong></li>
+<li class="fragment"><strong>New today:</strong> look where the p-value lives — entirely in the <strong>likelihood</strong>, <span class="math inline">\(P(\text{data} \mid H_0)\)</span>. It never becomes <span class="math inline">\(P(H_0 \mid \text{data})\)</span></li>
+<li class="fragment">Bayesian testing finishes the flip — <span class="math inline">\(P(H \mid \text{data})\)</span>, the question your chief, judge, or city council actually asked — at the price of a stated prior</li>
 </ul>
 </section>
 <section id="the-two-traditions-side-by-side" class="slide level2 smaller">
@@ -526,47 +468,6 @@ P(\text{sick} \mid +) \;=\; \frac{9}{9 + 50} \;\approx\; 15\%
 </table>
 </section></section>
 <section>
-<section id="so-why-not-always-bayes" class="title-slide slide level1 center" data-background-color="#1B2A4A">
-<h1>So Why Not Always Bayes?</h1>
-
-</section>
-<section id="the-ugly-denominator" class="slide level2">
-<h2>The Ugly Denominator</h2>
-<p><span class="math display">\[
-P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
-\]</span></p>
-<p>That innocent-looking denominator is the probability of the data under <em>every possible hypothesis, weighted by its prior</em>:</p>
-<p><span class="math display">\[
-\color{#73000A}{P(\text{data}) = \int P(\text{data} \mid \theta)\, P(\theta)\, d\theta}
-\]</span></p>
-<div class="fragment">
-<p>For realistic models this integral is <strong>intractable</strong> — for most of the 20th century, Bayes was philosophically beautiful and practically unusable.</p>
-</div>
-</section>
-<section id="enter-mcmc" class="slide level2">
-<h2>Enter MCMC</h2>
-<p>How Markov chain Monte Carlo “measures the curve” without solving the integral:</p>
-<ul>
-<li class="fragment">We don’t know the whole posterior curve — but we <em>do</em> know its <strong>formula up to a constant</strong> (likelihood × prior)</li>
-<li class="fragment">A sampler evaluates that formula at its <strong>current spot</strong> and at a <strong>proposed spot</strong></li>
-<li class="fragment">Compare the two values: if the new spot is higher → <strong>accept</strong>; if lower → accept <em>with that probability</em></li>
-<li class="fragment">The impossible constant appears in both numerator and denominator — it <strong>cancels in the ratio</strong>. We never need to know it</li>
-</ul>
-</section>
-<section id="mcmc-watched-live" class="slide level2">
-<h2>MCMC, Watched Live</h2>
-<p>A Metropolis sampler exploring a distribution (left) while its samples pile up into that very shape (right):</p>
-
-<img data-src="../media/week-06/mcmc_faceted.gif" class="r-stretch"></section>
-<section id="we-end-up-with-the-probability-distribution" class="slide level2">
-<h2>We End Up With the Probability Distribution</h2>
-<ul>
-<li class="fragment">The pile of accepted samples <strong>is</strong> the posterior — to any precision you like, just run longer</li>
-<li class="fragment">Think back to Session 4: we approximated <em>sampling</em> distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the <em>posterior</em></li>
-<li class="fragment">This is why modern Bayes is possible at all — and it is what <code>BayesFactor</code> quietly does for you in about two seconds</li>
-</ul>
-</section></section>
-<section>
 <section id="act-iii-both-traditions-one-real-question" class="title-slide slide level1 center" data-background-color="#73000A">
 <h1>Act III · Both Traditions, One Real Question</h1>
 
@@ -605,7 +506,7 @@ Bayes factor type: BFindepSample, JZS</code></pre>
 <ul>
 <li class="fragment">A Bayes factor is a <strong>ratio of predictions</strong>: how well did “some difference” predict these data vs.&nbsp;“no difference”?</li>
 <li class="fragment"><span class="math inline">\(BF_{10} = 0.49\)</span> — <em>below</em> 1. The data are about <strong>2 times more consistent with the null</strong></li>
-<li class="fragment">Rules of thumb: 1–3 barely worth mentioning · 3–10 moderate · 10+ strong (and the mirror image below 1)</li>
+<li class="fragment">Rules of thumb: 1–3 barely worth mentioning · 3–10 moderate · 10–30 strong · 30–100 very strong · 100+ extreme (mirror image below 1)</li>
 </ul>
 </section>
 <section id="hold-on-the-p-value-said-significant" class="slide level2">
@@ -639,7 +540,7 @@ Bayes factor type: BFindepSample, JZS</code></pre>
 </section>
 <section id="the-posterior-for-the-difference" class="slide level2">
 <h2>The Posterior for the Difference</h2>
-<p>The Bayes factor compares models. The <strong>posterior</strong> describes the difference itself — via MCMC, exactly as advertised:</p>
+<p>The Bayes factor compares models. The <strong>posterior</strong> describes the difference itself — drawn by a sampler (the machinery, called MCMC, is in tonight’s optional appendix):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>post <span class="ot">&lt;-</span> <span class="fu">suppressMessages</span>(<span class="fu">posterior</span>(bf, <span class="at">iterations =</span> <span class="dv">10000</span>))</span>
 <span id="cb14-2"><a></a>diff_post <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(post[, <span class="st">"beta (x - y)"</span>])</span>
@@ -805,7 +706,7 @@ prop 1 prop 2
 <ul>
 <li class="fragment"><strong>NHST</strong>: standardized and everywhere — but it only asks <em>how surprising are the data under the null?</em>, never scores the alternative, and rewards sheer n</li>
 <li class="fragment"><strong>p-values</strong> are not the probability any hypothesis is true, and are silent about <em>size</em></li>
-<li class="fragment"><strong>Bayes</strong> answers <span class="math inline">\(P(H \mid \text{data})\)</span> at the price of a stated prior; MCMC made it computable</li>
+<li class="fragment"><strong>Bayes</strong> answers <span class="math inline">\(P(H \mid \text{data})\)</span> at the price of a stated prior; MCMC made it computable (appendix, if you want the machinery)</li>
 <li class="fragment">The same data can yield <span class="math inline">\(p &lt; .05\)</span> <em>and</em> a BF favoring the null — or <span class="math inline">\(p = 0.20\)</span> <em>and</em> 91% posterior confidence</li>
 <li class="fragment">Whatever tradition you use: <strong>report the effect size, in units a human cares about</strong></li>
 </ul>
@@ -816,6 +717,48 @@ prop 1 prop 2
 <li><strong>Lab 6:</strong> joining data — <code>left_join()</code> on the two Chicago files, and the join traps R4DS warned you about (<a href="../labs/lab-06-joins.html">lab page</a>)</li>
 <li><strong>Homework 6:</strong> Bayesian vs.&nbsp;frequentist reasoning, plus both t-tests on a new Chicago question (posted on the <a href="../weeks/week-06.html">Session 6 page</a>)</li>
 <li><strong>Next session — the applied data workshop:</strong> the full messy-data pipeline, start to finish. <strong>Your final-project dataset selection is due at Session 7</strong> — come with a candidate dataset and be ready to defend it</li>
+</ul>
+</section></section>
+<section>
+<section id="appendix-how-bayes-became-computable-optional" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Appendix · How Bayes Became Computable (optional)</h1>
+
+</section>
+<section id="the-ugly-denominator" class="slide level2">
+<h2>The Ugly Denominator</h2>
+<p><em>Not on any exam — this is the machinery behind the two-second <code>ttestBF()</code> call, for the curious.</em></p>
+<p><span class="math display">\[
+P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
+\]</span></p>
+<p>That innocent-looking denominator is the probability of the data under <em>every possible hypothesis, weighted by its prior</em>:</p>
+<p><span class="math display">\[
+\color{#73000A}{P(\text{data}) = \int P(\text{data} \mid \theta)\, P(\theta)\, d\theta}
+\]</span></p>
+<div class="fragment">
+<p>For realistic models this integral is <strong>intractable</strong> — for most of the 20th century, Bayes was philosophically beautiful and practically unusable.</p>
+</div>
+</section>
+<section id="enter-mcmc" class="slide level2">
+<h2>Enter MCMC</h2>
+<p>How Markov chain Monte Carlo “measures the curve” without solving the integral:</p>
+<ul>
+<li class="fragment">We don’t know the whole posterior curve — but we <em>do</em> know its <strong>formula up to a constant</strong> (likelihood × prior)</li>
+<li class="fragment">A sampler evaluates that formula at its <strong>current spot</strong> and at a <strong>proposed spot</strong></li>
+<li class="fragment">Compare the two values: if the new spot is higher → <strong>accept</strong>; if lower → accept <em>with that probability</em></li>
+<li class="fragment">The impossible constant appears in both numerator and denominator — it <strong>cancels in the ratio</strong>. We never need to know it</li>
+</ul>
+</section>
+<section id="mcmc-watched-live" class="slide level2">
+<h2>MCMC, Watched Live</h2>
+<p>A Metropolis sampler exploring a distribution (left) while its samples pile up into that very shape (right):</p>
+
+<img data-src="../media/week-06/mcmc_faceted.gif" class="r-stretch"></section>
+<section id="we-end-up-with-the-probability-distribution" class="slide level2">
+<h2>We End Up With the Probability Distribution</h2>
+<ul>
+<li class="fragment">The pile of accepted samples <strong>is</strong> the posterior — to any precision you like, just run longer</li>
+<li class="fragment">Think back to Session 4: we approximated <em>sampling</em> distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the <em>posterior</em></li>
+<li class="fragment">This is why modern Bayes is possible at all — and it is what <code>BayesFactor</code> quietly does for you in about two seconds</li>
 </ul>
 
 

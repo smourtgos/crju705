@@ -588,9 +588,18 @@ Group 3-Group 2 -15.580 -24.3451 -6.814897 0.0002129</code></pre>
 </div>
 <ul>
 <li class="fragment">Identical formula syntax to <code>aov()</code> — this pattern carries through the rest of the course</li>
-<li class="fragment">Default priors: flat on the group coefficients — the data do the talking</li>
+<li class="fragment">Priors: we didn’t state any, so <code>brms</code> used its <strong>defaults</strong> — more on what that means on the next slide</li>
 <li class="fragment"><code>chains = 2, iter = 2000</code>: two independent MCMC runs, 2,000 draws each → a full <strong>posterior distribution</strong> for every group mean</li>
 <li class="fragment"><code>refresh = 0</code> just silences the sampling progress log</li>
+</ul>
+</section>
+<section id="the-prior-we-just-used" class="slide level2">
+<h2>The Prior We Just Used</h2>
+<ul>
+<li class="fragment"><code>brms</code>’s defaults: essentially <strong>flat on the group coefficients</strong>, weakly informative on the intercept and spread</li>
+<li class="fragment">Flat priors = “the data do the talking.” Fine at this <em>n</em> — but <em>say so</em>: <strong>“we used brms default priors”</strong> belongs in any writeup that reports a posterior</li>
+<li class="fragment">One logic, several badges: <code>ttestBF()</code> (S6), <code>brm()</code> (today), <code>correlation</code> (S10) — <strong>different interfaces, same move</strong>: prior + likelihood → posterior</li>
+<li class="fragment">Session 10 shows what happens when you deliberately <em>change</em> the prior — and when it matters</li>
 </ul>
 </section>
 <section id="posterior-group-means" class="slide level2">

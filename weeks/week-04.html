@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -230,10 +231,21 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-04-sampling-distributions.html">📽️ Slides: Sampling Distributions</a></strong> · <strong><a href="../labs/lab-04-tidy.html">🧪 Lab 4: Tidy Data — Pivoting Longer and Wider</a></strong> · <strong><a href="../homework/hw-04.html">📝 Homework 4</a></strong></p>
+<p><strong><a href="../slides/week-04-sampling-distributions.html">📽️ Slides: Sampling Distributions</a></strong> · <strong><a href="../labs/lab-04-tidy.html">🧪 Lab 4: Tidy Data — Pivoting Longer and Wider</a></strong> · <strong><a href="../homework/hw-04.html">📝 Homework 4</a></strong> · <strong><a href="../demos/demo-04-sampling-distributions.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-04.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
+<p>Session 3 gave you the rules single random events follow; this week zooms out to what happens when sampling <em>repeats</em>. Draw a thousand samples and the sample means themselves form a distribution — with a predictable shape, a predictable center, and a width you can compute (the standard error). Nothing gets derived: it’s all live simulation, watching the law of large numbers and the central limit theorem appear on screen, including with 30,000 real Chicago incidents. This is the engine under every inference in the rest of the course — Session 5 cashes it in for confidence intervals.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>explain in your own words: law of large numbers, sampling distribution, standard error, central limit theorem</li>
+<li>simulate a sampling distribution in R and connect its spread to the SD/√n formula</li>
+<li>say why <code>var()</code> and <code>sd()</code> divide by n − 1 (Session 2’s IOU, paid)</li>
+<li>reshape data with <code>pivot_longer()</code> and <code>pivot_wider()</code>, and keep your scripts and projects organized</li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
@@ -244,6 +256,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
+<p><strong>This week’s two threads:</strong> sampling distributions (lecture + homework) · tidy data with <code>pivot_longer()</code>/<code>pivot_wider()</code> (lab).</p>
 <ul>
 <li>Theoretical vs.&nbsp;empirical probability: coin flips, the law of large numbers, and why “long run” is longer than you think</li>
 <li>Simulating CJ probabilities: false-positive drug tests, stop-and-frisk hit rates, and why random ≠ balanced</li>
@@ -254,6 +267,7 @@ ul.task-list li input[type="checkbox"] {
 <li>In-class exercise: probabilities in the long run (dice, known and unknown populations)</li>
 <li><strong>Lab 4:</strong> tidy data — <code>pivot_longer()</code>/<code>pivot_wider()</code> with city crime trends and reentry outcomes, plus scripts-and-projects hygiene</li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-04-sampling-distributions.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>

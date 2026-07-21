@@ -240,6 +240,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#textbooks" id="toc-textbooks" class="nav-link" data-scroll-target="#textbooks">Textbooks</a></li>
   <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
+  <li><a href="#demos-practice" id="toc-demos-practice" class="nav-link" data-scroll-target="#demos-practice">Demos &amp; practice</a></li>
+  <li><a href="#simulation-verbs" id="toc-simulation-verbs" class="nav-link" data-scroll-target="#simulation-verbs">The simulation verbs, in plain language</a></li>
   <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a></li>
   </ul>
 </nav>
@@ -302,7 +304,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="step-4-install-the-course-packages" class="level3">
 <h3 class="anchored" data-anchor-id="step-4-install-the-course-packages">Step 4 — Install the course packages</h3>
 <p>Paste this into the Console and press Enter (it takes a few minutes):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"swirl"</span>, <span class="st">"BayesFactor"</span>, <span class="st">"here"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"swirl"</span>, <span class="st">"BayesFactor"</span>, <span class="st">"here"</span>, <span class="st">"modeest"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>(<code>modeest</code> is small but easy to miss — Homework 2 and the mid-term use it to find the mode. A few later packages — <code>brms</code>, <code>emmeans</code>, <code>correlation</code>, <code>car</code> — are staged in the weeks that need them; each week’s session page tells you what to install.)</p>
 </section>
 <section id="troubleshooting" class="level3">
 <h3 class="anchored" data-anchor-id="troubleshooting">Troubleshooting</h3>
@@ -387,10 +390,155 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>The two <strong>Chicago anchor files are real data</strong> (Chicago Police Department portal + Census/ACS via CMAP) — see the <a href="./chicago-data.html">full codebook and caveats</a>. The remaining datasets are simulated but realistic, generously shared by a colleague.</p>
 </section>
+<section id="demos-practice" class="level2">
+<h2 class="anchored" data-anchor-id="demos-practice">Demos &amp; practice</h2>
+<p>Most sessions have two self-contained companion pages — every chunk on them runs as-is in your own R session:</p>
+<ul>
+<li><strong>Demo walkthroughs</strong> — the lecture’s live demos, written down step by step. Missed a class (or want to re-run what happened on screen)? Start here.</li>
+<li><strong>Practice banks</strong> — ungraded self-check problems with hidden solutions (click to reveal). The midterm covers Sessions 1–8, so practice pages 2–8 are the best exam prep.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Session</th>
+<th>Demo walkthrough</th>
+<th>Practice problems</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 · Intro &amp; R setup</td>
+<td><a href="./demos/demo-01-intro.html">Demo 1</a></td>
+<td>— (the swirl tutorials are the practice)</td>
+</tr>
+<tr class="even">
+<td>2 · Descriptive statistics</td>
+<td><a href="./demos/demo-02-descriptives.html">Demo 2</a></td>
+<td><a href="./practice/practice-02.html">Practice 2</a></td>
+</tr>
+<tr class="odd">
+<td>3 · Probability &amp; Bayes’ theorem</td>
+<td><a href="./demos/demo-03-probability.html">Demo 3</a></td>
+<td><a href="./practice/practice-03.html">Practice 3</a></td>
+</tr>
+<tr class="even">
+<td>4 · Sampling distributions</td>
+<td><a href="./demos/demo-04-sampling-distributions.html">Demo 4</a></td>
+<td><a href="./practice/practice-04.html">Practice 4</a></td>
+</tr>
+<tr class="odd">
+<td>5 · Confidence intervals</td>
+<td><a href="./demos/demo-05-confidence-intervals.html">Demo 5</a></td>
+<td><a href="./practice/practice-05.html">Practice 5</a></td>
+</tr>
+<tr class="even">
+<td>6 · Hypothesis testing (freq + Bayes)</td>
+<td><a href="./demos/demo-06-hypothesis-testing.html">Demo 6</a></td>
+<td><a href="./practice/practice-06.html">Practice 6</a></td>
+</tr>
+<tr class="odd">
+<td>7 · Applied data workshop</td>
+<td><a href="./demos/demo-07-workshop.html">Demo 7</a></td>
+<td>— (Lab 7 on your own data is the practice)</td>
+</tr>
+<tr class="even">
+<td>8 · ANOVA</td>
+<td><a href="./demos/demo-08-anova.html">Demo 8</a></td>
+<td><a href="./practice/practice-08.html">Practice 8</a></td>
+</tr>
+<tr class="odd">
+<td>10 · Correlation</td>
+<td><a href="./demos/demo-10-correlation.html">Demo 10</a></td>
+<td><a href="./practice/practice-10.html">Practice 10</a></td>
+</tr>
+<tr class="even">
+<td>11 · Multiple regression</td>
+<td><a href="./demos/demo-11-regression.html">Demo 11</a></td>
+<td><a href="./practice/practice-11.html">Practice 11</a></td>
+</tr>
+<tr class="odd">
+<td>12 · Logistic regression</td>
+<td><a href="./demos/demo-12-logistic.html">Demo 12</a></td>
+<td><a href="./practice/practice-12.html">Practice 12</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="simulation-verbs" class="level2">
+<h2 class="anchored" data-anchor-id="simulation-verbs">The simulation verbs, in plain language</h2>
+<p>Every simulation in this course is built from a tiny vocabulary. When code looks dense, translate it with this table:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Verb</th>
+<th>Reads as</th>
+<th>First appears</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sample(x, size, replace)</code></td>
+<td>“run one random event” — draw <code>size</code> values from <code>x</code></td>
+<td>Session 3</td>
+</tr>
+<tr class="even">
+<td><code>replicate(k, expr)</code></td>
+<td>“repeat the whole recipe <code>k</code> times and collect the answers”</td>
+<td>Session 3</td>
+</tr>
+<tr class="odd">
+<td><code>rbinom(n, size, prob)</code></td>
+<td>“flip <code>size</code> coins and count the successes — done <code>n</code> times”</td>
+<td>Session 3</td>
+</tr>
+<tr class="even">
+<td><code>\(x) ...</code></td>
+<td>an <em>anonymous function</em>: “a mini-recipe with slot <code>x</code>”</td>
+<td>Sessions 3–4</td>
+</tr>
+<tr class="odd">
+<td><code>map_dbl(v, \(x) ...)</code></td>
+<td>“for each element of <code>v</code>, run the recipe; return one <strong>number</strong> each” — <code>replicate()</code>, tidyverse-flavored</td>
+<td>Session 4</td>
+</tr>
+<tr class="even">
+<td><code>map(v, \(x) ...)</code></td>
+<td>same, but each result can be a whole object — results arrive as a <strong>list column</strong></td>
+<td>Session 4</td>
+</tr>
+<tr class="odd">
+<td><code>list_rbind(l)</code></td>
+<td>“stack a list of small tibbles into one tibble”</td>
+<td>Session 5</td>
+</tr>
+<tr class="even">
+<td><code>expand_grid(a = ..., b = ...)</code></td>
+<td>“every combination of these values, as rows”</td>
+<td>Session 4</td>
+</tr>
+<tr class="odd">
+<td><code>set.seed(705)</code></td>
+<td>“start the random-number generator at a fixed spot, so results reproduce”</td>
+<td>everywhere</td>
+</tr>
+</tbody>
+</table>
+<p>Two idioms worth naming once:</p>
+<ul>
+<li><strong>The thousand-times pattern:</strong> <code>tibble(draw = 1:1000) |&gt; mutate(stat = map_dbl(draw, \(d) ...))</code> — “do it 1,000 times, keep every answer in a column.” This powers most figures in Sessions 4–6.</li>
+<li><strong>List columns:</strong> <code>s = map(draw, \(d) sample(...))</code> makes a column where each cell holds an <em>entire sample</em>. You never need to write one from scratch in this course — you only need to read past it and watch what’s computed from it.</li>
+</ul>
+</section>
 <section id="getting-help" class="level2">
 <h2 class="anchored" data-anchor-id="getting-help">Getting help</h2>
 <ul>
 <li><strong>In this order:</strong> R’s built-in help (<code>?mean</code>), the R4DS <a href="https://r4ds.hadley.nz/workflow-help.html">Getting Help chapter</a>, a classmate, then me.</li>
+<li><strong>Office hours are on request</strong> — email me and we’ll set a time (virtual or in person), usually within a day or two. Don’t sit stuck for days; that is exactly what the appointment is for.</li>
 <li>AI tools (ChatGPT, Claude, etc.) are welcome as <em>collaborators</em> — see the <a href="./syllabus.html#use-of-artificial-intelligence-tools">syllabus AI policy</a> — but you must be able to explain every line you submit.</li>
 </ul>
 

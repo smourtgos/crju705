@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -230,10 +231,21 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-08-anova.html">📽️ Slides: Comparing Groups and Analyzing Experiments</a></strong> · <strong><a href="../labs/lab-08-anova.html">🧪 Lab 8: ANOVA — Three Classrooms, Then Real Crashes</a></strong> · <strong><a href="../homework/hw-08.html">📝 Homework 8 + Project Checkpoint 1</a></strong></p>
+<p><strong><a href="../slides/week-08-anova.html">📽️ Slides: Comparing Groups and Analyzing Experiments</a></strong> · <strong><a href="../labs/lab-08-anova.html">🧪 Lab 8: ANOVA — Three Classrooms, Then Real Crashes</a></strong> · <strong><a href="../homework/hw-08.html">📝 Homework 8 + Project Checkpoint 1</a></strong> · <strong><a href="../demos/demo-08-anova.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-08.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
+<p>Session 6 compared two group means; this week asks the question real research runs into constantly — what if there are three groups, or six? A pile of t-tests backfires (the false alarms compound), so ANOVA asks one omnibus question instead, built from two kinds of variance you already understand from Session 4’s sampling distributions. As always the workflow runs in both traditions: <code>aov()</code> with Tukey’s HSD, then <code>brms</code> with <code>emmeans</code>. It’s also the week your final project turns graded — Checkpoint 1 rides along with Homework 8 — and Session 9 is the midterm.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>explain what the F-ratio compares: between-group signal against within-group noise</li>
+<li>run and read a one-way ANOVA in both traditions (<code>aov()</code>, then <code>brm()</code> + <code>emmeans()</code>)</li>
+<li>follow a significant F with an honest pairwise answer — Tukey’s HSD or posterior contrasts</li>
+<li>report direction <em>and</em> magnitude every time, including when a pair shows no credible difference</li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
@@ -255,6 +267,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Real-data thread: does mean incident hour differ across Chicago’s Violent / Property / Other categories? Both traditions say yes for every pair — by 15 to 41 minutes. Detectable ≠ dramatic, now with three groups.</li>
 <li><strong>Lab 8:</strong> the full workflow yourself — the classrooms, then injuries by crash cause in the Alaska data (including one pair with <em>no</em> credible difference, so you practice saying that out loud)</li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-08-anova.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>

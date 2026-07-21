@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -207,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Session 6 · Hypothesis Testing: Frequentist and Bayesian</h1>
-<p class="subtitle lead">NHST and its fine print · p-values · Bayes’ theorem and priors · Bayes factors · posterior distributions · joins</p>
+<p class="subtitle lead">NHST and its fine print · p-values · Bayes’ theorem recapped · Bayes factors · posterior distributions · joins</p>
 </div>
 
 
@@ -230,11 +231,21 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-06-hypothesis-testing.html">📽️ Slides: Hypothesis Testing: Frequentist and Bayesian</a></strong> · <strong><a href="../labs/lab-06-joins.html">🧪 Lab 6: Joining Data</a></strong> · <strong><a href="../homework/hw-06.html">📝 Homework 6</a></strong></p>
+<p><strong><a href="../slides/week-06-hypothesis-testing.html">📽️ Slides: Hypothesis Testing: Frequentist and Bayesian</a></strong> · <strong><a href="../labs/lab-06-joins.html">🧪 Lab 6: Joining Data</a></strong> · <strong><a href="../homework/hw-06.html">📝 Homework 6</a></strong> · <strong><a href="../demos/demo-06-hypothesis-testing.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-06.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
-<p>This is the signature week of the course: the same research question answered by <strong>both</strong> of statistics’ great traditions, side by side — the reason we use the Stanton book at all.</p>
+<p>This is the signature week of the course: the same research question answered by <strong>both</strong> of statistics’ great traditions, side by side — the reason we use the Stanton book at all. Session 5’s confidence intervals grow into the Null Hypothesis Significance Test (fine print included), and then Session 3’s Bayes’ theorem returns — pointed at hypotheses instead of diagnoses, answering the question you probably <em>meant</em> to ask. Every method from here to the end of the course runs in both traditions, so this week’s vocabulary is permanent.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>run <code>t.test()</code> <em>and</em> <code>ttestBF()</code> on the same question, and state correctly what each output licenses you to claim</li>
+<li>explain in plain language what a p-value is — and name the things it is not</li>
+<li>read a Bayes factor and a posterior distribution, and report a credible interval honestly</li>
+<li>join related tables with <code>left_join()</code>, <code>inner_join()</code>, and <code>anti_join()</code>, checking keys and missing values first</li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
@@ -246,17 +257,19 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
+<p><strong>This week’s two threads:</strong> hypothesis testing in both traditions (lecture + homework) · joins (lab).</p>
 <ul>
 <li>From Session 5’s confidence intervals to the <strong>Null Hypothesis Significance Test</strong>: bootstrap logic, the null, the verdict machine — and an animation of what the p-value is actually doing</li>
 <li>What a p-value is, and the long list of things it is not</li>
 <li>The fine print: NHST never scores the alternative hypothesis, and rarely checks the distribution it assumes</li>
-<li><strong>Bayes’ theorem</strong>: priors, likelihoods, posteriors — watching beliefs update live, and why base rates make a “90% accurate” test mean only ~15% in a rare-event world</li>
-<li>Why Bayes was long impractical (the intractable denominator) and how <strong>MCMC</strong> solved it, watched live</li>
+<li><strong>Bayes’ theorem, recapped from Session 3</strong> — and the new insight: the p-value lives entirely in the likelihood, and never becomes P(H₀ | data); the two traditions side by side</li>
+<li>Optional self-study appendix (end of the deck): why Bayes was long impractical (the intractable denominator) and how <strong>MCMC</strong> solved it, watched live</li>
 <li>Both traditions on our real Chicago question — <code>t.test()</code> says <em>significant</em>, <code>ttestBF()</code> mildly favors the null, the posterior says the difference is almost surely real <em>and</em> almost surely trivial. Sorting out that collision (effect sizes!) is the heart of the week</li>
 <li>The recidivism trial: p = 0.20 vs.&nbsp;a 91% posterior probability the program works — same data, different questions</li>
 <li>Sample size pathologies, animated: p-values dive below .05 for trivial effects as <em>n</em> grows; posteriors just sharpen around the truth</li>
 <li><strong>Lab 6:</strong> joining the two Chicago files — <code>left_join()</code>, <code>inner_join()</code>, <code>anti_join()</code>, key checks, and the missing-values discipline (<a href="../labs/lab-06-joins.html">lab page</a>)</li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-06-hypothesis-testing.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>

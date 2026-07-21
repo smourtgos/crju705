@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -207,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Session 3 · Reasoning with Probability</h1>
-<p class="subtitle lead">Outcome tables · the binomial · contingency tables · conditional probability</p>
+<p class="subtitle lead">Outcome tables · the binomial · contingency tables · conditional probability · a first look at Bayes’ theorem</p>
 </div>
 
 
@@ -230,30 +231,47 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-03-probability.html">📽️ Slides: Reasoning with Probability</a></strong> · <strong><a href="../labs/lab-03-transform.html">🧪 Lab 3: Data Transformation with dplyr</a></strong> · <strong><a href="../homework/hw-03.html">📝 Homework 3</a></strong></p>
+<p><strong><a href="../slides/week-03-probability.html">📽️ Slides: Reasoning with Probability</a></strong> · <strong><a href="../labs/lab-03-transform.html">🧪 Lab 3: Data Transformation with dplyr</a></strong> · <strong><a href="../homework/hw-03.html">📝 Homework 3</a></strong> · <strong><a href="../demos/demo-03-probability.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-03.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
+<p>Session 2 taught you to describe what data <em>are</em>; this week asks what data are <em>likely to be</em> — the first step toward inference. Probability gets taught the course’s way: don’t take a claim on faith, simulate it and watch it happen. Along the way you plant the seed the whole second half of the course grows from — conditional probability, and Bayes’ theorem for reversing it — harvested in Session 6, when the two great traditions of inference meet on the same question. In lab, dplyr hands you the verbs every later analysis will use.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>build an outcome table for simple random events and a contingency table for linked ones</li>
+<li>compute marginal, joint, and conditional probabilities — and explain conditioning as <em>filter, then re-proportion</em></li>
+<li>generate and plot random distributions in R with <code>rbinom()</code> and friends</li>
+<li>use Bayes’ theorem to reverse a conditional probability, and explain in plain language why the base rate is never optional</li>
+<li>transform a dataset with dplyr: <code>filter()</code>, <code>arrange()</code>, <code>mutate()</code>, <code>summarize()</code>, <code>count()</code></li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
 <li>Read: Stanton <strong>Ch. 2</strong> (Reasoning with Probability)</li>
 <li>Read: R4DS <strong><a href="https://r4ds.hadley.nz/data-transform.html">Ch. 3 — Data transformation</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-style.html">Ch. 4 — Workflow: code style</a></strong></li>
+<li>Optional: skim the opening pages of Stanton <strong>Ch. 5</strong> (through the prior-probability discussion) — we take the first bite of that chapter today; the full chapter is assigned before Session 6</li>
 <li>Bring your laptop with R, RStudio, and the course packages installed (<a href="../resources.html#installing-r-and-rstudio">install guide</a>)</li>
 </ul>
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
+<p><strong>This week’s two threads:</strong> probability (lecture + homework) · data transformation with dplyr (lab).</p>
 <ul>
 <li>Homework 2 debrief — questions on descriptives</li>
 <li>What a probability <em>is</em>: long-run proportion, seen by simulation (coin flips, then real arrest data)</li>
 <li>Toast drops: outcome tables, the binomial distribution, <code>rbinom()</code>, cumulative probabilities</li>
 <li>Contingency tables: marginal, joint, and conditional probability — dropped toast, the restaurant work schedule, and arrest × crime category in the Chicago data</li>
-<li>Conditional probability as <em>filter, then re-proportion</em> — the seed of Bayes’ theorem</li>
+<li>Conditional probability as <em>filter, then re-proportion</em></li>
 <li>Independence: when conditioning doesn’t move the number</li>
+<li><strong>Bayes’ theorem</strong>: reversing a conditional — priors, posteriors, and a belief updating live, flip by flip</li>
+<li>Base rates: why a “90% accurate” screening test can mean only ~15% in a rare-condition world (the Ianfluenza example)</li>
 <li>In-class exercise: factory-accidents contingency table (paper, then dplyr — folded into Lab 3)</li>
 <li><strong>Lab 3:</strong> data transformation with dplyr (<code>filter</code>, <code>arrange</code>, <code>mutate</code>, <code>summarize</code>, <code>count</code>) using the <code>neighborhoods</code> data</li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-03-probability.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>

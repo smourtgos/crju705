@@ -199,7 +199,11 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">1. Purpose</a></li>
   <li><a href="#project-components" id="toc-project-components" class="nav-link" data-scroll-target="#project-components">2. Project components</a></li>
   <li><a href="#steps-and-expectations" id="toc-steps-and-expectations" class="nav-link" data-scroll-target="#steps-and-expectations">3. Steps and expectations</a></li>
-  <li><a href="#grading-criteria" id="toc-grading-criteria" class="nav-link" data-scroll-target="#grading-criteria">4. Grading criteria</a></li>
+  <li><a href="#grading-criteria" id="toc-grading-criteria" class="nav-link" data-scroll-target="#grading-criteria">4. Grading criteria</a>
+  <ul class="collapse">
+  <li><a href="#the-written-report-code-22-of-course-grade" id="toc-the-written-report-code-22-of-course-grade" class="nav-link" data-scroll-target="#the-written-report-code-22-of-course-grade">The written report &amp; code (22% of course grade)</a></li>
+  <li><a href="#the-presentation-8-of-course-grade" id="toc-the-presentation-8-of-course-grade" class="nav-link" data-scroll-target="#the-presentation-8-of-course-grade">The presentation (8% of course grade)</a></li>
+  </ul></li>
   <li><a href="#submission-details" id="toc-submission-details" class="nav-link" data-scroll-target="#submission-details">5. Submission details</a></li>
   </ul>
 </nav>
@@ -234,7 +238,17 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Due: in class at Session 14 (final presentations).</strong> There will be <em>absolutely</em> no assignments or projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part by the deadline results in a zero. No appeals. Plan ahead.</p>
+<p><strong>Due: via Canvas by 11:59 pm the Sunday before Session 14.</strong> You then present in class at Session 14. There will be <em>absolutely</em> no assignments or projects accepted after the Sunday deadline. None. Add it to your calendar now. Failure to submit any part by the deadline results in a zero. No appeals. Plan ahead.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Want to see what “done well” looks like?</strong> A complete worked example — report structure, code, both-traditions model, honest limitations — is at the <a href="./final-project-exemplar.html">project exemplar</a>.</p>
 </div>
 </div>
 </div>
@@ -286,7 +300,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td><strong>Session 14</strong></td>
-<td><strong>In-class presentation</strong> (a substantial part of your grade)</td>
+<td><strong>In-class presentation</strong> (8 min + 2 min Q&amp;A — 8% of your course grade)</td>
 </tr>
 </tbody>
 </table>
@@ -310,18 +324,104 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="steps-and-expectations">3. Steps and expectations</h2>
 <p><strong>Step 1 — Find a dataset.</strong> Select a dataset related to criminal justice (policing, courts, corrections, crime, public opinion, etc.) that can be imported into R (CSV, Excel, or an R dataset). It must include enough numeric variables for regression analysis. <em>(Formal selection criteria and the submission form are part of the <a href="./homework/hw-07.html">Session 7 assignment</a>.)</em></p>
 <p><strong>Step 2 — Define your research question.</strong> Keep it focused and testable. Examples: <em>“Are violent crime rates associated with police staffing levels?”</em> or <em>“Do education and income predict victimization (or arrests)?”</em></p>
-<p><strong>Step 3 — Apply statistical tools from class.</strong> Use descriptive statistics, visualizations, and measures of association. You <strong>must</strong> include a linear regression or logistic regression for credit. You may choose frequentist or Bayesian analysis — but whichever you choose, provide the correct interpretation, as discussed in class.</p>
+<p><strong>Step 3 — Apply statistical tools from class.</strong> Use descriptive statistics, visualizations, and measures of association. You <strong>must</strong> include a linear regression or logistic regression for credit. <strong>Your final model must be reported in both traditions</strong> — the frequentist fit (<code>lm()</code>/<code>glm()</code>) <em>and</em> the Bayesian fit (<code>brm()</code>, default priors are fine — say so) — with at least one sentence comparing what each tells you (e.g., the CI vs.&nbsp;the credible interval, or what the posterior lets you say that the p-value doesn’t). This is the both-traditions course; the capstone shows you can drive both. Supporting analyses (descriptives, correlations) may be run in whichever tradition you prefer.</p>
 <p><strong>Step 4 — Write and submit your report.</strong> Organize clearly: Introduction, Methods, Results, Discussion. Interpret results in plain language.</p>
 </section>
 <section id="grading-criteria" class="level2">
 <h2 class="anchored" data-anchor-id="grading-criteria">4. Grading criteria</h2>
-<ul>
-<li><strong>Quality of analysis</strong> — appropriate use of statistical tools and R coding</li>
-<li><strong>Interpretation and communication</strong> — clarity and accuracy in describing results and their meaning</li>
-<li><strong>Organization, presentation, and grammar</strong> — report structure, labeled figures/tables, code readability, graduate-level writing</li>
-<li><strong>Completeness and reproducibility</strong> — all required components submitted and reproducible</li>
-<li><strong>The in-class presentation</strong> — you will present your project and explain how and why your code works. If you cannot confidently explain your own code, your grade will be affected (see the <a href="./syllabus.html#use-of-artificial-intelligence-tools">syllabus AI policy</a>)</li>
-</ul>
+<p>The project is <strong>30% of your course grade</strong>: the written report, script, and output are <strong>22%</strong>, and the in-class presentation is <strong>8%</strong>.</p>
+<section id="the-written-report-code-22-of-course-grade" class="level3">
+<h3 class="anchored" data-anchor-id="the-written-report-code-22-of-course-grade">The written report &amp; code (22% of course grade)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 29%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th style="text-align: center;">Weight</th>
+<th>Excellent</th>
+<th>Adequate</th>
+<th>Needs work</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Quality of analysis</strong></td>
+<td style="text-align: center;">7%</td>
+<td>Right tools for the question; final model in <strong>both traditions</strong> with sound model choices; assumptions/diagnostics addressed</td>
+<td>Correct core analysis; both traditions present but one is perfunctory; minor tool misfits</td>
+<td>Wrong tool for the question, a missing tradition, or mechanical errors that change conclusions</td>
+</tr>
+<tr class="even">
+<td><strong>Interpretation &amp; honesty</strong></td>
+<td style="text-align: center;">6%</td>
+<td>Every claim matches the output; magnitude interpreted in real units; limitations (incl.&nbsp;null or weak results) owned plainly</td>
+<td>Mostly accurate; occasional overclaiming or a p-value/posterior misreading; limitations thin</td>
+<td>“Significant” treated as “important”; causal language from observational data; results oversold</td>
+</tr>
+<tr class="odd">
+<td><strong>Organization &amp; writing</strong></td>
+<td style="text-align: center;">4%</td>
+<td>Clear Introduction → Methods → Results → Discussion; labeled figures/tables referenced in text; graduate-level prose</td>
+<td>Structure present but uneven; figures unlabeled or orphaned</td>
+<td>Hard to follow; output pasted without narrative</td>
+</tr>
+<tr class="even">
+<td><strong>Completeness &amp; reproducibility</strong></td>
+<td style="text-align: center;">5%</td>
+<td>Script runs top to bottom on the submitted data; all four components present; seed set where results are sampled</td>
+<td>Runs with minor fixes; a component thin but present</td>
+<td>Script errors out, data missing, or a required component absent</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-presentation-8-of-course-grade" class="level3">
+<h3 class="anchored" data-anchor-id="the-presentation-8-of-course-grade">The presentation (8% of course grade)</h3>
+<p><strong>Format: 8 minutes + 2 minutes of questions.</strong> Presentation order is announced at the Session 13 help session. You may present slides or your rendered report on screen — either is fine, but you <strong>must show your one key visualization</strong> and be ready to walk through <strong>any line of your code</strong> on request (see the <a href="./syllabus.html#use-of-artificial-intelligence-tools">AI policy</a>; not being able to explain your own code will cost you well beyond the presentation points).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 45%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterion</th>
+<th style="text-align: center;">Weight</th>
+<th>What earns it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>The question, motivated</strong></td>
+<td style="text-align: center;">2%</td>
+<td>A listener knows within a minute what you asked, of what data, and why anyone should care</td>
+</tr>
+<tr class="even">
+<td><strong>Sound interpretation, limits included</strong></td>
+<td style="text-align: center;">3%</td>
+<td>Findings stated accurately with magnitudes; at least one limitation named without prompting; questions handled honestly (including “I don’t know”)</td>
+</tr>
+<tr class="odd">
+<td><strong>The key visualization</strong></td>
+<td style="text-align: center;">1.5%</td>
+<td>One figure that carries the finding, readable from the back of the room, honestly captioned</td>
+</tr>
+<tr class="even">
+<td><strong>Code ownership</strong></td>
+<td style="text-align: center;">1.5%</td>
+<td>Any line of your script, explained on request, in your own words</td>
+</tr>
+</tbody>
+</table>
+<p>Running long is the classic failure: <strong>practice once with a timer</strong>. At 8 minutes you’ll be stopped so everyone presents.</p>
+</section>
 </section>
 <section id="submission-details" class="level2">
 <h2 class="anchored" data-anchor-id="submission-details">5. Submission details</h2>

@@ -216,7 +216,18 @@ Scott M. Mourtgos
 <li>Confidence intervals: building them, reading them, and — hardest of all — <em>saying what they mean out loud without lying</em></li>
 </ul>
 <p><strong>Learning goals:</strong> explain in your own words what a 95% confidence interval does and does <strong>not</strong> mean; compute CIs for a proportion and a difference in means from real data.</p>
-<p><strong>R4DS thread:</strong> you read Ch. 7 (Data import) &amp; Ch. 8 (Getting help) — today’s lab puts both to work.</p>
+</section>
+<section id="two-threads-one-course" class="slide level2">
+<h2>Two Threads, One Course</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Statistics thread</strong> — lecture + homework</p>
+<p>Stanton Ch. 4 → confidence intervals: building them, and saying them out loud honestly</p>
+</div><div class="column" style="width:50%;">
+<p><strong>Wrangling thread</strong> — lab</p>
+<p>R4DS Ch. 7–8 → <code>read_csv()</code>, <code>read_excel()</code>, and the import traps real files set</p>
+</div></div>
+<p>The two threads meet at the Session 7 workshop — where you import a messy file <em>and</em> put an honest interval on what you find in it.</p>
 </section>
 <section id="where-weve-been" class="slide level2">
 <h2>Where We’ve Been</h2>
@@ -283,7 +294,10 @@ Scott M. Mourtgos
 <span id="cb1-16"><a></a>by_pump</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
-</section>
+
+<aside><div>
+<p>Two verbs arrive ahead of schedule here: <code>crossing()</code> builds every death–pump pair, and <code>left_join()</code> looks up each point’s coordinates. Joins get their full treatment in next week’s lab — today, read them as “pair up, then look up” and focus on the logic.</p>
+</div></aside></section>
 <section id="sampled-evidence-deaths-and-pumps-output" class="slide level2 output-location-slide"><h2>Sampled Evidence: Deaths and Pumps</h2><div class="cell output-location-slide">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 2
@@ -456,7 +470,10 @@ sample estimates:
 <pre><code>[1] 97</code></pre>
 </div>
 </div>
-</section>
+
+<aside><div>
+<p><code>map()</code> runs the procedure 100 times; <code>list_rbind()</code> stacks the 100 one-row results into one tibble — Session 3’s <code>replicate()</code>, tibble-flavored. See the <a href="../resources.html#simulation-verbs">simulation verbs reference</a>.</p>
+</div></aside></section>
 <section id="the-classic-picture-seen" class="slide level2">
 <h2>The Classic Picture, Seen</h2>
 
@@ -511,6 +528,15 @@ sample estimates:
 <blockquote>
 <p>“95% of arrest rates fall in this interval.” <em>(The CI is about the population parameter, not individual observations.)</em></p>
 </blockquote>
+</section>
+<section id="the-sentence-you-wanted-to-say" class="slide level2">
+<h2>The Sentence You <em>Wanted</em> to Say</h2>
+<ul>
+<li class="fragment">“There’s a 95% probability the truth is in <em>this</em> interval” is forbidden only under <strong>frequentist rules</strong>: probability attaches to the <em>procedure</em>, never to the parameter</li>
+<li class="fragment">Attaching probability to a claim itself is exactly what <strong>Session 3’s Bayes’ theorem</strong> does — and the license costs a stated prior</li>
+<li class="fragment"><strong>Next week</strong> we compute an interval you <em>can</em> say that sentence about: the <strong>credible interval</strong></li>
+<li class="fragment">If the forbidden sentence felt like the natural reading all along — your intuitions were Bayesian. You’re in good company</li>
+</ul>
 </section>
 <section id="sample-size-buys-precision" class="slide level2">
 <h2>Sample Size Buys Precision</h2>

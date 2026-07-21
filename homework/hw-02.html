@@ -261,11 +261,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><strong>Instructions:</strong> complete the following exercises in a single <code>.R</code> script file. Include comments explaining your code and answers to any interpretive questions. Submit your <code>.R</code> file via <strong>Canvas</strong> for credit.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Before you start: one package to install
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This homework uses <code>mfv()</code> from the <strong>modeest</strong> package. If you haven’t installed it yet, run this once in the Console:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"modeest"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then put <code>library(modeest)</code> at the top of your script.</p>
+</div>
+</div>
 <section id="part-1-measures-of-central-tendency" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-measures-of-central-tendency">Part 1: Measures of Central Tendency</h2>
 <ol type="1">
 <li><p>Create a numeric vector with these sentence lengths (in years):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Calculate the <strong>mean</strong>, <strong>median</strong>, and <strong>mode</strong> of these sentences. Use both the manual (hard-coded) method <em>and</em> the built-in functions: <code>mean()</code>, <code>median()</code>, and <code>mfv()</code> from the <strong>modeest</strong> package.</p></li>
 <li><p>Plot a histogram of the sentence data. You may use <code>ggplot() + geom_histogram()</code> (as in Lab 2) or base R’s <code>hist()</code> — your choice.</p></li>
 <li><p><strong>Interpretation (in a comment):</strong> why might the mean give a misleading impression of typical sentence length in this example?</p></li>
@@ -275,8 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-2-measures-of-dispersion">Part 2: Measures of Dispersion</h2>
 <ol type="1">
 <li><p>Create two vote-count scenarios:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>scenario1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">175</span>, <span class="dv">300</span>, <span class="dv">425</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>scenario2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">299</span>, <span class="dv">300</span>, <span class="dv">301</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scenario1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">175</span>, <span class="dv">300</span>, <span class="dv">425</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>scenario2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">299</span>, <span class="dv">300</span>, <span class="dv">301</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Compute the range of each using <code>range()</code> and <code>diff()</code>.</p></li>
 <li><p>Compute the deviations from the mean for each set (subtract the mean from each value).</p></li>
 <li><p>Compute the <strong>sum of squared deviations</strong>, <strong>variance</strong>, and <strong>standard deviation</strong> — using:</p>
@@ -292,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-3-exploring-distributions">Part 3: Exploring Distributions</h2>
 <ol type="1">
 <li><p>Generate and plot a <strong>normal</strong> distribution using a <em>different</em> mean and standard deviation than used in class, e.g.:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Generate and plot a <strong>Poisson</strong> distribution with <code>lambda = 1</code>, and again with <code>lambda = 5</code>.</p></li>
 <li><p><strong>Reflection (in a comment):</strong></p>
 <ul>
@@ -305,8 +320,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-4-real-data">Part 4: Real Data</h2>
 <ol type="1">
 <li><p>Load the course anchor data:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Compute the mean, median, and standard deviation of <code>violent_rate</code> (violent crimes per 1,000 residents across Chicago’s 77 community areas).</p></li>
 <li><p>Make a histogram of <code>violent_rate</code>.</p></li>
 <li><p><strong>Interpretation (in a comment):</strong> based on the mean-vs-median comparison and the histogram’s shape, is <code>violent_rate</code> symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?</p></li>

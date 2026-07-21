@@ -195,7 +195,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-class" id="toc-before-class" class="nav-link active" data-scroll-target="#before-class">Before class</a></li>
+  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
+  <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   </ul>
@@ -230,10 +231,21 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-10-correlation.html">📽️ Slides: Associations Between Variables — Correlation</a></strong> · <strong><a href="../labs/lab-10-correlation.html">🧪 Lab 10: Correlation — Chicago Areas, Then a Null Worth Reporting</a></strong> · <strong><a href="../homework/hw-10.html">📝 Homework 10 + Project Checkpoint 2</a></strong></p>
+<p><strong><a href="../slides/week-10-correlation.html">📽️ Slides: Associations Between Variables — Correlation</a></strong> · <strong><a href="../labs/lab-10-correlation.html">🧪 Lab 10: Correlation — Chicago Areas, Then a Null Worth Reporting</a></strong> · <strong><a href="../homework/hw-10.html">📝 Homework 10 + Project Checkpoint 2</a></strong> · <strong><a href="../demos/demo-10-correlation.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-10.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
+<p>Before the midterm, every test had the same shape: a categorical grouping variable and a numeric outcome. The second half of the course drops the groups — this week <em>both</em> variables are numeric, and the question becomes whether two measures move together. Covariance grows into Pearson’s r, inference runs in both traditions, and the real-data thread climbs to Chicago’s 77 community areas — which forces the semester’s standing warning, the ecological fallacy, out into the open. Correlation is the doorway to regression in Sessions 11–12, where your final project lives; Checkpoint 2 computes the first associations in your own data.</p>
+<section id="learning-objectives" class="level2">
+<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
+<p>By the end of this week you can:</p>
+<ul>
+<li>interpret r’s sign and size — and explain why you always plot before you trust it (Anscombe’s quartet is the cautionary tale)</li>
+<li>test a correlation in both traditions: <code>cor.test()</code>, then the correlation package’s Bayesian output (posterior, credible interval, Bayes factor)</li>
+<li>explain the ecological fallacy in one sentence, and catch a claim that commits it</li>
+<li>report a null association honestly, letting the Bayes factor say “there’s nothing here”</li>
+</ul>
+</section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
@@ -255,6 +267,7 @@ ul.task-list li input[type="checkbox"] {
 <li>Inference on r, both traditions: <code>cor.test()</code> (t on n − 2 df, CI) and the <strong>correlation</strong> package — correlation matrices with Holm-adjusted p-values, then <code>bayesian = TRUE</code> for posterior medians, credible intervals, pd, and Bayes factors, including what the <code>"medium"</code> vs.&nbsp;<code>"wide"</code> prior actually changes</li>
 <li><strong>Lab 10:</strong> the full workflow yourself — Chicago areas, then the Lab 3 neighborhoods (real associations) and the Lab 6 officers, where the honest answer is a null and the Bayes factor lets you <em>say so</em></li>
 </ul>
+<p><em>Missed class? The <a href="../demos/demo-10-correlation.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>
