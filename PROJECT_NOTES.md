@@ -47,6 +47,13 @@ gh api -X POST repos/smourtgos/crju705/pages/builds
 
 Then hard-refresh the browser (Cmd+Shift+R) — reveal.js decks cache aggressively.
 
+**⚠️ Render gotcha — `quarto render` takes ONE input file.** `quarto render a.qmd b.qmd`
+does not render both: the extra paths get misparsed, the run half-fails with only a
+WARN, and `_site` silently keeps stale HTML. Render multiple files with a shell loop
+(`for f in …; do quarto render "$f"; done`) or do a full project render. Also: stale
+`*.rmarkdown` intermediates left in `slides/` by an interrupted render will crash the
+NEXT full render (globbed as targets, then not found) — delete them if a render dies.
+
 - **`CONVENTIONS.md`** is the rulebook — read it before adding anything. File naming, slide YAML template, lab structure, code style, the video rule, the slide-density rule.
 - **Answer keys & exams** live in `_private/` — that folder is BOTH render-excluded (in `_quarto.yml`) AND gitignored, so it never reaches the public site or git history. Render a key locally on demand: `quarto render _private/keys/hw-0N-key.qmd --to docx`.
 - **After any `_quarto.yml` change**, re-check nothing leaked: `grep -ri "answer" _site/ --exclude-dir=site_libs | grep -i key` should return nothing.
