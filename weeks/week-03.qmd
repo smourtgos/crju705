@@ -1,28 +1,47 @@
 ---
 title: "Session 3 · Reasoning with Probability"
-subtitle: "Outcome tables · the binomial · contingency tables · conditional probability"
+subtitle: "Outcome tables · the binomial · contingency tables · conditional probability · a first look at Bayes' theorem"
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Reasoning with Probability](../slides/week-03-probability.qmd)** · **[🧪 Lab 3: Data Transformation with dplyr](../labs/lab-03-transform.qmd)** · **[📝 Homework 3](../homework/hw-03.qmd)**
+**[📽️ Slides: Reasoning with Probability](../slides/week-03-probability.qmd)** · **[🧪 Lab 3: Data Transformation with dplyr](../labs/lab-03-transform.qmd)** · **[📝 Homework 3](../homework/hw-03.qmd)** · **[🎬 Demo walkthrough](../demos/demo-03-probability.qmd)** · **[✍️ Practice](../practice/practice-03.qmd)**
 :::
+
+Session 2 taught you to describe what data *are*; this week asks what data are *likely to be* — the first step toward inference. Probability gets taught the course's way: don't take a claim on faith, simulate it and watch it happen. Along the way you plant the seed the whole second half of the course grows from — conditional probability, and Bayes' theorem for reversing it — harvested in Session 6, when the two great traditions of inference meet on the same question. In lab, dplyr hands you the verbs every later analysis will use.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- build an outcome table for simple random events and a contingency table for linked ones
+- compute marginal, joint, and conditional probabilities — and explain conditioning as *filter, then re-proportion*
+- generate and plot random distributions in R with `rbinom()` and friends
+- use Bayes' theorem to reverse a conditional probability, and explain in plain language why the base rate is never optional
+- transform a dataset with dplyr: `filter()`, `arrange()`, `mutate()`, `summarize()`, `count()`
 
 ## Before class
 
 - Read: Stanton **Ch. 2** (Reasoning with Probability)
 - Read: R4DS **[Ch. 3 — Data transformation](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4 — Workflow: code style](https://r4ds.hadley.nz/workflow-style.html)**
+- Optional: skim the opening pages of Stanton **Ch. 5** (through the prior-probability discussion) — we take the first bite of that chapter today; the full chapter is assigned before Session 6
 - Bring your laptop with R, RStudio, and the course packages installed ([install guide](../resources.qmd#installing-r-and-rstudio))
 
 ## In class
+
+**This week's two threads:** probability (lecture + homework) · data transformation with dplyr (lab).
 
 - Homework 2 debrief — questions on descriptives
 - What a probability *is*: long-run proportion, seen by simulation (coin flips, then real arrest data)
 - Toast drops: outcome tables, the binomial distribution, `rbinom()`, cumulative probabilities
 - Contingency tables: marginal, joint, and conditional probability — dropped toast, the restaurant work schedule, and arrest × crime category in the Chicago data
-- Conditional probability as *filter, then re-proportion* — the seed of Bayes' theorem
+- Conditional probability as *filter, then re-proportion*
 - Independence: when conditioning doesn't move the number
+- **Bayes' theorem**: reversing a conditional — priors, posteriors, and a belief updating live, flip by flip
+- Base rates: why a "90% accurate" screening test can mean only ~15% in a rare-condition world (the Ianfluenza example)
 - In-class exercise: factory-accidents contingency table (paper, then dplyr — folded into Lab 3)
 - **Lab 3:** data transformation with dplyr (`filter`, `arrange`, `mutate`, `summarize`, `count`) using the `neighborhoods` data
+
+*Missed class? The [demo walkthrough](../demos/demo-03-probability.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

@@ -4,8 +4,19 @@ subtitle: "Odds and log-odds · glm(family = binomial) · odds ratios + predicte
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Logistic Regression](../slides/week-12-logistic.qmd)** · **[🧪 Lab 12: Logistic Regression — Chicago Neighborhoods, Then Alaska Nights](../labs/lab-12-logistic.qmd)** · **[📝 Homework 12 + Project Checkpoint 4](../homework/hw-12.qmd)**
+**[📽️ Slides: Logistic Regression](../slides/week-12-logistic.qmd)** · **[🧪 Lab 12: Logistic Regression — Chicago Neighborhoods, Then Alaska Nights](../labs/lab-12-logistic.qmd)** · **[📝 Homework 12 + Project Checkpoint 4](../homework/hw-12.qmd)** · **[🎬 Demo walkthrough](../demos/demo-12-logistic.qmd)** · **[✍️ Practice](../practice/practice-12.qmd)**
 :::
+
+Every model so far predicted a *number*; this week the outcome is yes or no — arrest or not, reoffend or desist — which is the form most criminal-justice questions actually take. A straight line can't live on a 0/1 outcome, so probability climbs the ladder to odds and log-odds, and `lm()` becomes `glm(family = binomial)`. It's also the week the course pays off its opening promise: the Session 1 bank-robbery model you couldn't read gets re-fit and finally read, line by line. This is the last session of new statistical content — the toolbox is complete, and Checkpoint 4 (the final one) fits your actual project model.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- explain why `lm()` fails on a 0/1 outcome, and how the probability → odds → log-odds ladder fixes it
+- fit a logistic regression in both traditions: `glm(family = binomial)` and `brm(family = bernoulli())`
+- translate coefficients into odds ratios *and* predicted probabilities — and keep the two straight
+- say logistic results in plain language a police chief could act on, without confusing odds with probability
 
 ## Before class
 
@@ -24,6 +35,8 @@ subtitle: "Odds and log-odds · glm(family = binomial) · odds ratios + predicte
 - The **Bayesian version**: `brm(family = bernoulli())` with the Session 8 settings, posterior odds ratios, and the credible-interval sentence you're allowed to say
 - Real-data thread: which Chicago community areas are **high-violence**? Unemployment (OR ≈ 1.45 per point) and vacant housing (OR ≈ 1.33 per point) both raise the odds; predicted probabilities run from ~3% (Forest Glen) to over 99% (West Garfield Park). Associations, not causes — and we say so.
 - **Lab 12:** the whole workflow yourself — Chicago walkthrough, then intoxicated-crash odds in the Alaska data with lubridate-built night/weekend flags, plus odds-ratio translation drills
+
+*Missed class? The [demo walkthrough](../demos/demo-12-logistic.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

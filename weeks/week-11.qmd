@@ -4,8 +4,20 @@ subtitle: "Least squares · the best-fitting plane in 3D · R² · holding const
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Multiple Linear Regression](../slides/week-11-regression.qmd)** · **[🧪 Lab 11: Multiple Regression — Chicago's 77 Areas, Then 500 Neighborhoods](../labs/lab-11-regression.qmd)** · **[📝 Homework 11 + Project Checkpoint 3](../homework/hw-11.qmd)**
+**[📽️ Slides: Multiple Linear Regression](../slides/week-11-regression.qmd)** · **[🧪 Lab 11: Multiple Regression — Chicago's 77 Areas, Then 500 Neighborhoods](../labs/lab-11-regression.qmd)** · **[📝 Homework 11 + Project Checkpoint 3](../homework/hw-11.qmd)** · **[🎬 Demo walkthrough](../demos/demo-11-regression.qmd)** · **[✍️ Practice](../practice/practice-11.qmd)**
 :::
+
+Session 10's correlation said *that* two variables travel together; regression answers the sharper question — *how much* the outcome changes per unit of a predictor, and with several predictors, how much each matters after accounting for the others. Least squares gets built from scratch on ten students' study hours, then scaled up to the interactive 3D plane through Chicago's 77 community areas, where you watch shared variance get reassigned as a second predictor enters. The humility rules ride along: adjusted associations still aren't causal effects, and area-level patterns still aren't people-level claims. Checkpoint 3 fits the first regression on your own project data — and if your outcome is a yes/no, Session 12 hands you the right tool.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- fit and interpret `lm()` with several predictors, reading each coefficient as "holding the others constant"
+- explain R² — and what happens to a coefficient when a correlated predictor joins the model
+- run the basic diagnostics: a residuals-vs-fitted plot read honestly, and VIF for multicollinearity
+- fit the Bayesian version with `brm()` and report a coefficient with the credible-interval sentence
+- state what a regression coefficient does — and doesn't — license you to claim
 
 ## Before class
 
@@ -24,6 +36,8 @@ subtitle: "Least squares · the best-fitting plane in 3D · R² · holding const
 - **The Bayesian version:** same formula in `brm()`, posterior distributions for each coefficient visualized with `bayesplot`, and the credible-interval sentence the confidence interval never allowed — plus model reporting sentences in both traditions
 - Standing warnings, now attached to coefficients: adjusted associations are not causal effects, and area-level associations are not people-level claims (the ecological fallacy rides along)
 - **Lab 11:** the full workflow yourself — Chicago start to finish, then your own model on the Lab 3 neighborhoods (including the residual plot's tell that a count outcome is starting to strain the linear model)
+
+*Missed class? The [demo walkthrough](../demos/demo-11-regression.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

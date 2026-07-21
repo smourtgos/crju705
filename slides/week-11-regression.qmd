@@ -455,7 +455,7 @@ areas |>
 
 . . .
 
-Same model, same fit. But −0.0006 "looks like" nothing; the honest reading is **~6 *fewer* violent crimes per 1,000 residents per $10,000 of median income**. Rescale before you interpret.
+Same model, same fit. But −0.0005 "looks like" nothing; the honest reading is **about 5 *fewer* violent crimes per 1,000 residents per $10,000 of median income**. Rescale before you interpret.
 
 ## Does a Third Predictor Earn Its Keep?
 
@@ -555,7 +555,11 @@ fixef(chi_bayes) |> round(2)
 
 . . .
 
-Posterior means land almost exactly on the least-squares estimates — with flat-ish default priors and decent *n*, they should. (Full `summary()`, with its convergence checks, in today's lab.)
+Posterior means land almost exactly on the least-squares estimates — with `brms`'s default priors (flat on the slopes, weakly informative on the intercept and spread) and decent *n*, they should. (Full `summary()`, with its convergence checks, in today's lab.)
+
+::: aside
+The Session 10 rule travels: defaults are fine, **but say which prior you used**. One sentence in your methods — "brms default priors, 2 chains × 2,000 iterations, seed 705" — covers it.
+:::
 
 ## The Posteriors, Seen
 

@@ -1,0 +1,134 @@
+---
+title: "Practice Problems · Session 5"
+subtitle: "Confidence intervals: building them, reading them, saying them honestly"
+---
+
+::: {.callout-note appearance="simple"}
+**Ungraded self-checks.** Work each problem in your own R session *before* clicking the solution. These use different numbers and variables than the homework on purpose — if you can do these cold, Homework 5 (and the midterm's inference questions) will feel routine.
+:::
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+set.seed(705)
+prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv",
+                      show_col_types = FALSE)
+crimes    <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv",
+                      show_col_types = FALSE)
+```
+
+All problems that use data need only:
+
+```{r}
+#| label: setup-shown
+#| eval: false
+library(tidyverse)
+prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
+crimes    <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
+```
+
+## Problem 1 · The margin of error, by hand
+
+Using `prisoners` (300 records), build a 95% CI for the mean of `months_served` with nothing but Session 4 parts: the sample mean, the standard error (`sd / sqrt(n)`), and ±1.96. Then check yourself against `t.test(prisoners$months_served)$conf.int`.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p1
+m  <- mean(prisoners$months_served)
+se <- sd(prisoners$months_served) / sqrt(nrow(prisoners))
+
+m
+se
+c(lo = m - 1.96 * se, hi = m + 1.96 * se)
+
+t.test(prisoners$months_served)$conf.int
+```
+
+By hand: 33.6 to 39.3 months. `t.test()` agrees to a decimal (it uses the t-distribution's 1.97 instead of the normal's 1.96 — with n = 300 that's a rounding error). The whole machine is just **estimate ± 1.96 × SE**: last week's standard error, cashed in.
+:::
+
+## Problem 2 · A proportion with `prop.test()`
+
+What share of these 300 prison records are **drug offenses**? Get the point estimate and a 95% CI with `prop.test()`. One warning: the output prints a p-value testing whether the proportion equals 0.5 — that's not a question anyone asked. Read past it to the interval.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p2
+prisoners |> summarize(prop_drug = mean(offense_type == "Drug"))
+
+prop.test(sum(prisoners$offense_type == "Drug"), n = nrow(prisoners))
+```
+
+Point estimate 29.7%, 95% CI **24.6% to 35.2%**. With only 300 records, the **confidence interval** spans about ±5 points — honest uncertainty that the lone number "29.7%" hides.
+:::
+
+## Problem 3 · Which sentence survives?
+
+Four draft sentences about Problem 2's interval. Exactly **one** is defensible — which, and what's wrong with each of the others?
+
+> (a) "There is a 95% probability that the true proportion of drug offenses is between 24.6% and 35.2%."
+>
+> (b) "We estimate that 29.7% of admissions are drug offenses (95% CI: 24.6% to 35.2%); the procedure that built this interval captures the true share 95% of the time."
+>
+> (c) "If we drew many new samples of 300, 95% of their sample proportions would land between 24.6% and 35.2%."
+>
+> (d) "We are 95% sure our sample's proportion is correct."
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p3
+round(prop.test(sum(prisoners$offense_type == "Drug"),
+                n = nrow(prisoners))$conf.int, 3)
+```
+
+**(b) survives.** (a) attaches a probability to *this particular* interval — under frequentist rules the truth is fixed, so it's either in there or it isn't; the 95% belongs to the procedure. (c) confuses the interval with the sampling distribution: future samples produce *new* intervals around *their own* estimates, not values inside this one. (d) is doubly wrong — the sample proportion is known exactly (29.7%); the uncertainty is entirely about the *population*. **Confidence-interval interpretation** in one line: the 95% describes the long-run capture rate of the method, never the odds on one interval.
+:::
+
+## Problem 4 · Buy precision with n
+
+Using `crimes`, estimate the proportion of incidents classified as **Violent** (`crime_category == "Violent"`) from a random sample of **300**, then from a sample of **1,200** — `slice_sample()`, then `prop.test()` for each. Before you run it: quadrupling n should do what to the CI's width? Verify.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p4
+set.seed(705)
+map(c(300, 1200), \(n) {
+  s  <- crimes |> slice_sample(n = n)
+  ci <- prop.test(sum(s$crime_category == "Violent"), n = n)$conf.int
+  tibble(n = n, estimate = mean(s$crime_category == "Violent"),
+         lo = ci[1], hi = ci[2], width = ci[2] - ci[1])
+}) |>
+  list_rbind()
+```
+
+This run: width ≈ 0.106 at n = 300 vs ≈ 0.053 at n = 1,200 — quadrupling the sample cut the width almost exactly in half, because **CI width shrinks with √n**. Precision is bought on a square-root discount: four times the data for twice the precision.
+:::
+
+## Problem 5 · Two groups, one honest sentence
+
+Do **drug** and **property** offenders differ in time served? Filter `prisoners` to those two offense types, compare the group means of `months_served`, then run `t.test(months_served ~ offense_type, ...)`. Careful on two fronts: which direction is R subtracting, and does the CI include zero? Finish with a one-sentence report a warden could read.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p5
+dp <- prisoners |> filter(offense_type %in% c("Drug", "Property"))
+
+dp |> summarize(mean_months = mean(months_served), sd_months = sd(months_served),
+                n = n(), .by = offense_type)
+
+t.test(months_served ~ offense_type, data = dp)
+```
+
+R orders groups alphabetically, so this is **Drug − Property**: the point estimate says drug offenders served about 4 fewer months, but the 95% CI runs from **−12.0 to +4.0 months — zero sits comfortably inside**. The honest sentence: "Drug offenders in our sample averaged about four fewer months served than property offenders, but with 163 records the data are consistent with anything from 12 fewer months to 4 more — including no difference at all." A **two-group CI** that crosses zero doesn't prove the groups are equal; it says this sample can't settle the direction. (Compare the homework's crash data, where the interval excluded zero — learn to say both outcomes out loud.)
+:::

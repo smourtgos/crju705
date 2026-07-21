@@ -9,6 +9,18 @@ format-links: [docx]
 
 **Instructions:** complete the following exercises in a single `.R` script file. Include comments explaining your code and answers to any interpretive questions. Submit your `.R` file via **Canvas** for credit.
 
+::: {.callout-important}
+## Before you start: one package to install
+
+This homework uses `mfv()` from the **modeest** package. If you haven't installed it yet, run this once in the Console:
+
+```r
+install.packages("modeest")
+```
+
+Then put `library(modeest)` at the top of your script.
+:::
+
 ## Part 1: Measures of Central Tendency
 
 1. Create a numeric vector with these sentence lengths (in years):

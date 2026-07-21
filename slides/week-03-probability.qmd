@@ -36,15 +36,34 @@ Anything from Lab 2 (ggplot) still shaky? We use every one of those tools again 
 
 ## This Week
 
-**Topic:** Essentials of probability (Stanton Ch. 2)
+**Topic:** Essentials of probability
 
 - Outcome tables — toast drops in place of coin tosses
 - The binomial distribution; generating random data
 - Contingency tables: marginal, joint, and conditional probability
+- A first pass at **Bayes' theorem** and base rates
 
-**Learning goals:** use outcome tables to reason about a simple set of random events, and contingency tables to reason about *linked* events; generate and plot random distributions in R.
+**Learning goals:** reason with outcome and contingency tables; generate random distributions in R; reverse a conditional with Bayes' theorem.
 
 **Today's rule:** don't take a probability claim on faith — **simulate it and watch it happen**.
+
+## Two Threads, One Course
+
+:::: columns
+::: {.column width="50%"}
+**Statistics thread** — lecture + homework
+
+Stanton Ch. 2 → probability, conditional thinking, and a first pass at Bayes' theorem
+:::
+
+::: {.column width="50%"}
+**Wrangling thread** — lab
+
+R4DS Ch. 3–4 → the dplyr verbs: `filter()`, `arrange()`, `mutate()`, `summarize()`, `count()`
+:::
+::::
+
+The two threads meet at the Session 7 workshop — the stats thread makes you a careful consumer of evidence; the wrangling thread is why your final project won't hurt.
 
 # What *Is* a Probability? {background-color="#73000A"}
 
@@ -68,6 +87,19 @@ replicate(6, mean(sample(c("heads", "tails"), size = 10, replace = TRUE) == "hea
 ```
 
 Ten flips is **not** the long run — batches of 10 bounce around, and none is entitled to land exactly on 0.5.
+
+## Our Simulation Verbs, In Words
+
+You just met the two verbs that power every simulation this semester:
+
+- `sample()` — run one random event (flip the coins, drop the toast)
+- `replicate(k, expr)` — repeat the whole recipe `k` times and collect the answers
+- One run = a **trial**; many runs = the **long run**
+- Later today, `rbinom()` compresses "flip six coins and count the heads" into a single call
+
+::: aside
+A plain-language reference for all the course's simulation verbs lives on the [Resources page](../resources.qmd#simulation-verbs).
+:::
 
 ## The Long Run, Seen
 
@@ -289,7 +321,7 @@ mean(gaps >= 2/3 - 3/7)   # how often does pure chance produce our gap?
 
 Even with **no real difference**, chance alone produces a gap at least this big well over half the time. Ten drops can't answer the question.
 
-*(This simulate-a-boring-world move is the seed of hypothesis testing — coming in a few weeks.)*
+*(This simulate-a-boring-world move is the seed of hypothesis testing — coming in Session 6.)*
 
 ## A Real Contingency Table
 
@@ -380,7 +412,7 @@ hours_long |>
   arrange(desc(p_day_given_bill))
 ```
 
-Most likely Saturday (0.26). That renormalization — *shrink the world to the condition, then re-proportion* — **is** conditional probability, and it's the core move behind Bayes' theorem later in the course.
+Most likely Saturday (0.26). That renormalization — *shrink the world to the condition, then re-proportion* — **is** conditional probability, and it's the core move behind Bayes' theorem at the end of today.
 
 ## Question 2: It's Monday — Who's Serving?
 
@@ -393,7 +425,7 @@ hours_long |>
   mutate(p_server_given_monday = hours / sum(hours))
 ```
 
-Devon (0.42). Note the asymmetry: P(Saturday | Bill) and P(Bill | Saturday) are **different questions with different answers**. The direction of conditioning matters — a lot, as we'll see when we get to Bayes.
+Devon (0.42). Note the asymmetry: P(Saturday | Bill) and P(Bill | Saturday) are **different questions with different answers**. The direction of conditioning matters — a lot. Bayes' theorem, in a few minutes, is the formula for flipping it.
 
 ## Conditioning = filter(), Then Proportion
 
@@ -437,9 +469,90 @@ P(arrest | domestic) and P(arrest | not domestic) are essentially identical to t
 
 **Definition:** A and B are **independent** when P(A | B) = P(A). Conditioning that moves the number = dependence; conditioning that doesn't = independence.
 
+# Reversing the Conditional: Bayes' Theorem {background-color="#73000A"}
+
+## The Question We Keep Almost Asking
+
+::: incremental
+- The restaurant taught us direction matters: P(Saturday | Bill) ≠ P(Bill | Saturday)
+- The narcotics trap was the same lesson with teeth: P(arrest | narcotics) ≈ .97 is **not** P(narcotics | arrest)
+- Real life keeps handing you one conditional — test accuracy, match rates, hit rates — and asking you for the *other one*
+- There is a formula for flipping the direction — legally
+:::
+
+## Enter Bayes' Theorem
+
+$$
+\underbrace{P(H \mid \text{data})}_{\textbf{posterior}} \;=\;
+\frac{\overbrace{P(\text{data} \mid H)}^{\textbf{likelihood}} \;\times\; \overbrace{P(H)}^{\textbf{prior}}}
+{\underbrace{P(\text{data})}_{\textbf{evidence}}}
+$$
+
+::: incremental
+- The left side is the *flipped* conditional — P(claim | evidence), built from P(evidence | claim). Read $H$ as any claim: "this patient is sick"
+- The denominator is today's re-proportioning move: shrink the world to the evidence you saw, re-scale to 1
+- The price of admission: a stated **prior** — what you believed before looking
+:::
+
+## Bayesian Updating, Watched Live
+
+Start moderately confident a coin is fair — a prior belief centered on "fair" — then flip it 100 times and update after every flip:
+
+![](../media/week-03/coinflip_updating.gif)
+
+This morning we watched a coin's *long-run proportion* converge. Same coin, new question: what do *we believe* about it, updated flip by flip? Beliefs are provisional, quantified, and revised by evidence — that is the entire philosophy in one gif.
+
+## The Dreaded *Adamsitis* Strain of *Ianfluenza*
+
+A screening problem (any resemblance to a frequent co-author is coincidental):
+
+- Prevalence **1%** — 10 cases per 1,000 people
+- Sensitivity **.90** — catches 90% of true cases
+- Specificity **.95** — clears 95% of the healthy
+
+Two questions that *sound* identical — and are not:
+
+1. $P(\text{test says} + \mid \text{actually sick})$ — what the brochure advertises
+2. $P(\text{actually sick} \mid \text{test says} +)$ — what you want in the exam room
+
+## Count It Out: 1,000 People
+
+|  | Test says **+** | Test says **−** | Total |
+|---|---:|---:|---:|
+| **Sick** (1%) | **9** caught | 1 missed | 10 |
+| **Healthy** | **~50** false alarms | ~941 cleared | 990 |
+| **Total** | ~59 | ~942 | 1,000 |
+
+Look closely — this is a *contingency table*, and P(sick | +) is the same move as P(day | Bill): shrink to the "test says +" column, re-proportion.
+
+. . .
+
+$$
+P(\text{sick} \mid +) \;=\; \frac{9}{9 + 50} \;\approx\; 15\%
+$$
+
+The test is "90% accurate" — and a positive result still means you are *probably fine*.
+
+## Priors Matter
+
+::: incremental
+- Read the test result the intuitive way — "the test is 90% accurate, so I'm 90% sick" — and you have silently treated $P(\text{data} \mid H)$ as $P(H \mid \text{data})$
+- The **base rate** (the prior: 1%) is what separates 90% from 15%. Ignoring it makes the test look far more powerful than it really is
+- Criminal justice runs on rare events: false confessions, officer-involved shootings, risk-assessment flags, gunshot-residue matches. Base-rate neglect is not a party trick here — it convicts people
+:::
+
+## Hold This Thought Until Session 6
+
+::: incremental
+- Today planted **two seeds**: the Super Challenge (simulate the boring world, see if chance explains your gap) and Bayes' theorem (update beliefs by evidence)
+- Those are the two great traditions of statistical inference — frequentist and Bayesian
+- **Session 6** runs both, side by side, on one real Chicago question
+- Until then: every conditional probability you meet, ask *which direction is this?*
+:::
+
 ## Today's Lab & Homework
 
 - **In-class exercise:** factory-accidents contingency table — on paper first, then in R (folded into Lab 3)
 - **Lab 3:** data transformation with dplyr — `filter()`, `arrange()`, `mutate()`, `summarize()`, `count()` ([lab page](../labs/lab-03-transform.qmd))
-- **Homework 3:** probability and conditional thinking (posted on the [Session 3 page](../weeks/week-03.qmd))
+- **Homework 3:** probability, conditional thinking, and a first Bayes'-theorem problem (posted on the [Session 3 page](../weeks/week-03.qmd))
 - **Read before Session 4:** Stanton Ch. 3 · R4DS [Ch. 5 (Data tidying)](https://r4ds.hadley.nz/data-tidy.html) & [Ch. 6 (Workflow: scripts and projects)](https://r4ds.hadley.nz/workflow-scripts.html)

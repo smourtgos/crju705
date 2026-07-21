@@ -4,8 +4,19 @@ subtitle: "Probabilities in the long run · law of large numbers · standard err
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Sampling Distributions](../slides/week-04-sampling-distributions.qmd)** · **[🧪 Lab 4: Tidy Data — Pivoting Longer and Wider](../labs/lab-04-tidy.qmd)** · **[📝 Homework 4](../homework/hw-04.qmd)**
+**[📽️ Slides: Sampling Distributions](../slides/week-04-sampling-distributions.qmd)** · **[🧪 Lab 4: Tidy Data — Pivoting Longer and Wider](../labs/lab-04-tidy.qmd)** · **[📝 Homework 4](../homework/hw-04.qmd)** · **[🎬 Demo walkthrough](../demos/demo-04-sampling-distributions.qmd)** · **[✍️ Practice](../practice/practice-04.qmd)**
 :::
+
+Session 3 gave you the rules single random events follow; this week zooms out to what happens when sampling *repeats*. Draw a thousand samples and the sample means themselves form a distribution — with a predictable shape, a predictable center, and a width you can compute (the standard error). Nothing gets derived: it's all live simulation, watching the law of large numbers and the central limit theorem appear on screen, including with 30,000 real Chicago incidents. This is the engine under every inference in the rest of the course — Session 5 cashes it in for confidence intervals.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- explain in your own words: law of large numbers, sampling distribution, standard error, central limit theorem
+- simulate a sampling distribution in R and connect its spread to the SD/√n formula
+- say why `var()` and `sd()` divide by n − 1 (Session 2's IOU, paid)
+- reshape data with `pivot_longer()` and `pivot_wider()`, and keep your scripts and projects organized
 
 ## Before class
 
@@ -15,6 +26,8 @@ subtitle: "Probabilities in the long run · law of large numbers · standard err
 
 ## In class
 
+**This week's two threads:** sampling distributions (lecture + homework) · tidy data with `pivot_longer()`/`pivot_wider()` (lab).
+
 - Theoretical vs. empirical probability: coin flips, the law of large numbers, and why "long run" is longer than you think
 - Simulating CJ probabilities: false-positive drug tests, stop-and-frisk hit rates, and why random ≠ balanced
 - Sampling from a visible population (`population-data.csv`): one sample, tail samples, and then **a thousand samples** — watching the sampling distribution of the mean form on screen
@@ -23,6 +36,8 @@ subtitle: "Probabilities in the long run · law of large numbers · standard err
 - Paying Session 2's IOU: a simulation showing why `var()` and `sd()` divide by n − 1
 - In-class exercise: probabilities in the long run (dice, known and unknown populations)
 - **Lab 4:** tidy data — `pivot_longer()`/`pivot_wider()` with city crime trends and reentry outcomes, plus scripts-and-projects hygiene
+
+*Missed class? The [demo walkthrough](../demos/demo-04-sampling-distributions.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

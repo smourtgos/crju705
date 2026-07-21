@@ -7,11 +7,23 @@ subtitle: "The finish line"
 Your complete project — R script, dataset, written report — was due **via Canvas before midnight Sunday**. No late submissions, no appeals. Presentations happen in class today.
 :::
 
+Fourteen sessions ago the course opened with a statistical model you couldn't read; today you present one you built. Everything the semester practiced converges here: a real criminal-justice question, data you cleaned yourself, a model fit and interpreted honestly, and — the part that matters most — saying what it all means in plain language. The written project is already in; today is about standing behind it.
+
+## Learning objectives
+
+By the end of this session you can:
+
+- deliver an 8-minute, evidence-backed presentation of your project: question, data, methods, results, and what they mean
+- answer questions about every line of your code — how it works and why you wrote it that way
+- interpret your findings for a non-statistician, limitations included, without overclaiming
+
 ## Format
 
-- Short presentation of your project to the class: your research question, data, methods, results, and what they mean
+- **8 minutes + 2 minutes of questions**, in the order announced at Session 13. At 8 minutes you'll be stopped so everyone presents — practice once with a timer
+- Slides or your rendered report on screen — either works, but you **must show your one key visualization**
 - **You will walk through your code and explain how and why it works.** Being unable to confidently explain your own code will affect your grade — this is the point of the [AI policy](../syllabus.qmd#use-of-artificial-intelligence-tools)
 - Questions from the class and from me
+- The presentation is **8% of your course grade**; the full grading criteria are in the [presentation spec](../final-project.qmd#the-presentation-8-of-course-grade)
 
 ## What makes a good presentation
 

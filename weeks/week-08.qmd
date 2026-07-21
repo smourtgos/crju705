@@ -4,8 +4,19 @@ subtitle: "Two kinds of variance · the F-ratio · aov() + Tukey's HSD · Bayesi
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Comparing Groups and Analyzing Experiments](../slides/week-08-anova.qmd)** · **[🧪 Lab 8: ANOVA — Three Classrooms, Then Real Crashes](../labs/lab-08-anova.qmd)** · **[📝 Homework 8 + Project Checkpoint 1](../homework/hw-08.qmd)**
+**[📽️ Slides: Comparing Groups and Analyzing Experiments](../slides/week-08-anova.qmd)** · **[🧪 Lab 8: ANOVA — Three Classrooms, Then Real Crashes](../labs/lab-08-anova.qmd)** · **[📝 Homework 8 + Project Checkpoint 1](../homework/hw-08.qmd)** · **[🎬 Demo walkthrough](../demos/demo-08-anova.qmd)** · **[✍️ Practice](../practice/practice-08.qmd)**
 :::
+
+Session 6 compared two group means; this week asks the question real research runs into constantly — what if there are three groups, or six? A pile of t-tests backfires (the false alarms compound), so ANOVA asks one omnibus question instead, built from two kinds of variance you already understand from Session 4's sampling distributions. As always the workflow runs in both traditions: `aov()` with Tukey's HSD, then `brms` with `emmeans`. It's also the week your final project turns graded — Checkpoint 1 rides along with Homework 8 — and Session 9 is the midterm.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- explain what the F-ratio compares: between-group signal against within-group noise
+- run and read a one-way ANOVA in both traditions (`aov()`, then `brm()` + `emmeans()`)
+- follow a significant F with an honest pairwise answer — Tukey's HSD or posterior contrasts
+- report direction *and* magnitude every time, including when a pair shows no credible difference
 
 ## Before class
 
@@ -24,6 +35,8 @@ subtitle: "Two kinds of variance · the F-ratio · aov() + Tukey's HSD · Bayesi
 - The **Bayesian version**: `brm()` with the same formula, then `emmeans()` for posterior group means and `pairs()` for differences — the interval-crossing-zero reading
 - Real-data thread: does mean incident hour differ across Chicago's Violent / Property / Other categories? Both traditions say yes for every pair — by 15 to 41 minutes. Detectable ≠ dramatic, now with three groups.
 - **Lab 8:** the full workflow yourself — the classrooms, then injuries by crash cause in the Alaska data (including one pair with *no* credible difference, so you practice saying that out loud)
+
+*Missed class? The [demo walkthrough](../demos/demo-08-anova.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

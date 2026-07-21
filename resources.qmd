@@ -42,8 +42,10 @@ Press Enter. If you see `[1] 4`, you're ready.
 Paste this into the Console and press Enter (it takes a few minutes):
 
 ```r
-install.packages(c("tidyverse", "swirl", "BayesFactor", "here"))
+install.packages(c("tidyverse", "swirl", "BayesFactor", "here", "modeest"))
 ```
+
+(`modeest` is small but easy to miss — Homework 2 and the mid-term use it to find the mode. A few later packages — `brms`, `emmeans`, `correlation`, `car` — are staged in the weeks that need them; each week's session page tells you what to install.)
 
 ### Troubleshooting
 
@@ -79,7 +81,50 @@ prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
 
 The two **Chicago anchor files are real data** (Chicago Police Department portal + Census/ACS via CMAP) — see the [full codebook and caveats](chicago-data.qmd). The remaining datasets are simulated but realistic, generously shared by a colleague.
 
+## Demos & practice {#demos-practice}
+
+Most sessions have two self-contained companion pages — every chunk on them runs as-is in your own R session:
+
+- **Demo walkthroughs** — the lecture's live demos, written down step by step. Missed a class (or want to re-run what happened on screen)? Start here.
+- **Practice banks** — ungraded self-check problems with hidden solutions (click to reveal). The midterm covers Sessions 1–8, so practice pages 2–8 are the best exam prep.
+
+| Session | Demo walkthrough | Practice problems |
+|---|---|---|
+| 1 · Intro & R setup | [Demo 1](demos/demo-01-intro.qmd) | — (the swirl tutorials are the practice) |
+| 2 · Descriptive statistics | [Demo 2](demos/demo-02-descriptives.qmd) | [Practice 2](practice/practice-02.qmd) |
+| 3 · Probability & Bayes' theorem | [Demo 3](demos/demo-03-probability.qmd) | [Practice 3](practice/practice-03.qmd) |
+| 4 · Sampling distributions | [Demo 4](demos/demo-04-sampling-distributions.qmd) | [Practice 4](practice/practice-04.qmd) |
+| 5 · Confidence intervals | [Demo 5](demos/demo-05-confidence-intervals.qmd) | [Practice 5](practice/practice-05.qmd) |
+| 6 · Hypothesis testing (freq + Bayes) | [Demo 6](demos/demo-06-hypothesis-testing.qmd) | [Practice 6](practice/practice-06.qmd) |
+| 7 · Applied data workshop | [Demo 7](demos/demo-07-workshop.qmd) | — (Lab 7 on your own data is the practice) |
+| 8 · ANOVA | [Demo 8](demos/demo-08-anova.qmd) | [Practice 8](practice/practice-08.qmd) |
+| 10 · Correlation | [Demo 10](demos/demo-10-correlation.qmd) | [Practice 10](practice/practice-10.qmd) |
+| 11 · Multiple regression | [Demo 11](demos/demo-11-regression.qmd) | [Practice 11](practice/practice-11.qmd) |
+| 12 · Logistic regression | [Demo 12](demos/demo-12-logistic.qmd) | [Practice 12](practice/practice-12.qmd) |
+
+## The simulation verbs, in plain language {#simulation-verbs}
+
+Every simulation in this course is built from a tiny vocabulary. When code looks dense, translate it with this table:
+
+| Verb | Reads as | First appears |
+|---|---|---|
+| `sample(x, size, replace)` | "run one random event" — draw `size` values from `x` | Session 3 |
+| `replicate(k, expr)` | "repeat the whole recipe `k` times and collect the answers" | Session 3 |
+| `rbinom(n, size, prob)` | "flip `size` coins and count the successes — done `n` times" | Session 3 |
+| `\(x) ...` | an *anonymous function*: "a mini-recipe with slot `x`" | Sessions 3–4 |
+| `map_dbl(v, \(x) ...)` | "for each element of `v`, run the recipe; return one **number** each" — `replicate()`, tidyverse-flavored | Session 4 |
+| `map(v, \(x) ...)` | same, but each result can be a whole object — results arrive as a **list column** | Session 4 |
+| `list_rbind(l)` | "stack a list of small tibbles into one tibble" | Session 5 |
+| `expand_grid(a = ..., b = ...)` | "every combination of these values, as rows" | Session 4 |
+| `set.seed(705)` | "start the random-number generator at a fixed spot, so results reproduce" | everywhere |
+
+Two idioms worth naming once:
+
+- **The thousand-times pattern:** `tibble(draw = 1:1000) |> mutate(stat = map_dbl(draw, \(d) ...))` — "do it 1,000 times, keep every answer in a column." This powers most figures in Sessions 4–6.
+- **List columns:** `s = map(draw, \(d) sample(...))` makes a column where each cell holds an *entire sample*. You never need to write one from scratch in this course — you only need to read past it and watch what's computed from it.
+
 ## Getting help
 
 - **In this order:** R's built-in help (`?mean`), the R4DS [Getting Help chapter](https://r4ds.hadley.nz/workflow-help.html), a classmate, then me.
+- **Office hours are on request** — email me and we'll set a time (virtual or in person), usually within a day or two. Don't sit stuck for days; that is exactly what the appointment is for.
 - AI tools (ChatGPT, Claude, etc.) are welcome as *collaborators* — see the [syllabus AI policy](syllabus.qmd#use-of-artificial-intelligence-tools) — but you must be able to explain every line you submit.

@@ -1,0 +1,252 @@
+---
+title: "Demo Walkthrough · Session 3"
+subtitle: "Probability, via simulation — and a first look at Bayes' theorem"
+---
+
+::: {.callout-note appearance="simple"}
+**What this page is.** The Session 3 lecture demos, written down step by step. Every chunk below is self-contained — copy any of them into your own R session and they run as-is. Use this page to catch up after a missed class, or to re-run what happened on screen at your own pace.
+:::
+
+## What you'll build
+
+1. A demonstration that a probability *is* a long-run proportion — on coins, then on 30,000 real Chicago incidents
+2. The binomial distribution, discovered by simulation before you ever see `dbinom()`
+3. Contingency tables: joint, marginal, and conditional probability on real data
+4. The conditioning move — *shrink the world, re-proportion* — run in both directions
+5. Bayes' theorem as a counting exercise, and a simulation that proves the surprising answer
+
+## Setup
+
+Everything below needs only the tidyverse and the course's anchor dataset:
+
+```{r}
+#| label: setup
+library(tidyverse)
+set.seed(705)
+
+crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv",
+                   show_col_types = FALSE)
+```
+
+## 1 · A probability is a long-run proportion
+
+The claim: a fair coin lands heads with probability 0.5. Don't take it on faith — flip:
+
+```{r}
+#| label: flips-10
+flips <- sample(c("heads", "tails"), size = 10, replace = TRUE)
+flips
+mean(flips == "heads")
+```
+
+Ten flips bounce around. `replicate()` repeats the whole recipe — here, six more batches of ten:
+
+```{r}
+#| label: flips-batches
+replicate(6, mean(sample(c("heads", "tails"), size = 10, replace = TRUE) == "heads"))
+```
+
+None of the batches is entitled to land exactly on 0.5. Now watch what happens as the run gets long:
+
+```{r}
+#| label: lln-plot
+#| fig-height: 4.5
+lln <- tibble(flip = sample(c(1, 0), size = 100000, replace = TRUE)) |>
+  mutate(n_flips = row_number(),
+         running_prop = cummean(flip))
+
+ggplot(lln, aes(n_flips, running_prop)) +
+  geom_line(color = "firebrick") +
+  geom_hline(yintercept = 0.5, linetype = "dashed") +
+  scale_x_log10() +
+  labs(title = "The long run pins the proportion to 0.5",
+       x = "Number of flips (log scale)", y = "Running proportion of heads")
+```
+
+Wobbly early, pinned eventually. A **probability** is the value the long-run proportion settles on.
+
+### The same thing, on real data
+
+Each of the 30,000 Chicago incidents either ended in arrest or didn't — 30,000 recorded trials:
+
+```{r}
+#| label: p-arrest
+mean(crimes$arrest)
+```
+
+(`arrest` is TRUE/FALSE; `mean()` of a logical is the proportion of TRUEs — you'll use this trick constantly.) And the long run works here too — read case files one at a time, tracking the running proportion:
+
+```{r}
+#| label: lln-arrest
+#| fig-height: 4.5
+running <- tibble(arrest = sample(crimes$arrest, size = 5000)) |>
+  mutate(n_cases = row_number(),
+         running_prop = cummean(arrest))
+
+ggplot(running, aes(n_cases, running_prop)) +
+  geom_line(color = "navy") +
+  geom_hline(yintercept = mean(crimes$arrest), linetype = "dashed") +
+  scale_x_log10() +
+  labs(title = "Small samples lie; long runs don't",
+       x = "Case files read (log scale)", y = "Running proportion arrested")
+```
+
+## 2 · The binomial, discovered by simulation
+
+Session 3's toast restaurant: each dropped order is six pieces of toast, each landing topping-down or topping-up. `rbinom()` compresses "drop six pieces and count the downs" into one call — here are 100 dropped orders:
+
+```{r}
+#| label: rbinom-demo
+drops <- rbinom(n = 100, size = 6, prob = 0.5)
+tibble(jelly_down = drops) |> count(jelly_down)
+```
+
+Run it again and the counts change — that's **sampling variability**, and 100 trials is a shortish run. So make the run long, and compare against the theoretical binomial probabilities:
+
+```{r}
+#| label: binom-converge
+tibble(jelly_down = rbinom(n = 100000, size = 6, prob = 0.5)) |>
+  count(jelly_down) |>
+  mutate(
+    simulated   = n / sum(n),
+    theoretical = dbinom(jelly_down, size = 6, prob = 0.5)
+  )
+```
+
+At 100,000 trials the two columns agree to within a few thousandths. **Theory is the long run; simulation is how we watch the long run.**
+
+## 3 · Contingency tables on real data
+
+Two classifications per incident — crime category and arrest — cross-counted:
+
+```{r}
+#| label: crimes-xtab
+crimes |>
+  count(crime_category, arrest) |>
+  pivot_wider(names_from = arrest, values_from = n)
+```
+
+**Joint** probability: divide every cell by the grand total.
+
+```{r}
+#| label: crimes-joint
+crimes |>
+  count(crime_category, arrest) |>
+  mutate(p = n / sum(n))
+```
+
+**Marginal** probability: collapse one classification.
+
+```{r}
+#| label: crimes-marginal
+crimes |> count(crime_category) |> mutate(p = n / sum(n))
+```
+
+## 4 · Conditioning: shrink the world, re-proportion
+
+The lecture's restaurant work schedule, computed live. The question "Bill is your server — what day is it?" *rules out* every other server, so: isolate Bill's column, re-scale it to sum to 1.
+
+```{r}
+#| label: hours-data
+hours <- tribble(
+  ~day,        ~Anne, ~Bill, ~Calvin, ~Devon,
+  "Monday",        6,     0,       5,      8,
+  "Tuesday",       0,     6,       6,      0,
+  "Wednesday",     8,     5,       0,      8,
+  "Thursday",      4,     6,       5,      8,
+  "Friday",        8,     8,       5,      8,
+  "Saturday",      8,    10,       8,      8,
+  "Sunday",        0,     3,       6,      0
+)
+hours_long <- hours |> pivot_longer(-day, names_to = "server", values_to = "hours")
+
+hours_long |>
+  filter(server == "Bill") |>
+  mutate(p_day_given_bill = hours / sum(hours)) |>
+  arrange(desc(p_day_given_bill))
+```
+
+Same move, other direction — "it's Monday; who's serving?":
+
+```{r}
+#| label: monday-normalize
+hours_long |>
+  filter(day == "Monday") |>
+  mutate(p_server_given_monday = hours / sum(hours))
+```
+
+Note the asymmetry: P(Saturday | Bill) and P(Bill | Saturday) are **different questions with different answers**. Hold that thought — it's the whole reason Bayes' theorem exists.
+
+### On real data, conditioning is just *subset, then mean*
+
+```{r}
+#| label: arrest-by-category
+crimes |>
+  summarize(p_arrest = mean(arrest), n = n(), .by = crime_category)
+```
+
+Knowing the category *moves* the arrest probability → the variables are **dependent**. And the famous trap:
+
+```{r}
+#| label: narcotics
+crimes |>
+  filter(primary_type == "NARCOTICS") |>
+  summarize(p_arrest = mean(arrest), n = n())
+```
+
+Is Chicago spectacular at solving drug crimes? No — a narcotics *record* usually exists **because** someone was arrested. Conditional probabilities describe the data-generating process, not just the world.
+
+Independence is what it looks like when conditioning *doesn't* move the number:
+
+```{r}
+#| label: independence
+mean(crimes$arrest)
+crimes |>
+  summarize(p_arrest = mean(arrest), n = n(), .by = domestic)
+```
+
+## 5 · Bayes' theorem: count it out, then simulate it
+
+The Ianfluenza screening problem: prevalence **1%**, sensitivity **.90**, specificity **.95**. The brochure advertises P(test + | sick) = .90. You, in the exam room, want the *reversed* conditional: P(sick | test +). Count 1,000 people:
+
+```{r}
+#| label: bayes-table
+tribble(
+  ~status,    ~test_pos, ~test_neg, ~total,
+  "Sick",             9,         1,     10,
+  "Healthy",         50,       940,    990,
+  "Total",           59,       941,   1000
+)
+
+9 / (9 + 50)   # P(sick | test +)
+```
+
+About **15%** — because the false alarms from the huge healthy pool swamp the true positives. If that seems impossible, apply Session 3's rule: *don't take a probability claim on faith — simulate it and watch it happen.*
+
+```{r}
+#| label: bayes-sim
+sim <- tibble(
+  sick = sample(c(TRUE, FALSE), size = 100000, replace = TRUE,
+                prob = c(0.01, 0.99))
+) |>
+  mutate(
+    test_pos = if_else(
+      sick,
+      sample(c(TRUE, FALSE), size = 100000, replace = TRUE, prob = c(0.90, 0.10)),
+      sample(c(TRUE, FALSE), size = 100000, replace = TRUE, prob = c(0.05, 0.95))
+    )
+  )
+
+sim |>
+  filter(test_pos) |>
+  summarize(p_sick_given_pos = mean(sick), n_positive = n())
+```
+
+100,000 simulated patients, filter to the positives, take the mean — the long run lands right on the counting-table answer. The base rate is never optional.
+
+## Try a variation
+
+1. In the long-run arrest plot, change `size = 5000` to `size = 200`. How wrong can the early running proportion be?
+2. Re-run the binomial convergence with `prob = 0.7` (a biased toast-dropper). Which outcome becomes most common?
+3. In the screening simulation, raise the prevalence from `0.01` to `0.20` (a high-risk clinic). What happens to P(sick | +)? *(This is the entire "priors matter" lesson in one edit.)*
+4. Find a `primary_type` where P(arrest | type) is *lower* than the overall arrest rate. What might that say about how those records enter the data?

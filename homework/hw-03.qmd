@@ -58,3 +58,17 @@ Parts 1–3 use the built-in `mtcars` dataset (type `mtcars` in the console — 
 13. Compute P(arrest | domestic == TRUE) and compare it to your overall P(arrest) from Q11.
 
 14. **Interpretation (in a comment):** based on Q12 and Q13 — which variable (`crime_category` or `domestic`) is closer to *independent* of arrest in these data, and how can you tell? Use the definition from lecture: A and B are independent when P(A | B) = P(A).
+
+## Part 5: Reversing a Conditional
+
+A roadside field drug test has these properties:
+
+- **5%** of stopped drivers actually carry drugs (the base rate)
+- The test flags **90%** of drivers who carry (sensitivity)
+- The test also flags **8%** of drivers who do *not* carry (false-positive rate)
+
+15. For 1,000 stops, build the counting table from lecture — how many carriers get flagged, how many non-carriers get flagged? You can do the arithmetic directly in R (e.g., `1000 * 0.05 * 0.90`) or lay it out with `tribble()`. Report the total number of flagged drivers.
+
+16. Using your counts from Q15, compute **P(carries | flagged)** — the probability a *flagged* driver actually carries.
+
+17. **Interpretation (in a comment):** the manufacturer advertises the test as "90% accurate." In one or two sentences: why is your Q16 answer nowhere near 90%, and which conditional probability does the "90%" actually describe?

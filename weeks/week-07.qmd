@@ -4,8 +4,19 @@ subtitle: "The full pipeline on messy data · import → tidy → describe → v
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Applied Data Workshop](../slides/week-07-workshop.qmd)** · **[🧪 Lab 7: The Full Pipeline](../labs/lab-07-workshop.qmd)** · **[📝 Homework 7](../homework/hw-07.qmd)**
+**[📽️ Slides: Applied Data Workshop](../slides/week-07-workshop.qmd)** · **[🧪 Lab 7: The Full Pipeline](../labs/lab-07-workshop.qmd)** · **[📝 Homework 7](../homework/hw-07.qmd)** · **[🎬 Demo walkthrough](../demos/demo-07-workshop.qmd)**
 :::
+
+Sessions 1–6 handed you the pipeline one piece at a time — import, tidy, transform, visualize, test — always on suspiciously clean data. This week there's no new statistics at all: the pieces get assembled, start to finish, on data nobody cleaned for you. After one fast worked pass together, most of the session is Lab 7 run on the dataset *you're* proposing for the final project — which makes this the week your project genuinely begins: the formal dataset selection is due in Homework 7, and graded checkpoints start at Session 8.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- run import → tidy → transform → visualize → test start to finish, without a template
+- diagnose what's wrong with a dataset you've never seen — types, missingness, structure
+- settle a real question at the end of your own pipeline with a t-test run both ways (`t.test()` and `ttestBF()`)
+- commit to a final-project dataset you can defend in one sentence
 
 ## Before class
 
@@ -21,6 +32,8 @@ subtitle: "The full pipeline on messy data · import → tidy → describe → v
 - One worked pass, start to finish, on the Alaska crash data: import with type fixes, derived time-of-day variables, group summaries, two polished plots, and the Homework 5 question settled with a t-test run **both ways** — `t.test()` and `ttestBF()`
 - **Most of the session is Lab 7**: the same pipeline, run on the dataset *you're* proposing for the final project — import it, audit its missingness, summarize it, plot it, and write an honest feasibility memo
 - Exit ticket: your dataset's name and source, plus the biggest cleaning obstacle you hit
+
+*Missed class? The [demo walkthrough](../demos/demo-07-workshop.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

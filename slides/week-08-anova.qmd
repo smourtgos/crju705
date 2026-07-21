@@ -344,9 +344,18 @@ bayes_rain <- brm(rainfall ~ group, data = rain,
 
 ::: incremental
 - Identical formula syntax to `aov()` — this pattern carries through the rest of the course
-- Default priors: flat on the group coefficients — the data do the talking
+- Priors: we didn't state any, so `brms` used its **defaults** — more on what that means on the next slide
 - `chains = 2, iter = 2000`: two independent MCMC runs, 2,000 draws each → a full **posterior distribution** for every group mean
 - `refresh = 0` just silences the sampling progress log
+:::
+
+## The Prior We Just Used
+
+::: incremental
+- `brms`'s defaults: essentially **flat on the group coefficients**, weakly informative on the intercept and spread
+- Flat priors = "the data do the talking." Fine at this *n* — but *say so*: **"we used brms default priors"** belongs in any writeup that reports a posterior
+- One logic, several badges: `ttestBF()` (S6), `brm()` (today), `correlation` (S10) — **different interfaces, same move**: prior + likelihood → posterior
+- Session 10 shows what happens when you deliberately *change* the prior — and when it matters
 :::
 
 ## Posterior Group Means

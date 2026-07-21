@@ -189,6 +189,8 @@ nbhd <- nbhd |>
 
 **5. *(Stretch)* Does disorder earn its keep?** Add `disorder_level` to the frequentist model (make it a factor with levels Low → Moderate → High → Very High first). Check the coefficients and the **adjusted** R². Does observed disorder tell you anything about assaults that poverty and unemployment didn't already? Connect your answer to lecture's third-predictor slide.
 
+*(Reading a factor in `lm()`: R drops the first level — Low — as the reference, so each `disorder_level` coefficient is that level's difference from Low, holding the other predictors constant. Same idea as ANOVA's group comparisons, wearing regression clothes.)*
+
 ```{r}
 #| label: yt-5
 #| eval: false

@@ -4,8 +4,19 @@ subtitle: "Central tendency · dispersion · distributions · first ggplots"
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Descriptive Statistics](../slides/week-02-descriptives.qmd)** · **[🧪 Lab 2: First Plots with ggplot2](../labs/lab-02-visualize.qmd)** · **[📝 Homework 2](../homework/hw-02.qmd)**
+**[📽️ Slides: Descriptive Statistics](../slides/week-02-descriptives.qmd)** · **[🧪 Lab 2: First Plots with ggplot2](../labs/lab-02-visualize.qmd)** · **[📝 Homework 2](../homework/hw-02.qmd)** · **[🎬 Demo walkthrough](../demos/demo-02-descriptives.qmd)** · **[✍️ Practice](../practice/practice-02.qmd)**
 :::
+
+Session 1 handed you the raw material — variables and their levels of measurement — and swirl got your fingers moving in R. This week you start actually describing data: where a distribution centers, how much it spreads, and what shapes distributions take (including the normal and the Poisson, which turn out to be everywhere in criminal justice). It's also the week the course's two threads officially launch: statistics in lecture and homework, data wrangling in lab, beginning with your first real ggplots. Every later topic — probability, inference, regression — rests on being able to describe a distribution honestly, so this vocabulary never leaves.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- define in your own words: mean, median, mode, variance, and standard deviation — and say when the mean misleads
+- compute and interpret measures of center and spread in R
+- recognize a distribution's shape from a histogram — normal, skewed, or Poisson-like counts — and say why shape matters for what comes next
+- build a histogram, bar chart, and boxplot with ggplot2
 
 ## Before class
 
@@ -15,12 +26,16 @@ subtitle: "Central tendency · dispersion · distributions · first ggplots"
 
 ## In class
 
+**This week's two threads:** descriptive statistics (lecture + homework) · data visualization with ggplot2 (lab).
+
 - swirl debrief — what was confusing, what clicked
 - Measures of central tendency: mean, median, mode (and when each misleads)
 - Measures of dispersion: range, deviations, variance, standard deviation
 - Distributions: histograms, the normal distribution and the empirical rule, the Poisson
 - Real-data thread: skew and spread in Chicago's community-level crime rates
 - **Lab 2:** first plots with ggplot2 (histograms, bar charts, boxplots) using the `prisoners` data
+
+*Missed class? The [demo walkthrough](../demos/demo-02-descriptives.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

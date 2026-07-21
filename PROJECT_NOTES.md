@@ -70,7 +70,19 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
 
-## STATUS: Phases 1 AND 2 COMPLETE ✅ — full course built
+## STATUS: Phase 3 (July 2026 course-review overhaul) COMPLETE ✅
+
+A full pedagogical review (three parallel deep-reads: architecture/student journey, sessions 1–7, sessions 8–14 + assessments) found the teaching strong but flagged: S6 overloaded (all first-half Bayes in one 622-line deck), no grade weights anywhere, a project-deadline contradiction, hubs as bare pointer pages, an assessment envelope lagging the teaching (2025 iris midterm, no rubric weights, no exemplar, no presentation spec), and a set of smaller seams. Everything below was then built/fixed in one pass (per-decision sign-offs from Scott: grade weights 45/25/30, midterm ships a pre-fit brms .rds, final model reported in BOTH traditions, presentations 8 min + 2 Q&A):
+
+- **Bayes thread from week 1**: Bayes' theorem + base-rate screening MOVED from S6 to S3 (S6's Act II is now a 2-slide recap; MCMC demoted to a visible optional appendix; BF scale extended 10–30/30–100/100+ so S10's "extreme" reference resolves); seed slides in S1 ("You Already Think Like a Bayesian"), S4 (base-rate redux), S5 (forbidden-sentence → credible-interval setup); "Two Threads, One Course" bridge slides S2–S6; simulation-verbs aside (S3) + used-before-taught captions (S4/S5); hw-03 gained Part 5 (Bayes counting table) + key; coinflip gif now in media/week-03/.
+- **Prior-narrative consistency**: "The Prior We Just Used" beat added to S8; S11/S12 now state the brms defaults + the "say which prior you used" reporting rule (S10 was already the standard).
+- **Self-contained infrastructure**: 11 demo walkthrough pages (`demos/`) reproducing every deck's live demos with public-URL data and no instructor-only dependencies; 9 practice banks (`practice/`) with collapsed public solutions; all 14 hubs upgraded (story paragraph, learning objectives, demo/practice links, missed-class pointers, two-threads lines); resources.qmd gained the demos/practice index + a plain-language simulation-verbs reference; CONVENTIONS.md documents the two new file families; `demos/` + `practice/` added to the _quarto.yml render allowlist.
+- **Assessment envelope**: syllabus grade-weights table (HW/labs/in-class 45 · midterm 25 · project 30 [report 22 + presentation 8 — split is a DRAFT for Scott]); project deadline reconciled everywhere to Canvas-Sunday; **midterm-2026.R drafted** + worked key + pre-fit `midterm-anova-fit.rds` (see `_private/notes/MIDTERM-REVIEW-NEEDED.md` — now a review checklist); final-project.qmd gained a weighted rubric grid + the 8-min presentation spec + the both-traditions final-model requirement (hw-12 + key updated to match); public worked exemplar (`final-project-exemplar.qmd` + downloadable script) on crash-ak.
+- **Accuracy fixes caught during the build**: S2 "Who's Dragging the Mean?" prose credited the Loop but the output shows Fuller Park (fixed); S11 "Watch the Units" said ~6/−0.0006 for a −5.22 coefficient (now ~5/−0.0005). All logged in the CHANGES files.
+
+Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (new "Course-review pass (July 2026)" sections).
+
+## Previous status: Phases 1 AND 2 COMPLETE ✅ — full course built
 
 All 14 sessions, the final-project system, and the midterm study guide are built, verified, and live. (Phase 2 completed July 2026 — sessions 6–12 decks/labs/homework/keys, workshop session, project checkpoints 1–4, midterm/help/presentations pages, final-project page, media transcoded via macOS `avconvert`.)
 
@@ -89,14 +101,17 @@ Also done: site scaffold, GitHub Pages pipeline, syllabus (migrated + reparamete
 ## TODO when you come back
 
 ### Decisions / reviews needed from Scott
-- [ ] **Confirm Fall 2026 dates.** Session dates are PROVISIONAL — set `firstday` and the break/conference dates at the top of `syllabus.qmd` once USC's official calendar is out. Everything recomputes from those. Also update the placeholder date language on `final-project.qmd`.
-- [ ] **Canvas vs. Blackboard** — materials say "Canvas"; 2025 syllabus said Blackboard. Confirm.
-- [ ] **REVISE THE MIDTERM** — see `_private/notes/MIDTERM-REVIEW-NEEDED.md`. The 2025 exam (archived in `_private/exams/`) tests on `iris`, which the 2026 course retired. The public study guide (`midterm.qmd`) is already updated to the 2026 stack.
-- [ ] **Review the `_private/notes/CHANGES-week-*.md` files** (one per session, 1–12) — every substantive change vs. 2025 is itemized. Biggest flags:
-  - **Real bugs found in 2025 materials:** S3 homework question worded conditional but keyed joint + mis-numbered key item; **S8's Classrooms answer key printed a wrong/fabricated ANOVA table** (claimed F=17.78, actual F=72.71); **S12's saved 3D logistic widget had a transposed z-matrix** (points floated off the surface — fixed in the live regeneration; the recorded walkthrough video shows the old orientation → consider re-recording).
-  - S4 assumed reentry `month_*` = monthly employment; S5 retired iris; S11's homework includes a deliberately honest-null model on officers (flagged for veto); S10/S11/S12 carry the ecological-fallacy caution through the aggregate Chicago analyses.
-  - The Session 6 hub assigns Scott's own *Police Forum* Bayes article as the reading — confirm that's the intended piece.
-- [ ] **Optional:** eyeball decks at projector resolution; videos cap at 480px tall with headroom to enlarge.
+- [ ] **Confirm Fall 2026 dates.** Session dates are PROVISIONAL — set `firstday` and the break/conference dates at the top of `syllabus.qmd` once USC's official calendar is out. Everything recomputes from those (including the new Sunday-before-S14 project deadline, computed as `final_day - days(3)`). Also update the placeholder date language on `final-project.qmd`.
+- [ ] **Review the July 2026 course-review pass** — the new "Course-review pass (July 2026)" sections in `_private/notes/CHANGES-week-*.md` itemize every change. Highest-value eyeballs: the rebuilt S3 Bayes act + trimmed S6 (`slides/week-03-probability.qmd`, `week-06-hypothesis-testing.qmd`), the grade-weights table + report/presentation split (`syllabus.qmd` — the 22/8 split of the project 30% is a draft), the rubric grid + presentation spec (`final-project.qmd`), and the exemplar (`final-project-exemplar.qmd`).
+- [ ] **Approve the drafted midterm** — `_private/exams/midterm-2026.R` + key + pre-fit `.rds`; `_private/notes/MIDTERM-REVIEW-NEEDED.md` is now the review checklist. (2025 exam stays archived unmodified.)
+- [ ] **Re-record the S12 3D walkthrough video** — the live widget was fixed but `media/week-12/3d-logistic.mp4` still shows the pre-fix transposed surface (CHANGES-week-12).
+- [ ] **Confirm the S6 reading** — the hub assigns Scott's own *Police Forum* Bayes article; confirm that's the intended piece.
+- [ ] **Optional:** eyeball decks at projector resolution; videos cap at 480px tall with headroom to enlarge. Note the exemplar and practice-12 both analyze crash-ak injury~intoxication (different covariates) — coherent by design, but flag if you'd rather they diverge.
+
+### Carried context from the 2025→2026 rebuild (already handled, kept for the record)
+- 2025 bugs found & fixed in the rebuild: S3 HW conditional/joint wording + key numbering; S8's fabricated ANOVA table in the 2025 key (F=17.78 claimed, 72.71 actual); S12's transposed 3D widget (live version regenerated correctly).
+- S11 homework's deliberately honest-null officers model stayed in (flagged for veto, not vetoed).
+- Canvas-vs-Blackboard: resolved — site is all-Canvas.
 
 ### Known conventions/gotchas (all documented in CONVENTIONS.md)
 - Publish loop + the GitHub Pages stuck-build check (see "Publishing gotcha" above)

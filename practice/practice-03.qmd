@@ -1,0 +1,155 @@
+---
+title: "Practice Problems · Session 3"
+subtitle: "Probability, conditional thinking, and Bayes' theorem"
+---
+
+::: {.callout-note appearance="simple"}
+**Ungraded self-checks.** Work each problem in your own R session *before* clicking the solution. These use different numbers and variables than the homework on purpose — if you can do these cold, the homework (and the midterm's probability section) will feel routine.
+:::
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+set.seed(705)
+crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv",
+                   show_col_types = FALSE)
+```
+
+All problems that use data need only:
+
+```{r}
+#| label: setup-shown
+#| eval: false
+library(tidyverse)
+crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
+```
+
+## Problem 1 · Contraband in the long run
+
+Suppose 8% of traffic stops turn up contraband. Simulate 10,000 nights of **10 stops each** with `rbinom()`. In what proportion of nights does the squad find contraband **2 or more times**?
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p1
+set.seed(705)
+nights <- rbinom(n = 10000, size = 10, prob = 0.08)
+mean(nights >= 2)
+```
+
+About 19% of nights. Note the move: simulate the process, then take a `mean()` of a logical condition — the same shape as every probability we computed in class.
+:::
+
+## Problem 2 · Build the table, read the margins
+
+Using `crimes`, make a contingency table of `primary_type` × `arrest` for **just THEFT and BATTERY** incidents (`filter(primary_type %in% c("THEFT", "BATTERY"))`). Then compute: (a) the **joint** probability that a randomly chosen incident *from this subset* is a BATTERY **and** ended in arrest; (b) the **marginal** probability of BATTERY.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p2
+tb <- crimes |> filter(primary_type %in% c("THEFT", "BATTERY"))
+
+tb |>
+  count(primary_type, arrest) |>
+  pivot_wider(names_from = arrest, values_from = n)
+
+# (a) joint — divide the cell by the subset's grand total:
+mean(tb$primary_type == "BATTERY" & tb$arrest)
+
+# (b) marginal:
+mean(tb$primary_type == "BATTERY")
+```
+
+The joint divides by *everything in the subset* (both crime types, both arrest outcomes). If you divided the BATTERY-and-arrest count by the number of BATTERY rows, you computed a conditional — that's Problem 3.
+:::
+
+## Problem 3 · Both directions of the conditional
+
+Still in the THEFT/BATTERY subset: compute **P(arrest | BATTERY)** and **P(BATTERY | arrest)**. Then, in one sentence, explain why the two numbers differ so much when they come from the same cells.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p3
+tb <- crimes |> filter(primary_type %in% c("THEFT", "BATTERY"))
+
+# P(arrest | BATTERY): shrink to BATTERY rows, take the mean
+tb |> filter(primary_type == "BATTERY") |> summarize(p = mean(arrest))
+
+# P(BATTERY | arrest): shrink to arrest rows, ask how many are BATTERY
+tb |> filter(arrest) |> summarize(p = mean(primary_type == "BATTERY"))
+```
+
+Same cells, different **denominators**: the first re-proportions within battery incidents, the second within arrests. Direction matters — P(A | B) ≠ P(B | A) except by coincidence.
+:::
+
+## Problem 4 · Is time of day independent of arrest?
+
+Create a logical variable `night = hour >= 20 | hour < 4` on the full `crimes` data. Compare P(arrest | night), P(arrest | not night), and the overall P(arrest). Closer to independent or dependent?
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p4
+crimes |>
+  mutate(night = hour >= 20 | hour < 4) |>
+  summarize(p_arrest = mean(arrest), n = n(), .by = night)
+
+mean(crimes$arrest)
+```
+
+The conditional probabilities sit close to the marginal — knowing an incident happened at night moves the arrest probability only slightly. In these data, `night` is *nearly* independent of arrest (remember the definition: independence means P(A | B) = P(A)). Hedge accordingly: "essentially independent *in this sample*."
+:::
+
+## Problem 5 · The burglar alarm (Bayes' theorem)
+
+A home-security company advertises that its alarm detects **99%** of break-ins. The alarm also goes off on **2%** of days with no break-in (cats, wind, deliveries). Suppose the daily probability of a break-in attempt on a given house is **0.5%** (5 in 1,000).
+
+The alarm is ringing. Build the counting table for 10,000 days and compute **P(break-in | alarm)**.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p5
+break_ins    <- 10000 * 0.005          # 50 break-in days
+caught       <- break_ins * 0.99       # 49.5 -> alarm rings
+quiet_days   <- 10000 - break_ins      # 9,950 days without a break-in
+false_alarms <- quiet_days * 0.02      # 199 false rings
+
+caught / (caught + false_alarms)       # P(break-in | alarm)
+```
+
+**About 20%.** Four out of five rings are cats and wind, because quiet days outnumber break-in days 199:1. The "99% accurate" figure is P(alarm | break-in) — the *transposed* conditional. Ignoring the 0.5% base rate is exactly the mistake the Ianfluenza example warned about.
+:::
+
+## Problem 6 · Verify it by simulation
+
+Session 3's rule: don't take a probability claim on faith. Simulate 100,000 days of Problem 5's alarm and check your answer.
+
+::: {.callout-tip collapse="true"}
+**Solution**
+
+```{r}
+#| label: p6
+set.seed(705)
+days <- tibble(
+  break_in = sample(c(TRUE, FALSE), 100000, replace = TRUE, prob = c(0.005, 0.995))
+) |>
+  mutate(alarm = if_else(
+    break_in,
+    sample(c(TRUE, FALSE), 100000, replace = TRUE, prob = c(0.99, 0.01)),
+    sample(c(TRUE, FALSE), 100000, replace = TRUE, prob = c(0.02, 0.98))
+  ))
+
+days |> filter(alarm) |> summarize(p_break_in = mean(break_in), rings = n())
+```
+
+The long run lands where the counting table said it would — right around 20%.
+:::

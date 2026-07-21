@@ -11,9 +11,9 @@ Readings are due **before** the start of the listed class session. "R4DS" = [*R 
 
 | # | Topic | Stanton | R4DS | Materials |
 |---|-------------------------------|---------|------|-----------|
-| 1 | Class intro · Why statistics is awesome · Types of data · R & RStudio setup | Intro, App. A–C | — (swirl tutorials for homework) | [Session page](weeks/week-01.qmd) |
+| 1 | Class intro · Why statistics is awesome · Types of data · R & RStudio setup | Intro, App. A–C | — (swirl tutorials for homework) | [Session page](weeks/week-01.qmd) · [Slides](slides/week-01-stats-is-awesome.qmd) |
 | 2 | Descriptive statistics & exploratory data analysis | Ch. 1 | Ch. 1 (Data visualization), Ch. 2 (Workflow: basics) | [Session page](weeks/week-02.qmd) · [Slides](slides/week-02-descriptives.qmd) · [Lab](labs/lab-02-visualize.qmd) · [HW](homework/hw-02.qmd) |
-| 3 | Probability, via simulation | Ch. 2 | Ch. 3 (Data transformation), Ch. 4 (Workflow: code style) | [Session page](weeks/week-03.qmd) · [Slides](slides/week-03-probability.qmd) · [Lab](labs/lab-03-transform.qmd) · [HW](homework/hw-03.qmd) |
+| 3 | Probability, via simulation · first look at Bayes' theorem | Ch. 2 | Ch. 3 (Data transformation), Ch. 4 (Workflow: code style) | [Session page](weeks/week-03.qmd) · [Slides](slides/week-03-probability.qmd) · [Lab](labs/lab-03-transform.qmd) · [HW](homework/hw-03.qmd) |
 | 4 | Sampling distributions, via simulation | Ch. 3 | Ch. 5 (Data tidying), Ch. 6 (Workflow: scripts & projects) | [Session page](weeks/week-04.qmd) · [Slides](slides/week-04-sampling-distributions.qmd) · [Lab](labs/lab-04-tidy.qmd) · [HW](homework/hw-04.qmd) |
 | 5 | Confidence intervals on real data | Ch. 4 | Ch. 7 (Data import), Ch. 8 (Workflow: getting help) | [Session page](weeks/week-05.qmd) · [Slides](slides/week-05-confidence-intervals.qmd) · [Lab](labs/lab-05-import.qmd) · [HW](homework/hw-05.qmd) |
 | 6 | Hypothesis testing: frequentist **and** Bayesian t-tests | Ch. 5 | Ch. 19 (Joins); Ch. 18 (Missing values, skim) | [Session page](weeks/week-06.qmd) · [Slides](slides/week-06-hypothesis-testing.qmd) · [Lab](labs/lab-06-joins.qmd) · [HW](homework/hw-06.qmd) |

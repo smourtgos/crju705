@@ -3,7 +3,16 @@ title: "Session 13 · Final-Project Help Session"
 subtitle: "Open Q&A · code clinic · project check-ins"
 ---
 
-No new material this session — it exists entirely to get your final project over the line.
+No new material this session — it exists entirely to get your final project over the line. Session 12 completed the toolbox and Checkpoint 4 fit your actual model, so your project already exists in pieces; today is the buffer built into the course for turning those pieces into a finished submission before Sunday's deadline, with live debugging help in the room. The deal is simple: arrive with a runnable draft and your two hardest problems, leave with them solved.
+
+## Learning objectives
+
+By the end of this session you can:
+
+- arrive with a runnable draft of your project script and your two most stuck-on problems written down
+- leave with those two problems solved — or with a concrete plan for each
+- say your results out loud in plain language before you write them into the report
+- state exactly what's due Sunday and what the Session 14 presentation requires
 
 ## Before class
 
@@ -15,7 +24,7 @@ No new material this session — it exists entirely to get your final project ov
 
 - Open code clinic — bring errors, we debug them live
 - Interpretation workshopping — say your results out loud in plain language before you write them
-- Presentation logistics for Session 14 (order, timing, what to have on screen)
+- Presentation logistics for Session 14: the **presentation order is announced today**. The format, time budget (8 min + 2 min Q&A), and grading criteria are already published in the [presentation spec](../final-project.qmd#the-presentation-8-of-course-grade) — read it before class so today's questions can be about *your* presentation
 
 ## After class
 

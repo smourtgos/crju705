@@ -128,6 +128,10 @@ robbery_model <- glm(
 - `family = binomial` is the switch that makes it **logistic**: predict a 0/1 outcome
 - Everything else looks exactly like the `lm()` formulas from Session 11
 
+::: aside
+Two formula details you can safely skim: `0 +` drops the global intercept so each zone gets its own baseline, and `scale()` puts day-of-year on a standard scale. Read the *table*, not the formula — today is about the `family` switch.
+:::
+
 ## The Table You Couldn't Read in August
 
 ```{r}
@@ -433,6 +437,7 @@ model_bayes <- brm(am ~ hp + wt, data = cars_df,
 ::: incremental
 - `family = bernoulli()` is brms's name for a 0/1 outcome — the switch that `family = binomial` flips in `glm()`
 - Everything else is the Session 8 pattern: `chains = 2, iter = 2000`, the compile pause, `refresh = 0` to silence the log
+- **The prior:** none stated → `brms` defaults again. Your project's model will use these too — **say so in your methods**: "brms default priors, 2 chains × 2,000 iterations, seed 705"
 - Instead of one estimate per coefficient, we get a full **posterior distribution** for each log-odds coefficient
 :::
 

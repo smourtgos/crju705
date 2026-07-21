@@ -38,7 +38,23 @@ crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = 
 
 **Learning goals:** explain in your own words what a 95% confidence interval does and does **not** mean; compute CIs for a proportion and a difference in means from real data.
 
-**R4DS thread:** you read Ch. 7 (Data import) & Ch. 8 (Getting help) — today's lab puts both to work.
+## Two Threads, One Course
+
+:::: columns
+::: {.column width="50%"}
+**Statistics thread** — lecture + homework
+
+Stanton Ch. 4 → confidence intervals: building them, and saying them out loud honestly
+:::
+
+::: {.column width="50%"}
+**Wrangling thread** — lab
+
+R4DS Ch. 7–8 → `read_csv()`, `read_excel()`, and the import traps real files set
+:::
+::::
+
+The two threads meet at the Session 7 workshop — where you import a messy file *and* put an honest interval on what you find in it.
 
 ## Where We've Been
 
@@ -99,6 +115,10 @@ by_pump <- nearest |>
   arrange(desc(deaths_nearest))
 by_pump
 ```
+
+::: aside
+Two verbs arrive ahead of schedule here: `crossing()` builds every death–pump pair, and `left_join()` looks up each point's coordinates. Joins get their full treatment in next week's lab — today, read them as "pair up, then look up" and focus on the logic.
+:::
 
 ## Sampled Evidence: The Map
 
@@ -286,6 +306,10 @@ ci_100 <- map(1:100, \(i) {
 sum(ci_100$captured)   # how many of the 100 intervals caught the truth?
 ```
 
+::: aside
+`map()` runs the procedure 100 times; `list_rbind()` stacks the 100 one-row results into one tibble — Session 3's `replicate()`, tibble-flavored. See the [simulation verbs reference](../resources.qmd#simulation-verbs).
+:::
+
 ## The Classic Picture, Seen
 
 ```{r}
@@ -342,6 +366,15 @@ If we reran our whole study many times — drawing a new sample each time and co
 > "There is a 95% probability the true arrest rate is between 10.8% and 20.0%." *(The truth is fixed — it's either in there or it isn't.)*
 
 > "95% of arrest rates fall in this interval." *(The CI is about the population parameter, not individual observations.)*
+
+## The Sentence You *Wanted* to Say
+
+::: incremental
+- "There's a 95% probability the truth is in *this* interval" is forbidden only under **frequentist rules**: probability attaches to the *procedure*, never to the parameter
+- Attaching probability to a claim itself is exactly what **Session 3's Bayes' theorem** does — and the license costs a stated prior
+- **Next week** we compute an interval you *can* say that sentence about: the **credible interval**
+- If the forbidden sentence felt like the natural reading all along — your intuitions were Bayesian. You're in good company
+:::
 
 ## Sample Size Buys Precision
 

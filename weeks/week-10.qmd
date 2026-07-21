@@ -4,8 +4,19 @@ subtitle: "Covariance → Pearson's r · always plot first · cor.test() · Baye
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Associations Between Variables — Correlation](../slides/week-10-correlation.qmd)** · **[🧪 Lab 10: Correlation — Chicago Areas, Then a Null Worth Reporting](../labs/lab-10-correlation.qmd)** · **[📝 Homework 10 + Project Checkpoint 2](../homework/hw-10.qmd)**
+**[📽️ Slides: Associations Between Variables — Correlation](../slides/week-10-correlation.qmd)** · **[🧪 Lab 10: Correlation — Chicago Areas, Then a Null Worth Reporting](../labs/lab-10-correlation.qmd)** · **[📝 Homework 10 + Project Checkpoint 2](../homework/hw-10.qmd)** · **[🎬 Demo walkthrough](../demos/demo-10-correlation.qmd)** · **[✍️ Practice](../practice/practice-10.qmd)**
 :::
+
+Before the midterm, every test had the same shape: a categorical grouping variable and a numeric outcome. The second half of the course drops the groups — this week *both* variables are numeric, and the question becomes whether two measures move together. Covariance grows into Pearson's r, inference runs in both traditions, and the real-data thread climbs to Chicago's 77 community areas — which forces the semester's standing warning, the ecological fallacy, out into the open. Correlation is the doorway to regression in Sessions 11–12, where your final project lives; Checkpoint 2 computes the first associations in your own data.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- interpret r's sign and size — and explain why you always plot before you trust it (Anscombe's quartet is the cautionary tale)
+- test a correlation in both traditions: `cor.test()`, then the correlation package's Bayesian output (posterior, credible interval, Bayes factor)
+- explain the ecological fallacy in one sentence, and catch a claim that commits it
+- report a null association honestly, letting the Bayes factor say "there's nothing here"
 
 ## Before class
 
@@ -24,6 +35,8 @@ subtitle: "Covariance → Pearson's r · always plot first · cor.test() · Baye
 - **The ecological fallacy**, named and practiced: area-level associations license *no* claims about individuals — the codebook has been promising this conversation all semester
 - Inference on r, both traditions: `cor.test()` (t on n − 2 df, CI) and the **correlation** package — correlation matrices with Holm-adjusted p-values, then `bayesian = TRUE` for posterior medians, credible intervals, pd, and Bayes factors, including what the `"medium"` vs. `"wide"` prior actually changes
 - **Lab 10:** the full workflow yourself — Chicago areas, then the Lab 3 neighborhoods (real associations) and the Lab 6 officers, where the honest answer is a null and the Bayes factor lets you *say so*
+
+*Missed class? The [demo walkthrough](../demos/demo-10-correlation.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

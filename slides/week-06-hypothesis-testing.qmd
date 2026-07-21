@@ -37,19 +37,36 @@ property_hours <- vp$hour[vp$crime_category == "Property"]
 
 - The Null Hypothesis Significance Test: its logic, and its fine print
 - p-values: what they are — and what they are not
-- Bayes' theorem: priors, updating, and the probability you actually wanted
+- Bayes' theorem — back from Session 3, now pointed at hypotheses instead of diagnoses
 - Bayes factors and posteriors with the **BayesFactor** package
 
 **Learning goals:** run `t.test()` *and* `ttestBF()` on the same question; state correctly what each output licenses you to claim.
 
-**R4DS thread:** Ch. 19 (Joins) + Ch. 18 skim → Lab 6 joins our two Chicago files.
+## Two Threads, One Course
+
+:::: columns
+::: {.column width="50%"}
+**Statistics thread** — lecture + homework
+
+Stanton Ch. 5 → hypothesis testing, both ways: `t.test()` and `ttestBF()`
+:::
+
+::: {.column width="50%"}
+**Wrangling thread** — lab
+
+R4DS Ch. 19 (+ Ch. 18 skim) → `left_join()` on our two Chicago files
+:::
+::::
+
+Last new wrangling skill before next week's workshop — after today, you own the whole pipeline.
 
 ## Where We've Been
 
 ::: incremental
+- **Session 3:** Bayes' theorem — beliefs update by evidence; ignore the base rate and "90% accurate" becomes a 15% answer
 - **Session 4:** sampling distributions — sample statistics fluctuate in predictable ways
-- **Session 5:** confidence intervals — one sample, an honest range. Our violent-vs-property time gap was *detectable but tiny*: somewhere between about 4 and 27 minutes
-- **Today:** the formal machinery for "is there a difference?" — and then a second tradition that answers the question you probably *meant* to ask
+- **Session 5:** confidence intervals — an honest range; our violent-vs-property gap came out *detectable but tiny* (≈4–27 min)
+- **Today:** the formal machinery for "is there a difference?" — then a second tradition answering the question you *meant* to ask
 :::
 
 . . .
@@ -297,65 +314,19 @@ sketch_base +
 
 How often do researchers *test* those assumptions before trusting the p-value? Less often than you'd hope.
 
-# Act II · Thinking Like a Bayesian {background-color="#73000A"}
+# Act II · Bayes, Recapped {background-color="#73000A"}
 
-## Enter Bayes' Theorem
+## Bayes' Theorem — Recap from Session 3
 
 $$
-\underbrace{P(H \mid \text{data})}_{\textbf{posterior}} \;=\;
-\frac{\overbrace{P(\text{data} \mid H)}^{\textbf{likelihood}} \;\times\; \overbrace{P(H)}^{\textbf{prior}}}
-{\underbrace{P(\text{data})}_{\textbf{evidence}}}
+P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
+\qquad \small{\text{posterior} = \text{likelihood} \times \text{prior} / \text{evidence}}
 $$
 
 ::: incremental
-- The p-value lives entirely in the **likelihood** world: $P(\text{data} \mid H_0)$
-- Bayes flips the conditional: $P(H \mid \text{data})$ — the question your chief, your judge, your city council actually asked
-- The price of admission: a stated **prior** — what you believed before the data
-:::
-
-## Bayesian Updating, Watched Live
-
-Start moderately confident a coin is fair — prior Beta(20, 20) — then flip it 100 times and update after every flip:
-
-![](../media/week-06/coinflip_updating.gif)
-
-Each flip reshapes the curve. Beliefs are provisional, quantified, and revised by evidence — that is the entire philosophy in one gif.
-
-## The Dreaded *Adamsitis* Strain of *Ianfluenza*
-
-A screening problem (any resemblance to a frequent co-author is coincidental):
-
-- Prevalence **1%** — 10 cases per 1,000 people
-- Sensitivity **.90** — catches 90% of true cases
-- Specificity **.95** — clears 95% of the healthy
-
-## Two Questions That *Sound* Identical — and Are Not
-
-1. $P(\text{test says} + \mid \text{actually sick})$ — what the brochure advertises
-2. $P(\text{actually sick} \mid \text{test says} +)$ — what you want in the exam room
-
-## Count It Out: 1,000 People
-
-|  | Test says **+** | Test says **−** | Total |
-|---|---:|---:|---:|
-| **Sick** (1%) | **9** caught | 1 missed | 10 |
-| **Healthy** | **~50** false alarms | ~941 cleared | 990 |
-| **Total** | ~59 | ~942 | 1,000 |
-
-. . .
-
-$$
-P(\text{sick} \mid +) \;=\; \frac{9}{9 + 50} \;\approx\; 15\%
-$$
-
-The test is "90% accurate" — and a positive result still means you are *probably fine*.
-
-## Priors Matter
-
-::: incremental
-- Read the test result the intuitive way — "the test is 90% accurate, so I'm 90% sick" — and you have silently treated $P(\text{data} \mid H)$ as $P(H \mid \text{data})$
-- The **base rate** (the prior: 1%) is what separates 90% from 15%. Ignoring it makes the test look far more powerful than it really is
-- Criminal justice runs on rare events: false confessions, officer-involved shootings, risk-assessment flags, gunshot-residue matches. Base-rate neglect is not a party trick here — it convicts people
+- Session 3's move: conditioning is *shrink the world, re-proportion* — Bayes' theorem reverses the direction. Ianfluenza: prior 1% + "90% accurate" → posterior ≈ **15%**
+- **New today:** look where the p-value lives — entirely in the **likelihood**, $P(\text{data} \mid H_0)$. It never becomes $P(H_0 \mid \text{data})$
+- Bayesian testing finishes the flip — $P(H \mid \text{data})$, the question your chief, judge, or city council actually asked — at the price of a stated prior
 :::
 
 ## The Two Traditions, Side by Side {.smaller}
@@ -367,49 +338,6 @@ The test is "90% accurate" — and a positive result still means you are *probab
 | **Prior knowledge** | None used | Explicit, stated up front |
 | **Output** | p-value, confidence interval | Posterior distribution, Bayes factor, credible interval |
 | **"95%" means** | The *procedure* captures the truth in 95% of replications | 95% probability the parameter lies in *this* interval |
-
-# So Why Not Always Bayes? {background-color="#1B2A4A"}
-
-## The Ugly Denominator
-
-$$
-P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
-$$
-
-That innocent-looking denominator is the probability of the data under *every possible hypothesis, weighted by its prior*:
-
-$$
-\color{#73000A}{P(\text{data}) = \int P(\text{data} \mid \theta)\, P(\theta)\, d\theta}
-$$
-
-. . .
-
-For realistic models this integral is **intractable** — for most of the 20th century, Bayes was philosophically beautiful and practically unusable.
-
-## Enter MCMC
-
-How Markov chain Monte Carlo "measures the curve" without solving the integral:
-
-::: incremental
-- We don't know the whole posterior curve — but we *do* know its **formula up to a constant** (likelihood × prior)
-- A sampler evaluates that formula at its **current spot** and at a **proposed spot**
-- Compare the two values: if the new spot is higher → **accept**; if lower → accept *with that probability*
-- The impossible constant appears in both numerator and denominator — it **cancels in the ratio**. We never need to know it
-:::
-
-## MCMC, Watched Live
-
-A Metropolis sampler exploring a distribution (left) while its samples pile up into that very shape (right):
-
-![](../media/week-06/mcmc_faceted.gif)
-
-## We End Up With the Probability Distribution
-
-::: incremental
-- The pile of accepted samples **is** the posterior — to any precision you like, just run longer
-- Think back to Session 4: we approximated *sampling* distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the *posterior*
-- This is why modern Bayes is possible at all — and it is what `BayesFactor` quietly does for you in about two seconds
-:::
 
 # Act III · Both Traditions, One Real Question {background-color="#73000A"}
 
@@ -435,7 +363,7 @@ extractBF(bf)$bf        # BF10: evidence for a difference vs. no difference
 ::: incremental
 - A Bayes factor is a **ratio of predictions**: how well did "some difference" predict these data vs. "no difference"?
 - $BF_{10} = `r round(extractBF(bf)$bf, 2)`$ — *below* 1. The data are about **`r round(1 / extractBF(bf)$bf, 1)` times more consistent with the null**
-- Rules of thumb: 1–3 barely worth mentioning · 3–10 moderate · 10+ strong (and the mirror image below 1)
+- Rules of thumb: 1–3 barely worth mentioning · 3–10 moderate · 10–30 strong · 30–100 very strong · 100+ extreme (mirror image below 1)
 :::
 
 ## Hold On — the p-Value Said "Significant"
@@ -452,7 +380,7 @@ extractBF(bf)$bf        # BF10: evidence for a difference vs. no difference
 
 ## The Posterior for the Difference
 
-The Bayes factor compares models. The **posterior** describes the difference itself — via MCMC, exactly as advertised:
+The Bayes factor compares models. The **posterior** describes the difference itself — drawn by a sampler (the machinery, called MCMC, is in tonight's optional appendix):
 
 ```{r}
 #| label: bf-posterior
@@ -610,7 +538,7 @@ More data doesn't flip a verdict — it **sharpens the estimate**, which visibly
 ::: incremental
 - **NHST**: standardized and everywhere — but it only asks *how surprising are the data under the null?*, never scores the alternative, and rewards sheer n
 - **p-values** are not the probability any hypothesis is true, and are silent about *size*
-- **Bayes** answers $P(H \mid \text{data})$ at the price of a stated prior; MCMC made it computable
+- **Bayes** answers $P(H \mid \text{data})$ at the price of a stated prior; MCMC made it computable (appendix, if you want the machinery)
 - The same data can yield $p < .05$ *and* a BF favoring the null — or $p = 0.20$ *and* 91% posterior confidence
 - Whatever tradition you use: **report the effect size, in units a human cares about**
 :::
@@ -620,3 +548,48 @@ More data doesn't flip a verdict — it **sharpens the estimate**, which visibly
 - **Lab 6:** joining data — `left_join()` on the two Chicago files, and the join traps R4DS warned you about ([lab page](../labs/lab-06-joins.qmd))
 - **Homework 6:** Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question (posted on the [Session 6 page](../weeks/week-06.qmd))
 - **Next session — the applied data workshop:** the full messy-data pipeline, start to finish. **Your final-project dataset selection is due at Session 7** — come with a candidate dataset and be ready to defend it
+
+# Appendix · How Bayes Became Computable (optional) {background-color="#1B2A4A"}
+
+## The Ugly Denominator
+
+*Not on any exam — this is the machinery behind the two-second `ttestBF()` call, for the curious.*
+
+$$
+P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
+$$
+
+That innocent-looking denominator is the probability of the data under *every possible hypothesis, weighted by its prior*:
+
+$$
+\color{#73000A}{P(\text{data}) = \int P(\text{data} \mid \theta)\, P(\theta)\, d\theta}
+$$
+
+. . .
+
+For realistic models this integral is **intractable** — for most of the 20th century, Bayes was philosophically beautiful and practically unusable.
+
+## Enter MCMC
+
+How Markov chain Monte Carlo "measures the curve" without solving the integral:
+
+::: incremental
+- We don't know the whole posterior curve — but we *do* know its **formula up to a constant** (likelihood × prior)
+- A sampler evaluates that formula at its **current spot** and at a **proposed spot**
+- Compare the two values: if the new spot is higher → **accept**; if lower → accept *with that probability*
+- The impossible constant appears in both numerator and denominator — it **cancels in the ratio**. We never need to know it
+:::
+
+## MCMC, Watched Live
+
+A Metropolis sampler exploring a distribution (left) while its samples pile up into that very shape (right):
+
+![](../media/week-06/mcmc_faceted.gif)
+
+## We End Up With the Probability Distribution
+
+::: incremental
+- The pile of accepted samples **is** the posterior — to any precision you like, just run longer
+- Think back to Session 4: we approximated *sampling* distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the *posterior*
+- This is why modern Bayes is possible at all — and it is what `BayesFactor` quietly does for you in about two seconds
+:::

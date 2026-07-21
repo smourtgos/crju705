@@ -6,7 +6,11 @@ subtitle: "The culminating assignment — real data, real analysis, your questio
 The final project integrates conceptual understanding with applied statistical skills in R. You will identify a research question, analyze a real criminal justice dataset, and interpret your findings using the tools from this course — building it **incrementally across the second half of the semester** rather than in a December scramble.
 
 ::: {.callout-important appearance="simple"}
-**Due: in class at Session 14 (final presentations).** There will be *absolutely* no assignments or projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part by the deadline results in a zero. No appeals. Plan ahead.
+**Due: via Canvas by 11:59 pm the Sunday before Session 14.** You then present in class at Session 14. There will be *absolutely* no assignments or projects accepted after the Sunday deadline. None. Add it to your calendar now. Failure to submit any part by the deadline results in a zero. No appeals. Plan ahead.
+:::
+
+::: {.callout-tip appearance="simple"}
+**Want to see what "done well" looks like?** A complete worked example — report structure, code, both-traditions model, honest limitations — is at the [project exemplar](final-project-exemplar.qmd).
 :::
 
 ## The timeline (how the project is paced)
@@ -21,7 +25,7 @@ The final project integrates conceptual understanding with applied statistical s
 | Session 12 HW | Checkpoint 4: refined model (linear or logistic) + interpretation |
 | Session 13 | Help session — open Q&A and code clinic |
 | Weekend before Session 14 | **Full submission due via Canvas (before midnight Sunday)** |
-| **Session 14** | **In-class presentation** (a substantial part of your grade) |
+| **Session 14** | **In-class presentation** (8 min + 2 min Q&A — 8% of your course grade) |
 
 By presentation day, every piece of your analysis will already exist — the project is assembled, not started, at the end.
 
@@ -44,17 +48,35 @@ Your submission must include **all** of the following:
 
 **Step 2 — Define your research question.** Keep it focused and testable. Examples: *"Are violent crime rates associated with police staffing levels?"* or *"Do education and income predict victimization (or arrests)?"*
 
-**Step 3 — Apply statistical tools from class.** Use descriptive statistics, visualizations, and measures of association. You **must** include a linear regression or logistic regression for credit. You may choose frequentist or Bayesian analysis — but whichever you choose, provide the correct interpretation, as discussed in class.
+**Step 3 — Apply statistical tools from class.** Use descriptive statistics, visualizations, and measures of association. You **must** include a linear regression or logistic regression for credit. **Your final model must be reported in both traditions** — the frequentist fit (`lm()`/`glm()`) *and* the Bayesian fit (`brm()`, default priors are fine — say so) — with at least one sentence comparing what each tells you (e.g., the CI vs. the credible interval, or what the posterior lets you say that the p-value doesn't). This is the both-traditions course; the capstone shows you can drive both. Supporting analyses (descriptives, correlations) may be run in whichever tradition you prefer.
 
 **Step 4 — Write and submit your report.** Organize clearly: Introduction, Methods, Results, Discussion. Interpret results in plain language.
 
 ## 4. Grading criteria
 
-- **Quality of analysis** — appropriate use of statistical tools and R coding
-- **Interpretation and communication** — clarity and accuracy in describing results and their meaning
-- **Organization, presentation, and grammar** — report structure, labeled figures/tables, code readability, graduate-level writing
-- **Completeness and reproducibility** — all required components submitted and reproducible
-- **The in-class presentation** — you will present your project and explain how and why your code works. If you cannot confidently explain your own code, your grade will be affected (see the [syllabus AI policy](syllabus.qmd#use-of-artificial-intelligence-tools))
+The project is **30% of your course grade**: the written report, script, and output are **22%**, and the in-class presentation is **8%**.
+
+### The written report & code (22% of course grade)
+
+| Criterion | Weight | Excellent | Adequate | Needs work |
+|---|:---:|---|---|---|
+| **Quality of analysis** | 7% | Right tools for the question; final model in **both traditions** with sound model choices; assumptions/diagnostics addressed | Correct core analysis; both traditions present but one is perfunctory; minor tool misfits | Wrong tool for the question, a missing tradition, or mechanical errors that change conclusions |
+| **Interpretation & honesty** | 6% | Every claim matches the output; magnitude interpreted in real units; limitations (incl. null or weak results) owned plainly | Mostly accurate; occasional overclaiming or a p-value/posterior misreading; limitations thin | "Significant" treated as "important"; causal language from observational data; results oversold |
+| **Organization & writing** | 4% | Clear Introduction → Methods → Results → Discussion; labeled figures/tables referenced in text; graduate-level prose | Structure present but uneven; figures unlabeled or orphaned | Hard to follow; output pasted without narrative |
+| **Completeness & reproducibility** | 5% | Script runs top to bottom on the submitted data; all four components present; seed set where results are sampled | Runs with minor fixes; a component thin but present | Script errors out, data missing, or a required component absent |
+
+### The presentation (8% of course grade)
+
+**Format: 8 minutes + 2 minutes of questions.** Presentation order is announced at the Session 13 help session. You may present slides or your rendered report on screen — either is fine, but you **must show your one key visualization** and be ready to walk through **any line of your code** on request (see the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools); not being able to explain your own code will cost you well beyond the presentation points).
+
+| Criterion | Weight | What earns it |
+|---|:---:|---|
+| **The question, motivated** | 2% | A listener knows within a minute what you asked, of what data, and why anyone should care |
+| **Sound interpretation, limits included** | 3% | Findings stated accurately with magnitudes; at least one limitation named without prompting; questions handled honestly (including "I don't know") |
+| **The key visualization** | 1.5% | One figure that carries the finding, readable from the back of the room, honestly captioned |
+| **Code ownership** | 1.5% | Any line of your script, explained on request, in your own words |
+
+Running long is the classic failure: **practice once with a timer**. At 8 minutes you'll be stopped so everyone presents.
 
 ## 5. Submission details
 

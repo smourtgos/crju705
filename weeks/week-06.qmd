@@ -1,13 +1,22 @@
 ---
 title: "Session 6 · Hypothesis Testing: Frequentist and Bayesian"
-subtitle: "NHST and its fine print · p-values · Bayes' theorem and priors · Bayes factors · posterior distributions · joins"
+subtitle: "NHST and its fine print · p-values · Bayes' theorem recapped · Bayes factors · posterior distributions · joins"
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Hypothesis Testing: Frequentist and Bayesian](../slides/week-06-hypothesis-testing.qmd)** · **[🧪 Lab 6: Joining Data](../labs/lab-06-joins.qmd)** · **[📝 Homework 6](../homework/hw-06.qmd)**
+**[📽️ Slides: Hypothesis Testing: Frequentist and Bayesian](../slides/week-06-hypothesis-testing.qmd)** · **[🧪 Lab 6: Joining Data](../labs/lab-06-joins.qmd)** · **[📝 Homework 6](../homework/hw-06.qmd)** · **[🎬 Demo walkthrough](../demos/demo-06-hypothesis-testing.qmd)** · **[✍️ Practice](../practice/practice-06.qmd)**
 :::
 
-This is the signature week of the course: the same research question answered by **both** of statistics' great traditions, side by side — the reason we use the Stanton book at all.
+This is the signature week of the course: the same research question answered by **both** of statistics' great traditions, side by side — the reason we use the Stanton book at all. Session 5's confidence intervals grow into the Null Hypothesis Significance Test (fine print included), and then Session 3's Bayes' theorem returns — pointed at hypotheses instead of diagnoses, answering the question you probably *meant* to ask. Every method from here to the end of the course runs in both traditions, so this week's vocabulary is permanent.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- run `t.test()` *and* `ttestBF()` on the same question, and state correctly what each output licenses you to claim
+- explain in plain language what a p-value is — and name the things it is not
+- read a Bayes factor and a posterior distribution, and report a credible interval honestly
+- join related tables with `left_join()`, `inner_join()`, and `anti_join()`, checking keys and missing values first
 
 ## Before class
 
@@ -18,15 +27,19 @@ This is the signature week of the course: the same research question answered by
 
 ## In class
 
+**This week's two threads:** hypothesis testing in both traditions (lecture + homework) · joins (lab).
+
 - From Session 5's confidence intervals to the **Null Hypothesis Significance Test**: bootstrap logic, the null, the verdict machine — and an animation of what the p-value is actually doing
 - What a p-value is, and the long list of things it is not
 - The fine print: NHST never scores the alternative hypothesis, and rarely checks the distribution it assumes
-- **Bayes' theorem**: priors, likelihoods, posteriors — watching beliefs update live, and why base rates make a "90% accurate" test mean only ~15% in a rare-event world
-- Why Bayes was long impractical (the intractable denominator) and how **MCMC** solved it, watched live
+- **Bayes' theorem, recapped from Session 3** — and the new insight: the p-value lives entirely in the likelihood, and never becomes P(H₀ | data); the two traditions side by side
+- Optional self-study appendix (end of the deck): why Bayes was long impractical (the intractable denominator) and how **MCMC** solved it, watched live
 - Both traditions on our real Chicago question — `t.test()` says *significant*, `ttestBF()` mildly favors the null, the posterior says the difference is almost surely real *and* almost surely trivial. Sorting out that collision (effect sizes!) is the heart of the week
 - The recidivism trial: p = 0.20 vs. a 91% posterior probability the program works — same data, different questions
 - Sample size pathologies, animated: p-values dive below .05 for trivial effects as *n* grows; posteriors just sharpen around the truth
 - **Lab 6:** joining the two Chicago files — `left_join()`, `inner_join()`, `anti_join()`, key checks, and the missing-values discipline ([lab page](../labs/lab-06-joins.qmd))
+
+*Missed class? The [demo walkthrough](../demos/demo-06-hypothesis-testing.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

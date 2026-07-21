@@ -17,7 +17,7 @@ format-links: [docx]
 
 3. What role do **priors** play in Bayesian analysis, and why are they important?
 
-4. Why might ignoring priors lead to misleading conclusions in criminal justice research? *(The Ianfluenza screening example from class is fair game, but a CJ example of your own is better.)*
+4. Why might ignoring priors lead to misleading conclusions in criminal justice research? *(The Ianfluenza screening example from Session 3 is fair game, but a CJ example of your own is better.)*
 
 ## Part 2: Interpretation & Reflection
 

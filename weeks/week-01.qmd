@@ -4,8 +4,19 @@ subtitle: "Class introduction · Why statistics is awesome · Types of data · R
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Statistics is Awesome!](../slides/week-01-stats-is-awesome.qmd)**
+**[📽️ Slides: Statistics is Awesome!](../slides/week-01-stats-is-awesome.qmd)** · **[🎬 Demo walkthrough](../demos/demo-01-intro.qmd)**
 :::
+
+Everything starts here. Session 1 opens with a real case study — a string of bank robberies cracked by a statistical model you won't be able to read yet, and that's deliberate: by Session 12 you'll build that exact model yourself. Tonight covers the map (how the course works), the raw material (types of data and levels of measurement), and your first R commands. The swirl homework then keeps your hands moving in R all week, because starting with Session 2 our running example turns real: 30,000 crimes reported in Chicago in 2025.
+
+## Learning objectives
+
+By the end of this week you can:
+
+- name the four levels of measurement and classify any variable into them
+- explain why a variable's level of measurement constrains the math *and* the plots you may use
+- run your first R commands in RStudio, and know what to install before Session 2
+- find your way around this site, the syllabus, and the weekly rhythm of the course
 
 ## Before class
 
@@ -19,6 +30,8 @@ subtitle: "Class introduction · Why statistics is awesome · Types of data · R
 - Why statistics is awesome (with real crime-data examples)
 - Types of data and levels of measurement
 - Guided tour of R and RStudio
+
+*Missed class? The [demo walkthrough](../demos/demo-01-intro.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 

@@ -48,12 +48,12 @@ It can be that simple. I just want to see that you understand your dependent var
 
 In a clearly marked section at the end of your `.R` script (e.g., `# ---- PROJECT CHECKPOINT 4 ----`):
 
-1. **Fit your final model** — `lm()` for a continuous outcome, `glm(family = binomial)` for a binary one (or the `brm()` equivalent if you're going Bayesian; either tradition is welcome). The fitted model must match your Part 2 equation.
+1. **Fit your final model — in both traditions.** The frequentist fit (`lm()` for a continuous outcome, `glm(family = binomial)` for a binary one) *and* the Bayesian fit (`brm()` with the same formula — default priors are fine, standard settings: `chains = 2, iter = 2000, seed = 705, refresh = 0`; expect the compile pause). Both fits must match your Part 2 equation. *(This is the final-project requirement — see [Step 3](../final-project.qmd) — so Checkpoint 4 is where you get it running with a week of slack.)*
 
 2. **Interpret the key coefficients** in comments, on the right scale:
    - *Linear:* the change in your outcome per one-unit change in each predictor, holding the others constant — with units.
    - *Logistic:* exponentiate. Odds ratios per one-unit change, holding the others constant — and at least one **predicted probability** for a concrete, meaningful case, as we did in class.
-   - Either way: include the uncertainty (CI or credible interval), not just the estimate.
+   - Include the uncertainty from **both** fits — the 95% CI *and* the 95% credible interval — plus **one sentence comparing them**: do the two traditions agree here, and what does the posterior let you *say* that the p-value doesn't?
 
 3. **Produce ONE table or figure you plan to show at presentations.** A tidy coefficient table, a plot of predicted values or probabilities, a well-labeled scatterplot with your fitted line — your choice, but it must be presentation-ready: real variable names, labeled axes or columns, a title. Not raw console output.
 

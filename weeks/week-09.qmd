@@ -7,10 +7,22 @@ subtitle: "In class · covers Sessions 1–8"
 **In-class, monitored exam.** You write and troubleshoot real R code. Printed notes and homework allowed — **no internet, no AI tools.**
 :::
 
+The first half of the course is complete: describing data, probability, sampling distributions, confidence intervals, hypothesis testing in both traditions, ANOVA — plus the whole wrangling thread from ggplot2 through joins. The midterm asks you to show you can *use* it: an `.R` script you complete in class, code and interpretation together, drawn only from things we've already done. Nothing on it is new; the preparation is re-running your own work until it feels routine.
+
+## Learning objectives
+
+You're ready for the midterm when you can:
+
+- run and interpret every test from Sessions 1–8 — descriptives, confidence intervals, t-tests in both traditions, ANOVA — without help
+- wrangle a dataset into shape first: filter, mutate, summarize, pivot, join
+- explain in a written comment what a p-value, a confidence interval, and a Bayes factor each mean
+- read an R error message and troubleshoot your own code with only printed notes at hand
+
 ## Before class
 
 - Work through the **[Midterm Study Guide](../midterm.qmd)** — it lists every skill and concept on the exam
 - Re-run your homework and lab code from Sessions 1–8; the exam only asks things we've already done
+- The best drill after the study guide is the **practice pages** — ungraded problems with worked solutions, same skills as the exam, different numbers: Sessions [2](../practice/practice-02.qmd), [3](../practice/practice-03.qmd), [4](../practice/practice-04.qmd), [5](../practice/practice-05.qmd), [6](../practice/practice-06.qmd), and [8](../practice/practice-08.qmd) (or see [all demos & practice](../resources.qmd#demos-practice))
 - Charge your laptop; arrive a few minutes early
 
 ## In class

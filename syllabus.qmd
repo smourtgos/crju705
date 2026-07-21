@@ -149,7 +149,7 @@ Dates for all assignments and exams are listed on the course Canvas page and dis
 
 The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — **dataset selection is due at Session 7** (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. A dedicated **help session (Session 13)** provides open Q&A and a code clinic before presentations.
 
-Your completed project is due **in class on `r format(final_day, '%B %d, %Y')`** (presentations day).
+Your completed project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(final_day - days(3), '%B %d, %Y')`** (the Sunday before presentations day). You will then present your work in class at Session 14 on `r format(final_day, '%B %d, %Y')`.
 
 There will be *absolutely* no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.
 
@@ -166,7 +166,7 @@ The Stanton textbook is essential for your success in this course. An electronic
 
 # Contacting the Instructor
 
-The fastest way to contact me is email: [mourtgos@mailbox.sc.edu](mailto:mourtgos@mailbox.sc.edu). I actively check and respond to emails throughout the day and will always try to respond within 72 business hours (Monday–Friday, exclusive of holidays). If you have a more urgent request, note that in the subject line.
+The fastest way to contact me is email: [mourtgos@mailbox.sc.edu](mailto:mourtgos@mailbox.sc.edu). I actively check and respond to emails throughout the day and will always try to respond within 72 hours, not including weekends and holidays. If you have a more urgent request, note that in the subject line.
 
 All communications between students and instructors are to be respectful in content and professional in tone. This means: using salutations and closings, stating the purpose of the email with enough background to respond, using complete sentences, and refraining from profanity.
 
@@ -284,13 +284,13 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Topics:** **Final-project help session** — open Q&A, code clinic, project check-ins
 
-**No in-class exercise or problem set.** Bring your project code and questions.
+**No in-class exercise or problem set.** Bring your project code and questions. Reminder: the completed project is due via Canvas by 11:59 pm the following Sunday.
 
 ## `r session_headers[14]`
 
 **Topics:** **Final Project Presentations (in class)**
 
-The final project — R script, output, and written report — is due **in class on `r format(final_day, '%B %d, %Y')`**. No late submissions, no appeals. Plan ahead.
+The final project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(final_day - days(3), '%B %d, %Y')`**, the Sunday before this session. Presentations happen in class today. No late submissions, no appeals. Plan ahead.
 
 # Course Policies
 
@@ -312,6 +312,16 @@ Public policy processes, including the criminal justice system, inherently cente
 I do not accept late assignments of any kind. Missing submissions will be awarded zero points automatically. Most important: contact me **beforehand** if you are experiencing difficulties that will impact your ability to turn in work. Reaching out after the due date has passed is not helpful to you or me.
 
 ## Grading Scheme
+
+Your final grade has three components:
+
+| Component | Weight | What it covers |
+|:---|:---:|:---|
+| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the project checkpoints in Problem Sets 8–12) and the graded in-class exercises |
+| Mid-term exam | **25%** | In class at Session 9; covers Sessions 1–8 |
+| Final project | **30%** | Written report, script & output (22%) + in-class presentation (8%) |
+
+Graded in-class exercises are scored on active participation that day and cannot be made up (see the [Attendance Policy](#attendance-policy)). Final letter grades follow the standard scale:
 
 ```{r}
 #| label: grading-table
@@ -351,7 +361,7 @@ M1df <- broom::tidy(M1)
 
 **Attendance is mandatory for our weekly class meetings.** We all have busy lives, so while being on time is expected, I'd rather you miss ten minutes than a whole class. Students are expected to fully engage in class discussion and participate in the in-class exercises. *The purpose of the class is for everyone to discuss the readings, not to have them explained.*
 
-I generally do not take formal attendance; however, during most weeks there is a graded in-class exercise. Points for these exercises are awarded based on active participation in class that day, and **these points cannot be made up**. Missing class means missing the opportunity to earn them.
+I generally do not take formal attendance; however, during most weeks there is a graded in-class exercise. Points for these exercises are awarded based on active participation in class that day, count toward the homework/labs/in-class component of your grade (45%), and **cannot be made up**. Missing class means missing the opportunity to earn them.
 
 Consider the following (simulated data, courtesy of an approach by [Steven Miller](https://github.com/svmiller)): a simple linear regression of a student's final grade on percentage of classes attended suggests an increase of one percent in attendance leads to an estimated increase of `r round(M1$coefficients[2], 3)` in the final grade. One missed class is roughly a five-percent decrease in semester attendance — an estimated decrease of `r round(M1$coefficients[2], 3) * 5` in the overall grade. The effect is precise (*t* = `r round(M1df$statistic[2], 3)`) and the likelihood of no actual relationship is almost zero (R² = `r round(summary(M1)$r.squared, 3)`).
 
@@ -371,7 +381,7 @@ ggplot(attend_data, aes(x = perattend, y = rgrade)) +
 I commit to being your mentor and facilitator of the educational experience:
 
 - I will design the course to include reading materials and assignments that challenge students and provide opportunities to learn and practice course content.
-- I will respond to emails within 24–72 hours, not including weekends and holidays (*normally* much faster). If you do not hear from me within 72 hours, please email again.
+- I will respond to emails within 72 hours, not including weekends and holidays (*normally* much faster). If you do not hear from me within 72 hours, please email again.
 - I will be available for individual consultation via virtual office hours, email, or phone — not restricted to campus or banker's hours.
 - I will provide feedback on assignments in a timely manner.
 - I will ensure and enforce a respectful atmosphere, open to questions, discussion, and ethical disagreement.

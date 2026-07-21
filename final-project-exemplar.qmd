@@ -1,0 +1,165 @@
+---
+title: "Final Project Exemplar"
+subtitle: "A complete worked example — what an 'Excellent' project looks like"
+---
+
+::: {.callout-important appearance="simple"}
+**Read me first.** This page is a full final project, written to score "Excellent" on every row of the [grading rubric](final-project.qmd#grading-criteria) — with 📋 **rubric notes** in the margins explaining *why* each part earns its points. It uses the course's Alaska crash dataset, which — like all course datasets — is **not eligible for your own project** (you select your own data at Session 7). So study the *shape*, not the content. The complete script is downloadable: **[final-project-exemplar-script.R](final-project-exemplar-script.R)**.
+:::
+
+::: {.callout-note appearance="simple"}
+In a real submission this report would be a 3–5 page `.docx` with the figures pasted in, plus the `.R` script and the dataset. Here it's one web page so you can see everything at once.
+:::
+
+# Do intoxication-involved crashes injure more people? Evidence from 20,000 Alaska traffic crashes
+
+## 1 · Introduction
+
+Impaired driving is one of the oldest targets of traffic enforcement, but enforcement resources are finite: patrols concentrate on nights and weekends on the assumption that this is when impaired driving does its damage. This project asks two questions of 20,000 simulated Alaska crash records: **(1) are intoxication-involved crashes more likely to injure at least one person, and (2) is that extra risk concentrated at night or on weekends** — as the patrol-scheduling assumption implies?
+
+The answer matters practically. If intoxication raises injury risk *whenever* it occurs, then enforcement rationales built purely around Friday night may miss weekday-afternoon impairment — a pattern DUI court data have long hinted at.
+
+📋 **Rubric note (The question, motivated):** two sentences in, a reader knows the question, the data, and why anyone should care. No statistics yet — motivation first.
+
+## 2 · Data and methods
+
+```{r}
+#| label: setup
+#| message: false
+library(tidyverse)
+crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv",
+                    show_col_types = FALSE)
+```
+
+The dataset holds one row per crash (n = 20,000) with the number of people injured, an intoxication flag (`intox_any`: alcohol or drugs recorded for a driver), a timestamp, and crash characteristics. Three variables are derived for analysis:
+
+```{r}
+#| label: wrangle
+crashes <- crashes |>
+  mutate(
+    any_injury = injuries > 0,                          # outcome: was anyone hurt?
+    hour       = lubridate::hour(time),
+    night      = hour >= 20 | hour < 4,                 # 8 pm – 4 am
+    weekend    = lubridate::wday(lubridate::mdy(date)) %in% c(1, 7)
+  )
+```
+
+**Outcome.** `any_injury` is binary (someone was hurt / no one was hurt), so the final model is a **logistic regression**; both the frequentist fit (`glm`) and the Bayesian fit (`brm`, default priors, 2 chains × 2,000 iterations, seed 705) are reported, per the course requirement. `driver_age` is included as a control.
+
+📋 **Rubric note (Quality of analysis):** the outcome's *type* drives the model choice, and the sentence says so. The derivations are shown, not hidden — a reader can re-create every variable.
+
+## 3 · Results
+
+### Descriptives
+
+```{r}
+#| label: descriptives
+crashes |>
+  summarize(
+    crashes        = n(),
+    p_any_injury   = mean(any_injury),
+    mean_injuries  = mean(injuries),
+    .by = intox_any
+  ) |>
+  arrange(intox_any)
+```
+
+About 8% of crashes involve an intoxicated driver. Injury is common in both groups — roughly **48% of sober-driver crashes** injure someone — but intoxication-involved crashes injure someone about **64%** of the time, and average more injured people per crash (≈1.1 vs ≈0.7).
+
+### The key visualization
+
+```{r}
+#| label: headline-figure
+#| fig-height: 4.5
+crashes |>
+  mutate(
+    intox   = if_else(intox_any == 1, "Intoxication involved", "No intoxication"),
+    period  = case_when(
+      night & weekend  ~ "Weekend night",
+      night            ~ "Weekday night",
+      weekend          ~ "Weekend day",
+      .default         = "Weekday day"
+    )
+  ) |>
+  summarize(p_injury = mean(any_injury), n = n(), .by = c(intox, period)) |>
+  ggplot(aes(period, p_injury, fill = intox)) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(values = c("firebrick", "grey55")) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Intoxication raises injury risk at every time of week",
+    subtitle = "Share of crashes injuring at least one person, Alaska crash data (n = 20,000)",
+    x = NULL, y = "Crashes with any injury", fill = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+The gap between the red and grey bars — roughly 15 percentage points — is strikingly *flat* across the four time windows. Whatever intoxication does to injury risk, it does not appear to save it up for Saturday night.
+
+📋 **Rubric note (The key visualization):** one figure carries the whole finding, the caption says what the plot *shows* (not what the author hoped), and the y-axis is honest (percentages, baseline visible).
+
+### The final model — both traditions
+
+**Frequentist:**
+
+```{r}
+#| label: model-freq
+m_freq <- glm(any_injury ~ intox_any + night + weekend + driver_age,
+              data = crashes, family = binomial)
+
+broom::tidy(m_freq) |>
+  mutate(odds_ratio = exp(estimate)) |>
+  mutate(across(where(is.numeric), \(x) round(x, 3)))
+```
+
+```{r}
+#| label: model-freq-ci
+round(exp(confint(m_freq)), 3)
+```
+
+**Bayesian twin** (same formula; brms default priors — flat on coefficients, weakly informative on the intercept — 2 chains × 2,000 iterations, seed 705):
+
+```{r}
+#| label: model-bayes
+#| output: false
+#| message: false
+library(brms)
+set.seed(705)
+m_bayes <- brm(any_injury ~ intox_any + night + weekend + driver_age,
+               data = crashes, family = bernoulli(),
+               chains = 2, iter = 2000, seed = 705, refresh = 0)
+```
+
+```{r}
+#| label: model-bayes-or
+round(exp(fixef(m_bayes)[, c("Estimate", "Q2.5", "Q97.5")]), 3)
+```
+
+**Reading the two fits together.** Both traditions tell the same story. Holding time-of-week and driver age constant, intoxication roughly **doubles the odds of an injury crash** (frequentist OR ≈ 1.9, 95% CI ≈ [1.7, 2.1]; Bayesian posterior OR ≈ 1.9, 95% credible interval ≈ [1.7, 2.1], excluding 1 decisively). The Bayesian fit licenses the sentence the frequentist one doesn't: *given the data and priors, there is a 95% probability the true odds ratio lies in that interval* — the confidence interval, by contrast, is a statement about the procedure, not this interval. With 20,000 crashes the two traditions converge numerically; the difference here is what we're *allowed to say*, not the numbers.
+
+In concrete terms: for a 35-year-old driver on a weekday afternoon, the model puts the probability of an injury crash near **47%** without intoxication and near **62%** with it.
+
+**And the honest nulls:** `night` (OR ≈ 1.01), `weekend` (OR ≈ 0.99), and `driver_age` (OR ≈ 1.00) all sit almost exactly at 1, with intervals straddling it in both traditions. In these data, *when* a crash happens tells us essentially nothing about injury risk once intoxication is accounted for — and there is no evidence the intoxication effect needs nights or weekends to operate.
+
+📋 **Rubric note (Interpretation & honesty):** the null predictors are reported with the same prominence as the significant one, magnitudes are in real units (probabilities, not log-odds), and the both-traditions comparison sentence names the actual philosophical difference instead of hand-waving.
+
+## 4 · Discussion and limitations
+
+**What was found.** Intoxication-involved crashes are substantially more likely to injure someone — an effect visible in the raw percentages, robust to adjustment, and essentially identical in the frequentist and Bayesian fits. The patrol-scheduling assumption fared worse: injury risk shows no independent night or weekend pattern, and the intoxication penalty is as present on a Tuesday afternoon as on a Saturday night.
+
+**Three sentences for a police chief.** Crashes involving an impaired driver are about twice as likely to hurt somebody, whatever the day or hour. The extra risk does not concentrate on weekend nights — it travels with the impaired driver. If the goal is fewer injuries, impairment enforcement is a seven-day job, not a Friday-night one.
+
+**Limitations.** These are simulated training data; real Alaska crash records would bring reporting artifacts (minor no-injury crashes underreported, intoxication recorded more diligently when someone is hurt — which could *inflate* the association). The unit is the crash, not the driver: nothing here says *which* driver was injured. The model is deliberately simple; interactions (e.g., intoxication × road condition) were beyond the course's scope, and `severity` was excluded because it is partially defined by injuries — putting it in would be circular. Finally, this is an observational association: no crash was randomly assigned an impaired driver, and the causal reading — however plausible — rests on the adjustment being adequate, which three covariates cannot guarantee.
+
+📋 **Rubric note (Interpretation & honesty, again):** limitations are specific to *this* analysis — the mechanical "correlation isn't causation" sentence appears only alongside named, checkable concerns (reporting bias direction, circularity of `severity`, unit-of-analysis).
+
+## 5 · What the submission package looks like
+
+A real submission of this project would upload to Canvas:
+
+1. **`crash-analysis.R`** — the script (this page's code, in order: [download it](final-project-exemplar-script.R))
+2. **`crash-ak.csv`** — the dataset
+3. **`crash-report.docx`** — sections 1–4 above as a 3–5 page report, figures pasted in
+
+📋 **Rubric note (Completeness & reproducibility):** the script runs top-to-bottom on the submitted data with the seed set — the grader can reproduce every number on this page.

@@ -6,10 +6,13 @@ project:
     - "slides/"
     - "labs/"
     - "homework/"
+    - "demos/"
+    - "practice/"
     - "!_private/"
   resources:
     - media/
     - data/
+    - final-project-exemplar-script.R
 
 website:
   title: "CRJU 705"

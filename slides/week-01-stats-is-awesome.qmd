@@ -37,6 +37,18 @@ zone_pal <- unname(palette.colors(6, palette = "Okabe-Ito"))[2:6]
 - Why are you here?
 - Future plans / goals
 
+## Today's Roadmap & Goals
+
+**Today:** a real case study, the course tour, types of data, and your first R commands.
+
+**Learning goals** — by the end of tonight you can:
+
+- name the four levels of measurement and classify a variable into them
+- explain why a variable's scale constrains the math *and* the plots you may use
+- run your first R commands and know what to install before next week
+
+*(No statistics background assumed. If the case study feels like magic tonight, good — by Session 12 you'll be able to build it.)*
+
 # A City Under Siege {background-color="#1B2A4A"}
 
 ## The Situation
@@ -209,6 +221,18 @@ Statistics turned scattered crime data into a clear lead — saving time, resour
 - What data did we *not* use? How could we update this model as new robberies occur in real time?
 - What are the risks of over-relying on a model? How do we communicate uncertainty to decision-makers?
 - What other areas that interest you could statistics be applied to?
+:::
+
+## You Already Think Like a Bayesian
+
+Look at what you just did with the robbery case:
+
+::: incremental
+- You started with a vague hunch spread across five zones — statisticians call that a **prior**
+- Each new robbery was **evidence** that reshaped the hunch
+- The model's "predicted risk by zone" is an **updated belief, given the data**
+- Sending officers to the West Zone = **deciding under quantified uncertainty**
+- The formal name is **Bayesian updating**. The formula arrives in Session 3; the full machinery in Session 6 — side by side with the other great tradition, the frequentist one
 :::
 
 # Course Structure {background-color="#73000A"}

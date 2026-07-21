@@ -67,6 +67,25 @@ Four-part structure (adapted from a colleague's proven template):
 3. **Your Turn (1..n)** — task prompts + empty chunks with `#| eval: false`
 4. **Exit Ticket** — 3–5 prompts, submitted via Canvas
 
+## Demo walkthroughs (`demos/demo-NN-topic.qmd`)
+
+One per content session — "the lecture, written down." Purpose: a student who missed class can reproduce every key demo start to finish without the instructor's environment.
+
+- Naming matches the slide topic: `demos/demo-08-anova.qmd`
+- **MUST be fully self-contained**: a *visible* setup chunk with `library()` calls, data loaded from the public URL (`https://smourtgos.github.io/crju705/data/…`), plain color names (NO `crju_colors`, NO `source(R/setup.R)`, NO `here::`), `set.seed(705)`
+- Structure: *What you'll build* → *Setup* → sections mirroring the deck's arc, reproducing every key demo → *Try a variation* prompts at the end
+- brms chunks use the standard sampler settings (chains = 2, iter = 2000, seed = 705, refresh = 0) and a compile-pause warning; `freeze: auto` caches them
+- `demos/` is in the `_quarto.yml` `render:` allowlist — a new page renders automatically once the file exists
+
+## Practice banks (`practice/practice-NN.qmd`)
+
+Ungraded self-check problems, 4–6 per stats session, solutions hidden in collapsed callouts.
+
+- Solutions are public but collapsed: `::: {.callout-tip collapse="true"}` with a `**Solution**` lead — acceptable because ungraded. **Never put graded-assignment answers here** (those stay in `_private/keys/`)
+- Problems must use *different numbers/variables* than the homework and slides (same change-the-numbers rule as HW)
+- Each solution chunk executes (output shown) so students can check against real numbers
+- `practice/` is in the `_quarto.yml` `render:` allowlist
+
 ## Code style
 
 - tidyverse style; native pipe `|>` (never `%>%`)
@@ -87,10 +106,14 @@ Three layers keep keys off the public site:
 Render a key locally on demand:
 `quarto render _private/keys/hw-02-key.qmd --to docx` (output stays local).
 
-**After any change to `_quarto.yml`:** re-render and check
-`grep -ri "answer" _site/ --exclude-dir=site_libs | grep -i key` returns nothing.
-(`site_libs` is excluded because reveal.js's syntax-highlighter bundles contain
-words like "answerCall" — known false positives.)
+**After any change to `_quarto.yml`:** re-render and check both of these return nothing:
+
+```bash
+grep -ril "answer key" _site/ --exclude-dir=site_libs
+find _site -name "*key*" -not -path "*site_libs*"
+```
+
+(The older `grep "answer" | grep -i key` check is retired: since the demos/practice/joins content landed, public pages legitimately contain "answer" near "key" — join keys, "pairwise answer," and the practice banks' *intentionally public* collapsed solutions. The two checks above target actual answer-key artifacts: the phrase "answer key" and key-named files. Avoid naming chunks `key-*` in public pages so the `find` stays clean.)
 
 ## Slide improvements (vs. the original PPT decks)
 

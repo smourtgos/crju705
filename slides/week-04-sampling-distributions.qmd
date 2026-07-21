@@ -33,7 +33,31 @@ crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = 
 
 **Learning goals:** explain in your own words — *law of large numbers, sampling distribution, standard error, central limit theorem* — and say why R's `var()` and `sd()` divide by n − 1 (Session 2's IOU gets paid today).
 
-**R4DS thread:** you read Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts and projects) — today's lab puts both to work.
+## Where We've Been
+
+::: incremental
+- **Session 2:** describing data — center, spread, and the shapes distributions take
+- **Session 3:** probability as the long run; conditioning as *shrink the world, re-proportion*; and Bayes' theorem — the base rate is never optional
+- **Today:** what happens to *statistics themselves* — means, proportions — when sampling repeats. This is the engine under every inference we make for the rest of the course
+:::
+
+## Two Threads, One Course
+
+:::: columns
+::: {.column width="50%"}
+**Statistics thread** — lecture + homework
+
+Stanton Ch. 3 → sampling distributions, the standard error, and the CLT
+:::
+
+::: {.column width="50%"}
+**Wrangling thread** — lab
+
+R4DS Ch. 5–6 → `pivot_longer()`, `pivot_wider()`, and tidy data
+:::
+::::
+
+The two threads meet at the Session 7 workshop — today's lab skill (reshaping) is what real agency data always needs first.
 
 ## A Question to Start
 
@@ -107,6 +131,17 @@ table(tests)
 . . .
 
 **Discussion:** even with a *low* false positive rate, false positives occur regularly in practice. What do we think about this? Does it matter?
+
+## What Does a Positive Test *Mean*? (Session 3 Redux)
+
+Our simulation showed false positives are routine. "Does it matter?" has a Session 3 answer — count it out:
+
+::: incremental
+- Suppose **2%** of tested drivers actually carry. In 1,000 tests: **20 carriers**, 980 clean
+- A 5% false-positive rate on the 980 clean drivers → **~49 false alarms**
+- Even if the test catches *all 20* carriers: 69 positives in total, of which 20 are real → $P(\text{carrier} \mid +) = 20/69 \approx 29\%$
+- The "5%" describes $P(+ \mid \text{clean})$. The courtroom cares about $P(\text{clean} \mid +)$. **Never confuse the direction**
+:::
 
 ## Simulating Probabilities in CJ (2)
 
@@ -248,6 +283,10 @@ sample_means <- tibble(draw = 1:1000) |>
 
 sample_means
 ```
+
+::: aside
+`map_dbl(draw, \(d) …)` reads as "for each draw, do this and return one number" — Session 3's `replicate()`, tibble-flavored. See the [simulation verbs reference](../resources.qmd#simulation-verbs).
+:::
 
 ## The Sampling Distribution of the Mean
 
@@ -416,6 +455,10 @@ variance_sims <- tibble(draw = 1:5000) |>
     var_div_nm1  = map_dbl(s, \(x) var(x))          # R's built-in: n - 1
   )
 ```
+
+::: aside
+`map()` builds a *list column* — each row's `s` holds an entire 5-value sample; `map_dbl()` then computes one number per sample. Don't worry about the list-column mechanics — watch the two averages on the next slide.
+:::
 
 ## Divide by n, and You're Biased
 

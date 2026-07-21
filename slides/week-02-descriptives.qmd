@@ -30,7 +30,7 @@ areas  <- read_csv(here::here("data/chicago-areas.csv"), show_col_types = FALSE)
 
 ## Week 1 Follow-Up
 
-**swirl assignments** — experiences, issues, good stuff with R???
+**swirl assignments** — how did they go? What clicked, what fought back, and what surprised you about R?
 
 1. Basic Building Blocks · 2. Workspace and Files · 3. Sequences of Numbers · 4. Vectors · 5. Missing Values · 6. Subsetting Vectors · 7. Matrices and Data Frames · 8. Logic · 12. Looking at Data · 15. Base Graphics
 
@@ -44,7 +44,25 @@ areas  <- read_csv(here::here("data/chicago-areas.csv"), show_col_types = FALSE)
 
 **Learning goals:** define in your own words — *mean, median, mode, variance, standard deviation, histogram, normal distribution, Poisson distribution* — and use R to describe a small dataset and plot a distribution.
 
-**R4DS thread:** you read Ch. 1 (Data visualization) & Ch. 2 (Workflow) — today's lab puts both to work.
+## Two Threads, One Course
+
+Starting today, every week builds **two things at once** — watch for this slide each session:
+
+:::: columns
+::: {.column width="50%"}
+**Statistics thread** — lecture + homework
+
+Stanton Ch. 1 → describing data: center, spread, and distribution shapes
+:::
+
+::: {.column width="50%"}
+**Wrangling thread** — lab
+
+R4DS Ch. 1–2 → ggplot2: histograms, bar charts, boxplots
+:::
+::::
+
+Two threads on purpose: the stats thread makes you a careful consumer of evidence; the wrangling thread is why your final project won't hurt. They merge at the Session 7 workshop.
 
 # Measures of Central Tendency {background-color="#73000A"}
 
@@ -179,7 +197,7 @@ areas |>
 areas |> slice_max(crime_rate, n = 3) |> select(community, crime_rate)
 ```
 
-The Loop's rate (driven by a small residential population and huge daytime crowds) pulls the mean above the median — same lesson as the 30-year sentence, in live data.
+Fuller Park's rate — nearly 300 crimes per 1,000 residents, inflated by its tiny residential population — pulls the mean above the median: same lesson as the 30-year sentence, in live data. (Rates with small denominators are a recurring CJ trap; we'll meet it again.)
 
 ## The Same Thing in Real Data
 
