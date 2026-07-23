@@ -1,6 +1,6 @@
 # CRJU 705 Modernization — Project Notes
 
-*Last updated: July 2026. Working notes for picking this back up.*
+*Last updated: July 21, 2026 — after the Phase 3 course-review overhaul shipped and was published live. Working notes for picking this back up.*
 
 ## What this is
 
@@ -20,6 +20,8 @@ Textbook stays **Stanton, *Reasoning with Data*** (the only intro text doing fre
 | **Working source** | `crju705-site/` (this folder) |
 | **2025 archive (untouched source material)** | `../CRJU 705/` |
 | **Colleague's course (lab template + datasets borrowed)** | `../CRCJ 8950 Spring 2026/` |
+
+Source directories, in student-facing terms: `weeks/` (hub pages — objectives, story, links), `slides/` (reveal.js decks), `labs/`, `homework/`, `demos/` (per-session "lecture written down" walkthroughs, self-contained), `practice/` (ungraded problem banks, collapsed solutions), `final-project-exemplar.qmd` (+ downloadable script). Non-public: `_private/keys/` (HW answer keys), `_private/exams/` (2025 archive + **midterm-2026.R draft**, worked key, pre-fit `midterm-anova-fit.rds`, `make-midterm-fit.R`), `_private/notes/` (per-week CHANGES logs + the midterm review checklist).
 
 ## How to work on it
 
@@ -56,7 +58,12 @@ NEXT full render (globbed as targets, then not found) — delete them if a rende
 
 - **`CONVENTIONS.md`** is the rulebook — read it before adding anything. File naming, slide YAML template, lab structure, code style, the video rule, the slide-density rule.
 - **Answer keys & exams** live in `_private/` — that folder is BOTH render-excluded (in `_quarto.yml`) AND gitignored, so it never reaches the public site or git history. Render a key locally on demand: `quarto render _private/keys/hw-0N-key.qmd --to docx`.
-- **After any `_quarto.yml` change**, re-check nothing leaked: `grep -ri "answer" _site/ --exclude-dir=site_libs | grep -i key` should return nothing.
+- **After any `_quarto.yml` change**, re-check nothing leaked. The old `grep "answer" | grep key` check is RETIRED (public pages now legitimately contain "answer" near "key" — join keys, practice solutions). Current checks, both must return nothing:
+  ```bash
+  grep -ril "answer key" _site/ --exclude-dir=site_libs
+  find _site -name "*key*" -not -path "*site_libs*"
+  ```
+  (And don't name chunks `key-*` in public pages — the `find` will flag the figure files.)
 
 ## Design decisions (already made — don't relitigate)
 
@@ -67,6 +74,9 @@ NEXT full render (globbed as targets, then not found) — delete them if a rende
 - **Slides = Quarto reveal.js**, rebuilt from the old PowerPoints.
 - **Pipe = `|>`** (native), because R4DS uses it. Materials note that `%>%` (which Scott uses by habit, and Stanton uses) is equivalent.
 - **Improvements to slides are logged** in `_private/notes/CHANGES-week-NN.md` for Scott's review — see below.
+- **(Phase 3) Bayes is threaded, not concentrated**: intuition seeded S1, theorem taught S3, machinery S6, priors named consistently S8–S12. Don't move it back into one deck.
+- **(Phase 3) Demos + practice banks are the missed-class recovery path** — a deliberate choice over recorded lectures. Slides may depend on `R/setup.R`; demo pages must NOT (public URLs, plain colors, visible setup).
+- **(Phase 3) Grade weights 45/25/30** (HW·labs·in-class / midterm / project), project 30% split 22 report + 8 presentation (split still a draft); final model reported in **both traditions**; presentations 8 min + 2 Q&A; midterm ships a pre-fit brms `.rds` (never a live Stan compile in the exam).
 
 ## The anchor dataset
 
@@ -89,21 +99,12 @@ A full pedagogical review (three parallel deep-reads: architecture/student journ
 
 Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (new "Course-review pass (July 2026)" sections).
 
-## Previous status: Phases 1 AND 2 COMPLETE ✅ — full course built
+**Phase 3 verification & ship (July 21, 2026):** full project render clean (one stale-`.rmarkdown` crash fixed en route — see render gotcha above); sharpened key-leak checks return nothing; `_private/` absent from `_site`; browser overflow audit clean on all 10 touched decks (the only overflows found were in the new material itself — six slides trimmed, plus one edit that had swallowed the "Simulating Probabilities in CJ (2)" heading, caught and restored); every new page's numbers verified by executing the code (demos/practice via Rscript, exemplar's Bayesian twin refit); committed (149 files), pushed, published to gh-pages, Pages build confirmed "built", live spot-checks all 200 (moved gif, demo, practice, exemplar + script, rebuilt decks, grade-weights table, S6 appendix).
 
-All 14 sessions, the final-project system, and the midterm study guide are built, verified, and live. (Phase 2 completed July 2026 — sessions 6–12 decks/labs/homework/keys, workshop session, project checkpoints 1–4, midterm/help/presentations pages, final-project page, media transcoded via macOS `avconvert`.)
+## Earlier phases (history, condensed)
 
-| Session | Topic | Slides | Lab | HW + key | Status |
-|---|---|---|---|---|---|
-| 1 | Intro / R setup / data types | ✅ (+ swirl page, robbery animations) | — | swirl | live |
-| 2 | Descriptive statistics & EDA | ✅ | Lab 2 (ggplot2, prisoners) | ✅ | live |
-| 3 | Probability, via simulation | ✅ | Lab 3 (dplyr, neighborhoods) | ✅ | live |
-| 4 | Sampling distributions | ✅ | Lab 4 (pivots, cities/reentry) | ✅ | live |
-| 5 | Confidence intervals | ✅ | Lab 5 (import, crash-ak) | ✅ | live |
-
-Also done: site scaffold, GitHub Pages pipeline, syllabus (migrated + reparameterized), schedule, resources, anchor dataset + codebook, answer-key privacy (verified), full slide-overflow audit (all 176 slides fit the canvas), video embedding fixed.
-
-**Verification performed:** full render clean; key-leak grep zero; all 4 labs run top-to-bottom in fresh R sessions as a student would; every live URL returns 200; browser-measured slide-overflow audit clean on all decks.
+- **Phases 1–2 (completed July 2026):** full 14-session course built from the 2025 PowerPoints — decks, labs 2–12, homework + keys, workshop session, project checkpoints 1–4, midterm/help/presentations pages, final-project page, site scaffold, GitHub Pages pipeline, anchor dataset + codebook, media transcoded via macOS `avconvert`. Verified then: render clean, key privacy, labs run top-to-bottom in fresh R sessions, overflow audit clean.
+- 2025-material bugs found & fixed during the rebuild: S3 HW conditional/joint wording + key numbering; S8's 2025 key printed a fabricated ANOVA table (claimed F=17.78, actual 72.71); S12's saved 3D logistic widget had a transposed z-matrix (live version regenerated correctly; the RECORDING still shows the old surface — on the TODO).
 
 ## TODO when you come back
 
@@ -115,10 +116,9 @@ Also done: site scaffold, GitHub Pages pipeline, syllabus (migrated + reparamete
 - [ ] **Confirm the S6 reading** — the hub assigns Scott's own *Police Forum* Bayes article; confirm that's the intended piece.
 - [ ] **Optional:** eyeball decks at projector resolution; videos cap at 480px tall with headroom to enlarge. Note the exemplar and practice-12 both analyze crash-ak injury~intoxication (different covariates) — coherent by design, but flag if you'd rather they diverge.
 
-### Carried context from the 2025→2026 rebuild (already handled, kept for the record)
-- 2025 bugs found & fixed in the rebuild: S3 HW conditional/joint wording + key numbering; S8's fabricated ANOVA table in the 2025 key (F=17.78 claimed, 72.71 actual); S12's transposed 3D widget (live version regenerated correctly).
+### Standing decision-records (already handled)
 - S11 homework's deliberately honest-null officers model stayed in (flagged for veto, not vetoed).
-- Canvas-vs-Blackboard: resolved — site is all-Canvas.
+- Canvas-vs-Blackboard: resolved — site is all-Canvas. (2025-material bug history now lives under "Earlier phases" above.)
 
 ### Known conventions/gotchas (all documented in CONVENTIONS.md)
 - Publish loop + the GitHub Pages stuck-build check (see "Publishing gotcha" above)
