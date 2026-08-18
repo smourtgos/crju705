@@ -231,6 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-3-sampling-from-unknown-distributions" id="toc-part-3-sampling-from-unknown-distributions" class="nav-link" data-scroll-target="#part-3-sampling-from-unknown-distributions">Part 3: Sampling from Unknown Distributions</a></li>
   <li><a href="#part-4-build-a-sampling-distribution" id="toc-part-4-build-a-sampling-distribution" class="nav-link" data-scroll-target="#part-4-build-a-sampling-distribution">Part 4: Build a Sampling Distribution</a></li>
   <li><a href="#part-5-real-data-the-clt-with-chicago-arrests" id="toc-part-5-real-data-the-clt-with-chicago-arrests" class="nav-link" data-scroll-target="#part-5-real-data-the-clt-with-chicago-arrests">Part 5: Real Data — The CLT with Chicago Arrests</a></li>
+  <li><a href="#part-6-r4ds-exercises-required" id="toc-part-6-r4ds-exercises-required" class="nav-link" data-scroll-target="#part-6-r4ds-exercises-required">Part 6: R4DS Exercises (required)</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-04.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -307,6 +308,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Simulate an analyst who can only pull <strong>100 case files at a time</strong>: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.</p></li>
 <li><p><strong>Interpretation (in a comment):</strong> each individual incident’s <code>arrest</code> value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of <em>sample proportions</em> have, and what theorem from Session 4 explains that?</p></li>
 </ol>
+</section>
+<section id="part-6-r4ds-exercises-required" class="level2">
+<h2 class="anchored" data-anchor-id="part-6-r4ds-exercises-required">Part 6: R4DS Exercises (required)</h2>
+<p>From your R4DS reading for Session 5 — <strong><a href="https://r4ds.hadley.nz/data-import.html">Ch. 7</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-help.html">Ch. 8</a></strong>. All of these are from <strong>7.2.4</strong>, and every one is a problem you will actually hit with real data.</p>
+<p>Work these in the <strong>same <code>.R</code> script</strong>, under a <code># ---- R4DS ----</code> header.</p>
+<ul>
+<li><strong>7.2.4</strong> #1 — what reads a <code>|</code>-separated file?</li>
+<li><strong>7.2.4</strong> #4 — strings quoted with <code>'</code> instead of <code>"</code></li>
+<li><strong>7.2.4</strong> #5 — five broken inline CSVs; say what goes wrong in each (the single most useful import exercise in the book)</li>
+<li><strong>7.2.4</strong> #6 — column names R hates, and how to rename them</li>
+</ul>
+<p>Ch. 8 has no exercises. Its payoff is the reprex habit — read it before you email me a bug.</p>
 
 
 </section>

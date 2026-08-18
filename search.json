@@ -165,7 +165,7 @@
     "href": "weeks/week-05.html#homework",
     "title": "Session 5 · Confidence Intervals on Real Data",
     "section": "Homework",
-    "text": "Homework\n\nHomework 5 — confidence intervals on the Alaska crash data; submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing) before Session 6\nRead R4DS Ch. 19 — Joins and skim Ch. 18 — Missing values\nR4DS exercises — these four deliberately circle one question: which rows didn’t match, and why?\n\n19.2.4 #1 (how do weather and airports relate? name the key)\n19.3.4 #3 (does every departing flight have weather data?) and #4 (tail numbers with no match in planes — what do they have in common?)\n18.3.4 #1 (is the missingness related to carrier?) — read it right after 19.3.4 #4; they are the same investigation from two directions\nSelf-check — nothing to submit. Bring whatever stumped you to class."
+    "text": "Homework\n\nHomework 5 — confidence intervals on the Alaska crash data; submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing) before Session 6\nRead R4DS Ch. 19 — Joins and skim Ch. 18 — Missing values\nR4DS exercises — these four deliberately circle one question: which rows didn’t match, and why?\n\n19.2.4 #1 (how do weather and airports relate? name the key)\n19.3.4 #3 (does every departing flight have weather data?) and #4 (tail numbers with no match in planes — what do they have in common?)\n18.3.4 #1 (is the missingness related to carrier?) — read it right after 19.3.4 #4; they are the same investigation from two directions\nRequired and submitted — they are R4DS Exercises section of Homework 5; put them in the same .R script under a # ---- R4DS ---- header."
   },
   {
     "objectID": "weeks/week-03.html",
@@ -200,7 +200,7 @@
     "href": "weeks/week-03.html#homework",
     "title": "Session 3 · Reasoning with Probability",
     "section": "Homework",
-    "text": "Homework\n\nHomework 3 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 3 (Probabilities in the Long Run) before Session 4\nRead R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects\nR4DS exercises — Ch. 5 has only one exercise block, and both questions are worth your time:\n\n5.2.1 #1 (for table1, table2, table3: what is one row? what is one column?) and #2 (sketch the steps to compute a rate — you aren’t expected to write the code yet, just to name the moves)\nCh. 6 has no exercises worth assigning. Do this instead: create an RStudio Project for this course (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one.\nSelf-check — nothing to submit. Bring whatever stumped you to class."
+    "text": "Homework\n\nHomework 3 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 3 (Probabilities in the Long Run) before Session 4\nRead R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects\nR4DS exercises — Ch. 5 has only one exercise block, and both questions are worth your time:\n\n5.2.1 #1 (for table1, table2, table3: what is one row? what is one column?) and #2 (sketch the steps to compute a rate — you aren’t expected to write the code yet, just to name the moves)\nCh. 6 has no exercises worth assigning. Do this instead: create an RStudio Project for this course (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one.\nRequired and submitted — they are Part 6 of Homework 3; put them in the same .R script under a # ---- R4DS ---- header."
   },
   {
     "objectID": "weeks/week-01.html",
@@ -235,7 +235,7 @@
     "href": "weeks/week-01.html#homework",
     "title": "Session 1 · Intro & R Setup",
     "section": "Homework",
-    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas by 11:59 pm Sunday ahead of Session 2.\n\nBefore Session 2\n\nRead Stanton Ch. 1 (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)\nRead R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics\nR4DS exercises — not all of them, just these five:\n\n1.2.5 #3 (build a scatterplot) and #5 (the code is broken — find and fix it)\n1.4.3 #4 (same histogram, different binwidth — which one tells the truth?)\n1.5.5 #2 (add a third variable to a scatterplot three different ways)\n2.5 #2 (three lines, three errors — this is the exercise that teaches you to read R’s error messages)\n\n\nThese are self-check: nothing to submit, but bring anything that stumped you to Session 2 and we’ll work it in class."
+    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas by 11:59 pm Sunday ahead of Session 2.\n\nBefore Session 2\n\nRead Stanton Ch. 1 (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)\nRead R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics\nR4DS exercises — not all of them, just these five:\n\n1.2.5 #3 (build a scatterplot) and #5 (the code is broken — find and fix it)\n1.4.3 #4 (same histogram, different binwidth — which one tells the truth?)\n1.5.5 #2 (add a third variable to a scatterplot three different ways)\n2.5 #2 (three lines, three errors — this is the exercise that teaches you to read R’s error messages)\n\n\nThese are required and submitted. Ch. 1 uses the palmerpenguins data, so install it once first:\ninstall.packages(c(\"palmerpenguins\", \"ggthemes\"))\nPut your answers in an .R script — one clearly labelled block per exercise number — and submit it via Canvas alongside your swirl scripts, by 11:59 pm Sunday."
   },
   {
     "objectID": "slides/week-12-logistic.html#this-week",
@@ -1701,6 +1701,13 @@
     "text": "First Steps: Characters & Factors\n\nstudent_names &lt;- c(\"Alice\", \"Bob\", \"Carol\")\nis.character(student_names)\n\n[1] TRUE\n\nf &lt;- factor(c(\"red\", \"blue\", \"red\"))\nf\n\n[1] red  blue red \nLevels: blue red\n\n\n\nYour turn: build a vector of seven ages; compute the mean & SD; subset the values &gt; 30; then use ?seq to generate seq(0, 1, by = 0.2)."
   },
   {
+    "objectID": "slides/week-01-stats-is-awesome.html#your-turn-vectors-one-way-to-do-it",
+    "href": "slides/week-01-stats-is-awesome.html#your-turn-vectors-one-way-to-do-it",
+    "title": "Statistics is Awesome!",
+    "section": "Your Turn: Vectors — One Way to Do It",
+    "text": "Your Turn: Vectors — One Way to Do It\n\nages &lt;- c(19, 24, 31, 27, 45, 38, 22)   # any seven numbers work\nmean(ages)\n\n[1] 29.42857\n\nsd(ages)\n\n[1] 9.28901\n\n\n\n\nages[ages &gt; 30]       # the logical vector inside [ ] does the subsetting\n\n[1] 31 45 38\n\nseq(0, 1, by = 0.2)   # `?seq` is where you'd find the `by =` argument\n\n[1] 0.0 0.2 0.4 0.6 0.8 1.0"
+  },
+  {
     "objectID": "slides/week-01-stats-is-awesome.html#data-frames-dplyr",
     "href": "slides/week-01-stats-is-awesome.html#data-frames-dplyr",
     "title": "Statistics is Awesome!",
@@ -1736,11 +1743,11 @@
     "text": "Your Turn\n\nUsing the built-in mpg data:\n\nFind the top-3 models by hwy.\nCompute the average cty by class.\n\n\n(Hints: arrange(desc(...)), slice_head(), and summarize(..., .by = ...) — all from your R4DS Ch. 3 reading next week.)"
   },
   {
-    "objectID": "slides/week-01-stats-is-awesome.html#your-turn-one-way-to-do-it",
-    "href": "slides/week-01-stats-is-awesome.html#your-turn-one-way-to-do-it",
+    "objectID": "slides/week-01-stats-is-awesome.html#your-turn-dplyr-one-way-to-do-it",
+    "href": "slides/week-01-stats-is-awesome.html#your-turn-dplyr-one-way-to-do-it",
     "title": "Statistics is Awesome!",
-    "section": "Your Turn — One Way to Do It",
-    "text": "Your Turn — One Way to Do It\n\n# 1. Top-3 models by highway mpg\nmpg |&gt; arrange(desc(hwy)) |&gt; select(manufacturer, model, hwy) |&gt; slice_head(n = 3)\n\n# A tibble: 3 × 3\n  manufacturer model        hwy\n  &lt;chr&gt;        &lt;chr&gt;      &lt;int&gt;\n1 volkswagen   jetta         44\n2 volkswagen   new beetle    44\n3 volkswagen   new beetle    41\n\n\n\n\n# 2. Average city mpg by class\nmpg |&gt; summarize(avg_cty = mean(cty), n = n(), .by = class) |&gt; arrange(desc(avg_cty))\n\n# A tibble: 7 × 3\n  class      avg_cty     n\n  &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;\n1 subcompact    20.4    35\n2 compact       20.1    47\n3 midsize       18.8    41\n4 minivan       15.8    11\n5 2seater       15.4     5\n6 suv           13.5    62\n7 pickup        13      33"
+    "section": "Your Turn: dplyr — One Way to Do It",
+    "text": "Your Turn: dplyr — One Way to Do It\n\n# 1. Top-3 models by highway mpg\nmpg |&gt; arrange(desc(hwy)) |&gt; select(manufacturer, model, hwy) |&gt; slice_head(n = 3)\n\n# A tibble: 3 × 3\n  manufacturer model        hwy\n  &lt;chr&gt;        &lt;chr&gt;      &lt;int&gt;\n1 volkswagen   jetta         44\n2 volkswagen   new beetle    44\n3 volkswagen   new beetle    41\n\n\n\n\n# 2. Average city mpg by class\nmpg |&gt; summarize(avg_cty = mean(cty), n = n(), .by = class) |&gt; arrange(desc(avg_cty))\n\n# A tibble: 7 × 3\n  class      avg_cty     n\n  &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;\n1 subcompact    20.4    35\n2 compact       20.1    47\n3 midsize       18.8    41\n4 minivan       15.8    11\n5 2seater       15.4     5\n6 suv           13.5    62\n7 pickup        13      33"
   },
   {
     "objectID": "slides/week-01-stats-is-awesome.html#coming-attractions-real-data-all-semester",
@@ -2408,6 +2415,13 @@
     "text": "Wrap-Up Questions (answer in comments)\n\nHow does the confidence interval help us make an inference about the population of Alaska crashes, when we only ever see a sample?\nWhat would happen to the width of the CI if we doubled the sample size? Why?\nHow does this example compare to John Snow’s inference about the cholera pumps?"
   },
   {
+    "objectID": "homework/hw-05.html#r4ds-exercises-required",
+    "href": "homework/hw-05.html#r4ds-exercises-required",
+    "title": "Homework 5 · Confidence Intervals in Practice",
+    "section": "R4DS Exercises (required)",
+    "text": "R4DS Exercises (required)\nFrom your R4DS reading for Session 6 — Ch. 19 — Joins and Ch. 18 — Missing values. These use nycflights13 again (installed for Homework 2).\nWork these in the same .R script, under a # ---- R4DS ---- header. All four circle one question: which rows didn’t match, and why?\n\n19.2.4 #1 — how do weather and airports relate? Name the key.\n19.3.4 #3 — does every departing flight have weather data?\n19.3.4 #4 — tail numbers with no match in planes: what do they have in common?\n18.3.4 #1 — is that missingness related to carrier? Do this one right after 19.3.4 #4; they are the same investigation from two directions.\n\nThis is the skill Session 7’s workshop leans on hardest: joining files that don’t line up cleanly."
+  },
+  {
     "objectID": "homework/hw-03.html",
     "href": "homework/hw-03.html",
     "title": "Homework 3 · Probability and Conditional Thinking",
@@ -2448,6 +2462,13 @@
     "title": "Homework 3 · Probability and Conditional Thinking",
     "section": "Part 5: Reversing a Conditional",
     "text": "Part 5: Reversing a Conditional\nA roadside field drug test has these properties:\n\n5% of stopped drivers actually carry drugs (the base rate)\nThe test flags 90% of drivers who carry (sensitivity)\nThe test also flags 8% of drivers who do not carry (false-positive rate)\n\n\nFor 1,000 stops, build the counting table from lecture — how many carriers get flagged, how many non-carriers get flagged? You can do the arithmetic directly in R (e.g., 1000 * 0.05 * 0.90) or lay it out with tribble(). Report the total number of flagged drivers.\nUsing your counts from Q15, compute P(carries | flagged) — the probability a flagged driver actually carries.\nInterpretation (in a comment): the manufacturer advertises the test as “90% accurate.” In one or two sentences: why is your Q16 answer nowhere near 90%, and which conditional probability does the “90%” actually describe?"
+  },
+  {
+    "objectID": "homework/hw-03.html#part-6-r4ds-exercises-required",
+    "href": "homework/hw-03.html#part-6-r4ds-exercises-required",
+    "title": "Homework 3 · Probability and Conditional Thinking",
+    "section": "Part 6: R4DS Exercises (required)",
+    "text": "Part 6: R4DS Exercises (required)\nFrom your R4DS reading for Session 4 — Ch. 5 and Ch. 6. No new packages; table1–table3 ship with the tidyverse.\nWork these in the same .R script, under a # ---- R4DS ---- header.\n\n5.2.1 #1 — for table1, table2, and table3: what is one row, and what is one column? (Answer in comments.)\n5.2.1 #2 — sketch the steps you’d take to compute a rate. You are not expected to write working code yet; name the moves in comments.\nCh. 5 has only this one exercise block — the pivot_longer()/pivot_wider() sections have no exercises at all.\nCh. 6 has no exercises worth assigning. Instead, do this and say so in a comment: create an RStudio Project for this course (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one."
   },
   {
     "objectID": "final-project.html",
@@ -3416,6 +3437,13 @@
     "text": "Part 4: Real Data\n\nLoad the course anchor data:\nlibrary(tidyverse)\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\")\nCompute the mean, median, and standard deviation of violent_rate (violent crimes per 1,000 residents across Chicago’s 77 community areas).\nMake a histogram of violent_rate.\nInterpretation (in a comment): based on the mean-vs-median comparison and the histogram’s shape, is violent_rate symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?"
   },
   {
+    "objectID": "homework/hw-02.html#part-5-r4ds-exercises-required",
+    "href": "homework/hw-02.html#part-5-r4ds-exercises-required",
+    "title": "Homework 2 · Descriptive Statistics in R",
+    "section": "Part 5: R4DS Exercises (required)",
+    "text": "Part 5: R4DS Exercises (required)\nFrom your R4DS reading for Session 3 — Ch. 3 and Ch. 4. Ch. 3 uses the flights data, so install it once first:\ninstall.packages(\"nycflights13\")\nlibrary(nycflights13)\nWork these in the same .R script as the rest of this homework, under a clear # ---- R4DS ---- comment header. Label each answer with its exercise number.\n\n3.2.5 #1 (filter() against a pile of conditions) and #2 (arrange() to find the extremes)\n3.3.5 #2 (several routes to the same select()) and #6 (rename() + relocate())\n3.5.7 #3 (how delays vary across the day — summarize() into a plot)\n4.6 #1 (restyle the two pipelines; paste your restyled version as code)\n\nThis is the biggest R4DS set of the semester, on purpose: Ch. 3 is the chapter your final project runs on."
+  },
+  {
     "objectID": "homework/hw-04.html",
     "href": "homework/hw-04.html",
     "title": "Homework 4 · Sampling and Sampling Distributions",
@@ -3456,6 +3484,13 @@
     "title": "Homework 4 · Sampling and Sampling Distributions",
     "section": "Part 5: Real Data — The CLT with Chicago Arrests",
     "text": "Part 5: Real Data — The CLT with Chicago Arrests\n\nLoad the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your population:\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\nmean(crimes$arrest)\nSimulate an analyst who can only pull 100 case files at a time: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.\nInterpretation (in a comment): each individual incident’s arrest value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of sample proportions have, and what theorem from Session 4 explains that?"
+  },
+  {
+    "objectID": "homework/hw-04.html#part-6-r4ds-exercises-required",
+    "href": "homework/hw-04.html#part-6-r4ds-exercises-required",
+    "title": "Homework 4 · Sampling and Sampling Distributions",
+    "section": "Part 6: R4DS Exercises (required)",
+    "text": "Part 6: R4DS Exercises (required)\nFrom your R4DS reading for Session 5 — Ch. 7 and Ch. 8. All of these are from 7.2.4, and every one is a problem you will actually hit with real data.\nWork these in the same .R script, under a # ---- R4DS ---- header.\n\n7.2.4 #1 — what reads a |-separated file?\n7.2.4 #4 — strings quoted with ' instead of \"\n7.2.4 #5 — five broken inline CSVs; say what goes wrong in each (the single most useful import exercise in the book)\n7.2.4 #6 — column names R hates, and how to rename them\n\nCh. 8 has no exercises. Its payoff is the reprex habit — read it before you email me a bug."
   },
   {
     "objectID": "homework/hw-06.html",
@@ -5387,7 +5422,7 @@
     "href": "syllabus.html#session-1-august-18",
     "title": "Syllabus",
     "section": "Session 1 — August 18",
-    "text": "Session 1 — August 18\nTopics: Class introduction · Why statistics is awesome · Types of data and levels of measurement · Using R and RStudio\nReadings due before class: Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see Resources.\nHomework: swirl tutorials in R (instructions in class). Submit R script files via Canvas by 11:59 pm Sunday ahead of the next session. Read Stanton Ch. 1 before next class."
+    "text": "Session 1 — August 18\nTopics: Class introduction · Why statistics is awesome · Types of data and levels of measurement · Using R and RStudio\nReadings due before class: Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see Resources.\nHomework: swirl tutorials in R (instructions in class) plus the assigned R4DS Ch. 1–2 exercises. Submit your R script files via Canvas by 11:59 pm Sunday ahead of the next session. Read Stanton Ch. 1 and R4DS Ch. 1–2 before next class."
   },
   {
     "objectID": "syllabus.html#session-2-august-25",
@@ -5499,7 +5534,7 @@
     "href": "syllabus.html#grading-scheme",
     "title": "Syllabus",
     "section": "Grading Scheme",
-    "text": "Grading Scheme\nYour final grade has three components:\n\n\n\n\n\n\n\nComponent\nWeight\nWhat it covers\n\n\n\nHomework, labs & in-class exercises\n45%\nWeekly problem sets (including the project checkpoints in Problem Sets 8–12) and the graded in-class exercises\n\n\nMid-term exam\n25%\nIn class at Session 9; covers Sessions 1–8\n\n\nFinal project\n30%\nWritten report, script & output (22%) + in-class presentation (8%)\n\n\n\nGraded in-class exercises are scored on active participation that day and cannot be made up (see the Attendance Policy). Final letter grades follow the standard scale:\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
+    "text": "Grading Scheme\nYour final grade has three components:\n\n\n\n\n\n\n\nComponent\nWeight\nWhat it covers\n\n\n\nHomework, labs & in-class exercises\n45%\nWeekly problem sets (including the R4DS exercises attached to Problem Sets 2–5 and the project checkpoints in Problem Sets 8–12) and the graded in-class exercises\n\n\nMid-term exam\n25%\nIn class at Session 9; covers Sessions 1–8\n\n\nFinal project\n30%\nWritten report, script & output (22%) + in-class presentation (8%)\n\n\n\nGraded in-class exercises are scored on active participation that day and cannot be made up (see the Attendance Policy). Final letter grades follow the standard scale:\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
   },
   {
     "objectID": "syllabus.html#attendance-policy",
@@ -5562,7 +5597,7 @@
     "href": "weeks/week-02.html#homework",
     "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "Homework",
-    "text": "Homework\n\nHomework 2 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 2 (Reasoning with Probability) before Session 3\nRead R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style\nR4DS exercises — the biggest set of the semester, because Ch. 3 is the chapter your final project runs on:\n\n3.2.5 #1 (filter() against a pile of conditions) and #2 (arrange() to find the extremes)\n3.3.5 #2 (several routes to the same select()) and #6 (rename() + relocate())\n3.5.7 #3 (how delays vary across the day — summarize() into a plot)\n4.6 #1 (restyle two ugly pipelines — you will be graded on readable code all semester)\nSelf-check — nothing to submit. Bring whatever stumped you to class."
+    "text": "Homework\n\nHomework 2 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 2 (Reasoning with Probability) before Session 3\nRead R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style\nR4DS exercises — the biggest set of the semester, because Ch. 3 is the chapter your final project runs on:\n\n3.2.5 #1 (filter() against a pile of conditions) and #2 (arrange() to find the extremes)\n3.3.5 #2 (several routes to the same select()) and #6 (rename() + relocate())\n3.5.7 #3 (how delays vary across the day — summarize() into a plot)\n4.6 #1 (restyle two ugly pipelines — you will be graded on readable code all semester)\nRequired and submitted — they are Part 5 of Homework 2; put them in the same .R script under a # ---- R4DS ---- header."
   },
   {
     "objectID": "weeks/week-04.html",
@@ -5597,7 +5632,7 @@
     "href": "weeks/week-04.html#homework",
     "title": "Session 4 · Sampling Distributions",
     "section": "Homework",
-    "text": "Homework\n\nHomework 4 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 4 before Session 5\nRead R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help\nR4DS exercises — all from 7.2.4, and every one of them is a problem you will actually hit with real data:\n\n#1 (what reads a |-separated file?) and #4 (strings quoted with ' instead of \")\n#5 (five broken inline CSVs — say what goes wrong in each; this is the single most useful import exercise in the book)\n#6 (column names R hates, and how to rename them)\nCh. 8 has no exercises. Its payoff is the reprex habit — worth reading before you email me a bug.\nSelf-check — nothing to submit. Bring whatever stumped you to class."
+    "text": "Homework\n\nHomework 4 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 4 before Session 5\nRead R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help\nR4DS exercises — all from 7.2.4, and every one of them is a problem you will actually hit with real data:\n\n#1 (what reads a |-separated file?) and #4 (strings quoted with ' instead of \")\n#5 (five broken inline CSVs — say what goes wrong in each; this is the single most useful import exercise in the book)\n#6 (column names R hates, and how to rename them)\nCh. 8 has no exercises. Its payoff is the reprex habit — worth reading before you email me a bug.\nRequired and submitted — they are Part 6 of Homework 4; put them in the same .R script under a # ---- R4DS ---- header."
   },
   {
     "objectID": "weeks/week-06.html",

@@ -747,13 +747,39 @@ Levels: blue red</code></pre>
 <p><strong>Your turn:</strong> build a vector of seven ages; compute the mean &amp; SD; subset the values &gt; 30; then use <code>?seq</code> to generate <code>seq(0, 1, by = 0.2)</code>.</p>
 </div>
 </section>
+<section id="your-turn-vectors-one-way-to-do-it" class="slide level2 smaller">
+<h2>Your Turn: Vectors — One Way to Do It</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">24</span>, <span class="dv">31</span>, <span class="dv">27</span>, <span class="dv">45</span>, <span class="dv">38</span>, <span class="dv">22</span>)   <span class="co"># any seven numbers work</span></span>
+<span id="cb39-2"><a></a><span class="fu">mean</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 29.42857</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">sd</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.28901</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>ages[ages <span class="sc">&gt;</span> <span class="dv">30</span>]       <span class="co"># the logical vector inside [ ] does the subsetting</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31 45 38</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)   <span class="co"># `?seq` is where you'd find the `by =` argument</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.0 0.2 0.4 0.6 0.8 1.0</code></pre>
+</div>
+</div>
+</div>
+</section>
 <section id="data-frames-dplyr" class="slide level2 smaller">
 <h2>Data Frames &amp; dplyr</h2>
 <p><em>(Stanton Appendix B — modern form)</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb39-2"><a></a>cars_data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mtcars, <span class="at">rownames =</span> <span class="st">"model"</span>)</span>
-<span id="cb39-3"><a></a><span class="fu">head</span>(cars_data, <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb47-2"><a></a>cars_data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mtcars, <span class="at">rownames =</span> <span class="st">"model"</span>)</span>
+<span id="cb47-3"><a></a><span class="fu">head</span>(cars_data, <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 12
   model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
@@ -771,7 +797,7 @@ Levels: blue red</code></pre>
 <section id="select-pick-columns" class="slide level2">
 <h2>select — pick columns</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">select</span>(model, mpg, cyl, hp) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">select</span>(model, mpg, cyl, hp) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   model            mpg   cyl    hp
@@ -786,7 +812,7 @@ Levels: blue red</code></pre>
 <section id="filter-pick-rows" class="slide level2 smaller">
 <h2>filter — pick rows</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 12
   model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
@@ -801,10 +827,10 @@ Levels: blue red</code></pre>
 <section id="mutate-summarize" class="slide level2">
 <h2>mutate &amp; summarize</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a></a>  <span class="fu">mutate</span>(<span class="at">mpg_per_hp =</span> mpg <span class="sc">/</span> hp) <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a></a>  <span class="fu">select</span>(model, mpg, hp, mpg_per_hp) <span class="sc">|&gt;</span></span>
-<span id="cb45-4"><a></a>  <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a></a>  <span class="fu">mutate</span>(<span class="at">mpg_per_hp =</span> mpg <span class="sc">/</span> hp) <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a></a>  <span class="fu">select</span>(model, mpg, hp, mpg_per_hp) <span class="sc">|&gt;</span></span>
+<span id="cb53-4"><a></a>  <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   model            mpg    hp mpg_per_hp
@@ -814,8 +840,8 @@ Levels: blue red</code></pre>
 3 Datsun 710      22.8    93      0.245
 4 Hornet 4 Drive  21.4   110      0.195</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
-<span id="cb47-2"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_mpg =</span> <span class="fu">mean</span>(mpg), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> cyl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
+<span id="cb55-2"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_mpg =</span> <span class="fu">mean</span>(mpg), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> cyl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
     cyl avg_mpg     n
@@ -837,11 +863,11 @@ Levels: blue red</code></pre>
 </div>
 <p><em>(Hints: <code>arrange(desc(...))</code>, <code>slice_head()</code>, and <code>summarize(..., .by = ...)</code> — all from your R4DS Ch. 3 reading next week.)</em></p>
 </section>
-<section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
-<h2>Your Turn — One Way to Do It</h2>
+<section id="your-turn-dplyr-one-way-to-do-it" class="slide level2 smaller">
+<h2>Your Turn: dplyr — One Way to Do It</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="co"># 1. Top-3 models by highway mpg</span></span>
-<span id="cb49-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(hwy)) <span class="sc">|&gt;</span> <span class="fu">select</span>(manufacturer, model, hwy) <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="co"># 1. Top-3 models by highway mpg</span></span>
+<span id="cb57-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(hwy)) <span class="sc">|&gt;</span> <span class="fu">select</span>(manufacturer, model, hwy) <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   manufacturer model        hwy
@@ -853,8 +879,8 @@ Levels: blue red</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="co"># 2. Average city mpg by class</span></span>
-<span id="cb51-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_cty =</span> <span class="fu">mean</span>(cty), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> class) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_cty))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="co"># 2. Average city mpg by class</span></span>
+<span id="cb59-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_cty =</span> <span class="fu">mean</span>(cty), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> class) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_cty))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 3
   class      avg_cty     n
@@ -879,9 +905,9 @@ Levels: blue red</code></pre>
 <h2>Homework (Due by 11:59 pm Sunday)</h2>
 <p><strong>swirl tutorials</strong> — interactive R lessons <em>inside</em> R:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
-<span id="cb53-2"><a></a><span class="fu">library</span>(swirl)</span>
-<span id="cb53-3"><a></a><span class="fu">swirl</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
+<span id="cb61-2"><a></a><span class="fu">library</span>(swirl)</span>
+<span id="cb61-3"><a></a><span class="fu">swirl</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Complete these lessons from <em>R Programming</em>: <strong>1)</strong> Basic Building Blocks · <strong>2)</strong> Workspace and Files · <strong>3)</strong> Sequences of Numbers · <strong>4)</strong> Vectors · <strong>5)</strong> Missing Values · <strong>6)</strong> Subsetting Vectors · <strong>7)</strong> Matrices and Data Frames · <strong>8)</strong> Logic · <strong>12)</strong> Looking at Data · <strong>15)</strong> Base Graphics</p>
 <p>Submit your R script files via <strong>Canvas</strong>. Then read <strong>Stanton Ch. 1</strong> before Session 2.</p>

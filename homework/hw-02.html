@@ -230,6 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-2-measures-of-dispersion" id="toc-part-2-measures-of-dispersion" class="nav-link" data-scroll-target="#part-2-measures-of-dispersion">Part 2: Measures of Dispersion</a></li>
   <li><a href="#part-3-exploring-distributions" id="toc-part-3-exploring-distributions" class="nav-link" data-scroll-target="#part-3-exploring-distributions">Part 3: Exploring Distributions</a></li>
   <li><a href="#part-4-real-data" id="toc-part-4-real-data" class="nav-link" data-scroll-target="#part-4-real-data">Part 4: Real Data</a></li>
+  <li><a href="#part-5-r4ds-exercises-required" id="toc-part-5-r4ds-exercises-required" class="nav-link" data-scroll-target="#part-5-r4ds-exercises-required">Part 5: R4DS Exercises (required)</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-02.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -322,6 +323,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Make a histogram of <code>violent_rate</code>.</p></li>
 <li><p><strong>Interpretation (in a comment):</strong> based on the mean-vs-median comparison and the histogram’s shape, is <code>violent_rate</code> symmetric or skewed? What does that tell you about how violence is distributed across Chicago’s communities?</p></li>
 </ol>
+</section>
+<section id="part-5-r4ds-exercises-required" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-r4ds-exercises-required">Part 5: R4DS Exercises (required)</h2>
+<p>From your R4DS reading for Session 3 — <strong><a href="https://r4ds.hadley.nz/data-transform.html">Ch. 3</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-style.html">Ch. 4</a></strong>. Ch. 3 uses the <code>flights</code> data, so install it once first:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"nycflights13"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Work these in the <strong>same <code>.R</code> script</strong> as the rest of this homework, under a clear <code># ---- R4DS ----</code> comment header. Label each answer with its exercise number.</p>
+<ul>
+<li><strong>3.2.5</strong> #1 (<code>filter()</code> against a pile of conditions) and <strong>#2</strong> (<code>arrange()</code> to find the extremes)</li>
+<li><strong>3.3.5</strong> #2 (several routes to the same <code>select()</code>) and <strong>#6</strong> (<code>rename()</code> + <code>relocate()</code>)</li>
+<li><strong>3.5.7</strong> #3 (how delays vary across the day — <code>summarize()</code> into a plot)</li>
+<li><strong>4.6</strong> #1 (restyle the two pipelines; paste your restyled version as code)</li>
+</ul>
+<p>This is the biggest R4DS set of the semester, on purpose: Ch. 3 is the chapter your final project runs on.</p>
 
 
 </section>

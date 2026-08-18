@@ -234,6 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-6-confidence-interval-with-t.test" id="toc-part-6-confidence-interval-with-t.test" class="nav-link" data-scroll-target="#part-6-confidence-interval-with-t.test">Part 6: Confidence Interval with <code>t.test()</code></a></li>
   <li><a href="#part-7-a-proportion-for-practice" id="toc-part-7-a-proportion-for-practice" class="nav-link" data-scroll-target="#part-7-a-proportion-for-practice">Part 7: A Proportion, for Practice</a></li>
   <li><a href="#wrap-up-questions-answer-in-comments" id="toc-wrap-up-questions-answer-in-comments" class="nav-link" data-scroll-target="#wrap-up-questions-answer-in-comments">Wrap-Up Questions (answer in comments)</a></li>
+  <li><a href="#r4ds-exercises-required" id="toc-r4ds-exercises-required" class="nav-link" data-scroll-target="#r4ds-exercises-required">R4DS Exercises (required)</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-05.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -335,6 +336,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>What would happen to the width of the CI if we doubled the sample size? Why?</li>
 <li>How does this example compare to John Snow’s inference about the cholera pumps?</li>
 </ol>
+</section>
+<section id="r4ds-exercises-required" class="level2">
+<h2 class="anchored" data-anchor-id="r4ds-exercises-required">R4DS Exercises (required)</h2>
+<p>From your R4DS reading for Session 6 — <strong><a href="https://r4ds.hadley.nz/joins.html">Ch. 19 — Joins</a></strong> and <strong><a href="https://r4ds.hadley.nz/missing-values.html">Ch. 18 — Missing values</a></strong>. These use <code>nycflights13</code> again (installed for Homework 2).</p>
+<p>Work these in the <strong>same <code>.R</code> script</strong>, under a <code># ---- R4DS ----</code> header. All four circle one question: <em>which rows didn’t match, and why?</em></p>
+<ul>
+<li><strong>19.2.4</strong> #1 — how do <code>weather</code> and <code>airports</code> relate? Name the key.</li>
+<li><strong>19.3.4</strong> #3 — does every departing flight have weather data?</li>
+<li><strong>19.3.4</strong> #4 — tail numbers with no match in <code>planes</code>: what do they have in common?</li>
+<li><strong>18.3.4</strong> #1 — is that missingness related to carrier? Do this one right after 19.3.4 #4; they are the same investigation from two directions.</li>
+</ul>
+<p>This is the skill Session 7’s workshop leans on hardest: joining files that don’t line up cleanly.</p>
 
 
 </section>
