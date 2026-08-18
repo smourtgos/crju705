@@ -1,21 +1,24 @@
 ---
-title: "Session 8 · ANOVA: Comparing Three or More Groups"
-subtitle: "Two kinds of variance · the F-ratio · aov() + Tukey's HSD · Bayesian ANOVA with brms + emmeans · Project Checkpoint 1"
+title: "Session 8 · Comparing Three or More Groups"
+subtitle: "Two kinds of variance · the F-ratio · reading aov() + Tukey output · your first brms + emmeans workflow · Project Checkpoint 1"
 ---
 
 ::: {.callout-tip appearance="simple"}
 **[📽️ Slides: Comparing Groups and Analyzing Experiments](../slides/week-08-anova.qmd)** · **[🧪 Lab 8: ANOVA — Three Classrooms, Then Real Crashes](../labs/lab-08-anova.qmd)** · **[📝 Homework 8 + Project Checkpoint 1](../homework/hw-08.qmd)** · **[🎬 Demo walkthrough](../demos/demo-08-anova.qmd)** · **[✍️ Practice](../practice/practice-08.qmd)**
 :::
 
-Session 6 compared two group means; this week asks the question real research runs into constantly — what if there are three groups, or six? A pile of t-tests backfires (the false alarms compound), so ANOVA asks one omnibus question instead, built from two kinds of variance you already understand from Session 4's sampling distributions. As always the workflow runs in both traditions: `aov()` with Tukey's HSD, then `brms` with `emmeans`. It's also the week your final project turns graded — Checkpoint 1 rides along with Homework 8 — and Session 9 is the midterm.
+Session 6 compared two group means; this week asks the question real research runs into constantly — what if there are three groups, or six? A pile of t-tests backfires (the false alarms compound), so ANOVA asks one omnibus question instead, built from two kinds of variance you already understand from Session 4's sampling distributions.
+
+Two honest notes about what this session is really for. You will rarely see ANOVA reported as a *final model* in criminal justice research — that world runs on regression — so we treat `aov()` and Tukey at the level you actually need them: **reading the output** you'll meet in older literature and program evaluations, and understanding that ANOVA is a regression with one categorical predictor (we prove it in class with a single line of code). What you'll keep from today is the other half: **the `brms` + `emmeans` workflow**, which you will run again in Sessions 10, 11, 12, and your final project. It's also the week your project turns graded — Checkpoint 1 rides along with Homework 8 — and Session 9 is the midterm.
 
 ## Learning objectives
 
 By the end of this week you can:
 
 - explain what the F-ratio compares: between-group signal against within-group noise
-- run and read a one-way ANOVA in both traditions (`aov()`, then `brm()` + `emmeans()`)
-- follow a significant F with an honest pairwise answer — Tukey's HSD or posterior contrasts
+- read a one-way ANOVA table and a Tukey output without needing to reproduce either by hand
+- run the `brm()` + `emmeans()` + `pairs()` workflow, and state the interval rule (crosses 0 → not credible)
+- explain why ANOVA is a regression with one categorical predictor, and what that buys you in Session 11
 - report direction *and* magnitude every time, including when a pair shows no credible difference
 
 ## Before class
@@ -30,9 +33,11 @@ By the end of this week you can:
 - Why comparing 3+ group means with a pile of t-tests backfires (false-alarm rates compound), and how ANOVA asks one omnibus question instead
 - The core idea: **within-group variance** (noise) vs. **between-group variance** (signal), built by hand on three small classrooms
 - Stanton's rain example: three random groups from the *same* 70 cities, where the null is true by construction — and why between-group variance collapses when nothing differs (Session 4's sampling distributions, cashed in again)
+- **Where ANOVA actually lives:** standard in experiments, rare as a final model in CJ journals — so we learn it as a *reading* skill and a conceptual bridge, not as a technique to publish
 - The **F-ratio** and the F distribution; `aov()` and how its table is just our two variances with the group size baked into the signal
 - A significant F only says *something* differs — **Tukey's HSD** finds which pairs, with the family-wise false-alarm rate held at 5%
-- The **Bayesian version**: `brm()` with the same formula, then `emmeans()` for posterior group means and `pairs()` for differences — the interval-crossing-zero reading
+- The **Bayesian version**: `brm()` with the same formula, then `emmeans()` for posterior group means and `pairs()` for differences — the interval-crossing-zero reading. **This is the workflow you keep**: it returns in Sessions 10, 11, 12, and your final project
+- **"It was regression all along":** `anova(lm(hour ~ crime_category))` returns the identical F and p-value as `aov()` — the bridge to Session 11
 - Real-data thread: does mean incident hour differ across Chicago's Violent / Property / Other categories? Both traditions say yes for every pair — by 15 to 41 minutes. Detectable ≠ dramatic, now with three groups.
 - **Lab 8:** the full workflow yourself — the classrooms, then injuries by crash cause in the Alaska data (including one pair with *no* credible difference, so you practice saying that out loud)
 
@@ -40,5 +45,5 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 8](../homework/hw-08.qmd)** — the ANOVA workflow, both traditions, on Stanton's `chickwts` data, **plus Project Checkpoint 1**: descriptive statistics and one plot on *your* final-project dataset, with a paragraph on your outcome variable and 2–3 candidate predictors. Submit your `.R` file via Canvas **before noon Tuesday**.
+- **[Homework 8](../homework/hw-08.qmd)** — the ANOVA workflow, both traditions, on Stanton's `chickwts` data, **plus Project Checkpoint 1**: descriptive statistics and one plot on *your* final-project dataset, with a paragraph on your outcome variable and 2–3 candidate predictors. Submit your `.R` file via Canvas **by 11:59 pm Sunday**.
 - **Session 9 is the MIDTERM**, covering Sessions 1–8. The **[study guide](../midterm.qmd)** is on the site. No new reading — review Stanton Ch. 1–6, the session pages, and your labs and homework. Parts 1–3 of Homework 8 double as ANOVA review.

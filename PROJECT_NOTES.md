@@ -1,6 +1,6 @@
 # CRJU 705 Modernization — Project Notes
 
-*Last updated: July 21, 2026 — after the Phase 3 course-review overhaul shipped and was published live. Working notes for picking this back up.*
+*Last updated: August 18, 2026 — after the Fall 2026 calendar rewire (Tuesday meetings, 13 sessions) and the ANOVA demotion. Working notes for picking this back up.*
 
 ## What this is
 
@@ -67,15 +67,18 @@ NEXT full render (globbed as targets, then not found) — delete them if a rende
 
 ## Design decisions (already made — don't relitigate)
 
-- **14 sessions** (16-week semester, assume ≥2 cancellations): 11 content + midterm (S9) + project help session (S13) + presentations (S14).
+- **13 sessions** (Fall 2026 actual): 11 content + midterm (S9) + presentations (S13). Was 14 with a dedicated project help session at S13; the Tuesday calendar left only 13 teaching days, so the help session was cut and folded into S12's final half hour as a code clinic + presentation-order draw. See `_private/notes/CHANGES-calendar-2026.md`.
 - **R4DS threaded through S2–S6** as readings + short wrangling labs, alongside Stanton. Completes the "Whole Game" before the final project.
 - **Theory taught simulation-first** on real data (the fix for "repetitive/theoretical").
 - **Anchor dataset = real Chicago 2025 crime**, at two levels (see below), running through lecture examples all semester. Labs rotate the colleague's simulated datasets for breadth.
+- **Meets Tuesdays, 6:00–8:45 pm, Currell College 204** (confirmed Aug 2026). Blackouts: Oct 27 conference, Nov 3 election day, Nov 24 Thanksgiving. Fall break is Thu–Fri and misses Tuesdays.
+- **Homework is due Sunday 11:59 pm** ahead of the next session (was "noon Tuesday," which only made sense under the old Wednesday meeting pattern).
 - **Slides = Quarto reveal.js**, rebuilt from the old PowerPoints.
 - **Pipe = `|>`** (native), because R4DS uses it. Materials note that `%>%` (which Scott uses by habit, and Stanton uses) is equivalent.
 - **Improvements to slides are logged** in `_private/notes/CHANGES-week-NN.md` for Scott's review — see below.
 - **(Phase 3) Bayes is threaded, not concentrated**: intuition seeded S1, theorem taught S3, machinery S6, priors named consistently S8–S12. Don't move it back into one deck.
 - **(Phase 3) Demos + practice banks are the missed-class recovery path** — a deliberate choice over recorded lectures. Slides may depend on `R/setup.R`; demo pages must NOT (public URLs, plain colors, visible setup).
+- **(Aug 2026) ANOVA is demoted, not cut.** Scott's read — ANOVA is near-absent as a final model in CJ journals — is correct, but S8 is really the **`brms` onboarding session**: it is where students install brms/emmeans, meet the Stan compile pause, and learn the crossing-0 interval rule, all of which S11's lab and demo explicitly depend on (`labs/lab-11-regression.qmd:114,139`, `demos/demo-11-regression.qmd:262`). The midterm's Bayesian half and Project Checkpoint 1 also ride on S8. So the machinery was compressed (−3 slides) and reframed (+3 slides: where ANOVA actually lives, the workflow is the point, it was regression all along) while the session, the midterm, and the checkpoint stayed put. **Don't cut S8 later without re-homing brms onboarding first.**
 - **(Phase 3) Grade weights 45/25/30** (HW·labs·in-class / midterm / project), project 30% split 22 report + 8 presentation (split still a draft); final model reported in **both traditions**; presentations 8 min + 2 Q&A; midterm ships a pre-fit brms `.rds` (never a live Stan compile in the exam).
 
 ## The anchor dataset
@@ -109,7 +112,9 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 ## TODO when you come back
 
 ### Decisions / reviews needed from Scott
-- [ ] **Confirm Fall 2026 dates.** Session dates are PROVISIONAL — set `firstday` and the break/conference dates at the top of `syllabus.qmd` once USC's official calendar is out. Everything recomputes from those (including the new Sunday-before-S14 project deadline, computed as `final_day - days(3)`). Also update the placeholder date language on `final-project.qmd`.
+- [ ] **Confirm the semester start/end against USC's official Fall 2026 calendar.** The meeting pattern and blackouts are now CONFIRMED (Tue 6:00–8:45, Currell 204; out Oct 27 / Nov 3 / Nov 24), but `firstday`, `semester_start`, and `semester_end` in `syllabus.qmd` are still provisional (Aug 18 → Dec 5). Everything recomputes from them. **If the semester starts Aug 25 instead of Aug 18 the course drops to 12 sessions** and something else has to give. Also update the placeholder date language on `final-project.qmd`.
+- [ ] **Decide on the project deadline vs. Thanksgiving.** As computed, the full project is due **Sun Nov 29 — the last day of Thanksgiving break** (`project_due <- final_day - days(2)`, preserving the Canvas-Sunday convention). Students get Nov 17–21 plus the break. Moving it to Sun Nov 22 protects the break but leaves only 5 days after S12. One-line change in `syllabus.qmd` plus prose in `final-project.qmd`.
+- [ ] **Decide whether to bridge the 3-week S10→S11 gap.** Oct 27 and Nov 3 fall back-to-back, so correlation (Oct 20) and multiple regression (Nov 10) are three weeks apart — the tightest conceptual handoff in the second half. No clean reordering exists (the midterm must follow S8; S10 must follow the midterm), so the options are an asynchronous bridging task over the gap or an extended S11 warm-up.
 - [ ] **Review the July 2026 course-review pass** — the new "Course-review pass (July 2026)" sections in `_private/notes/CHANGES-week-*.md` itemize every change. Highest-value eyeballs: the rebuilt S3 Bayes act + trimmed S6 (`slides/week-03-probability.qmd`, `week-06-hypothesis-testing.qmd`), the grade-weights table + report/presentation split (`syllabus.qmd` — the 22/8 split of the project 30% is a draft), the rubric grid + presentation spec (`final-project.qmd`), and the exemplar (`final-project-exemplar.qmd`).
 - [ ] **Approve the drafted midterm** — `_private/exams/midterm-2026.R` + key + pre-fit `.rds`; `_private/notes/MIDTERM-REVIEW-NEEDED.md` is now the review checklist. (2025 exam stays archived unmodified.)
 - [ ] **Re-record the S12 3D walkthrough video** — the live widget was fixed but `media/week-12/3d-logistic.mp4` still shows the pre-fix transposed surface (CHANGES-week-12).

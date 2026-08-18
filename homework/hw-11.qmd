@@ -1,6 +1,6 @@
 ---
 title: "Homework 11 · Cleaning Data for Regression + Project Checkpoint 3"
-subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 12"
+subtitle: "CRJU 705 · due by 11:59 pm Sunday ahead of Session 12"
 format:
   html: default
   docx: default

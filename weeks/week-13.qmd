@@ -1,32 +1,35 @@
 ---
-title: "Session 13 · Final-Project Help Session"
-subtitle: "Open Q&A · code clinic · project check-ins"
+title: "Session 13 · Final Project Presentations"
+subtitle: "The finish line"
 ---
 
-No new material this session — it exists entirely to get your final project over the line. Session 12 completed the toolbox and Checkpoint 4 fit your actual model, so your project already exists in pieces; today is the buffer built into the course for turning those pieces into a finished submission before Sunday's deadline, with live debugging help in the room. The deal is simple: arrive with a runnable draft and your two hardest problems, leave with them solved.
+::: {.callout-important appearance="simple"}
+Your complete project — R script, dataset, written report — was due **via Canvas before midnight Sunday**. No late submissions, no appeals. Presentations happen in class today.
+:::
+
+Thirteen sessions ago the course opened with a statistical model you couldn't read; today you present one you built. Everything the semester practiced converges here: a real criminal-justice question, data you cleaned yourself, a model fit and interpreted honestly, and — the part that matters most — saying what it all means in plain language. The written project is already in; today is about standing behind it.
 
 ## Learning objectives
 
 By the end of this session you can:
 
-- arrive with a runnable draft of your project script and your two most stuck-on problems written down
-- leave with those two problems solved — or with a concrete plan for each
-- say your results out loud in plain language before you write them into the report
-- state exactly what's due Sunday and what the Session 14 presentation requires
+- deliver an 8-minute, evidence-backed presentation of your project: question, data, methods, results, and what they mean
+- answer questions about every line of your code — how it works and why you wrote it that way
+- interpret your findings for a non-statistician, limitations included, without overclaiming
 
-## Before class
+## Format
 
-- Bring your **project code and data**, in whatever state they're in
-- Review your [checkpoint feedback](../final-project.qmd) from Sessions 8–12
-- Write down your two most stuck-on problems (code errors, interpretation doubts, "is this the right test?" questions)
+- **8 minutes + 2 minutes of questions**, in the order announced at Session 12. At 8 minutes you'll be stopped so everyone presents — practice once with a timer
+- Slides or your rendered report on screen — either works, but you **must show your one key visualization**
+- **You will walk through your code and explain how and why it works.** Being unable to confidently explain your own code will affect your grade — this is the point of the [AI policy](../syllabus.qmd#use-of-artificial-intelligence-tools)
+- Questions from the class and from me
+- The presentation is **8% of your course grade**; the full grading criteria are in the [presentation spec](../final-project.qmd#the-presentation-8-of-course-grade)
 
-## In class
+## What makes a good presentation
 
-- Open code clinic — bring errors, we debug them live
-- Interpretation workshopping — say your results out loud in plain language before you write them
-- Presentation logistics for Session 14: the **presentation order is announced today**. The format, time budget (8 min + 2 min Q&A), and grading criteria are already published in the [presentation spec](../final-project.qmd#the-presentation-8-of-course-grade) — read it before class so today's questions can be about *your* presentation
+- Lead with the question, not the code
+- One clear visualization beats three cluttered ones
+- Interpret in plain language: what would you tell a police chief, a judge, or a journalist?
+- Own your limitations — every real analysis has them, and naming them is a strength
 
-## After class
-
-- **Full project submission is due via Canvas before midnight Sunday** — R script, dataset, and written report ([details](../final-project.qmd))
-- Presentations are in class at Session 14
+Thank you for a great semester. 🎓

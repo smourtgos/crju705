@@ -5,7 +5,7 @@ toc: false
 ---
 
 ::: {.callout-note appearance="simple"}
-**Wednesdays, 5:50–8:35 pm · Currell 204** · Dr. Scott M. Mourtgos · [mourtgos@mailbox.sc.edu](mailto:mourtgos@mailbox.sc.edu)
+**Tuesdays, 6:00–8:45 pm · Currell 204** · Dr. Scott M. Mourtgos · [mourtgos@mailbox.sc.edu](mailto:mourtgos@mailbox.sc.edu)
 :::
 
 > "It is easy to lie with statistics; it is easier to lie without them."

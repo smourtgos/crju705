@@ -41,5 +41,5 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 11](../homework/hw-11.qmd)** — cleaning data *for* regression (a survey file with 999 sentinels and worse), the same regression before and after cleaning, **plus Project Checkpoint 3**: fit the first regression model on *your* project data — linear if your outcome is continuous; if it's binary, flag it (that's next session's tool) — interpret the coefficients, and run one diagnostic. Submit your `.R` file via Canvas **before noon Tuesday**.
+- **[Homework 11](../homework/hw-11.qmd)** — cleaning data *for* regression (a survey file with 999 sentinels and worse), the same regression before and after cleaning, **plus Project Checkpoint 3**: fit the first regression model on *your* project data — linear if your outcome is continuous; if it's binary, flag it (that's next session's tool) — interpret the coefficients, and run one diagnostic. Submit your `.R` file via Canvas **by 11:59 pm Sunday**.
 - **Read before Session 12:** Stanton **Ch. 10** — logistic regression, for yes/no outcomes. If your project outcome is binary, next session hands you the right tool.

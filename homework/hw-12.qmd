@@ -1,6 +1,6 @@
 ---
 title: "Homework 12 · Your Final Model + Project Checkpoint 4"
-subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 13"
+subtitle: "CRJU 705 · due by 11:59 pm the Sunday after Session 12"
 format:
   html: default
   docx: default
@@ -9,7 +9,7 @@ format-links: [docx]
 
 **Instructions:** complete the following in a single `.R` script file and submit it via **Canvas** for credit. This week the entire homework is about **your final project** — there is no practice dataset. Every part below uses the dataset you selected in Session 7 and have been building through Checkpoints 1–3.
 
-*(Session 13 is the project help session — no new material, just you, your code, and me. This homework is what makes that hour useful: if Parts 1–3 surface problems, that's exactly what the help session is for.)*
+*(Session 12 closes with a code clinic — no new material, just you, your code, and me. Bring whatever state this homework is in: the clinic exists to unstick Parts 1–3 while you still have a week to finish them.)*
 
 ## Part 1: Your Cleaned Variables
 
@@ -43,7 +43,7 @@ It can be that simple. I just want to see that you understand your dependent var
 ## Part 3: Project Checkpoint 4 (final)
 
 ::: {.callout-important appearance="simple"}
-**This is the last of the four project checkpoints.** Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model — Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on **completion and quality of reasoning**, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings. The help session (Session 13) comes *after* this checkpoint on purpose: finish it, note what's shaky, and bring the shaky parts to class.
+**This is the last of the four project checkpoints.** Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model — Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on **completion and quality of reasoning**, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings. The Session 12 code clinic comes *before* this checkpoint on purpose: bring the shaky parts to class, then finish the checkpoint with those problems solved.
 :::
 
 In a clearly marked section at the end of your `.R` script (e.g., `# ---- PROJECT CHECKPOINT 4 ----`):
@@ -57,12 +57,12 @@ In a clearly marked section at the end of your `.R` script (e.g., `# ---- PROJEC
 
 3. **Produce ONE table or figure you plan to show at presentations.** A tidy coefficient table, a plot of predicted values or probabilities, a well-labeled scatterplot with your fitted line — your choice, but it must be presentation-ready: real variable names, labeled axes or columns, a title. Not raw console output.
 
-4. **Write the three sentences you'd say about it to a non-statistician.** As a comment block. Imagine a police chief, a judge, or a city council member: no "log-odds," no "p < .05," no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 14 presentation — write them now and presentation prep gets much easier.
+4. **Write the three sentences you'd say about it to a non-statistician.** As a comment block. Imagine a police chief, a judge, or a city council member: no "log-odds," no "p < .05," no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 13 presentation — write them now and presentation prep gets much easier.
 
-If anything above breaks — the model won't run, a coefficient makes no sense, the output contradicts Checkpoint 3 — **say so in your comments and bring it to the help session.** Finding that out now, with a week to fix it, is precisely what this checkpoint is for.
+If anything above breaks — the model won't run, a coefficient makes no sense, the output contradicts Checkpoint 3 — **say so in your comments — and if it surfaced by clinic day, bring it to class.** Finding that out now, with a week before the full project is due, is precisely what this checkpoint is for.
 
 ## If You Get Stuck
 
 If you run into problems cleaning or transforming your data, email me the code you're using (copy and paste into the email is fine — no need to attach a script), along with a short explanation of what you're trying to do and what the issue is. I'm happy to help with the data-cleaning process. There's usually a simple fix that's easy to miss when you're still learning R.
 
-**Looking ahead:** Session 13 is the help session — bring your project code and data in whatever state they're in. The **full project** (script, dataset, and written report) is due via Canvas **before midnight the Sunday before Session 14**, and presentations are at Session 14. Details on the [Final Project page](../final-project.qmd).
+**Looking ahead:** this checkpoint is due the Sunday *after* Session 12; the **full project** (script, dataset, and written report) follows one week later, due via Canvas **before midnight the Sunday before Session 13**. Presentations are at Session 13. Details on the [Final Project page](../final-project.qmd).

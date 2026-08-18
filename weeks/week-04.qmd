@@ -41,6 +41,6 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 4](../homework/hw-04.qmd)** — submit your `.R` file via Canvas **before noon Tuesday**
+- **[Homework 4](../homework/hw-04.qmd)** — submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 4** before Session 5
 - Read R4DS **[Ch. 7 — Data import](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8 — Workflow: getting help](https://r4ds.hadley.nz/workflow-help.html)**

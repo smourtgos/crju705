@@ -37,6 +37,6 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 7](../homework/hw-07.qmd)** — the workshop write-up **plus your formal final-project dataset selection**; submit your `.R` file via Canvas **before noon Tuesday** ahead of Session 8
+- **[Homework 7](../homework/hw-07.qmd)** — the workshop write-up **plus your formal final-project dataset selection**; submit your `.R` file via Canvas **by 11:59 pm Sunday** ahead of Session 8
 - Bring your dataset and script to Session 8 — **project checkpoints begin there**, and we'll discuss your data source, question, and import battles
 - Read Stanton **Ch. 6** (ANOVA) before Session 8

@@ -6,7 +6,7 @@ subtitle: "The culminating assignment — real data, real analysis, your questio
 The final project integrates conceptual understanding with applied statistical skills in R. You will identify a research question, analyze a real criminal justice dataset, and interpret your findings using the tools from this course — building it **incrementally across the second half of the semester** rather than in a December scramble.
 
 ::: {.callout-important appearance="simple"}
-**Due: via Canvas by 11:59 pm the Sunday before Session 14.** You then present in class at Session 14. There will be *absolutely* no assignments or projects accepted after the Sunday deadline. None. Add it to your calendar now. Failure to submit any part by the deadline results in a zero. No appeals. Plan ahead.
+**Due: via Canvas by 11:59 pm the Sunday before Session 13.** You then present in class at Session 13. There will be *absolutely* no assignments or projects accepted after the Sunday deadline. None. Add it to your calendar now. Failure to submit any part by the deadline results in a zero. No appeals. Plan ahead.
 :::
 
 ::: {.callout-tip appearance="simple"}
@@ -23,9 +23,9 @@ The final project integrates conceptual understanding with applied statistical s
 | Session 10 HW | Checkpoint 2: measures of association among your key variables |
 | Session 11 HW | Checkpoint 3: a first regression model |
 | Session 12 HW | Checkpoint 4: refined model (linear or logistic) + interpretation |
-| Session 13 | Help session — open Q&A and code clinic |
-| Weekend before Session 14 | **Full submission due via Canvas (before midnight Sunday)** |
-| **Session 14** | **In-class presentation** (8 min + 2 min Q&A — 8% of your course grade) |
+| Session 12 | Code clinic (last half hour) — open Q&A; **presentation order announced** |
+| Weekend before Session 13 | **Full submission due via Canvas (before midnight Sunday)** |
+| **Session 13** | **In-class presentation** (8 min + 2 min Q&A — 8% of your course grade) |
 
 By presentation day, every piece of your analysis will already exist — the project is assembled, not started, at the end.
 
@@ -67,7 +67,7 @@ The project is **30% of your course grade**: the written report, script, and out
 
 ### The presentation (8% of course grade)
 
-**Format: 8 minutes + 2 minutes of questions.** Presentation order is announced at the Session 13 help session. You may present slides or your rendered report on screen — either is fine, but you **must show your one key visualization** and be ready to walk through **any line of your code** on request (see the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools); not being able to explain your own code will cost you well beyond the presentation points).
+**Format: 8 minutes + 2 minutes of questions.** Presentation order is announced at the Session 12 code clinic. You may present slides or your rendered report on screen — either is fine, but you **must show your one key visualization** and be ready to walk through **any line of your code** on request (see the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools); not being able to explain your own code will cost you well beyond the presentation points).
 
 | Criterion | Weight | What earns it |
 |---|:---:|---|
@@ -80,6 +80,6 @@ Running long is the classic failure: **practice once with a timer**. At 8 minute
 
 ## 5. Submission details
 
-Submit all files via **Canvas before midnight the Sunday before Session 14**. Late submissions will not be accepted. You will present your project during class at Session 14.
+Submit all files via **Canvas before midnight the Sunday before Session 13**. Late submissions will not be accepted. You will present your project during class at Session 13.
 
 *Exact calendar dates will be confirmed on Canvas once the Fall 2026 schedule is finalized.*

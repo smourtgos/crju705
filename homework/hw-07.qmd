@@ -1,6 +1,6 @@
 ---
 title: "Homework 7 · Workshop Write-Up & Final-Project Dataset Selection"
-subtitle: "CRJU 705 · due before noon Tuesday ahead of Session 8"
+subtitle: "CRJU 705 · due by 11:59 pm Sunday ahead of Session 8"
 format:
   html: default
   docx: default
@@ -52,5 +52,5 @@ This section is your dataset-selection submission for the final project — the 
 
 ## Deliverable and Due Date
 
-- Submit your `.R` script via **Canvas before noon Tuesday** ahead of Session 8.
+- Submit your `.R` script via **Canvas by 11:59 pm Sunday** ahead of Session 8.
 - **Bring your dataset(s) and script to Session 8.** Project checkpoints begin that week: be prepared to discuss your data source, your research question, and any issues you encountered importing or cleaning your data.

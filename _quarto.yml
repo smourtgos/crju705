@@ -41,7 +41,7 @@ website:
           - href: weeks/week-07.qmd
             text: "Session 7 · Applied Data Workshop"
           - href: weeks/week-08.qmd
-            text: "Session 8 · ANOVA"
+            text: "Session 8 · Comparing 3+ Groups (ANOVA)"
           - href: weeks/week-09.qmd
             text: "Session 9 · Midterm"
           - href: weeks/week-10.qmd
@@ -51,9 +51,7 @@ website:
           - href: weeks/week-12.qmd
             text: "Session 12 · Logistic Regression"
           - href: weeks/week-13.qmd
-            text: "Session 13 · Project Help Session"
-          - href: weeks/week-14.qmd
-            text: "Session 14 · Presentations"
+            text: "Session 13 · Presentations"
       - href: resources.qmd
         text: Resources
       - href: chicago-data.qmd

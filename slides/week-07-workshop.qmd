@@ -211,7 +211,7 @@ The rest of the session is **[Lab 7](../labs/lab-07-workshop.qmd)** — the same
 
 ## Dataset Selection — Due This Week
 
-Your final-project dataset, formally declared in **Homework 7** (before noon Tuesday):
+Your final-project dataset, formally declared in **Homework 7** (by 11:59 pm Sunday):
 
 - A **criminal-justice** dataset — policing, crime, courts, corrections, public opinion
 - It **imports into R** — you prove it with working code

@@ -19,26 +19,31 @@ set.seed(705)
 # academic calendar before the semester starts. Everything below derives
 # from these values.
 # ---------------------------------------------------------------------------
-firstday      <- ymd("2026-08-19")   # first Wednesday class meeting (PROVISIONAL)
+firstday       <- ymd("2026-08-18")  # first Tuesday class meeting (PROVISIONAL)
 semester_start <- ymd("2026-08-18")  # PROVISIONAL
 semester_end   <- ymd("2026-12-05")  # PROVISIONAL
 
 not_here_dates <- c(
-  # Instructor at conference (ASC) — PROVISIONAL
-  ymd("2026-11-18"),
-  # Fall Break — PROVISIONAL (Thu–Fri, does not hit a Wednesday)
+  # Instructor at conference — CONFIRMED
+  ymd("2026-10-27"),
+  # General Election Day — CONFIRMED, no class
+  ymd("2026-11-03"),
+  # Fall Break — Thu–Fri, does not hit a Tuesday
   seq(ymd("2026-10-15"), ymd("2026-10-16"), by = 1),
-  # Thanksgiving Break — PROVISIONAL
+  # Thanksgiving Break — CONFIRMED
   seq(ymd("2026-11-22"), ymd("2026-11-29"), by = 1)
 )
 
-# All Wednesdays in the semester
-all_weds <- seq(firstday, semester_end, by = "1 week")
-# Class sessions = Wednesdays not blocked by breaks/conference
-session_dates <- all_weds[!all_weds %in% not_here_dates]
+# All Tuesdays in the semester
+all_tues <- seq(firstday, semester_end, by = "1 week")
+# Class sessions = Tuesdays not blocked by breaks/election/conference
+session_dates <- all_tues[!all_tues %in% not_here_dates]
 
-exam_dates <- c(session_dates[9], session_dates[14])  # midterm, final presentations
-final_day  <- session_dates[14]
+n_sessions <- length(session_dates)          # 13 for Fall 2026
+exam_dates <- c(session_dates[9], session_dates[n_sessions])  # midterm, presentations
+final_day  <- session_dates[n_sessions]
+# Sunday before presentations (presentations fall on a Tuesday)
+project_due <- final_day - days(2)
 
 session_headers <- str_c(
   "Session ", seq_along(session_dates), " — ",
@@ -93,11 +98,11 @@ class_cal <- tibble(date = seq(ymd("2026-08-01"), ymd("2026-12-31"), by = 1)) |>
 ```
 
 ::: {.callout-warning appearance="simple"}
-**Provisional dates.** Session dates on this page derive from a provisional Fall 2026 calendar and will be finalized before the semester begins. Topics, their order, and course policies are final.
+**Provisional dates.** The meeting pattern (Tuesdays, 6:00–8:45 pm, Currell 204) and the no-class dates (Oct 27, Nov 3, and Thanksgiving week) are set. The individual *session dates* still derive from a provisional semester start and will be confirmed against USC's official Fall 2026 calendar before the semester begins. Topics, their order, and course policies are final.
 :::
 
 **Instructor:** Dr. Scott M. Mourtgos · [mourtgos@mailbox.sc.edu](mailto:mourtgos@mailbox.sc.edu) · Office: Currell 111 · Office hours: on request
-**Class meetings:** Wednesdays, 5:50–8:35 pm · Currell 204
+**Class meetings:** Tuesdays, 6:00–8:45 pm · Currell 204
 
 # Course Description
 
@@ -147,9 +152,9 @@ Dates for all assignments and exams are listed on the course Canvas page and dis
 
 ## Final Project Information
 
-The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — **dataset selection is due at Session 7** (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. A dedicated **help session (Session 13)** provides open Q&A and a code clinic before presentations.
+The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — **dataset selection is due at Session 7** (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. Session 12 closes with a **project code clinic** — open Q&A on your own code — before presentations.
 
-Your completed project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(final_day - days(3), '%B %d, %Y')`** (the Sunday before presentations day). You will then present your work in class at Session 14 on `r format(final_day, '%B %d, %Y')`.
+Your completed project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d, %Y')`** (the Sunday before presentations day). You will then present your work in class at Session 13 on `r format(final_day, '%B %d, %Y')`.
 
 There will be *absolutely* no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.
 
@@ -192,7 +197,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due before class:** Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see [Resources](resources.qmd#installing-r-and-rstudio).
 
-**Homework:** swirl tutorials in R (instructions in class). Submit R script files via Canvas **before noon Tuesday** ahead of the next session. Read Stanton Ch. 1 before next class.
+**Homework:** swirl tutorials in R (instructions in class). Submit R script files via Canvas **by 11:59 pm Sunday** ahead of the next session. Read Stanton Ch. 1 before next class.
 
 ## `r session_headers[2]`
 
@@ -280,17 +285,13 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **In-class exercise (graded)** · **Homework:** Problem set 12 (includes **project checkpoint 4**)
 
+This is the last session with new statistical content. The final half hour is a **project code clinic** — bring your project code and your two most stuck-on problems — and **presentation order is announced today**.
+
 ## `r session_headers[13]`
-
-**Topics:** **Final-project help session** — open Q&A, code clinic, project check-ins
-
-**No in-class exercise or problem set.** Bring your project code and questions. Reminder: the completed project is due via Canvas by 11:59 pm the following Sunday.
-
-## `r session_headers[14]`
 
 **Topics:** **Final Project Presentations (in class)**
 
-The final project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(final_day - days(3), '%B %d, %Y')`**, the Sunday before this session. Presentations happen in class today. No late submissions, no appeals. Plan ahead.
+The final project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d, %Y')`**, the Sunday before this session. Presentations happen in class today. No late submissions, no appeals. Plan ahead.
 
 # Course Policies
 

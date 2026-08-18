@@ -40,5 +40,5 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 10](../homework/hw-10.qmd)** — the correlation workflow, both traditions, on the Chicago community areas, **plus Project Checkpoint 2**: compute and visualize the associations between your outcome and your 2–3 candidate predictors in *your* project dataset, interpret them, and flag any surprises. These associations feed directly into the regression you'll run in Checkpoint 3. Submit your `.R` file via Canvas **before noon Tuesday**.
+- **[Homework 10](../homework/hw-10.qmd)** — the correlation workflow, both traditions, on the Chicago community areas, **plus Project Checkpoint 2**: compute and visualize the associations between your outcome and your 2–3 candidate predictors in *your* project dataset, interpret them, and flag any surprises. These associations feed directly into the regression you'll run in Checkpoint 3. Submit your `.R` file via Canvas **by 11:59 pm Sunday**.
 - **Read before Session 11:** Stanton **Ch. 8** (Multiple Regression) — today's scatterplots grow a second predictor, and your project's candidate predictors finally get to compete.

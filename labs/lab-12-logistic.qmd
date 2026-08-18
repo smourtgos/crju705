@@ -207,4 +207,4 @@ Submit a short R script to Canvas before you leave, containing:
 1. A comment: why `lm()` is the wrong tool for a 0/1 outcome, in one or two sentences
 2. Your fitted crash model plus two interpretation sentences: one **odds-ratio** sentence (the `night` effect) and one **predicted-probability** sentence (your two driver profiles)
 3. A comment stating the difference between odds and probability — and which one an odds ratio multiplies
-4. A comment: which piece of today's workflow you'd use in your final project, and the one thing you most need help with at next week's help session
+4. A comment: which piece of today's workflow you'd use in your final project, and the one thing you most need help with at today's code clinic

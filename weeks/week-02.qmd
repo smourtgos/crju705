@@ -39,6 +39,6 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 2](../homework/hw-02.qmd)** — submit your `.R` file via Canvas **before noon Tuesday**
+- **[Homework 2](../homework/hw-02.qmd)** — submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 2** (Reasoning with Probability) before Session 3
 - Read R4DS **[Ch. 3 — Data transformation](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4 — Workflow: code style](https://r4ds.hadley.nz/workflow-style.html)**

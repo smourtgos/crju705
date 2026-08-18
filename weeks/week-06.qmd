@@ -43,6 +43,6 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 6](../homework/hw-06.qmd)** — Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question; submit your `.R` file via Canvas **before noon Tuesday**
+- **[Homework 6](../homework/hw-06.qmd)** — Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question; submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - No new Stanton chapter before Session 7 — the **applied data workshop**, where we run the full messy-data pipeline end to end (the capstone of the R4DS thread)
 - **Final-project dataset selection is due at Session 7.** Come with a candidate dataset and be ready to say what one row represents, what the interesting variables are, and what question you might ask of it — details on the [final project page](../final-project.qmd)

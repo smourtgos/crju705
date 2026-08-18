@@ -606,5 +606,5 @@ A reentry study models **re-arrest within 12 months** and reports two log-odds c
 
 - **Lab 12:** the whole logistic workflow — Chicago neighborhoods, then Alaska crashes at night ([lab page](../labs/lab-12-logistic.qmd))
 - **Homework 12:** your final-project model + **Project Checkpoint 4 (final)** — cleaned variables, model equation, fitted model, and the three sentences you'd say about it ([assignment](../homework/hw-12.qmd))
-- **Session 13 is the project help session** — no new reading; bring your project code, your data, and your two most stuck-on problems
-- Full project due via Canvas **before midnight Sunday** ahead of Session 14 ([details](../final-project.qmd))
+- **Code clinic — final half hour of today:** bring your project code, your data, and your two most stuck-on problems. **Presentation order is drawn today.**
+- Full project due via Canvas **before midnight Sunday** ahead of **Session 13 — presentations**, 8 min + 2 min Q&A ([details](../final-project.qmd))

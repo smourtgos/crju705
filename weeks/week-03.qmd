@@ -45,6 +45,6 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 3](../homework/hw-03.qmd)** — submit your `.R` file via Canvas **before noon Tuesday**
+- **[Homework 3](../homework/hw-03.qmd)** — submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 3** (Probabilities in the Long Run) before Session 4
 - Read R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6 — Workflow: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)**

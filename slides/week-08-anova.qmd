@@ -30,14 +30,15 @@ crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = 
 
 ## This Week
 
-**Topic:** ANOVA — comparing three or more group means at once
+**Topic:** comparing three or more group means — and your first Bayesian model workflow
 
 - Why "just run a bunch of t-tests" backfires
 - The core idea: two kinds of variance and their ratio, F
-- `aov()` + Tukey's HSD, then Bayesian `brms` + `emmeans`
+- `aov()` + Tukey's HSD — enough to read the output you'll meet in the literature
+- **`brms` + `emmeans`** — the workflow you'll reuse in every remaining session
 - Real data: does Chicago's clock differ by crime category?
 
-**Learning goals:** explain what F compares; run and read a one-way ANOVA in both traditions; follow a significant F with an honest pairwise answer.
+**Learning goals:** explain what F compares; read a one-way ANOVA in both traditions; run the posterior workflow you'll use for the rest of the course.
 
 **Also this week:** Homework 8 includes **Project Checkpoint 1** — your first graded step on your final-project dataset.
 
@@ -95,6 +96,15 @@ By six groups you have a coin-flip's chance of at least one bogus "significant" 
 . . .
 
 ANOVA asks **one omnibus question** — *are all the group means plausibly equal?* — at a single 5% risk. (When we go pairwise afterward, we'll adjust for this. Hold that thought.)
+
+## Where ANOVA Actually Lives
+
+::: incremental
+- ANOVA is **standard in experiments** — assign units to conditions, compare outcomes. That is what it was built for.
+- But open a criminology journal and you'll rarely see it as a **final model**. Observational CJ research runs on **regression**.
+- **So why learn it? You will read it.** Older literature, program evaluations, and lab studies are full of ANOVA tables — and output you can't read is output you have to take on faith.
+- **And it is regression in disguise.** The between/within logic you build today is the machinery behind R², the F-test, and every categorical predictor from Session 11 on. We'll prove it before class ends.
+:::
 
 # The Core Idea: Two Kinds of Variance {background-color="#1B2A4A"}
 
@@ -182,11 +192,9 @@ Within ≈ **133**, between ≈ **2.3**. The classrooms gave us 7.1 vs. 102.8 �
 ## Why So Lopsided?
 
 ::: incremental
-- City-to-city rainfall varies a *lot* (Phoenix vs. Mobile) → big **within**-group variance
-- But each group's **mean** averages 20 cities — and Session 4 taught us means fluctuate far less than raw values ($SE = \sigma/\sqrt{n}$)
-- With no real group differences, between-group variance is nothing but the tiny sampling noise of three means
-- So the diagnostic: **between ≫ within → something real is separating the groups. Between ≪ within → nothing but noise.**
-- All we need is a ruler for "how much bigger is big enough" —
+- City-to-city rainfall varies a *lot* (Phoenix vs. Mobile) → big **within**-group variance. But each group's **mean** averages 20 cities, and Session 4 taught us means fluctuate far less than raw values ($SE = \sigma/\sqrt{n}$).
+- With no real group differences, between-group variance is nothing but the tiny sampling noise of three means.
+- The diagnostic: **between ≫ within → something real separates the groups. Between ≪ within → noise.** All we need is a ruler for "how much bigger is big enough" —
 :::
 
 ## The F-Statistic
@@ -254,10 +262,12 @@ summary(rain_model)
 
 ::: incremental
 - **Mean Sq Residuals = 132.7** — exactly the within-group variance we computed by hand ✓
-- **Mean Sq group = 45.2 = 20 × 2.26** — our between-group variance, *scaled by the group size*
-- Why × 20? A 2-inch gap between means built on **20 cities each** is far stronger evidence than the same gap built on 2. `aov()` bakes the sample size into the signal.
-- **F = 45.2 / 132.7 = 0.34.** So when your hand-computed ratio and `aov()`'s F disagree, this scaling is why — same logic, different units.
+- **Mean Sq group = 45.2** — our between-group variance (2.26), scaled by the group size. **F = 45.2 / 132.7 = 0.34.**
 :::
+
+. . .
+
+*Why the scaling? A 2-inch gap between means built on 20 cities each is stronger evidence than the same gap built on 2, so `aov()` bakes sample size into the signal. That's the only reason your hand-computed ratio and R's F won't match — same logic, different units. You do not need to reproduce this by hand; you need to read the table.*
 
 ## Let's Make a Difference Artificially
 
@@ -267,16 +277,12 @@ Shift Group 3 down 15 inches — now there *is* a real difference, and we know e
 #| label: rain-shift
 rain_shifted <- rain |>
   mutate(rainfall = if_else(group == "Group 3", rainfall - 15, rainfall))
-
-rain_shifted |> summarize(mean_rain = mean(rainfall), .by = group)
 ```
-
-## Original vs. Shifted, Seen
 
 ```{r}
 #| label: rain-shift-plot
 #| echo: false
-#| fig-height: 5.5
+#| fig-height: 4.4
 bind_rows(
   rain         |> mutate(version = "Original: all three from the same population"),
   rain_shifted |> mutate(version = "Group 3 shifted down 15 inches")
@@ -407,6 +413,23 @@ plot(pairs(rain_post)) +
 
 Zero sits comfortably inside every interval. When a difference is *real*, its interval abandons 0 — watch what real data do next.
 
+## This Workflow Is the Point
+
+The four lines you just ran are the ones you will keep for the rest of the course:
+
+```r
+model <- brm(outcome ~ predictor, data = df)   # fit
+post  <- emmeans(model, ~ predictor)           # posterior summaries
+plot(post); pairs(post)                        # see it; compare
+```
+
+::: incremental
+- **Session 10** — the same `brm()` call, a numeric predictor
+- **Sessions 11–12** — the same call again, several predictors, then a binary outcome
+- **Your final project** — the Bayesian half of your both-traditions model
+- The ANOVA was the *excuse* to learn this. The workflow is the thing you keep. Also true of the interval rule: **crosses 0 → not credible; excludes 0 → credible**, forever after.
+:::
+
 # Real Data: Does the Clock Differ by Crime Type? {background-color="#73000A"}
 
 ## The Question
@@ -495,6 +518,19 @@ Every HPD interval **excludes 0** — all three differences are credible. (Watch
 - 30,000 incidents give us the power to detect differences this small. Detecting them is not the same as their *mattering*.
 - Your job as the analyst: report **direction** *and* **size**, every time. "Significant" without magnitude is malpractice — Session 6's lesson, now with three groups.
 :::
+
+## It Was Regression All Along
+
+Promised at the top of class. Same data, same question, one function swapped:
+
+```{r}
+#| label: anova-is-regression
+anova(lm(hour ~ crime_category, data = crimes))
+```
+
+. . .
+
+**The identical F and p-value.** `aov()` is a thin wrapper around `lm()` — ANOVA *is* a regression with one categorical predictor. In Session 11 you'll fit that same model and read its coefficients as differences between groups, which is what Tukey was showing you all along.
 
 ## How to Report It
 
