@@ -227,7 +227,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)
 
-**Homework:** Problem set 2 · Read Stanton Ch. 2
+**Homework:** Problem set 2 (includes the **R4DS Ch. 3–4 exercises**) · Read Stanton Ch. 2 and R4DS Ch. 3–4
 
 ## `r session_headers[3]`
 
@@ -235,7 +235,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)
 
-**In-class exercise (graded)** · **Homework:** Problem set 3 · Read Stanton Ch. 3
+**In-class exercise (graded)** · **Homework:** Problem set 3 (includes the **R4DS Ch. 5–6 exercises**) · Read Stanton Ch. 3 and R4DS Ch. 5–6
 
 ## `r session_headers[4]`
 
@@ -243,7 +243,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)
 
-**In-class exercise (graded)** · **Homework:** Problem set 4 · Read Stanton Ch. 4
+**In-class exercise (graded)** · **Homework:** Problem set 4 (includes the **R4DS Ch. 7–8 exercises**) · Read Stanton Ch. 4 and R4DS Ch. 7–8
 
 ## `r session_headers[5]`
 
@@ -251,7 +251,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)
 
-**In-class exercise (graded)** · **Homework:** Problem set 5 · Read Stanton Ch. 5
+**In-class exercise (graded)** · **Homework:** Problem set 5 (includes the **R4DS Ch. 19 + 18 exercises**) · Read Stanton Ch. 5 and R4DS Ch. 19 (skim Ch. 18)
 
 ## `r session_headers[6]`
 
@@ -259,7 +259,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)
 
-**In-class exercise (graded)** · **Homework:** Problem set 6 · Begin scouting a final-project dataset
+**In-class exercise (graded)** · **Homework:** Problem set 6 · No new Stanton chapter · **Final-project dataset selection is due at Session 7** — come with a candidate and be ready to say what one row represents
 
 ## `r session_headers[7]`
 
@@ -267,7 +267,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Due in class:** **Final-project dataset selection**
 
-**Homework:** Workshop write-up · Read Stanton Ch. 6
+**Homework:** Problem set 7 — the workshop write-up **plus your formal final-project dataset selection** · Read Stanton Ch. 6 · Bring your dataset and script to Session 8, where project checkpoints begin
 
 ## `r session_headers[8]`
 
@@ -289,7 +289,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 7
 
-**In-class exercise (graded)** · **Homework:** Problem set 10 (includes **project checkpoint 2**)
+**In-class exercise (graded)** · **Homework:** Problem set 10 (includes **project checkpoint 2**) · Read Stanton Ch. 8
 
 ## `r session_headers[11]`
 
@@ -305,7 +305,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 10
 
-**In-class exercise (graded)** · **Homework:** Problem set 12 (includes **project checkpoint 4**)
+**In-class exercise (graded)** · **Homework:** Problem set 12 (includes **project checkpoint 4**) — due the Sunday *after* this session · **Full project due via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d')`**, one week later
 
 This is the last session with new statistical content. The final half hour is a **project code clinic** — bring your project code and your two most stuck-on problems — and **presentation order is announced today**.
 
