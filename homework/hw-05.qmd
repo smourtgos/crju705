@@ -95,3 +95,16 @@ This homework uses the Alaska traffic-crash data from Lab 5 — 20,000 real-worl
 1. How does the confidence interval help us make an inference about the *population* of Alaska crashes, when we only ever see a sample?
 2. What would happen to the width of the CI if we doubled the sample size? Why?
 3. How does this example compare to John Snow's inference about the cholera pumps?
+
+## R4DS Exercises (required)
+
+From your R4DS reading for Session 6 — **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)** and **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)**. These use `nycflights13` again (installed for Homework 2).
+
+Work these in the **same `.R` script**, under a `# ---- R4DS ----` header. All four circle one question: *which rows didn't match, and why?*
+
+- **19.2.4** #1 — how do `weather` and `airports` relate? Name the key.
+- **19.3.4** #3 — does every departing flight have weather data?
+- **19.3.4** #4 — tail numbers with no match in `planes`: what do they have in common?
+- **18.3.4** #1 — is that missingness related to carrier? Do this one right after 19.3.4 #4; they are the same investigation from two directions.
+
+This is the skill Session 7's workshop leans on hardest: joining files that don't line up cleanly.

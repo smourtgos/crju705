@@ -68,4 +68,10 @@ Save the R script you work in as you go (one script per lesson is fine). Submit 
   - **1.5.5** #2 (add a *third* variable to a scatterplot three different ways)
   - **2.5** #2 (three lines, three errors — this is the exercise that teaches you to read R's error messages)
 
-These are self-check: nothing to submit, but bring anything that stumped you to Session 2 and we'll work it in class.
+**These are required and submitted.** Ch. 1 uses the `palmerpenguins` data, so install it once first:
+
+```r
+install.packages(c("palmerpenguins", "ggthemes"))
+```
+
+Put your answers in an `.R` script — one clearly labelled block per exercise number — and submit it via Canvas alongside your swirl scripts, **by 11:59 pm Sunday**.

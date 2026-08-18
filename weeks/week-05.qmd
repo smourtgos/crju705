@@ -46,4 +46,4 @@ By the end of this week you can:
   - **19.2.4** #1 (how do `weather` and `airports` relate? name the key)
   - **19.3.4** #3 (does every departing flight have weather data?) and **#4** (tail numbers with no match in `planes` — what do they have in common?)
   - **18.3.4** #1 (is the missingness related to carrier?) — read it right after 19.3.4 #4; they are the same investigation from two directions
-  - *Self-check — nothing to submit. Bring whatever stumped you to class.*
+  - **Required and submitted** — they are R4DS Exercises section of [Homework 5](../homework/hw-05.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header.

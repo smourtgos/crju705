@@ -488,6 +488,23 @@ f
 **Your turn:** build a vector of seven ages; compute the mean & SD; subset the values > 30; then use `?seq` to generate `seq(0, 1, by = 0.2)`.
 :::
 
+## Your Turn: Vectors — One Way to Do It {.smaller}
+
+```{r}
+#| label: your-turn-vectors
+ages <- c(19, 24, 31, 27, 45, 38, 22)   # any seven numbers work
+mean(ages)
+sd(ages)
+```
+
+. . .
+
+```{r}
+#| label: your-turn-vectors-2
+ages[ages > 30]       # the logical vector inside [ ] does the subsetting
+seq(0, 1, by = 0.2)   # `?seq` is where you'd find the `by =` argument
+```
+
 ## Data Frames & dplyr {.smaller}
 
 *(Stanton Appendix B — modern form)*
@@ -541,7 +558,7 @@ Using the built-in `mpg` data:
 
 *(Hints: `arrange(desc(...))`, `slice_head()`, and `summarize(..., .by = ...)` — all from your R4DS Ch. 3 reading next week.)*
 
-## Your Turn — One Way to Do It {.smaller}
+## Your Turn: dplyr — One Way to Do It {.smaller}
 
 ```{r}
 #| label: your-turn-1

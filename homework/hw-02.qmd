@@ -84,3 +84,21 @@ Then put `library(modeest)` at the top of your script.
 3. Make a histogram of `violent_rate`.
 
 4. **Interpretation (in a comment):** based on the mean-vs-median comparison and the histogram's shape, is `violent_rate` symmetric or skewed? What does that tell you about how violence is distributed across Chicago's communities?
+
+## Part 5: R4DS Exercises (required)
+
+From your R4DS reading for Session 3 — **[Ch. 3](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4](https://r4ds.hadley.nz/workflow-style.html)**. Ch. 3 uses the `flights` data, so install it once first:
+
+```r
+install.packages("nycflights13")
+library(nycflights13)
+```
+
+Work these in the **same `.R` script** as the rest of this homework, under a clear `# ---- R4DS ----` comment header. Label each answer with its exercise number.
+
+- **3.2.5** #1 (`filter()` against a pile of conditions) and **#2** (`arrange()` to find the extremes)
+- **3.3.5** #2 (several routes to the same `select()`) and **#6** (`rename()` + `relocate()`)
+- **3.5.7** #3 (how delays vary across the day — `summarize()` into a plot)
+- **4.6** #1 (restyle the two pipelines; paste your restyled version as code)
+
+This is the biggest R4DS set of the semester, on purpose: Ch. 3 is the chapter your final project runs on.

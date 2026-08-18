@@ -154,7 +154,7 @@ By the end of this course, students will be able to:
 
 # General Assignment Information
 
-This course requires consistent engagement and practice. You are expected to attend and actively participate in class sessions, complete in-class exercises in R, and contribute to discussions. Assigned readings — from the Stanton textbook and from *R for Data Science* — prepare you for lectures and hands-on demonstrations. You will complete in-class exercises and submit R scripts and output from weekly homework assignments. Beginning mid-semester, several homework assignments include a **project checkpoint**: a short component where you apply that week's technique to the dataset you selected for your final project, so the project builds incrementally rather than all at once. The course concludes with a final project that integrates conceptual understanding with applied statistical skills in R.
+This course requires consistent engagement and practice. You are expected to attend and actively participate in class sessions, complete in-class exercises in R, and contribute to discussions. Assigned readings — from the Stanton textbook and from *R for Data Science* — prepare you for lectures and hands-on demonstrations. You will complete in-class exercises and submit R scripts and output from weekly homework assignments. Through the first half of the semester, the homework also includes a short set of **exercises from *R for Data Science*** — curated, not the full set — submitted in the same R script. Beginning mid-semester, several homework assignments include a **project checkpoint**: a short component where you apply that week's technique to the dataset you selected for your final project, so the project builds incrementally rather than all at once. The course concludes with a final project that integrates conceptual understanding with applied statistical skills in R.
 
 #### Use of Artificial Intelligence Tools {#use-of-artificial-intelligence-tools}
 
@@ -219,7 +219,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due before class:** Stanton Introduction + Appendices A–C; this syllabus. Install R and RStudio first — see [Resources](resources.qmd#installing-r-and-rstudio).
 
-**Homework:** swirl tutorials in R (instructions in class). Submit R script files via Canvas **by 11:59 pm Sunday** ahead of the next session. Read Stanton Ch. 1 before next class.
+**Homework:** swirl tutorials in R (instructions in class) **plus the assigned R4DS Ch. 1–2 exercises**. Submit your R script files via Canvas **by 11:59 pm Sunday** ahead of the next session. Read Stanton Ch. 1 and R4DS Ch. 1–2 before next class.
 
 ## `r session_headers[2]`
 
@@ -340,7 +340,7 @@ Your final grade has three components:
 
 | Component | Weight | What it covers |
 |:---|:---:|:---|
-| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the project checkpoints in Problem Sets 8–12) and the graded in-class exercises |
+| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the R4DS exercises attached to Problem Sets 2–5 and the project checkpoints in Problem Sets 8–12) and the graded in-class exercises |
 | Mid-term exam | **25%** | In class at Session 9; covers Sessions 1–8 |
 | Final project | **30%** | Written report, script & output (22%) + in-class presentation (8%) |
 

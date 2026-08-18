@@ -72,3 +72,14 @@ A roadside field drug test has these properties:
 16. Using your counts from Q15, compute **P(carries | flagged)** — the probability a *flagged* driver actually carries.
 
 17. **Interpretation (in a comment):** the manufacturer advertises the test as "90% accurate." In one or two sentences: why is your Q16 answer nowhere near 90%, and which conditional probability does the "90%" actually describe?
+
+## Part 6: R4DS Exercises (required)
+
+From your R4DS reading for Session 4 — **[Ch. 5](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6](https://r4ds.hadley.nz/workflow-scripts.html)**. No new packages; `table1`–`table3` ship with the tidyverse.
+
+Work these in the **same `.R` script**, under a `# ---- R4DS ----` header.
+
+- **5.2.1** #1 — for `table1`, `table2`, and `table3`: what is one row, and what is one column? (Answer in comments.)
+- **5.2.1** #2 — sketch the steps you'd take to compute a rate. You are not expected to *write* working code yet; name the moves in comments.
+- Ch. 5 has only this one exercise block — the `pivot_longer()`/`pivot_wider()` sections have no exercises at all.
+- Ch. 6 has no exercises worth assigning. **Instead, do this and say so in a comment:** create an **RStudio Project** for this course (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one.

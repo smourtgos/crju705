@@ -49,4 +49,4 @@ By the end of this week you can:
   - **#5** (five broken inline CSVs — say what goes wrong in each; this is the single most useful import exercise in the book)
   - **#6** (column names R hates, and how to rename them)
   - Ch. 8 has no exercises. Its payoff is the reprex habit — worth reading before you email me a bug.
-  - *Self-check — nothing to submit. Bring whatever stumped you to class.*
+  - **Required and submitted** — they are Part 6 of [Homework 4](../homework/hw-04.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header.

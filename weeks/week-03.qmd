@@ -51,4 +51,4 @@ By the end of this week you can:
 - **R4DS exercises** — Ch. 5 has only one exercise block, and both questions are worth your time:
   - **5.2.1** #1 (for `table1`, `table2`, `table3`: what is one row? what is one column?) and **#2** (sketch the steps to compute a rate — you aren't expected to *write* the code yet, just to name the moves)
   - Ch. 6 has no exercises worth assigning. Do this instead: **create an RStudio Project for this course** (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one.
-  - *Self-check — nothing to submit. Bring whatever stumped you to class.*
+  - **Required and submitted** — they are Part 6 of [Homework 3](../homework/hw-03.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header.
