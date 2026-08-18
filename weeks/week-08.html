@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Session 8 · ANOVA: Comparing Three or More Groups – CRJU 705</title>
+<title>Session 8 · Comparing Three or More Groups – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · ANOVA</span></a>
+ <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
@@ -152,11 +152,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Project Help Session</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../weeks/week-14.html">
- <span class="dropdown-text">Session 14 · Presentations</span></a>
+ <span class="dropdown-text">Session 13 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -207,8 +203,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 8 · ANOVA: Comparing Three or More Groups</h1>
-<p class="subtitle lead">Two kinds of variance · the F-ratio · aov() + Tukey’s HSD · Bayesian ANOVA with brms + emmeans · Project Checkpoint 1</p>
+<h1 class="title">Session 8 · Comparing Three or More Groups</h1>
+<p class="subtitle lead">Two kinds of variance · the F-ratio · reading aov() + Tukey output · your first brms + emmeans workflow · Project Checkpoint 1</p>
 </div>
 
 
@@ -235,14 +231,16 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p>Session 6 compared two group means; this week asks the question real research runs into constantly — what if there are three groups, or six? A pile of t-tests backfires (the false alarms compound), so ANOVA asks one omnibus question instead, built from two kinds of variance you already understand from Session 4’s sampling distributions. As always the workflow runs in both traditions: <code>aov()</code> with Tukey’s HSD, then <code>brms</code> with <code>emmeans</code>. It’s also the week your final project turns graded — Checkpoint 1 rides along with Homework 8 — and Session 9 is the midterm.</p>
+<p>Session 6 compared two group means; this week asks the question real research runs into constantly — what if there are three groups, or six? A pile of t-tests backfires (the false alarms compound), so ANOVA asks one omnibus question instead, built from two kinds of variance you already understand from Session 4’s sampling distributions.</p>
+<p>Two honest notes about what this session is really for. You will rarely see ANOVA reported as a <em>final model</em> in criminal justice research — that world runs on regression — so we treat <code>aov()</code> and Tukey at the level you actually need them: <strong>reading the output</strong> you’ll meet in older literature and program evaluations, and understanding that ANOVA is a regression with one categorical predictor (we prove it in class with a single line of code). What you’ll keep from today is the other half: <strong>the <code>brms</code> + <code>emmeans</code> workflow</strong>, which you will run again in Sessions 10, 11, 12, and your final project. It’s also the week your project turns graded — Checkpoint 1 rides along with Homework 8 — and Session 9 is the midterm.</p>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
 <p>By the end of this week you can:</p>
 <ul>
 <li>explain what the F-ratio compares: between-group signal against within-group noise</li>
-<li>run and read a one-way ANOVA in both traditions (<code>aov()</code>, then <code>brm()</code> + <code>emmeans()</code>)</li>
-<li>follow a significant F with an honest pairwise answer — Tukey’s HSD or posterior contrasts</li>
+<li>read a one-way ANOVA table and a Tukey output without needing to reproduce either by hand</li>
+<li>run the <code>brm()</code> + <code>emmeans()</code> + <code>pairs()</code> workflow, and state the interval rule (crosses 0 → not credible)</li>
+<li>explain why ANOVA is a regression with one categorical predictor, and what that buys you in Session 11</li>
 <li>report direction <em>and</em> magnitude every time, including when a pair shows no credible difference</li>
 </ul>
 </section>
@@ -261,9 +259,11 @@ ul.task-list li input[type="checkbox"] {
 <li>Why comparing 3+ group means with a pile of t-tests backfires (false-alarm rates compound), and how ANOVA asks one omnibus question instead</li>
 <li>The core idea: <strong>within-group variance</strong> (noise) vs.&nbsp;<strong>between-group variance</strong> (signal), built by hand on three small classrooms</li>
 <li>Stanton’s rain example: three random groups from the <em>same</em> 70 cities, where the null is true by construction — and why between-group variance collapses when nothing differs (Session 4’s sampling distributions, cashed in again)</li>
+<li><strong>Where ANOVA actually lives:</strong> standard in experiments, rare as a final model in CJ journals — so we learn it as a <em>reading</em> skill and a conceptual bridge, not as a technique to publish</li>
 <li>The <strong>F-ratio</strong> and the F distribution; <code>aov()</code> and how its table is just our two variances with the group size baked into the signal</li>
 <li>A significant F only says <em>something</em> differs — <strong>Tukey’s HSD</strong> finds which pairs, with the family-wise false-alarm rate held at 5%</li>
-<li>The <strong>Bayesian version</strong>: <code>brm()</code> with the same formula, then <code>emmeans()</code> for posterior group means and <code>pairs()</code> for differences — the interval-crossing-zero reading</li>
+<li>The <strong>Bayesian version</strong>: <code>brm()</code> with the same formula, then <code>emmeans()</code> for posterior group means and <code>pairs()</code> for differences — the interval-crossing-zero reading. <strong>This is the workflow you keep</strong>: it returns in Sessions 10, 11, 12, and your final project</li>
+<li><strong>“It was regression all along”:</strong> <code>anova(lm(hour ~ crime_category))</code> returns the identical F and p-value as <code>aov()</code> — the bridge to Session 11</li>
 <li>Real-data thread: does mean incident hour differ across Chicago’s Violent / Property / Other categories? Both traditions say yes for every pair — by 15 to 41 minutes. Detectable ≠ dramatic, now with three groups.</li>
 <li><strong>Lab 8:</strong> the full workflow yourself — the classrooms, then injuries by crash cause in the Alaska data (including one pair with <em>no</em> credible difference, so you practice saying that out loud)</li>
 </ul>
@@ -272,7 +272,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>
 <ul>
-<li><strong><a href="../homework/hw-08.html">Homework 8</a></strong> — the ANOVA workflow, both traditions, on Stanton’s <code>chickwts</code> data, <strong>plus Project Checkpoint 1</strong>: descriptive statistics and one plot on <em>your</em> final-project dataset, with a paragraph on your outcome variable and 2–3 candidate predictors. Submit your <code>.R</code> file via Canvas <strong>before noon Tuesday</strong>.</li>
+<li><strong><a href="../homework/hw-08.html">Homework 8</a></strong> — the ANOVA workflow, both traditions, on Stanton’s <code>chickwts</code> data, <strong>plus Project Checkpoint 1</strong>: descriptive statistics and one plot on <em>your</em> final-project dataset, with a paragraph on your outcome variable and 2–3 candidate predictors. Submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday</strong>.</li>
 <li><strong>Session 9 is the MIDTERM</strong>, covering Sessions 1–8. The <strong><a href="../midterm.html">study guide</a></strong> is on the site. No new reading — review Stanton Ch. 1–6, the session pages, and your labs and homework. Parts 1–3 of Homework 8 double as ANOVA review.</li>
 </ul>
 

@@ -167,7 +167,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · ANOVA</span></a>
+ <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
@@ -187,11 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Project Help Session</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../weeks/week-14.html">
- <span class="dropdown-text">Session 14 · Presentations</span></a>
+ <span class="dropdown-text">Session 13 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -243,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Homework 12 · Your Final Model + Project Checkpoint 4</h1>
-<p class="subtitle lead">CRJU 705 · due before noon Tuesday ahead of Session 13</p>
+<p class="subtitle lead">CRJU 705 · due by 11:59 pm the Sunday after Session 12</p>
 </div>
 
 
@@ -261,7 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><strong>Instructions:</strong> complete the following in a single <code>.R</code> script file and submit it via <strong>Canvas</strong> for credit. This week the entire homework is about <strong>your final project</strong> — there is no practice dataset. Every part below uses the dataset you selected in Session 7 and have been building through Checkpoints 1–3.</p>
-<p><em>(Session 13 is the project help session — no new material, just you, your code, and me. This homework is what makes that hour useful: if Parts 1–3 surface problems, that’s exactly what the help session is for.)</em></p>
+<p><em>(Session 12 closes with a code clinic — no new material, just you, your code, and me. Bring whatever state this homework is in: the clinic exists to unstick Parts 1–3 while you still have a week to finish them.)</em></p>
 <section id="part-1-your-cleaned-variables" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-your-cleaned-variables">Part 1: Your Cleaned Variables</h2>
 <p>Run <code>summary()</code> and <code>str()</code> on the <strong>cleaned and transformed variables you plan to use in your final model</strong> — the outcome and every predictor. Paste the output into your script as comments directly below each call, so I can see exactly what you saw.</p>
@@ -290,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>This is the last of the four project checkpoints.</strong> Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model — Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on <strong>completion and quality of reasoning</strong>, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings. The help session (Session 13) comes <em>after</em> this checkpoint on purpose: finish it, note what’s shaky, and bring the shaky parts to class.</p>
+<p><strong>This is the last of the four project checkpoints.</strong> Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model — Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on <strong>completion and quality of reasoning</strong>, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings. The Session 12 code clinic comes <em>before</em> this checkpoint on purpose: bring the shaky parts to class, then finish the checkpoint with those problems solved.</p>
 </div>
 </div>
 </div>
@@ -304,14 +300,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Include the uncertainty from <strong>both</strong> fits — the 95% CI <em>and</em> the 95% credible interval — plus <strong>one sentence comparing them</strong>: do the two traditions agree here, and what does the posterior let you <em>say</em> that the p-value doesn’t?</li>
 </ul></li>
 <li><p><strong>Produce ONE table or figure you plan to show at presentations.</strong> A tidy coefficient table, a plot of predicted values or probabilities, a well-labeled scatterplot with your fitted line — your choice, but it must be presentation-ready: real variable names, labeled axes or columns, a title. Not raw console output.</p></li>
-<li><p><strong>Write the three sentences you’d say about it to a non-statistician.</strong> As a comment block. Imagine a police chief, a judge, or a city council member: no “log-odds,” no “p &lt; .05,” no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 14 presentation — write them now and presentation prep gets much easier.</p></li>
+<li><p><strong>Write the three sentences you’d say about it to a non-statistician.</strong> As a comment block. Imagine a police chief, a judge, or a city council member: no “log-odds,” no “p &lt; .05,” no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 13 presentation — write them now and presentation prep gets much easier.</p></li>
 </ol>
-<p>If anything above breaks — the model won’t run, a coefficient makes no sense, the output contradicts Checkpoint 3 — <strong>say so in your comments and bring it to the help session.</strong> Finding that out now, with a week to fix it, is precisely what this checkpoint is for.</p>
+<p>If anything above breaks — the model won’t run, a coefficient makes no sense, the output contradicts Checkpoint 3 — <strong>say so in your comments — and if it surfaced by clinic day, bring it to class.</strong> Finding that out now, with a week before the full project is due, is precisely what this checkpoint is for.</p>
 </section>
 <section id="if-you-get-stuck" class="level2">
 <h2 class="anchored" data-anchor-id="if-you-get-stuck">If You Get Stuck</h2>
 <p>If you run into problems cleaning or transforming your data, email me the code you’re using (copy and paste into the email is fine — no need to attach a script), along with a short explanation of what you’re trying to do and what the issue is. I’m happy to help with the data-cleaning process. There’s usually a simple fix that’s easy to miss when you’re still learning R.</p>
-<p><strong>Looking ahead:</strong> Session 13 is the help session — bring your project code and data in whatever state they’re in. The <strong>full project</strong> (script, dataset, and written report) is due via Canvas <strong>before midnight the Sunday before Session 14</strong>, and presentations are at Session 14. Details on the <a href="../final-project.html">Final Project page</a>.</p>
+<p><strong>Looking ahead:</strong> this checkpoint is due the Sunday <em>after</em> Session 12; the <strong>full project</strong> (script, dataset, and written report) follows one week later, due via Canvas <strong>before midnight the Sunday before Session 13</strong>. Presentations are at Session 13. Details on the <a href="../final-project.html">Final Project page</a>.</p>
 
 
 </section>

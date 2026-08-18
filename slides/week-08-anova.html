@@ -209,14 +209,15 @@ Scott M. Mourtgos
 </section>
 <section id="this-week" class="slide level2">
 <h2>This Week</h2>
-<p><strong>Topic:</strong> ANOVA — comparing three or more group means at once</p>
+<p><strong>Topic:</strong> comparing three or more group means — and your first Bayesian model workflow</p>
 <ul>
 <li>Why “just run a bunch of t-tests” backfires</li>
 <li>The core idea: two kinds of variance and their ratio, F</li>
-<li><code>aov()</code> + Tukey’s HSD, then Bayesian <code>brms</code> + <code>emmeans</code></li>
+<li><code>aov()</code> + Tukey’s HSD — enough to read the output you’ll meet in the literature</li>
+<li><strong><code>brms</code> + <code>emmeans</code></strong> — the workflow you’ll reuse in every remaining session</li>
 <li>Real data: does Chicago’s clock differ by crime category?</li>
 </ul>
-<p><strong>Learning goals:</strong> explain what F compares; run and read a one-way ANOVA in both traditions; follow a significant F with an honest pairwise answer.</p>
+<p><strong>Learning goals:</strong> explain what F compares; read a one-way ANOVA in both traditions; run the posterior workflow you’ll use for the rest of the course.</p>
 <p><strong>Also this week:</strong> Homework 8 includes <strong>Project Checkpoint 1</strong> — your first graded step on your final-project dataset.</p>
 </section>
 <section id="where-weve-been" class="slide level2">
@@ -303,6 +304,15 @@ Scott M. Mourtgos
 <div class="fragment">
 <p>ANOVA asks <strong>one omnibus question</strong> — <em>are all the group means plausibly equal?</em> — at a single 5% risk. (When we go pairwise afterward, we’ll adjust for this. Hold that thought.)</p>
 </div>
+</section>
+<section id="where-anova-actually-lives" class="slide level2">
+<h2>Where ANOVA Actually Lives</h2>
+<ul>
+<li class="fragment">ANOVA is <strong>standard in experiments</strong> — assign units to conditions, compare outcomes. That is what it was built for.</li>
+<li class="fragment">But open a criminology journal and you’ll rarely see it as a <strong>final model</strong>. Observational CJ research runs on <strong>regression</strong>.</li>
+<li class="fragment"><strong>So why learn it? You will read it.</strong> Older literature, program evaluations, and lab studies are full of ANOVA tables — and output you can’t read is output you have to take on faith.</li>
+<li class="fragment"><strong>And it is regression in disguise.</strong> The between/within logic you build today is the machinery behind R², the F-test, and every categorical predictor from Session 11 on. We’ll prove it before class ends.</li>
+</ul>
 </section></section>
 <section>
 <section id="the-core-idea-two-kinds-of-variance" class="title-slide slide level1 center" data-background-color="#1B2A4A">
@@ -393,11 +403,9 @@ Scott M. Mourtgos
 <section id="why-so-lopsided" class="slide level2">
 <h2>Why So Lopsided?</h2>
 <ul>
-<li class="fragment">City-to-city rainfall varies a <em>lot</em> (Phoenix vs.&nbsp;Mobile) → big <strong>within</strong>-group variance</li>
-<li class="fragment">But each group’s <strong>mean</strong> averages 20 cities — and Session 4 taught us means fluctuate far less than raw values (<span class="math inline">\(SE = \sigma/\sqrt{n}\)</span>)</li>
-<li class="fragment">With no real group differences, between-group variance is nothing but the tiny sampling noise of three means</li>
-<li class="fragment">So the diagnostic: <strong>between ≫ within → something real is separating the groups. Between ≪ within → nothing but noise.</strong></li>
-<li class="fragment">All we need is a ruler for “how much bigger is big enough” —</li>
+<li class="fragment">City-to-city rainfall varies a <em>lot</em> (Phoenix vs.&nbsp;Mobile) → big <strong>within</strong>-group variance. But each group’s <strong>mean</strong> averages 20 cities, and Session 4 taught us means fluctuate far less than raw values (<span class="math inline">\(SE = \sigma/\sqrt{n}\)</span>).</li>
+<li class="fragment">With no real group differences, between-group variance is nothing but the tiny sampling noise of three means.</li>
+<li class="fragment">The diagnostic: <strong>between ≫ within → something real separates the groups. Between ≪ within → noise.</strong> All we need is a ruler for “how much bigger is big enough” —</li>
 </ul>
 </section>
 <section id="the-f-statistic" class="slide level2">
@@ -486,38 +494,26 @@ Residuals   57   7562   132.7               </code></pre>
 <h2>The Table Is Our Two Variances, Dressed Up</h2>
 <ul>
 <li class="fragment"><strong>Mean Sq Residuals = 132.7</strong> — exactly the within-group variance we computed by hand ✓</li>
-<li class="fragment"><strong>Mean Sq group = 45.2 = 20 × 2.26</strong> — our between-group variance, <em>scaled by the group size</em></li>
-<li class="fragment">Why × 20? A 2-inch gap between means built on <strong>20 cities each</strong> is far stronger evidence than the same gap built on 2. <code>aov()</code> bakes the sample size into the signal.</li>
-<li class="fragment"><strong>F = 45.2 / 132.7 = 0.34.</strong> So when your hand-computed ratio and <code>aov()</code>’s F disagree, this scaling is why — same logic, different units.</li>
+<li class="fragment"><strong>Mean Sq group = 45.2</strong> — our between-group variance (2.26), scaled by the group size. <strong>F = 45.2 / 132.7 = 0.34.</strong></li>
 </ul>
+<div class="fragment">
+<p><em>Why the scaling? A 2-inch gap between means built on 20 cities each is stronger evidence than the same gap built on 2, so <code>aov()</code> bakes sample size into the signal. That’s the only reason your hand-computed ratio and R’s F won’t match — same logic, different units. You do not need to reproduce this by hand; you need to read the table.</em></p>
+</div>
 </section>
 <section id="lets-make-a-difference-artificially" class="slide level2">
 <h2>Let’s Make a Difference Artificially</h2>
 <p>Shift Group 3 down 15 inches — now there <em>is</em> a real difference, and we know exactly where it lives:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>rain_shifted <span class="ot">&lt;-</span> rain <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a></a>  <span class="fu">mutate</span>(<span class="at">rainfall =</span> <span class="fu">if_else</span>(group <span class="sc">==</span> <span class="st">"Group 3"</span>, rainfall <span class="sc">-</span> <span class="dv">15</span>, rainfall))</span>
-<span id="cb20-3"><a></a></span>
-<span id="cb20-4"><a></a>rain_shifted <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_rain =</span> <span class="fu">mean</span>(rainfall), <span class="at">.by =</span> group)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  group   mean_rain
-  &lt;fct&gt;       &lt;dbl&gt;
-1 Group 1      34.1
-2 Group 2      31.8
-3 Group 3      16.3</code></pre>
+<span id="cb20-2"><a></a>  <span class="fu">mutate</span>(<span class="at">rainfall =</span> <span class="fu">if_else</span>(group <span class="sc">==</span> <span class="st">"Group 3"</span>, rainfall <span class="sc">-</span> <span class="dv">15</span>, rainfall))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-</section>
-<section id="original-vs.-shifted-seen" class="slide level2">
-<h2>Original vs.&nbsp;Shifted, Seen</h2>
 
 <img data-src="week-08-anova_files/figure-revealjs/rain-shift-plot-1.png" width="960" class="r-stretch"></section>
 <section id="redo-the-anova" class="slide level2">
 <h2>Redo the ANOVA</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>shifted_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(rainfall <span class="sc">~</span> group, <span class="at">data =</span> rain_shifted)</span>
-<span id="cb22-2"><a></a><span class="fu">summary</span>(shifted_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>shifted_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(rainfall <span class="sc">~</span> group, <span class="at">data =</span> rain_shifted)</span>
+<span id="cb21-2"><a></a><span class="fu">summary</span>(shifted_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value     Pr(&gt;F)    
 group        2   3775  1887.7   14.23 0.00000972 ***
@@ -534,7 +530,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2>A Significant F Only Says “<em>Something</em> Differs”</h2>
 <p>Which pairs? <strong>Tukey’s HSD</strong>: all pairwise comparisons, with the family-wise 5% false-alarm rate restored — the fix for the t-test pile-up problem from the top of class:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">TukeyHSD</span>(shifted_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">TukeyHSD</span>(shifted_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -568,7 +564,7 @@ Group 3-Group 2 -15.580 -24.3451 -6.814897 0.0002129</code></pre>
 <li><strong>brms</strong> — <strong>B</strong>ayesian <strong>R</strong>egression <strong>M</strong>odels using <strong>S</strong>tan: writes the model, compiles it, samples the posterior</li>
 <li><strong>emmeans</strong> — <strong>e</strong>stimated <strong>m</strong>arginal <strong>means</strong>: takes any fitted model and returns group means and group <em>differences</em></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"emmeans"</span>, <span class="st">"brms"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"emmeans"</span>, <span class="st">"brms"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-warning callout-style-simple">
 <div class="callout-body">
 <div class="callout-icon-container">
@@ -583,8 +579,8 @@ Group 3-Group 2 -15.580 -24.3451 -6.814897 0.0002129</code></pre>
 <section id="same-formula-bayesian-machinery" class="slide level2">
 <h2>Same Formula, Bayesian Machinery</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>bayes_rain <span class="ot">&lt;-</span> <span class="fu">brm</span>(rainfall <span class="sc">~</span> group, <span class="at">data =</span> rain,</span>
-<span id="cb27-2"><a></a>                  <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>bayes_rain <span class="ot">&lt;-</span> <span class="fu">brm</span>(rainfall <span class="sc">~</span> group, <span class="at">data =</span> rain,</span>
+<span id="cb26-2"><a></a>                  <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li class="fragment">Identical formula syntax to <code>aov()</code> — this pattern carries through the rest of the course</li>
@@ -605,8 +601,8 @@ Group 3-Group 2 -15.580 -24.3451 -6.814897 0.0002129</code></pre>
 <section id="posterior-group-means" class="slide level2">
 <h2>Posterior Group Means</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>rain_post <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(bayes_rain, <span class="sc">~</span> group)</span>
-<span id="cb28-2"><a></a>rain_post</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>rain_post <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(bayes_rain, <span class="sc">~</span> group)</span>
+<span id="cb27-2"><a></a>rain_post</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> group   emmean lower.HPD upper.HPD
  Group 1   34.2      28.8      38.9
@@ -624,10 +620,10 @@ HPD interval probability: 0.95 </code></pre>
 <section id="posterior-means-seen" class="slide level2">
 <h2>Posterior Means, Seen</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">plot</span>(rain_post) <span class="sc">+</span></span>
-<span id="cb30-2"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(rain<span class="sc">$</span>rainfall),</span>
-<span id="cb30-3"><a></a>             <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
-<span id="cb30-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Posterior mean rainfall (inches)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">plot</span>(rain_post) <span class="sc">+</span></span>
+<span id="cb29-2"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(rain<span class="sc">$</span>rainfall),</span>
+<span id="cb29-3"><a></a>             <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
+<span id="cb29-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Posterior mean rainfall (inches)"</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="week-08-anova_files/figure-revealjs/plot-emmeans-rain-1.png" width="960" class="r-stretch"><p>All three intervals swallow the grand mean (dashed line). No group separates from the pack.</p>
@@ -635,7 +631,7 @@ HPD interval probability: 0.95 </code></pre>
 <section id="what-we-really-care-about-are-differences" class="slide level2">
 <h2>What We Really Care About Are Differences</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">pairs</span>(rain_post)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">pairs</span>(rain_post)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> contrast          estimate lower.HPD upper.HPD
  Group 1 - Group 2    2.233     -5.05      9.20
@@ -655,11 +651,24 @@ HPD interval probability: 0.95 </code></pre>
 <section id="differences-seen" class="slide level2">
 <h2>Differences, Seen</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">plot</span>(<span class="fu">pairs</span>(rain_post)) <span class="sc">+</span></span>
-<span id="cb33-2"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">plot</span>(<span class="fu">pairs</span>(rain_post)) <span class="sc">+</span></span>
+<span id="cb32-2"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>, <span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="week-08-anova_files/figure-revealjs/plot-pairs-rain-1.png" width="960" class="r-stretch"><p>Zero sits comfortably inside every interval. When a difference is <em>real</em>, its interval abandons 0 — watch what real data do next.</p>
+</section>
+<section id="this-workflow-is-the-point" class="slide level2">
+<h2>This Workflow Is the Point</h2>
+<p>The four lines you just ran are the ones you will keep for the rest of the course:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>model <span class="ot">&lt;-</span> <span class="fu">brm</span>(outcome <span class="sc">~</span> predictor, <span class="at">data =</span> df)   <span class="co"># fit</span></span>
+<span id="cb33-2"><a></a>post  <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(model, <span class="sc">~</span> predictor)           <span class="co"># posterior summaries</span></span>
+<span id="cb33-3"><a></a><span class="fu">plot</span>(post); <span class="fu">pairs</span>(post)                        <span class="co"># see it; compare</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment"><strong>Session 10</strong> — the same <code>brm()</code> call, a numeric predictor</li>
+<li class="fragment"><strong>Sessions 11–12</strong> — the same call again, several predictors, then a binary outcome</li>
+<li class="fragment"><strong>Your final project</strong> — the Bayesian half of your both-traditions model</li>
+<li class="fragment">The ANOVA was the <em>excuse</em> to learn this. The workflow is the thing you keep. Also true of the interval rule: <strong>crosses 0 → not credible; excludes 0 → credible</strong>, forever after.</li>
+</ul>
 </section></section>
 <section>
 <section id="real-data-does-the-clock-differ-by-crime-type" class="title-slide slide level1 center" data-background-color="#73000A">
@@ -762,6 +771,26 @@ HPD interval probability: 0.95 </code></pre>
 <li class="fragment">30,000 incidents give us the power to detect differences this small. Detecting them is not the same as their <em>mattering</em>.</li>
 <li class="fragment">Your job as the analyst: report <strong>direction</strong> <em>and</em> <strong>size</strong>, every time. “Significant” without magnitude is malpractice — Session 6’s lesson, now with three groups.</li>
 </ul>
+</section>
+<section id="it-was-regression-all-along" class="slide level2">
+<h2>It Was Regression All Along</h2>
+<p>Promised at the top of class. Same data, same question, one function swapped:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">anova</span>(<span class="fu">lm</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> crimes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: hour
+                  Df  Sum Sq Mean Sq F value           Pr(&gt;F)    
+crime_category     2    2351 1175.31  25.302 0.00000000001048 ***
+Residuals      29997 1393374   46.45                             
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>The identical F and p-value.</strong> <code>aov()</code> is a thin wrapper around <code>lm()</code> — ANOVA <em>is</em> a regression with one categorical predictor. In Session 11 you’ll fit that same model and read its coefficients as differences between groups, which is what Tukey was showing you all along.</p>
+</div>
 </section>
 <section id="how-to-report-it" class="slide level2">
 <h2>How to Report It</h2>
