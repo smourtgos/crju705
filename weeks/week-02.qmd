@@ -21,7 +21,7 @@ By the end of this week you can:
 ## Before class
 
 - Read: Stanton **Ch. 1** (Statistical Vocabulary)
-- Read: R4DS **[Ch. 1 — Data visualization](https://r4ds.hadley.nz/data-visualize.html)** and **[Ch. 2 — Workflow: basics](https://r4ds.hadley.nz/workflow-basics.html)**
+- Read: R4DS **[Ch. 1 — Data visualization](https://r4ds.hadley.nz/data-visualize.html)** and **[Ch. 2 — Workflow: basics](https://r4ds.hadley.nz/workflow-basics.html)** — **plus the exercises assigned in [Session 1](week-01.qmd#homework)**
 - Bring your laptop with R, RStudio, and the course packages installed ([install guide](../resources.qmd#installing-r-and-rstudio))
 
 ## In class
@@ -42,3 +42,9 @@ By the end of this week you can:
 - **[Homework 2](../homework/hw-02.qmd)** — submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 2** (Reasoning with Probability) before Session 3
 - Read R4DS **[Ch. 3 — Data transformation](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4 — Workflow: code style](https://r4ds.hadley.nz/workflow-style.html)**
+- **R4DS exercises** — the biggest set of the semester, because Ch. 3 *is* the chapter your final project runs on:
+  - **3.2.5** #1 (`filter()` against a pile of conditions) and **#2** (`arrange()` to find the extremes)
+  - **3.3.5** #2 (several routes to the same `select()`) and **#6** (`rename()` + `relocate()`)
+  - **3.5.7** #3 (how delays vary across the day — `summarize()` into a plot)
+  - **4.6** #1 (restyle two ugly pipelines — you will be graded on readable code all semester)
+  - *Self-check — nothing to submit. Bring whatever stumped you to class.*

@@ -21,7 +21,7 @@ By the end of this week you can:
 ## Before class
 
 - Read: Stanton **Ch. 3** (Probabilities in the Long Run)
-- Read: R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6 — Workflow: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)**
+- Read: R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6 — Workflow: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)** — **plus the exercises assigned in [Session 3](week-03.qmd#homework)**
 - Bring your laptop — this session is almost entirely live simulation in R
 
 ## In class
@@ -44,3 +44,9 @@ By the end of this week you can:
 - **[Homework 4](../homework/hw-04.qmd)** — submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 4** before Session 5
 - Read R4DS **[Ch. 7 — Data import](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8 — Workflow: getting help](https://r4ds.hadley.nz/workflow-help.html)**
+- **R4DS exercises** — all from **7.2.4**, and every one of them is a problem you will actually hit with real data:
+  - **#1** (what reads a `|`-separated file?) and **#4** (strings quoted with `'` instead of `"`)
+  - **#5** (five broken inline CSVs — say what goes wrong in each; this is the single most useful import exercise in the book)
+  - **#6** (column names R hates, and how to rename them)
+  - Ch. 8 has no exercises. Its payoff is the reprex habit — worth reading before you email me a bug.
+  - *Self-check — nothing to submit. Bring whatever stumped you to class.*

@@ -22,7 +22,7 @@ By the end of this week you can:
 
 - Read: Stanton **Ch. 5** (Bayesian & Frequentist Hypothesis Testing)
 - Read: Mourtgos, S. M. (2023). "Bayesian Inference in Criminological Research." *Police Forum*, 32(1), 7–16 — PDF posted on Canvas. Yes, I assigned my own article; consider it a preview of where your instructor's sympathies lie, and feel free to argue with it in class
-- Read: R4DS **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)**; skim **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)**
+- Read: R4DS **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)**; skim **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)** — **plus the exercises assigned in [Session 5](week-05.qmd#homework)**
 - Install the Bayesian engine before class so we can use it together: `install.packages("BayesFactor")`
 
 ## In class

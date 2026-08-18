@@ -22,7 +22,7 @@ By the end of this week you can:
 ## Before class
 
 - Read: Stanton **Ch. 2** (Reasoning with Probability)
-- Read: R4DS **[Ch. 3 — Data transformation](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4 — Workflow: code style](https://r4ds.hadley.nz/workflow-style.html)**
+- Read: R4DS **[Ch. 3 — Data transformation](https://r4ds.hadley.nz/data-transform.html)** and **[Ch. 4 — Workflow: code style](https://r4ds.hadley.nz/workflow-style.html)** — **plus the exercises assigned in [Session 2](week-02.qmd#homework)**
 - Optional: skim the opening pages of Stanton **Ch. 5** (through the prior-probability discussion) — we take the first bite of that chapter today; the full chapter is assigned before Session 6
 - Bring your laptop with R, RStudio, and the course packages installed ([install guide](../resources.qmd#installing-r-and-rstudio))
 
@@ -48,3 +48,7 @@ By the end of this week you can:
 - **[Homework 3](../homework/hw-03.qmd)** — submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 3** (Probabilities in the Long Run) before Session 4
 - Read R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6 — Workflow: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)**
+- **R4DS exercises** — Ch. 5 has only one exercise block, and both questions are worth your time:
+  - **5.2.1** #1 (for `table1`, `table2`, `table3`: what is one row? what is one column?) and **#2** (sketch the steps to compute a rate — you aren't expected to *write* the code yet, just to name the moves)
+  - Ch. 6 has no exercises worth assigning. Do this instead: **create an RStudio Project for this course** (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one.
+  - *Self-check — nothing to submit. Bring whatever stumped you to class.*

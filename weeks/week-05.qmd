@@ -21,7 +21,7 @@ By the end of this week you can:
 ## Before class
 
 - Read: Stanton **Ch. 4** (The Logic of Inference)
-- Read: R4DS **[Ch. 7 — Data import](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8 — Workflow: getting help](https://r4ds.hadley.nz/workflow-help.html)**
+- Read: R4DS **[Ch. 7 — Data import](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8 — Workflow: getting help](https://r4ds.hadley.nz/workflow-help.html)** — **plus the exercises assigned in [Session 4](week-04.qmd#homework)**
 - Bring your laptop — the lab downloads files, so make sure you can write to a folder you can find again
 
 ## In class
@@ -42,3 +42,8 @@ By the end of this week you can:
 - **[Homework 5](../homework/hw-05.qmd)** — confidence intervals on the Alaska crash data; submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 5** (Bayesian & Frequentist Hypothesis Testing) before Session 6
 - Read R4DS **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)** and skim **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)**
+- **R4DS exercises** — these four deliberately circle one question: *which rows didn't match, and why?*
+  - **19.2.4** #1 (how do `weather` and `airports` relate? name the key)
+  - **19.3.4** #3 (does every departing flight have weather data?) and **#4** (tail numbers with no match in `planes` — what do they have in common?)
+  - **18.3.4** #1 (is the missingness related to carrier?) — read it right after 19.3.4 #4; they are the same investigation from two directions
+  - *Self-check — nothing to submit. Bring whatever stumped you to class.*

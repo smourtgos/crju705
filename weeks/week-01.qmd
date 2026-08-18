@@ -58,4 +58,14 @@ When prompted, choose the **R Programming** course and complete these lessons:
 
 Save the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas **by 11:59 pm Sunday** ahead of Session 2.
 
-Also read Stanton **Ch. 1** before next class *(and if you couldn't finish the Intro and Appendices A–C before the first class, complete them this week)*.
+### Before Session 2
+
+- Read Stanton **Ch. 1** *(and if you couldn't finish the Intro and Appendices A–C before the first class, complete them this week)*
+- Read R4DS **[Ch. 1 — Data visualization](https://r4ds.hadley.nz/data-visualize.html)** and **[Ch. 2 — Workflow: basics](https://r4ds.hadley.nz/workflow-basics.html)**
+- **R4DS exercises** — not all of them, just these five:
+  - **1.2.5** #3 (build a scatterplot) and **#5** (the code is broken — find and fix it)
+  - **1.4.3** #4 (same histogram, different `binwidth` — which one tells the truth?)
+  - **1.5.5** #2 (add a *third* variable to a scatterplot three different ways)
+  - **2.5** #2 (three lines, three errors — this is the exercise that teaches you to read R's error messages)
+
+These are self-check: nothing to submit, but bring anything that stumped you to Session 2 and we'll work it in class.

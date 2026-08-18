@@ -5,6 +5,24 @@ format:
   html:
     toc: true
     toc-depth: 2
+  pdf:
+    # xelatex is REQUIRED, not cosmetic: this page contains · – — → ²,
+    # every one of which is a hard failure under the default pdflatex.
+    pdf-engine: xelatex
+    toc: true
+    toc-depth: 2
+    geometry: margin=1in
+    fontsize: 11pt
+    colorlinks: true
+    linkcolor: "black"
+    urlcolor: "burgundy"
+    include-in-header:
+      text: |
+        \usepackage{xcolor}
+        \definecolor{burgundy}{HTML}{73000A}
+        % kableExtra's grading table is a LaTeX float; without `float` +
+        % HOLD_position it drifts pages away from the text that introduces it.
+        \usepackage{float}
 ---
 
 ```{r}
@@ -99,6 +117,10 @@ class_cal <- tibble(date = seq(ymd("2026-08-01"), ymd("2026-12-31"), by = 1)) |>
 
 ::: {.callout-warning appearance="simple"}
 **Provisional dates.** The meeting pattern (Tuesdays, 6:00–8:45 pm, Currell 204) and the no-class dates (Oct 27, Nov 3, and Thanksgiving week) are set. The individual *session dates* still derive from a provisional semester start and will be confirmed against USC's official Fall 2026 calendar before the semester begins. Topics, their order, and course policies are final.
+:::
+
+::: {.content-visible when-format="html"}
+📄 **[Download this syllabus as a PDF](syllabus.pdf)** — handy for printing or Canvas. The web version on this page is always the authoritative one.
 :::
 
 **Instructor:** Dr. Scott M. Mourtgos · [mourtgos@mailbox.sc.edu](mailto:mourtgos@mailbox.sc.edu) · Office: Currell 111 · Office hours: on request
@@ -327,9 +349,18 @@ Graded in-class exercises are scored on active participation that day and cannot
 ```{r}
 #| label: grading-table
 #| echo: false
-read_csv("data/grading-scheme.csv") |>
-  kbl() |>
-  kable_styling(full_width = FALSE)
+grading_tbl <- read_csv("data/grading-scheme.csv")
+
+if (knitr::is_latex_output()) {
+  # HOLD_position pins the float where it is written, next to its intro sentence
+  grading_tbl |>
+    kbl(booktabs = TRUE) |>
+    kable_styling(full_width = FALSE, latex_options = "HOLD_position")
+} else {
+  grading_tbl |>
+    kbl() |>
+    kable_styling(full_width = FALSE)
+}
 ```
 
 ### Extra Credit

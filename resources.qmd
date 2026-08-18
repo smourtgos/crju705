@@ -24,7 +24,7 @@ You **must** have R and RStudio installed on your laptop before the second class
 ### Step 2 — Install RStudio
 
 1. Go to <https://posit.co/download/rstudio-desktop/>
-2. Click *Download* under RStudio Desktop (free)
+2. Click *Download* under **RStudio Desktop (Open Source Edition)**
 3. Select your operating system, run the installer, accept defaults
 
 ### Step 3 — Test your installation
@@ -60,11 +60,15 @@ install.packages(c("tidyverse", "swirl", "BayesFactor", "here", "modeest"))
 
 ## Datasets
 
-Download by clicking, or read directly in R, e.g.:
+Download by clicking, or read directly in R. `read_csv()` comes from the **tidyverse**, so load it first — once per R session, before any of the lines below:
 
 ```r
+library(tidyverse)
+
 prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
 ```
+
+(If you get `could not find function "read_csv"`, that's the missing `library(tidyverse)`.)
 
 | File | Description | Used in |
 |------|-------------|---------|
