@@ -5429,42 +5429,42 @@
     "href": "syllabus.html#session-2-august-25",
     "title": "Syllabus",
     "section": "Session 2 — August 25",
-    "text": "Session 2 — August 25\nTopics: Descriptive statistics & exploratory data analysis\nReadings due: Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)\nHomework: Problem set 2 · Read Stanton Ch. 2"
+    "text": "Session 2 — August 25\nTopics: Descriptive statistics & exploratory data analysis\nReadings due: Stanton Ch. 1 · R4DS Ch. 1 (Data visualization) & Ch. 2 (Workflow: basics)\nHomework: Problem set 2 (includes the R4DS Ch. 3–4 exercises) · Read Stanton Ch. 2 and R4DS Ch. 3–4"
   },
   {
     "objectID": "syllabus.html#session-3-september-01",
     "href": "syllabus.html#session-3-september-01",
     "title": "Syllabus",
     "section": "Session 3 — September 01",
-    "text": "Session 3 — September 01\nTopics: Probability, taught via simulation\nReadings due: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)\nIn-class exercise (graded) · Homework: Problem set 3 · Read Stanton Ch. 3"
+    "text": "Session 3 — September 01\nTopics: Probability, taught via simulation\nReadings due: Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)\nIn-class exercise (graded) · Homework: Problem set 3 (includes the R4DS Ch. 5–6 exercises) · Read Stanton Ch. 3 and R4DS Ch. 5–6"
   },
   {
     "objectID": "syllabus.html#session-4-september-08",
     "href": "syllabus.html#session-4-september-08",
     "title": "Syllabus",
     "section": "Session 4 — September 08",
-    "text": "Session 4 — September 08\nTopics: Sampling distributions, taught via simulation\nReadings due: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)\nIn-class exercise (graded) · Homework: Problem set 4 · Read Stanton Ch. 4"
+    "text": "Session 4 — September 08\nTopics: Sampling distributions, taught via simulation\nReadings due: Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)\nIn-class exercise (graded) · Homework: Problem set 4 (includes the R4DS Ch. 7–8 exercises) · Read Stanton Ch. 4 and R4DS Ch. 7–8"
   },
   {
     "objectID": "syllabus.html#session-5-september-15",
     "href": "syllabus.html#session-5-september-15",
     "title": "Syllabus",
     "section": "Session 5 — September 15",
-    "text": "Session 5 — September 15\nTopics: The logic of inference using confidence intervals — on real data\nReadings due: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)\nIn-class exercise (graded) · Homework: Problem set 5 · Read Stanton Ch. 5"
+    "text": "Session 5 — September 15\nTopics: The logic of inference using confidence intervals — on real data\nReadings due: Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)\nIn-class exercise (graded) · Homework: Problem set 5 (includes the R4DS Ch. 19 + 18 exercises) · Read Stanton Ch. 5 and R4DS Ch. 19 (skim Ch. 18)"
   },
   {
     "objectID": "syllabus.html#session-6-september-22",
     "href": "syllabus.html#session-6-september-22",
     "title": "Syllabus",
     "section": "Session 6 — September 22",
-    "text": "Session 6 — September 22\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)\nIn-class exercise (graded) · Homework: Problem set 6 · Begin scouting a final-project dataset"
+    "text": "Session 6 — September 22\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)\nIn-class exercise (graded) · Homework: Problem set 6 · No new Stanton chapter · Final-project dataset selection is due at Session 7 — come with a candidate and be ready to say what one row represents"
   },
   {
     "objectID": "syllabus.html#session-7-september-29",
     "href": "syllabus.html#session-7-september-29",
     "title": "Syllabus",
     "section": "Session 7 — September 29",
-    "text": "Session 7 — September 29\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Workshop write-up · Read Stanton Ch. 6"
+    "text": "Session 7 — September 29\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Problem set 7 — the workshop write-up plus your formal final-project dataset selection · Read Stanton Ch. 6 · Bring your dataset and script to Session 8, where project checkpoints begin"
   },
   {
     "objectID": "syllabus.html#session-8-october-06",
@@ -5485,7 +5485,7 @@
     "href": "syllabus.html#session-10-october-20",
     "title": "Syllabus",
     "section": "Session 10 — October 20",
-    "text": "Session 10 — October 20\nTopics: Measures of association / correlation\nReadings due: Stanton Ch. 7\nIn-class exercise (graded) · Homework: Problem set 10 (includes project checkpoint 2)"
+    "text": "Session 10 — October 20\nTopics: Measures of association / correlation\nReadings due: Stanton Ch. 7\nIn-class exercise (graded) · Homework: Problem set 10 (includes project checkpoint 2) · Read Stanton Ch. 8"
   },
   {
     "objectID": "syllabus.html#session-11-november-10",
@@ -5499,7 +5499,7 @@
     "href": "syllabus.html#session-12-november-17",
     "title": "Syllabus",
     "section": "Session 12 — November 17",
-    "text": "Session 12 — November 17\nTopics: Logistic regression\nReadings due: Stanton Ch. 10\nIn-class exercise (graded) · Homework: Problem set 12 (includes project checkpoint 4)\nThis is the last session with new statistical content. The final half hour is a project code clinic — bring your project code and your two most stuck-on problems — and presentation order is announced today."
+    "text": "Session 12 — November 17\nTopics: Logistic regression\nReadings due: Stanton Ch. 10\nIn-class exercise (graded) · Homework: Problem set 12 (includes project checkpoint 4) — due the Sunday after this session · Full project due via Canvas by 11:59 pm on Sunday, November 29, one week later\nThis is the last session with new statistical content. The final half hour is a project code clinic — bring your project code and your two most stuck-on problems — and presentation order is announced today."
   },
   {
     "objectID": "syllabus.html#session-13-december-01",
