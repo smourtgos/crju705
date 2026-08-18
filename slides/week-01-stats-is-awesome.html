@@ -616,39 +616,45 @@ Scott M. Mourtgos
 <h2>Plots That Match the Scale</h2>
 
 <img data-src="week-01-stats-is-awesome_files/figure-revealjs/scale-plots-1.png" width="1152" class="r-stretch"></section>
-<section id="choosing-the-right-test-preview-of-the-semester" class="slide level2">
+<section id="choosing-the-right-test-preview-of-the-semester" class="slide level2 smaller">
 <h2>Choosing the Right Test (Preview of the Semester)</h2>
+<p>Real Chicago data — the questions, not the code, are the point today.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Categorical × categorical → chi-squared (compare proportions)</span></span>
-<span id="cb15-2"><a></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(rob<span class="sc">$</span>zone, rob<span class="sc">$</span>caught))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Categorical × categorical → chi-squared</span></span>
+<span id="cb15-2"><a></a><span class="co"># Do arrest rates differ across crime types?</span></span>
+<span id="cb15-3"><a></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(crimes<span class="sc">$</span>crime_category, crimes<span class="sc">$</span>arrest))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
 
-data:  table(rob$zone, rob$caught)
-X-squared = 2.1521, df = 4, p-value = 0.7078</code></pre>
+data:  table(crimes$crime_category, crimes$arrest)
+X-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Numeric by category → ANOVA (compare group means)  [Session 8]</span></span>
-<span id="cb17-2"><a></a><span class="fu">aov</span>(age <span class="sc">~</span> zone, <span class="at">data =</span> rob) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Numeric by category → ANOVA                    [Session 8]</span></span>
+<span id="cb17-2"><a></a><span class="co"># Do violent, property, and other crimes happen at different times of day?</span></span>
+<span id="cb17-3"><a></a><span class="fu">aov</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> crimes) <span class="sc">|&gt;</span> <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
-<pre><code>             Df Sum Sq Mean Sq F value Pr(&gt;F)
-zone          4     73   18.15   0.134   0.97
-Residuals   195  26419  135.48               </code></pre>
+<pre><code>                  Df  Sum Sq Mean Sq F value          Pr(&gt;F)    
+crime_category     2    2351  1175.3    25.3 0.0000000000105 ***
+Residuals      29997 1393374    46.5                            
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># Numeric × numeric → Pearson correlation             [Session 10]</span></span>
-<span id="cb19-2"><a></a><span class="fu">cor</span>(rob<span class="sc">$</span>age, rob<span class="sc">$</span>prior_robberies_in_zone)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># Numeric × numeric → correlation                [Session 10]</span></span>
+<span id="cb19-2"><a></a><span class="co"># Across the 77 community areas: unemployment and violent crime rate</span></span>
+<span id="cb19-3"><a></a><span class="fu">cor</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.004038644</code></pre>
+<pre><code>[1] 0.8398579</code></pre>
 </div>
 </div>
 </section>
@@ -741,7 +747,7 @@ Levels: blue red</code></pre>
 <p><strong>Your turn:</strong> build a vector of seven ages; compute the mean &amp; SD; subset the values &gt; 30; then use <code>?seq</code> to generate <code>seq(0, 1, by = 0.2)</code>.</p>
 </div>
 </section>
-<section id="data-frames-dplyr" class="slide level2">
+<section id="data-frames-dplyr" class="slide level2 smaller">
 <h2>Data Frames &amp; dplyr</h2>
 <p><em>(Stanton Appendix B — modern form)</em></p>
 <div class="cell">
@@ -777,7 +783,7 @@ Levels: blue red</code></pre>
 </div>
 </div>
 </section>
-<section id="filter-pick-rows" class="slide level2">
+<section id="filter-pick-rows" class="slide level2 smaller">
 <h2>filter — pick rows</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -831,18 +837,51 @@ Levels: blue red</code></pre>
 </div>
 <p><em>(Hints: <code>arrange(desc(...))</code>, <code>slice_head()</code>, and <code>summarize(..., .by = ...)</code> — all from your R4DS Ch. 3 reading next week.)</em></p>
 </section>
+<section id="your-turn-one-way-to-do-it" class="slide level2 smaller">
+<h2>Your Turn — One Way to Do It</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="co"># 1. Top-3 models by highway mpg</span></span>
+<span id="cb49-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(hwy)) <span class="sc">|&gt;</span> <span class="fu">select</span>(manufacturer, model, hwy) <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  manufacturer model        hwy
+  &lt;chr&gt;        &lt;chr&gt;      &lt;int&gt;
+1 volkswagen   jetta         44
+2 volkswagen   new beetle    44
+3 volkswagen   new beetle    41</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a><span class="co"># 2. Average city mpg by class</span></span>
+<span id="cb51-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_cty =</span> <span class="fu">mean</span>(cty), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> class) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_cty))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  class      avg_cty     n
+  &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;
+1 subcompact    20.4    35
+2 compact       20.1    47
+3 midsize       18.8    41
+4 minivan       15.8    11
+5 2seater       15.4     5
+6 suv           13.5    62
+7 pickup        13      33</code></pre>
+</div>
+</div>
+</div>
+</section>
 <section id="coming-attractions-real-data-all-semester" class="slide level2">
 <h2>Coming Attractions: Real Data, All Semester</h2>
 <p>Starting next week, our running example is <strong>real</strong>: every crime reported in Chicago in 2025.</p>
 
 <img data-src="week-01-stats-is-awesome_files/figure-revealjs/chicago-teaser-1.png" width="960" class="r-stretch"></section>
-<section id="homework-due-before-noon-tuesday" class="slide level2">
-<h2>Homework (Due Before Noon Tuesday)</h2>
+<section id="homework-due-by-1159-pm-sunday" class="slide level2">
+<h2>Homework (Due by 11:59 pm Sunday)</h2>
 <p><strong>swirl tutorials</strong> — interactive R lessons <em>inside</em> R:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
-<span id="cb49-2"><a></a><span class="fu">library</span>(swirl)</span>
-<span id="cb49-3"><a></a><span class="fu">swirl</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
+<span id="cb53-2"><a></a><span class="fu">library</span>(swirl)</span>
+<span id="cb53-3"><a></a><span class="fu">swirl</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Complete these lessons from <em>R Programming</em>: <strong>1)</strong> Basic Building Blocks · <strong>2)</strong> Workspace and Files · <strong>3)</strong> Sequences of Numbers · <strong>4)</strong> Vectors · <strong>5)</strong> Missing Values · <strong>6)</strong> Subsetting Vectors · <strong>7)</strong> Matrices and Data Frames · <strong>8)</strong> Logic · <strong>12)</strong> Looking at Data · <strong>15)</strong> Base Graphics</p>
 <p>Submit your R script files via <strong>Canvas</strong>. Then read <strong>Stanton Ch. 1</strong> before Session 2.</p>

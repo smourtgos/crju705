@@ -151,7 +151,7 @@
     "href": "weeks/week-05.html#before-class",
     "title": "Session 5 · Confidence Intervals on Real Data",
     "section": "Before class",
-    "text": "Before class\n\nRead: Stanton Ch. 4 (The Logic of Inference)\nRead: R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help\nBring your laptop — the lab downloads files, so make sure you can write to a folder you can find again"
+    "text": "Before class\n\nRead: Stanton Ch. 4 (The Logic of Inference)\nRead: R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help — plus the exercises assigned in Session 4\nBring your laptop — the lab downloads files, so make sure you can write to a folder you can find again"
   },
   {
     "objectID": "weeks/week-05.html#in-class",
@@ -165,7 +165,7 @@
     "href": "weeks/week-05.html#homework",
     "title": "Session 5 · Confidence Intervals on Real Data",
     "section": "Homework",
-    "text": "Homework\n\nHomework 5 — confidence intervals on the Alaska crash data; submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing) before Session 6\nRead R4DS Ch. 19 — Joins and skim Ch. 18 — Missing values"
+    "text": "Homework\n\nHomework 5 — confidence intervals on the Alaska crash data; submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing) before Session 6\nRead R4DS Ch. 19 — Joins and skim Ch. 18 — Missing values\nR4DS exercises — these four deliberately circle one question: which rows didn’t match, and why?\n\n19.2.4 #1 (how do weather and airports relate? name the key)\n19.3.4 #3 (does every departing flight have weather data?) and #4 (tail numbers with no match in planes — what do they have in common?)\n18.3.4 #1 (is the missingness related to carrier?) — read it right after 19.3.4 #4; they are the same investigation from two directions\nSelf-check — nothing to submit. Bring whatever stumped you to class."
   },
   {
     "objectID": "weeks/week-03.html",
@@ -186,7 +186,7 @@
     "href": "weeks/week-03.html#before-class",
     "title": "Session 3 · Reasoning with Probability",
     "section": "Before class",
-    "text": "Before class\n\nRead: Stanton Ch. 2 (Reasoning with Probability)\nRead: R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style\nOptional: skim the opening pages of Stanton Ch. 5 (through the prior-probability discussion) — we take the first bite of that chapter today; the full chapter is assigned before Session 6\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
+    "text": "Before class\n\nRead: Stanton Ch. 2 (Reasoning with Probability)\nRead: R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style — plus the exercises assigned in Session 2\nOptional: skim the opening pages of Stanton Ch. 5 (through the prior-probability discussion) — we take the first bite of that chapter today; the full chapter is assigned before Session 6\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
   },
   {
     "objectID": "weeks/week-03.html#in-class",
@@ -200,7 +200,7 @@
     "href": "weeks/week-03.html#homework",
     "title": "Session 3 · Reasoning with Probability",
     "section": "Homework",
-    "text": "Homework\n\nHomework 3 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 3 (Probabilities in the Long Run) before Session 4\nRead R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects"
+    "text": "Homework\n\nHomework 3 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 3 (Probabilities in the Long Run) before Session 4\nRead R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects\nR4DS exercises — Ch. 5 has only one exercise block, and both questions are worth your time:\n\n5.2.1 #1 (for table1, table2, table3: what is one row? what is one column?) and #2 (sketch the steps to compute a rate — you aren’t expected to write the code yet, just to name the moves)\nCh. 6 has no exercises worth assigning. Do this instead: create an RStudio Project for this course (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one.\nSelf-check — nothing to submit. Bring whatever stumped you to class."
   },
   {
     "objectID": "weeks/week-01.html",
@@ -235,7 +235,7 @@
     "href": "weeks/week-01.html#homework",
     "title": "Session 1 · Intro & R Setup",
     "section": "Homework",
-    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas by 11:59 pm Sunday ahead of Session 2.\nAlso read Stanton Ch. 1 before next class (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)."
+    "text": "Homework\nswirl tutorials — interactive R lessons that run inside R itself:\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\nWhen prompted, choose the R Programming course and complete these lessons:\n\nBasic Building Blocks\nWorkspace and Files\nSequences of Numbers\nVectors\nMissing Values\nSubsetting Vectors\nMatrices and Data Frames\nLogic\nLooking at Data\nBase Graphics\n\nSave the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas by 11:59 pm Sunday ahead of Session 2.\n\nBefore Session 2\n\nRead Stanton Ch. 1 (and if you couldn’t finish the Intro and Appendices A–C before the first class, complete them this week)\nRead R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics\nR4DS exercises — not all of them, just these five:\n\n1.2.5 #3 (build a scatterplot) and #5 (the code is broken — find and fix it)\n1.4.3 #4 (same histogram, different binwidth — which one tells the truth?)\n1.5.5 #2 (add a third variable to a scatterplot three different ways)\n2.5 #2 (three lines, three errors — this is the exercise that teaches you to read R’s error messages)\n\n\nThese are self-check: nothing to submit, but bring anything that stumped you to Session 2 and we’ll work it in class."
   },
   {
     "objectID": "slides/week-12-logistic.html#this-week",
@@ -1663,7 +1663,7 @@
     "href": "slides/week-01-stats-is-awesome.html#choosing-the-right-test-preview-of-the-semester",
     "title": "Statistics is Awesome!",
     "section": "Choosing the Right Test (Preview of the Semester)",
-    "text": "Choosing the Right Test (Preview of the Semester)\n\n# Categorical × categorical → chi-squared (compare proportions)\nchisq.test(table(rob$zone, rob$caught))\n\n\n\n\n    Pearson's Chi-squared test\n\ndata:  table(rob$zone, rob$caught)\nX-squared = 2.1521, df = 4, p-value = 0.7078\n\n\n\n# Numeric by category → ANOVA (compare group means)  [Session 8]\naov(age ~ zone, data = rob) |&gt; summary()\n\n\n\n             Df Sum Sq Mean Sq F value Pr(&gt;F)\nzone          4     73   18.15   0.134   0.97\nResiduals   195  26419  135.48               \n\n\n\n# Numeric × numeric → Pearson correlation             [Session 10]\ncor(rob$age, rob$prior_robberies_in_zone)\n\n\n\n[1] -0.004038644"
+    "text": "Choosing the Right Test (Preview of the Semester)\nReal Chicago data — the questions, not the code, are the point today.\n\n# Categorical × categorical → chi-squared\n# Do arrest rates differ across crime types?\nchisq.test(table(crimes$crime_category, crimes$arrest))\n\n\n\n\n    Pearson's Chi-squared test\n\ndata:  table(crimes$crime_category, crimes$arrest)\nX-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022\n\n\n\n# Numeric by category → ANOVA                    [Session 8]\n# Do violent, property, and other crimes happen at different times of day?\naov(hour ~ crime_category, data = crimes) |&gt; summary()\n\n\n\n                  Df  Sum Sq Mean Sq F value          Pr(&gt;F)    \ncrime_category     2    2351  1175.3    25.3 0.0000000000105 ***\nResiduals      29997 1393374    46.5                            \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\n\n# Numeric × numeric → correlation                [Session 10]\n# Across the 77 community areas: unemployment and violent crime rate\ncor(areas$unemployment_rate, areas$violent_rate)\n\n\n\n[1] 0.8398579"
   },
   {
     "objectID": "slides/week-01-stats-is-awesome.html#treating-ordinal-as-numeric-can-mislead",
@@ -1736,6 +1736,13 @@
     "text": "Your Turn\n\nUsing the built-in mpg data:\n\nFind the top-3 models by hwy.\nCompute the average cty by class.\n\n\n(Hints: arrange(desc(...)), slice_head(), and summarize(..., .by = ...) — all from your R4DS Ch. 3 reading next week.)"
   },
   {
+    "objectID": "slides/week-01-stats-is-awesome.html#your-turn-one-way-to-do-it",
+    "href": "slides/week-01-stats-is-awesome.html#your-turn-one-way-to-do-it",
+    "title": "Statistics is Awesome!",
+    "section": "Your Turn — One Way to Do It",
+    "text": "Your Turn — One Way to Do It\n\n# 1. Top-3 models by highway mpg\nmpg |&gt; arrange(desc(hwy)) |&gt; select(manufacturer, model, hwy) |&gt; slice_head(n = 3)\n\n# A tibble: 3 × 3\n  manufacturer model        hwy\n  &lt;chr&gt;        &lt;chr&gt;      &lt;int&gt;\n1 volkswagen   jetta         44\n2 volkswagen   new beetle    44\n3 volkswagen   new beetle    41\n\n\n\n\n# 2. Average city mpg by class\nmpg |&gt; summarize(avg_cty = mean(cty), n = n(), .by = class) |&gt; arrange(desc(avg_cty))\n\n# A tibble: 7 × 3\n  class      avg_cty     n\n  &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;\n1 subcompact    20.4    35\n2 compact       20.1    47\n3 midsize       18.8    41\n4 minivan       15.8    11\n5 2seater       15.4     5\n6 suv           13.5    62\n7 pickup        13      33"
+  },
+  {
     "objectID": "slides/week-01-stats-is-awesome.html#coming-attractions-real-data-all-semester",
     "href": "slides/week-01-stats-is-awesome.html#coming-attractions-real-data-all-semester",
     "title": "Statistics is Awesome!",
@@ -1743,25 +1750,25 @@
     "text": "Coming Attractions: Real Data, All Semester\nStarting next week, our running example is real: every crime reported in Chicago in 2025."
   },
   {
-    "objectID": "slides/week-01-stats-is-awesome.html#homework-due-before-noon-tuesday",
-    "href": "slides/week-01-stats-is-awesome.html#homework-due-before-noon-tuesday",
+    "objectID": "slides/week-01-stats-is-awesome.html#homework-due-by-1159-pm-sunday",
+    "href": "slides/week-01-stats-is-awesome.html#homework-due-by-1159-pm-sunday",
     "title": "Statistics is Awesome!",
-    "section": "Homework (Due Before Noon Tuesday)",
-    "text": "Homework (Due Before Noon Tuesday)\nswirl tutorials — interactive R lessons inside R:\n\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\n\nComplete these lessons from R Programming: 1) Basic Building Blocks · 2) Workspace and Files · 3) Sequences of Numbers · 4) Vectors · 5) Missing Values · 6) Subsetting Vectors · 7) Matrices and Data Frames · 8) Logic · 12) Looking at Data · 15) Base Graphics\nSubmit your R script files via Canvas. Then read Stanton Ch. 1 before Session 2."
+    "section": "Homework (Due by 11:59 pm Sunday)",
+    "text": "Homework (Due by 11:59 pm Sunday)\nswirl tutorials — interactive R lessons inside R:\n\ninstall.packages(\"swirl\")\nlibrary(swirl)\nswirl()\n\nComplete these lessons from R Programming: 1) Basic Building Blocks · 2) Workspace and Files · 3) Sequences of Numbers · 4) Vectors · 5) Missing Values · 6) Subsetting Vectors · 7) Matrices and Data Frames · 8) Logic · 12) Looking at Data · 15) Base Graphics\nSubmit your R script files via Canvas. Then read Stanton Ch. 1 before Session 2."
   },
   {
     "objectID": "resources.html",
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\", \"modeest\"))\n(modeest is small but easy to miss — Homework 2 and the mid-term use it to find the mode. A few later packages — brms, emmeans, correlation, car — are staged in the weeks that need them; each week’s session page tells you what to install.)\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
+    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (Open Source Edition)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\", \"modeest\"))\n(modeest is small but easy to miss — Homework 2 and the mid-term use it to find the mode. A few later packages — brms, emmeans, correlation, car — are staged in the weeks that need them; each week’s session page tells you what to install.)\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
   },
   {
     "objectID": "resources.html#installing-r-and-rstudio",
     "href": "resources.html#installing-r-and-rstudio",
     "title": "Resources",
     "section": "",
-    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (free)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\", \"modeest\"))\n(modeest is small but easy to miss — Homework 2 and the mid-term use it to find the mode. A few later packages — brms, emmeans, correlation, car — are staged in the weeks that need them; each week’s session page tells you what to install.)\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
+    "text": "You must have R and RStudio installed on your laptop before the second class session (ideally before the first). Both are free.\n\n\nWindows:\n\nGo to https://cran.r-project.org/\nClick Download R for Windows → base → Download R-x.x.x for Windows\nOpen the installer and follow the prompts (accept defaults)\n\nMac:\n\nGo to https://cran.r-project.org/\nClick Download R for macOS\nSelect the most recent .pkg file for your Mac’s chip (Apple silicon vs. Intel — check → About This Mac)\nOpen the .pkg file and follow the prompts\n\n\n\n\n\nGo to https://posit.co/download/rstudio-desktop/\nClick Download under RStudio Desktop (Open Source Edition)\nSelect your operating system, run the installer, accept defaults\n\n\n\n\nOpen RStudio. In the Console (bottom-left), type:\n2 + 2\nPress Enter. If you see [1] 4, you’re ready.\n\n\n\nPaste this into the Console and press Enter (it takes a few minutes):\ninstall.packages(c(\"tidyverse\", \"swirl\", \"BayesFactor\", \"here\", \"modeest\"))\n(modeest is small but easy to miss — Homework 2 and the mid-term use it to find the mode. A few later packages — brms, emmeans, correlation, car — are staged in the weeks that need them; each week’s session page tells you what to install.)\n\n\n\n\nIf RStudio won’t open, make sure R is installed first — RStudio requires it.\nIf you get a message about an outdated R version, install the newest R, then restart RStudio.\nStill stuck? See the R installation FAQ or email me — before class, not the night homework is due."
   },
   {
     "objectID": "resources.html#textbooks",
@@ -1775,7 +1782,7 @@
     "href": "resources.html#datasets",
     "title": "Resources",
     "section": "Datasets",
-    "text": "Datasets\nDownload by clicking, or read directly in R, e.g.:\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nchicago-crimes-2025.csv\nAnchor dataset: 30,000 real Chicago crime incidents from 2025 — full codebook\nLectures, all semester\n\n\nchicago-areas.csv\nAnchor dataset: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — full codebook\nLectures (correlation → regression)\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nThe two Chicago anchor files are real data (Chicago Police Department portal + Census/ACS via CMAP) — see the full codebook and caveats. The remaining datasets are simulated but realistic, generously shared by a colleague."
+    "text": "Datasets\nDownload by clicking, or read directly in R. read_csv() comes from the tidyverse, so load it first — once per R session, before any of the lines below:\nlibrary(tidyverse)\n\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n(If you get could not find function \"read_csv\", that’s the missing library(tidyverse).)\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nchicago-crimes-2025.csv\nAnchor dataset: 30,000 real Chicago crime incidents from 2025 — full codebook\nLectures, all semester\n\n\nchicago-areas.csv\nAnchor dataset: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — full codebook\nLectures (correlation → regression)\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nThe two Chicago anchor files are real data (Chicago Police Department portal + Census/ACS via CMAP) — see the full codebook and caveats. The remaining datasets are simulated but realistic, generously shared by a colleague."
   },
   {
     "objectID": "resources.html#demos-practice",
@@ -5345,7 +5352,7 @@
     "href": "syllabus.html",
     "title": "Syllabus",
     "section": "",
-    "text": "Provisional dates. The meeting pattern (Tuesdays, 6:00–8:45 pm, Currell 204) and the no-class dates (Oct 27, Nov 3, and Thanksgiving week) are set. The individual session dates still derive from a provisional semester start and will be confirmed against USC’s official Fall 2026 calendar before the semester begins. Topics, their order, and course policies are final.\nInstructor: Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu · Office: Currell 111 · Office hours: on request Class meetings: Tuesdays, 6:00–8:45 pm · Currell 204"
+    "text": "Provisional dates. The meeting pattern (Tuesdays, 6:00–8:45 pm, Currell 204) and the no-class dates (Oct 27, Nov 3, and Thanksgiving week) are set. The individual session dates still derive from a provisional semester start and will be confirmed against USC’s official Fall 2026 calendar before the semester begins. Topics, their order, and course policies are final.\n📄 Download this syllabus as a PDF — handy for printing or Canvas. The web version on this page is always the authoritative one.\nInstructor: Dr. Scott M. Mourtgos · mourtgos@mailbox.sc.edu · Office: Currell 111 · Office hours: on request Class meetings: Tuesdays, 6:00–8:45 pm · Currell 204"
   },
   {
     "objectID": "syllabus.html#academic-bulletin",
@@ -5541,7 +5548,7 @@
     "href": "weeks/week-02.html#before-class",
     "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "Before class",
-    "text": "Before class\n\nRead: Stanton Ch. 1 (Statistical Vocabulary)\nRead: R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
+    "text": "Before class\n\nRead: Stanton Ch. 1 (Statistical Vocabulary)\nRead: R4DS Ch. 1 — Data visualization and Ch. 2 — Workflow: basics — plus the exercises assigned in Session 1\nBring your laptop with R, RStudio, and the course packages installed (install guide)"
   },
   {
     "objectID": "weeks/week-02.html#in-class",
@@ -5555,7 +5562,7 @@
     "href": "weeks/week-02.html#homework",
     "title": "Session 2 · Descriptive Statistics & EDA",
     "section": "Homework",
-    "text": "Homework\n\nHomework 2 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 2 (Reasoning with Probability) before Session 3\nRead R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style"
+    "text": "Homework\n\nHomework 2 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 2 (Reasoning with Probability) before Session 3\nRead R4DS Ch. 3 — Data transformation and Ch. 4 — Workflow: code style\nR4DS exercises — the biggest set of the semester, because Ch. 3 is the chapter your final project runs on:\n\n3.2.5 #1 (filter() against a pile of conditions) and #2 (arrange() to find the extremes)\n3.3.5 #2 (several routes to the same select()) and #6 (rename() + relocate())\n3.5.7 #3 (how delays vary across the day — summarize() into a plot)\n4.6 #1 (restyle two ugly pipelines — you will be graded on readable code all semester)\nSelf-check — nothing to submit. Bring whatever stumped you to class."
   },
   {
     "objectID": "weeks/week-04.html",
@@ -5576,7 +5583,7 @@
     "href": "weeks/week-04.html#before-class",
     "title": "Session 4 · Sampling Distributions",
     "section": "Before class",
-    "text": "Before class\n\nRead: Stanton Ch. 3 (Probabilities in the Long Run)\nRead: R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects\nBring your laptop — this session is almost entirely live simulation in R"
+    "text": "Before class\n\nRead: Stanton Ch. 3 (Probabilities in the Long Run)\nRead: R4DS Ch. 5 — Data tidying and Ch. 6 — Workflow: scripts and projects — plus the exercises assigned in Session 3\nBring your laptop — this session is almost entirely live simulation in R"
   },
   {
     "objectID": "weeks/week-04.html#in-class",
@@ -5590,7 +5597,7 @@
     "href": "weeks/week-04.html#homework",
     "title": "Session 4 · Sampling Distributions",
     "section": "Homework",
-    "text": "Homework\n\nHomework 4 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 4 before Session 5\nRead R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help"
+    "text": "Homework\n\nHomework 4 — submit your .R file via Canvas by 11:59 pm Sunday\nRead Stanton Ch. 4 before Session 5\nRead R4DS Ch. 7 — Data import and Ch. 8 — Workflow: getting help\nR4DS exercises — all from 7.2.4, and every one of them is a problem you will actually hit with real data:\n\n#1 (what reads a |-separated file?) and #4 (strings quoted with ' instead of \")\n#5 (five broken inline CSVs — say what goes wrong in each; this is the single most useful import exercise in the book)\n#6 (column names R hates, and how to rename them)\nCh. 8 has no exercises. Its payoff is the reprex habit — worth reading before you email me a bug.\nSelf-check — nothing to submit. Bring whatever stumped you to class."
   },
   {
     "objectID": "weeks/week-06.html",
@@ -5611,7 +5618,7 @@
     "href": "weeks/week-06.html#before-class",
     "title": "Session 6 · Hypothesis Testing: Frequentist and Bayesian",
     "section": "Before class",
-    "text": "Before class\n\nRead: Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing)\nRead: Mourtgos, S. M. (2023). “Bayesian Inference in Criminological Research.” Police Forum, 32(1), 7–16 — PDF posted on Canvas. Yes, I assigned my own article; consider it a preview of where your instructor’s sympathies lie, and feel free to argue with it in class\nRead: R4DS Ch. 19 — Joins; skim Ch. 18 — Missing values\nInstall the Bayesian engine before class so we can use it together: install.packages(\"BayesFactor\")"
+    "text": "Before class\n\nRead: Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing)\nRead: Mourtgos, S. M. (2023). “Bayesian Inference in Criminological Research.” Police Forum, 32(1), 7–16 — PDF posted on Canvas. Yes, I assigned my own article; consider it a preview of where your instructor’s sympathies lie, and feel free to argue with it in class\nRead: R4DS Ch. 19 — Joins; skim Ch. 18 — Missing values — plus the exercises assigned in Session 5\nInstall the Bayesian engine before class so we can use it together: install.packages(\"BayesFactor\")"
   },
   {
     "objectID": "weeks/week-06.html#in-class",
