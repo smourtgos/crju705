@@ -1,6 +1,6 @@
 # CRJU 705 Modernization — Project Notes
 
-*Last updated: August 18, 2026 — after the Fall 2026 calendar rewire (Tuesday meetings, 13 sessions) and the ANOVA demotion. Working notes for picking this back up.*
+*Last updated: August 18, 2026 — after the Fall 2026 delivery pass: calendar rewire (Tuesday, 13 sessions), ANOVA demotion, R4DS exercises made graded, downloadable syllabus PDF, and a set of Session 1 slide fixes. All shipped live. Working notes for picking this back up.*
 
 ## What this is
 
@@ -21,7 +21,7 @@ Textbook stays **Stanton, *Reasoning with Data*** (the only intro text doing fre
 | **2025 archive (untouched source material)** | `../CRJU 705/` |
 | **Colleague's course (lab template + datasets borrowed)** | `../CRCJ 8950 Spring 2026/` |
 
-Source directories, in student-facing terms: `weeks/` (hub pages — objectives, story, links), `slides/` (reveal.js decks), `labs/`, `homework/`, `demos/` (per-session "lecture written down" walkthroughs, self-contained), `practice/` (ungraded problem banks, collapsed solutions), `final-project-exemplar.qmd` (+ downloadable script). Non-public: `_private/keys/` (HW answer keys), `_private/exams/` (2025 archive + **midterm-2026.R draft**, worked key, pre-fit `midterm-anova-fit.rds`, `make-midterm-fit.R`), `_private/notes/` (per-week CHANGES logs + the midterm review checklist).
+Source directories, in student-facing terms: `weeks/` (hub pages — objectives, story, links), `slides/` (reveal.js decks), `labs/`, `homework/`, `demos/` (per-session "lecture written down" walkthroughs, self-contained), `practice/` (ungraded problem banks, collapsed solutions), `final-project-exemplar.qmd` (+ downloadable script). `syllabus.qmd` renders **both HTML and PDF** — `_site/syllabus.pdf` is a build artifact, not committed, so it only reaches students on a publish. Note `weeks/week-13.qmd` is **presentations** (the old help-session page was deleted and week-14 renamed into its place). Non-public: `_private/keys/` (HW answer keys), `_private/exams/` (2025 archive + **midterm-2026.R draft**, worked key, pre-fit `midterm-anova-fit.rds`, `make-midterm-fit.R`), `_private/notes/` (per-week CHANGES logs + the midterm review checklist).
 
 ## How to work on it
 
@@ -32,7 +32,30 @@ quarto render             # build the whole site to _site/
 # then publish:
 git add -A && git commit -m "..." && git push
 quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser
+
+# ...or, after you have already rendered and VERIFIED _site yourself:
+quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser --no-render
 ```
+
+**Prefer `--no-render` when you have just verified a clean build.** Without it,
+`quarto publish` re-renders, and you then ship output you never inspected.
+
+**⚠️ Publishing gotcha — `quarto publish` is copy-over, NOT sync.** It copies `_site`
+onto the `gh-pages` branch but does **not delete** files that disappeared since the
+last publish. In August 2026 this left `weeks/week-14.html` live and reachable for
+weeks after the 13-session renumber, still serving "Fourteen sessions ago" and
+pointing at the deleted help session. Nothing linked to it, so nothing surfaced it.
+After any rename or deletion, audit and clean the branch by hand:
+
+```bash
+git fetch -q origin gh-pages
+git ls-tree -r --name-only origin/gh-pages | sort > /tmp/ghp.txt
+(cd _site && find . -type f | sed 's|^\./||' | sort) > /tmp/loc.txt
+comm -23 /tmp/ghp.txt /tmp/loc.txt        # on gh-pages but NOT in _site = stale
+```
+
+Remove stale files via a worktree (`git worktree add <tmp> gh-pages`, `git rm`,
+commit, push, `git worktree remove`), then re-check the URL 404s.
 
 **⚠️ Publishing gotcha — GitHub Pages builds can hang.** `quarto publish` pushes the
 built site to the `gh-pages` branch, but GitHub's Pages builder then has to deploy
@@ -65,10 +88,33 @@ NEXT full render (globbed as targets, then not found) — delete them if a rende
   ```
   (And don't name chunks `key-*` in public pages — the `find` will flag the figure files.)
 
+  **If the `find` check trips, look in `_freeze/`, not just `_site/`.** `_freeze` is
+  git-tracked, so a stale figure there is recopied into `_site` on every render and the
+  check keeps failing no matter how often you delete it from `_site`. That is exactly
+  what happened with `key-figure-1.png`, orphaned by a July chunk rename to
+  `headline-figure` and only truly fixed in August by deleting it from `_freeze`.
+
+**⚠️ Two cosmetic build quirks, neither harmful:**
+- Renders sometimes emit duplicate `bootstrap-<hash>.min 2.css`, `min 3.css`, … in
+  `_site/site_libs/bootstrap/` — byte-identical, ~500 KB each, referenced by nothing.
+  Reproducible even from an empty `_site`. Sweep before publishing:
+  `find "_site/site_libs/bootstrap" -name "*min [0-9]*.css" -delete`
+- A clean rebuild (`rm -rf _site && quarto render`) is cheap because `_freeze` caches
+  the R execution — no brms refits — and it is the only way to guarantee `_site` holds
+  nothing stale. Worth doing before any publish that involved a rename or deletion.
+
+**⚠️ PDF output requires xelatex.** `syllabus.qmd` sets `pdf-engine: xelatex` and this is
+load-bearing, not stylistic: the page contains `² · – — →` and curly quotes, every one of
+which is a hard failure under the default pdflatex. Any new PDF-rendered page needs the
+same. kableExtra tables also **float** in LaTeX and will drift pages away from their
+introducing text — branch on `knitr::is_latex_output()` and pin with
+`latex_options = "HOLD_position"` plus `\usepackage{float}` (see the grading table).
+
 ## Design decisions (already made — don't relitigate)
 
 - **13 sessions** (Fall 2026 actual): 11 content + midterm (S9) + presentations (S13). Was 14 with a dedicated project help session at S13; the Tuesday calendar left only 13 teaching days, so the help session was cut and folded into S12's final half hour as a code clinic + presentation-order draw. See `_private/notes/CHANGES-calendar-2026.md`.
 - **R4DS threaded through S2–S6** as readings + short wrangling labs, alongside Stanton. Completes the "Whole Game" before the final project.
+- **(Aug 2026) R4DS exercises are GRADED homework, not self-check** (Scott's call). A curated subset per week — chosen for what the final project needs, not for coverage — submitted in the *same* `.R` script as that week's problem set, under a `# ---- R4DS ----` header. They live as a numbered section of `hw-02`…`hw-05`; Session 1 has no `hw-01.qmd`, so its set is submitted with the swirl scripts. **Every exercise section number was verified against the live r4ds.hadley.nz chapters** — do not add more from memory. Ch. 5 has only one exercise block (5.2.1, the pivot sections have none), Ch. 8 has none, and Ch. 6's only two are a stale Twitter link and a docs link, so S3 substitutes building an RStudio Project (§6.2.3).
 - **Theory taught simulation-first** on real data (the fix for "repetitive/theoretical").
 - **Anchor dataset = real Chicago 2025 crime**, at two levels (see below), running through lecture examples all semester. Labs rotate the colleague's simulated datasets for breadth.
 - **Meets Tuesdays, 6:00–8:45 pm, Currell College 204** (confirmed Aug 2026). Blackouts: Oct 27 conference, Nov 3 election day, Nov 24 Thanksgiving. Fall break is Thu–Fri and misses Tuesdays.
@@ -90,7 +136,47 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
 
-## STATUS: Phase 3 (July 2026 course-review overhaul) COMPLETE ✅
+## STATUS: Fall 2026 delivery pass (August 2026) COMPLETE ✅ — shipped live
+
+Everything below is committed, published, and verified on the live site. Detail lives in
+`_private/notes/CHANGES-calendar-2026.md` and the per-week CHANGES files.
+
+- **Calendar rewired to the real Fall 2026 schedule.** Tuesdays 6:00–8:45 pm, Currell 204.
+  Blackouts Oct 27 (conference), Nov 3 (election day), Nov 24 (Thanksgiving) leave **13
+  teaching Tuesdays against a 14-session design**. `syllabus.qmd`'s engine now walks
+  Tuesdays, uses `n_sessions <- length(session_dates)` instead of a hard-coded `[14]`, and
+  computes `project_due <- final_day - days(2)` (the old `days(3)` was right for Wednesday
+  classes and lands on Saturday for Tuesday ones).
+- **Session 13 (project help session) cut**; presentations renumbered into its place
+  (`week-14.qmd` → `week-13.qmd` via `git mv`). Its duties folded into **S12's final half
+  hour** as a code clinic + presentation-order draw. HW 12 / Checkpoint 4 re-anchored to the
+  Sunday *after* S12, since the clinic now precedes the checkpoint rather than following it.
+- **All homework moved to Sunday 11:59 pm** (23 occurrences of "before noon Tuesday", which
+  only made sense under Wednesday meetings). One title-cased heading survived the first
+  sweep because it matched case-sensitively — fixed later; a case-insensitive grep is now clean.
+- **ANOVA demoted, not cut** (see the design-decisions note above). Three slides of machinery
+  compressed, three of framing added, including a verified `anova(lm())` ≡ `aov()` bridge.
+- **R4DS exercises added across S1–S5 and made graded.** Session 1 had *no* R4DS assignment
+  at all — every other hub pointed forward correctly, but S1 named only Stanton Ch. 1 while
+  S2's "Before class" required R4DS Ch. 1–2.
+- **Downloadable syllabus PDF** (13 pp., xelatex) linked from the syllabus page.
+- **Syllabus session outline completed.** Eight of the thirteen homework lines were
+  incomplete, in five distinct ways (missing R4DS entirely on S2–S5; S6 said "begin scouting"
+  when selection is *due* at S7; S7 omitted the formal dataset selection; S10 omitted Stanton
+  Ch. 8; S12 omitted both HW 12's different due date and the project deadline).
+- **Session 1 slide fixes:** two slides printing 80-character output got `{.smaller}`; the
+  chi-squared/ANOVA/correlation preview was rebuilt on real Chicago data (it had run on
+  independently simulated columns, so every test was null *by construction* on top of the
+  pairings being arbitrary); worked-answer slides added for both Your Turns.
+
+**Verification performed:** clean full renders from an empty `_site` (72/72, exit 0); all
+three privacy checks clean; every number on new slides executed rather than asserted; PDF
+content checked (13 sessions, correct dates, no "Session 14"); live-site spot-checks after
+each publish. **Not performed: the slide-overflow audit** — it needs a browser console and
+the local preview server would not bind in that environment. A static density proxy was used
+instead and two slides trimmed; the real audit is still outstanding (see TODO).
+
+## Prior status: Phase 3 (July 2026 course-review overhaul) COMPLETE ✅
 
 A full pedagogical review (three parallel deep-reads: architecture/student journey, sessions 1–7, sessions 8–14 + assessments) found the teaching strong but flagged: S6 overloaded (all first-half Bayes in one 622-line deck), no grade weights anywhere, a project-deadline contradiction, hubs as bare pointer pages, an assessment envelope lagging the teaching (2025 iris midterm, no rubric weights, no exemplar, no presentation spec), and a set of smaller seams. Everything below was then built/fixed in one pass (per-decision sign-offs from Scott: grade weights 45/25/30, midterm ships a pre-fit brms .rds, final model reported in BOTH traditions, presentations 8 min + 2 Q&A):
 
@@ -117,16 +203,23 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - [ ] **Decide whether to bridge the 3-week S10→S11 gap.** Oct 27 and Nov 3 fall back-to-back, so correlation (Oct 20) and multiple regression (Nov 10) are three weeks apart — the tightest conceptual handoff in the second half. No clean reordering exists (the midterm must follow S8; S10 must follow the midterm), so the options are an asynchronous bridging task over the gap or an extended S11 warm-up.
 - [ ] **Review the July 2026 course-review pass** — the new "Course-review pass (July 2026)" sections in `_private/notes/CHANGES-week-*.md` itemize every change. Highest-value eyeballs: the rebuilt S3 Bayes act + trimmed S6 (`slides/week-03-probability.qmd`, `week-06-hypothesis-testing.qmd`), the grade-weights table + report/presentation split (`syllabus.qmd` — the 22/8 split of the project 30% is a draft), the rubric grid + presentation spec (`final-project.qmd`), and the exemplar (`final-project-exemplar.qmd`).
 - [ ] **Approve the drafted midterm** — `_private/exams/midterm-2026.R` + key + pre-fit `.rds`; `_private/notes/MIDTERM-REVIEW-NEEDED.md` is now the review checklist. (2025 exam stays archived unmodified.)
+- [ ] **Run the slide-overflow audit on the decks edited in August** — weeks 1, 8, and 12. `tools/audit-slide-overflow.js` needs a browser console, which was unavailable during the August pass (the local preview server would not bind). A static density proxy was substituted and two slides trimmed, but that is not the real check. Open the rendered deck, paste the script, confirm nothing overflows.
+- [ ] **Decide about `options(scipen = 999)` in `R/setup.R`.** It prints p-values as `p-value < 0.00000000000000022` and `0.0000000000105` instead of `2.2e-16` / `1.05e-11`. On the Session 1 slide that introduces p-values for the first time that is arguably *harder* to read, not easier. Left alone because the setting is global across every deck, lab, and homework page — changing it is a one-liner but affects everything.
 - [ ] **Re-record the S12 3D walkthrough video** — the live widget was fixed but `media/week-12/3d-logistic.mp4` still shows the pre-fix transposed surface (CHANGES-week-12).
 - [ ] **Confirm the S6 reading** — the hub assigns Scott's own *Police Forum* Bayes article; confirm that's the intended piece.
 - [ ] **Optional:** eyeball decks at projector resolution; videos cap at 480px tall with headroom to enlarge. Note the exemplar and practice-12 both analyze crash-ak injury~intoxication (different covariates) — coherent by design, but flag if you'd rather they diverge.
 
 ### Standing decision-records (already handled)
 - S11 homework's deliberately honest-null officers model stayed in (flagged for veto, not vetoed).
+- **R4DS exercises: graded, not self-check.** Proposed as self-check to avoid disturbing the 45/25/30 weights; Scott overruled. Syllabus grading row and *General Assignment Information* were updated to match, so the graded envelope is consistent.
+- **13 sessions, not 14.** The help session was the cut (cheapest — demos and practice banks already cover that ground). Do NOT cut a content session to recover time without re-reading the ANOVA note above.
 - Canvas-vs-Blackboard: resolved — site is all-Canvas. (2025-material bug history now lives under "Earlier phases" above.)
 
 ### Known conventions/gotchas (all documented in CONVENTIONS.md)
 - Publish loop + the GitHub Pages stuck-build check (see "Publishing gotcha" above)
+- **`quarto publish` is copy-over, not sync** — deleted/renamed pages stay live on `gh-pages` until removed by hand (see "Publishing gotcha" above). Prefer `--no-render` to ship a build you actually verified.
+- **Stale figures hide in `_freeze/`, which is git-tracked** — deleting them from `_site` alone does nothing; they come back on the next render
+- **PDF pages need `pdf-engine: xelatex`** (the content routinely contains `· – — → ²`), and kableExtra tables need `HOLD_position` or they float away from their text
 - `media/` + `data/` must stay in `_quarto.yml` `resources:` (videos silently vanish otherwise)
 - Plain `<video>` tags only, never the `{{< video >}}` shortcut
 - Slide-density rules + `tools/audit-slide-overflow.js` (v2: measures flow AND visual bottom) before publishing any deck edit
