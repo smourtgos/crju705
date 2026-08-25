@@ -207,7 +207,7 @@ Scott M. Mourtgos
 </div>
 
 </section>
-<section id="this-week" class="slide level2">
+<section id="this-week" class="slide level2 smaller">
 <h2>This Week</h2>
 <p><strong>Topic:</strong> comparing three or more group means — and your first Bayesian model workflow</p>
 <ul>
@@ -659,7 +659,7 @@ HPD interval probability: 0.95 </code></pre>
 </section>
 <section id="this-workflow-is-the-point" class="slide level2">
 <h2>This Workflow Is the Point</h2>
-<p>The four lines you just ran are the ones you will keep for the rest of the course:</p>
+<p>The four lines you just ran are the ones you keep:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>model <span class="ot">&lt;-</span> <span class="fu">brm</span>(outcome <span class="sc">~</span> predictor, <span class="at">data =</span> df)   <span class="co"># fit</span></span>
 <span id="cb33-2"><a></a>post  <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(model, <span class="sc">~</span> predictor)           <span class="co"># posterior summaries</span></span>
 <span id="cb33-3"><a></a><span class="fu">plot</span>(post); <span class="fu">pairs</span>(post)                        <span class="co"># see it; compare</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

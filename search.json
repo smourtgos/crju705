@@ -4158,39 +4158,18 @@
     "text": "Central Tendency Isn’t the Whole Story\nThree people run for city council; only the top two vote-getters win:\n\n\nScenario 1\n\nA = 200 votes\nB = 300 votes\nC = 400 votes\n\n\nScenario 2\n\nX = 299 votes\nY = 300 votes\nZ = 301 votes\n\n\nIn both cases the average is 300. But scenario 1 has much greater spread in support; scenario 2 is tightly clustered — it’s hard to say who’s truly “preferred.”\n→ We need measures of dispersion: range, deviations, variance, standard deviation."
   },
   {
-    "objectID": "slides/week-02-descriptives.html#practice-range",
-    "href": "slides/week-02-descriptives.html#practice-range",
-    "title": "Descriptive Statistics",
-    "section": "Practice — Range",
-    "text": "Practice — Range\n\nvotes1 &lt;- c(200, 300, 400)   # wide spread\nvotes2 &lt;- c(299, 300, 301)   # tight cluster\n\nmean(votes1); mean(votes2)   # identical means\n\n[1] 300\n\n\n[1] 300\n\n\n\n\nrange(votes1); diff(range(votes1))\n\n[1] 200 400\n\n\n[1] 200\n\nrange(votes2); diff(range(votes2))\n\n[1] 299 301\n\n\n[1] 2"
-  },
-  {
-    "objectID": "slides/week-02-descriptives.html#practice-deviations-from-the-mean",
-    "href": "slides/week-02-descriptives.html#practice-deviations-from-the-mean",
-    "title": "Descriptive Statistics",
-    "section": "Practice — Deviations from the Mean",
-    "text": "Practice — Deviations from the Mean\n\nvotes1 - mean(votes1)\n\n[1] -100    0  100\n\nvotes2 - mean(votes2)\n\n[1] -1  0  1\n\n\n\nWhy can’t we just sum the deviations?\n\nsum(votes1 - mean(votes1))   # they always cancel to zero!\n\n[1] 0"
-  },
-  {
-    "objectID": "slides/week-02-descriptives.html#practice-sum-of-squares",
-    "href": "slides/week-02-descriptives.html#practice-sum-of-squares",
-    "title": "Descriptive Statistics",
-    "section": "Practice — Sum of Squares",
-    "text": "Practice — Sum of Squares\nSquaring makes every deviation positive (and emphasizes big misses):\n\nsum((votes1 - mean(votes1))^2)\n\n[1] 20000\n\nsum((votes2 - mean(votes2))^2)\n\n[1] 2"
-  },
-  {
-    "objectID": "slides/week-02-descriptives.html#practice-variance-and-sd",
-    "href": "slides/week-02-descriptives.html#practice-variance-and-sd",
-    "title": "Descriptive Statistics",
-    "section": "Practice — Variance and SD",
-    "text": "Practice — Variance and SD\n\n# Variance = mean squared deviation (population formula)\nsum((votes1 - mean(votes1))^2) / length(votes1)\n\n[1] 6666.667\n\n# Standard deviation = square root of variance (back to vote units!)\nsqrt(sum((votes1 - mean(votes1))^2) / length(votes1))\n\n[1] 81.64966\n\n\n\n\nvar(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)\n\n[1] 10000\n\n\n[1] 100\n\nvar(votes2); sd(votes2)   # more on WHY in Session 4\n\n[1] 1\n\n\n[1] 1"
-  },
-  {
     "objectID": "slides/week-02-descriptives.html#seeing-the-machinery-step-1-raw-votes",
     "href": "slides/week-02-descriptives.html#seeing-the-machinery-step-1-raw-votes",
     "title": "Descriptive Statistics",
     "section": "Seeing the Machinery — Step 1: Raw Votes",
     "text": "Seeing the Machinery — Step 1: Raw Votes"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-range",
+    "href": "slides/week-02-descriptives.html#practice-range",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Range",
+    "text": "Practice — Range\n\nvotes1 &lt;- c(200, 300, 400)   # wide spread\nvotes2 &lt;- c(299, 300, 301)   # tight cluster\n\nmean(votes1); mean(votes2)   # identical means\n\n[1] 300\n\n\n[1] 300\n\n\n\n\nrange(votes1); diff(range(votes1))\n\n[1] 200 400\n\n\n[1] 200\n\nrange(votes2); diff(range(votes2))\n\n[1] 299 301\n\n\n[1] 2"
   },
   {
     "objectID": "slides/week-02-descriptives.html#seeing-the-machinery-step-2-deviations",
@@ -4200,6 +4179,13 @@
     "text": "Seeing the Machinery — Step 2: Deviations\n\n(Notice the Tight Cluster panel: deviations of −1, 0, +1 are barely visible on the same scale.)"
   },
   {
+    "objectID": "slides/week-02-descriptives.html#practice-deviations-from-the-mean",
+    "href": "slides/week-02-descriptives.html#practice-deviations-from-the-mean",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Deviations from the Mean",
+    "text": "Practice — Deviations from the Mean\n\nvotes1 - mean(votes1)\n\n[1] -100    0  100\n\nvotes2 - mean(votes2)\n\n[1] -1  0  1\n\n\n\nWhy can’t we just sum the deviations?\n\nsum(votes1 - mean(votes1))   # they always cancel to zero!\n\n[1] 0"
+  },
+  {
     "objectID": "slides/week-02-descriptives.html#seeing-the-machinery-step-3-squared-deviations",
     "href": "slides/week-02-descriptives.html#seeing-the-machinery-step-3-squared-deviations",
     "title": "Descriptive Statistics",
@@ -4207,11 +4193,32 @@
     "text": "Seeing the Machinery — Step 3: Squared Deviations\n\nAverage these and you have the variance; take the square root and you’re back in vote units — the SD."
   },
   {
+    "objectID": "slides/week-02-descriptives.html#practice-sum-of-squares",
+    "href": "slides/week-02-descriptives.html#practice-sum-of-squares",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Sum of Squares",
+    "text": "Practice — Sum of Squares\nSquaring makes every deviation positive (and emphasizes big misses):\n\nsum((votes1 - mean(votes1))^2)\n\n[1] 20000\n\nsum((votes2 - mean(votes2))^2)\n\n[1] 2"
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-variance",
+    "href": "slides/week-02-descriptives.html#practice-variance",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Variance",
+    "text": "Practice — Variance\n\n# Variance = mean squared deviation (population formula)\nsum((votes1 - mean(votes1))^2) / length(votes1)\n\n[1] 6666.667"
+  },
+  {
     "objectID": "slides/week-02-descriptives.html#standard-deviation-in-words",
     "href": "slides/week-02-descriptives.html#standard-deviation-in-words",
     "title": "Descriptive Statistics",
     "section": "Standard Deviation, in Words",
     "text": "Standard Deviation, in Words\nThe standard deviation measures how spread out the data are around the mean.\n\n“On average, how far is each value from the mean?”\n\nWe square the deviations (to make them positive and emphasize larger differences), average them (that’s the variance), then take the square root (back to the original units)."
+  },
+  {
+    "objectID": "slides/week-02-descriptives.html#practice-standard-deviation",
+    "href": "slides/week-02-descriptives.html#practice-standard-deviation",
+    "title": "Descriptive Statistics",
+    "section": "Practice — Standard Deviation",
+    "text": "Practice — Standard Deviation\n\n# Standard deviation = square root of variance (back to vote units!)\nsqrt(sum((votes1 - mean(votes1))^2) / length(votes1))\n\n[1] 81.64966\n\n\n\n\nvar(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)\n\n[1] 10000\n\n\n[1] 100\n\nvar(votes2); sd(votes2)   # more on WHY in Session 4\n\n[1] 1\n\n\n[1] 1"
   },
   {
     "objectID": "slides/week-02-descriptives.html#why-the-standard-deviation",
@@ -5016,7 +5023,7 @@
     "href": "slides/week-08-anova.html#this-workflow-is-the-point",
     "title": "Comparing Groups and Analyzing Experiments",
     "section": "This Workflow Is the Point",
-    "text": "This Workflow Is the Point\nThe four lines you just ran are the ones you will keep for the rest of the course:\nmodel &lt;- brm(outcome ~ predictor, data = df)   # fit\npost  &lt;- emmeans(model, ~ predictor)           # posterior summaries\nplot(post); pairs(post)                        # see it; compare\n\nSession 10 — the same brm() call, a numeric predictor\nSessions 11–12 — the same call again, several predictors, then a binary outcome\nYour final project — the Bayesian half of your both-traditions model\nThe ANOVA was the excuse to learn this. The workflow is the thing you keep. Also true of the interval rule: crosses 0 → not credible; excludes 0 → credible, forever after."
+    "text": "This Workflow Is the Point\nThe four lines you just ran are the ones you keep:\nmodel &lt;- brm(outcome ~ predictor, data = df)   # fit\npost  &lt;- emmeans(model, ~ predictor)           # posterior summaries\nplot(post); pairs(post)                        # see it; compare\n\nSession 10 — the same brm() call, a numeric predictor\nSessions 11–12 — the same call again, several predictors, then a binary outcome\nYour final project — the Bayesian half of your both-traditions model\nThe ANOVA was the excuse to learn this. The workflow is the thing you keep. Also true of the interval rule: crosses 0 → not credible; excludes 0 → credible, forever after."
   },
   {
     "objectID": "slides/week-08-anova.html#the-question",
@@ -5773,19 +5780,5 @@
     "title": "Session 12 · Logistic Regression: Yes/No Outcomes",
     "section": "Homework",
     "text": "Homework\n\nHomework 12 — entirely about your project this week: summary()/str() proof of your cleaned model variables, your model equation (linear or logistic, and why), plus Project Checkpoint 4 (final): fit and interpret your final model, produce one presentation-ready table or figure, and write the three sentences you’d say to a non-statistician. Submit your .R file via Canvas by 11:59 pm the Sunday after this session — one week before the full project is due.\nThe full project — script, dataset, written report — is due via Canvas before midnight the Sunday before Session 13 (details and rubric), with presentations in class at Session 13."
-  },
-  {
-    "objectID": "slides/week-02-descriptives.html#practice-variance",
-    "href": "slides/week-02-descriptives.html#practice-variance",
-    "title": "Descriptive Statistics",
-    "section": "Practice — Variance",
-    "text": "Practice — Variance\n\n# Variance = mean squared deviation (population formula)\nsum((votes1 - mean(votes1))^2) / length(votes1)\n\n[1] 6666.667"
-  },
-  {
-    "objectID": "slides/week-02-descriptives.html#practice-standard-deviation",
-    "href": "slides/week-02-descriptives.html#practice-standard-deviation",
-    "title": "Descriptive Statistics",
-    "section": "Practice — Standard Deviation",
-    "text": "Practice — Standard Deviation\n\n# Standard deviation = square root of variance (back to vote units!)\nsqrt(sum((votes1 - mean(votes1))^2) / length(votes1))\n\n[1] 81.64966\n\n\n\n\nvar(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)\n\n[1] 10000\n\n\n[1] 100\n\nvar(votes2); sd(votes2)   # more on WHY in Session 4\n\n[1] 1\n\n\n[1] 1"
   }
 ]
