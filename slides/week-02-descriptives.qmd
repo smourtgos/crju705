@@ -246,6 +246,33 @@ In **both** cases the average is 300. But scenario 1 has *much greater spread* i
 
 → We need **measures of dispersion**: range, deviations, variance, standard deviation.
 
+## Seeing the Machinery — Step 1: Raw Votes
+
+```{r}
+#| label: dispersion-step1
+#| echo: false
+#| fig-height: 5
+# votes1/votes2 defined hidden here because the machinery charts now precede
+# the practice slides; Practice — Range shows the same definitions to students
+votes1 <- c(200, 300, 400)
+votes2 <- c(299, 300, 301)
+
+votes_df <- tibble(
+  scenario = rep(c("Wide Spread", "Tight Cluster"), each = 3),
+  candidate = factor(rep(1:3, times = 2)),
+  votes = c(votes1, votes2)
+) |>
+  mutate(dev = votes - mean(votes), sq_dev = dev^2, .by = scenario)
+
+ggplot(votes_df, aes(candidate, votes, fill = scenario)) +
+  geom_col(show.legend = FALSE) +
+  geom_hline(yintercept = 300, color = "red", linetype = "dashed", linewidth = 1) +
+  facet_wrap(~scenario) +
+  scale_fill_manual(values = unname(crju_colors[c("blue", "garnet")])) +
+  labs(title = "Same mean (dashed line) — very different stories",
+       x = "Candidate", y = "Votes")
+```
+
 ## Practice — Range
 
 ```{r}
@@ -262,74 +289,6 @@ mean(votes1); mean(votes2)   # identical means
 #| label: votes-range
 range(votes1); diff(range(votes1))
 range(votes2); diff(range(votes2))
-```
-
-## Practice — Deviations from the Mean
-
-```{r}
-#| label: votes-dev
-votes1 - mean(votes1)
-votes2 - mean(votes2)
-```
-
-. . .
-
-**Why can't we just sum the deviations?**
-
-```{r}
-#| label: votes-sum-dev
-sum(votes1 - mean(votes1))   # they always cancel to zero!
-```
-
-## Practice — Sum of Squares
-
-Squaring makes every deviation positive (and emphasizes big misses):
-
-```{r}
-#| label: votes-ss
-sum((votes1 - mean(votes1))^2)
-sum((votes2 - mean(votes2))^2)
-```
-
-## Practice — Variance and SD
-
-```{r}
-#| label: votes-var
-# Variance = mean squared deviation (population formula)
-sum((votes1 - mean(votes1))^2) / length(votes1)
-
-# Standard deviation = square root of variance (back to vote units!)
-sqrt(sum((votes1 - mean(votes1))^2) / length(votes1))
-```
-
-. . .
-
-```{r}
-#| label: votes-var-fn
-var(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)
-var(votes2); sd(votes2)   # more on WHY in Session 4
-```
-
-## Seeing the Machinery — Step 1: Raw Votes
-
-```{r}
-#| label: dispersion-step1
-#| echo: false
-#| fig-height: 5
-votes_df <- tibble(
-  scenario = rep(c("Wide Spread", "Tight Cluster"), each = 3),
-  candidate = factor(rep(1:3, times = 2)),
-  votes = c(votes1, votes2)
-) |>
-  mutate(dev = votes - mean(votes), sq_dev = dev^2, .by = scenario)
-
-ggplot(votes_df, aes(candidate, votes, fill = scenario)) +
-  geom_col(show.legend = FALSE) +
-  geom_hline(yintercept = 300, color = "red", linetype = "dashed", linewidth = 1) +
-  facet_wrap(~scenario) +
-  scale_fill_manual(values = unname(crju_colors[c("blue", "garnet")])) +
-  labs(title = "Same mean (dashed line) — very different stories",
-       x = "Candidate", y = "Votes")
 ```
 
 ## Seeing the Machinery — Step 2: Deviations
@@ -349,6 +308,23 @@ ggplot(votes_df, aes(candidate, dev, fill = scenario)) +
 
 *(Notice the Tight Cluster panel: deviations of −1, 0, +1 are barely visible on the same scale.)*
 
+## Practice — Deviations from the Mean
+
+```{r}
+#| label: votes-dev
+votes1 - mean(votes1)
+votes2 - mean(votes2)
+```
+
+. . .
+
+**Why can't we just sum the deviations?**
+
+```{r}
+#| label: votes-sum-dev
+sum(votes1 - mean(votes1))   # they always cancel to zero!
+```
+
 ## Seeing the Machinery — Step 3: Squared Deviations
 
 ```{r}
@@ -365,6 +341,24 @@ ggplot(votes_df, aes(candidate, sq_dev, fill = scenario)) +
 
 *Average these and you have the variance; take the square root and you're back in vote units — the SD.*
 
+## Practice — Sum of Squares
+
+Squaring makes every deviation positive (and emphasizes big misses):
+
+```{r}
+#| label: votes-ss
+sum((votes1 - mean(votes1))^2)
+sum((votes2 - mean(votes2))^2)
+```
+
+## Practice — Variance
+
+```{r}
+#| label: votes-var
+# Variance = mean squared deviation (population formula)
+sum((votes1 - mean(votes1))^2) / length(votes1)
+```
+
 ## Standard Deviation, in Words
 
 The **standard deviation** measures *how spread out the data are around the mean*.
@@ -372,6 +366,22 @@ The **standard deviation** measures *how spread out the data are around the mean
 > "On average, how far is each value from the mean?"
 
 We square the deviations (to make them positive and emphasize larger differences), average them (that's the **variance**), then take the square root (back to the original units).
+
+## Practice — Standard Deviation
+
+```{r}
+#| label: votes-sd
+# Standard deviation = square root of variance (back to vote units!)
+sqrt(sum((votes1 - mean(votes1))^2) / length(votes1))
+```
+
+. . .
+
+```{r}
+#| label: votes-var-fn
+var(votes1); sd(votes1)   # R's built-ins use the SAMPLE formula (divide by n-1)
+var(votes2); sd(votes2)   # more on WHY in Session 4
+```
 
 ## Why the Standard Deviation?
 

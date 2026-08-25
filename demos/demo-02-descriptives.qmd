@@ -121,11 +121,55 @@ Two three-candidate elections, identical mean support, completely different situ
 votes1 <- c(200, 300, 400)   # wide spread
 votes2 <- c(299, 300, 301)   # tight cluster
 
-mean(votes1); mean(votes2)       # identical means...
-diff(range(votes1)); diff(range(votes2))   # ...very different ranges
+mean(votes1); mean(votes2)   # identical means
 ```
 
-**Step 1 — deviations from the mean.** The range only uses two values; the real machinery asks about every value. How far is each one from 300?
+**Step 1 — look at the raw values.** Build one tidy table holding both scenarios (plus the deviation columns the later steps will use), then draw the votes themselves:
+
+```{r}
+#| label: votes-df
+votes_df <- tibble(
+  scenario = rep(c("Wide Spread", "Tight Cluster"), each = 3),
+  candidate = factor(rep(1:3, times = 2)),
+  votes = c(votes1, votes2)
+) |>
+  mutate(dev = votes - mean(votes), sq_dev = dev^2, .by = scenario)
+votes_df
+```
+
+```{r}
+#| label: machinery-raw
+#| fig-height: 4
+ggplot(votes_df, aes(candidate, votes)) +
+  geom_col(fill = "steelblue") +
+  geom_hline(yintercept = 300, color = "firebrick", linetype = "dashed", linewidth = 1) +
+  facet_wrap(~scenario) +
+  labs(title = "Same mean (dashed line) — very different stories",
+       x = "Candidate", y = "Votes")
+```
+
+The quickest number for that difference is the **range** — but it only uses two values:
+
+```{r}
+#| label: votes-range
+range(votes1); diff(range(votes1))
+range(votes2); diff(range(votes2))
+```
+
+**Step 2 — deviations from the mean.** The real machinery asks about *every* value. How far is each one from 300? Drawn first — notice the Tight Cluster bars are barely visible at this scale:
+
+```{r}
+#| label: machinery-dev
+#| fig-height: 4
+ggplot(votes_df, aes(candidate, dev)) +
+  geom_col(fill = "steelblue") +
+  geom_hline(yintercept = 0, color = "grey40") +
+  facet_wrap(~scenario) +
+  labs(title = "How far is each value from the mean?",
+       x = "Candidate", y = "Deviation from mean")
+```
+
+The same deviations as numbers:
 
 ```{r}
 #| label: votes-dev
@@ -140,74 +184,7 @@ Why not just average these? Because they *always* cancel:
 sum(votes1 - mean(votes1))   # the sum of deviations is always zero
 ```
 
-**Step 2 — square them.** Squaring makes every deviation positive (and makes big misses count extra):
-
-```{r}
-#| label: votes-ss
-sum((votes1 - mean(votes1))^2)
-sum((votes2 - mean(votes2))^2)
-```
-
-20,000 versus 2 — *now* the two elections look as different as they are.
-
-**Step 3 — average, then un-square.** The mean squared deviation is the **variance**; its square root is the **standard deviation**, which puts you back in vote units:
-
-```{r}
-#| label: votes-var-hand
-sum((votes1 - mean(votes1))^2) / length(votes1)          # variance (population formula)
-sqrt(sum((votes1 - mean(votes1))^2) / length(votes1))    # SD — back to vote units
-```
-
-```{r}
-#| label: votes-var-fn
-var(votes1); sd(votes1)
-var(votes2); sd(votes2)
-```
-
-R's built-ins give slightly different answers *on purpose*: `var()` and `sd()` divide by **n − 1**, not n (10,000 vs. our hand-computed 6,666.7). *Why* is Session 4's simulation payoff — for now, file the IOU.
-
-### Seeing the machinery
-
-The same three steps, drawn. First build one tidy table holding both scenarios plus their deviations and squared deviations:
-
-```{r}
-#| label: votes-df
-votes_df <- tibble(
-  scenario = rep(c("Wide Spread", "Tight Cluster"), each = 3),
-  candidate = factor(rep(1:3, times = 2)),
-  votes = c(votes1, votes2)
-) |>
-  mutate(dev = votes - mean(votes), sq_dev = dev^2, .by = scenario)
-votes_df
-```
-
-Raw values — same dashed mean line, very different stories:
-
-```{r}
-#| label: machinery-raw
-#| fig-height: 4
-ggplot(votes_df, aes(candidate, votes)) +
-  geom_col(fill = "steelblue") +
-  geom_hline(yintercept = 300, color = "firebrick", linetype = "dashed", linewidth = 1) +
-  facet_wrap(~scenario) +
-  labs(title = "Same mean (dashed line) — very different stories",
-       x = "Candidate", y = "Votes")
-```
-
-Deviations — notice the Tight Cluster bars are barely visible at this scale:
-
-```{r}
-#| label: machinery-dev
-#| fig-height: 4
-ggplot(votes_df, aes(candidate, dev)) +
-  geom_col(fill = "steelblue") +
-  geom_hline(yintercept = 0, color = "grey40") +
-  facet_wrap(~scenario) +
-  labs(title = "How far is each value from the mean?",
-       x = "Candidate", y = "Deviation from mean")
-```
-
-Squared deviations — all positive, and the big misses dominate:
+**Step 3 — square them.** Squaring makes every deviation positive (and makes big misses count extra) — all positive, and the big misses dominate:
 
 ```{r}
 #| label: machinery-sq
@@ -219,7 +196,37 @@ ggplot(votes_df, aes(candidate, sq_dev)) +
        x = "Candidate", y = "Squared deviation")
 ```
 
-Average those bars and you have the variance; take the square root and you're back in the original units — the SD. In words: **"on average, how far is each value from the mean?"**
+Summed as numbers:
+
+```{r}
+#| label: votes-ss
+sum((votes1 - mean(votes1))^2)
+sum((votes2 - mean(votes2))^2)
+```
+
+20,000 versus 2 — *now* the two elections look as different as they are.
+
+**Step 4 — average: the variance.** The mean squared deviation is the **variance**:
+
+```{r}
+#| label: votes-var-hand
+sum((votes1 - mean(votes1))^2) / length(votes1)          # variance (population formula)
+```
+
+**Step 5 — un-square: the standard deviation.** In words: **"on average, how far is each value from the mean?"** Take the square root of the variance and you're back in vote units:
+
+```{r}
+#| label: votes-sd-hand
+sqrt(sum((votes1 - mean(votes1))^2) / length(votes1))    # SD — back to vote units
+```
+
+```{r}
+#| label: votes-var-fn
+var(votes1); sd(votes1)
+var(votes2); sd(votes2)
+```
+
+R's built-ins give slightly different answers *on purpose*: `var()` and `sd()` divide by **n − 1**, not n (10,000 vs. our hand-computed 6,666.7). *Why* is Session 4's simulation payoff — for now, file the IOU.
 
 ## 4 · Distributions: the normal and the empirical rule
 
