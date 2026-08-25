@@ -1,6 +1,6 @@
 # CRJU 705 Modernization — Project Notes
 
-*Last updated: August 18, 2026 — after the Fall 2026 delivery pass: calendar rewire (Tuesday, 13 sessions), ANOVA demotion, R4DS exercises made graded, downloadable syllabus PDF, and a set of Session 1 slide fixes. All shipped live. Working notes for picking this back up.*
+*Last updated: August 25, 2026 — after the first-week-of-teaching pass: the week-01 swirl-list rendering bug (found grading HW 1), the week-02 dispersion reorder, and the slide-overflow audit finally run for real (week 8's two overflows fixed). All shipped live. Working notes for picking this back up.*
 
 ## What this is
 
@@ -72,6 +72,21 @@ gh api -X POST repos/smourtgos/crju705/pages/builds
 
 Then hard-refresh the browser (Cmd+Shift+R) — reveal.js decks cache aggressively.
 
+**⚠️ Content gotcha — never put a meaningful number in a Markdown ordered list.** Markdown
+renumbers ordered lists **sequentially from the first item**, so a list written `1.` `2.`
+… `8.` `12.` `15.` renders as **1–10** and the real numbers vanish silently — no warning,
+and the source still *looks* correct. This bit for real in Week 1 2026: the week-01 swirl
+lesson list used swirl's own menu numbers, and four of thirteen students did the wrong two
+lessons. **If a number is data — a menu position, a step ID, a statute or exercise number —
+make it literal text** (bulleted list with the number in bold, or a table). To check the
+whole source at once, flag any adjacent ordered-list pair where the second number isn't
+first + 1 (skip fenced code blocks — chunk contents are full of `1.`-looking lines):
+
+```bash
+# quick, noisy version — eyeball the hits; a real check needs fence awareness
+grep -rn --include="*.qmd" -E '^\s*[0-9]+\.\s' . | grep -v '^\./_site/' | grep -v '^\./_freeze/'
+```
+
 **⚠️ Render gotcha — `quarto render` takes ONE input file.** `quarto render a.qmd b.qmd`
 does not render both: the extra paths get misparsed, the run half-fails with only a
 WARN, and `_site` silently keeps stale HTML. Render multiple files with a shell loop
@@ -125,6 +140,11 @@ introducing text — branch on `knitr::is_latex_output()` and pin with
 - **(Phase 3) Bayes is threaded, not concentrated**: intuition seeded S1, theorem taught S3, machinery S6, priors named consistently S8–S12. Don't move it back into one deck.
 - **(Phase 3) Demos + practice banks are the missed-class recovery path** — a deliberate choice over recorded lectures. Slides may depend on `R/setup.R`; demo pages must NOT (public URLs, plain colors, visible setup).
 - **(Aug 2026) ANOVA is demoted, not cut.** Scott's read — ANOVA is near-absent as a final model in CJ journals — is correct, but S8 is really the **`brms` onboarding session**: it is where students install brms/emmeans, meet the Stan compile pause, and learn the crossing-0 interval rule, all of which S11's lab and demo explicitly depend on (`labs/lab-11-regression.qmd:114,139`, `demos/demo-11-regression.qmd:262`). The midterm's Bayesian half and Project Checkpoint 1 also ride on S8. So the machinery was compressed (−3 slides) and reframed (+3 slides: where ANOVA actually lives, the workflow is the point, it was regression all along) while the session, the midterm, and the checkpoint stayed put. **Don't cut S8 later without re-homing brms onboarding first.**
+- **(Aug 2026) S2 dispersion order: chart, then practice, at every step.** Scott's call while
+  teaching it. The three "Seeing the Machinery" charts are interleaved with the practice
+  slides rather than grouped after them, and "Practice — Variance and SD" is split so
+  "Standard Deviation, in Words" sits *between* the variance practice and the SD practice —
+  students meet the concept in words before computing it. Don't re-group the charts.
 - **(Phase 3) Grade weights 45/25/30** (HW·labs·in-class / midterm / project), project 30% split 22 report + 8 presentation (split still a draft); final model reported in **both traditions**; presentations 8 min + 2 Q&A; midterm ships a pre-fit brms `.rds` (never a live Stan compile in the exam).
 
 ## The anchor dataset
@@ -136,7 +156,38 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
 
-## STATUS: Fall 2026 delivery pass (August 2026) COMPLETE ✅ — shipped live
+## STATUS: First-week-of-teaching pass (August 25, 2026) COMPLETE ✅ — shipped live
+
+The semester is now **running** — Session 1 met Aug 18 and HW 1 came back Aug 24, so from
+here changes are being made to a live course with students in it. Three things shipped
+Aug 25, all committed, published, Pages-build-confirmed, and verified on the live page:
+
+- **Week-01 swirl lesson list fixed (a real teaching cost, not cosmetic).** The list used
+  swirl's own menu numbers as a Markdown ordered list — `1.`–`8.`, then `12.` and `15.` —
+  and **Markdown renumbers ordered lists sequentially**, so the live page silently showed
+  1–10. Four of thirteen students navigated swirl's menu by number and completed lessons 9
+  (Functions) and 10 (lapply and sapply) instead of the assigned 12 (Looking at Data) and
+  15 (Base Graphics). Now a **bulleted** list with the swirl number in bold, plus an
+  explicit note that lessons 9–11, 13, and 14 are not assigned. A fence-aware scan of every
+  `.qmd`/`.md` in the source found **no other non-consecutive ordered lists**; the two decks
+  that name the lesson numbers (`slides/week-01-stats-is-awesome.qmd:608`,
+  `slides/week-02-descriptives.qmd:35`) write them inline as literal text, which is safe.
+- **Week-02 dispersion section reordered** (Scott's call): each "Seeing the Machinery" chart
+  now immediately *precedes* its practice slide (raw votes → Practice Range; deviations →
+  Practice Deviations; squares → Practice Sum of Squares), and the old "Practice — Variance
+  and SD" slide is **split in two around "Standard Deviation, in Words"** — variance before
+  it, SD (plus the `var()`/`sd()` built-ins and the n−1 IOU) after. `demos/demo-02` §3 was
+  reordered to mirror the arc (chart then numbers at each step, now five named steps). One
+  mechanical consequence: `votes1`/`votes2` are now *also* defined hidden (`echo: false`) in
+  the Step-1 chunk, because the charts precede the visible definitions on Practice — Range.
+- **Slide-overflow audit run for real, and week 8 fixed.** See the TODO entry — the
+  local-server problem that blocked it in August is gone.
+
+Grading-side follow-through for the swirl bug (regrade, Canvas announcement, walkthrough
+edits) lives **outside this repo** in `../Homework Assignments/Week 1 Homework/_grading/`;
+student work never enters this repo or the site.
+
+## Prior status: Fall 2026 delivery pass (August 2026) COMPLETE ✅ — shipped live
 
 Everything below is committed, published, and verified on the live site. Detail lives in
 `_private/notes/CHANGES-calendar-2026.md` and the per-week CHANGES files.
@@ -223,6 +274,7 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - **PDF pages need `pdf-engine: xelatex`** (the content routinely contains `· – — → ²`), and kableExtra tables need `HOLD_position` or they float away from their text
 - `media/` + `data/` must stay in `_quarto.yml` `resources:` (videos silently vanish otherwise)
 - Plain `<video>` tags only, never the `{{< video >}}` shortcut
-- Slide-density rules + `tools/audit-slide-overflow.js` (v2: measures flow AND visual bottom) before publishing any deck edit
+- **Never put a meaningful number in a Markdown ordered list** — Markdown renumbers them sequentially and the real numbers vanish silently (see "Content gotcha" above; it cost four students the wrong swirl lessons in Week 1)
+- Slide-density rules + `tools/audit-slide-overflow.js` (v2: measures flow AND visual bottom) before publishing any deck edit. **The audit is runnable now:** `python3 -m http.server` in `_site`, open the deck, paste the script in the browser console — the bind problem from the August pass is gone, so there is no excuse for the static-density proxy
 - Bayesian stack: `BayesFactor` for t-tests (S6) · `brms` + `emmeans` for ANOVA (S8) · `correlation` pkg (S10) · `brms` for regression/logistic (S11/S12) — matches Scott's 2025 workflow and the midterm
 - brms chunks: chains=2, iter=2000, seed=705, refresh=0; `freeze: auto` caches them (first render of those decks is slow — don't panic)

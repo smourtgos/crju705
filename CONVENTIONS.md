@@ -86,6 +86,22 @@ Ungraded self-check problems, 4–6 per stats session, solutions hidden in colla
 - Each solution chunk executes (output shown) so students can check against real numbers
 - `practice/` is in the `_quarto.yml` `render:` allowlist
 
+## Prose and lists (all student-facing pages)
+
+- **Never write a meaningful number as a Markdown ordered-list marker.** Markdown renumbers
+  ordered lists sequentially from the first item, so `1.` … `8.` `12.` `15.` renders as
+  **1–10** — silently, with the source still looking right. If the number *is* information
+  (a swirl menu position, a step ID, a statute or exercise number), make it literal text:
+
+  ```markdown
+  - **12** — Looking at Data      <!-- good: bulleted, number is text -->
+  12. Looking at Data             <!-- BAD: renders as whatever comes next in sequence -->
+  ```
+
+  Ordered lists are for "do these in this order," where the count is arbitrary. When a list
+  skips numbers, say so in the lead-in — students navigate by the numbers they are given.
+  (This cost four of thirteen students the wrong two swirl lessons in Week 1, Fall 2026.)
+
 ## Code style
 
 - tidyverse style; native pipe `|>` (never `%>%`)
