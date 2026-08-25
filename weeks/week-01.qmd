@@ -43,18 +43,18 @@ library(swirl)
 swirl()
 ```
 
-When prompted, choose the **R Programming** course and complete these lessons:
+When prompted, choose the **R Programming** course and complete these **ten** lessons. The bold numbers below are **swirl's own menu numbers** — pick each lesson by that number in swirl's menu. Note the jump at the end: lessons 9–11, 13, and 14 are *not* assigned.
 
-1. Basic Building Blocks
-2. Workspace and Files
-3. Sequences of Numbers
-4. Vectors
-5. Missing Values
-6. Subsetting Vectors
-7. Matrices and Data Frames
-8. Logic
-12. Looking at Data
-15. Base Graphics
+- **1** — Basic Building Blocks
+- **2** — Workspace and Files
+- **3** — Sequences of Numbers
+- **4** — Vectors
+- **5** — Missing Values
+- **6** — Subsetting Vectors
+- **7** — Matrices and Data Frames
+- **8** — Logic
+- **12** — Looking at Data
+- **15** — Base Graphics
 
 Save the R script you work in as you go (one script per lesson is fine). Submit your R script files via Canvas **by 11:59 pm Sunday** ahead of Session 2.
 
