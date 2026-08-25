@@ -28,7 +28,7 @@ set.seed(705)
 crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
 ```
 
-## This Week
+## This Week {.smaller}
 
 **Topic:** comparing three or more group means — and your first Bayesian model workflow
 
@@ -415,7 +415,7 @@ Zero sits comfortably inside every interval. When a difference is *real*, its in
 
 ## This Workflow Is the Point
 
-The four lines you just ran are the ones you will keep for the rest of the course:
+The four lines you just ran are the ones you keep:
 
 ```r
 model <- brm(outcome ~ predictor, data = df)   # fit

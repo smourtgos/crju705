@@ -172,9 +172,10 @@ Everything below is committed, published, and verified on the live site. Detail 
 **Verification performed:** clean full renders from an empty `_site` (72/72, exit 0); all
 three privacy checks clean; every number on new slides executed rather than asserted; PDF
 content checked (13 sessions, correct dates, no "Session 14"); live-site spot-checks after
-each publish. **Not performed: the slide-overflow audit** — it needs a browser console and
+each publish. **Not performed at ship time: the slide-overflow audit** — it needs a browser console and
 the local preview server would not bind in that environment. A static density proxy was used
-instead and two slides trimmed; the real audit is still outstanding (see TODO).
+instead and two slides trimmed. The real audit ran Aug 25, 2026, and week 8's two flagged
+slides were fixed the same day (see TODO).
 
 ## Prior status: Phase 3 (July 2026 course-review overhaul) COMPLETE ✅
 
@@ -203,7 +204,7 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - [ ] **Decide whether to bridge the 3-week S10→S11 gap.** Oct 27 and Nov 3 fall back-to-back, so correlation (Oct 20) and multiple regression (Nov 10) are three weeks apart — the tightest conceptual handoff in the second half. No clean reordering exists (the midterm must follow S8; S10 must follow the midterm), so the options are an asynchronous bridging task over the gap or an extended S11 warm-up.
 - [ ] **Review the July 2026 course-review pass** — the new "Course-review pass (July 2026)" sections in `_private/notes/CHANGES-week-*.md` itemize every change. Highest-value eyeballs: the rebuilt S3 Bayes act + trimmed S6 (`slides/week-03-probability.qmd`, `week-06-hypothesis-testing.qmd`), the grade-weights table + report/presentation split (`syllabus.qmd` — the 22/8 split of the project 30% is a draft), the rubric grid + presentation spec (`final-project.qmd`), and the exemplar (`final-project-exemplar.qmd`).
 - [ ] **Approve the drafted midterm** — `_private/exams/midterm-2026.R` + key + pre-fit `.rds`; `_private/notes/MIDTERM-REVIEW-NEEDED.md` is now the review checklist. (2025 exam stays archived unmodified.)
-- [x] **Slide-overflow audit — RUN Aug 25, 2026** (browser console reached by serving `_site` with `python3 -m http.server`; the server binds fine now). Weeks 1 and 12 clean; week 2 clean after the dispersion reorder. **Week 8 has two real overflows still to trim**: slide 2 "This Week" (169px over the 700px canvas) and slide 36 "This Workflow Is the Point" (45px over), both from the August ANOVA-demotion edits.
+- [x] **Slide-overflow audit — RUN Aug 25, 2026; week-8 overflows FIXED same day** (browser console reached by serving `_site` with `python3 -m http.server`; the server binds fine now). Weeks 1 and 12 clean; week 2 clean after the dispersion reorder. Week 8's two overflows from the August ANOVA-demotion edits — slide 2 "This Week" (169px over the 700px canvas) and slide 36 "This Workflow Is the Point" (45px over) — trimmed without touching the demotion framing: `{.smaller}` on the opener (no text changed), one-line intro trim on the workflow slide (details in CHANGES-week-08 items 27–28). Re-audit clean: 0 of 47 slides overflow.
 - [ ] **Decide about `options(scipen = 999)` in `R/setup.R`.** It prints p-values as `p-value < 0.00000000000000022` and `0.0000000000105` instead of `2.2e-16` / `1.05e-11`. On the Session 1 slide that introduces p-values for the first time that is arguably *harder* to read, not easier. Left alone because the setting is global across every deck, lab, and homework page — changing it is a one-liner but affects everything.
 - [ ] **Re-record the S12 3D walkthrough video** — the live widget was fixed but `media/week-12/3d-logistic.mp4` still shows the pre-fix transposed surface (CHANGES-week-12).
 - [ ] **Confirm the S6 reading** — the hub assigns Scott's own *Police Forum* Bayes article; confirm that's the intended piece.
