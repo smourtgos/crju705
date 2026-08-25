@@ -445,6 +445,10 @@ Scott M. Mourtgos
 <p>In <strong>both</strong> cases the average is 300. But scenario 1 has <em>much greater spread</em> in support; scenario 2 is <em>tightly clustered</em> — it’s hard to say who’s truly “preferred.”</p>
 <p>→ We need <strong>measures of dispersion</strong>: range, deviations, variance, standard deviation.</p>
 </section>
+<section id="seeing-the-machinery-step-1-raw-votes" class="slide level2">
+<h2>Seeing the Machinery — Step 1: Raw Votes</h2>
+
+<img data-src="week-02-descriptives_files/figure-revealjs/dispersion-step1-1.png" width="960" class="r-stretch"></section>
 <section id="practice-range" class="slide level2">
 <h2>Practice — Range</h2>
 <div class="cell">
@@ -478,6 +482,11 @@ Scott M. Mourtgos
 </div>
 </div>
 </section>
+<section id="seeing-the-machinery-step-2-deviations" class="slide level2">
+<h2>Seeing the Machinery — Step 2: Deviations</h2>
+
+<img data-src="week-02-descriptives_files/figure-revealjs/dispersion-step2-1.png" width="960" class="r-stretch"><p><em>(Notice the Tight Cluster panel: deviations of −1, 0, +1 are barely visible on the same scale.)</em></p>
+</section>
 <section id="practice-deviations-from-the-mean" class="slide level2">
 <h2>Practice — Deviations from the Mean</h2>
 <div class="cell">
@@ -500,6 +509,11 @@ Scott M. Mourtgos
 </div>
 </div>
 </section>
+<section id="seeing-the-machinery-step-3-squared-deviations" class="slide level2">
+<h2>Seeing the Machinery — Step 3: Squared Deviations</h2>
+
+<img data-src="week-02-descriptives_files/figure-revealjs/dispersion-step3-1.png" width="960" class="r-stretch"><p><em>Average these and you have the variance; take the square root and you’re back in vote units — the SD.</em></p>
+</section>
 <section id="practice-sum-of-squares" class="slide level2">
 <h2>Practice — Sum of Squares</h2>
 <p>Squaring makes every deviation positive (and emphasizes big misses):</p>
@@ -514,14 +528,27 @@ Scott M. Mourtgos
 </div>
 </div>
 </section>
-<section id="practice-variance-and-sd" class="slide level2">
-<h2>Practice — Variance and SD</h2>
+<section id="practice-variance" class="slide level2">
+<h2>Practice — Variance</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co"># Variance = mean squared deviation (population formula)</span></span>
 <span id="cb45-2"><a></a><span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6666.667</code></pre>
 </div>
+</div>
+</section>
+<section id="standard-deviation-in-words" class="slide level2">
+<h2>Standard Deviation, in Words</h2>
+<p>The <strong>standard deviation</strong> measures <em>how spread out the data are around the mean</em>.</p>
+<blockquote>
+<p>“On average, how far is each value from the mean?”</p>
+</blockquote>
+<p>We square the deviations (to make them positive and emphasize larger differences), average them (that’s the <strong>variance</strong>), then take the square root (back to the original units).</p>
+</section>
+<section id="practice-standard-deviation" class="slide level2">
+<h2>Practice — Standard Deviation</h2>
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="co"># Standard deviation = square root of variance (back to vote units!)</span></span>
 <span id="cb47-2"><a></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -546,28 +573,6 @@ Scott M. Mourtgos
 </div>
 </div>
 </div>
-</section>
-<section id="seeing-the-machinery-step-1-raw-votes" class="slide level2">
-<h2>Seeing the Machinery — Step 1: Raw Votes</h2>
-
-<img data-src="week-02-descriptives_files/figure-revealjs/dispersion-step1-1.png" width="960" class="r-stretch"></section>
-<section id="seeing-the-machinery-step-2-deviations" class="slide level2">
-<h2>Seeing the Machinery — Step 2: Deviations</h2>
-
-<img data-src="week-02-descriptives_files/figure-revealjs/dispersion-step2-1.png" width="960" class="r-stretch"><p><em>(Notice the Tight Cluster panel: deviations of −1, 0, +1 are barely visible on the same scale.)</em></p>
-</section>
-<section id="seeing-the-machinery-step-3-squared-deviations" class="slide level2">
-<h2>Seeing the Machinery — Step 3: Squared Deviations</h2>
-
-<img data-src="week-02-descriptives_files/figure-revealjs/dispersion-step3-1.png" width="960" class="r-stretch"><p><em>Average these and you have the variance; take the square root and you’re back in vote units — the SD.</em></p>
-</section>
-<section id="standard-deviation-in-words" class="slide level2">
-<h2>Standard Deviation, in Words</h2>
-<p>The <strong>standard deviation</strong> measures <em>how spread out the data are around the mean</em>.</p>
-<blockquote>
-<p>“On average, how far is each value from the mean?”</p>
-</blockquote>
-<p>We square the deviations (to make them positive and emphasize larger differences), average them (that’s the <strong>variance</strong>), then take the square root (back to the original units).</p>
 </section>
 <section id="why-the-standard-deviation" class="slide level2">
 <h2>Why the Standard Deviation?</h2>
