@@ -229,9 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-1-contingency-tables" id="toc-part-1-contingency-tables" class="nav-link active" data-scroll-target="#part-1-contingency-tables">Part 1: Contingency Tables</a></li>
   <li><a href="#part-2-conditional-probability" id="toc-part-2-conditional-probability" class="nav-link" data-scroll-target="#part-2-conditional-probability">Part 2: Conditional Probability</a></li>
   <li><a href="#part-3-visualizing-distributions" id="toc-part-3-visualizing-distributions" class="nav-link" data-scroll-target="#part-3-visualizing-distributions">Part 3: Visualizing Distributions</a></li>
-  <li><a href="#part-4-real-data" id="toc-part-4-real-data" class="nav-link" data-scroll-target="#part-4-real-data">Part 4: Real Data</a></li>
-  <li><a href="#part-5-reversing-a-conditional" id="toc-part-5-reversing-a-conditional" class="nav-link" data-scroll-target="#part-5-reversing-a-conditional">Part 5: Reversing a Conditional</a></li>
-  <li><a href="#part-6-r4ds-exercises-required" id="toc-part-6-r4ds-exercises-required" class="nav-link" data-scroll-target="#part-6-r4ds-exercises-required">Part 6: R4DS Exercises (required)</a></li>
+  <li><a href="#part-4-r4ds-exercises-required" id="toc-part-4-r4ds-exercises-required" class="nav-link" data-scroll-target="#part-4-r4ds-exercises-required">Part 4: R4DS Exercises (required)</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-03.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -288,41 +286,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Create a <strong>grouped</strong> bar plot of the number of cars by <code>cyl</code> and <code>gear</code>. You may use ggplot (<code>geom_bar(position = "dodge")</code> — remember to make the grouping variable a factor) or base R’s <code>barplot(..., beside = TRUE)</code> — your choice.</p></li>
 </ol>
 </section>
-<section id="part-4-real-data" class="level2">
-<h2 class="anchored" data-anchor-id="part-4-real-data">Part 4: Real Data</h2>
-<ol start="10" type="1">
-<li><p>Load the course anchor data:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>crimes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Compute the marginal probability that an incident ended in arrest: P(arrest). <em>(Hint: <code>arrest</code> is logical, and <code>mean()</code> of a logical is a proportion.)</em></p></li>
-<li><p>Compute the conditional probability of arrest given each crime category: P(arrest | Violent), P(arrest | Property), P(arrest | Other). <em>(Hint: <code>summarize()</code> with <code>.by = crime_category</code>.)</em></p></li>
-<li><p>Compute P(arrest | domestic == TRUE) and compare it to your overall P(arrest) from Q11.</p></li>
-<li><p><strong>Interpretation (in a comment):</strong> based on Q12 and Q13 — which variable (<code>crime_category</code> or <code>domestic</code>) is closer to <em>independent</em> of arrest in these data, and how can you tell? Use the definition from lecture: A and B are independent when P(A | B) = P(A).</p></li>
-</ol>
-</section>
-<section id="part-5-reversing-a-conditional" class="level2">
-<h2 class="anchored" data-anchor-id="part-5-reversing-a-conditional">Part 5: Reversing a Conditional</h2>
-<p>A roadside field drug test has these properties:</p>
-<ul>
-<li><strong>5%</strong> of stopped drivers actually carry drugs (the base rate)</li>
-<li>The test flags <strong>90%</strong> of drivers who carry (sensitivity)</li>
-<li>The test also flags <strong>8%</strong> of drivers who do <em>not</em> carry (false-positive rate)</li>
-</ul>
-<ol start="15" type="1">
-<li><p>For 1,000 stops, build the counting table from lecture — how many carriers get flagged, how many non-carriers get flagged? You can do the arithmetic directly in R (e.g., <code>1000 * 0.05 * 0.90</code>) or lay it out with <code>tribble()</code>. Report the total number of flagged drivers.</p></li>
-<li><p>Using your counts from Q15, compute <strong>P(carries | flagged)</strong> — the probability a <em>flagged</em> driver actually carries.</p></li>
-<li><p><strong>Interpretation (in a comment):</strong> the manufacturer advertises the test as “90% accurate.” In one or two sentences: why is your Q16 answer nowhere near 90%, and which conditional probability does the “90%” actually describe?</p></li>
-</ol>
-</section>
-<section id="part-6-r4ds-exercises-required" class="level2">
-<h2 class="anchored" data-anchor-id="part-6-r4ds-exercises-required">Part 6: R4DS Exercises (required)</h2>
-<p>From your R4DS reading for Session 4 — <strong><a href="https://r4ds.hadley.nz/data-tidy.html">Ch. 5</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-scripts.html">Ch. 6</a></strong>. No new packages; <code>table1</code>–<code>table3</code> ship with the tidyverse.</p>
+<section id="part-4-r4ds-exercises-required" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-r4ds-exercises-required">Part 4: R4DS Exercises (required)</h2>
+<p>From your R4DS reading for Session 4 — <strong><a href="https://r4ds.hadley.nz/data-tidy.html">Ch. 5, Data tidying</a></strong>. No new packages; <code>table1</code>–<code>table3</code> ship with the tidyverse.</p>
 <p>Work these in the <strong>same <code>.R</code> script</strong>, under a <code># ---- R4DS ----</code> header.</p>
 <ul>
 <li><strong>5.2.1</strong> #1 — for <code>table1</code>, <code>table2</code>, and <code>table3</code>: what is one row, and what is one column? (Answer in comments.)</li>
 <li><strong>5.2.1</strong> #2 — sketch the steps you’d take to compute a rate. You are not expected to <em>write</em> working code yet; name the moves in comments.</li>
-<li>Ch. 5 has only this one exercise block — the <code>pivot_longer()</code>/<code>pivot_wider()</code> sections have no exercises at all.</li>
-<li>Ch. 6 has no exercises worth assigning. <strong>Instead, do this and say so in a comment:</strong> create an <strong>RStudio Project</strong> for this course (§6.2.3) and move your scripts into it. Every lab from here on assumes you have one.</li>
+<li>Ch. 5 has only this one exercise block — the <code>pivot_longer()</code>/<code>pivot_wider()</code> sections have no exercises at all, so these two are the whole set.</li>
 </ul>
 
 

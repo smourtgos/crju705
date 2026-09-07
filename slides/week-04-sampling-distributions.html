@@ -220,17 +220,17 @@ Scott M. Mourtgos
 <li class="fragment"><strong>Today:</strong> what happens to <em>statistics themselves</em> — means, proportions — when sampling repeats. This is the engine under every inference we make for the rest of the course</li>
 </ul>
 </section>
-<section id="two-threads-one-course" class="slide level2">
-<h2>Two Threads, One Course</h2>
+<section id="how-today-works" class="slide level2">
+<h2>How Today Works</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Statistics thread</strong> — lecture + homework</p>
-<p>Stanton Ch. 3 → sampling distributions, the standard error, and the CLT</p>
+<p><strong>The lecture</strong> — concepts</p>
+<p>Stanton Ch. 3 → sampling distributions, the standard error, and the CLT. I run the simulations on screen; you watch and argue with me.</p>
 </div><div class="column" style="width:50%;">
-<p><strong>Wrangling thread</strong> — lab</p>
-<p>R4DS Ch. 5–6 → <code>pivot_longer()</code>, <code>pivot_wider()</code>, and tidy data</p>
+<p><strong>The in-class exercise</strong> — code</p>
+<p>You write it, together, one idea at a time. Simple code, no rush.</p>
 </div></div>
-<p>The two threads meet at the Session 7 workshop — today’s lab skill (reshaping) is what real agency data always needs first.</p>
+<p>Everything I run today is written up in the <a href="../demos/demo-04-sampling-distributions.html">demo walkthrough</a>, so nothing on screen is something you have to capture in real time.</p>
 </section>
 <section id="a-question-to-start" class="slide level2">
 <h2>A Question to Start</h2>
@@ -304,7 +304,7 @@ heads tails
 </div>
 </div></section><section id="simulating-probabilities-in-cj-1" class="slide level2">
 <h2>Simulating Probabilities in CJ (1)</h2>
-<p><strong>False positive drug tests.</strong> Suppose a field test for drugs has a 5% false positive rate. Simulate 100 field tests of <em>non-users</em>:</p>
+<p><strong>Roadside drug tests.</strong> A field test for illegal drugs flags 5% of the drivers who are carrying nothing at all (a 5% false-positive rate). Simulate 100 tests of drivers who are clean:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>tests <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"false positive"</span>, <span class="st">"correct"</span>), <span class="at">size =</span> <span class="dv">100</span>,</span>
 <span id="cb6-2"><a></a>                <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span>
@@ -319,14 +319,14 @@ heads tails
 <p><strong>Discussion:</strong> even with a <em>low</em> false positive rate, false positives occur regularly in practice. What do we think about this? Does it matter?</p>
 </div>
 </section>
-<section id="what-does-a-positive-test-mean-session-3-redux" class="slide level2">
-<h2>What Does a Positive Test <em>Mean</em>? (Session 3 Redux)</h2>
-<p>Our simulation showed false positives are routine. “Does it matter?” has a Session 3 answer — count it out:</p>
+<section id="what-does-a-positive-test-mean" class="slide level2">
+<h2>What Does a Positive Test <em>Mean</em>?</h2>
+<p>Session 3 ran this with a disease screen. Same trap, new setting: <strong>1,000 drivers stopped at a checkpoint, field-tested for illegal drugs.</strong></p>
 <ul>
-<li class="fragment">Suppose <strong>2%</strong> of tested drivers actually carry. In 1,000 tests: <strong>20 carriers</strong>, 980 clean</li>
-<li class="fragment">A 5% false-positive rate on the 980 clean drivers → <strong>~49 false alarms</strong></li>
-<li class="fragment">Even if the test catches <em>all 20</em> carriers: 69 positives in total, of which 20 are real → <span class="math inline">\(P(\text{carrier} \mid +) = 20/69 \approx 29\%\)</span></li>
-<li class="fragment">The “5%” describes <span class="math inline">\(P(+ \mid \text{clean})\)</span>. The courtroom cares about <span class="math inline">\(P(\text{clean} \mid +)\)</span>. <strong>Never confuse the direction</strong></li>
+<li class="fragment"><strong>2%</strong> are actually carrying: <strong>20 carriers</strong>, 980 with nothing on them</li>
+<li class="fragment">The 5% false-positive rate hits those 980 → <strong>~49 false alarms</strong></li>
+<li class="fragment">Let the test catch <em>all 20</em> carriers: <strong>69 positives</strong>, only 20 real → <span class="math inline">\(P(\text{carrying} \mid +) = 20/69 \approx 29\%\)</span></li>
+<li class="fragment">The 5% is <span class="math inline">\(P(+ \mid \text{clean})\)</span>; the stop needs <span class="math inline">\(P(\text{carrying} \mid +)\)</span>. <strong>Never confuse the direction</strong> — at its best this test is wrong about 7 of every 10 drivers it flags</li>
 </ul>
 </section>
 <section id="simulating-probabilities-in-cj-2" class="slide level2">
@@ -651,26 +651,24 @@ heads tails
 <li class="fragment">Starting next session: use the SE to build <strong>confidence intervals</strong> — a range of values the truth is likely to be in</li>
 </ul>
 </section>
-<section id="in-class-exercise-probabilities-in-the-long-run" class="slide level2">
-<h2>In-Class Exercise: Probabilities in the Long Run</h2>
-<p>Work in pairs; record your code and results in a script.</p>
-<ol type="1">
-<li><strong>Long run:</strong> simulate 10,000 rolls of a fair die and get the proportion of each face (<code>sample()</code>, <code>count()</code>). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?</li>
-<li><strong>Known population:</strong> create <code>rnorm(10000, mean = 100, sd = 15)</code>, plot it, and mark the 1st/5th/95th percentiles with <code>quantile()</code>. Draw a sample of 30 — where does its mean fall?</li>
-</ol>
-</section>
-<section id="in-class-exercise-cont." class="slide level2">
-<h2>In-Class Exercise (cont.)</h2>
-<ol start="3" type="1">
-<li><strong>Unknown population:</strong> run <code>unknown_pop &lt;- rnorm(1000, 100, 50)</code> <em>without plotting it</em>. Sample 30 values, plot the sample, and write down what you’d conclude about the population. <em>Then</em> peek. Were you right?</li>
-</ol>
+<section id="in-class-exercise-build-a-sampling-distribution" class="slide level2">
+<h2>In-Class Exercise: Build a Sampling Distribution</h2>
+<p>We do this one together, step by step, in <a href="../labs/lab-04-sampling.html">Lab 4</a>. Five short tasks on the Alaska crash data:</p>
+<ul>
+<li class="fragment">Watch a proportion settle down as the sample grows</li>
+<li class="fragment">Draw one sample of 30 and see where its mean lands</li>
+<li class="fragment">Do it 500 times and plot the means</li>
+<li class="fragment">Check their spread against <span class="math inline">\(s / \sqrt{n}\)</span></li>
+<li class="fragment">Do it again on a TRUE/FALSE variable and watch a bell curve appear</li>
+</ul>
+<p>Open the lab page and start at Setup. I will be walking around.</p>
 </section>
 <section id="todays-lab-homework" class="slide level2">
 <h2>Today’s Lab &amp; Homework</h2>
 <ul>
-<li><strong>Lab 4:</strong> tidy data — <code>pivot_longer()</code> and <code>pivot_wider()</code> with city crime trends and reentry outcomes (<a href="../labs/lab-04-tidy.html">lab page</a>)</li>
+<li><strong>Lab 4:</strong> build a sampling distribution — the long run, the standard error, and the CLT on Alaska crash data (<a href="../labs/lab-04-sampling.html">lab page</a>)</li>
 <li><strong>Homework 4:</strong> sampling and sampling distributions (posted on the <a href="../weeks/week-04.html">Session 4 page</a>)</li>
-<li><strong>Read before Session 5:</strong> Stanton Ch. 4 · R4DS Ch. 7 (Data import) &amp; Ch. 8 (Workflow: getting help)</li>
+<li><strong>Read before Session 5:</strong> Stanton Ch. 4 · R4DS <a href="https://r4ds.hadley.nz/EDA.html">Ch. 10 (Exploratory data analysis)</a></li>
 </ul>
 
 

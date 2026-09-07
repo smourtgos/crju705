@@ -230,8 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#part-2-sampling-from-the-population" id="toc-part-2-sampling-from-the-population" class="nav-link" data-scroll-target="#part-2-sampling-from-the-population">Part 2: Sampling from the Population</a></li>
   <li><a href="#part-3-sampling-from-unknown-distributions" id="toc-part-3-sampling-from-unknown-distributions" class="nav-link" data-scroll-target="#part-3-sampling-from-unknown-distributions">Part 3: Sampling from Unknown Distributions</a></li>
   <li><a href="#part-4-build-a-sampling-distribution" id="toc-part-4-build-a-sampling-distribution" class="nav-link" data-scroll-target="#part-4-build-a-sampling-distribution">Part 4: Build a Sampling Distribution</a></li>
-  <li><a href="#part-5-real-data-the-clt-with-chicago-arrests" id="toc-part-5-real-data-the-clt-with-chicago-arrests" class="nav-link" data-scroll-target="#part-5-real-data-the-clt-with-chicago-arrests">Part 5: Real Data — The CLT with Chicago Arrests</a></li>
-  <li><a href="#part-6-r4ds-exercises-required" id="toc-part-6-r4ds-exercises-required" class="nav-link" data-scroll-target="#part-6-r4ds-exercises-required">Part 6: R4DS Exercises (required)</a></li>
+  <li><a href="#part-5-r4ds-exercises-required" id="toc-part-5-r4ds-exercises-required" class="nav-link" data-scroll-target="#part-5-r4ds-exercises-required">Part 5: R4DS Exercises (required)</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-04.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -299,27 +298,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Compute the <strong>standard deviation of your 500 sample means</strong>, and compare it to the formula for the standard error, <code>sd(scores$score) / sqrt(30)</code>. How close are they? What is this quantity called?</p></li>
 </ol>
 </section>
-<section id="part-5-real-data-the-clt-with-chicago-arrests" class="level2">
-<h2 class="anchored" data-anchor-id="part-5-real-data-the-clt-with-chicago-arrests">Part 5: Real Data — The CLT with Chicago Arrests</h2>
-<ol start="11" type="1">
-<li><p>Load the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your <em>population</em>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crimes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(crimes<span class="sc">$</span>arrest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Simulate an analyst who can only pull <strong>100 case files at a time</strong>: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.</p></li>
-<li><p><strong>Interpretation (in a comment):</strong> each individual incident’s <code>arrest</code> value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of <em>sample proportions</em> have, and what theorem from Session 4 explains that?</p></li>
-</ol>
-</section>
-<section id="part-6-r4ds-exercises-required" class="level2">
-<h2 class="anchored" data-anchor-id="part-6-r4ds-exercises-required">Part 6: R4DS Exercises (required)</h2>
-<p>From your R4DS reading for Session 5 — <strong><a href="https://r4ds.hadley.nz/data-import.html">Ch. 7</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-help.html">Ch. 8</a></strong>. All of these are from <strong>7.2.4</strong>, and every one is a problem you will actually hit with real data.</p>
+<section id="part-5-r4ds-exercises-required" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-r4ds-exercises-required">Part 5: R4DS Exercises (required)</h2>
+<p>From your R4DS reading for Session 5 — <strong><a href="https://r4ds.hadley.nz/EDA.html">Ch. 10, Exploratory data analysis</a></strong>. No new packages: the <code>diamonds</code> data ships with ggplot2, which the tidyverse already loaded for you.</p>
 <p>Work these in the <strong>same <code>.R</code> script</strong>, under a <code># ---- R4DS ----</code> header.</p>
 <ul>
-<li><strong>7.2.4</strong> #1 — what reads a <code>|</code>-separated file?</li>
-<li><strong>7.2.4</strong> #4 — strings quoted with <code>'</code> instead of <code>"</code></li>
-<li><strong>7.2.4</strong> #5 — five broken inline CSVs; say what goes wrong in each (the single most useful import exercise in the book)</li>
-<li><strong>7.2.4</strong> #6 — column names R hates, and how to rename them</li>
+<li><strong>10.3.3</strong> #1 — explore the distributions of <code>x</code>, <code>y</code>, and <code>z</code> in <code>diamonds</code>, and work out which is length, which is width, which is depth</li>
+<li><strong>10.3.3</strong> #2 — explore the distribution of <code>price</code>. Try a wide range of <code>binwidth</code> values before you answer; this is the same lesson as Week 2, on data that hides something</li>
+<li><strong>10.3.3</strong> #3 — how many diamonds are 0.99 carat, and how many are 1 carat? Why the difference?</li>
+<li><strong>10.4.1</strong> #2 — what does <code>na.rm = TRUE</code> do in <code>mean()</code> and <code>sum()</code>?</li>
 </ul>
-<p>Ch. 8 has no exercises. Its payoff is the reprex habit — read it before you email me a bug.</p>
+<p>Chapter 10 has more exercises than these. Skip them; some need packages we have not installed. These four are the ones worth your time.</p>
 
 
 </section>

@@ -227,7 +227,7 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-04-sampling-distributions.html">📽️ Slides: Sampling Distributions</a></strong> · <strong><a href="../labs/lab-04-tidy.html">🧪 Lab 4: Tidy Data — Pivoting Longer and Wider</a></strong> · <strong><a href="../homework/hw-04.html">📝 Homework 4</a></strong> · <strong><a href="../demos/demo-04-sampling-distributions.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-04.html">✍️ Practice</a></strong></p>
+<p><strong><a href="../slides/week-04-sampling-distributions.html">📽️ Slides: Sampling Distributions</a></strong> · <strong><a href="../labs/lab-04-sampling.html">🧪 Lab 4: Building a Sampling Distribution</a></strong> · <strong><a href="../homework/hw-04.html">📝 Homework 4</a></strong> · <strong><a href="../demos/demo-04-sampling-distributions.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-04.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
@@ -239,20 +239,19 @@ ul.task-list li input[type="checkbox"] {
 <li>explain in your own words: law of large numbers, sampling distribution, standard error, central limit theorem</li>
 <li>simulate a sampling distribution in R and connect its spread to the SD/√n formula</li>
 <li>say why <code>var()</code> and <code>sd()</code> divide by n − 1 (Session 2’s IOU, paid)</li>
-<li>reshape data with <code>pivot_longer()</code> and <code>pivot_wider()</code>, and keep your scripts and projects organized</li>
+<li>build a sampling distribution yourself in R, and keep your scripts and projects organized</li>
 </ul>
 </section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
 <li>Read: Stanton <strong>Ch. 3</strong> (Probabilities in the Long Run)</li>
-<li>Read: R4DS <strong><a href="https://r4ds.hadley.nz/data-tidy.html">Ch. 5 — Data tidying</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-scripts.html">Ch. 6 — Workflow: scripts and projects</a></strong> — <strong>plus the exercises assigned in <a href="../weeks/week-03.html#homework">Session 3</a></strong></li>
-<li>Bring your laptop — this session is almost entirely live simulation in R</li>
+<li>Read: R4DS <strong><a href="https://r4ds.hadley.nz/data-tidy.html">Ch. 5 — Data tidying</a></strong> — <strong>plus the exercises assigned in <a href="../weeks/week-03.html#homework">Session 3</a></strong></li>
+<li>Bring your laptop. The lecture is mine to run: I simulate on screen, you watch and push back. The laptop is for the in-class exercise afterward, where we write the code together.</li>
 </ul>
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
-<p><strong>This week’s two threads:</strong> sampling distributions (lecture + homework) · tidy data with <code>pivot_longer()</code>/<code>pivot_wider()</code> (lab).</p>
 <ul>
 <li>Theoretical vs.&nbsp;empirical probability: coin flips, the law of large numbers, and why “long run” is longer than you think</li>
 <li>Simulating CJ probabilities: false-positive drug tests, stop-and-frisk hit rates, and why random ≠ balanced</li>
@@ -260,8 +259,7 @@ ul.task-list li input[type="checkbox"] {
 <li>The standard error: simulation vs.&nbsp;the SD/√n formula, and why sample size buys precision at a √n rate</li>
 <li>Real-data thread: the central limit theorem with 30,000 real Chicago incidents — repeated samples of case files turn TRUE/FALSE arrest data into a bell curve of sample proportions</li>
 <li>Paying Session 2’s IOU: a simulation showing why <code>var()</code> and <code>sd()</code> divide by n − 1</li>
-<li>In-class exercise: probabilities in the long run (dice, known and unknown populations)</li>
-<li><strong>Lab 4:</strong> tidy data — <code>pivot_longer()</code>/<code>pivot_wider()</code> with city crime trends and reentry outcomes, plus scripts-and-projects hygiene</li>
+<li><strong>Lab 4 (in-class exercise):</strong> build a sampling distribution by hand on 20,000 Alaska crash records — the long run, one sample, five hundred samples, the standard error, and the CLT on a TRUE/FALSE variable, plus scripts-and-projects hygiene</li>
 </ul>
 <p><em>Missed class? The <a href="../demos/demo-04-sampling-distributions.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
@@ -270,14 +268,14 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong><a href="../homework/hw-04.html">Homework 4</a></strong> — submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday</strong></li>
 <li>Read Stanton <strong>Ch. 4</strong> before Session 5</li>
-<li>Read R4DS <strong><a href="https://r4ds.hadley.nz/data-import.html">Ch. 7 — Data import</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-help.html">Ch. 8 — Workflow: getting help</a></strong></li>
-<li><strong>R4DS exercises</strong> — all from <strong>7.2.4</strong>, and every one of them is a problem you will actually hit with real data:
+<li>Read R4DS <strong><a href="https://r4ds.hadley.nz/EDA.html">Ch. 10 — Exploratory data analysis</a></strong></li>
+<li><strong>R4DS exercises</strong> — four of them, all on the <code>diamonds</code> data that ships with ggplot2:
 <ul>
-<li><strong>#1</strong> (what reads a <code>|</code>-separated file?) and <strong>#4</strong> (strings quoted with <code>'</code> instead of <code>"</code>)</li>
-<li><strong>#5</strong> (five broken inline CSVs — say what goes wrong in each; this is the single most useful import exercise in the book)</li>
-<li><strong>#6</strong> (column names R hates, and how to rename them)</li>
-<li>Ch. 8 has no exercises. Its payoff is the reprex habit — worth reading before you email me a bug.</li>
-<li><strong>Required and submitted</strong> — they are Part 6 of <a href="../homework/hw-04.html">Homework 4</a>; put them in the same <code>.R</code> script under a <code># ---- R4DS ----</code> header.</li>
+<li><strong>10.3.3</strong> <strong>#1</strong> (the <code>x</code>, <code>y</code>, <code>z</code> distributions — which one is length, width, depth?) and <strong>#2</strong> (the distribution of <code>price</code>; try a wide range of <code>binwidth</code> values before you answer)</li>
+<li><strong>10.3.3</strong> <strong>#3</strong> (how many diamonds are 0.99 carat vs.&nbsp;1 carat, and why the difference?)</li>
+<li><strong>10.4.1</strong> <strong>#2</strong> (what does <code>na.rm = TRUE</code> do in <code>mean()</code> and <code>sum()</code>?)</li>
+<li>Chapter 10 has more exercises than these. Skip the rest; some of them need packages we have not installed.</li>
+<li><strong>Required and submitted</strong> — they are Part 5 of <a href="../homework/hw-04.html">Homework 4</a>; put them in the same <code>.R</code> script under a <code># ---- R4DS ----</code> header.</li>
 </ul></li>
 </ul>
 

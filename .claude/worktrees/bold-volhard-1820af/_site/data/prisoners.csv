@@ -1,0 +1,301 @@
+prisoner_id,facility,housing_unit,age,gender,race,education,offense_type,sentence_years,months_served,stress,depression,sleep_quality,substance_use_risk
+P0001,Central Unit,HU-1,36,MALE,Black,Some College,Property,1.88,23,5.4,8,1.1,4.1
+P0002,River Unit,HU-3,51,Male,Black,Less than HS,Drug,4.34,52,8.4,3.8,5.1,2.4
+P0003,River Unit,HU-4,33,Female,White,HS/GED,Property,6.57,79,4.4,9,4.6,6.3
+P0004,Central Unit,HU-2,38,Male,White,HS/GED,Drug,1.58,19,9.7,1.7,3.2,2.9
+P0005,Central Unit,HU-5,36,Male,Black,Some College,Property,3.1,37,2.8,5,3.7,1.2
+P0006,Central Unit,HU-3,35,Male,Black,NA,Drug,19.91,156,8.1,5.1,7.7,6.5
+P0007,North Unit,HU-12,26,Male,White,Some College,Drug,1.27,15,5,2.6,4.2,6.6
+P0008,North Unit,HU-6,30,Male,White,Less than HS,Property,3.05,37,6.3,5.4,4.5,5.9
+P0009,Central Unit,HU-4,18,Male,White,Less than HS,Public Order,5.67,68,4.7,3.4,3.8,5.9
+P0010,North Unit,HU-10,23,Male,White,Less than HS,Drug,1.66,20,6.4,6.7,4.5,5.2
+P0011,River Unit,HU-8,18,Male,White,HS/GED,Violent,4.06,49,8,3.4,6.1,6.2
+P0012,Central Unit,HU-5,18,Male,White,College+,Drug,2.87,34,10,7.4,5.9,3.9
+P0013,River Unit,HU-8,40,Male,White,NA,Property,1.89,8,4.9,10,4.4,4.8
+P0014,Central Unit,HU-12,32,Male,Black,HS/GED,Property,3.25,39,5.6,0.9,99,8.4
+P0015,North Unit,HU-8,53,Male,White,Some College,Drug,5.42,65,6,3,5.3,4.4
+P0016,North Unit,HU-8,26,Male,Black,HS/GED,Property,5.49,30,2.4,7.6,99,0
+P0017,North Unit,HU-9,30,Male,Black,Some College,Drug,5.71,54,8.5,8.8,3,6
+P0018,River Unit,HU-10,46,Male,Hispanic,HS/GED,Violent,1.6,19,NA,6.7,2.8,4.5
+P0019,North Unit,HU-5,29,Male,Hispanic,HS/GED,Property,5.19,62,4.4,4,6.3,8.7
+P0020,Central Unit,HU-1,24,Male,Black,College+,Public Order,1.67,20,5.5,7.3,6.8,3.7
+P0021,Central Unit,HU-4,48,Male,White,Less than HS,Violent,2.4,29,3.5,4.3,7.3,3.2
+P0022,North Unit,HU-5,39,Male,Asian,Less than HS,Drug,1.86,22,8.9,5,5.7,5.3
+P0023,Central Unit,HU-12,32,Male,Black,Less than HS,Drug,3.27,14,7.8,5.7,6.4,6
+P0024,Central Unit,HU-9,35,Male,White,HS/GED,Violent,14.78,83,10,5.5,6.5,5.3
+P0025,Central Unit,HU-7,32,Male,White,HS/GED,Violent,5.07,61,6.8,5.9,5.3,1.2
+P0026,Central Unit,HU-2,47,Nonbinary/Other,Hispanic,NA,Violent,3.06,37,NA,7.6,7.1,4.1
+P0027,Central Unit,HU-10,37,Male,Hispanic,HS/GED,Drug,4.11,49,6.3,6.9,6.8,4.3
+P0028,River Unit,HU-12,32,Male,Black,Some College,Drug,3.07,37,6.9,2.1,1.7,8.4
+P0029,North Unit,HU-1,34,MALE,Black,HS/GED,Violent,5.7,58,1.8,5.2,8.4,4
+P0030,Central Unit,HU-10,21,Male,Black,Some College,Property,7.88,80,3.8,0.5,2.5,7.8
+P0031,Central Unit,HU-10,31,Male,Hispanic,Some College,Public Order,5.16,62,7.2,0.8,0.2,6
+P0032,River Unit,HU-6,26,MALE,White,Some College,Public Order,12.44,83,6.6,4.8,3.4,4.1
+P0033,North Unit,HU-4,38,Male,White,HS/GED,Drug,3.26,39,5.3,2.4,8.3,2.2
+P0034,River Unit,HU-1,47,MALE,Native,HS/GED,Violent,5.31,64,5.7,6.3,7.7,2.2
+P0035,River Unit,HU-3,50,Male,Black,NA,Public Order,2.12,25,6.5,8.2,3,10
+P0036,River Unit,HU-11,28,Male,White,HS/GED,Violent,2.99,36,8.1,8.5,4.1,7
+P0037,Central Unit,HU-9,27,Female,Black,Less than HS,Public Order,9.82,118,4.3,4.1,99,7.3
+P0038,Central Unit,HU-3,39,MALE,Black,Some College,Violent,4.59,55,4.8,4.7,4.1,6.7
+P0039,Central Unit,HU-6,35,Male,White,College+,Violent,1.63,20,8.9,5.6,4.6,4.7
+P0040,River Unit,HU-8,32,Male,Black,HS/GED,Drug,4.83,58,7.3,10,8,6.2
+P0041,River Unit,HU-5,35,Male,Black,Some College,Property,4.46,54,6.7,5.4,99,2.4
+P0042,Central Unit,HU-5,22,Male,White,HS/GED,Property,3,20,5,9.7,2.8,6.9
+P0043,North Unit,HU-11,34,Male,White,HS/GED,Property,11.77,104,4.3,7.2,7.8,4.1
+P0044,North Unit,HU-8,43,Male,Black,HS/GED,Public Order,2.81,34,10,2.5,3.9,4.6
+P0045,Central Unit,HU-7,32,Male,White,HS/GED,Drug,2.86,20,5.9,5.5,8,5.5
+P0046,North Unit,HU-6,43,Nonbinary/Other,Black,NA,Violent,7.77,10,8.4,1.4,7,4.6
+P0047,North Unit,HU-6,24,Male,Black,Some College,Violent,3.55,43,1.7,3.9,6.2,2.2
+P0048,North Unit,HU-12,49,Male,Native,Less than HS,Drug,3.92,47,7.2,6.6,5,2.4
+P0049,North Unit,HU-11,18,Male,Native,Some College,Drug,3.05,37,NA,2.8,4.1,5
+P0050,River Unit,HU-6,25,Female,Hispanic,HS/GED,Drug,5.92,33,6.2,2.3,7.1,8.3
+P0051,North Unit,HU-5,32,Male,Other,HS/GED,Property,0.93,5,NA,5.5,99,6.3
+P0052,Central Unit,HU-10,40,Male,Native,Some College,Property,5.44,65,3.9,6.5,3.2,1.1
+P0053,River Unit,HU-1,23,Male,Black,College+,Drug,9.09,25,5.7,6,2.8,4
+P0054,North Unit,HU-1,19,Male,Black,Less than HS,Drug,1.25,15,4.8,6.8,1.7,2.4
+P0055,Central Unit,HU-6,44,Male,Hispanic,Some College,Violent,2.91,24,3.3,5.7,4.2,5.9
+P0056,Central Unit,HU-1,18,Male,Black,College+,Violent,5.23,63,6.7,5,7.8,9.4
+P0057,North Unit,HU-2,41,Male,White,HS/GED,Property,14.26,157,6.7,5.9,4.9,4.1
+P0058,Central Unit,HU-7,23,Male,Hispanic,HS/GED,Violent,5.75,69,4.2,9.4,8.3,4.6
+P0059,Central Unit,HU-5,24,Female,White,HS/GED,Drug,5.54,16,8.4,7.2,8.3,5.4
+P0060,Central Unit,HU-12,30,Male,White,HS/GED,Drug,10.34,124,5.1,9.6,6.8,2.5
+P0061,Central Unit,HU-7,32,Male,Black,Some College,Property,4.51,39,6.4,7.1,6.9,5.9
+P0062,North Unit,HU-6,41,Male,White,Less than HS,Drug,4.69,4,6.7,6,7.6,9.4
+P0063,North Unit,HU-8,32,Male,White,HS/GED,Violent,5.86,70,7.5,3.8,5.4,2.4
+P0064,Central Unit,HU-10,36,Male,Black,Some College,Drug,0.63,8,8.9,3.4,99,4.8
+P0065,North Unit,HU-9,39,Male,White,HS/GED,Violent,2.09,25,3.7,2.9,4.9,6.6
+P0066,Central Unit,HU-11,50,Female,Black,College+,Violent,1.37,16,5.1,7.7,99,5.5
+P0067,North Unit,HU-2,32,Male,White,HS/GED,Violent,2.36,28,10,5.4,2.8,2.5
+P0068,Central Unit,HU-10,56,Male,Hispanic,Less than HS,Property,2.02,24,6.4,6.6,8.2,2.4
+P0069,North Unit,HU-11,40,Male,Hispanic,Less than HS,Drug,2.71,33,2.8,4.5,1.2,0
+P0070,North Unit,HU-4,18,Nonbinary/Other,White,Less than HS,Drug,1.58,19,7.8,3.6,99,4.9
+P0071,Central Unit,HU-4,31,MALE,Black,Some College,Public Order,1.38,17,6,5.7,4.3,6.1
+P0072,North Unit,HU-11,39,Male,White,Some College,Public Order,2.44,29,6.9,3.8,7.8,4.2
+P0073,Central Unit,HU-11,40,Male,White,Less than HS,Violent,2.6,31,6.7,9.1,4.4,6.4
+P0074,River Unit,HU-5,31,Male,Black,HS/GED,Drug,19.35,33,7.4,2,3.7,0.7
+P0075,North Unit,HU-8,43,Male,Black,Some College,Drug,1.12,13,5.7,2.1,6.1,2.7
+P0076,North Unit,HU-6,24,MALE,Black,HS/GED,Property,3.6,43,3.2,7.6,0.9,3
+P0077,North Unit,HU-4,38,Male,Black,HS/GED,Violent,3.82,46,7.5,7.9,6.7,4.7
+P0078,Central Unit,HU-4,18,Male,White,HS/GED,Violent,2.35,28,6.2,5.8,5.5,3
+P0079,Central Unit,HU-1,24,Male,Hispanic,HS/GED,Public Order,0.85,10,6.6,5.3,9.1,6.7
+P0080,Central Unit,HU-9,32,Male,White,HS/GED,Drug,2.74,33,8.9,2.9,2.5,2.8
+P0081,North Unit,HU-4,32,Male,Black,HS/GED,Public Order,3.96,45,6.2,4.5,2.7,3.4
+P0082,North Unit,HU-12,31,Male,White,Some College,Violent,1.05,13,7.5,7,4.2,4.7
+P0083,Central Unit,HU-11,25,MALE,Black,Some College,Public Order,3.89,30,6.5,2.1,5.1,2.6
+P0084,Central Unit,HU-7,46,Male,White,HS/GED,Public Order,1.65,20,5.9,4.7,99,0.3
+P0085,North Unit,HU-9,44,Male,White,HS/GED,Property,1.31,16,8.9,5.2,1.5,3.1
+P0086,North Unit,HU-11,34,Male,White,Some College,Property,2.78,33,5.5,7.1,4.1,6.1
+P0087,Central Unit,HU-3,41,Male,Black,Less than HS,Drug,3.32,40,0,3.5,6.2,4.7
+P0088,River Unit,HU-5,36,Male,White,Some College,Public Order,2.23,27,6,0,3.6,1.4
+P0089,Central Unit,HU-7,36,Male,Hispanic,HS/GED,Drug,4.09,19,4.3,3,4.1,9
+P0090,Central Unit,HU-11,40,Male,White,HS/GED,Drug,4.57,55,7.2,3.7,1.9,3.1
+P0091,North Unit,HU-5,32,Male,White,NA,Drug,4.48,1,6.3,6,2,4.4
+P0092,North Unit,HU-9,46,Male,White,Less than HS,Violent,3.56,43,3.6,2.2,3.9,5.1
+P0093,Central Unit,HU-1,18,Female,Black,HS/GED,Public Order,4.19,50,3.4,5.3,3.2,2.8
+P0094,North Unit,HU-10,26,Male,White,Some College,Drug,3.42,41,2.8,6.3,6.3,4.5
+P0095,Central Unit,HU-5,22,Male,Black,HS/GED,Violent,5.2,22,6.5,4,5.9,5.4
+P0096,River Unit,HU-10,18,Male,Black,Less than HS,Drug,1.13,11,6.2,9.6,7,9.2
+P0097,Central Unit,HU-11,18,Male,Hispanic,HS/GED,Violent,5.37,64,7.8,9.6,2.3,5.9
+P0098,Central Unit,HU-9,36,Male,Black,Less than HS,Property,8.77,50,2.8,7.9,1.4,8.7
+P0099,North Unit,HU-7,45,MALE,White,Some College,Property,2.19,26,4.7,6.5,0.8,5.2
+P0100,Central Unit,HU-7,42,Male,Native,Some College,Violent,2.4,29,4.1,4.6,0,3.4
+P0101,River Unit,HU-12,38,Male,White,Some College,Property,0.82,10,7,8.1,8.2,6.7
+P0102,Central Unit,HU-4,34,Male,White,HS/GED,Drug,5.31,64,6.8,0,0,2.9
+P0103,Central Unit,HU-4,45,Male,Latino,HS/GED,Property,1.34,2,6.5,7.3,4.1,10
+P0104,Central Unit,HU-4,44,Male,Hispanic,HS/GED,Violent,1.87,22,5.3,8.6,5.6,1.7
+P0105,North Unit,HU-3,19,Male,White,HS/GED,Property,2.01,24,9.4,10,4.1,1.9
+P0106,Central Unit,HU-4,34,Male,Native,HS/GED,Drug,3.18,22,3.7,7.6,5.8,7.6
+P0107,River Unit,HU-8,41,Male,Black,NA,Public Order,2.48,30,6.4,8.6,4.7,8
+P0108,North Unit,HU-9,41,Female,White,HS/GED,Property,3.24,39,5.9,5.7,3.3,5.4
+P0109,North Unit,HU-8,36,Male,Hispanic,Less than HS,Violent,3.42,41,5.2,2.3,0.8,2.1
+P0110,Central Unit,HU-5,42,Male,Hispanic,Less than HS,Violent,3.18,38,7.5,7.3,3.5,0
+P0111,River Unit,HU-2,51,Female,Black,Less than HS,Property,1.05,13,9.4,10,2.3,9.2
+P0112,North Unit,HU-3,20,Male,White,Less than HS,Drug,2.55,31,6.7,5.3,2.4,7.4
+P0113,River Unit,HU-3,44,Male,White,HS/GED,Drug,2.91,22,4.7,5.5,4.6,3.4
+P0114,North Unit,HU-9,38,Male,Black,HS/GED,Violent,3.78,45,6.7,4.8,0.4,3.9
+P0115,North Unit,HU-12,58,Female,Native,NA,Violent,4.83,7,2.6,8,4.6,2.6
+P0116,River Unit,HU-7,48,Male,White,Less than HS,Public Order,2.28,14,10,5.6,3.9,7
+P0117,North Unit,HU-9,18,Female,Asian,Some College,Violent,5.94,71,3.3,8.5,4.3,5.2
+P0118,Central Unit,HU-4,32,Male,White,Some College,Violent,3.28,33,6.6,7.9,5.3,3.9
+P0119,North Unit,HU-3,25,MALE,Black,HS/GED,Property,1.58,19,NA,2.6,7.1,2.6
+P0120,River Unit,HU-1,50,MALE,Black,Some College,Drug,3.82,46,7.1,5.9,3.8,8.9
+P0121,North Unit,HU-9,38,Male,White,NA,Public Order,2.77,33,6.2,3.1,6.3,6.3
+P0122,Central Unit,HU-7,21,Male,Asian,College+,Violent,5.86,70,2.6,5,9.4,2
+P0123,North Unit,HU-8,52,Female,Black,NA,Property,9.51,43,6.5,7,6.2,3
+P0124,Central Unit,HU-3,45,Female,Black,Less than HS,Drug,3.57,43,4,6.9,5.9,5.3
+P0125,North Unit,HU-4,18,Male,White,NA,Violent,11.17,134,4.8,7.8,3.4,8.8
+P0126,North Unit,HU-7,65,MALE,White,HS/GED,Violent,2.94,9,5.2,6.4,5.9,6.6
+P0127,River Unit,HU-6,52,MALE,Hispanic,Less than HS,Drug,3.47,42,3.7,4.1,7.9,4.4
+P0128,Central Unit,HU-11,35,Male,Native,Less than HS,Violent,4.96,60,8.2,1.9,6.6,9.1
+P0129,North Unit,HU-4,38,Male,Black,College+,Violent,5.25,2,9.8,7.9,1.8,9.4
+P0130,North Unit,HU-4,44,Male,Black,Some College,Drug,2,24,7.2,5,0,8
+P0131,Central Unit,HU-6,28,Male,Black,HS/GED,Public Order,18.65,25,5.9,6.7,6.1,1.5
+P0132,Central Unit,HU-8,35,Female,Other,Less than HS,Property,2.48,13,7.2,6.5,0.8,2
+P0133,North Unit,HU-2,36,Male,Black,HS/GED,Violent,1.13,14,8.6,6.2,6.6,1.9
+P0134,Central Unit,HU-5,25,Female,Black,Some College,Violent,-2.34,28,NA,5.5,5.4,6.2
+P0135,Central Unit,HU-8,22,Male,Black,College+,Violent,0.95,11,8.1,6.4,6,6.1
+P0136,Central Unit,HU-6,25,Male,Black,HS/GED,Public Order,2.99,36,6.7,5.1,4.5,1.7
+P0137,North Unit,HU-7,38,Female,White,HS/GED,Violent,3.99,14,NA,3.1,6.4,0.2
+P0138,River Unit,HU-7,43,Male,White,HS/GED,Violent,2.75,33,7.4,8,0,4.6
+P0139,River Unit,HU-1,35,Male,Other,HS/GED,Property,1.95,23,2.5,1.5,0.8,3.7
+P0140,Central Unit,HU-2,59,Male,Asian,Less than HS,Drug,4.21,51,4.7,6.1,7.8,4.3
+P0141,North Unit,HU-6,34,Female,Black,HS/GED,Property,0.53,6,3.4,4.5,7.4,5.2
+P0142,North Unit,HU-7,45,Male,Native,Some College,Drug,6.66,80,8,5.2,2.8,6.7
+P0143,River Unit,HU-12,18,MALE,Native,HS/GED,Violent,7.51,75,7.1,5.4,2.4,8.2
+P0144,Central Unit,HU-11,52,Female,White,Less than HS,Violent,2.42,29,6.6,6.4,3,6.8
+P0145,North Unit,HU-3,40,Male,White,Less than HS,Property,5.3,64,3.5,7.2,6.5,7.5
+P0146,North Unit,HU-12,32,Male,White,HS/GED,Property,1.63,20,NA,4.4,5,3.6
+P0147,River Unit,HU-12,38,Male,Asian,HS/GED,Property,2.82,34,8.8,6.9,3.6,0
+P0148,River Unit,HU-12,51,Female,Native,Less than HS,Violent,4.12,49,7.4,6.1,5,3.3
+P0149,Central Unit,HU-7,22,Male,Black,HS/GED,Drug,5.52,9,2.7,5.6,6,0
+P0150,Central Unit,HU-10,20,Male,White,HS/GED,Property,23.79,71,6.5,5.1,3.2,6.4
+P0151,Central Unit,HU-1,20,Male,Other,Less than HS,Public Order,4.01,48,6.9,5.6,6,3.9
+P0152,Central Unit,HU-5,32,Male,Black,Some College,Property,3.38,41,5.9,7.3,3,3.4
+P0153,Central Unit,HU-3,18,Male,White,College+,Violent,2.15,1,10,5.2,5,0
+P0154,Central Unit,HU-9,31,Male,Black,HS/GED,Violent,7.08,85,9.5,8.4,3.1,5.2
+P0155,Central Unit,HU-8,45,Male,White,NA,Drug,6.89,83,10,7.4,5.9,7.6
+P0156,North Unit,HU-9,35,Male,Hispanic,HS/GED,Property,1.32,16,6.2,0,7,0.9
+P0157,Central Unit,HU-3,32,Male,Hispanic,Less than HS,Violent,2.34,28,4.6,4.3,3.1,10
+P0158,North Unit,HU-3,39,Female,Black,Less than HS,Public Order,1.78,19,7.6,8.8,4.8,7.2
+P0159,North Unit,HU-12,32,Female,White,HS/GED,Property,12.54,65,4.9,0.5,3.7,7.8
+P0160,River Unit,HU-11,30,Male,White,Some College,Violent,2.71,33,7.3,9.6,1.7,6.6
+P0161,Central Unit,HU-10,20,Male,Asian,HS/GED,Drug,2.46,30,7.9,9.5,8.2,5.1
+P0162,North Unit,HU-12,55,Male,White,Some College,Violent,1.47,18,5.9,7.3,5.4,7.2
+P0163,River Unit,HU-5,40,Male,White,Some College,Property,1.19,14,7,8.2,5.1,6.8
+P0164,North Unit,HU-3,29,Male,White,HS/GED,Property,3.27,39,7,8,5,7.9
+P0165,River Unit,HU-11,25,Female,Black,Some College,Drug,0.95,11,5.2,4.4,6,9.5
+P0166,River Unit,HU-2,38,Male,Black,HS/GED,Violent,3.22,39,5,10,2.2,3.1
+P0167,Central Unit,HU-8,23,Male,Black,HS/GED,Drug,3.86,46,7.9,6.4,2.1,3.3
+P0168,River Unit,HU-6,37,Male,Black,HS/GED,Drug,0.75,9,2.5,8.3,8.4,1.8
+P0169,North Unit,HU-8,41,FEMALE,Hispanic,Less than HS,Drug,2.9,35,2.5,0.8,1.7,5.1
+P0170,North Unit,HU-2,20,Male,White,College+,Violent,1.44,17,6.2,7,6.8,6.4
+P0171,Central Unit,HU-7,46,Male,Black,HS/GED,Public Order,3.22,39,6.7,4.9,5.3,5
+P0172,North Unit,HU-3,32,Male,White,Less than HS,Drug,1.44,12,5.9,6.2,2.9,7
+P0173,North Unit,HU-12,41,Male,White,HS/GED,Drug,1.49,18,3.4,5.3,6.8,0.2
+P0174,North Unit,HU-10,24,Male,Black,Some College,Property,3.38,41,8.5,0.4,4.2,5.9
+P0175,North Unit,HU-4,37,Male,Native,HS/GED,Violent,7.04,84,4.6,6.8,4.3,3.5
+P0176,North Unit,HU-4,35,Male,Other,NA,Drug,2.49,19,6.6,7.3,2.7,2.8
+P0177,North Unit,HU-12,26,Male,White,Less than HS,Violent,-3.87,46,4.2,6.4,3.6,3.1
+P0178,Central Unit,HU-5,39,Male,Black,HS/GED,Drug,5.23,63,7,6.7,3.2,7.4
+P0179,Central Unit,HU-3,54,Male,Black,HS/GED,Property,0.74,9,6.1,4.5,3.7,3.2
+P0180,River Unit,HU-9,47,Male,White,Some College,Drug,2.21,27,8.6,6.6,6.7,0.7
+P0181,North Unit,HU-12,33,Male,White,Less than HS,Violent,4.24,0,6.7,4.8,2.6,5.9
+P0182,North Unit,HU-7,26,Female,Black,Less than HS,Drug,1.95,23,4.5,5.4,2.6,8.2
+P0183,North Unit,HU-11,25,Male,Black,HS/GED,Violent,1.74,21,4.9,3.9,4.3,3.8
+P0184,Central Unit,HU-6,37,Male,White,Less than HS,Drug,3.37,40,6,3,5,5.8
+P0185,North Unit,HU-4,40,Male,White,Less than HS,Property,4.72,57,5.8,1.8,2.2,4.9
+P0186,North Unit,HU-1,24,Male,Black,HS/GED,Public Order,2.96,36,8.4,4.8,5.6,5
+P0187,North Unit,HU-3,28,Male,Hispanic,HS/GED,Violent,1.64,20,4.1,6.7,2.2,7.6
+P0188,North Unit,HU-8,53,Female,Hispanic,HS/GED,Property,5.81,4,6.9,6.6,1.8,1.3
+P0189,Central Unit,HU-8,38,Male,Black,Some College,Violent,-1.95,23,8,7.8,7.3,4.3
+P0190,North Unit,HU-8,35,Male,Black,HS/GED,Property,5.63,68,1.7,2.6,3.6,8.4
+P0191,Central Unit,HU-8,43,Male,Black,HS/GED,Violent,5.61,67,NA,2.8,3.7,4.7
+P0192,North Unit,HU-4,74,Male,White,Less than HS,Drug,1.7,20,1,7.3,4.9,5.7
+P0193,Central Unit,HU-10,19,Male,White,Some College,Public Order,2.01,20,6.6,4.9,3.6,2.8
+P0194,North Unit,HU-5,44,Male,White,Some College,Public Order,5.37,64,7.6,6.2,9.5,5.8
+P0195,North Unit,HU-6,43,Male,White,HS/GED,Drug,4.89,46,5.4,9.2,5.3,9.2
+P0196,North Unit,HU-1,33,Male,White,Some College,Violent,7.78,83,9,6,9.1,4
+P0197,North Unit,HU-5,32,Male,Black,Some College,Violent,7.01,49,6.5,6.4,5,0
+P0198,Central Unit,HU-9,36,Male,Black,College+,Drug,2.21,27,9.5,3.3,7,4.3
+P0199,Central Unit,HU-8,41,Male,White,HS/GED,Property,2.23,27,NA,5.7,5.9,5.8
+P0200,Central Unit,HU-2,31,Male,Black,College+,Violent,3.87,5,4.3,9.6,3.8,2.4
+P0201,Central Unit,HU-11,18,Male,White,Some College,Drug,1.77,21,8.5,9.4,7.1,1
+P0202,River Unit,HU-12,30,Male,Black,HS/GED,Drug,1.52,18,5,3.5,6.7,2.8
+P0203,River Unit,HU-9,28,Female,Latino,Some College,Drug,6.4,77,6,5.2,8.6,1.3
+P0204,Central Unit,HU-11,46,Female,Hispanic,NA,Violent,4.22,51,5.5,10,3.6,5.6
+P0205,North Unit,HU-7,45,Male,Hispanic,HS/GED,Drug,4.38,15,3.8,6.3,5,3.8
+P0206,Central Unit,HU-2,46,Male,White,College+,Violent,1.27,15,5.6,3.9,5.9,2.8
+P0207,River Unit,HU-8,33,Female,White,HS/GED,Violent,2.18,26,7,3.8,99,5.3
+P0208,Central Unit,HU-1,22,Male,White,HS/GED,Property,4.72,57,7.6,1.5,5.9,3.2
+P0209,Central Unit,HU-12,34,Male,White,HS/GED,Drug,1.68,20,5.4,6.4,6,1.3
+P0210,North Unit,HU-9,20,Male,White,Some College,Drug,2.29,27,3.9,3.8,8.4,6.3
+P0211,River Unit,HU-9,32,Male,White,Some College,Property,5.75,66,1.9,5.2,9.4,10
+P0212,Central Unit,HU-5,39,Male,Black,Some College,Drug,1.45,17,10,4.3,6,5.9
+P0213,Central Unit,HU-12,56,Female,White,HS/GED,Property,2.09,0,7.2,5.9,2.4,10
+P0214,River Unit,HU-10,42,Male,Black,Less than HS,Violent,2.43,29,9.9,8.8,4.2,7
+P0215,Central Unit,HU-8,24,Male,Black,College+,Drug,1.2,14,8.2,5.8,7.8,7
+P0216,Central Unit,HU-11,47,MALE,White,HS/GED,Drug,2.12,25,4.3,7.9,5.1,10
+P0217,Central Unit,HU-2,28,Male,Other,Less than HS,Drug,2.2,17,7.5,3.7,99,3.1
+P0218,North Unit,HU-8,35,Male,Black,Some College,Violent,5.17,62,7.7,7.9,7.7,7.5
+P0219,Central Unit,HU-5,36,Male,Black,HS/GED,Violent,3,36,9.2,2.7,0,4.6
+P0220,North Unit,HU-5,51,Male,Black,Less than HS,Property,5.18,47,7.8,4.6,4.3,10
+P0221,River Unit,HU-8,29,Nonbinary/Other,White,HS/GED,Public Order,0.88,11,5.9,7.1,0.8,2.1
+P0222,Central Unit,HU-12,32,Male,Native,Some College,Violent,2.69,3,7.7,2.7,3.7,3.4
+P0223,River Unit,HU-4,50,Male,White,HS/GED,Violent,4.69,41,3.7,5.8,7.4,4.8
+P0224,Central Unit,HU-4,18,Male,Hispanic,HS/GED,Violent,2.71,33,7.1,5.5,4.7,8.3
+P0225,Central Unit,HU-9,42,MALE,Black,HS/GED,Violent,4.48,7,7.4,6.3,6,4.9
+P0226,River Unit,HU-3,24,Male,Black,Some College,Violent,3.9,47,3.2,4.6,5.3,0.5
+P0227,North Unit,HU-4,29,Nonbinary/Other,Hispanic,Some College,Violent,6.9,83,7.9,7.2,5.2,7
+P0228,Central Unit,HU-8,45,MALE,Latino,HS/GED,Violent,1.49,7,0.6,6.7,5.2,3.2
+P0229,Central Unit,HU-8,44,Male,Black,Less than HS,Property,7.55,51,4.4,9.2,5.8,6.3
+P0230,Central Unit,HU-6,32,Male,White,HS/GED,Violent,2.84,34,3.6,4.2,5.9,4
+P0231,Central Unit,HU-2,33,Male,White,Some College,Violent,1.27,15,6.6,6.5,6.8,4.6
+P0232,Central Unit,HU-4,54,Male,White,HS/GED,Drug,1.78,21,4.4,4.1,0.8,4.7
+P0233,River Unit,HU-10,42,Male,Hispanic,Some College,Drug,3.42,41,4.5,8.4,7.2,2.3
+P0234,Central Unit,HU-9,22,Male,Black,Some College,Property,2.27,27,4.6,5.9,7.6,4.3
+P0235,North Unit,HU-12,40,Female,Black,College+,Property,2.94,35,4.2,5.8,5.9,2.6
+P0236,Central Unit,HU-3,41,Male,White,NA,Violent,5.03,38,8.9,6.2,4,3
+P0237,River Unit,HU-3,22,Male,White,Less than HS,Public Order,5.06,61,7.6,7,7.1,7.3
+P0238,Central Unit,HU-3,18,Male,White,HS/GED,Violent,4.85,4,5.9,6.7,5.3,6.8
+P0239,Central Unit,HU-4,23,Male,White,HS/GED,Property,5.14,62,7,5.5,3.7,1.9
+P0240,North Unit,HU-6,26,FEMALE,White,Less than HS,Violent,4.32,35,6,7.6,4.2,5.6
+P0241,North Unit,HU-8,33,Male,White,HS/GED,Drug,5.08,61,6.2,6,4.9,0.9
+P0242,River Unit,HU-6,27,Male,Asian,NA,Property,2.19,26,7,6.6,3.2,4.2
+P0243,Central Unit,HU-8,29,Female,Black,Some College,Property,2.99,36,5.4,10,3.2,0.4
+P0244,Central Unit,HU-1,40,Male,Native,Some College,Public Order,1.44,17,8.9,7.6,7.4,2.4
+P0245,North Unit,HU-12,29,Male,Black,Some College,Violent,5.98,72,6.8,4.9,7.6,8.4
+P0246,North Unit,HU-11,46,Male,Hispanic,Less than HS,Violent,-6.11,47,7.5,4.4,1.6,1
+P0247,North Unit,HU-10,42,Male,Black,Some College,Property,1.68,20,3.6,5.5,9.6,3.3
+P0248,North Unit,HU-9,25,Female,White,Less than HS,Property,10.92,30,6.9,7.2,6.5,5.4
+P0249,River Unit,HU-4,29,MALE,Black,Some College,Drug,2.43,29,8.4,8.3,8.8,8.5
+P0250,River Unit,HU-10,51,Male,White,Less than HS,Public Order,2.84,34,6.2,6.3,3,6.7
+P0251,Central Unit,HU-7,39,Male,White,HS/GED,Violent,4.27,51,6.1,3.4,3.4,5.6
+P0252,River Unit,HU-10,34,Male,Black,HS/GED,Violent,6.39,77,7,2.9,1.9,8.7
+P0253,River Unit,HU-10,26,Male,Black,HS/GED,Violent,0.91,11,8.9,7.8,7,5.3
+P0254,Central Unit,HU-8,19,Female,Black,College+,Public Order,1.94,23,5.3,4.4,4.5,7.7
+P0255,North Unit,HU-3,27,Male,White,HS/GED,Property,1.5,18,8.7,5.7,4.3,3.4
+P0256,Central Unit,HU-6,35,Male,Black,Less than HS,Property,3.49,42,6.9,6.8,5.8,5.4
+P0257,North Unit,HU-10,38,FEMALE,Black,HS/GED,Property,1.77,21,5.5,4.8,2,4
+P0258,Central Unit,HU-10,32,Female,Black,Some College,Public Order,5.09,61,4.5,8.6,3.3,4.2
+P0259,Central Unit,HU-11,32,Male,Black,Less than HS,Drug,1.92,23,6.8,7.7,9.2,3.8
+P0260,North Unit,HU-2,34,Male,Black,Some College,Property,1.14,14,4.2,3.8,5.4,3.4
+P0261,Central Unit,HU-7,48,Male,Asian,HS/GED,Public Order,0.92,11,4.9,7.3,6.6,0
+P0262,North Unit,HU-8,27,Male,Hispanic,HS/GED,Drug,3.01,8,NA,7.2,5.3,6.3
+P0263,Central Unit,HU-11,49,Male,Black,Some College,Violent,8.92,57,5.4,3.8,6.5,5.8
+P0264,Central Unit,HU-9,34,Male,Asian,Some College,Property,2.89,2,5.3,7.1,4.5,3.8
+P0265,North Unit,HU-1,51,Male,Black,Some College,Violent,2.34,28,6.8,4.3,3.2,6.4
+P0266,North Unit,HU-7,39,Male,White,HS/GED,Violent,4.46,54,9.4,6.9,5.8,9.5
+P0267,River Unit,HU-8,23,Female,White,HS/GED,Property,3.89,12,6.5,2.3,5.8,6.3
+P0268,North Unit,HU-10,46,Male,White,Less than HS,Drug,3.54,12,8.1,5.2,6.4,6.6
+P0269,North Unit,HU-4,48,Male,Hispanic,Some College,Property,6.53,44,7.1,5.6,5.3,6.7
+P0270,Central Unit,HU-5,24,Male,White,HS/GED,Violent,1.42,17,4.4,6.5,8.3,7.6
+P0271,Central Unit,HU-11,24,Male,Black,NA,Drug,1.86,22,6,10,3.5,6.9
+P0272,River Unit,HU-1,35,Male,White,Some College,Property,1.97,24,1.7,5.3,3.8,7.6
+P0273,Central Unit,HU-6,34,Male,White,Some College,Drug,1.51,18,4.2,2.5,5.6,3.6
+P0274,Central Unit,HU-5,29,Male,White,Some College,Violent,2.09,25,NA,4.7,2.5,7.3
+P0275,North Unit,HU-1,43,Male,Native,HS/GED,Drug,2.29,27,3.8,5.8,7.1,10
+P0276,Central Unit,HU-1,27,Male,White,HS/GED,Drug,2.3,16,6.8,2.6,6.9,4.5
+P0277,North Unit,HU-12,47,Male,Hispanic,College+,Violent,2.87,34,6.2,7,1.1,5.4
+P0278,River Unit,HU-11,29,Male,White,Some College,Public Order,2.46,30,5.1,4.3,3.1,3.4
+P0279,Central Unit,HU-2,36,Male,Black,Some College,Violent,4.75,57,7.8,3.4,5.3,3.2
+P0280,River Unit,HU-3,50,Male,White,Some College,Property,3.59,43,7.5,0,2.9,3.4
+P0281,River Unit,HU-11,31,Male,Asian,HS/GED,Property,1.77,21,5.2,1.6,5.1,3.6
+P0282,Central Unit,HU-11,38,Male,White,College+,Drug,4.44,53,NA,3.4,5,3.7
+P0283,Central Unit,HU-4,33,Male,White,College+,Public Order,1.74,20,6.6,5.9,5.2,0.6
+P0284,North Unit,HU-6,27,Female,Other,Some College,Violent,3.5,42,6.5,9.7,3.6,6.4
+P0285,River Unit,HU-10,30,Male,Black,HS/GED,Property,1.83,22,7.7,2.1,9.9,2.6
+P0286,Central Unit,HU-3,18,Male,Black,NA,Drug,5.24,63,NA,3.2,4.5,2.7
+P0287,River Unit,HU-12,32,Male,White,HS/GED,Drug,7.84,2,8.4,8.8,8.6,7.2
+P0288,North Unit,HU-7,30,Male,Black,Some College,Property,-10.67,84,NA,0.9,2.8,1.8
+P0289,North Unit,HU-4,44,Male,Hispanic,College+,Drug,3.96,48,6.4,8.3,1.9,1.9
+P0290,Central Unit,HU-10,30,Male,Asian,HS/GED,Property,-3.34,40,9.9,6.2,2.2,1.9
+P0291,River Unit,HU-9,28,Male,Black,HS/GED,Violent,17.32,129,6,7.9,7.3,0.8
+P0292,River Unit,HU-11,20,Male,Hispanic,College+,Violent,2.61,31,5.5,8.1,1.2,2.4
+P0293,North Unit,HU-7,18,Male,Black,HS/GED,Property,2.33,28,5.1,6.6,9.1,0
+P0294,River Unit,HU-2,35,Male,Native,Less than HS,Violent,1.43,17,6.3,1.8,99,3.7
+P0295,North Unit,HU-5,25,Female,Native,Some College,Property,6.7,80,4.6,5.2,7.8,6
+P0296,River Unit,HU-4,38,Male,White,Less than HS,Drug,1.45,17,8.2,0,2.4,6.6
+P0297,North Unit,HU-5,23,Male,Hispanic,HS/GED,Drug,2.63,32,4,5.7,2,8
+P0298,River Unit,HU-1,19,Male,Black,Some College,Violent,4.7,55,6.9,5.4,4.8,6.5
+P0299,North Unit,HU-9,47,Male,Black,NA,Violent,3.12,37,2.8,3.9,4.5,0.3
+P0300,North Unit,HU-3,36,Male,Black,HS/GED,Public Order,2.33,28,6.3,4.6,6.2,5.3

@@ -269,7 +269,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Import the crash data directly from the web:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Check what <code>read_csv()</code> guessed with <code>spec()</code> or <code>glimpse()</code>. One column that <em>should</em> be a date is not. Fix it using <code>mdy()</code> from lubridate (as in Lab 5), and verify your parse worked with <code>sum(is.na(crashes$date))</code>.</p></li>
+<li><p>Check what <code>read_csv()</code> guessed with <code>glimpse()</code>. One column that <em>should</em> be a date came in as plain text. Here is the fix, since we have not spent class time on importing:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">mdy</span>(date))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Run it, then verify the parse worked with <code>sum(is.na(crashes$date))</code> — you want 0. In a comment, say what <code>mdy()</code> had to figure out.</p></li>
 <li><p>Create a <code>year</code> column from your parsed date and count crashes per year. <strong>In a comment:</strong> one year has almost no crashes — is that a data problem or something else? (Hint: check the latest date in the data with <code>max()</code>.)</p></li>
 </ol>
 </section>
@@ -277,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-2-point-estimates">Part 2: Point Estimates</h2>
 <ol type="1">
 <li><p>Calculate the mean number of <code>injuries</code> separately for crashes with an intoxicated driver (<code>intox_any == 1</code>) and without (<code>intox_any == 0</code>). You can use the Lab 2 approach:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_injuries =</span> <span class="fu">mean</span>(injuries), <span class="at">.by =</span> intox_any)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_injuries =</span> <span class="fu">mean</span>(injuries), <span class="at">.by =</span> intox_any)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>In a comment:</strong> write down each mean. Which group has the higher average injury count? Remember what these numbers are — <em>point estimates</em>, not the final word.</p></li>
 </ol>
 </section>
@@ -292,8 +294,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-4-visualize">Part 4: Visualize</h2>
 <ol type="1">
 <li><p>Create a boxplot of <code>injuries</code> for the two groups. Because <code>intox_any</code> is stored as 0/1, wrap it in <code>factor()</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(crashes, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(intox_any), <span class="at">y =</span> injuries)) <span class="sc">+</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(crashes, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(intox_any), <span class="at">y =</span> injuries)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>In a comment:</strong> interpret the plot. Injury counts are small whole numbers, so the boxes look blocky — can you <em>see</em> a difference between the groups, or do you need inference to settle it?</p></li>
 </ol>
 </section>
@@ -301,14 +303,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-5-sampling-variability">Part 5: Sampling Variability</h2>
 <ol type="1">
 <li><p>Resample each group (with replacement, at its full size) 100 times and compute the distribution of differences in mean injuries (intoxicated − sober), as we did in class:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sober <span class="ot">&lt;-</span> crashes<span class="sc">$</span>injuries[crashes<span class="sc">$</span>intox_any <span class="sc">==</span> <span class="dv">0</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>intox <span class="ot">&lt;-</span> crashes<span class="sc">$</span>injuries[crashes<span class="sc">$</span>intox_any <span class="sc">==</span> <span class="dv">1</span>]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>mean_diffs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100</span>, {</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">sample</span>(intox, <span class="fu">length</span>(intox), <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">-</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(<span class="fu">sample</span>(sober, <span class="fu">length</span>(sober), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sober <span class="ot">&lt;-</span> crashes<span class="sc">$</span>injuries[crashes<span class="sc">$</span>intox_any <span class="sc">==</span> <span class="dv">0</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>intox <span class="ot">&lt;-</span> crashes<span class="sc">$</span>injuries[crashes<span class="sc">$</span>intox_any <span class="sc">==</span> <span class="dv">1</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mean_diffs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100</span>, {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">sample</span>(intox, <span class="fu">length</span>(intox), <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">-</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(<span class="fu">sample</span>(sober, <span class="fu">length</span>(sober), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Plot a histogram of <code>mean_diffs</code> and compute <code>quantile(mean_diffs, c(0.025, 0.975))</code>.</p></li>
 <li><p><strong>In a comment:</strong> what does the spread of the histogram suggest? Are the resampled differences consistently on one side of zero?</p></li>
 </ol>
@@ -317,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-6-confidence-interval-with-t.test">Part 6: Confidence Interval with <code>t.test()</code></h2>
 <ol type="1">
 <li><p>Run a two-sample t-test comparing injuries across the two groups:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox_any, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox_any, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>In a comment:</strong> copy down the 95% confidence interval. Does it include 0? What does that tell us about the difference? <em>(Careful with direction: R computes group 0 − group 1 here, so compare the sign against your Part 5 histogram.)</em></p></li>
 </ol>
 </section>
@@ -325,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-7-a-proportion-for-practice">Part 7: A Proportion, for Practice</h2>
 <ol type="1">
 <li><p>Compute a 95% confidence interval for the <strong>proportion of all crashes that involve an intoxicated driver</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">sum</span>(crashes<span class="sc">$</span>intox_any), <span class="at">n =</span> <span class="fu">nrow</span>(crashes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">sum</span>(crashes<span class="sc">$</span>intox_any), <span class="at">n =</span> <span class="fu">nrow</span>(crashes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>In a comment:</strong> report the interval in one <em>defensible</em> sentence — one that would survive the “Saying It Out Loud” slide from class.</p></li>
 </ol>
 </section>

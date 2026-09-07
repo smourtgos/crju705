@@ -461,30 +461,6 @@ $ assaults          &lt;dbl&gt; 0, 5, 3, 2, 4, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>4.</strong> Probability, lecture-style: using <code><a href="https://dplyr.tidyverse.org/reference/count.html">count()</a></code> and/or <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> + <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, compute a. the marginal probability that a randomly chosen neighborhood is <code>disorder_level == "Very High"</code>, and b. the conditional probability of “Very High” given <code>historic == "Yes"</code> versus given <code>historic == "No"</code>. In a comment: do <code>historic</code> and very-high disorder look closer to dependent or independent here?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>5.</strong> <em>(Stretch — the factory-accidents exercise from class, now in dplyr.)</em> Run this chunk to build the accident data, then answer the in-class worksheet questions in code: total accidents per factory (which is worst?), the most common accident type overall, and P(Equipment accident | factory) for each of the three factories.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">accidents</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tribble.html">tribble</a></span><span class="op">(</span></span>
-<span>  <span class="op">~</span><span class="va">type</span>,       <span class="op">~</span><span class="va">factory</span>,   <span class="op">~</span><span class="va">n</span>,</span>
-<span>  <span class="st">"Vehicle"</span>,   <span class="st">"Factory1"</span>,  <span class="fl">0</span>,</span>
-<span>  <span class="st">"Vehicle"</span>,   <span class="st">"Factory2"</span>,  <span class="fl">6</span>,</span>
-<span>  <span class="st">"Vehicle"</span>,   <span class="st">"Factory3"</span>,  <span class="fl">4</span>,</span>
-<span>  <span class="st">"Spill"</span>,     <span class="st">"Factory1"</span>,  <span class="fl">6</span>,</span>
-<span>  <span class="st">"Spill"</span>,     <span class="st">"Factory2"</span>,  <span class="fl">0</span>,</span>
-<span>  <span class="st">"Spill"</span>,     <span class="st">"Factory3"</span>,  <span class="fl">6</span>,</span>
-<span>  <span class="st">"Equipment"</span>, <span class="st">"Factory1"</span>,  <span class="fl">6</span>,</span>
-<span>  <span class="st">"Equipment"</span>, <span class="st">"Factory2"</span>,  <span class="fl">4</span>,</span>
-<span>  <span class="st">"Equipment"</span>, <span class="st">"Factory3"</span>,  <span class="fl">5</span>,</span>
-<span>  <span class="st">"Injury"</span>,    <span class="st">"Factory1"</span>,  <span class="fl">4</span>,</span>
-<span>  <span class="st">"Injury"</span>,    <span class="st">"Factory2"</span>,  <span class="fl">9</span>,</span>
-<span>  <span class="st">"Injury"</span>,    <span class="st">"Factory3"</span>,  <span class="fl">0</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co"># your code here — hints: summarize(sum(n), .by = ...), then</span></span>
-<span><span class="co"># join or filter to get Equipment's share of each factory's total</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section><section id="exit-ticket" class="level2"><h2 class="anchored" data-anchor-id="exit-ticket">Exit Ticket</h2>
 <p>Submit a short R script to Canvas before you leave, containing:</p>
 <ol type="1">

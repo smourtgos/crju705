@@ -227,7 +227,7 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-05-confidence-intervals.html">📽️ Slides: The Logic of Inference: Confidence Intervals</a></strong> · <strong><a href="../labs/lab-05-import.html">🧪 Lab 5: Importing Real Data</a></strong> · <strong><a href="../homework/hw-05.html">📝 Homework 5</a></strong> · <strong><a href="../demos/demo-05-confidence-intervals.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-05.html">✍️ Practice</a></strong></p>
+<p><strong><a href="../slides/week-05-confidence-intervals.html">📽️ Slides: The Logic of Inference: Confidence Intervals</a></strong> · <strong><a href="../labs/lab-05-intervals.html">🧪 Lab 5: Putting an Interval On It</a></strong> · <strong><a href="../homework/hw-05.html">📝 Homework 5</a></strong> · <strong><a href="../demos/demo-05-confidence-intervals.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-05.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
@@ -246,20 +246,19 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
 <li>Read: Stanton <strong>Ch. 4</strong> (The Logic of Inference)</li>
-<li>Read: R4DS <strong><a href="https://r4ds.hadley.nz/data-import.html">Ch. 7 — Data import</a></strong> and <strong><a href="https://r4ds.hadley.nz/workflow-help.html">Ch. 8 — Workflow: getting help</a></strong> — <strong>plus the exercises assigned in <a href="../weeks/week-04.html#homework">Session 4</a></strong></li>
-<li>Bring your laptop — the lab downloads files, so make sure you can write to a folder you can find again</li>
+<li>Read: R4DS <strong><a href="https://r4ds.hadley.nz/EDA.html">Ch. 10 — Exploratory data analysis</a></strong> — <strong>plus the exercises assigned in <a href="../weeks/week-04.html#homework">Session 4</a></strong></li>
+<li>Bring your laptop. As in Session 4: I run the lecture, and the laptop comes out for the in-class exercise.</li>
 </ul>
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
-<p><strong>This week’s two threads:</strong> confidence intervals (lecture + homework) · data import (lab).</p>
 <ul>
 <li>What statistical inference is: inductive reasoning under uncertainty (you can’t <em>prove</em> anything from a sample)</li>
 <li>John Snow and the Broad Street pump — the founding example of inference from sampled evidence, rebuilt live in R</li>
 <li>Point estimates and why samples fluctuate: the Chicago arrest rate, where we know the true population value and can watch estimates miss it</li>
 <li>Confidence intervals: <code>prop.test()</code> and <code>t.test()</code>, the “100 samples, 100 intervals” simulation, and what a 95% CI does and does <strong>not</strong> mean</li>
 <li>Real-data thread: the citywide arrest proportion from one modest sample vs.&nbsp;the truth; do violent crimes happen later in the day than property crimes? (detectable ≠ dramatic)</li>
-<li><strong>Lab 5:</strong> importing real data — <code>read_csv()</code> from the web, <code>read_excel()</code> on a messy download, <code>col_types</code>, <code>mdy()</code>, <code>problems()</code>, and how to ask for help</li>
+<li><strong>Lab 5 (in-class exercise):</strong> put an interval on it — a proportion with <code>prop.test()</code>, a two-group difference with <code>t.test()</code>, what a confidence interval’s width costs, and how to say the result out loud without lying</li>
 </ul>
 <p><em>Missed class? The <a href="../demos/demo-05-confidence-intervals.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
