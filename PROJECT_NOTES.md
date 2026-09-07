@@ -158,7 +158,65 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
 
-## STATUS: First-week-of-teaching pass (August 25, 2026) COMPLETE ✅ — shipped live
+## STATUS: Session 4 rebalance (September 7, 2026) COMPLETE ✅ — shipped live
+
+Shipped the night before Session 4, all committed, pushed, published, Pages-build-confirmed,
+and verified on the live pages. Driver: **the lecture/lab split** (see Standing
+decision-records). Grading Weeks 1–3 showed students who have never coded getting
+discouraged by the coding load in lecture; Week 3 went better when the lecture stayed
+conceptual and the code happened in the in-class exercise.
+
+- **The Session 4 drug-test slide was rewritten, and it carried a real error.** It said
+  "2% of tested drivers actually carry" with no object and never named what the test
+  detects. It also computed `P(carrying | +)` ≈ 29% and then said "the courtroom cares
+  about `P(clean | +)`" — the complement, not the same quantity.
+  Both fixed, arithmetic re-verified (980 clean × 5% = 49 false alarms; 69 positives;
+  20/69 = 29%; 49/69 = 71% wrong). Retitled off "(Session 3 Redux)": Session 3's worked
+  example was **Ianfluenza**, a disease, at 1% / .90 / .95 → 15%, so students never saw
+  these numbers there.
+- **Labs 4 and 5 replaced, and renamed.** `lab-04-tidy.qmd` → **`lab-04-sampling.qmd`**
+  (build a sampling distribution on `crash-ak.csv`, ending with the CLT on a TRUE/FALSE
+  variable) and `lab-05-import.qmd` → **`lab-05-intervals.qmd`** (`prop.test()`, `t.test()`,
+  and saying an interval out loud honestly, on `officers.csv`). Both use deliberately
+  simple code — `replicate()` rather than the decks' `map_dbl()` + list-column idiom — and
+  every task was executed end to end before shipping.
+  - Lab 4's CLT task uses `injuries > 0` (47.8%) rather than `intox_any` (7.7%), because at
+    np ≈ 48 you actually get a bell curve; at np ≈ 8 you get a lumpy right-skewed histogram
+    that undercuts the point.
+  - Lab 5 uses `officers.csv` because `hw-05` already runs `prop.test`/`t.test` on the crash
+    data and `practice-05` uses `prisoners` + Chicago. Its two-group CI (**−0.77 to +0.26
+    hours**) contains zero on purpose: the honest-null sentence is the harder one to teach.
+    `officers.csv` has 8 NAs in `ptsd_screen`, filtered in Setup **out loud** rather than
+    left to bite mid-task.
+- **hw-04 Part 5 cut** (its CLT-on-a-binary task moved into Lab 4, where it is walked
+  through), R4DS renumbered Part 6 → Part 5, and **Ch. 7–8 replaced by Ch. 10**. The key's
+  Part 5 block was removed and its stale "Parts 4–5 are new for 2026" line corrected.
+- **Session 3 trimmed to what was actually assigned** (hw-03 Parts 1–3 + R4DS Ch. 5; Lab 3
+  Your Turn 1–3), including a standing contradiction: `syllabus.qmd`, `weeks/week-03.qmd`,
+  and the deck all described the graded in-class exercise as the factory-accidents table,
+  which is the Lab 3 stretch task that was never run.
+- **Session 7's false claims corrected** — its pipeline table credited "Tidy · Session 4"
+  and "Import · Session 5" for skills that will no longer be taught. The redesign is still
+  open; see the TODO.
+
+**Two defects found by the verification rather than by the request:**
+
+- **`tools/audit-slide-overflow.js` was unreliable and is rewritten (v3).** v2 measured
+  immediately after `Reveal.slide()`, so any slide still mid-transition was measured at an
+  animated offset — it returned a *different* false positive on each pass over the same
+  deck, and sent this session chasing two slides that were fine. v3 forces
+  `transition:'none'` and makes every fragment visible before measuring. Repeated runs on
+  an unchanged deck now agree exactly. **Re-audit any deck you audited with v2.**
+- **`slides/week-03-probability.qmd` "The Dreaded *Adamsitis* Strain of *Ianfluenza*"
+  overflowed by 81px** — pre-existing, and live during the Sept 1 session. The Aug 25 audit
+  covered only weeks 1, 2, 8, and 12, so week 3 had never been checked. Fixed with
+  `{.smaller}`. All four touched decks (3, 4, 5, 7) now audit clean and stable.
+
+Render 72/72 exit 0 (two renames, so the count is unchanged), both privacy checks clean.
+Grading-side material for Week 3 lives **outside this repo** in
+`../Homework Assignments/Week 3 Work/_grading/`.
+
+## Prior status: First-week-of-teaching pass (August 25, 2026) COMPLETE ✅ — shipped live
 
 The semester is now **running** — Session 1 met Aug 18 and HW 1 came back Aug 24, so from
 here changes are being made to a live course with students in it. Three things shipped
