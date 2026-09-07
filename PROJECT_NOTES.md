@@ -274,6 +274,7 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 ### Known conventions/gotchas (all documented in CONVENTIONS.md)
 - Publish loop + the GitHub Pages stuck-build check (see "Publishing gotcha" above)
 - **`quarto publish` is copy-over, not sync** — deleted/renamed pages stay live on `gh-pages` until removed by hand (see "Publishing gotcha" above). Prefer `--no-render` to ship a build you actually verified.
+  **(Sep 7, 2026 — this may no longer hold.)** Under Quarto 1.8.27, renaming `lab-04-tidy` → `lab-04-sampling` and `lab-05-import` → `lab-05-intervals` removed the old files from `gh-pages` automatically: both old URLs return 404, and a `comm -23` of the branch tree against `_site` showed only `.nojekyll` (which belongs there). `week-14.html` is also gone. So the manual worktree cleanup was not needed this time. **Still run the `comm -23` audit after any rename or deletion** rather than assuming either behavior.
 - **Stale figures hide in `_freeze/`, which is git-tracked** — deleting them from `_site` alone does nothing; they come back on the next render
 - **PDF pages need `pdf-engine: xelatex`** (the content routinely contains `· – — → ²`), and kableExtra tables need `HOLD_position` or they float away from their text
 - `media/` + `data/` must stay in `_quarto.yml` `resources:` (videos silently vanish otherwise)
