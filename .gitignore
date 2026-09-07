@@ -19,5 +19,7 @@ data-raw/
 
 **/*.quarto_ipynb
 
-# Stray Quarto/Finder duplicate artifacts (never source)
-* [0-9].*
+# Stray duplicate render artifacts: rendered HTML dropped next to source .qmd
+# (e.g. "demos/demo-07-workshop 2.html"). Scoped to .html on purpose -- the
+# similarly-named PNGs under _freeze/ are legitimate and are tracked.
+* [0-9].html
