@@ -54,28 +54,15 @@ scores <- read_csv("https://smourtgos.github.io/crju705/data/population-data.csv
 
 10. Compute the **standard deviation of your 500 sample means**, and compare it to the formula for the standard error, `sd(scores$score) / sqrt(30)`. How close are they? What is this quantity called?
 
-## Part 5: Real Data — The CLT with Chicago Arrests
+## Part 5: R4DS Exercises (required)
 
-11. Load the course anchor data and compute the overall arrest proportion — treat these 30,000 incidents as your *population*:
-
-    ```r
-    crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
-    mean(crimes$arrest)
-    ```
-
-12. Simulate an analyst who can only pull **100 case files at a time**: draw 500 samples of 100 incidents each, computing the proportion arrested in each sample. Make a histogram of the 500 proportions.
-
-13. **Interpretation (in a comment):** each individual incident's `arrest` value is just TRUE or FALSE — about as non-normal as data can be. What shape does your histogram of *sample proportions* have, and what theorem from Session 4 explains that?
-
-## Part 6: R4DS Exercises (required)
-
-From your R4DS reading for Session 5 — **[Ch. 7](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8](https://r4ds.hadley.nz/workflow-help.html)**. All of these are from **7.2.4**, and every one is a problem you will actually hit with real data.
+From your R4DS reading for Session 5 — **[Ch. 10, Exploratory data analysis](https://r4ds.hadley.nz/EDA.html)**. No new packages: the `diamonds` data ships with ggplot2, which the tidyverse already loaded for you.
 
 Work these in the **same `.R` script**, under a `# ---- R4DS ----` header.
 
-- **7.2.4** #1 — what reads a `|`-separated file?
-- **7.2.4** #4 — strings quoted with `'` instead of `"`
-- **7.2.4** #5 — five broken inline CSVs; say what goes wrong in each (the single most useful import exercise in the book)
-- **7.2.4** #6 — column names R hates, and how to rename them
+- **10.3.3** #1 — explore the distributions of `x`, `y`, and `z` in `diamonds`, and work out which is length, which is width, which is depth
+- **10.3.3** #2 — explore the distribution of `price`. Try a wide range of `binwidth` values before you answer; this is the same lesson as Week 2, on data that hides something
+- **10.3.3** #3 — how many diamonds are 0.99 carat, and how many are 1 carat? Why the difference?
+- **10.4.1** #2 — what does `na.rm = TRUE` do in `mean()` and `sum()`?
 
-Ch. 8 has no exercises. Its payoff is the reprex habit — read it before you email me a bug.
+Chapter 10 has more exercises than these. Skip them; some need packages we have not installed. These four are the ones worth your time.

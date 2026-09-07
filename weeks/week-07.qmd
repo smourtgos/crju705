@@ -22,7 +22,7 @@ By the end of this week you can:
 
 - **No new Stanton reading this week** — use the breathing room to catch up if you're behind
 - **Bring a candidate dataset for your final project** (two, if you're torn) — requirements are on the [final project page](../final-project.qmd). Have the actual file(s) *downloaded to your laptop* before class; hunting for data during the workshop wastes your workshop
-- Skim back over R4DS [Ch. 1–8](https://r4ds.hadley.nz/) wherever you feel shaky — today assembles all of it
+- Skim back over the R4DS chapters we assigned (**Ch. 1–5**, **10**, **18–19**) wherever you feel shaky — today assembles all of it
 - Bring your laptop
 
 ## In class

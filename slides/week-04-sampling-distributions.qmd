@@ -41,23 +41,23 @@ crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = 
 - **Today:** what happens to *statistics themselves* — means, proportions — when sampling repeats. This is the engine under every inference we make for the rest of the course
 :::
 
-## Two Threads, One Course
+## How Today Works
 
 :::: columns
 ::: {.column width="50%"}
-**Statistics thread** — lecture + homework
+**The lecture** — concepts
 
-Stanton Ch. 3 → sampling distributions, the standard error, and the CLT
+Stanton Ch. 3 → sampling distributions, the standard error, and the CLT. I run the simulations on screen; you watch and argue with me.
 :::
 
 ::: {.column width="50%"}
-**Wrangling thread** — lab
+**The in-class exercise** — code
 
-R4DS Ch. 5–6 → `pivot_longer()`, `pivot_wider()`, and tidy data
+You write it, together, one idea at a time. Simple code, no rush.
 :::
 ::::
 
-The two threads meet at the Session 7 workshop — today's lab skill (reshaping) is what real agency data always needs first.
+Everything I run today is written up in the [demo walkthrough](../demos/demo-04-sampling-distributions.qmd), so nothing on screen is something you have to capture in real time.
 
 ## A Question to Start
 
@@ -119,7 +119,7 @@ ggplot(lln, aes(flip, running_prop)) +
 
 ## Simulating Probabilities in CJ (1)
 
-**False positive drug tests.** Suppose a field test for drugs has a 5% false positive rate. Simulate 100 field tests of *non-users*:
+**Roadside drug tests.** A field test for illegal drugs flags 5% of the drivers who are carrying nothing at all (a 5% false-positive rate). Simulate 100 tests of drivers who are clean:
 
 ```{r}
 #| label: false-positives
@@ -132,15 +132,15 @@ table(tests)
 
 **Discussion:** even with a *low* false positive rate, false positives occur regularly in practice. What do we think about this? Does it matter?
 
-## What Does a Positive Test *Mean*? (Session 3 Redux)
+## What Does a Positive Test *Mean*?
 
-Our simulation showed false positives are routine. "Does it matter?" has a Session 3 answer — count it out:
+Session 3 ran this with a disease screen. Same trap, new setting: **1,000 drivers stopped at a checkpoint, field-tested for illegal drugs.**
 
 ::: incremental
-- Suppose **2%** of tested drivers actually carry. In 1,000 tests: **20 carriers**, 980 clean
-- A 5% false-positive rate on the 980 clean drivers → **~49 false alarms**
-- Even if the test catches *all 20* carriers: 69 positives in total, of which 20 are real → $P(\text{carrier} \mid +) = 20/69 \approx 29\%$
-- The "5%" describes $P(+ \mid \text{clean})$. The courtroom cares about $P(\text{clean} \mid +)$. **Never confuse the direction**
+- **2%** are actually carrying: **20 carriers**, 980 with nothing on them
+- The 5% false-positive rate hits those 980 → **~49 false alarms**
+- Let the test catch *all 20* carriers: **69 positives**, only 20 real → $P(\text{carrying} \mid +) = 20/69 \approx 29\%$
+- The 5% is $P(+ \mid \text{clean})$; the stop needs $P(\text{carrying} \mid +)$. **Never confuse the direction** — at its best this test is wrong about 7 of every 10 drivers it flags
 :::
 
 ## Simulating Probabilities in CJ (2)
@@ -516,19 +516,22 @@ Based on 30 points, you might assume normality — or skew, or outliers — and 
 - Starting next session: use the SE to build **confidence intervals** — a range of values the truth is likely to be in
 :::
 
-## In-Class Exercise: Probabilities in the Long Run
+## In-Class Exercise: Build a Sampling Distribution
 
-Work in pairs; record your code and results in a script.
+We do this one together, step by step, in [Lab 4](../labs/lab-04-sampling.qmd). Five short tasks on the Alaska crash data:
 
-1. **Long run:** simulate 10,000 rolls of a fair die and get the proportion of each face (`sample()`, `count()`). Then just 10 rolls. Then repeat the 10-roll version five times. How much do small samples vary?
-2. **Known population:** create `rnorm(10000, mean = 100, sd = 15)`, plot it, and mark the 1st/5th/95th percentiles with `quantile()`. Draw a sample of 30 — where does its mean fall?
+::: incremental
+- Watch a proportion settle down as the sample grows
+- Draw one sample of 30 and see where its mean lands
+- Do it 500 times and plot the means
+- Check their spread against $s / \sqrt{n}$
+- Do it again on a TRUE/FALSE variable and watch a bell curve appear
+:::
 
-## In-Class Exercise (cont.)
-
-3. **Unknown population:** run `unknown_pop <- rnorm(1000, 100, 50)` *without plotting it*. Sample 30 values, plot the sample, and write down what you'd conclude about the population. *Then* peek. Were you right?
+Open the lab page and start at Setup. I will be walking around.
 
 ## Today's Lab & Homework
 
-- **Lab 4:** tidy data — `pivot_longer()` and `pivot_wider()` with city crime trends and reentry outcomes ([lab page](../labs/lab-04-tidy.qmd))
+- **Lab 4:** build a sampling distribution — the long run, the standard error, and the CLT on Alaska crash data ([lab page](../labs/lab-04-sampling.qmd))
 - **Homework 4:** sampling and sampling distributions (posted on the [Session 4 page](../weeks/week-04.qmd))
-- **Read before Session 5:** Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)
+- **Read before Session 5:** Stanton Ch. 4 · R4DS [Ch. 10 (Exploratory data analysis)](https://r4ds.hadley.nz/EDA.html)

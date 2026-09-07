@@ -176,41 +176,6 @@ Work in your own script. Comment each answer.
 # your code here
 ```
 
-**4.** Probability, lecture-style: using `count()` and/or `filter()` + `mean()`, compute
-   a. the marginal probability that a randomly chosen neighborhood is `disorder_level == "Very High"`, and
-   b. the conditional probability of "Very High" given `historic == "Yes"` versus given `historic == "No"`.
-   In a comment: do `historic` and very-high disorder look closer to dependent or independent here?
-
-```{r}
-#| label: yt-4
-#| eval: false
-# your code here
-```
-
-**5.** *(Stretch — the factory-accidents exercise from class, now in dplyr.)* Run this chunk to build the accident data, then answer the in-class worksheet questions in code: total accidents per factory (which is worst?), the most common accident type overall, and P(Equipment accident | factory) for each of the three factories.
-
-```{r}
-#| label: yt-5
-#| eval: false
-accidents <- tribble(
-  ~type,       ~factory,   ~n,
-  "Vehicle",   "Factory1",  0,
-  "Vehicle",   "Factory2",  6,
-  "Vehicle",   "Factory3",  4,
-  "Spill",     "Factory1",  6,
-  "Spill",     "Factory2",  0,
-  "Spill",     "Factory3",  6,
-  "Equipment", "Factory1",  6,
-  "Equipment", "Factory2",  4,
-  "Equipment", "Factory3",  5,
-  "Injury",    "Factory1",  4,
-  "Injury",    "Factory2",  9,
-  "Injury",    "Factory3",  0
-)
-# your code here — hints: summarize(sum(n), .by = ...), then
-# join or filter to get Equipment's share of each factory's total
-```
-
 ## Exit Ticket
 
 Submit a short R script to Canvas before you leave, containing:

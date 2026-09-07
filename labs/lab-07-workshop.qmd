@@ -60,7 +60,7 @@ mydata <- read_excel("my-file.xlsx", na = c("", "NA")) |>
 
 ### Audit the damage: missingness
 
-Before you trust any column, count what's missing in all of them. This pattern — summarize every column, then pivot the one-row result into a readable table — reuses `across()` and `pivot_longer()` from Sessions 3–4:
+Before you trust any column, count what's missing in all of them. This pattern summarizes every column, then reshapes the one-row result into a readable table. Both `across()` and `pivot_longer()` are new to you; copy the block, run it, and read the output. Learning what they do is worth an afternoon, but not today's afternoon:
 
 ```{r}
 #| label: missingness

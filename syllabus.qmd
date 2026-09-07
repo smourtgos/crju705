@@ -235,21 +235,21 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 2 · R4DS Ch. 3 (Data transformation) & Ch. 4 (Workflow: code style)
 
-**In-class exercise (graded)** · **Homework:** Problem set 3 (includes the **R4DS Ch. 5–6 exercises**) · Read Stanton Ch. 3 and R4DS Ch. 5–6
+**In-class exercise (graded)** · **Homework:** Problem set 3 (includes the **R4DS Ch. 5 exercises**) · Read Stanton Ch. 3 and R4DS Ch. 5
 
 ## `r session_headers[4]`
 
 **Topics:** Sampling distributions, taught via simulation
 
-**Readings due:** Stanton Ch. 3 · R4DS Ch. 5 (Data tidying) & Ch. 6 (Workflow: scripts & projects)
+**Readings due:** Stanton Ch. 3 · R4DS Ch. 5 (Data tidying)
 
-**In-class exercise (graded)** · **Homework:** Problem set 4 (includes the **R4DS Ch. 7–8 exercises**) · Read Stanton Ch. 4 and R4DS Ch. 7–8
+**In-class exercise (graded)** · **Homework:** Problem set 4 (includes the **R4DS Ch. 10 exercises**) · Read Stanton Ch. 4 and R4DS Ch. 10
 
 ## `r session_headers[5]`
 
 **Topics:** The logic of inference using confidence intervals — on real data
 
-**Readings due:** Stanton Ch. 4 · R4DS Ch. 7 (Data import) & Ch. 8 (Workflow: getting help)
+**Readings due:** Stanton Ch. 4 · R4DS Ch. 10 (Exploratory data analysis)
 
 **In-class exercise (graded)** · **Homework:** Problem set 5 (includes the **R4DS Ch. 19 + 18 exercises**) · Read Stanton Ch. 5 and R4DS Ch. 19 (skim Ch. 18)
 

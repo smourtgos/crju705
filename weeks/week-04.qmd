@@ -4,7 +4,7 @@ subtitle: "Probabilities in the long run · law of large numbers · standard err
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Sampling Distributions](../slides/week-04-sampling-distributions.qmd)** · **[🧪 Lab 4: Tidy Data — Pivoting Longer and Wider](../labs/lab-04-tidy.qmd)** · **[📝 Homework 4](../homework/hw-04.qmd)** · **[🎬 Demo walkthrough](../demos/demo-04-sampling-distributions.qmd)** · **[✍️ Practice](../practice/practice-04.qmd)**
+**[📽️ Slides: Sampling Distributions](../slides/week-04-sampling-distributions.qmd)** · **[🧪 Lab 4: Building a Sampling Distribution](../labs/lab-04-sampling.qmd)** · **[📝 Homework 4](../homework/hw-04.qmd)** · **[🎬 Demo walkthrough](../demos/demo-04-sampling-distributions.qmd)** · **[✍️ Practice](../practice/practice-04.qmd)**
 :::
 
 Session 3 gave you the rules single random events follow; this week zooms out to what happens when sampling *repeats*. Draw a thousand samples and the sample means themselves form a distribution — with a predictable shape, a predictable center, and a width you can compute (the standard error). Nothing gets derived: it's all live simulation, watching the law of large numbers and the central limit theorem appear on screen, including with 30,000 real Chicago incidents. This is the engine under every inference in the rest of the course — Session 5 cashes it in for confidence intervals.
@@ -16,17 +16,15 @@ By the end of this week you can:
 - explain in your own words: law of large numbers, sampling distribution, standard error, central limit theorem
 - simulate a sampling distribution in R and connect its spread to the SD/√n formula
 - say why `var()` and `sd()` divide by n − 1 (Session 2's IOU, paid)
-- reshape data with `pivot_longer()` and `pivot_wider()`, and keep your scripts and projects organized
+- build a sampling distribution yourself in R, and keep your scripts and projects organized
 
 ## Before class
 
 - Read: Stanton **Ch. 3** (Probabilities in the Long Run)
-- Read: R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** and **[Ch. 6 — Workflow: scripts and projects](https://r4ds.hadley.nz/workflow-scripts.html)** — **plus the exercises assigned in [Session 3](week-03.qmd#homework)**
-- Bring your laptop — this session is almost entirely live simulation in R
+- Read: R4DS **[Ch. 5 — Data tidying](https://r4ds.hadley.nz/data-tidy.html)** — **plus the exercises assigned in [Session 3](week-03.qmd#homework)**
+- Bring your laptop. The lecture is mine to run: I simulate on screen, you watch and push back. The laptop is for the in-class exercise afterward, where we write the code together.
 
 ## In class
-
-**This week's two threads:** sampling distributions (lecture + homework) · tidy data with `pivot_longer()`/`pivot_wider()` (lab).
 
 - Theoretical vs. empirical probability: coin flips, the law of large numbers, and why "long run" is longer than you think
 - Simulating CJ probabilities: false-positive drug tests, stop-and-frisk hit rates, and why random ≠ balanced
@@ -34,8 +32,7 @@ By the end of this week you can:
 - The standard error: simulation vs. the SD/√n formula, and why sample size buys precision at a √n rate
 - Real-data thread: the central limit theorem with 30,000 real Chicago incidents — repeated samples of case files turn TRUE/FALSE arrest data into a bell curve of sample proportions
 - Paying Session 2's IOU: a simulation showing why `var()` and `sd()` divide by n − 1
-- In-class exercise: probabilities in the long run (dice, known and unknown populations)
-- **Lab 4:** tidy data — `pivot_longer()`/`pivot_wider()` with city crime trends and reentry outcomes, plus scripts-and-projects hygiene
+- **Lab 4 (in-class exercise):** build a sampling distribution by hand on 20,000 Alaska crash records — the long run, one sample, five hundred samples, the standard error, and the CLT on a TRUE/FALSE variable, plus scripts-and-projects hygiene
 
 *Missed class? The [demo walkthrough](../demos/demo-04-sampling-distributions.qmd) reproduces today's live demos step by step.*
 
@@ -43,10 +40,10 @@ By the end of this week you can:
 
 - **[Homework 4](../homework/hw-04.qmd)** — submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 4** before Session 5
-- Read R4DS **[Ch. 7 — Data import](https://r4ds.hadley.nz/data-import.html)** and **[Ch. 8 — Workflow: getting help](https://r4ds.hadley.nz/workflow-help.html)**
-- **R4DS exercises** — all from **7.2.4**, and every one of them is a problem you will actually hit with real data:
-  - **#1** (what reads a `|`-separated file?) and **#4** (strings quoted with `'` instead of `"`)
-  - **#5** (five broken inline CSVs — say what goes wrong in each; this is the single most useful import exercise in the book)
-  - **#6** (column names R hates, and how to rename them)
-  - Ch. 8 has no exercises. Its payoff is the reprex habit — worth reading before you email me a bug.
-  - **Required and submitted** — they are Part 6 of [Homework 4](../homework/hw-04.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header.
+- Read R4DS **[Ch. 10 — Exploratory data analysis](https://r4ds.hadley.nz/EDA.html)**
+- **R4DS exercises** — four of them, all on the `diamonds` data that ships with ggplot2:
+  - **10.3.3** **#1** (the `x`, `y`, `z` distributions — which one is length, width, depth?) and **#2** (the distribution of `price`; try a wide range of `binwidth` values before you answer)
+  - **10.3.3** **#3** (how many diamonds are 0.99 carat vs. 1 carat, and why the difference?)
+  - **10.4.1** **#2** (what does `na.rm = TRUE` do in `mean()` and `sum()`?)
+  - Chapter 10 has more exercises than these. Skip the rest; some of them need packages we have not installed.
+  - **Required and submitted** — they are Part 5 of [Homework 4](../homework/hw-04.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header.

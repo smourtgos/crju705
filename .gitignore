@@ -18,3 +18,6 @@ data-raw/
 .DS_Store
 
 **/*.quarto_ipynb
+
+# Stray Quarto/Finder duplicate artifacts (never source)
+*[0-9].html

@@ -20,7 +20,13 @@ This homework uses the Alaska traffic-crash data from Lab 5 — 20,000 real-worl
    crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv")
    ```
 
-2. Check what `read_csv()` guessed with `spec()` or `glimpse()`. One column that *should* be a date is not. Fix it using `mdy()` from lubridate (as in Lab 5), and verify your parse worked with `sum(is.na(crashes$date))`.
+2. Check what `read_csv()` guessed with `glimpse()`. One column that *should* be a date came in as plain text. Here is the fix, since we have not spent class time on importing:
+
+   ```r
+   crashes <- crashes |> mutate(date = mdy(date))
+   ```
+
+   Run it, then verify the parse worked with `sum(is.na(crashes$date))` — you want 0. In a comment, say what `mdy()` had to figure out.
 
 3. Create a `year` column from your parsed date and count crashes per year. **In a comment:** one year has almost no crashes — is that a data problem or something else? (Hint: check the latest date in the data with `max()`.)
 

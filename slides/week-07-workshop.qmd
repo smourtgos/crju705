@@ -54,19 +54,19 @@ The folk wisdom in data work: **80% of the time goes to getting and preparing da
 
 Every dataset in this course so far arrived clean because *I* cleaned it. That subsidy ends today.
 
-## The Pipeline You Already Own {.smaller}
+## The Pipeline, Start to Finish {.smaller}
 
 | Step · learned in | The job | Tools |
 |-------------------|---------|-------|
-| **Import** · Session 5 | get data into R intact | `read_csv()`, `read_excel()`, `col_types`, `mdy()` |
-| **Tidy** · Session 4 | one row = one observation | `pivot_longer()`, `pivot_wider()` |
+| **Import** · new today | get data into R intact | `read_csv()`, `read_excel()`, `col_types`, `mdy()` |
+| **Tidy** · new today | one row = one observation | `pivot_longer()`, `pivot_wider()` |
 | **Transform** · Session 3 | filter, derive, summarize | `filter()`, `mutate()`, `summarize()` |
 | **Visualize** · Session 2 | see the shape and the pattern | `ggplot()` |
 | **Model / test** · Sessions 5–6 | formal inference | `t.test()`, `ttestBF()`, `prop.test()` |
 
 : {tbl-colwidths="[27,27,46]"}
 
-You learned the first four steps in *reverse* order. Today you run the whole thing left to right for the first time.
+You already own the bottom three, learned in *reverse* order. The top two are new today, and I hand you the code for both. Today you run the whole thing left to right for the first time.
 
 # One Pass Through the Pipeline {background-color="#73000A"}
 

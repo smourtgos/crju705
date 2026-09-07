@@ -38,23 +38,23 @@ crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = 
 
 **Learning goals:** explain in your own words what a 95% confidence interval does and does **not** mean; compute CIs for a proportion and a difference in means from real data.
 
-## Two Threads, One Course
+## How Today Works
 
 :::: columns
 ::: {.column width="50%"}
-**Statistics thread** — lecture + homework
+**The lecture** — concepts
 
 Stanton Ch. 4 → confidence intervals: building them, and saying them out loud honestly
 :::
 
 ::: {.column width="50%"}
-**Wrangling thread** — lab
+**The in-class exercise** — code
 
-R4DS Ch. 7–8 → `read_csv()`, `read_excel()`, and the import traps real files set
+You write it, together, one idea at a time: a point estimate, an interval around it, and an honest sentence.
 :::
 ::::
 
-The two threads meet at the Session 7 workshop — where you import a messy file *and* put an honest interval on what you find in it.
+Everything I run today is written up in the [demo walkthrough](../demos/demo-05-confidence-intervals.qmd), so nothing on screen is something you have to capture in real time.
 
 ## Where We've Been
 
@@ -499,6 +499,6 @@ prop.test(sum(crimes$domestic), nrow(crimes))
 
 ## Today's Lab & Homework
 
-- **Lab 5:** importing real data — `read_csv()`, `read_excel()`, parsing dates, and what to do when R yells at you ([lab page](../labs/lab-05-import.qmd))
+- **Lab 5:** put an interval on it — a proportion, a two-group difference, and the sentence you can actually defend ([lab page](../labs/lab-05-intervals.qmd))
 - **Homework 5:** confidence intervals on Alaska crash data (posted on the [Session 5 page](../weeks/week-05.qmd))
 - **Read before Session 6:** Stanton Ch. 5 · R4DS Ch. 19 (Joins) & skim Ch. 18 (Missing values)
