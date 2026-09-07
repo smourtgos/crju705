@@ -20,4 +20,4 @@ data-raw/
 **/*.quarto_ipynb
 
 # Stray Quarto/Finder duplicate artifacts (never source)
-*[0-9].html
+* [0-9].*
