@@ -40,20 +40,38 @@ quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser --no-rend
 **Prefer `--no-render` when you have just verified a clean build.** Without it,
 `quarto publish` re-renders, and you then ship output you never inspected.
 
-**⚠️ Observed Sep 14, 2026 — stray render artifacts next to sources after publishing.**
-After a clean `rm -rf _site && quarto render`, a clean `git add -A` commit, and
-`quarto publish gh-pages ... --no-render`, seven untracked paths appeared beside
-their sources: `syllabus.html` + `syllabus_files/`, `homework/hw-05.html`,
-`labs/lab-05-intervals.html`, `demos/demo-05-confidence-intervals.html` +
-`_files/`, and `slides/week-05-confidence-intervals_files/` (each `_files/` holding
-`figure-*` and a `mediabag/`). Their mtimes were render-time (21:39–21:45), but the
-tree was clean at the 21:50 commit, so they were moved into place afterwards. Each
-was a few KB *smaller* than its `_site` twin (the `_site` pages carry the site
-navigation), so they look like single-document renders rather than copies; the
-process that wrote them was not identified. They were deleted. The `* [0-9].html`
-ignore rule does not cover them, so **run `git status` after every publish and
-delete anything like this before the next commit**; do not widen the ignore rule to
-`*.html` without checking that no source page is a plain `.html`.
+**⚠️ This repo lives inside iCloud Drive sync, and the sync daemon breaks build
+hygiene.** Diagnosed Sep 14, 2026: `~/Documents` carries the
+`com.apple.file-provider-domain-id` xattr and `brctl status` shows CloudDocs syncing
+it, with a sync landing minutes after every render. Two symptoms, both seen that
+night:
+
+1. **Conflict duplicates.** Copies named `name 2.png`, `index 2.html`,
+   `syllabus 2.pdf`, `resources.qmd 3.json`, … appear next to the originals in
+   `_freeze/`, `_site/`, `.quarto/`, and `_private/` shortly after a render. Two such
+   PNGs had already been committed under `_freeze/` and published to `gh-pages` by
+   an earlier pass (weeks 1 and 2); both were removed from the repo and the branch
+   on Sep 14. `_site` is gitignored, so **git never warns about junk there, and
+   `quarto publish` (copy-over) would ship it.**
+2. **Resurrected intermediates.** A project render writes each page beside its
+   source and then moves it into `_site`; the daemon uploads the intermediate and
+   later puts it back. After a clean `git add -A` commit, `syllabus.html` +
+   `syllabus_files/`, `homework/hw-05.html`, `labs/lab-05-intervals.html`,
+   `demos/demo-05-confidence-intervals.html` + `_files/`, and
+   `slides/week-05-confidence-intervals_files/` reappeared next to their sources
+   with render-time mtimes. Deleted.
+
+**Rule until the repo is moved out of sync (see the TODO):** from the repo root,
+before every commit and again immediately before every publish, run
+
+```bash
+find . \( -path ./.git -o -path ./.claude \) -prune -o -name "* [0-9].*" -type f -print -delete
+git status --short      # must be empty of stray .html/_files next to sources
+```
+
+and re-run it once more a few minutes after a render, since the duplicates trail
+the render. The `* [0-9].html` ignore rule is not protection: it only hides the
+junk from `git status`.
 
 **⚠️ Publishing gotcha — `quarto publish` is copy-over, NOT sync.** It copies `_site`
 onto the `gh-pages` branch but does **not delete** files that disappeared since the
@@ -373,6 +391,7 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - [x] **Slide-overflow audit — RUN Aug 25, 2026; week-8 overflows FIXED same day** (browser console reached by serving `_site` with `python3 -m http.server`; the server binds fine now). Weeks 1 and 12 clean; week 2 clean after the dispersion reorder. Week 8's two overflows from the August ANOVA-demotion edits — slide 2 "This Week" (169px over the 700px canvas) and slide 36 "This Workflow Is the Point" (45px over) — trimmed without touching the demotion framing: `{.smaller}` on the opener (no text changed), one-line intro trim on the workflow slide (details in CHANGES-week-08 items 27–28). Re-audit clean: 0 of 47 slides overflow.
 - [ ] **Decide about `options(scipen = 999)` in `R/setup.R`.** It prints p-values as `p-value < 0.00000000000000022` and `0.0000000000105` instead of `2.2e-16` / `1.05e-11`. On the Session 1 slide that introduces p-values for the first time that is arguably *harder* to read, not easier. Left alone because the setting is global across every deck, lab, and homework page — changing it is a one-liner but affects everything.
 - [ ] **(Sep 7, 2026) Decide what Session 7 is now.** It is billed as the session where "the two threads meet," and after the lecture/lab split there is only one thread. Its workshop asks students to import and clean a messy file with no import or tidying instruction anywhere behind it. Tonight only corrected the false claims in the pipeline table and Lab 7's missingness block (see CHANGES-week-07). The redesign is a real decision and S7 is Sep 29, but **decide before Session 6**, because Lab 6 (joins, R4DS Ch. 19) is the next lab that hits the same tension. **(Sep 14, 2026)** Sharper now: Ch. 19 is no longer assigned anywhere (S5→S6 is Ch. 16), so `labs/lab-06-joins.qmd:6` ("assumes you've read Ch. 19") and `weeks/week-06.qmd` lines 3, 19, 30, 40 describe a lab with no reading behind it. Scott chose to leave Lab 6 alone on Sep 14 and decide with this item.
+- [ ] **(Sep 14, 2026) Move the repo out of iCloud Drive sync, or exclude it.** See the publishing gotcha at the top: the daemon plants `name 2.ext` duplicates in `_freeze/`, `_site/`, `.quarto/`, and `_private/` and resurrects render intermediates next to the sources. Renaming the folder `crju705-site.nosync` (iCloud skips `.nosync` folders) or moving it under a non-synced path such as `~/Code/` stops it; if it moves, update the paths in `../PROJECT_NOTES.md` and the grading workflow that reads `crju705-site/_private/keys/`.
 - [ ] **(Sep 14, 2026) The Session 6 deck contradicts the Session 5 deck; fix before Sep 22.** `slides/week-06-hypothesis-testing.qmd` builds `vp` without the factor line (line 29), still says "R orders groups alphabetically, so this tests Property − Violent" (222), reports decimal hours (127, 141), and its "Two Threads" slide (45–57) claims the Ch. 19 reading feeds Lab 6. Session 5 now teaches the opposite of all four.
 - [ ] **(Sep 14, 2026) Propagate the lab-deliverable wording.** Lab 5's "How labs work" and Exit Ticket sections now say to submit the whole Your Turn script with the reflection comments at the bottom. Labs 2–4 and 6–8 still say to submit an Exit Ticket.
 - [ ] **(Sep 14, 2026) `practice/practice-05.qmd`** still models `$conf.int`, `sum(x == ...)`, `nrow()`, and the alphabetical-direction language in all five solutions, and its Problem 4 reuses the deck's variable and machinery (CONVENTIONS line 85). Ungraded and public; align when convenient. `midterm.qmd:12` "pivot/join weeks" wording is also slightly off now.
