@@ -40,6 +40,21 @@ quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser --no-rend
 **Prefer `--no-render` when you have just verified a clean build.** Without it,
 `quarto publish` re-renders, and you then ship output you never inspected.
 
+**⚠️ Observed Sep 14, 2026 — stray render artifacts next to sources after publishing.**
+After a clean `rm -rf _site && quarto render`, a clean `git add -A` commit, and
+`quarto publish gh-pages ... --no-render`, seven untracked paths appeared beside
+their sources: `syllabus.html` + `syllabus_files/`, `homework/hw-05.html`,
+`labs/lab-05-intervals.html`, `demos/demo-05-confidence-intervals.html` +
+`_files/`, and `slides/week-05-confidence-intervals_files/` (each `_files/` holding
+`figure-*` and a `mediabag/`). Their mtimes were render-time (21:39–21:45), but the
+tree was clean at the 21:50 commit, so they were moved into place afterwards. Each
+was a few KB *smaller* than its `_site` twin (the `_site` pages carry the site
+navigation), so they look like single-document renders rather than copies; the
+process that wrote them was not identified. They were deleted. The `* [0-9].html`
+ignore rule does not cover them, so **run `git status` after every publish and
+delete anything like this before the next commit**; do not widen the ignore rule to
+`*.html` without checking that no source page is a plain `.html`.
+
 **⚠️ Publishing gotcha — `quarto publish` is copy-over, NOT sync.** It copies `_site`
 onto the `gh-pages` branch but does **not delete** files that disappeared since the
 last publish. In August 2026 this left `weeks/week-14.html` live and reachable for
