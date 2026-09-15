@@ -71,17 +71,25 @@ night:
    `slides/week-05-confidence-intervals_files/` reappeared next to their sources
    with render-time mtimes. Deleted.
 
-**Rule until the repo is moved out of sync (see the TODO):** from the repo root,
-before every commit and again immediately before every publish, run
+**The repo itself left iCloud that night** (renamed `crju705-site.nosync`), and no
+duplicates have appeared in it since. `_private/` is still synced (it is a symlink to
+`../crju705-private/`), so the check below matters there, and it is cheap insurance
+after any render. **List first, delete only what the list shows.** A bare
+`find -name "* [0-9].*" -delete` is not safe outside the repo: legitimate names such
+as `Problem Set 4.docx` or a student's `Exercise 1.2.5 5.R` match it too. An iCloud
+conflict copy is `name N.ext` sitting *next to* its original `name.ext`, so test for
+the original:
 
 ```bash
-find . \( -path ./.git -o -path ./.claude \) -prune -o -name "* [0-9].*" -type f -print -delete
+# from the repo root: iCloud conflict copies = "name N.ext" whose "name.ext" exists beside it
+find . \( -path ./.git -o -path ./.claude \) -prune -o -name "* [0-9].*" -type f -print \
+  | while IFS= read -r f; do o="$(printf '%s' "$f" | sed -E 's/ [0-9]+(\.[^.]+)$/\1/')"; [ -e "$o" ] && echo "$f"; done
+# review that list, then delete exactly those paths; then:
 git status --short      # must be empty of stray .html/_files next to sources
 ```
 
-and re-run it once more a few minutes after a render, since the duplicates trail
-the render. The `* [0-9].html` ignore rule is not protection: it only hides the
-junk from `git status`.
+The `* [0-9].html` ignore rule is not protection: it only hides junk from
+`git status`.
 
 **⚠️ Publishing gotcha — `quarto publish` is copy-over, NOT sync.** It copies `_site`
 onto the `gh-pages` branch but does **not delete** files that disappeared since the
