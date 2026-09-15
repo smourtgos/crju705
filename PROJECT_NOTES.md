@@ -20,6 +20,7 @@ Textbook stays **Stanton, *Reasoning with Data*** (the only intro text doing fre
 | **Working source** | `crju705-site.nosync/` (this folder) |
 | **2025 archive (untouched source material)** | `../CRJU 705/` |
 | **Colleague's course (lab template + datasets borrowed)** | `../CRCJ 8950 Spring 2026/` |
+| **Keys, exams, CHANGES logs (`_private/`)** | `../crju705-private/`, reached through the committed symlink `_private` (iCloud-synced, not in git; since Sep 14, 2026) |
 
 Source directories, in student-facing terms: `weeks/` (hub pages — objectives, story, links), `slides/` (reveal.js decks), `labs/`, `homework/`, `demos/` (per-session "lecture written down" walkthroughs, self-contained), `practice/` (ungraded problem banks, collapsed solutions), `final-project-exemplar.qmd` (+ downloadable script). `syllabus.qmd` renders **both HTML and PDF** — `_site/syllabus.pdf` is a build artifact, not committed, so it only reaches students on a publish. Note `weeks/week-13.qmd` is **presentations** (the old help-session page was deleted and week-14 renamed into its place). Non-public: `_private/keys/` (HW answer keys), `_private/exams/` (2025 archive + **midterm-2026.R draft**, worked key, pre-fit `midterm-anova-fit.rds`, `make-midterm-fit.R`), `_private/notes/` (per-week CHANGES logs + the midterm review checklist).
 
@@ -27,6 +28,7 @@ Source directories, in student-facing terms: `weeks/` (hub pages — objectives,
 
 ```bash
 # from crju705-site.nosync/
+git pull                  # FIRST, every session: the other Mac may have pushed
 quarto preview            # live local preview while editing
 quarto render             # build the whole site to _site/
 # then publish:
@@ -39,6 +41,14 @@ quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser --no-rend
 
 **Prefer `--no-render` when you have just verified a clean build.** Without it,
 `quarto publish` re-renders, and you then ship output you never inspected.
+
+**Two machines (since Sep 14, 2026).** The repo moves between Scott's Macs through
+GitHub only (it is `.nosync`, so iCloud no longer carries it); `_private/` moves through
+iCloud only (it is a symlink to `../crju705-private/`, which is synced and gitignored).
+So: `git pull` before every session, push before switching machines, and expect
+`_private/` to arrive a little later than the clone on a fresh machine. The full
+two-machine workflow, including how a Claude Code session on the other Mac picks this
+up, is in `../PROJECT_NOTES.md` under "Working from two computers."
 
 **⚠️ This repo lives inside iCloud Drive sync, and the sync daemon breaks build
 hygiene.** Diagnosed Sep 14, 2026: `~/Documents` carries the
@@ -193,9 +203,12 @@ Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborho
 
 ## STATUS: Session 6 alignment + `.nosync` rename (September 14, 2026, later the same night) COMPLETE ✅ — shipped live
 
-Two follow-ups Scott asked for after the Session 5 pass. (1) **The repo is now
-`crju705-site.nosync`**, which takes it out of iCloud Drive sync; see the
-publishing gotcha and the closed TODO. (2) **Session 6 matches Session 5**: `vp`
+Two follow-ups Scott asked for after the Session 5 pass, plus one consequence. (1) **The
+repo is now `crju705-site.nosync`**, which takes it out of iCloud Drive sync; see the
+publishing gotcha and the closed TODO. Because that also stopped `_private/` from
+reaching the other Mac, **`_private/` was moved to `../crju705-private/` (synced) and
+replaced in the repo by a committed symlink**; `quarto inspect` confirms none of the 72
+render inputs are under it, and the privacy checks still pass. (2) **Session 6 matches Session 5**: `vp`
 carries the factor line, the deck reads Violent minus Property everywhere (t =
 2.61), times are clock times and minutes, "Two Threads, One Course" became "How
 Today Works," and the closing slide no longer credits an R4DS reading students did
