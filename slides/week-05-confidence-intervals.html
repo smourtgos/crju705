@@ -506,8 +506,21 @@ sample estimates:
 </div>
 </div>
 <div class="fragment">
-<p><strong>WTF?!?</strong> — yes, everyone reacts this way. Point at the 100-intervals plot until it clicks.</p>
+<p><strong>WTF?!?</strong> Yes. Everyone reacts this way. So let’s run the whole thing again, slower.</p>
 </div>
+</section>
+<section id="run-it-again-100-new-researchers" class="slide level2">
+<h2>Run It Again: 100 New Researchers</h2>
+
+<img data-src="week-05-confidence-intervals_files/figure-revealjs/ci-sim-again-1.png" width="960" class="r-stretch"></section>
+<section id="now-drop-the-truth-in" class="slide level2">
+<h2>Now Drop the Truth In</h2>
+
+<img data-src="week-05-confidence-intervals_files/figure-revealjs/ci-sim-again-truth-1.png" width="960" class="r-stretch"></section>
+<section id="you-are-one-of-those-researchers" class="slide level2">
+<h2>You Are One of Those Researchers</h2>
+
+<img data-src="week-05-confidence-intervals_files/figure-revealjs/you-are-one-1.png" width="960" class="r-stretch"><p><strong>You only ever get one stick, and nothing in your data tells you its color. The 95% belongs to the procedure, not to your interval.</strong></p>
 </section>
 <section id="saying-it-out-loud" class="slide level2">
 <h2>Saying It Out Loud</h2>
@@ -538,65 +551,83 @@ sample estimates:
 <li class="fragment">If the forbidden sentence felt like the natural reading all along — your intuitions were Bayesian. You’re in good company</li>
 </ul>
 </section>
-<section id="sample-size-buys-precision" class="slide level2">
+<section id="sample-size-buys-precision" class="slide level2 smaller">
 <h2>Sample Size Buys Precision</h2>
-<p>Same procedure, three sample sizes, one draw each:</p>
+<p>Same procedure, four sample sizes, one draw each:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">map</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">1000</span>, <span class="dv">4000</span>), \(n) {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>width_tbl <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">1000</span>, <span class="dv">4000</span>), \(n) {</span>
 <span id="cb14-2"><a></a>  s  <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> n)</span>
 <span id="cb14-3"><a></a>  ci <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="fu">sum</span>(s<span class="sc">$</span>arrest), <span class="at">n =</span> n)<span class="sc">$</span>conf.int</span>
 <span id="cb14-4"><a></a>  <span class="fu">tibble</span>(<span class="at">n =</span> n, <span class="at">estimate =</span> <span class="fu">mean</span>(s<span class="sc">$</span>arrest),</span>
 <span id="cb14-5"><a></a>         <span class="at">lo =</span> ci[<span class="dv">1</span>], <span class="at">hi =</span> ci[<span class="dv">2</span>], <span class="at">width =</span> ci[<span class="dv">2</span>] <span class="sc">-</span> ci[<span class="dv">1</span>])</span>
 <span id="cb14-6"><a></a>}) <span class="sc">|&gt;</span></span>
-<span id="cb14-7"><a></a>  <span class="fu">list_rbind</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-7"><a></a>  <span class="fu">list_rbind</span>()</span>
+<span id="cb14-8"><a></a></span>
+<span id="cb14-9"><a></a>width_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
-      n estimate    lo    hi  width
-  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1   100    0.22  0.146 0.316 0.170 
-2   250    0.192 0.146 0.247 0.101 
-3  1000    0.154 0.132 0.178 0.0457
-4  4000    0.163 0.152 0.175 0.0231</code></pre>
+      n estimate     lo    hi  width
+  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1   100    0.12  0.0663 0.204 0.138 
+2   250    0.184 0.139  0.239 0.0998
+3  1000    0.165 0.143  0.190 0.0470
+4  4000    0.167 0.155  0.179 0.0234</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p>Quadrupling <em>n</em> roughly <strong>halves</strong> the width — precision grows with <span class="math inline">\(\sqrt{n}\)</span>, so it gets expensive fast.</p>
 </div>
-</section></section>
+</section>
+<section id="sample-size-buys-precision-seen" class="slide level2">
+<h2>Sample Size Buys Precision, Seen</h2>
+
+<img data-src="week-05-confidence-intervals_files/figure-revealjs/width-plot-1.png" width="960" class="r-stretch"></section></section>
 <section>
 <section id="comparing-two-groups" class="title-slide slide level1 center" data-background-color="#1B2A4A">
 <h1>Comparing Two Groups</h1>
 
 </section>
-<section id="a-real-question-do-violent-crimes-happen-later-in-the-day" class="slide level2">
+<section id="a-real-question-do-violent-crimes-happen-later-in-the-day" class="slide level2 smaller">
 <h2>A Real Question: Do Violent Crimes Happen Later in the Day?</h2>
 <p>Street lore says violence is a nighttime phenomenon. Property crime, the daytime hustle. Our data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>vp <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">filter</span>(crime_category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>))</span>
-<span id="cb16-2"><a></a></span>
-<span id="cb16-3"><a></a>vp <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_hour =</span> <span class="fu">mean</span>(hour), <span class="at">sd_hour =</span> <span class="fu">sd</span>(hour),</span>
-<span id="cb16-4"><a></a>                <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> crime_category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>vp <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">filter</span>(crime_category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a></a>  <span class="fu">mutate</span>(<span class="at">crime_category =</span> <span class="fu">factor</span>(crime_category, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)))</span>
+<span id="cb16-4"><a></a></span>
+<span id="cb16-5"><a></a>vp <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_hour =</span> <span class="fu">mean</span>(hour), <span class="at">sd_hour =</span> <span class="fu">sd</span>(hour), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> crime_category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   crime_category mean_hour sd_hour     n
-  &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+  &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
 1 Violent             12.8    6.87  9148
 2 Property            12.5    6.63 10371</code></pre>
 </div>
 </div>
 <div class="fragment">
-<p>Two <strong>point estimates</strong>: violent crimes average hour 12.8, property 12.5. Is that ~15-minute gap real, or sample fluctuation?</p>
+<p>Two <strong>point estimates</strong>: violent crimes average about <strong>12:48 pm</strong>, property crimes about <strong>12:33 pm</strong>. Is that <strong>15-minute</strong> gap real, or sample fluctuation?</p>
 </div>
+</section>
+<section id="one-extra-line-who-comes-first" class="slide level2">
+<h2>One Extra Line: Who Comes First</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">mutate</span>(<span class="at">crime_category =</span> <span class="fu">factor</span>(crime_category, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li class="fragment">R’s default order is <strong>alphabetical</strong>: Property before Violent, so every “difference” it reported would come out as Property minus Violent, the reverse of how we asked the question</li>
+<li class="fragment"><code>factor(levels = ...)</code> tells R which group comes <strong>first</strong>. From here on, every subtraction reads <strong>Violent minus Property</strong></li>
+<li class="fragment">That one line is what next week’s R4DS chapter (Factors) is about</li>
+</ul>
 </section>
 <section id="lets-look-at-it-visually" class="slide level2">
 <h2>Let’s Look at It Visually</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">ggplot</span>(vp, <span class="fu">aes</span>(crime_category, hour, <span class="at">fill =</span> crime_category)) <span class="sc">+</span></span>
-<span id="cb18-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb18-3"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">unname</span>(crju_colors[<span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"garnet"</span>)])) <span class="sc">+</span></span>
-<span id="cb18-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Hour of day (0–23)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">ggplot</span>(vp, <span class="fu">aes</span>(crime_category, hour, <span class="at">fill =</span> crime_category)) <span class="sc">+</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">unname</span>(crju_colors[<span class="fu">c</span>(<span class="st">"garnet"</span>, <span class="st">"blue"</span>)])) <span class="sc">+</span></span>
+<span id="cb19-4"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>),</span>
+<span id="cb19-5"><a></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"midnight"</span>, <span class="st">"6 am"</span>, <span class="st">"noon"</span>, <span class="st">"6 pm"</span>, <span class="st">"midnight"</span>)) <span class="sc">+</span></span>
+<span id="cb19-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Time of day"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
 <img data-src="week-05-confidence-intervals_files/figure-revealjs/two-group-box-1.png" width="960" class="r-stretch"><p>The boxes nearly coincide — the eye can’t settle this one. We need inference.</p>
@@ -605,72 +636,92 @@ sample estimates:
 <h2>Resample the Difference</h2>
 <p>Same trick as before — resample each group, compute the difference in means, repeat:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>violent_hours  <span class="ot">&lt;-</span> vp<span class="sc">$</span>hour[vp<span class="sc">$</span>crime_category <span class="sc">==</span> <span class="st">"Violent"</span>]</span>
-<span id="cb19-2"><a></a>property_hours <span class="ot">&lt;-</span> vp<span class="sc">$</span>hour[vp<span class="sc">$</span>crime_category <span class="sc">==</span> <span class="st">"Property"</span>]</span>
-<span id="cb19-3"><a></a></span>
-<span id="cb19-4"><a></a>mean_diffs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
-<span id="cb19-5"><a></a>  <span class="fu">mean</span>(<span class="fu">sample</span>(violent_hours,  <span class="fu">length</span>(violent_hours),  <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">-</span></span>
-<span id="cb19-6"><a></a>  <span class="fu">mean</span>(<span class="fu">sample</span>(property_hours, <span class="fu">length</span>(property_hours), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb19-7"><a></a>})</span>
-<span id="cb19-8"><a></a></span>
-<span id="cb19-9"><a></a><span class="fu">quantile</span>(mean_diffs, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))   <span class="co"># what is this telling us?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
+<span id="cb20-2"><a></a>violent_hours  <span class="ot">&lt;-</span> vp<span class="sc">$</span>hour[vp<span class="sc">$</span>crime_category <span class="sc">==</span> <span class="st">"Violent"</span>]</span>
+<span id="cb20-3"><a></a>property_hours <span class="ot">&lt;-</span> vp<span class="sc">$</span>hour[vp<span class="sc">$</span>crime_category <span class="sc">==</span> <span class="st">"Property"</span>]</span>
+<span id="cb20-4"><a></a></span>
+<span id="cb20-5"><a></a>boot_violent  <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(violent_hours,  <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb20-6"><a></a>boot_property <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(property_hours, <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb20-7"><a></a>mean_diffs    <span class="ot">&lt;-</span> boot_violent <span class="sc">-</span> boot_property</span>
+<span id="cb20-8"><a></a></span>
+<span id="cb20-9"><a></a><span class="fu">quantile</span>(mean_diffs, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)) <span class="sc">*</span> <span class="dv">60</span>   <span class="co"># in minutes: Violent minus Property</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      2.5%      97.5% 
-0.05568685 0.43652029 </code></pre>
+<pre><code>     2.5%     97.5% 
+ 3.709722 26.345208 </code></pre>
 </div>
 </div>
 </section>
-<section id="resample-the-difference-seen" class="slide level2">
-<h2>Resample the Difference, Seen</h2>
+<section id="what-does-not-cross-zero-looks-like" class="slide level2">
+<h2>What “Does Not Cross Zero” Looks Like</h2>
 
-<img data-src="week-05-confidence-intervals_files/figure-revealjs/mean-diffs-plot-1.png" width="960" class="r-stretch"></section>
+<img data-src="week-05-confidence-intervals_files/figure-revealjs/cross-zero-no-1.png" width="960" class="r-stretch"><p><strong>Every plausible value of the difference is on the “later” side. “No difference” is not on the list.</strong></p>
+</section>
 <section id="the-two-sample-t-test-gives-the-ci-directly" class="slide level2">
 <h2>The Two-Sample t-Test Gives the CI Directly</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> vp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> vp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
 
 data:  hour by crime_category
-t = -2.6061, df = 19021, p-value = 0.009164
-alternative hypothesis: true difference in means between group Property and group Violent is not equal to 0
+t = 2.6061, df = 19021, p-value = 0.009164
+alternative hypothesis: true difference in means between group Violent and group Property is not equal to 0
 95 percent confidence interval:
- -0.44272107 -0.06263688
+ 0.06263688 0.44272107
 sample estimates:
-mean in group Property  mean in group Violent 
-              12.54334               12.79602 </code></pre>
+ mean in group Violent mean in group Property 
+              12.79602               12.54334 </code></pre>
 </div>
 </div>
-<p>Watch the direction: R orders groups alphabetically, so this tests <strong>Property − Violent</strong> — the mirror image of our resampled Violent − Property differences. Same finding, flipped sign.</p>
+<p>Two lines matter: <code>95 percent confidence interval</code>, and the two <code>mean in group</code> lines that tell you which minus which. Violent is listed first because we told R so.</p>
 </section>
 <section id="reading-that-output-honestly" class="slide level2">
 <h2>Reading That Output Honestly</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> vp)<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.44272107 -0.06263688
-attr(,"conf.level")
-[1] 0.95</code></pre>
-</div>
-</div>
 <ul>
-<li class="fragment">The 95% CI for the difference (Property − Violent) runs from <strong>−0.44 to −0.06 hours</strong> — it excludes zero, so the data are consistent with violent crimes genuinely averaging later</li>
-<li class="fragment">But look at the <em>magnitude</em>: the difference is somewhere between about <strong>4 and 27 minutes</strong>. Detectable ≠ dramatic.</li>
+<li class="fragment">The 95% CI for the difference (Violent minus Property) runs from <strong>0.06 to 0.44 hours</strong>: about <strong>4 to 27 minutes</strong> later. It excludes zero, so the data are consistent with violent crimes genuinely averaging later</li>
+<li class="fragment">The resampling picture said the same thing. <code>t.test()</code> is a formula for the interval we just simulated, no loop required</li>
 </ul>
 </section>
 <section id="reading-that-output-honestly-continued" class="slide level2">
 <h2>Reading That Output Honestly, Continued</h2>
 <ul>
+<li class="fragment">But look at the <em>magnitude</em>: somewhere between about <strong>4 and 27 minutes</strong>. Detectable ≠ dramatic.</li>
 <li class="fragment">With ~19,500 incidents, we can detect tiny differences. The CI hands you both facts at once: <em>direction</em> (probably real) and <em>size</em> (small). <strong>Never report the first without the second.</strong></li>
 <li class="fragment">This is your vaccination against next week’s topic — a “significant” result can be substantively trivial</li>
 </ul>
 </section>
+<section id="and-when-it-does-cross-zero" class="slide level2">
+<h2>And When It Does Cross Zero</h2>
+<p>Same city, a question the data cannot settle: within <strong>violent</strong> crimes, do the ones that end in an <strong>arrest</strong> happen at a different time of day?</p>
+
+<img data-src="week-05-confidence-intervals_files/figure-revealjs/cross-zero-yes-1.png" width="960" class="r-stretch"><p><strong>Zero is one of the plausible answers, so this sample cannot even tell you the direction. Next week this contrast gets a name.</strong></p>
+</section>
+<section id="r-agrees" class="slide level2">
+<h2>R Agrees</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> arrest, <span class="at">data =</span> violent)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  hour by arrest
+t = -1.2287, df = 1941.3, p-value = 0.2193
+alternative hypothesis: true difference in means between group Arrest and group No arrest is not equal to 0
+95 percent confidence interval:
+ -0.6653724  0.1527959
+sample estimates:
+   mean in group Arrest mean in group No arrest 
+               12.58047                12.83676 </code></pre>
+</div>
+</div>
+<p>The interval runs from about <strong>40 minutes earlier to 9 minutes later</strong>, zero inside. Arrested violent crimes might happen a little earlier, a little later, or at the same time; this sample cannot say which.</p>
+</section>
 <section id="your-turn-5-minutes-with-a-neighbor" class="slide level2">
 <h2>Your Turn (5 minutes, with a neighbor)</h2>
 <p>Using <code>crimes</code>, compute a 95% CI for the proportion of incidents flagged as <strong>domestic</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="fu">mean</span>(domestic))          <span class="co"># point estimate</span></span>
-<span id="cb25-2"><a></a><span class="fu">prop.test</span>(<span class="fu">sum</span>(crimes<span class="sc">$</span>domestic), <span class="fu">nrow</span>(crimes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(domestic)      <span class="co"># how many TRUE, out of 30,000?</span></span>
+<span id="cb26-2"><a></a><span class="fu">prop.test</span>(____, <span class="dv">30000</span>)         <span class="co"># type the count you just read</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol type="1">
 <li>Write one <strong>defensible</strong> sentence reporting your interval.</li>
 <li>Trade sentences with your neighbor and audit each other: does the sentence claim a probability about <em>this</em> interval? If so, fix it.</li>
@@ -681,7 +732,7 @@ attr(,"conf.level")
 <ul>
 <li><strong>Lab 5:</strong> put an interval on it — a proportion, a two-group difference, and the sentence you can actually defend (<a href="../labs/lab-05-intervals.html">lab page</a>)</li>
 <li><strong>Homework 5:</strong> confidence intervals on Alaska crash data (posted on the <a href="../weeks/week-05.html">Session 5 page</a>)</li>
-<li><strong>Read before Session 6:</strong> Stanton Ch. 5 · R4DS Ch. 19 (Joins) &amp; skim Ch. 18 (Missing values)</li>
+<li><strong>Read before Session 6:</strong> Stanton Ch. 5 · R4DS <a href="https://r4ds.hadley.nz/factors.html">Ch. 16 (Factors)</a> — today’s “which group comes first” line is what that chapter is about</li>
 </ul>
 
 

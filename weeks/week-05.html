@@ -204,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Session 5 · Confidence Intervals on Real Data</h1>
-<p class="subtitle lead">The logic of inference · point estimates · CIs for proportions and mean differences · data import</p>
+<p class="subtitle lead">The logic of inference · point estimates · CIs for proportions and mean differences</p>
 </div>
 
 
@@ -239,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 <li>explain what a 95% confidence interval does — and does <strong>not</strong> — mean</li>
 <li>compute CIs for a proportion (<code>prop.test()</code>) and a difference in means (<code>t.test()</code>) on real data</li>
 <li>report an interval in one defensible sentence that gives both direction and magnitude</li>
-<li>import real files with <code>read_csv()</code> and <code>read_excel()</code>, fix column types, parse dates, and work through what <code>problems()</code> tells you</li>
+<li>tell R which group comes first (<code>factor(levels = ...)</code>), so a two-group comparison reads the way you say it</li>
 </ul>
 </section>
 <section id="before-class" class="level2">
@@ -267,13 +267,14 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong><a href="../homework/hw-05.html">Homework 5</a></strong> — confidence intervals on the Alaska crash data; submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday</strong></li>
 <li>Read Stanton <strong>Ch. 5</strong> (Bayesian &amp; Frequentist Hypothesis Testing) before Session 6</li>
-<li>Read R4DS <strong><a href="https://r4ds.hadley.nz/joins.html">Ch. 19 — Joins</a></strong> and skim <strong><a href="https://r4ds.hadley.nz/missing-values.html">Ch. 18 — Missing values</a></strong></li>
-<li><strong>R4DS exercises</strong> — these four deliberately circle one question: <em>which rows didn’t match, and why?</em>
+<li>Read R4DS <strong><a href="https://r4ds.hadley.nz/factors.html">Ch. 16 — Factors</a></strong> — the chapter behind today’s “which group comes first” line</li>
+<li><strong>R4DS exercises</strong> — four, all about one idea: the order of the groups is a choice you make, not something R knows
 <ul>
-<li><strong>19.2.4</strong> #1 (how do <code>weather</code> and <code>airports</code> relate? name the key)</li>
-<li><strong>19.3.4</strong> #3 (does every departing flight have weather data?) and <strong>#4</strong> (tail numbers with no match in <code>planes</code> — what do they have in common?)</li>
-<li><strong>18.3.4</strong> #1 (is the missingness related to carrier?) — read it right after 19.3.4 #4; they are the same investigation from two directions</li>
-<li><strong>Required and submitted</strong> — they are R4DS Exercises section of <a href="../homework/hw-05.html">Homework 5</a>; put them in the same <code>.R</code> script under a <code># ---- R4DS ----</code> header.</li>
+<li><strong>16.3.1</strong> #2 (the most common <code>relig</code> and <code>partyid</code>)</li>
+<li><strong>16.3.1</strong> #1 (what makes the default <code>rincome</code> bar chart hard to read, and how to fix it)</li>
+<li><strong>16.4.1</strong> #2 (for each factor in <code>gss_cat</code>, is the order of the levels arbitrary or principled?)</li>
+<li><strong>16.5.1</strong> #2 (collapse <code>rincome</code> into a few categories — a runnable starting point is in the homework)</li>
+<li><strong>Required and submitted</strong> — they are the R4DS Exercises section of <a href="../homework/hw-05.html">Homework 5</a>; put them in the same <code>.R</code> script under a <code># ---- R4DS ----</code> header.</li>
 </ul></li>
 </ul>
 

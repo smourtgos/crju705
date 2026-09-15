@@ -241,7 +241,7 @@ window.Quarto = {
   <li>
 <a href="#walkthrough" id="toc-walkthrough" class="nav-link" data-scroll-target="#walkthrough">Walkthrough</a>
   <ul class="collapse">
-<li><a href="#a-point-estimate-and-why-it-isnt-an-answer" id="toc-a-point-estimate-and-why-it-isnt-an-answer" class="nav-link" data-scroll-target="#a-point-estimate-and-why-it-isnt-an-answer">A point estimate, and why it isn’t an answer</a></li>
+<li><a href="#count-first" id="toc-count-first" class="nav-link" data-scroll-target="#count-first">Count first</a></li>
   <li><a href="#prop.test-does-it-for-you" id="toc-prop.test-does-it-for-you" class="nav-link" data-scroll-target="#prop.test-does-it-for-you"><code>prop.test()</code> does it for you</a></li>
   <li><a href="#saying-it-out-loud-without-lying" id="toc-saying-it-out-loud-without-lying" class="nav-link" data-scroll-target="#saying-it-out-loud-without-lying">Saying it out loud without lying</a></li>
   <li><a href="#width-is-a-choice-you-pay-for" id="toc-width-is-a-choice-you-pay-for" class="nav-link" data-scroll-target="#width-is-a-choice-you-pay-for">Width is a choice you pay for</a></li>
@@ -269,8 +269,8 @@ window.Quarto = {
   
 
 
-</header><p><strong>Goal:</strong> turn today’s lecture into three lines of R you will use for the rest of your career — a point estimate, a confidence interval around it, and a sentence about that interval that is actually true. Two functions do all the work: <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> and <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>.</p>
-<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.</p>
+</header><p><strong>Goal:</strong> turn today’s lecture into two lines of R you will use for the rest of your career — a point estimate with a confidence interval around it, and a sentence about that interval that is actually true. Two functions do all the work: <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> and <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>. You will read the numbers they need off a table and type them in yourself.</p>
+<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. That script, with the four Exit Ticket comments at the bottom, is what you submit to Canvas before you leave.</p>
 <section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Open RStudio, start a new R script, and run:</p>
 <div class="cell">
@@ -278,38 +278,44 @@ window.Quarto = {
 <span></span>
 <span><span class="va">officers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/officers.csv"</span>,</span>
 <span>                     show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">ptsd_screen</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">ptsd_screen</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ptsd_screen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">ptsd_screen</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Positive"</span>, <span class="st">"Negative"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><code>officers</code> holds survey records for correctional officers (simulated, but realistic): shift, tenure, rank, overtime, and three wellness measures — <code>burnout</code>, <code>job_satisfaction</code>, and <code>sleep_hours</code> — plus a <code>ptsd_screen</code> result.</p>
-<p>That <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> line is doing something you should never do silently. Eight of the 200 officers have no PTSD screen on file, and <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> returns <code>NA</code> the moment a missing value touches it. We drop those eight and <strong>say so out loud</strong>, which leaves 192. What you <em>should</em> do about missing data is a real question, and not today’s.</p>
+<p><code>officers</code> holds survey records for correctional officers (simulated, but realistic): shift, tenure, rank, and three wellness measures — <code>burnout</code>, <code>job_satisfaction</code>, and <code>sleep_hours</code> — plus a <code>ptsd_screen</code> result.</p>
+<p>Two lines in that Setup deserve a sentence each.</p>
+<p>The <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> line is doing something you should never do silently. Eight of the 200 officers have no PTSD screen on file, and <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> returns <code>NA</code> the moment a missing value touches it. We drop those eight and <strong>say so out loud</strong>, which leaves 192. What you <em>should</em> do about missing data is a real question, and not today’s.</p>
+<p>The <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> line tells R which group comes <strong>first</strong>. R’s default is alphabetical, which would put Negative ahead of Positive. Our question is about the officers who screened positive, so we put Positive first, and every comparison below reads <strong>Positive minus Negative</strong>. This is the same line from lecture, and it is what next week’s R4DS chapter is about.</p>
+</section><section id="walkthrough" class="level2"><h2 class="anchored" data-anchor-id="walkthrough">Walkthrough</h2>
+<section id="count-first" class="level3"><h3 class="anchored" data-anchor-id="count-first">Count first</h3>
+<p>Every interval today starts from a count:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">officers</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">ptsd_screen</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   ptsd_screen     n
-  &lt;chr&gt;       &lt;int&gt;
-1 Negative      150
-2 Positive       42</code></pre>
+  &lt;fct&gt;       &lt;int&gt;
+1 Positive       42
+2 Negative      150</code></pre>
 </div>
 </div>
-</section><section id="walkthrough" class="level2"><h2 class="anchored" data-anchor-id="walkthrough">Walkthrough</h2>
-<section id="a-point-estimate-and-why-it-isnt-an-answer" class="level3"><h3 class="anchored" data-anchor-id="a-point-estimate-and-why-it-isnt-an-answer">A point estimate, and why it isn’t an answer</h3>
+<p>42 of 192 screened positive:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">42</span> <span class="op">/</span> <span class="fl">192</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.21875</code></pre>
 </div>
 </div>
-<p>About <strong>22%</strong> of these officers screened positive. Now the honest question: we surveyed 192 officers, not every officer in the state. If someone else surveyed a different 192, they would not get 22%. Session 4 told us exactly how much that number moves around. This week we put that movement in the answer.</p>
+<p>About <strong>22%</strong>. Now the honest question: we surveyed 192 officers, not every officer in the state. If someone else surveyed a different 192, they would not get 22%. Session 4 told us exactly how much that number moves around. This week we put that movement in the answer.</p>
 </section><section id="prop.test-does-it-for-you" class="level3"><h3 class="anchored" data-anchor-id="prop.test-does-it-for-you">
 <code>prop.test()</code> does it for you</h3>
+<p>Type the two numbers you just read off the table: how many, out of how many.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">officers</span><span class="op">$</span><span class="va">ptsd_screen</span> <span class="op">==</span> <span class="st">"Positive"</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">officers</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fl">42</span>, <span class="fl">192</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     1-sample proportions test with continuity correction
 
-data:  sum(officers$ptsd_screen == "Positive") out of nrow(officers), null probability 0.5
+data:  42 out of 192, null probability 0.5
 X-squared = 59.63, df = 1, p-value = 1.145e-14
 alternative hypothesis: true p is not equal to 0.5
 95 percent confidence interval:
@@ -319,15 +325,7 @@ sample estimates:
 0.21875 </code></pre>
 </div>
 </div>
-<p>Ignore most of that output. R is testing whether the proportion equals 0.5, which is a question nobody asked. The line you want is the <strong>95 percent confidence interval</strong>: roughly <strong>0.16 to 0.29</strong>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">officers</span><span class="op">$</span><span class="va">ptsd_screen</span> <span class="op">==</span> <span class="st">"Positive"</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">officers</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1637971 0.2852208
-attr(,"conf.level")
-[1] 0.95</code></pre>
-</div>
-</div>
+<p>Ignore most of that output. R is testing whether the proportion equals 0.5, which is a question nobody asked. The line you want is the one under <strong>95 percent confidence interval</strong>: roughly <strong>0.16 to 0.29</strong>.</p>
 </section><section id="saying-it-out-loud-without-lying" class="level3"><h3 class="anchored" data-anchor-id="saying-it-out-loud-without-lying">Saying it out loud without lying</h3>
 <p>Here is the sentence I want:</p>
 <blockquote class="blockquote">
@@ -344,75 +342,92 @@ attr(,"conf.level")
 </ul>
 <p>The width of that interval is the honest part. Do not throw it away.</p>
 </section><section id="width-is-a-choice-you-pay-for" class="level3"><h3 class="anchored" data-anchor-id="width-is-a-choice-you-pay-for">Width is a choice you pay for</h3>
+<p>Take a random 50 of the 192 and count again. Run the seed line and the sample line together, so your count matches mine:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
 <span><span class="va">small</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span><span class="va">officers</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">small</span><span class="op">$</span><span class="va">ptsd_screen</span> <span class="op">==</span> <span class="st">"Positive"</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">small</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">small</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">ptsd_screen</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1050216 0.3414368
-attr(,"conf.level")
-[1] 0.95</code></pre>
+<pre><code># A tibble: 2 × 2
+  ptsd_screen     n
+  &lt;fct&gt;       &lt;int&gt;
+1 Positive       10
+2 Negative       40</code></pre>
 </div>
 </div>
-<p>Same population, a quarter of the sample, and the interval roughly doubles in width. That is the <span class="math inline">\(\sqrt{n}\)</span> rule from last week, showing up in the thing you actually report.</p>
+<p>10 of 50. Same two numbers, typed in:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">50</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    1-sample proportions test with continuity correction
+
+data:  10 out of 50, null probability 0.5
+X-squared = 16.82, df = 1, p-value = 4.11e-05
+alternative hypothesis: true p is not equal to 0.5
+95 percent confidence interval:
+ 0.1050216 0.3414368
+sample estimates:
+  p 
+0.2 </code></pre>
+</div>
+</div>
+<p>Same population, a quarter of the sample, and the interval runs from about <strong>0.10 to 0.34</strong>, roughly twice as wide. That is the <span class="math inline">\(\sqrt{n}\)</span> rule from last week, showing up in the thing you actually report.</p>
 </section><section id="two-groups-and-an-interval-that-contains-zero" class="level3"><h3 class="anchored" data-anchor-id="two-groups-and-an-interval-that-contains-zero">Two groups, and an interval that contains zero</h3>
-<p>Do officers who screen positive sleep less?</p>
+<p>Do officers who screen positive sleep less? One line:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">officers</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_sleep <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sleep_hours</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">ptsd_screen</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">sleep_hours</span> <span class="op">~</span> <span class="va">ptsd_screen</span>, data <span class="op">=</span> <span class="va">officers</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 3
-  ptsd_screen mean_sleep     n
-  &lt;chr&gt;            &lt;dbl&gt; &lt;int&gt;
-1 Negative          6.32   150
-2 Positive          6.58    42</code></pre>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  sleep_hours by ptsd_screen
+t = 1.0014, df = 60.499, p-value = 0.3206
+alternative hypothesis: true difference in means between group Positive and group Negative is not equal to 0
+95 percent confidence interval:
+ -0.2568901  0.7721282
+sample estimates:
+mean in group Positive mean in group Negative 
+              6.580952               6.323333 </code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">sleep_hours</span> <span class="op">~</span> <span class="va">ptsd_screen</span>, data <span class="op">=</span> <span class="va">officers</span><span class="op">)</span><span class="op">$</span><span class="va">conf.int</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.7721282  0.2568901
-attr(,"conf.level")
-[1] 0.95</code></pre>
-</div>
-</div>
-<p>Two things to notice. First, R subtracts alphabetically, so this is <strong>Negative minus Positive</strong>. Second, and this is the whole lesson: the interval runs from about <strong>-0.77 to +0.26 hours</strong>, and <strong>zero is inside it</strong>.</p>
+<p>Read it from the bottom up. The two <strong>mean in group</strong> lines are the point estimates: about 6.6 hours for Positive, 6.3 for Negative. Positive is listed first because we told R so, which means the interval above them is <strong>Positive minus Negative</strong>.</p>
+<p>And here is the whole lesson: that interval runs from about <strong>-0.26 to +0.77 hours</strong>, and <strong>zero is inside it</strong>.</p>
 <p>That does not mean the groups are the same. It means this sample cannot tell you which direction the difference runs. The honest sentence:</p>
 <blockquote class="blockquote">
-<p>Officers screening positive slept about 15 minutes more per night on average, but with 192 officers the data are consistent with anything from roughly 15 minutes <em>less</em> to roughly 45 minutes <em>more</em>, including no difference at all.</p>
+<p>Officers screening positive slept about 15 minutes more per night on average, but with 192 officers the data are consistent with anything from roughly 15 minutes <em>less</em> to roughly 46 minutes <em>more</em>, including no difference at all.</p>
 </blockquote>
-<p>Watch the direction there. R handed us the interval for Negative minus Positive, and my sentence talks about the Positive group, so the signs flip when I say it out loud. Getting that backwards is the easiest mistake in this whole lab, and I want you to see me being careful about it.</p>
 <p>Learning to write that sentence, instead of “no effect” or “they sleep more,” is most of what this course is for.</p>
 </section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
-<p>Work in your own script. Comment each answer.</p>
-<p><strong>1.</strong> What share of these officers hold a rank above Officer? Build the count with <code>count(rank)</code>, then get a point estimate and a 95% interval with <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>. Report both in a comment.</p>
+<p>Same five moves, new columns. Work in your own script and comment each answer.</p>
+<p><strong>1.</strong> Count, then interval. How many of these officers hold a rank above Officer? Run <code>officers |&gt; count(rank)</code>, add the two ranks above Officer together, and put that count and 192 into <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>. In a comment, report the point estimate and the interval.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>2.</strong> Write the sentence. In a comment, state your Task 1 result the way I did in the walkthrough: the estimate, the interval, and no claim you cannot support. Then write one <em>wrong</em> version underneath it and label what is wrong with it.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># a comment-only task</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># a comment-only task</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>3.</strong> Buy some precision. Take a random subsample of 60 officers with <code><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample()</a></code>, rerun your Task 1 interval on it, and compare the two widths (<code><a href="https://rdrr.io/r/base/diff.html">diff()</a></code> of the interval is a quick way). In a comment: which is wider, and why is that the right answer rather than a problem?</p>
+<p><strong>3.</strong> Buy some precision. Take a random 60 officers with <code>slice_sample(officers, n = 60)</code>, count <code>rank</code> again, and rerun <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> with the new numbers. Your numbers will differ from your neighbor’s, and that is expected. In a comment: which interval is wider, and why is that the right answer rather than a problem?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>4.</strong> Two groups. Do officers who screen positive report different <code>job_satisfaction</code>? Run <code>t.test(job_satisfaction ~ ptsd_screen, data = officers)</code>. In a comment: what are the two group means, does the interval contain zero, and what does that let you say?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>5.</strong> <em>(Stretch)</em> Pick any other numeric column, run the same <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> line on it, and write the honest sentence. If your interval excludes zero, say so plainly; if it contains zero, resist the urge to call it “no difference.”</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>4.</strong> Two groups. Do officers who screen positive report different <code>job_satisfaction</code>? Get the group means with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, then the interval with <code>t.test(job_satisfaction ~ ptsd_screen, data = officers)</code>. In a comment: does the interval contain zero, and what does that let you say?</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p><strong>5.</strong> <em>(Stretch)</em> Pick any other numeric column and any two-group split you like, run the same two lines, and write the honest sentence. If your interval excludes zero, say so plainly; if it contains zero, resist the urge to call it “no difference.”</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section><section id="exit-ticket" class="level2"><h2 class="anchored" data-anchor-id="exit-ticket">Exit Ticket</h2>
-<p>Submit a short R script to Canvas before you leave, containing:</p>
+<p>Before you leave, submit your <strong>Your Turn script</strong> to Canvas: the whole thing, Tasks 1 to 4 (and 5 if you got there). The in-class exercise is graded on completing it. At the bottom of that script, add four comment lines:</p>
 <ol type="1">
-<li>Your <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> code from Your Turn 1 and the interval it produced</li>
-<li>Your honest sentence from Your Turn 2, plus the wrong version and what is wrong with it</li>
-<li>A comment on Your Turn 4: did the interval contain zero, and what did you conclude</li>
-<li>A comment naming one thing about confidence intervals that still feels slippery</li>
+<li>The interval from Task 1, and the two numbers you typed into <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> to get it</li>
+<li>Your honest sentence from Task 2, plus the wrong version and what is wrong with it</li>
+<li>From Task 4: did the interval contain zero, and what did you conclude</li>
+<li>One thing about confidence intervals that still feels slippery</li>
 </ol>
 
 

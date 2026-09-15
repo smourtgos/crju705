@@ -226,13 +226,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#part-1-import-and-clean" id="toc-part-1-import-and-clean" class="nav-link active" data-scroll-target="#part-1-import-and-clean">Part 1: Import and Clean</a></li>
-  <li><a href="#part-2-point-estimates" id="toc-part-2-point-estimates" class="nav-link" data-scroll-target="#part-2-point-estimates">Part 2: Point Estimates</a></li>
-  <li><a href="#part-3-standard-deviations" id="toc-part-3-standard-deviations" class="nav-link" data-scroll-target="#part-3-standard-deviations">Part 3: Standard Deviations</a></li>
-  <li><a href="#part-4-visualize" id="toc-part-4-visualize" class="nav-link" data-scroll-target="#part-4-visualize">Part 4: Visualize</a></li>
-  <li><a href="#part-5-sampling-variability" id="toc-part-5-sampling-variability" class="nav-link" data-scroll-target="#part-5-sampling-variability">Part 5: Sampling Variability</a></li>
-  <li><a href="#part-6-confidence-interval-with-t.test" id="toc-part-6-confidence-interval-with-t.test" class="nav-link" data-scroll-target="#part-6-confidence-interval-with-t.test">Part 6: Confidence Interval with <code>t.test()</code></a></li>
-  <li><a href="#part-7-a-proportion-for-practice" id="toc-part-7-a-proportion-for-practice" class="nav-link" data-scroll-target="#part-7-a-proportion-for-practice">Part 7: A Proportion, for Practice</a></li>
+  <li><a href="#part-1-import-and-name-the-groups" id="toc-part-1-import-and-name-the-groups" class="nav-link active" data-scroll-target="#part-1-import-and-name-the-groups">Part 1: Import and Name the Groups</a></li>
+  <li><a href="#part-2-point-estimates-and-spread" id="toc-part-2-point-estimates-and-spread" class="nav-link" data-scroll-target="#part-2-point-estimates-and-spread">Part 2: Point Estimates and Spread</a></li>
+  <li><a href="#part-3-visualize" id="toc-part-3-visualize" class="nav-link" data-scroll-target="#part-3-visualize">Part 3: Visualize</a></li>
+  <li><a href="#part-4-the-interval-with-t.test" id="toc-part-4-the-interval-with-t.test" class="nav-link" data-scroll-target="#part-4-the-interval-with-t.test">Part 4: The Interval, with <code>t.test()</code></a></li>
+  <li><a href="#part-5-a-proportion-for-practice" id="toc-part-5-a-proportion-for-practice" class="nav-link" data-scroll-target="#part-5-a-proportion-for-practice">Part 5: A Proportion, for Practice</a></li>
   <li><a href="#wrap-up-questions-answer-in-comments" id="toc-wrap-up-questions-answer-in-comments" class="nav-link" data-scroll-target="#wrap-up-questions-answer-in-comments">Wrap-Up Questions (answer in comments)</a></li>
   <li><a href="#r4ds-exercises-required" id="toc-r4ds-exercises-required" class="nav-link" data-scroll-target="#r4ds-exercises-required">R4DS Exercises (required)</a></li>
   </ul>
@@ -262,72 +260,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><strong>Instructions:</strong> complete the following exercises in a single <code>.R</code> script file. Include comments explaining your code and answers to any interpretive questions. Submit your <code>.R</code> file via <strong>Canvas</strong> for credit.</p>
-<p>This homework uses the Alaska traffic-crash data from Lab 5 — 20,000 real-world-style crash incidents. <strong>Our research question: do crashes involving an intoxicated driver injure more people than crashes that don’t?</strong></p>
-<section id="part-1-import-and-clean" class="level2">
-<h2 class="anchored" data-anchor-id="part-1-import-and-clean">Part 1: Import and Clean</h2>
-<ol type="1">
-<li><p>Import the crash data directly from the web:</p>
+<p>This homework uses the Alaska traffic-crash data from Lab 4 — 20,000 real-world-style crash incidents. <strong>Our research question: do crashes involving an intoxicated driver injure more people than crashes that don’t?</strong> Every step below is one you ran in Lab 5, pointed at a new question.</p>
+<p>Start your script with:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Check what <code>read_csv()</code> guessed with <code>glimpse()</code>. One column that <em>should</em> be a date came in as plain text. Here is the fix, since we have not spent class time on importing:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">mdy</span>(date))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Run it, then verify the parse worked with <code>sum(is.na(crashes$date))</code> — you want 0. In a comment, say what <code>mdy()</code> had to figure out.</p></li>
-<li><p>Create a <code>year</code> column from your parsed date and count crashes per year. <strong>In a comment:</strong> one year has almost no crashes — is that a data problem or something else? (Hint: check the latest date in the data with <code>max()</code>.)</p></li>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="part-1-import-and-name-the-groups" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-import-and-name-the-groups">Part 1: Import and Name the Groups</h2>
+<ol type="1">
+<li><p>Run <code>glimpse(crashes)</code>. The column <code>intox_any</code> is 1 when the driver was intoxicated and 0 when not.</p></li>
+<li><p>Copy this line into your script and run it. It labels each crash in words, so every later result reads “Intoxicated” and “Sober” instead of 1 and 0:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">intox =</span> <span class="fu">if_else</span>(intox_any <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Intoxicated"</span>, <span class="st">"Sober"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Count the two groups with <code>crashes |&gt; count(intox)</code>. <strong>In a comment:</strong> how many crashes are in each group? You will type these two numbers into <code>prop.test()</code> in Part 5.</p></li>
 </ol>
 </section>
-<section id="part-2-point-estimates" class="level2">
-<h2 class="anchored" data-anchor-id="part-2-point-estimates">Part 2: Point Estimates</h2>
+<section id="part-2-point-estimates-and-spread" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-point-estimates-and-spread">Part 2: Point Estimates and Spread</h2>
 <ol type="1">
-<li><p>Calculate the mean number of <code>injuries</code> separately for crashes with an intoxicated driver (<code>intox_any == 1</code>) and without (<code>intox_any == 0</code>). You can use the Lab 2 approach:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_injuries =</span> <span class="fu">mean</span>(injuries), <span class="at">.by =</span> intox_any)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Get the mean and standard deviation of <code>injuries</code> for each group in one table:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_injuries =</span> <span class="fu">mean</span>(injuries), <span class="at">sd_injuries =</span> <span class="fu">sd</span>(injuries), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> intox) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(intox)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>In a comment:</strong> write down each mean. Which group has the higher average injury count? Remember what these numbers are — <em>point estimates</em>, not the final word.</p></li>
+<li><p><strong>In a comment:</strong> compare the two standard deviations. Which group’s injury counts vary more?</p></li>
 </ol>
 </section>
-<section id="part-3-standard-deviations" class="level2">
-<h2 class="anchored" data-anchor-id="part-3-standard-deviations">Part 3: Standard Deviations</h2>
+<section id="part-3-visualize" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-visualize">Part 3: Visualize</h2>
 <ol type="1">
-<li><p>Calculate the standard deviation of <code>injuries</code> for each group (add <code>sd()</code> to your <code>summarize()</code>).</p></li>
-<li><p><strong>In a comment:</strong> compare the variability. Which group’s injury counts vary more?</p></li>
-</ol>
-</section>
-<section id="part-4-visualize" class="level2">
-<h2 class="anchored" data-anchor-id="part-4-visualize">Part 4: Visualize</h2>
-<ol type="1">
-<li><p>Create a boxplot of <code>injuries</code> for the two groups. Because <code>intox_any</code> is stored as 0/1, wrap it in <code>factor()</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(crashes, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(intox_any), <span class="at">y =</span> injuries)) <span class="sc">+</span></span>
+<li><p>Make a boxplot of <code>injuries</code> for the two groups:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(crashes, <span class="fu">aes</span>(<span class="at">x =</span> intox, <span class="at">y =</span> injuries)) <span class="sc">+</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p><strong>In a comment:</strong> interpret the plot. Injury counts are small whole numbers, so the boxes look blocky — can you <em>see</em> a difference between the groups, or do you need inference to settle it?</p></li>
 </ol>
 </section>
-<section id="part-5-sampling-variability" class="level2">
-<h2 class="anchored" data-anchor-id="part-5-sampling-variability">Part 5: Sampling Variability</h2>
+<section id="part-4-the-interval-with-t.test" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-the-interval-with-t.test">Part 4: The Interval, with <code>t.test()</code></h2>
 <ol type="1">
-<li><p>Resample each group (with replacement, at its full size) 100 times and compute the distribution of differences in mean injuries (intoxicated − sober), as we did in class:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sober <span class="ot">&lt;-</span> crashes<span class="sc">$</span>injuries[crashes<span class="sc">$</span>intox_any <span class="sc">==</span> <span class="dv">0</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>intox <span class="ot">&lt;-</span> crashes<span class="sc">$</span>injuries[crashes<span class="sc">$</span>intox_any <span class="sc">==</span> <span class="dv">1</span>]</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>mean_diffs <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">100</span>, {</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">sample</span>(intox, <span class="fu">length</span>(intox), <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">-</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(<span class="fu">sample</span>(sober, <span class="fu">length</span>(sober), <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>Plot a histogram of <code>mean_diffs</code> and compute <code>quantile(mean_diffs, c(0.025, 0.975))</code>.</p></li>
-<li><p><strong>In a comment:</strong> what does the spread of the histogram suggest? Are the resampled differences consistently on one side of zero?</p></li>
+<li><p>Run the two-sample t-test, exactly as in Lab 5:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>In a comment:</strong> copy down the 95% confidence interval. Does it include 0? Then do the direction check from lab: the output lists Intoxicated first, so the interval is <strong>Intoxicated minus Sober</strong>. Confirm that its sign agrees with the two group means at the bottom of the output.</p></li>
+<li><p><strong>In a comment:</strong> say what the interval means in words, the way we did in class: about how many more (or fewer) injuries per crash, and does the data settle the direction?</p></li>
 </ol>
 </section>
-<section id="part-6-confidence-interval-with-t.test" class="level2">
-<h2 class="anchored" data-anchor-id="part-6-confidence-interval-with-t.test">Part 6: Confidence Interval with <code>t.test()</code></h2>
+<section id="part-5-a-proportion-for-practice" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-a-proportion-for-practice">Part 5: A Proportion, for Practice</h2>
 <ol type="1">
-<li><p>Run a two-sample t-test comparing injuries across the two groups:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox_any, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p><strong>In a comment:</strong> copy down the 95% confidence interval. Does it include 0? What does that tell us about the difference? <em>(Careful with direction: R computes group 0 − group 1 here, so compare the sign against your Part 5 histogram.)</em></p></li>
-</ol>
-</section>
-<section id="part-7-a-proportion-for-practice" class="level2">
-<h2 class="anchored" data-anchor-id="part-7-a-proportion-for-practice">Part 7: A Proportion, for Practice</h2>
-<ol type="1">
-<li><p>Compute a 95% confidence interval for the <strong>proportion of all crashes that involve an intoxicated driver</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="fu">sum</span>(crashes<span class="sc">$</span>intox_any), <span class="at">n =</span> <span class="fu">nrow</span>(crashes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p>Compute a 95% confidence interval for the <strong>proportion of all crashes that involve an intoxicated driver</strong>. Type the two numbers from your Part 1 count into <code>prop.test()</code>: how many intoxicated, out of how many crashes.</p></li>
 <li><p><strong>In a comment:</strong> report the interval in one <em>defensible</em> sentence — one that would survive the “Saying It Out Loud” slide from class.</p></li>
 </ol>
 </section>
@@ -341,15 +319,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="r4ds-exercises-required" class="level2">
 <h2 class="anchored" data-anchor-id="r4ds-exercises-required">R4DS Exercises (required)</h2>
-<p>From your R4DS reading for Session 6 — <strong><a href="https://r4ds.hadley.nz/joins.html">Ch. 19 — Joins</a></strong> and <strong><a href="https://r4ds.hadley.nz/missing-values.html">Ch. 18 — Missing values</a></strong>. These use <code>nycflights13</code> again (installed for Homework 2).</p>
-<p>Work these in the <strong>same <code>.R</code> script</strong>, under a <code># ---- R4DS ----</code> header. All four circle one question: <em>which rows didn’t match, and why?</em></p>
+<p>From your R4DS reading for Session 6 — <strong><a href="https://r4ds.hadley.nz/factors.html">Ch. 16, Factors</a></strong>. No new packages: the <code>gss_cat</code> survey data ships with the tidyverse. All four exercises are about one idea from today: the order of the groups is a choice you make, not something R knows.</p>
+<p>Work these in the <strong>same <code>.R</code> script</strong>, under a <code># ---- R4DS ----</code> header.</p>
 <ul>
-<li><strong>19.2.4</strong> #1 — how do <code>weather</code> and <code>airports</code> relate? Name the key.</li>
-<li><strong>19.3.4</strong> #3 — does every departing flight have weather data?</li>
-<li><strong>19.3.4</strong> #4 — tail numbers with no match in <code>planes</code>: what do they have in common?</li>
-<li><strong>18.3.4</strong> #1 — is that missingness related to carrier? Do this one right after 19.3.4 #4; they are the same investigation from two directions.</li>
+<li><p><strong>16.3.1</strong> #2 — what is the most common <code>relig</code> in this survey? The most common <code>partyid</code>? (<code>count()</code> and <code>arrange()</code> will do it.)</p></li>
+<li><p><strong>16.3.1</strong> #1 — make the default bar chart of <code>rincome</code>. What makes it hard to read? How could you improve it? (Hint: the two problems are the overlapping labels and the order of the levels. <code>aes(y = rincome)</code> fixes the first one.)</p></li>
+<li><p><strong>16.4.1</strong> #2 — for each of the six factor columns in <code>gss_cat</code> (<code>marital</code>, <code>race</code>, <code>rincome</code>, <code>partyid</code>, <code>relig</code>, <code>denom</code>), is the order of the levels arbitrary or principled? One comment line each. <code>count()</code> the column, or run <code>levels()</code> on it, to see the order.</p></li>
+<li><p><strong>16.5.1</strong> #2 — collapse <code>rincome</code> into a small set of categories. Start from this, which runs as-is:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rincome2 =</span> <span class="fu">fct_collapse</span>(rincome,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Unknown"</span>       <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"No answer"</span>, <span class="st">"Don't know"</span>, <span class="st">"Refused"</span>, <span class="st">"Not applicable"</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Under $10,000"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Lt $1000"</span>, <span class="st">"$1000 to 2999"</span>, <span class="st">"$3000 to 3999"</span>, <span class="st">"$4000 to 4999"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"$5000 to 5999"</span>, <span class="st">"$6000 to 6999"</span>, <span class="st">"$7000 to 7999"</span>, <span class="st">"$8000 to 9999"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(rincome2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then add the four remaining bands (<code>"$10000 - 14999"</code>, <code>"$15000 - 19999"</code>, <code>"$20000 - 24999"</code>, <code>"$25000 or more"</code>) into one or two groups of your choosing, and run <code>count()</code> again.</p></li>
 </ul>
-<p>This is the skill Session 7’s workshop leans on hardest: joining files that don’t line up cleanly.</p>
+<p>Chapter 16 has more exercises than these. Skip them; these four are the ones worth your time.</p>
 
 
 </section>
