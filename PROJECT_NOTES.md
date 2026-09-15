@@ -175,8 +175,10 @@ the short version:
   First"), times are clock times and minutes, and two new `patchwork` figures show
   what "does not cross zero" looks like (Violent vs Property) and what crossing
   looks like (violent crimes, arrest vs no arrest: CI −40 to +9 minutes, p = 0.22),
-  followed by that t-test in full. 43 content slides; audit v3 clean after
-  `{.smaller}` on the precision slide and the split above.
+  followed by that t-test in full. 40 content slides plus 4 section dividers (47 in
+  reveal's count, with the title slide and two `output-location: slide` outputs);
+  audit v3 clean after `{.smaller}` on the precision slide and on "A Real
+  Question," plus the split above.
 - **Lab 5** simplified again: `count()` then `prop.test(42, 192)` with the numbers
   typed, full `t.test()` output read from the bottom up, no `$conf.int`, no
   `nrow()`, a *given* factor line so the interval reads Positive minus Negative, and
