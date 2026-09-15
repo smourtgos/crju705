@@ -9,90 +9,67 @@ format-links: [docx]
 
 **Instructions:** complete the following exercises in a single `.R` script file. Include comments explaining your code and answers to any interpretive questions. Submit your `.R` file via **Canvas** for credit.
 
-This homework uses the Alaska traffic-crash data from Lab 5 — 20,000 real-world-style crash incidents. **Our research question: do crashes involving an intoxicated driver injure more people than crashes that don't?**
+This homework uses the Alaska traffic-crash data from Lab 4 — 20,000 real-world-style crash incidents. **Our research question: do crashes involving an intoxicated driver injure more people than crashes that don't?** Every step below is one you ran in Lab 5, pointed at a new question.
 
-## Part 1: Import and Clean
+Start your script with:
 
-1. Import the crash data directly from the web:
+```r
+library(tidyverse)
+crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv")
+```
+
+## Part 1: Import and Name the Groups
+
+1. Run `glimpse(crashes)`. The column `intox_any` is 1 when the driver was intoxicated and 0 when not.
+
+2. Copy this line into your script and run it. It labels each crash in words, so every later result reads "Intoxicated" and "Sober" instead of 1 and 0:
 
    ```r
-   library(tidyverse)
-   crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv")
+   crashes <- crashes |> mutate(intox = if_else(intox_any == 1, "Intoxicated", "Sober"))
    ```
 
-2. Check what `read_csv()` guessed with `glimpse()`. One column that *should* be a date came in as plain text. Here is the fix, since we have not spent class time on importing:
+3. Count the two groups with `crashes |> count(intox)`. **In a comment:** how many crashes are in each group? You will type these two numbers into `prop.test()` in Part 5.
+
+## Part 2: Point Estimates and Spread
+
+1. Get the mean and standard deviation of `injuries` for each group in one table:
 
    ```r
-   crashes <- crashes |> mutate(date = mdy(date))
-   ```
-
-   Run it, then verify the parse worked with `sum(is.na(crashes$date))` — you want 0. In a comment, say what `mdy()` had to figure out.
-
-3. Create a `year` column from your parsed date and count crashes per year. **In a comment:** one year has almost no crashes — is that a data problem or something else? (Hint: check the latest date in the data with `max()`.)
-
-## Part 2: Point Estimates
-
-1. Calculate the mean number of `injuries` separately for crashes with an intoxicated driver (`intox_any == 1`) and without (`intox_any == 0`). You can use the Lab 2 approach:
-
-   ```r
-   crashes |> summarize(mean_injuries = mean(injuries), .by = intox_any)
+   crashes |>
+     summarize(mean_injuries = mean(injuries), sd_injuries = sd(injuries), n = n(), .by = intox) |>
+     arrange(intox)
    ```
 
 2. **In a comment:** write down each mean. Which group has the higher average injury count? Remember what these numbers are — *point estimates*, not the final word.
 
-## Part 3: Standard Deviations
+3. **In a comment:** compare the two standard deviations. Which group's injury counts vary more?
 
-1. Calculate the standard deviation of `injuries` for each group (add `sd()` to your `summarize()`).
+## Part 3: Visualize
 
-2. **In a comment:** compare the variability. Which group's injury counts vary more?
-
-## Part 4: Visualize
-
-1. Create a boxplot of `injuries` for the two groups. Because `intox_any` is stored as 0/1, wrap it in `factor()`:
+1. Make a boxplot of `injuries` for the two groups:
 
    ```r
-   ggplot(crashes, aes(x = factor(intox_any), y = injuries)) +
+   ggplot(crashes, aes(x = intox, y = injuries)) +
      geom_boxplot()
    ```
 
 2. **In a comment:** interpret the plot. Injury counts are small whole numbers, so the boxes look blocky — can you *see* a difference between the groups, or do you need inference to settle it?
 
-## Part 5: Sampling Variability
+## Part 4: The Interval, with `t.test()`
 
-1. Resample each group (with replacement, at its full size) 100 times and compute the distribution of differences in mean injuries (intoxicated − sober), as we did in class:
-
-   ```r
-   set.seed(705)
-   sober <- crashes$injuries[crashes$intox_any == 0]
-   intox <- crashes$injuries[crashes$intox_any == 1]
-
-   mean_diffs <- replicate(100, {
-     mean(sample(intox, length(intox), replace = TRUE)) -
-       mean(sample(sober, length(sober), replace = TRUE))
-   })
-   ```
-
-2. Plot a histogram of `mean_diffs` and compute `quantile(mean_diffs, c(0.025, 0.975))`.
-
-3. **In a comment:** what does the spread of the histogram suggest? Are the resampled differences consistently on one side of zero?
-
-## Part 6: Confidence Interval with `t.test()`
-
-1. Run a two-sample t-test comparing injuries across the two groups:
+1. Run the two-sample t-test, exactly as in Lab 5:
 
    ```r
-   t.test(injuries ~ intox_any, data = crashes)
+   t.test(injuries ~ intox, data = crashes)
    ```
 
-2. **In a comment:** copy down the 95% confidence interval. Does it include 0? What does that tell us about the difference? *(Careful with direction: R computes group 0 − group 1 here, so compare the sign against your Part 5 histogram.)*
+2. **In a comment:** copy down the 95% confidence interval. Does it include 0? Then do the direction check from lab: the output lists Intoxicated first, so the interval is **Intoxicated minus Sober**. Confirm that its sign agrees with the two group means at the bottom of the output.
 
-## Part 7: A Proportion, for Practice
+3. **In a comment:** say what the interval means in words, the way we did in class: about how many more (or fewer) injuries per crash, and does the data settle the direction?
 
-1. Compute a 95% confidence interval for the **proportion of all crashes that involve an intoxicated driver**:
+## Part 5: A Proportion, for Practice
 
-   ```r
-   prop.test(sum(crashes$intox_any), n = nrow(crashes))
-   ```
+1. Compute a 95% confidence interval for the **proportion of all crashes that involve an intoxicated driver**. Type the two numbers from your Part 1 count into `prop.test()`: how many intoxicated, out of how many crashes.
 
 2. **In a comment:** report the interval in one *defensible* sentence — one that would survive the "Saying It Out Loud" slide from class.
 
@@ -104,13 +81,25 @@ This homework uses the Alaska traffic-crash data from Lab 5 — 20,000 real-worl
 
 ## R4DS Exercises (required)
 
-From your R4DS reading for Session 6 — **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)** and **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)**. These use `nycflights13` again (installed for Homework 2).
+From your R4DS reading for Session 6 — **[Ch. 16, Factors](https://r4ds.hadley.nz/factors.html)**. No new packages: the `gss_cat` survey data ships with the tidyverse. All four exercises are about one idea from today: the order of the groups is a choice you make, not something R knows.
 
-Work these in the **same `.R` script**, under a `# ---- R4DS ----` header. All four circle one question: *which rows didn't match, and why?*
+Work these in the **same `.R` script**, under a `# ---- R4DS ----` header.
 
-- **19.2.4** #1 — how do `weather` and `airports` relate? Name the key.
-- **19.3.4** #3 — does every departing flight have weather data?
-- **19.3.4** #4 — tail numbers with no match in `planes`: what do they have in common?
-- **18.3.4** #1 — is that missingness related to carrier? Do this one right after 19.3.4 #4; they are the same investigation from two directions.
+- **16.3.1** #2 — what is the most common `relig` in this survey? The most common `partyid`? (`count()` and `arrange()` will do it.)
+- **16.3.1** #1 — make the default bar chart of `rincome`. What makes it hard to read? How could you improve it? (Hint: the two problems are the overlapping labels and the order of the levels. `aes(y = rincome)` fixes the first one.)
+- **16.4.1** #2 — for each of the six factor columns in `gss_cat` (`marital`, `race`, `rincome`, `partyid`, `relig`, `denom`), is the order of the levels arbitrary or principled? One comment line each. `count()` the column, or run `levels()` on it, to see the order.
+- **16.5.1** #2 — collapse `rincome` into a small set of categories. Start from this, which runs as-is:
 
-This is the skill Session 7's workshop leans on hardest: joining files that don't line up cleanly.
+  ```r
+  gss_cat |>
+    mutate(rincome2 = fct_collapse(rincome,
+      "Unknown"       = c("No answer", "Don't know", "Refused", "Not applicable"),
+      "Under $10,000" = c("Lt $1000", "$1000 to 2999", "$3000 to 3999", "$4000 to 4999",
+                          "$5000 to 5999", "$6000 to 6999", "$7000 to 7999", "$8000 to 9999")
+    )) |>
+    count(rincome2)
+  ```
+
+  Then add the four remaining bands (`"$10000 - 14999"`, `"$15000 - 19999"`, `"$20000 - 24999"`, `"$25000 or more"`) into one or two groups of your choosing, and run `count()` again.
+
+Chapter 16 has more exercises than these. Skip them; these four are the ones worth your time.

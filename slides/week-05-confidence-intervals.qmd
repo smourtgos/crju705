@@ -20,7 +20,7 @@ execute:
 #| label: setup
 #| include: false
 library(tidyverse)
-library(ggrepel)
+library(patchwork)
 library(HistData)
 source(here::here("R/setup.R"))
 theme_set(theme_minimal(base_size = 18))
@@ -138,20 +138,21 @@ n_within <- deaths |>
   mutate(d = sqrt((x - broad$x)^2 + (y - broad$y)^2)) |>
   summarize(n = sum(d <= radius)) |>
   pull(n)
-pumps_lab <- pumps |>
-  mutate(label = if_else(pid == top_pid, "Broad St. (most deaths)", paste0("Pump ", pid)))
 
 ggplot() +
   geom_point(data = deaths, aes(x, y), color = crju_colors["garnet"], alpha = 0.6, size = 1.8) +
   geom_point(data = pumps, aes(x, y), color = crju_colors["navy"], size = 3, shape = 17) +
+  # the culprit pump gets a gold triangle instead of a label, so nothing covers the deaths
+  geom_point(data = broad, aes(x, y), fill = crju_colors["gold"], color = crju_colors["navy"],
+             size = 5, shape = 24) +
   geom_path(data = circle, aes(x, y), linetype = 2) +
-  geom_label_repel(data = pumps_lab, aes(x, y, label = label), size = 3) +
-  annotate("label", x = broad$x, y = broad$y - 0.8,
-           label = paste0(n_within, " deaths within r = ", radius), fill = "white") +
   coord_equal() +
   labs(title = "Cholera deaths cluster around a single pump",
-       subtitle = "Dotted circle: chosen radius around the pump with the most nearby deaths",
-       x = NULL, y = NULL)
+       subtitle = paste0("Gold triangle: the ", broad$label, " pump. Dotted circle: radius ",
+                         radius, " around it\n", n_within, " of the ", nrow(deaths),
+                         " deaths fall inside that circle"),
+       x = NULL, y = NULL) +
+  theme(plot.title.position = "plot", plot.subtitle = element_text(size = 15))
 ```
 
 ## Sampled Evidence: Broad Street Accumulates Deaths Fastest
@@ -349,7 +350,78 @@ If we reran our whole study many times — drawing a new sample each time and co
 
 . . .
 
-**WTF?!?** — yes, everyone reacts this way. Point at the 100-intervals plot until it clicks.
+**WTF?!?** Yes. Everyone reacts this way. So let's run the whole thing again, slower.
+
+## Run It Again: 100 New Researchers
+
+```{r}
+#| label: ci-sim-again
+#| echo: false
+#| fig-height: 6
+set.seed(1854)   # a local seed, so this figure is the same every time it renders
+ci_100b <- map(1:100, \(i) {
+  s  <- crimes |> slice_sample(n = 250)
+  ci <- prop.test(sum(s$arrest), n = 250)$conf.int
+  tibble(sample = i, estimate = mean(s$arrest), lo = ci[1], hi = ci[2])
+}) |>
+  list_rbind() |>
+  mutate(captured = lo <= mean(crimes$arrest) & mean(crimes$arrest) <= hi)
+
+y_lims <- range(c(ci_100b$lo, ci_100b$hi))
+
+ggplot(ci_100b, aes(sample, estimate)) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), color = "grey40", linewidth = 0.7, size = 0.25) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = "100 new researchers, 100 new intervals: what each of them sees",
+       subtitle = "No truth line yet. From inside any one study, every interval looks equally trustworthy",
+       x = "Researcher", y = "Arrest proportion")
+```
+
+## Now Drop the Truth In
+
+```{r}
+#| label: ci-sim-again-truth
+#| echo: false
+#| fig-height: 6
+ggplot(ci_100b, aes(sample, estimate, color = captured)) +
+  geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 0.7, size = 0.25) +
+  scale_color_manual(values = c("TRUE" = "grey65", "FALSE" = "#73000A")) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = paste0(sum(ci_100b$captured),
+                      " of 100 caught it this time; the intervals moved, the truth did not"),
+       subtitle = "Horizontal line = true population arrest rate; garnet = intervals that missed",
+       x = "Researcher", y = "Arrest proportion", color = "Captured?")
+```
+
+## You Are One of Those Researchers
+
+```{r}
+#| label: you-are-one
+#| echo: false
+#| fig-height: 4.5
+i_hit  <- which(ci_100b$captured)[1]
+i_miss <- which(!ci_100b$captured)[1]
+two <- ci_100b |>
+  filter(sample %in% c(i_hit, i_miss)) |>
+  mutate(who = paste0("Researcher ", sample))
+
+left <- ggplot(two, aes(who, estimate)) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), color = "grey40", linewidth = 1, size = 0.6) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = "What the researchers see", x = NULL, y = "Arrest proportion")
+
+right <- ggplot(two, aes(who, estimate, color = captured)) +
+  geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 1, size = 0.6, show.legend = FALSE) +
+  scale_color_manual(values = c("TRUE" = "grey65", "FALSE" = "#73000A")) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = "What only we can see", x = NULL, y = NULL)
+
+left + right
+```
+
+**You only ever get one stick, and nothing in your data tells you its color. The 95% belongs to the procedure, not to your interval.**
 
 ## Saying It Out Loud
 
@@ -376,53 +448,87 @@ If we reran our whole study many times — drawing a new sample each time and co
 - If the forbidden sentence felt like the natural reading all along — your intuitions were Bayesian. You're in good company
 :::
 
-## Sample Size Buys Precision
+## Sample Size Buys Precision {.smaller}
 
-Same procedure, three sample sizes, one draw each:
+Same procedure, four sample sizes, one draw each:
 
 ```{r}
 #| label: width-by-n
 #| output-location: fragment
-map(c(100, 250, 1000, 4000), \(n) {
+width_tbl <- map(c(100, 250, 1000, 4000), \(n) {
   s  <- crimes |> slice_sample(n = n)
   ci <- prop.test(sum(s$arrest), n = n)$conf.int
   tibble(n = n, estimate = mean(s$arrest),
          lo = ci[1], hi = ci[2], width = ci[2] - ci[1])
 }) |>
   list_rbind()
+
+width_tbl
 ```
 
 . . .
 
 Quadrupling *n* roughly **halves** the width — precision grows with $\sqrt{n}$, so it gets expensive fast.
 
+## Sample Size Buys Precision, Seen
+
+```{r}
+#| label: width-plot
+#| echo: false
+#| fig-height: 5
+ggplot(width_tbl, aes(factor(n), estimate)) +
+  geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), color = crju_colors["navy"],
+                  linewidth = 1, size = 0.6) +
+  geom_text(aes(y = hi, label = sprintf("width %.3f", width)), vjust = -0.7, size = 5) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.2))) +
+  labs(title = "Same procedure, four sample sizes: the interval tightens as n grows",
+       subtitle = "Horizontal line = the true arrest rate",
+       x = "Sample size", y = "Arrest proportion")
+```
+
 # Comparing Two Groups {background-color="#1B2A4A"}
 
-## A Real Question: Do Violent Crimes Happen Later in the Day?
+## A Real Question: Do Violent Crimes Happen Later in the Day? {.smaller}
 
 Street lore says violence is a nighttime phenomenon. Property crime, the daytime hustle. Our data:
 
 ```{r}
 #| label: two-group-est
-vp <- crimes |> filter(crime_category %in% c("Violent", "Property"))
+vp <- crimes |>
+  filter(crime_category %in% c("Violent", "Property")) |>
+  mutate(crime_category = factor(crime_category, levels = c("Violent", "Property")))
 
-vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour),
-                n = n(), .by = crime_category)
+vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour), n = n(), .by = crime_category)
 ```
 
 . . .
 
-Two **point estimates**: violent crimes average hour 12.8, property 12.5. Is that ~15-minute gap real, or sample fluctuation?
+Two **point estimates**: violent crimes average about **12:48 pm**, property crimes about **12:33 pm**. Is that **15-minute** gap real, or sample fluctuation?
+
+## One Extra Line: Who Comes First
+
+```r
+mutate(crime_category = factor(crime_category, levels = c("Violent", "Property")))
+```
+
+::: incremental
+- R's default order is **alphabetical**: Property before Violent, so every "difference" it reported would come out as Property minus Violent, the reverse of how we asked the question
+- `factor(levels = ...)` tells R which group comes **first**. From here on, every subtraction reads **Violent minus Property**
+- That one line is what next week's R4DS chapter (Factors) is about
+:::
 
 ## Let's Look at It Visually
 
 ```{r}
 #| label: two-group-box
-#| fig-height: 5
+#| fig-height: 4.5
 ggplot(vp, aes(crime_category, hour, fill = crime_category)) +
   geom_boxplot(show.legend = FALSE) +
-  scale_fill_manual(values = unname(crju_colors[c("blue", "garnet")])) +
-  labs(x = NULL, y = "Hour of day (0–23)")
+  scale_fill_manual(values = unname(crju_colors[c("garnet", "blue")])) +
+  scale_y_continuous(breaks = c(0, 6, 12, 18, 24),
+                     labels = c("midnight", "6 am", "noon", "6 pm", "midnight")) +
+  labs(x = NULL, y = "Time of day")
 ```
 
 The boxes nearly coincide — the eye can't settle this one. We need inference.
@@ -433,29 +539,65 @@ Same trick as before — resample each group, compute the difference in means, r
 
 ```{r}
 #| label: mean-diffs
+set.seed(705)
 violent_hours  <- vp$hour[vp$crime_category == "Violent"]
 property_hours <- vp$hour[vp$crime_category == "Property"]
 
-mean_diffs <- replicate(1000, {
-  mean(sample(violent_hours,  length(violent_hours),  replace = TRUE)) -
-  mean(sample(property_hours, length(property_hours), replace = TRUE))
-})
+boot_violent  <- replicate(1000, mean(sample(violent_hours,  replace = TRUE)))
+boot_property <- replicate(1000, mean(sample(property_hours, replace = TRUE)))
+mean_diffs    <- boot_violent - boot_property
 
-quantile(mean_diffs, c(0.025, 0.975))   # what is this telling us?
+quantile(mean_diffs, c(0.025, 0.975)) * 60   # in minutes: Violent minus Property
 ```
 
-## Resample the Difference, Seen
+## What "Does Not Cross Zero" Looks Like
 
 ```{r}
-#| label: mean-diffs-plot
-#| echo: false
-#| fig-height: 5.5
-ggplot(tibble(mean_diffs), aes(mean_diffs)) +
-  geom_histogram(bins = 30, fill = crju_colors["navy"], color = "white") +
-  geom_vline(xintercept = 0, color = crju_colors["garnet"], linewidth = 1.2) +
-  labs(title = "1,000 resampled differences in mean hour (Violent − Property)",
-       x = "Difference in mean hour", y = "Count")
+#| label: boot-helpers
+#| include: false
+clock <- function(h) {
+  m  <- round(h * 60)
+  hh <- (m %/% 60) %% 24
+  mm <- m %% 60
+  sprintf("%d:%02d %s", ifelse(hh %% 12 == 0, 12, hh %% 12), mm, ifelse(hh < 12, "am", "pm"))
+}
+
+two_panel <- function(boot_a, boot_b, name_a, name_b) {
+  groups <- tibble(group = factor(rep(c(name_a, name_b), each = length(boot_a)),
+                                  levels = c(name_a, name_b)),
+                   mean_hour = c(boot_a, boot_b))
+  diffs <- tibble(diff_min = (boot_a - boot_b) * 60)
+  q <- quantile(diffs$diff_min, c(0.025, 0.975))
+
+  left <- ggplot(groups, aes(mean_hour, fill = group)) +
+    geom_density(alpha = 0.6, color = NA) +
+    scale_fill_manual(values = unname(crju_colors[c("garnet", "blue")])) +
+    scale_x_continuous(labels = clock) +
+    labs(title = "1,000 resampled means per group", x = "Mean time of day", y = NULL, fill = NULL) +
+    theme(legend.position = "top", plot.title = element_text(size = 17))
+
+  right <- ggplot(diffs, aes(diff_min, fill = between(diff_min, q[1], q[2]))) +
+    geom_histogram(bins = 40, color = "white") +
+    geom_vline(xintercept = 0, color = crju_colors["garnet"], linewidth = 1.2) +
+    expand_limits(x = 0) +
+    scale_fill_manual(values = c("TRUE" = unname(crju_colors["navy"]), "FALSE" = "grey75"),
+                      guide = "none") +
+    labs(title = paste0(name_a, " minus ", name_b),
+         subtitle = paste0("Middle 95%: ", round(q[1]), " to ", round(q[2]), " minutes"),
+         x = "Minutes", y = NULL) +
+    theme(plot.title = element_text(size = 17), plot.subtitle = element_text(size = 14))
+  left + right
+}
 ```
+
+```{r}
+#| label: cross-zero-no
+#| echo: false
+#| fig-height: 4.5
+two_panel(boot_violent, boot_property, "Violent", "Property")
+```
+
+**Every plausible value of the difference is on the "later" side. "No difference" is not on the list.**
 
 ## The Two-Sample t-Test Gives the CI Directly
 
@@ -464,34 +606,66 @@ ggplot(tibble(mean_diffs), aes(mean_diffs)) +
 t.test(hour ~ crime_category, data = vp)
 ```
 
-Watch the direction: R orders groups alphabetically, so this tests **Property − Violent** — the mirror image of our resampled Violent − Property differences. Same finding, flipped sign.
+Two lines matter: `95 percent confidence interval`, and the two `mean in group` lines that tell you which minus which. Violent is listed first because we told R so.
 
 ## Reading That Output Honestly
 
-```{r}
-#| label: t-test-ci
-t.test(hour ~ crime_category, data = vp)$conf.int
-```
-
 ::: incremental
-- The 95% CI for the difference (Property − Violent) runs from **−0.44 to −0.06 hours** — it excludes zero, so the data are consistent with violent crimes genuinely averaging later
-- But look at the *magnitude*: the difference is somewhere between about **4 and 27 minutes**. Detectable ≠ dramatic.
+- The 95% CI for the difference (Violent minus Property) runs from **0.06 to 0.44 hours**: about **4 to 27 minutes** later. It excludes zero, so the data are consistent with violent crimes genuinely averaging later
+- The resampling picture said the same thing. `t.test()` is a formula for the interval we just simulated, no loop required
 :::
 
 ## Reading That Output Honestly, Continued
 
 ::: incremental
+- But look at the *magnitude*: somewhere between about **4 and 27 minutes**. Detectable ≠ dramatic.
 - With ~19,500 incidents, we can detect tiny differences. The CI hands you both facts at once: *direction* (probably real) and *size* (small). **Never report the first without the second.**
 - This is your vaccination against next week's topic — a "significant" result can be substantively trivial
 :::
+
+## And When It Does Cross Zero
+
+Same city, a question the data cannot settle: within **violent** crimes, do the ones that end in an **arrest** happen at a different time of day?
+
+```{r}
+#| label: boot-arrest
+#| include: false
+set.seed(705)
+violent <- crimes |>
+  filter(crime_category == "Violent") |>
+  mutate(arrest = factor(if_else(arrest, "Arrest", "No arrest"), levels = c("Arrest", "No arrest")))
+
+arrest_hours   <- violent$hour[violent$arrest == "Arrest"]
+noarrest_hours <- violent$hour[violent$arrest == "No arrest"]
+boot_arrest    <- replicate(1000, mean(sample(arrest_hours,   replace = TRUE)))
+boot_noarrest  <- replicate(1000, mean(sample(noarrest_hours, replace = TRUE)))
+```
+
+```{r}
+#| label: cross-zero-yes
+#| echo: false
+#| fig-height: 4.5
+two_panel(boot_arrest, boot_noarrest, "Arrest", "No arrest")
+```
+
+**Zero is one of the plausible answers, so this sample cannot even tell you the direction. Next week this contrast gets a name.**
+
+## R Agrees
+
+```{r}
+#| label: t-test-arrest
+t.test(hour ~ arrest, data = violent)
+```
+
+The interval runs from about **40 minutes earlier to 9 minutes later**, zero inside. Arrested violent crimes might happen a little earlier, a little later, or at the same time; this sample cannot say which.
 
 ## Your Turn (5 minutes, with a neighbor)
 
 Using `crimes`, compute a 95% CI for the proportion of incidents flagged as **domestic**:
 
 ```r
-crimes |> summarize(mean(domestic))          # point estimate
-prop.test(sum(crimes$domestic), nrow(crimes))
+crimes |> count(domestic)      # how many TRUE, out of 30,000?
+prop.test(____, 30000)         # type the count you just read
 ```
 
 1. Write one **defensible** sentence reporting your interval.
@@ -501,4 +675,4 @@ prop.test(sum(crimes$domestic), nrow(crimes))
 
 - **Lab 5:** put an interval on it — a proportion, a two-group difference, and the sentence you can actually defend ([lab page](../labs/lab-05-intervals.qmd))
 - **Homework 5:** confidence intervals on Alaska crash data (posted on the [Session 5 page](../weeks/week-05.qmd))
-- **Read before Session 6:** Stanton Ch. 5 · R4DS Ch. 19 (Joins) & skim Ch. 18 (Missing values)
+- **Read before Session 6:** Stanton Ch. 5 · R4DS [Ch. 16 (Factors)](https://r4ds.hadley.nz/factors.html) — today's "which group comes first" line is what that chapter is about

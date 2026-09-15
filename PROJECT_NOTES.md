@@ -1,6 +1,6 @@
 # CRJU 705 Modernization — Project Notes
 
-*Last updated: September 7, 2026 — the Session 4 rebalance: labs now practice the lecture instead of running a parallel wrangling thread, R4DS Ch. 7–8 dropped for Ch. 10, Session 3 trimmed to what was actually assigned. Previously August 25, 2026 — the first-week-of-teaching pass: the week-01 swirl-list rendering bug (found grading HW 1), the week-02 dispersion reorder, and the slide-overflow audit finally run for real (week 8's two overflows fixed). All shipped live. Working notes for picking this back up.*
+*Last updated: September 14, 2026 — the Session 5 pass: Scott's five deck fixes (Snow map label, the 100-intervals demonstration run twice, a width plot, one subtraction direction with clock times, the "does not cross zero" pictures), Lab 5 simplified again, hw-05 cut to what lecture and lab cover, R4DS Ch. 19 + 18 replaced by Ch. 16. Previously September 7, 2026 — the Session 4 rebalance: labs now practice the lecture instead of running a parallel wrangling thread, R4DS Ch. 7–8 dropped for Ch. 10, Session 3 trimmed to what was actually assigned. Before that August 25, 2026 — the first-week-of-teaching pass: the week-01 swirl-list rendering bug (found grading HW 1), the week-02 dispersion reorder, and the slide-overflow audit finally run for real (week 8's two overflows fixed). All shipped live. Working notes for picking this back up.*
 
 ## What this is
 
@@ -131,7 +131,7 @@ introducing text — branch on `knitr::is_latex_output()` and pin with
 - **R4DS threaded through S2–S6** as readings, alongside Stanton. **(Superseded in part, Sep 7 2026 — see "The lecture/lab split" below: the labs are no longer the wrangling thread.)**
 - **(Aug 2026) R4DS exercises are GRADED homework, not self-check** (Scott's call). A curated subset per week — chosen for what the final project needs, not for coverage — submitted in the *same* `.R` script as that week's problem set, under a `# ---- R4DS ----` header. They live as a numbered section of `hw-02`…`hw-05`; Session 1 has no `hw-01.qmd`, so its set is submitted with the swirl scripts. **Every exercise section number was verified against the live r4ds.hadley.nz chapters** — do not add more from memory. Ch. 5 has only one exercise block (5.2.1, the pivot sections have none) and Ch. 8 has none.
 
-  **(Sep 7, 2026) The arc changed.** It is now S1→S2 Ch. 1–2 · S2→S3 Ch. 3–4 · S3→S4 **Ch. 5 only** · S4→S5 **Ch. 10 (EDA)** · S5→S6 Ch. 19 + 18. **Ch. 6, 7, and 8 are no longer assigned** — Ch. 6's RStudio Project substitute was cut with the rest of the Session 3 over-assignment (the instruction survives in Lab 4's workflow-hygiene section), and Ch. 7–8 were dropped when Lab 5 stopped being an import lab. Chapter 10's exercises are **10.3.3 #1/#2/#3 and 10.4.1 #2**; the others were rejected because 10.5.1.1 #4 and #6 need `lvplot` and `ggbeeswarm` (not installed) and 10.5.3.1 #5–#6 reference `smaller`, an object defined only in the chapter prose. **Chapter 10's URL is `EDA.html`, capitalized — `eda.html` 404s.**
+  **(Sep 7, 2026) The arc changed.** It is now S1→S2 Ch. 1–2 · S2→S3 Ch. 3–4 · S3→S4 **Ch. 5 only** · S4→S5 **Ch. 10 (EDA)** · S5→S6 **Ch. 16 (Factors)**. **Ch. 6, 7, 8, 18, and 19 are no longer assigned** — Ch. 6's RStudio Project substitute was cut with the rest of the Session 3 over-assignment (the instruction survives in Lab 4's workflow-hygiene section), and Ch. 7–8 were dropped when Lab 5 stopped being an import lab. Chapter 10's exercises are **10.3.3 #1/#2/#3 and 10.4.1 #2**; the others were rejected because 10.5.1.1 #4 and #6 need `lvplot` and `ggbeeswarm` (not installed) and 10.5.3.1 #5–#6 reference `smaller`, an object defined only in the chapter prose. **Chapter 10's URL is `EDA.html`, capitalized — `eda.html` 404s.** **(Sep 14, 2026)** Ch. 19 + 18 gave way to **Ch. 16 (Factors)**, URL `factors.html`, because the factor-levels line ("tell R which group comes first") is now what Session 5's two-group comparison and Lab 5 turn on. Its exercises are **16.3.1 #2, 16.3.1 #1, 16.4.1 #2, and 16.5.1 #2** (the last with a runnable `fct_collapse()` scaffold in the prompt, since the raw exercise means typing sixteen inconsistent level strings); 16.5.1 #1 was rejected as a four-step pipeline plus a line plot, 16.4.1 #1 as Week 2's mean-vs-median again, and 16.3.1 #3 / 16.4.1 #3 / 16.5.1 #3 as doc-reading. `gss_cat` ships with forcats, so nothing to install. Lab 6 (joins) is now the only thing that still assumes Ch. 19 — see the TODO.
 - **Theory taught simulation-first** on real data (the fix for "repetitive/theoretical").
 - **Anchor dataset = real Chicago 2025 crime**, at two levels (see below), running through lecture examples all semester. Labs rotate the colleague's simulated datasets for breadth.
 - **Meets Tuesdays, 6:00–8:45 pm, Currell College 204** (confirmed Aug 2026). Blackouts: Oct 27 conference, Nov 3 election day, Nov 24 Thanksgiving. Fall break is Thu–Fri and misses Tuesdays.
@@ -157,6 +157,44 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 - **`data/chicago-areas.csv`** — all 2025 incidents aggregated to the 77 community areas, joined with CMAP/ACS socioeconomic covariates (poverty, unemployment, income, education, race, rent…). Has `high_violence` (binary) for the logistic-regression week.
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
+
+## STATUS: Session 5 pass (September 14, 2026) COMPLETE ✅ — shipped live
+
+Shipped the night before Session 5 from Scott's review of the deck and lab. Full
+itemized log in `_private/notes/CHANGES-week-05.md` (the September 14 section);
+the short version:
+
+- **Deck.** The Snow map's "77 deaths within r = 1" label came off the dots (the
+  count is in the subtitle; the Broad St pump is a gold triangle, no label box at
+  all). The "In Practice" slide no longer ends in a stage direction; three new
+  figure slides run the 100-intervals demonstration a second time (no truth line,
+  then the truth line, then two researchers side by side), with a local
+  `set.seed(1854)`. "Sample Size Buys Precision" kept its table and gained a
+  pointrange plot. The two-group section reads **Violent minus Property** start to
+  finish via `factor(levels = ...)` (its own slide, "One Extra Line: Who Comes
+  First"), times are clock times and minutes, and two new `patchwork` figures show
+  what "does not cross zero" looks like (Violent vs Property) and what crossing
+  looks like (violent crimes, arrest vs no arrest: CI −40 to +9 minutes, p = 0.22),
+  followed by that t-test in full. 43 content slides; audit v3 clean after
+  `{.smaller}` on the precision slide and the split above.
+- **Lab 5** simplified again: `count()` then `prop.test(42, 192)` with the numbers
+  typed, full `t.test()` output read from the bottom up, no `$conf.int`, no
+  `nrow()`, a *given* factor line so the interval reads Positive minus Negative, and
+  a Your Turn that repeats the walkthrough on `rank` and `job_satisfaction`. **The
+  deliverable is the Your Turn script** with four reflection comments at the
+  bottom (Scott's call; the Exit-Ticket-only submissions in Week 4 were the trigger).
+- **hw-05** cut to what lecture and lab cover: the date-parsing Part 1 and the
+  bootstrap Part 5 are gone; the groups are labeled in words with a given
+  `if_else()` line (alphabetical order already puts Intoxicated first); the t-test
+  reads +0.33 to +0.45 injuries with a direction *check* against the group means;
+  `prop.test(1545, 20000)`. Key rewritten to match; nothing in the homework is
+  random any more.
+- **R4DS S5→S6 is Ch. 16 (Factors)**, changed in the hw, both hubs, the deck's
+  read-ahead line, `schedule.qmd`, `syllabus.qmd`, and `weeks/week-07.qmd`.
+- Every typed number was recomputed in a fresh session and re-read on the rendered
+  pages. Removing the deck's `ggrepel` layer shifted the RNG stream by two draws,
+  and every typed sample number (14.8%, 10.8–20.0%, "12% and 21%", 97 of 100)
+  survived; the deck and demo now produce identical outputs.
 
 ## STATUS: Session 4 rebalance (September 7, 2026) COMPLETE ✅ — shipped live
 
@@ -317,13 +355,20 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - [ ] **Approve the drafted midterm** — `_private/exams/midterm-2026.R` + key + pre-fit `.rds`; `_private/notes/MIDTERM-REVIEW-NEEDED.md` is now the review checklist. (2025 exam stays archived unmodified.)
 - [x] **Slide-overflow audit — RUN Aug 25, 2026; week-8 overflows FIXED same day** (browser console reached by serving `_site` with `python3 -m http.server`; the server binds fine now). Weeks 1 and 12 clean; week 2 clean after the dispersion reorder. Week 8's two overflows from the August ANOVA-demotion edits — slide 2 "This Week" (169px over the 700px canvas) and slide 36 "This Workflow Is the Point" (45px over) — trimmed without touching the demotion framing: `{.smaller}` on the opener (no text changed), one-line intro trim on the workflow slide (details in CHANGES-week-08 items 27–28). Re-audit clean: 0 of 47 slides overflow.
 - [ ] **Decide about `options(scipen = 999)` in `R/setup.R`.** It prints p-values as `p-value < 0.00000000000000022` and `0.0000000000105` instead of `2.2e-16` / `1.05e-11`. On the Session 1 slide that introduces p-values for the first time that is arguably *harder* to read, not easier. Left alone because the setting is global across every deck, lab, and homework page — changing it is a one-liner but affects everything.
-- [ ] **(Sep 7, 2026) Decide what Session 7 is now.** It is billed as the session where "the two threads meet," and after the lecture/lab split there is only one thread. Its workshop asks students to import and clean a messy file with no import or tidying instruction anywhere behind it. Tonight only corrected the false claims in the pipeline table and Lab 7's missingness block (see CHANGES-week-07). The redesign is a real decision and S7 is post-Oct 6, but **decide before Session 6**, because Lab 6 (joins, R4DS Ch. 19) is the next lab that hits the same tension.
+- [ ] **(Sep 7, 2026) Decide what Session 7 is now.** It is billed as the session where "the two threads meet," and after the lecture/lab split there is only one thread. Its workshop asks students to import and clean a messy file with no import or tidying instruction anywhere behind it. Tonight only corrected the false claims in the pipeline table and Lab 7's missingness block (see CHANGES-week-07). The redesign is a real decision and S7 is Sep 29, but **decide before Session 6**, because Lab 6 (joins, R4DS Ch. 19) is the next lab that hits the same tension. **(Sep 14, 2026)** Sharper now: Ch. 19 is no longer assigned anywhere (S5→S6 is Ch. 16), so `labs/lab-06-joins.qmd:6` ("assumes you've read Ch. 19") and `weeks/week-06.qmd` lines 3, 19, 30, 40 describe a lab with no reading behind it. Scott chose to leave Lab 6 alone on Sep 14 and decide with this item.
+- [ ] **(Sep 14, 2026) The Session 6 deck contradicts the Session 5 deck; fix before Sep 22.** `slides/week-06-hypothesis-testing.qmd` builds `vp` without the factor line (line 29), still says "R orders groups alphabetically, so this tests Property − Violent" (222), reports decimal hours (127, 141), and its "Two Threads" slide (45–57) claims the Ch. 19 reading feeds Lab 6. Session 5 now teaches the opposite of all four.
+- [ ] **(Sep 14, 2026) Propagate the lab-deliverable wording.** Lab 5's "How labs work" and Exit Ticket sections now say to submit the whole Your Turn script with the reflection comments at the bottom. Labs 2–4 and 6–8 still say to submit an Exit Ticket.
+- [ ] **(Sep 14, 2026) `practice/practice-05.qmd`** still models `$conf.int`, `sum(x == ...)`, `nrow()`, and the alphabetical-direction language in all five solutions, and its Problem 4 reuses the deck's variable and machinery (CONVENTIONS line 85). Ungraded and public; align when convenient. `midterm.qmd:12` "pivot/join weeks" wording is also slightly off now.
 - [ ] **Re-record the S12 3D walkthrough video** — the live widget was fixed but `media/week-12/3d-logistic.mp4` still shows the pre-fix transposed surface (CHANGES-week-12).
 - [ ] **Confirm the S6 reading** — the hub assigns Scott's own *Police Forum* Bayes article; confirm that's the intended piece.
 - [ ] **Optional:** eyeball decks at projector resolution; videos cap at 480px tall with headroom to enlarge. Note the exemplar and practice-12 both analyze crash-ak injury~intoxication (different covariates) — coherent by design, but flag if you'd rather they diverge.
 
 ### Standing decision-records (already handled)
 - **(Sep 7, 2026) The lecture/lab split — the biggest structural change since the rebuild.** Scott's call, after grading Weeks 1–3: **lectures teach concepts; the in-class exercise is where code is written, together, step by step, with simple code.** Several students have never coded and a few have never taken a stats class, and the lecture coding load was discouraging them. Demos stay complete, both as student catch-up and as something to throw on screen mid-lecture. Consequences already shipped: Lab 4 became sampling distributions (`lab-04-sampling.qmd`), Lab 5 became confidence intervals (`lab-05-intervals.qmd`), and the "Two Threads, One Course" bridge slides in S4 and S5 became "How Today Works." **This dissolves the wrangling thread.** Labs 6 and 7 have not been converted yet — Lab 6 (joins, R4DS Ch. 19) is the next one that will hit this tension, and S7's workshop is still billed as "where the two threads meet." Do not re-add a wrangling lab without talking to Scott first.
+- **(Sep 14, 2026) Two-group comparisons state their direction once, with `factor(levels = ...)`, and never flip.** Scott's call: the deck used to bootstrap Violent − Property and then let `t.test()` report Property − Violent alphabetically, explaining the flipped sign. Now the factor line goes in where the data are built (deck, lab, and the homework's given `if_else()` recode, which happens to sort the right way), and `t.test()` output is read from its `mean in group` lines. Known trap: `summarize(.by = )` prints groups in first-appearance order regardless of the factor, so either `arrange()` the table or skip it and read the means off `t.test()`.
+- **(Sep 14, 2026) Times in the Chicago hour-of-day examples are clock times and minutes**, never decimal hours ("12:48 pm vs 12:33 pm", "4 to 27 minutes later"). A `clock()` helper formats axes.
+- **(Sep 14, 2026) Lab code idiom for intervals: `count()`, read two numbers, type them into `prop.test(x, n)`; one `t.test(y ~ group, data = ...)` line read in full.** No `$conf.int`, `nrow()`, or `sum(x == ...)` in student-facing lab or homework code. `$conf.int` survives only inside the deck's simulation loops.
+- **(Sep 14, 2026) The in-class deliverable is the Your Turn script**, with the reflection comments at the bottom, from Lab 5 on. Grading is completion of the Your Turn; the page now says so.
 - S11 homework's deliberately honest-null officers model stayed in (flagged for veto, not vetoed).
 - **R4DS exercises: graded, not self-check.** Proposed as self-check to avoid disturbing the 45/25/30 weights; Scott overruled. Syllabus grading row and *General Assignment Information* were updated to match, so the graded envelope is consistent.
 - **13 sessions, not 14.** The help session was the cut (cheapest — demos and practice banks already cover that ground). Do NOT cut a content session to recover time without re-reading the ANOVA note above.
@@ -338,6 +383,6 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - `media/` + `data/` must stay in `_quarto.yml` `resources:` (videos silently vanish otherwise)
 - Plain `<video>` tags only, never the `{{< video >}}` shortcut
 - **Never put a meaningful number in a Markdown ordered list** — Markdown renumbers them sequentially and the real numbers vanish silently (see "Content gotcha" above; it cost four students the wrong swirl lessons in Week 1)
-- Slide-density rules + `tools/audit-slide-overflow.js` (v2: measures flow AND visual bottom) before publishing any deck edit. **The audit is runnable now:** `python3 -m http.server` in `_site`, open the deck, paste the script in the browser console — the bind problem from the August pass is gone, so there is no excuse for the static-density proxy
+- Slide-density rules + `tools/audit-slide-overflow.js` (v3: measures flow AND visual bottom, with transitions off and every fragment forced visible) before publishing any deck edit. It can be run from this tool's browser pane too: serve `_site`, open the deck, paste the IIFE into `javascript_exec` with a `return` of the results array. **The audit is runnable now:** `python3 -m http.server` in `_site`, open the deck, paste the script in the browser console — the bind problem from the August pass is gone, so there is no excuse for the static-density proxy
 - Bayesian stack: `BayesFactor` for t-tests (S6) · `brms` + `emmeans` for ANOVA (S8) · `correlation` pkg (S10) · `brms` for regression/logistic (S11/S12) — matches Scott's 2025 workflow and the midterm
 - brms chunks: chains=2, iter=2000, seed=705, refresh=0; `freeze: auto` caches them (first render of those decks is slow — don't panic)

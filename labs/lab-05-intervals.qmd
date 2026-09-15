@@ -3,9 +3,9 @@ title: "Lab 5 · Putting an Interval On It"
 subtitle: "CRJU 705 · Session 5"
 ---
 
-**Goal:** turn today's lecture into three lines of R you will use for the rest of your career — a point estimate, a confidence interval around it, and a sentence about that interval that is actually true. Two functions do all the work: `prop.test()` and `t.test()`.
+**Goal:** turn today's lecture into two lines of R you will use for the rest of your career — a point estimate with a confidence interval around it, and a sentence about that interval that is actually true. Two functions do all the work: `prop.test()` and `t.test()`. You will read the numbers they need off a table and type them in yourself.
 
-**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. That script, with the four Exit Ticket comments at the bottom, is what you submit to Canvas before you leave.
 
 ## Setup
 
@@ -18,42 +18,48 @@ library(tidyverse)
 
 officers <- read_csv("https://smourtgos.github.io/crju705/data/officers.csv",
                      show_col_types = FALSE) |>
-  filter(!is.na(ptsd_screen))
+  filter(!is.na(ptsd_screen)) |>
+  mutate(ptsd_screen = factor(ptsd_screen, levels = c("Positive", "Negative")))
 ```
 
-`officers` holds survey records for correctional officers (simulated, but realistic): shift, tenure, rank, overtime, and three wellness measures — `burnout`, `job_satisfaction`, and `sleep_hours` — plus a `ptsd_screen` result.
+`officers` holds survey records for correctional officers (simulated, but realistic): shift, tenure, rank, and three wellness measures — `burnout`, `job_satisfaction`, and `sleep_hours` — plus a `ptsd_screen` result.
 
-That `filter()` line is doing something you should never do silently. Eight of the 200 officers have no PTSD screen on file, and `sum()` returns `NA` the moment a missing value touches it. We drop those eight and **say so out loud**, which leaves 192. What you *should* do about missing data is a real question, and not today's.
+Two lines in that Setup deserve a sentence each.
 
-```{r}
-#| label: peek
-officers |> count(ptsd_screen)
-```
+The `filter()` line is doing something you should never do silently. Eight of the 200 officers have no PTSD screen on file, and `sum()` returns `NA` the moment a missing value touches it. We drop those eight and **say so out loud**, which leaves 192. What you *should* do about missing data is a real question, and not today's.
+
+The `factor()` line tells R which group comes **first**. R's default is alphabetical, which would put Negative ahead of Positive. Our question is about the officers who screened positive, so we put Positive first, and every comparison below reads **Positive minus Negative**. This is the same line from lecture, and it is what next week's R4DS chapter is about.
 
 ## Walkthrough
 
-### A point estimate, and why it isn't an answer
+### Count first
+
+Every interval today starts from a count:
+
+```{r}
+#| label: wt-count
+officers |> count(ptsd_screen)
+```
+
+42 of 192 screened positive:
 
 ```{r}
 #| label: wt-point
 42 / 192
 ```
 
-About **22%** of these officers screened positive. Now the honest question: we surveyed 192 officers, not every officer in the state. If someone else surveyed a different 192, they would not get 22%. Session 4 told us exactly how much that number moves around. This week we put that movement in the answer.
+About **22%**. Now the honest question: we surveyed 192 officers, not every officer in the state. If someone else surveyed a different 192, they would not get 22%. Session 4 told us exactly how much that number moves around. This week we put that movement in the answer.
 
 ### `prop.test()` does it for you
 
+Type the two numbers you just read off the table: how many, out of how many.
+
 ```{r}
 #| label: wt-prop
-prop.test(sum(officers$ptsd_screen == "Positive"), n = nrow(officers))
+prop.test(42, 192)
 ```
 
-Ignore most of that output. R is testing whether the proportion equals 0.5, which is a question nobody asked. The line you want is the **95 percent confidence interval**: roughly **0.16 to 0.29**.
-
-```{r}
-#| label: wt-prop-ci
-prop.test(sum(officers$ptsd_screen == "Positive"), n = nrow(officers))$conf.int
-```
+Ignore most of that output. R is testing whether the proportion equals 0.5, which is a question nobody asked. The line you want is the one under **95 percent confidence interval**: roughly **0.16 to 0.29**.
 
 ### Saying it out loud without lying
 
@@ -71,46 +77,49 @@ The width of that interval is the honest part. Do not throw it away.
 
 ### Width is a choice you pay for
 
+Take a random 50 of the 192 and count again. Run the seed line and the sample line together, so your count matches mine:
+
 ```{r}
-#| label: wt-width
+#| label: wt-small
 set.seed(705)
 small <- slice_sample(officers, n = 50)
 
-prop.test(sum(small$ptsd_screen == "Positive"), n = nrow(small))$conf.int
+small |> count(ptsd_screen)
 ```
 
-Same population, a quarter of the sample, and the interval roughly doubles in width. That is the $\sqrt{n}$ rule from last week, showing up in the thing you actually report.
+10 of 50. Same two numbers, typed in:
+
+```{r}
+#| label: wt-small-prop
+prop.test(10, 50)
+```
+
+Same population, a quarter of the sample, and the interval runs from about **0.10 to 0.34**, roughly twice as wide. That is the $\sqrt{n}$ rule from last week, showing up in the thing you actually report.
 
 ### Two groups, and an interval that contains zero
 
-Do officers who screen positive sleep less?
-
-```{r}
-#| label: wt-groups
-officers |>
-  summarize(mean_sleep = mean(sleep_hours), n = n(), .by = ptsd_screen)
-```
+Do officers who screen positive sleep less? One line:
 
 ```{r}
 #| label: wt-ttest
-t.test(sleep_hours ~ ptsd_screen, data = officers)$conf.int
+t.test(sleep_hours ~ ptsd_screen, data = officers)
 ```
 
-Two things to notice. First, R subtracts alphabetically, so this is **Negative minus Positive**. Second, and this is the whole lesson: the interval runs from about **-0.77 to +0.26 hours**, and **zero is inside it**.
+Read it from the bottom up. The two **mean in group** lines are the point estimates: about 6.6 hours for Positive, 6.3 for Negative. Positive is listed first because we told R so, which means the interval above them is **Positive minus Negative**.
+
+And here is the whole lesson: that interval runs from about **-0.26 to +0.77 hours**, and **zero is inside it**.
 
 That does not mean the groups are the same. It means this sample cannot tell you which direction the difference runs. The honest sentence:
 
-> Officers screening positive slept about 15 minutes more per night on average, but with 192 officers the data are consistent with anything from roughly 15 minutes *less* to roughly 45 minutes *more*, including no difference at all.
-
-Watch the direction there. R handed us the interval for Negative minus Positive, and my sentence talks about the Positive group, so the signs flip when I say it out loud. Getting that backwards is the easiest mistake in this whole lab, and I want you to see me being careful about it.
+> Officers screening positive slept about 15 minutes more per night on average, but with 192 officers the data are consistent with anything from roughly 15 minutes *less* to roughly 46 minutes *more*, including no difference at all.
 
 Learning to write that sentence, instead of "no effect" or "they sleep more," is most of what this course is for.
 
 ## Your Turn
 
-Work in your own script. Comment each answer.
+Same five moves, new columns. Work in your own script and comment each answer.
 
-**1.** What share of these officers hold a rank above Officer? Build the count with `count(rank)`, then get a point estimate and a 95% interval with `prop.test()`. Report both in a comment.
+**1.** Count, then interval. How many of these officers hold a rank above Officer? Run `officers |> count(rank)`, add the two ranks above Officer together, and put that count and 192 into `prop.test()`. In a comment, report the point estimate and the interval.
 
 ```{r}
 #| label: yt-1
@@ -126,7 +135,7 @@ Work in your own script. Comment each answer.
 # a comment-only task
 ```
 
-**3.** Buy some precision. Take a random subsample of 60 officers with `slice_sample()`, rerun your Task 1 interval on it, and compare the two widths (`diff()` of the interval is a quick way). In a comment: which is wider, and why is that the right answer rather than a problem?
+**3.** Buy some precision. Take a random 60 officers with `slice_sample(officers, n = 60)`, count `rank` again, and rerun `prop.test()` with the new numbers. Your numbers will differ from your neighbor's, and that is expected. In a comment: which interval is wider, and why is that the right answer rather than a problem?
 
 ```{r}
 #| label: yt-3
@@ -134,7 +143,7 @@ Work in your own script. Comment each answer.
 # your code here
 ```
 
-**4.** Two groups. Do officers who screen positive report different `job_satisfaction`? Get the group means with `summarize()`, then the interval with `t.test(job_satisfaction ~ ptsd_screen, data = officers)`. In a comment: does the interval contain zero, and what does that let you say?
+**4.** Two groups. Do officers who screen positive report different `job_satisfaction`? Run `t.test(job_satisfaction ~ ptsd_screen, data = officers)`. In a comment: what are the two group means, does the interval contain zero, and what does that let you say?
 
 ```{r}
 #| label: yt-4
@@ -142,7 +151,7 @@ Work in your own script. Comment each answer.
 # your code here
 ```
 
-**5.** *(Stretch)* Pick any other numeric column and any two-group split you like, run the same two lines, and write the honest sentence. If your interval excludes zero, say so plainly; if it contains zero, resist the urge to call it "no difference."
+**5.** *(Stretch)* Pick any other numeric column, run the same `t.test()` line on it, and write the honest sentence. If your interval excludes zero, say so plainly; if it contains zero, resist the urge to call it "no difference."
 
 ```{r}
 #| label: yt-5
@@ -152,9 +161,9 @@ Work in your own script. Comment each answer.
 
 ## Exit Ticket
 
-Submit a short R script to Canvas before you leave, containing:
+Before you leave, submit your **Your Turn script** to Canvas: the whole thing, Tasks 1 to 4 (and 5 if you got there). The in-class exercise is graded on completing it. At the bottom of that script, add four comment lines:
 
-1. Your `prop.test()` code from Your Turn 1 and the interval it produced
-2. Your honest sentence from Your Turn 2, plus the wrong version and what is wrong with it
-3. A comment on Your Turn 4: did the interval contain zero, and what did you conclude
-4. A comment naming one thing about confidence intervals that still feels slippery
+1. The interval from Task 1, and the two numbers you typed into `prop.test()` to get it
+2. Your honest sentence from Task 2, plus the wrong version and what is wrong with it
+3. From Task 4: did the interval contain zero, and what did you conclude
+4. One thing about confidence intervals that still feels slippery

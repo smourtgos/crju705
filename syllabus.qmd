@@ -251,13 +251,13 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 4 · R4DS Ch. 10 (Exploratory data analysis)
 
-**In-class exercise (graded)** · **Homework:** Problem set 5 (includes the **R4DS Ch. 19 + 18 exercises**) · Read Stanton Ch. 5 and R4DS Ch. 19 (skim Ch. 18)
+**In-class exercise (graded)** · **Homework:** Problem set 5 (includes the **R4DS Ch. 16 exercises**) · Read Stanton Ch. 5 and R4DS Ch. 16 (Factors)
 
 ## `r session_headers[6]`
 
 **Topics:** Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests
 
-**Readings due:** Stanton Ch. 5 · R4DS Ch. 19 (Joins); skim Ch. 18 (Missing values)
+**Readings due:** Stanton Ch. 5 · R4DS Ch. 16 (Factors)
 
 **In-class exercise (graded)** · **Homework:** Problem set 6 · No new Stanton chapter · **Final-project dataset selection is due at Session 7** — come with a candidate and be ready to say what one row represents
 

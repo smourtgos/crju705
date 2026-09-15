@@ -1,6 +1,6 @@
 ---
 title: "Session 5 · Confidence Intervals on Real Data"
-subtitle: "The logic of inference · point estimates · CIs for proportions and mean differences · data import"
+subtitle: "The logic of inference · point estimates · CIs for proportions and mean differences"
 ---
 
 ::: {.callout-tip appearance="simple"}
@@ -16,7 +16,7 @@ By the end of this week you can:
 - explain what a 95% confidence interval does — and does **not** — mean
 - compute CIs for a proportion (`prop.test()`) and a difference in means (`t.test()`) on real data
 - report an interval in one defensible sentence that gives both direction and magnitude
-- import real files with `read_csv()` and `read_excel()`, fix column types, parse dates, and work through what `problems()` tells you
+- tell R which group comes first (`factor(levels = ...)`), so a two-group comparison reads the way you say it
 
 ## Before class
 
@@ -39,9 +39,10 @@ By the end of this week you can:
 
 - **[Homework 5](../homework/hw-05.qmd)** — confidence intervals on the Alaska crash data; submit your `.R` file via Canvas **by 11:59 pm Sunday**
 - Read Stanton **Ch. 5** (Bayesian & Frequentist Hypothesis Testing) before Session 6
-- Read R4DS **[Ch. 19 — Joins](https://r4ds.hadley.nz/joins.html)** and skim **[Ch. 18 — Missing values](https://r4ds.hadley.nz/missing-values.html)**
-- **R4DS exercises** — these four deliberately circle one question: *which rows didn't match, and why?*
-  - **19.2.4** #1 (how do `weather` and `airports` relate? name the key)
-  - **19.3.4** #3 (does every departing flight have weather data?) and **#4** (tail numbers with no match in `planes` — what do they have in common?)
-  - **18.3.4** #1 (is the missingness related to carrier?) — read it right after 19.3.4 #4; they are the same investigation from two directions
-  - **Required and submitted** — they are R4DS Exercises section of [Homework 5](../homework/hw-05.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header.
+- Read R4DS **[Ch. 16 — Factors](https://r4ds.hadley.nz/factors.html)** — the chapter behind today's "which group comes first" line
+- **R4DS exercises** — four, all about one idea: the order of the groups is a choice you make, not something R knows
+  - **16.3.1** #2 (the most common `relig` and `partyid`)
+  - **16.3.1** #1 (what makes the default `rincome` bar chart hard to read, and how to fix it)
+  - **16.4.1** #2 (for each factor in `gss_cat`, is the order of the levels arbitrary or principled?)
+  - **16.5.1** #2 (collapse `rincome` into a few categories — a runnable starting point is in the homework)
+  - **Required and submitted** — they are the R4DS Exercises section of [Homework 5](../homework/hw-05.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header.

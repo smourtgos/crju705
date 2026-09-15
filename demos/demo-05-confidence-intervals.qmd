@@ -13,16 +13,17 @@ subtitle: "Confidence intervals — turning one sample into an honest range"
 2. A demonstration that point estimates fluctuate: 1,000 samples from a population whose truth we secretly know
 3. A 95% confidence interval from `prop.test()`, and **the 100-intervals plot** — the picture that shows what "95% confident" actually means
 4. Sentences you can and cannot say when reporting an interval
-5. How sample size buys precision, and a CI for a two-group difference with `t.test()`
+5. How sample size buys precision, and a CI for a two-group difference with `t.test()` — including what it looks like when an interval does, and does not, cross zero
 
 ## Setup
 
-Two packages today: the tidyverse, plus **HistData**, which ships John Snow's original cholera data (`Snow.deaths` and `Snow.pumps`):
+Three packages today: the tidyverse; **HistData**, which ships John Snow's original cholera data (`Snow.deaths` and `Snow.pumps`); and **patchwork**, which puts two plots side by side:
 
 ```{r}
 #| label: setup
 library(tidyverse)
-library(HistData)   # install.packages("HistData")  — once, if you don't have it
+library(HistData)    # install.packages("HistData")   — once, if you don't have it
+library(patchwork)   # install.packages("patchwork")  — once, if you don't have it
 set.seed(705)
 
 crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv",
@@ -63,10 +64,11 @@ broad <- pumps |> filter(label == "Broad St")
 ggplot() +
   geom_point(data = deaths, aes(x, y), color = "firebrick", alpha = 0.5, size = 1.5) +
   geom_point(data = pumps, aes(x, y), color = "navy", size = 3, shape = 17) +
-  annotate("label", x = broad$x, y = broad$y - 0.8, label = "Broad St. pump") +
+  # the Broad St pump gets a gold triangle instead of a label, so nothing covers the deaths
+  geom_point(data = broad, aes(x, y), fill = "gold", color = "navy", size = 5, shape = 24) +
   coord_equal() +
   labs(title = "Cholera deaths cluster around a single pump",
-       subtitle = "Red dots = deaths · navy triangles = water pumps",
+       subtitle = "Red dots = deaths · navy triangles = water pumps · gold = the Broad St pump",
        x = NULL, y = NULL)
 ```
 
@@ -175,7 +177,77 @@ That long-run capture rate is *the entire meaning* of "95% confident": if we rer
 2. Our 95% CI is **not** a statement about the probability that *this particular* interval is correct
 3. It is a **long-run prediction** based on numerous replications
 
-(Everyone reacts to this with some version of "WTF?!?" — stare at the plot until it clicks.)
+(Everyone reacts to this with some version of "WTF?!?" — so run it again, slower.)
+
+### Run it again: 100 new researchers
+
+New samples, new intervals. This time look at them first *without* the truth line, the way each of the 100 researchers would:
+
+```{r}
+#| label: ci-sim-again
+#| fig-height: 5
+set.seed(1854)   # a local seed, so this figure is the same every time it renders
+ci_100b <- map(1:100, \(i) {
+  s  <- crimes |> slice_sample(n = 250)
+  ci <- prop.test(sum(s$arrest), n = 250)$conf.int
+  tibble(sample = i, estimate = mean(s$arrest), lo = ci[1], hi = ci[2])
+}) |>
+  list_rbind() |>
+  mutate(captured = lo <= mean(crimes$arrest) & mean(crimes$arrest) <= hi)
+
+y_lims <- range(c(ci_100b$lo, ci_100b$hi))
+
+ggplot(ci_100b, aes(sample, estimate)) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), color = "grey40", linewidth = 0.7, size = 0.25) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = "100 new researchers, 100 new intervals: what each of them sees",
+       subtitle = "No truth line yet. From inside any one study, every interval looks equally trustworthy",
+       x = "Researcher", y = "Arrest proportion")
+```
+
+Now drop the truth in:
+
+```{r}
+#| label: ci-sim-again-truth
+#| fig-height: 5
+ggplot(ci_100b, aes(sample, estimate, color = captured)) +
+  geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 0.7, size = 0.25) +
+  scale_color_manual(values = c("TRUE" = "grey65", "FALSE" = "firebrick")) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = paste0(sum(ci_100b$captured),
+                      " of 100 caught it this time; the intervals moved, the truth did not"),
+       subtitle = "Horizontal line = true population arrest rate; red = intervals that missed",
+       x = "Researcher", y = "Arrest proportion", color = "Captured?")
+```
+
+The intervals moved; the truth did not; again about 95 of 100 caught it. Finally, pick two of those researchers — the first whose interval caught the truth and the first whose interval missed — and look at what each of them had in front of them (`patchwork`'s `+` puts the two plots side by side):
+
+```{r}
+#| label: you-are-one
+#| fig-height: 4
+i_hit  <- which(ci_100b$captured)[1]
+i_miss <- which(!ci_100b$captured)[1]
+two <- ci_100b |>
+  filter(sample %in% c(i_hit, i_miss)) |>
+  mutate(who = paste0("Researcher ", sample))
+
+left <- ggplot(two, aes(who, estimate)) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), color = "grey40", linewidth = 1, size = 0.6) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = "What the researchers see", x = NULL, y = "Arrest proportion")
+
+right <- ggplot(two, aes(who, estimate, color = captured)) +
+  geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), linewidth = 1, size = 0.6, show.legend = FALSE) +
+  scale_color_manual(values = c("TRUE" = "grey65", "FALSE" = "firebrick")) +
+  coord_cartesian(ylim = y_lims) +
+  labs(title = "What only we can see", x = NULL, y = NULL)
+
+left + right
+```
+
+**You only ever get one stick, and nothing in your data tells you its color.** That is why the 95% belongs to the procedure, not to your interval.
 
 ## 6 · Saying it out loud
 
@@ -199,16 +271,31 @@ Same procedure, four sample sizes, one draw each:
 
 ```{r}
 #| label: width-by-n
-map(c(100, 250, 1000, 4000), \(n) {
+width_tbl <- map(c(100, 250, 1000, 4000), \(n) {
   s  <- crimes |> slice_sample(n = n)
   ci <- prop.test(sum(s$arrest), n = n)$conf.int
   tibble(n = n, estimate = mean(s$arrest),
          lo = ci[1], hi = ci[2], width = ci[2] - ci[1])
 }) |>
   list_rbind()
+
+width_tbl
 ```
 
-Quadrupling *n* roughly **halves** the width — precision grows with $\sqrt{n}$, so it gets expensive fast.
+Quadrupling *n* roughly **halves** the width — precision grows with $\sqrt{n}$, so it gets expensive fast. The same table as a picture:
+
+```{r}
+#| label: width-plot
+#| fig-height: 4.5
+ggplot(width_tbl, aes(factor(n), estimate)) +
+  geom_hline(yintercept = mean(crimes$arrest), color = "grey30", linewidth = 1) +
+  geom_pointrange(aes(ymin = lo, ymax = hi), color = "navy", linewidth = 1, size = 0.6) +
+  geom_text(aes(y = hi, label = sprintf("width %.3f", width)), vjust = -0.7, size = 3.5) +
+  scale_y_continuous(expand = expansion(mult = c(0.05, 0.2))) +
+  labs(title = "Same procedure, four sample sizes: the interval tightens as n grows",
+       subtitle = "Horizontal line = the true arrest rate",
+       x = "Sample size", y = "Arrest proportion")
+```
 
 ## 8 · Comparing two groups: do violent crimes happen later in the day?
 
@@ -216,57 +303,132 @@ Street lore says violence is a nighttime phenomenon; property crime, the daytime
 
 ```{r}
 #| label: two-group-est
-vp <- crimes |> filter(crime_category %in% c("Violent", "Property"))
+vp <- crimes |>
+  filter(crime_category %in% c("Violent", "Property")) |>
+  mutate(crime_category = factor(crime_category, levels = c("Violent", "Property")))
 
-vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour),
-                n = n(), .by = crime_category)
+vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour), n = n(), .by = crime_category)
 ```
 
-Two point estimates: violent crimes average hour 12.8, property 12.5. Is that ~15-minute gap real, or sample fluctuation?
+One line we did not need before: `factor(levels = ...)` tells R which group comes **first**, so every subtraction below reads **Violent minus Property**. (R's default is alphabetical, which would have put Property first and flipped every sign.) Two point estimates: violent crimes average about **12:48 pm** (12.80 hours after midnight), property crimes about **12:33 pm** (12.54). Is that 15-minute gap real, or sample fluctuation?
 
 ```{r}
 #| label: two-group-box
 #| fig-height: 4.5
 ggplot(vp, aes(crime_category, hour, fill = crime_category)) +
   geom_boxplot(show.legend = FALSE) +
-  scale_fill_manual(values = c("steelblue", "firebrick")) +
-  labs(x = NULL, y = "Hour of day (0–23)")
+  scale_fill_manual(values = c("firebrick", "steelblue")) +
+  scale_y_continuous(breaks = c(0, 6, 12, 18, 24),
+                     labels = c("midnight", "6 am", "noon", "6 pm", "midnight")) +
+  labs(x = NULL, y = "Time of day")
 ```
 
-The boxes nearly coincide — the eye can't settle this one. So resample: pull a bootstrap sample from each group, compute the difference in means, repeat 1,000 times:
+The boxes nearly coincide — the eye can't settle this one. So resample: pull a bootstrap sample from each group (`sample()` with `replace = TRUE` draws a full-size resample), take each group's mean, and difference them, 1,000 times:
 
 ```{r}
 #| label: mean-diffs
+set.seed(705)
 violent_hours  <- vp$hour[vp$crime_category == "Violent"]
 property_hours <- vp$hour[vp$crime_category == "Property"]
 
-mean_diffs <- replicate(1000, {
-  mean(sample(violent_hours,  length(violent_hours),  replace = TRUE)) -
-  mean(sample(property_hours, length(property_hours), replace = TRUE))
-})
+boot_violent  <- replicate(1000, mean(sample(violent_hours,  replace = TRUE)))
+boot_property <- replicate(1000, mean(sample(property_hours, replace = TRUE)))
+mean_diffs    <- boot_violent - boot_property
 
-quantile(mean_diffs, c(0.025, 0.975))
+quantile(mean_diffs, c(0.025, 0.975)) * 60   # in minutes: Violent minus Property
 ```
 
-The middle 95% of resampled differences (Violent − Property) runs from about **0.06 to 0.44 hours** — all above zero. The two-sample t-test gives the CI directly, no loop required:
+The middle 95% of resampled differences (Violent minus Property) runs from about **4 to 26 minutes** — all above zero. Here is what that looks like, and what "the interval does not cross zero" means. Two small helpers first: `clock()` turns hours-after-midnight into a clock time, and `two_panel()` draws the same pair of pictures for any two groups, so both examples below are built the same way:
+
+```{r}
+#| label: boot-helpers
+clock <- function(h) {
+  m  <- round(h * 60)
+  hh <- (m %/% 60) %% 24
+  mm <- m %% 60
+  sprintf("%d:%02d %s", ifelse(hh %% 12 == 0, 12, hh %% 12), mm, ifelse(hh < 12, "am", "pm"))
+}
+
+two_panel <- function(boot_a, boot_b, name_a, name_b) {
+  groups <- tibble(group = factor(rep(c(name_a, name_b), each = length(boot_a)),
+                                  levels = c(name_a, name_b)),
+                   mean_hour = c(boot_a, boot_b))
+  diffs <- tibble(diff_min = (boot_a - boot_b) * 60)
+  q <- quantile(diffs$diff_min, c(0.025, 0.975))
+
+  left <- ggplot(groups, aes(mean_hour, fill = group)) +
+    geom_density(alpha = 0.6, color = NA) +
+    scale_fill_manual(values = c("firebrick", "steelblue")) +
+    scale_x_continuous(labels = clock) +
+    labs(title = "1,000 resampled means per group", x = "Mean time of day", y = NULL, fill = NULL) +
+    theme(legend.position = "top")
+
+  right <- ggplot(diffs, aes(diff_min, fill = between(diff_min, q[1], q[2]))) +
+    geom_histogram(bins = 40, color = "white") +
+    geom_vline(xintercept = 0, color = "firebrick", linewidth = 1.2) +
+    expand_limits(x = 0) +
+    scale_fill_manual(values = c("TRUE" = "navy", "FALSE" = "grey75"), guide = "none") +
+    labs(title = paste0(name_a, " minus ", name_b),
+         subtitle = paste0("Middle 95%: ", round(q[1]), " to ", round(q[2]), " minutes"),
+         x = "Minutes", y = NULL)
+  left + right
+}
+```
+
+```{r}
+#| label: cross-zero-no
+#| fig-height: 4
+two_panel(boot_violent, boot_property, "Violent", "Property")
+```
+
+Left: the two bootstrap distributions of the group means barely overlap. Right: the distribution of their difference, in minutes, with the middle 95% shaded. The zero line sits outside the shading: every plausible value of the difference is on the "later" side, and "no difference" is not on the list. That is what "the interval does not cross zero" looks like.
+
+The two-sample t-test gives the same interval directly, no loop required:
 
 ```{r}
 #| label: t-test
 t.test(hour ~ crime_category, data = vp)
 ```
 
-Watch the direction: R orders groups alphabetically, so this tests **Property − Violent** — the mirror image of our resampled differences. Same finding, flipped sign:
+Two lines matter: `95 percent confidence interval`, and the two `mean in group` lines that tell you which minus which. Violent is listed first because we told R so.
+
+Reading it honestly: the 95% CI for the difference (Violent minus Property) runs from **0.06 to 0.44 hours**, about **4 to 27 minutes** later — it excludes zero, so the data are consistent with violent crimes genuinely averaging later. But look at the *magnitude*: somewhere between about 4 and 27 minutes. Detectable ≠ dramatic. With ~19,500 incidents we can detect tiny differences; the CI hands you both facts at once — *direction* (probably real) and *size* (small). **Never report the first without the second.** This is your vaccination against next session's topic: a "significant" result can be substantively trivial.
+
+## 9 · And when it does cross zero
+
+Same city, a question the data cannot settle: within violent crimes, do the ones that end in an arrest happen at a different time of day? Same recipe, new groups:
 
 ```{r}
-#| label: t-test-ci
-t.test(hour ~ crime_category, data = vp)$conf.int
+#| label: boot-arrest
+set.seed(705)
+violent <- crimes |>
+  filter(crime_category == "Violent") |>
+  mutate(arrest = factor(if_else(arrest, "Arrest", "No arrest"), levels = c("Arrest", "No arrest")))
+
+arrest_hours   <- violent$hour[violent$arrest == "Arrest"]
+noarrest_hours <- violent$hour[violent$arrest == "No arrest"]
+boot_arrest    <- replicate(1000, mean(sample(arrest_hours,   replace = TRUE)))
+boot_noarrest  <- replicate(1000, mean(sample(noarrest_hours, replace = TRUE)))
 ```
 
-Reading it honestly: the 95% CI for the difference runs from **−0.44 to −0.06 hours** — it excludes zero, so the data are consistent with violent crimes genuinely averaging later. But look at the *magnitude*: somewhere between about **4 and 27 minutes**. Detectable ≠ dramatic. With ~19,500 incidents we can detect tiny differences; the CI hands you both facts at once — *direction* (probably real) and *size* (small). **Never report the first without the second.** This is your vaccination against next session's topic: a "significant" result can be substantively trivial.
+```{r}
+#| label: cross-zero-yes
+#| fig-height: 4
+two_panel(boot_arrest, boot_noarrest, "Arrest", "No arrest")
+```
+
+Now the two bells overlap heavily, and the shaded middle 95% of the difference straddles zero. Zero is one of the plausible answers, so this sample cannot even tell you the direction. R agrees:
+
+```{r}
+#| label: t-test-arrest
+t.test(hour ~ arrest, data = violent)
+```
+
+The interval runs from about **40 minutes earlier to 9 minutes later**, zero inside. Next session this contrast gets a name: the violent-versus-property difference is *statistically significant*, the arrest-versus-no-arrest difference is not — and you have now seen what the name is pointing at.
 
 ## Try a variation
 
-1. Compute a 95% CI for the proportion of incidents flagged as **domestic**: `prop.test(sum(crimes$domestic), nrow(crimes))`. Then write one *defensible* sentence reporting it — and audit yourself: did you claim a probability about *this* interval?
+1. Compute a 95% CI for the proportion of incidents flagged as **domestic**: run `crimes |> count(domestic)`, then type the TRUE count and 30,000 into `prop.test()`. Then write one *defensible* sentence reporting it — and audit yourself: did you claim a probability about *this* interval?
 2. Add `conf.level = 0.80` to a `prop.test()` call. Does the interval get wider or narrower — and what did you trade to get it?
 3. In the 100-intervals simulation, change `n = 250` to `n = 1000` in both places. What changes: the capture rate, or the widths?
 4. Remove the Broad Street pump before the `slice_min()` step (`filter(pump != 7)` on the pairs). Which pump inherits the deaths — and why should that make you *more* confident in Snow's inference, not less?
