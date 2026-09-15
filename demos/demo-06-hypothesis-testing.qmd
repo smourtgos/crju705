@@ -17,7 +17,7 @@ subtitle: "Hypothesis testing, twice — t.test(), ttestBF(), and the collision 
 
 ## Setup
 
-The tidyverse plus **BayesFactor**, and the two groups from Session 5:
+The tidyverse plus **BayesFactor**, the two groups from Session 5 (built the same way: Violent first, so every difference reads Violent minus Property), and Session 5's little `clock()` helper for axis labels:
 
 ```{r}
 #| label: setup
@@ -28,9 +28,18 @@ set.seed(705)
 crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv",
                    show_col_types = FALSE)
 
-vp <- crimes |> filter(crime_category %in% c("Violent", "Property"))
+vp <- crimes |>
+  filter(crime_category %in% c("Violent", "Property")) |>
+  mutate(crime_category = factor(crime_category, levels = c("Violent", "Property")))
 violent_hours  <- vp$hour[vp$crime_category == "Violent"]
 property_hours <- vp$hour[vp$crime_category == "Property"]
+
+clock <- function(h) {   # hours after midnight -> "12:48 pm"
+  m  <- round(h * 60)
+  hh <- (m %/% 60) %% 24
+  mm <- m %% 60
+  sprintf("%d:%02d %s", ifelse(hh %% 12 == 0, 12, hh %% 12), mm, ifelse(hh < 12, "am", "pm"))
+}
 ```
 
 ## 1 · The question, again
@@ -39,11 +48,10 @@ Session 5 asked whether violent crimes happen later in the day than property cri
 
 ```{r}
 #| label: recap-means
-vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour),
-                n = n(), .by = crime_category)
+vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour), n = n(), .by = crime_category)
 ```
 
-Violent incidents average about **15 minutes later**. Session 5 gave us an interval for that gap. Today we get the *test* — a yes/no verdict machine — and then a second tradition that answers the question you probably *meant* to ask.
+Violent incidents average about **12:48 pm**, property about **12:33 pm**: roughly **15 minutes later**. Session 5 gave us an interval for that gap. Today we get the *test* — a yes/no verdict machine — and then a second tradition that answers the question you probably *meant* to ask.
 
 ## 2 · Pretend we sampled repeatedly
 
@@ -59,33 +67,34 @@ boot <- tibble(
 
 boot |>
   pivot_longer(everything(), names_to = "group", values_to = "boot_mean") |>
+  mutate(group = factor(group, levels = c("Violent", "Property"))) |>
   ggplot(aes(boot_mean, fill = group)) +
   geom_histogram(bins = 60, alpha = 0.6, position = "identity", color = NA) +
-  scale_fill_manual(values = c("steelblue", "firebrick")) +
+  scale_fill_manual(values = c("firebrick", "steelblue")) +
+  scale_x_continuous(labels = clock) +
   labs(title = "10,000 bootstrap means per group",
-       x = "Mean hour of day", y = "Count", fill = NULL)
+       x = "Mean time of day", y = "Count", fill = NULL)
 ```
 
-Subtract, pair by pair, and the *difference* gets its own distribution:
+Subtract, pair by pair, and the *difference* gets its own distribution. We work in minutes from here on:
 
 ```{r}
 #| label: boot-diff
 #| fig-height: 4.5
-boot_diff <- boot$Violent - boot$Property
+boot_diff <- (boot$Violent - boot$Property) * 60   # in minutes: Violent minus Property
+ci_boot   <- quantile(boot_diff, c(0.025, 0.975))
+ci_boot
 
-quantile(boot_diff, c(0.025, 0.975))
-
-ci_boot <- quantile(boot_diff, c(0.025, 0.975))
 ggplot(tibble(boot_diff), aes(boot_diff)) +
   geom_histogram(bins = 60, fill = "navy", color = "white") +
   geom_vline(xintercept = 0, color = "firebrick", linewidth = 1.2) +
   geom_vline(xintercept = ci_boot, color = "goldenrod", linetype = 2, linewidth = 1) +
-  labs(title = "Bootstrap distribution of the difference (Violent − Property)",
+  labs(title = "Bootstrap distribution of the difference (Violent minus Property)",
        subtitle = "Red line = zero (no difference); gold dashes = 95% interval",
-       x = "Difference in mean hour", y = "Count")
+       x = "Difference in mean time of day, minutes", y = "Count")
 ```
 
-The middle 95% of plausible differences runs from about **0.06 to 0.44 hours** — zero is not among the plausible values. The data lean toward a real (if small) gap.
+The middle 95% of plausible differences runs from about **`r round(ci_boot[1])` to `r round(ci_boot[2])` minutes** — zero is not among the plausible values. The data lean toward a real (if small) gap.
 
 ### What if the interval crossed zero?
 
@@ -97,12 +106,13 @@ violent_shifted <- violent_hours - (mean(violent_hours) - mean(property_hours))
 
 boot_diff_null <- replicate(10000,
   mean(sample(violent_shifted, replace = TRUE)) -
-  mean(sample(property_hours,  replace = TRUE)))
+  mean(sample(property_hours,  replace = TRUE))) * 60   # minutes
 
-quantile(boot_diff_null, c(0.025, 0.975))
+ci_null <- quantile(boot_diff_null, c(0.025, 0.975))
+ci_null
 ```
 
-Now the interval runs from about **−0.19 to +0.19** — zero sits comfortably inside, and the data are *consistent with no difference*. Formalize this intuition and you have invented the NHST.
+Now the interval runs from about **`r round(ci_null[1])` to +`r round(ci_null[2])` minutes** — zero sits comfortably inside, and the data are *consistent with no difference*. (Session 5's arrest-versus-no-arrest comparison was the real-data version of this picture.) Formalize the intuition and you have invented the NHST.
 
 ## 3 · The Null Hypothesis Significance Test, in five steps
 
@@ -119,13 +129,13 @@ Notice the machine only weighs evidence **against the null** — $H_1$ never get
 t.test(hour ~ crime_category, data = vp)
 ```
 
-Reading the verdict: R orders groups alphabetically, so this tests **Property − Violent** (hence the negative signs — same finding as our bootstrap, mirrored). $t = -2.61$, $p = .009$. Under .05 — **"statistically significant."** Reject the null. Publish the press release?
+Reading the verdict: Violent is listed first because we told R so (the `factor()` line from Session 5), so this tests **Violent minus Property** — the same 4-to-27-minute interval as our bootstrap, now with a test attached. $t = 2.61$, $p = .009$. Under .05 — **"statistically significant."** Reject the null. Publish the press release?
 
 One caution before we do: everything above was scored against *one* curve — the null — and that tidy t-distribution itself assumes normal-enough data, independent observations, and well-behaved variances. NHST never asks what the alternative world looks like, and researchers rarely test the assumptions before trusting the p-value. (The lecture's sketch figures make this vivid — see the [Session 6 slides](../slides/week-06-hypothesis-testing.qmd).)
 
 ## 4 · The Bayesian t-test: `ttestBF()`
 
-Session 3's Bayes' theorem, now pointed at hypotheses: the p-value lives entirely in the **likelihood**, $P(\text{data} \mid H_0)$, and never becomes $P(H_0 \mid \text{data})$. Bayesian testing finishes the flip — at the price of a stated prior. Same question, second tradition. We supply the groups ourselves, so the direction is ours: **x − y = Violent − Property**.
+Session 3's Bayes' theorem, now pointed at hypotheses: the p-value lives entirely in the **likelihood**, $P(\text{data} \mid H_0)$, and never becomes $P(H_0 \mid \text{data})$. Bayesian testing finishes the flip — at the price of a stated prior. Same question, second tradition. We hand it the two groups ourselves, Violent first again: **x − y = Violent minus Property**.
 
 ```{r}
 #| label: bf-run
@@ -158,7 +168,7 @@ The Bayes factor compares models. The **posterior** describes the difference its
 ```{r}
 #| label: bf-posterior
 post <- suppressMessages(posterior(bf, iterations = 10000))
-diff_post <- as.numeric(post[, "beta (x - y)"])
+diff_post <- as.numeric(post[, "beta (x - y)"]) * 60   # in minutes: Violent minus Property
 
 quantile(diff_post, c(0.025, 0.975))
 mean(diff_post > 0)
@@ -173,13 +183,13 @@ ggplot(tibble(diff_post), aes(diff_post)) +
   geom_histogram(bins = 60, fill = "darkgreen", color = "white") +
   geom_vline(xintercept = 0, color = "firebrick", linewidth = 1.2) +
   geom_vline(xintercept = cred, color = "goldenrod", linetype = 2, linewidth = 1) +
-  labs(title = "Posterior distribution of the difference (Violent − Property, hours)",
-       subtitle = paste0("95% credible interval: ", round(cred[1], 2), " to ",
-                         round(cred[2], 2), " hours"),
-       x = "Difference in mean hour", y = "Posterior samples")
+  labs(title = "Posterior distribution of the difference (Violent minus Property)",
+       subtitle = paste0("95% credible interval: ", round(cred[1]), " to ",
+                         round(cred[2]), " minutes"),
+       x = "Difference in mean time of day, minutes", y = "Posterior samples")
 ```
 
-Now say the sentence Session 5 forbade — **legally**: *"There is a 95% probability the true difference lies between about 4 and 26 minutes."* Under the Bayesian license (given the model and prior), that is exactly what this **credible interval** means. And about 99.5% of the posterior sits above zero — the difference is almost certainly *real*. Real, but…
+Now say the sentence Session 5 forbade — **legally**: *"There is a 95% probability the true difference lies between about `r round(cred[1])` and `r round(cred[2])` minutes."* Under the Bayesian license (given the model and prior), that is exactly what this **credible interval** means. And about `r round(100 * mean(diff_post > 0), 1)`% of the posterior sits above zero — the difference is almost certainly *real*. Real, but…
 
 ## 6 · Detectable, probable — and tiny
 
@@ -245,7 +255,7 @@ The lecture closed with two animations you should watch in the [Session 6 slides
 
 ## Try a variation
 
-1. Run both tests on a new question: does `hour` differ for **domestic vs. non-domestic** incidents? (`t.test(hour ~ domestic, data = crimes)` and `ttestBF(formula = hour ~ domestic, data = mutate(crimes, domestic = factor(domestic)))`.) Do the two traditions agree this time?
+1. Run both tests on a new question: does `hour` differ for **domestic vs. non-domestic** incidents? Build the grouping variable first, the Session 5 way, so you choose which group comes first: `dom <- crimes |> mutate(domestic = factor(if_else(domestic, "Domestic", "Not domestic"), levels = c("Domestic", "Not domestic")))`, then `t.test(hour ~ domestic, data = dom)` and `ttestBF(formula = hour ~ domestic, data = dom)`. Do the two traditions agree this time?
 2. In the recidivism trial, flatten the prior to `Beta(1, 1)` (no prior information). How does P(program works) move? *(This is the prior's weight, measured in one edit.)*
 3. Make the trial's evidence stronger — treatment 35/100 instead of 40/100 — and re-run both. Where does *p* land now, and where does the posterior probability?
 4. Rerun the bootstrap with `replicate(100, …)` instead of 10,000. How stable are the interval endpoints across reruns? *(Monte Carlo error is a sample-size problem too.)*

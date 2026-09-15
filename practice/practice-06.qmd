@@ -77,7 +77,10 @@ Do crimes on the **street** happen at different hours than crimes inside a **res
 
 ```{r}
 #| label: p3
-sr <- crimes |> filter(location_description %in% c("STREET", "RESIDENCE"))
+sr <- crimes |>
+  filter(location_description %in% c("STREET", "RESIDENCE")) |>
+  mutate(location_description = factor(location_description,
+                                       levels = c("STREET", "RESIDENCE")))   # STREET first
 
 sr |> summarize(mean_hour = mean(hour), sd_hour = sd(hour), n = n(),
                 .by = location_description)
@@ -91,7 +94,7 @@ bf <- ttestBF(x = street_hours, y = residence_hours)
 extractBF(bf)$bf
 ```
 
-Street incidents average hour 12.6 vs 11.9 in residences — about 47 minutes later. Directions differ by tool: `t.test()` sorts alphabetically (RESIDENCE − STREET, hence the negative t ≈ −5.5 and CI of −1.06 to −0.50 hours), while we handed `ttestBF()` x = street, y = residence, so its difference runs positive. This time the two traditions **agree**: p ≈ 5 × 10⁻⁸ and $BF_{10}$ ≈ 38,000 — extreme evidence for a real difference. Unlike class's 15-minute violent-vs-property gap, this one is large enough (relative to its precision) that "some difference" out-predicts "no difference" by a mile.
+Street incidents average about 12:38 pm vs 11:52 am in residences — about 47 minutes later. The `factor()` line puts STREET first, so `t.test()` reports STREET minus RESIDENCE (t ≈ 5.5, CI about +30 to +64 minutes), the same direction we hand `ttestBF()` with x = street, y = residence. This time the two traditions **agree**: p ≈ 5 × 10⁻⁸ and $BF_{10}$ ≈ 38,000 — extreme evidence for a real difference. Unlike class's 15-minute violent-vs-property gap, this one is large enough (relative to its precision) that "some difference" out-predicts "no difference" by a mile.
 :::
 
 ## Problem 4 · The number the star hides

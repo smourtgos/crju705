@@ -46,7 +46,15 @@ In class we compared violent and property crimes by hour of day. Your question i
    crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
    ```
 
-2. Compute the mean `hour` separately for domestic and non-domestic incidents (`.by = domestic`). **In a comment:** which group happens earlier in the day, on average, and by roughly how many minutes?
+2. `domestic` is TRUE/FALSE. Copy this line and run it; it labels the two groups in words and puts Domestic first, so every comparison below reads **Domestic minus Not domestic** (the Session 5 move):
+
+   ```r
+   crimes <- crimes |>
+     mutate(domestic = factor(if_else(domestic, "Domestic", "Not domestic"),
+                              levels = c("Domestic", "Not domestic")))
+   ```
+
+   Then compute the mean `hour` for each group (`summarize()` with `.by = domestic`). **In a comment:** which group happens earlier in the day, on average, and by roughly how many minutes?
 
 3. Run the **frequentist** test:
 
@@ -54,13 +62,13 @@ In class we compared violent and property crimes by hour of day. Your question i
    t.test(hour ~ domestic, data = crimes)
    ```
 
-   **In a comment:** report the p-value and the 95% confidence interval, then interpret the result in plain English — one sentence a police commander would understand. *(Watch the direction: with a logical grouping variable, R computes `FALSE` minus `TRUE`.)*
+   **In a comment:** report the p-value and the 95% confidence interval in minutes, then interpret the result in plain English — one sentence a police commander would understand. *(Direction check, as in Lab 5: the output lists Domestic first, so the interval is Domestic minus Not domestic. Confirm its sign against the two group means at the bottom of the output.)*
 
-4. Run the **Bayesian** test on the same question:
+4. Run the **Bayesian** test on the same question, handing it the two groups in the same order:
 
    ```r
-   dom_hours    <- crimes$hour[crimes$domestic]
-   nondom_hours <- crimes$hour[!crimes$domestic]
+   dom_hours    <- crimes$hour[crimes$domestic == "Domestic"]
+   nondom_hours <- crimes$hour[crimes$domestic == "Not domestic"]
 
    bf <- ttestBF(x = dom_hours, y = nondom_hours)
    extractBF(bf)$bf

@@ -17,7 +17,7 @@ Textbook stays **Stanton, *Reasoning with Data*** (the only intro text doing fre
 |---|---|
 | **Live site** | <https://smourtgos.github.io/crju705/> |
 | **GitHub repo** | <https://github.com/smourtgos/crju705> (public) |
-| **Working source** | `crju705-site/` (this folder) |
+| **Working source** | `crju705-site.nosync/` (this folder) |
 | **2025 archive (untouched source material)** | `../CRJU 705/` |
 | **Colleague's course (lab template + datasets borrowed)** | `../CRCJ 8950 Spring 2026/` |
 
@@ -26,7 +26,7 @@ Source directories, in student-facing terms: `weeks/` (hub pages — objectives,
 ## How to work on it
 
 ```bash
-# from crju705-site/
+# from crju705-site.nosync/
 quarto preview            # live local preview while editing
 quarto render             # build the whole site to _site/
 # then publish:
@@ -190,6 +190,20 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 - **`data/chicago-areas.csv`** — all 2025 incidents aggregated to the 77 community areas, joined with CMAP/ACS socioeconomic covariates (poverty, unemployment, income, education, race, rent…). Has `high_violence` (binary) for the logistic-regression week.
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
+
+## STATUS: Session 6 alignment + `.nosync` rename (September 14, 2026, later the same night) COMPLETE ✅ — shipped live
+
+Two follow-ups Scott asked for after the Session 5 pass. (1) **The repo is now
+`crju705-site.nosync`**, which takes it out of iCloud Drive sync; see the
+publishing gotcha and the closed TODO. (2) **Session 6 matches Session 5**: `vp`
+carries the factor line, the deck reads Violent minus Property everywhere (t =
+2.61), times are clock times and minutes, "Two Threads, One Course" became "How
+Today Works," and the closing slide no longer credits an R4DS reading students did
+not do. The demo mirrors it; hw-06 hands students the Domestic-first factor line
+and its key grades a direction *check* instead of a FALSE − TRUE trap; practice-06
+stops teaching the alphabetical flip. Audit v3 clean (48 slides). Itemized in
+`_private/notes/CHANGES-week-06.md`. Lab 6 and the week-06 hub's joins lines are
+deliberately untouched.
 
 ## STATUS: Session 5 pass (September 14, 2026) COMPLETE ✅ — shipped live
 
@@ -391,8 +405,8 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - [x] **Slide-overflow audit — RUN Aug 25, 2026; week-8 overflows FIXED same day** (browser console reached by serving `_site` with `python3 -m http.server`; the server binds fine now). Weeks 1 and 12 clean; week 2 clean after the dispersion reorder. Week 8's two overflows from the August ANOVA-demotion edits — slide 2 "This Week" (169px over the 700px canvas) and slide 36 "This Workflow Is the Point" (45px over) — trimmed without touching the demotion framing: `{.smaller}` on the opener (no text changed), one-line intro trim on the workflow slide (details in CHANGES-week-08 items 27–28). Re-audit clean: 0 of 47 slides overflow.
 - [ ] **Decide about `options(scipen = 999)` in `R/setup.R`.** It prints p-values as `p-value < 0.00000000000000022` and `0.0000000000105` instead of `2.2e-16` / `1.05e-11`. On the Session 1 slide that introduces p-values for the first time that is arguably *harder* to read, not easier. Left alone because the setting is global across every deck, lab, and homework page — changing it is a one-liner but affects everything.
 - [ ] **(Sep 7, 2026) Decide what Session 7 is now.** It is billed as the session where "the two threads meet," and after the lecture/lab split there is only one thread. Its workshop asks students to import and clean a messy file with no import or tidying instruction anywhere behind it. Tonight only corrected the false claims in the pipeline table and Lab 7's missingness block (see CHANGES-week-07). The redesign is a real decision and S7 is Sep 29, but **decide before Session 6**, because Lab 6 (joins, R4DS Ch. 19) is the next lab that hits the same tension. **(Sep 14, 2026)** Sharper now: Ch. 19 is no longer assigned anywhere (S5→S6 is Ch. 16), so `labs/lab-06-joins.qmd:6` ("assumes you've read Ch. 19") and `weeks/week-06.qmd` lines 3, 19, 30, 40 describe a lab with no reading behind it. Scott chose to leave Lab 6 alone on Sep 14 and decide with this item.
-- [ ] **(Sep 14, 2026) Move the repo out of iCloud Drive sync, or exclude it.** See the publishing gotcha at the top: the daemon plants `name 2.ext` duplicates in `_freeze/`, `_site/`, `.quarto/`, and `_private/` and resurrects render intermediates next to the sources. Renaming the folder `crju705-site.nosync` (iCloud skips `.nosync` folders) or moving it under a non-synced path such as `~/Code/` stops it; if it moves, update the paths in `../PROJECT_NOTES.md` and the grading workflow that reads `crju705-site/_private/keys/`.
-- [ ] **(Sep 14, 2026) The Session 6 deck contradicts the Session 5 deck; fix before Sep 22.** `slides/week-06-hypothesis-testing.qmd` builds `vp` without the factor line (line 29), still says "R orders groups alphabetically, so this tests Property − Violent" (222), reports decimal hours (127, 141), and its "Two Threads" slide (45–57) claims the Ch. 19 reading feeds Lab 6. Session 5 now teaches the opposite of all four.
+- [x] **(Sep 14, 2026) Repo moved out of iCloud Drive sync — DONE the same night.** The folder was renamed `crju705-site.nosync` (iCloud skips `.nosync` names); a full copy was taken first, git and `_private/` were verified intact afterwards, and the stale worktree registrations (`bold-volhard-1820af`, two `quarto-publish-worktree-*`) were pruned. No `name 2.ext` duplicates appeared in the renders that followed. Both notes files now use the new path. **Keep the purge-and-`git status` habit for one more pass** to confirm the daemon is really gone.
+- [x] **(Sep 14, 2026) Session 6 deck brought into line with Session 5 — DONE the same night** (Scott's ask). Factor line, "How Today Works," clock times and minutes, no "alphabetically"; demo, hw-06 + key, and practice-06 fixed for the same contradictions. Detail in `_private/notes/CHANGES-week-06.md` (September 14 section). Lab 6 and the week-06 hub's joins lines are untouched, per the Lab 6 decision above.
 - [ ] **(Sep 14, 2026) Propagate the lab-deliverable wording.** Lab 5's "How labs work" and Exit Ticket sections now say to submit the whole Your Turn script with the reflection comments at the bottom. Labs 2–4 and 6–8 still say to submit an Exit Ticket.
 - [ ] **(Sep 14, 2026) `practice/practice-05.qmd`** still models `$conf.int`, `sum(x == ...)`, `nrow()`, and the alphabetical-direction language in all five solutions, and its Problem 4 reuses the deck's variable and machinery (CONVENTIONS line 85). Ungraded and public; align when convenient. `midterm.qmd:12` "pivot/join weeks" wording is also slightly off now.
 - [ ] **Re-record the S12 3D walkthrough video** — the live widget was fixed but `media/week-12/3d-logistic.mp4` still shows the pre-fix transposed surface (CHANGES-week-12).
