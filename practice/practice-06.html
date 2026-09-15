@@ -355,14 +355,17 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sr</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">location_description</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STREET"</span>, <span class="st">"RESIDENCE"</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sr</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">location_description</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STREET"</span>, <span class="st">"RESIDENCE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>location_description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">location_description</span>,</span>
+<span>                                       levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STREET"</span>, <span class="st">"RESIDENCE"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>   <span class="co"># STREET first</span></span>
 <span></span>
 <span><span class="va">sr</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>, sd_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                .by <span class="op">=</span> <span class="va">location_description</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   location_description mean_hour sd_hour     n
-  &lt;chr&gt;                    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
+  &lt;fct&gt;                    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
 1 STREET                    12.6    7.36  7907
 2 RESIDENCE                 11.9    6.97  3587</code></pre>
 </div>
@@ -372,13 +375,13 @@ Tip
     Welch Two Sample t-test
 
 data:  hour by location_description
-t = -5.471, df = 7283.7, p-value = 4.623e-08
-alternative hypothesis: true difference in means between group RESIDENCE and group STREET is not equal to 0
+t = 5.471, df = 7283.7, p-value = 4.623e-08
+alternative hypothesis: true difference in means between group STREET and group RESIDENCE is not equal to 0
 95 percent confidence interval:
- -1.0611136 -0.5012974
+ 0.5012974 1.0611136
 sample estimates:
-mean in group RESIDENCE    mean in group STREET 
-               11.85949                12.64070 </code></pre>
+   mean in group STREET mean in group RESIDENCE 
+               12.64070                11.85949 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">street_hours</span>    <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"STREET"</span><span class="op">]</span></span>
 <span><span class="va">residence_hours</span> <span class="op">&lt;-</span> <span class="va">sr</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">sr</span><span class="op">$</span><span class="va">location_description</span> <span class="op">==</span> <span class="st">"RESIDENCE"</span><span class="op">]</span></span>
@@ -389,7 +392,7 @@ mean in group RESIDENCE    mean in group STREET
 <pre><code>[1] 37975.69</code></pre>
 </div>
 </div>
-<p>Street incidents average hour 12.6 vs 11.9 in residences — about 47 minutes later. Directions differ by tool: <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> sorts alphabetically (RESIDENCE − STREET, hence the negative t ≈ −5.5 and CI of −1.06 to −0.50 hours), while we handed <code><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF()</a></code> x = street, y = residence, so its difference runs positive. This time the two traditions <strong>agree</strong>: p ≈ 5 × 10⁻⁸ and <span class="math inline">\(BF_{10}\)</span> ≈ 38,000 — extreme evidence for a real difference. Unlike class’s 15-minute violent-vs-property gap, this one is large enough (relative to its precision) that “some difference” out-predicts “no difference” by a mile.</p>
+<p>Street incidents average about 12:38 pm vs 11:52 am in residences — about 47 minutes later. The <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> line puts STREET first, so <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> reports STREET minus RESIDENCE (t ≈ 5.5, CI about +30 to +64 minutes), the same direction we hand <code><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF()</a></code> with x = street, y = residence. This time the two traditions <strong>agree</strong>: p ≈ 5 × 10⁻⁸ and <span class="math inline">\(BF_{10}\)</span> ≈ 38,000 — extreme evidence for a real difference. Unlike class’s 15-minute violent-vs-property gap, this one is large enough (relative to its precision) that “some difference” out-predicts “no difference” by a mile.</p>
 </div>
 </div>
 </div>
