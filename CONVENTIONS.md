@@ -65,7 +65,7 @@ Four-part structure (adapted from a colleague's proven template):
 1. **Setup** — packages + `read_csv("data/…")`; chunk given to students, runs as-is
 2. **Walkthrough** — worked examples, executed, output shown
 3. **Your Turn (1..n)** — task prompts + empty chunks with `#| eval: false`
-4. **Exit Ticket** — 3–5 prompts, submitted via Canvas
+4. ~~**Exit Ticket**~~ — **dropped from Lab 6 on (Scott, Sep 21, 2026).** Students submit their Your Turn script and nothing else; the lab ends with one line saying so. Labs 7 and 8 still carry the old section and "How labs work" sentence; remove them in their own weeks. (Labs 2–5 are history; leave them.)
 
 ## Demo walkthroughs (`demos/demo-NN-topic.qmd`)
 

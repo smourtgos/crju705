@@ -1,6 +1,6 @@
 # CRJU 705 Modernization — Project Notes
 
-*Last updated: September 15, 2026 (overnight) — Session 6 aligned with Session 5 (factor line, clock times, no alphabetical flip; demo, hw-06 + key, practice-06 likewise); the repo renamed `crju705-site.nosync` to leave iCloud Drive sync; `_private` moved to `../crju705-private/` behind a committed symlink; iCloud diagnosed as the source of the duplicate-file junk. Before that, September 14, 2026 — the Session 5 pass: Scott's five deck fixes (Snow map label, the 100-intervals demonstration run twice, a width plot, one subtraction direction with clock times, the "does not cross zero" pictures), Lab 5 simplified again, hw-05 cut to what lecture and lab cover, R4DS Ch. 19 + 18 replaced by Ch. 16. Previously September 7, 2026 — the Session 4 rebalance: labs now practice the lecture instead of running a parallel wrangling thread, R4DS Ch. 7–8 dropped for Ch. 10, Session 3 trimmed to what was actually assigned. Before that August 25, 2026 — the first-week-of-teaching pass: the week-01 swirl-list rendering bug (found grading HW 1), the week-02 dispersion reorder, and the slide-overflow audit finally run for real (week 8's two overflows fixed). All shipped live. Working notes for picking this back up.*
+*Last updated: September 21, 2026 — the Session 6 rebuild (no Bayes factors or Cohen's d; the course function `bayes_prop_test()`; arrest-rate example in percent; new Lab 6 with no Exit Ticket; hw-06 on the crash data; R4DS Ch. 17). Before that, September 15, 2026 (overnight) — Session 6 aligned with Session 5 (factor line, clock times, no alphabetical flip; demo, hw-06 + key, practice-06 likewise); the repo renamed `crju705-site.nosync` to leave iCloud Drive sync; `_private` moved to `../crju705-private/` behind a committed symlink; iCloud diagnosed as the source of the duplicate-file junk. Before that, September 14, 2026 — the Session 5 pass: Scott's five deck fixes (Snow map label, the 100-intervals demonstration run twice, a width plot, one subtraction direction with clock times, the "does not cross zero" pictures), Lab 5 simplified again, hw-05 cut to what lecture and lab cover, R4DS Ch. 19 + 18 replaced by Ch. 16. Previously September 7, 2026 — the Session 4 rebalance: labs now practice the lecture instead of running a parallel wrangling thread, R4DS Ch. 7–8 dropped for Ch. 10, Session 3 trimmed to what was actually assigned. Before that August 25, 2026 — the first-week-of-teaching pass: the week-01 swirl-list rendering bug (found grading HW 1), the week-02 dispersion reorder, and the slide-overflow audit finally run for real (week 8's two overflows fixed). All shipped live. Working notes for picking this back up.*
 
 ## What this is
 
@@ -208,6 +208,59 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 - **`data/chicago-areas.csv`** — all 2025 incidents aggregated to the 77 community areas, joined with CMAP/ACS socioeconomic covariates (poverty, unemployment, income, education, race, rent…). Has `high_violence` (binary) for the logistic-regression week.
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
+
+## STATUS: Session 6 rebuild (September 21, 2026) COMPLETE ✅ — shipped live
+
+Scott's review the night before Session 6. Full itemization in
+`_private/notes/CHANGES-week-06.md` (two Sep 21 sections: lecture, then everything else).
+
+- **No Bayes factors, no BayesFactor package, no Cohen's d in Session 6.** The Bayesian
+  half is the posterior and the credible interval only, from one course function:
+  **`bayes_prop_test()` in `R/bayes.R`**, called exactly like `prop.test()` with an
+  optional `prior = c(yes, no)` written as imaginary prior cases. Students load it with
+  `source("https://smourtgos.github.io/crju705/R/bayes.R")`; nothing to install. It is
+  published through `resources:` in `_quarto.yml` (that one file, not `R/setup.R`). Exact
+  beta posteriors; the difference uses 100,000 draws with a seed fixed inside the function
+  and the caller's RNG restored, so every student's numbers match the slides and keys. It
+  never prints a flat 0 or 1 probability.
+- **New real-data question, in percent:** among violent crimes, domestic 19.7% (740 of
+  3,749) vs not 13.2% (714 of 5,399), read Domestic minus Not domestic. The time-of-day
+  example is gone from Session 6 (decimal hours confused students badly).
+- **Recidivism prior in plain words:** "about 60%, held as firmly as if we had watched 10
+  people, 6 reoffended and 4 did not" = `prior = c(6, 4)`. 0.91 with it, 0.92 without.
+- "Bootstrap" is "repeated sampling" everywhere; the thesis sentence and every "collision"
+  are gone; the deck's three simulation figures are `echo: false` (code is on the demo).
+- **Lab 6 is `labs/lab-06-testing.qmd`** (officers.csv, PTSD screen by gender, then by
+  facility; both tests, a prior, and the p-value line of `t.test()`). The joins lab is
+  deleted, which closes the old "Lab 6 has no reading behind it" TODO. **No Exit Ticket**
+  (see CONVENTIONS).
+- **hw-06 Part 3 mirrors Lab 6 on crash-ak.csv** (anyone hurt 62.5% vs 46.6%; fatal 6.1% vs
+  2.5%; a pretend DUI-court pilot with `prior = c(9, 11)`, p = 0.13 vs 0.93; "how big, in
+  real units"). **R4DS S6→S7 is Ch. 17 (Dates and times):** 17.2.5 #1, 17.2.5 #3
+  (lubridate half, d1–d5), 17.3.4 #5 (starter given; Saturday), 17.4.4 #2 (2015 half),
+  quoted from the live page Sep 21. The R4DS thread now runs through Problem Set 6.
+- **GOTCHA — pages that `source()` the public URL cannot render until that file is live.**
+  Publish order used: render everything that does not load it, publish `--no-render`, wait
+  for the URL to return 200, render the lab/demo/practice, publish again. Only matters when
+  `R/bayes.R` is new or changed.
+- **GOTCHA — `here::here()` from `_private/` resolves to `crju705-private/`, not the repo**
+  (the symlink's real path). `hw-06-key.qmd` sources the public URL with a relative-path
+  fallback (`../../crju705-site.nosync/R/bayes.R`).
+- Verification: every typed number read against rendered output (deck, demo, lab, key,
+  practice); forbidden-term grep clean (the only "bootstrap" hits in the built deck are
+  Quarto's own JS); overflow audit v3 clean twice (48 slides); privacy checks clean after
+  the `_quarto.yml` change; `comm -23` audit found the old joins page and seven stale
+  figures on gh-pages, removed through a worktree; live deck and lab are byte-identical to
+  the verified local build.
+
+**Now stale elsewhere, to fix in their own weeks:** `labs/lab-07-workshop.qmd` and
+`demos/demo-07-workshop.qmd` run `ttestBF()` (**before Sep 29**); Labs 7–8 Exit Ticket;
+`slides/week-08-anova.qmd:363` and `demos/demo-08-anova.qmd:227` ("`ttestBF()` (S6)");
+Session 10's deck, lab, practice, demo, key, and `weeks/week-10.qmd:37` ("Session 6's
+scale," "the Bayes factor lets you say so"); `resources.qmd:45` and the Session 1 deck
+(BayesFactor in the install line); the midterm, its key, and `midterm.qmd` (test
+`ttestBF()` and the BF scale; Scott: adjust later). No Bayesian answer for a difference in
+*means* exists before Session 8's brms.
 
 ## STATUS: Session 6 alignment + `.nosync` rename (September 14, 2026, later the same night) COMPLETE ✅ — shipped live
 
