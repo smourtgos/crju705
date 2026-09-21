@@ -13,6 +13,7 @@ project:
     - media/
     - data/
     - final-project-exemplar-script.R
+    - R/bayes.R
 
 website:
   title: "CRJU 705"

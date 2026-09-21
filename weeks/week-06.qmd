@@ -1,10 +1,10 @@
 ---
 title: "Session 6 · Hypothesis Testing: Frequentist and Bayesian"
-subtitle: "NHST and its fine print · p-values · Bayes' theorem recapped · Bayes factors · posterior distributions · joins"
+subtitle: "NHST and its fine print · p-values · Bayes' theorem recapped · posteriors · credible intervals"
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Hypothesis Testing: Frequentist and Bayesian](../slides/week-06-hypothesis-testing.qmd)** · **[🧪 Lab 6: Joining Data](../labs/lab-06-joins.qmd)** · **[📝 Homework 6](../homework/hw-06.qmd)** · **[🎬 Demo walkthrough](../demos/demo-06-hypothesis-testing.qmd)** · **[✍️ Practice](../practice/practice-06.qmd)**
+**[📽️ Slides: Hypothesis Testing: Frequentist and Bayesian](../slides/week-06-hypothesis-testing.qmd)** · **[🧪 Lab 6: One Question, Two Tests](../labs/lab-06-testing.qmd)** · **[📝 Homework 6](../homework/hw-06.qmd)** · **[🎬 Demo walkthrough](../demos/demo-06-hypothesis-testing.qmd)** · **[✍️ Practice](../practice/practice-06.qmd)**
 :::
 
 This is the signature week of the course: the same research question answered by **both** of statistics' great traditions, side by side — the reason we use the Stanton book at all. Session 5's confidence intervals grow into the Null Hypothesis Significance Test (fine print included), and then Session 3's Bayes' theorem returns — pointed at hypotheses instead of diagnoses, answering the question you probably *meant* to ask. Every method from here to the end of the course runs in both traditions, so this week's vocabulary is permanent.
@@ -13,36 +13,42 @@ This is the signature week of the course: the same research question answered by
 
 By the end of this week you can:
 
-- run `t.test()` *and* `ttestBF()` on the same question, and state correctly what each output licenses you to claim
+- run `prop.test()` *and* `bayes_prop_test()` on the same question, and state correctly what each output lets you claim
 - explain in plain language what a p-value is — and name the things it is not
-- read a Bayes factor and a posterior distribution, and report a credible interval honestly
-- join related tables with `left_join()`, `inner_join()`, and `anti_join()`, checking keys and missing values first
+- state a prior in plain words, read a posterior, and report a credible interval honestly
+- find the p-value in `prop.test()` and `t.test()` output, and say how big a difference is in real units
 
 ## Before class
 
 - Read: Stanton **Ch. 5** (Bayesian & Frequentist Hypothesis Testing)
 - Read: Mourtgos, S. M. (2023). "Bayesian Inference in Criminological Research." *Police Forum*, 32(1), 7–16 — PDF posted on Canvas. Yes, I assigned my own article; consider it a preview of where your instructor's sympathies lie, and feel free to argue with it in class
 - Read: R4DS **[Ch. 16 — Factors](https://r4ds.hadley.nz/factors.html)** — **plus the exercises assigned in [Session 5](week-05.qmd#homework)**
-- Install the Bayesian engine before class so we can use it together: `install.packages("BayesFactor")`
+- Nothing new to install: tonight's Bayesian tool is a course function you load with one `source()` line
 
 ## In class
 
-**This week's two threads:** hypothesis testing in both traditions (lecture + homework) · joins (lab).
-
-- From Session 5's confidence intervals to the **Null Hypothesis Significance Test**: bootstrap logic, the null, the verdict machine — and an animation of what the p-value is actually doing
+- From Session 5's confidence intervals to the **Null Hypothesis Significance Test**: repeated sampling, a world with no real difference, the verdict machine — and an animation of what the p-value is actually doing
 - What a p-value is, and the long list of things it is not
 - The fine print: NHST never scores the alternative hypothesis, and rarely checks the distribution it assumes
 - **Bayes' theorem, recapped from Session 3** — and the new insight: the p-value lives entirely in the likelihood, and never becomes P(H₀ | data); the two traditions side by side
 - Optional self-study appendix (end of the deck): why Bayes was long impractical (the intractable denominator) and how **MCMC** solved it, watched live
-- Both traditions on our real Chicago question — `t.test()` says *significant*, `ttestBF()` mildly favors the null, the posterior says the difference is almost surely real *and* almost surely trivial. Sorting out that collision (effect sizes!) is the heart of the week
-- The recidivism trial: p = 0.20 vs. a 91% posterior probability the program works — same data, different questions
-- Sample size pathologies, animated: p-values dive below .05 for trivial effects as *n* grows; posteriors just sharpen around the truth
-- **Lab 6:** joining the two Chicago files — `left_join()`, `inner_join()`, `anti_join()`, key checks, and the missing-values discipline ([lab page](../labs/lab-06-joins.qmd))
+- Tonight's real question, in percent: among Chicago's violent crimes, are domestic ones more likely to end in arrest? (19.7% vs 13.2%)
+- The recidivism trial, both ways: p = 0.20 from `prop.test()` vs. a 91% probability the program works from `bayes_prop_test()` — same data, different questions — with the prior stated in plain words
+- Back to Chicago with both tools: with thousands of cases the two traditions give nearly the same range; with 100 per group they read very differently
+- Sample size, animated: p-values dive below .05 for trivial effects as *n* grows; posteriors just sharpen around the truth. So always say how big the difference is, in real units
+- **Lab 6:** one question about the correctional officers, answered twice — `prop.test()` and `bayes_prop_test()`, step by step ([lab page](../labs/lab-06-testing.qmd)). You submit your Your Turn script
 
 *Missed class? The [demo walkthrough](../demos/demo-06-hypothesis-testing.qmd) reproduces today's live demos step by step.*
 
 ## Homework
 
-- **[Homework 6](../homework/hw-06.qmd)** — Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question; submit your `.R` file via Canvas **by 11:59 pm Sunday**
-- No new Stanton chapter before Session 7 — the **applied data workshop**, where we run the full messy-data pipeline end to end (the capstone of the R4DS thread)
+- **[Homework 6](../homework/hw-06.qmd)** — Bayesian vs. frequentist reasoning, plus both tests on the Alaska crash data, step for step what we did in Lab 6; submit your `.R` file via Canvas **by 11:59 pm Sunday**
+- Read R4DS **[Ch. 17 — Dates and times](https://r4ds.hadley.nz/datetimes.html)**. Almost every criminal justice dataset has a date column, and R treats it as plain text until you tell it otherwise
+  - **R4DS exercises** — four, all about one idea: a date is not text
+    - **17.2.5** #1 — what an invalid date does
+    - **17.2.5** #3 — parse five differently written dates (`ymd()`, `mdy()`, `dmy()`)
+    - **17.3.4** #5 — which weekday has the fewest flight delays (a starter line is in the homework)
+    - **17.4.4** #2 — the first day of every month in 2015
+    - **Required and submitted** — they are the R4DS Exercises section of [Homework 6](../homework/hw-06.qmd); put them in the same `.R` script under a `# ---- R4DS ----` header
+- No new Stanton chapter before Session 7 — the **applied data workshop**, where we run the full messy-data pipeline end to end
 - **Final-project dataset selection is due at Session 7.** Come with a candidate dataset and be ready to say what one row represents, what the interesting variables are, and what question you might ask of it — details on the [final project page](../final-project.qmd)

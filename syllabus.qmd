@@ -259,11 +259,13 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 5 · R4DS Ch. 16 (Factors)
 
-**In-class exercise (graded)** · **Homework:** Problem set 6 · No new Stanton chapter · **Final-project dataset selection is due at Session 7** — come with a candidate and be ready to say what one row represents
+**In-class exercise (graded)** · **Homework:** Problem set 6 (includes the R4DS Ch. 17 exercises) · Read R4DS Ch. 17 (Dates and times) · No new Stanton chapter · **Final-project dataset selection is due at Session 7** — come with a candidate and be ready to say what one row represents
 
 ## `r session_headers[7]`
 
 **Topics:** **Applied data workshop** — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)
+
+**Readings due:** R4DS Ch. 17 (Dates and times)
 
 **Due in class:** **Final-project dataset selection**
 
@@ -340,7 +342,7 @@ Your final grade has three components:
 
 | Component | Weight | What it covers |
 |:---|:---:|:---|
-| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the R4DS exercises attached to Problem Sets 2–5 and the project checkpoints in Problem Sets 8–12) and the graded in-class exercises |
+| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the R4DS exercises attached to Problem Sets 2–6 and the project checkpoints in Problem Sets 8–12) and the graded in-class exercises |
 | Mid-term exam | **25%** | In class at Session 9; covers Sessions 1–8 |
 | Final project | **30%** | Written report, script & output (22%) + in-class presentation (8%) |
 

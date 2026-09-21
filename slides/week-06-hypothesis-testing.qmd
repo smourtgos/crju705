@@ -20,26 +20,24 @@ execute:
 #| label: setup
 #| include: false
 library(tidyverse)
-library(BayesFactor)
 source(here::here("R/setup.R"))
+source(here::here("R/bayes.R"))
+options(scipen = 0)   # print p-values the way students' consoles do (2.2e-16)
 theme_set(theme_minimal(base_size = 18))
 set.seed(705)
 crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
+violent <- crimes |> filter(crime_category == "Violent")
 
-# Same two groups as Session 5, Violent first, so every difference reads Violent minus Property
-vp <- crimes |>
-  filter(crime_category %in% c("Violent", "Property")) |>
-  mutate(crime_category = factor(crime_category, levels = c("Violent", "Property")))
-violent_hours  <- vp$hour[vp$crime_category == "Violent"]
-property_hours <- vp$hour[vp$crime_category == "Property"]
+# Tonight's direction, stated once: Domestic minus Not domestic
+dom_arrest <- violent$arrest[violent$domestic]
+non_arrest <- violent$arrest[!violent$domestic]
+x_dom <- sum(dom_arrest); n_dom <- length(dom_arrest)
+x_non <- sum(non_arrest); n_non <- length(non_arrest)
+obs_gap <- 100 * (mean(dom_arrest) - mean(non_arrest))   # percentage points
 
-# hours after midnight -> clock time, for axis labels (as in Session 5)
-clock <- function(h) {
-  m  <- round(h * 60)
-  hh <- (m %/% 60) %% 24
-  mm <- m %% 60
-  sprintf("%d:%02d %s", ifelse(hh %% 12 == 0, 12, hh %% 12), mm, ifelse(hh < 12, "am", "pm"))
-}
+# Last week's homework data, for one bridge slide
+crashes <- read_csv(here::here("data/crash-ak.csv"), show_col_types = FALSE) |>
+  mutate(intox = if_else(intox_any == 1, "Intoxicated", "Sober"))
 ```
 
 ## This Week
@@ -49,9 +47,9 @@ clock <- function(h) {
 - The Null Hypothesis Significance Test: its logic, and its fine print
 - p-values: what they are — and what they are not
 - Bayes' theorem — back from Session 3, now pointed at hypotheses instead of diagnoses
-- Bayes factors and posteriors with the **BayesFactor** package
+- The Bayesian answer: a posterior and a **credible interval**, from one line of R
 
-**Learning goals:** run `t.test()` *and* `ttestBF()` on the same question; state correctly what each output licenses you to claim.
+**Learning goals:** run `prop.test()` *and* `bayes_prop_test()` on the same question; state correctly what each output lets you claim.
 
 ## How Today Works
 
@@ -59,13 +57,13 @@ clock <- function(h) {
 ::: {.column width="50%"}
 **The lecture** — concepts
 
-Stanton Ch. 5 → hypothesis testing, both ways: `t.test()` and `ttestBF()`
+Stanton Ch. 5 → hypothesis testing, both ways: the p-value and the posterior
 :::
 
 ::: {.column width="50%"}
 **The in-class exercise** — code
 
-Lab 6: joining the two Chicago files with `left_join()`, step by step
+Lab 6: you run both tests yourself, step by step
 :::
 ::::
 
@@ -76,125 +74,115 @@ Everything I run today is written up in the [demo walkthrough](../demos/demo-06-
 ::: incremental
 - **Session 3:** Bayes' theorem — beliefs update by evidence; ignore the base rate and "90% accurate" becomes a 15% answer
 - **Session 4:** sampling distributions — sample statistics fluctuate in predictable ways
-- **Session 5:** confidence intervals — an honest range; our violent-vs-property gap came out *detectable but tiny* (≈4–27 min)
+- **Session 5:** confidence intervals — an honest range around an estimate, and one sentence we were *not* allowed to say about it
 - **Today:** the formal machinery for "is there a difference?" — then a second tradition answering the question you *meant* to ask
 :::
 
-. . .
-
-If this course has a thesis, today is it: **the two traditions are complements, not rivals** — and you will leave able to use both.
-
 # Act I · Testing, the Frequentist Way {background-color="#73000A"}
 
-## Remember Our Question? {.smaller}
+## Tonight's Question
 
-Session 5 asked whether violent crimes happen later in the day than property crimes:
+Among **violent crimes** in our Chicago sample: are the *domestic* ones more likely to end in an arrest?
 
 ```{r}
-#| label: recap-means
-vp <- crimes |>
-  filter(crime_category %in% c("Violent", "Property")) |>
-  mutate(crime_category = factor(crime_category, levels = c("Violent", "Property")))
+#| label: count-arrests
+violent <- crimes |> filter(crime_category == "Violent")
 
-vp |> summarize(mean_hour = mean(hour), sd_hour = sd(hour), n = n(), .by = crime_category)
+violent |> count(domestic, arrest)
 ```
+
+## Reading the Table
+
+| | Arrests | Out of | Arrest rate |
+|---|---|---|---|
+| **Domestic** | `r x_dom` | `r x_dom` + `r format(n_dom - x_dom, big.mark = ",")` = `r format(n_dom, big.mark = ",")` | **`r round(100 * x_dom / n_dom, 1)`%** |
+| **Not domestic** | `r x_non` | `r x_non` + `r format(n_non - x_non, big.mark = ",")` = `r format(n_non, big.mark = ",")` | **`r round(100 * x_non / n_non, 1)`%** |
 
 . . .
 
-Same two groups, Violent first, so every difference today reads **Violent minus Property**. Violent incidents average about **12:48 pm**, property about **12:33 pm**: roughly **15 minutes later**. Session 5 gave us an interval for that gap. Today we get the *test* — a yes/no verdict machine.
+A gap of about **`r round(obs_gap, 1)` percentage points**. All night the difference reads one way: **Domestic minus Not domestic**.
+
+. . .
+
+But this is a *sample* of Chicago's 2025 incidents. Session 4 taught us that sample numbers bounce around. Could a gap like this be nothing but bounce?
 
 ## Let's Pretend We Sampled Repeatedly
 
-Bootstrap each group's mean 10,000 times — Session 4's logic, applied to both groups at once:
+Session 4's move, applied to both groups at once: draw 10,000 repeated samples of each group and compute the arrest rate every time.
 
 ```{r}
-#| label: boot-means
-#| output-location: slide
-#| fig-height: 5.5
-boot <- tibble(
-  Violent  = replicate(10000, mean(sample(violent_hours,  replace = TRUE))),
-  Property = replicate(10000, mean(sample(property_hours, replace = TRUE)))
+#| label: rep-rates
+#| echo: false
+#| fig-height: 4.8
+reps <- tibble(
+  Domestic       = replicate(10000, mean(sample(dom_arrest, replace = TRUE))),
+  `Not domestic` = replicate(10000, mean(sample(non_arrest, replace = TRUE)))
 )
 
-boot |>
-  pivot_longer(everything(), names_to = "group", values_to = "boot_mean") |>
-  mutate(group = factor(group, levels = c("Violent", "Property"))) |>
-  ggplot(aes(boot_mean, fill = group)) +
-  geom_histogram(bins = 60, alpha = 0.6, position = "identity", color = NA) +
+reps |>
+  pivot_longer(everything(), names_to = "group", values_to = "rate") |>
+  mutate(group = factor(group, levels = c("Domestic", "Not domestic"))) |>
+  ggplot(aes(100 * rate, fill = group)) +
+  geom_histogram(bins = 60, alpha = 0.7, position = "identity", color = NA) +
   scale_fill_manual(values = unname(crju_colors[c("garnet", "blue")])) +
-  scale_x_continuous(labels = clock) +
-  labs(title = "10,000 bootstrap means per group",
-       x = "Mean time of day", y = "Count", fill = NULL)
+  labs(title = "10,000 repeated samples per group",
+       x = "Arrest rate (%)", y = "Count", fill = NULL)
 ```
 
-## The Difference and Its 95% CI
+The two piles do not even touch.
 
-Subtract, pair by pair, and the *difference* gets its own distribution:
+## The Difference and Its 95% Interval
 
-```{r}
-#| label: boot-diff
-boot_diff <- (boot$Violent - boot$Property) * 60   # in minutes: Violent minus Property
-ci_boot   <- quantile(boot_diff, c(0.025, 0.975))
-
-ci_boot
-```
-
-. . .
-
-The middle 95% of plausible differences runs from about **`r round(ci_boot[1])` to `r round(ci_boot[2])` minutes** — the interval sits *entirely above zero*.
-
-## The Difference, Seen
+Subtract, pair by pair, and the *difference* gets its own pile:
 
 ```{r}
-#| label: boot-diff-plot
+#| label: rep-diff
 #| echo: false
-#| fig-height: 5.5
-ggplot(tibble(boot_diff), aes(boot_diff)) +
+#| fig-height: 4.6
+rep_diff <- 100 * (reps$Domestic - reps$`Not domestic`)   # percentage points
+ci_rep   <- quantile(rep_diff, c(0.025, 0.975))
+
+ggplot(tibble(rep_diff), aes(rep_diff)) +
   geom_histogram(bins = 60, fill = crju_colors["navy"], color = "white") +
   geom_vline(xintercept = 0, color = crju_colors["garnet"], linewidth = 1.2) +
-  geom_vline(xintercept = ci_boot, color = crju_colors["gold"],
-             linetype = 2, linewidth = 1) +
-  labs(title = "Bootstrap distribution of the difference (Violent minus Property)",
-       subtitle = "Garnet line = zero (no difference); gold dashes = 95% interval",
-       x = "Difference in mean time of day, minutes", y = "Count")
+  geom_vline(xintercept = ci_rep, color = crju_colors["gold"], linetype = 2, linewidth = 1) +
+  labs(title = "Repeated-sampling differences (Domestic minus Not domestic)",
+       subtitle = "Garnet line = zero (no difference); gold dashes = middle 95%",
+       x = "Difference in arrest rate, percentage points", y = "Count")
 ```
 
-Zero is not among the plausible values. The data lean toward a real (if small) gap.
+The middle 95% runs from about **`r round(ci_rep[1], 1)` to `r round(ci_rep[2], 1)` points**. Zero is nowhere near it.
 
-## What If the Interval Crossed Zero?
+## What If There Were No Real Difference?
 
-Erase the real gap on purpose — shift every violent incident earlier by the observed difference — and re-run the exact same machinery:
+Build the **boring world** on purpose: give both groups the *same* arrest rate (the overall `r round(100 * mean(violent$arrest), 1)`%), and run the same machinery.
 
 ```{r}
-#| label: boot-null
+#| label: rep-null
 #| echo: false
-#| fig-height: 5
-violent_shifted <- violent_hours - (mean(violent_hours) - mean(property_hours))
-boot_diff_null <- replicate(10000,
-  mean(sample(violent_shifted, replace = TRUE)) -
-  mean(sample(property_hours,  replace = TRUE))) * 60   # minutes
-ci_null <- quantile(boot_diff_null, c(0.025, 0.975))
+#| fig-height: 4.4
+null_diff <- 100 * replicate(10000,
+  mean(sample(violent$arrest, n_dom, replace = TRUE)) -
+  mean(sample(violent$arrest, n_non, replace = TRUE)))
 
-ggplot(tibble(boot_diff_null), aes(boot_diff_null)) +
+ggplot(tibble(null_diff), aes(null_diff)) +
   geom_histogram(bins = 60, fill = crju_colors["gray"], color = "white") +
-  geom_vline(xintercept = 0, color = crju_colors["garnet"], linewidth = 1.2) +
-  geom_vline(xintercept = ci_null, color = crju_colors["gold"],
-             linetype = 2, linewidth = 1) +
-  labs(title = "Same machinery, after erasing the gap",
-       subtitle = paste0("95% interval: ", round(ci_null[1]), " to ",
-                         round(ci_null[2]), " minutes; zero is now a plausible value"),
-       x = "Difference in mean time of day, minutes", y = "Count")
+  geom_vline(xintercept = obs_gap, color = crju_colors["garnet"], linewidth = 1.4) +
+  annotate("text", x = obs_gap - 0.15, y = Inf, vjust = 1.5, hjust = 1, size = 6,
+           color = crju_colors["garnet"], label = "the gap we actually saw") +
+  labs(title = "10,000 gaps from a world with NO real difference",
+       x = "Difference in arrest rate, percentage points", y = "Count")
 ```
 
-When zero sits comfortably inside, the data are *consistent with no difference* (Session 5's arrest-versus-no-arrest picture was the real-data version of this). Formalize the intuition and you have invented the NHST.
+Chance alone makes gaps of a point or two. It made a gap as big as ours in **`r sum(abs(null_diff) >= obs_gap)` of 10,000** tries. That count is the whole idea of a **p-value**.
 
 ## The Null Hypothesis Significance Test {.smaller}
 
 ::: incremental
-1. **State the null**, $H_0$: no difference ($\mu_V - \mu_P = 0$). The boring world.
+1. **State the null**, $H_0$: the two arrest rates are the same (difference = 0). The boring world.
 2. **State the alternative**, $H_1$: *some* difference. Note how little we commit to.
-3. **Compute a test statistic**: $t = \text{observed difference} \,/\, SE$ — the gap, in SE units.
-4. **Ask:** how often would $|t|$ this large appear by luck in the boring world? The **p-value**.
+3. **Compute a test statistic**: the observed gap, measured against how much gaps bounce by chance.
+4. **Ask:** how often would a gap this large appear by luck in the boring world? The **p-value**.
 5. **Verdict:** $p < \alpha$ (usually .05) → "reject $H_0$." Otherwise → "fail to reject."
 6. Note: the machine only weighs evidence **against the null** — $H_1$ never gets scored.
 :::
@@ -220,31 +208,35 @@ As the true difference grows, the overlap shrinks and *p* falls. Black = null ·
 - ~~a measure of how *big* or *important* the effect is~~ — with enough data, microscopic effects earn microscopic p-values (hold that thought)
 :::
 
-## `t.test()` on the Real Question
+## `prop.test()` on the Real Question
+
+Lab 5's function, now with **two groups**: how many, out of how many, for each. Domestic first.
 
 ```{r}
-#| label: ttest-real
-t.test(hour ~ crime_category, data = vp)
-```
-
-```{r}
-#| label: ttest-store
-#| include: false
-tt <- t.test(hour ~ crime_category, data = vp)
+#| label: proptest-real
+prop.test(x = c(740, 714), n = c(3749, 5399))
 ```
 
 ## Reading the Verdict
 
-- Violent is listed first because we told R so (Session 5's `factor()` line), so this tests **Violent minus Property**: the same 4-to-27-minute interval as our bootstrap, now with a *t* and a *p* attached
-- $t = `r round(tt$statistic, 2)`$, and $p = `r round(tt$p.value, 3)`$
+- **`prop 1` and `prop 2`** at the bottom: 19.7% and 13.2%. Domestic is first because we typed it first
+- **`95 percent confidence interval`**: about 4.9 to 8.1 points, Domestic minus Not domestic. Last week's skill
+- **`p-value < 2.2e-16`**: R's way of writing a decimal point followed by fifteen zeros. In the boring world, a gap like ours essentially never happens
 
 . . .
 
-$p < .05$ — **"statistically significant."** Reject the null. Publish the press release?
+$p < .05$ — **"statistically significant."** Reject the null.
 
-. . .
+## The Same Line Lives in `t.test()` {.smaller}
 
-Hold that thought until Act III. First, some fine print about what this machine quietly assumed.
+Last week's homework, comparing two *means*. The p-value sat right above the interval the whole time:
+
+```{r}
+#| label: ttest-bridge
+t.test(injuries ~ intox, data = crashes)
+```
+
+Same reading: if both kinds of crash truly injured the same number of people, a gap this big would essentially never appear.
 
 # The Fine Print: Some Strong Assumptions {background-color="#1B2A4A"}
 
@@ -262,12 +254,12 @@ sketch_base <- ggplot() +
   geom_line(data = null_df, aes(x, y), color = "black", linewidth = 1.3) +
   geom_vline(xintercept = t_obs, color = crju_colors["garnet"],
              linetype = 2, linewidth = 1.1) +
-  labs(x = "t statistic", y = "Density") +
+  labs(x = "Test statistic", y = "Density") +
   theme(legend.position = "bottom")
 
 sketch_base +
   labs(title = "Everything is scored against one curve: the null",
-       subtitle = "Black = null distribution · garnet dash = an observed t (sketched at 1.8)")
+       subtitle = "Black = null distribution · garnet dash = an observed result (sketched at 1.8)")
 ```
 
 We computed how surprising the data are *under the null* — and never once said what the alternative world looks like.
@@ -288,7 +280,7 @@ sketch_base +
   geom_line(data = alts, aes(x, y, color = alt), linewidth = 1.1, alpha = 0.7) +
   scale_color_manual(values = unname(crju_colors[c("blue", "gold", "green")]),
                      name = NULL) +
-  labs(title = "Three (of infinitely many) alternatives consistent with that t",
+  labs(title = "Three (of infinitely many) alternatives consistent with that result",
        subtitle = "NHST never asks which of these predicted the data better")
 ```
 
@@ -302,10 +294,10 @@ sketch_base +
 #| fig-height: 5
 sketch_base +
   labs(title = "The null curve is itself an assumption",
-       subtitle = "That tidy t-distribution presumes the model behind it is right")
+       subtitle = "That tidy curve presumes the model behind it is right")
 ```
 
-The p-value came from *this specific curve* — which assumes (roughly) normal-enough data, independent observations, well-behaved variances.
+The p-value came from *this specific curve* — which assumes large-enough samples, independent observations, and a model that fits the data.
 
 ## …And Many Shapes Fit the Same Data
 
@@ -352,113 +344,16 @@ $$
 | **Asks** | How surprising are these data if $H_0$ is true? | How probable is each hypothesis, given the data? |
 | **Probability attaches to** | Data, over imagined repeated samples | Hypotheses and parameters directly |
 | **Prior knowledge** | None used | Explicit, stated up front |
-| **Output** | p-value, confidence interval | Posterior distribution, Bayes factor, credible interval |
+| **Output** | p-value, confidence interval | Posterior distribution, credible interval |
 | **"95%" means** | The *procedure* captures the truth in 95% of replications | 95% probability the parameter lies in *this* interval |
 
-# Act III · Both Traditions, One Real Question {background-color="#73000A"}
-
-## The Bayesian t-Test: `ttestBF()`
-
-Same question, second tradition. We hand it the two groups ourselves, Violent first again: **x − y = Violent minus Property**.
-
-```{r}
-#| label: bf-run
-# install.packages("BayesFactor")   # once, if you don't have it
-bf <- ttestBF(x = violent_hours, y = property_hours)
-bf
-```
-
-## Reading a Bayes Factor
-
-```{r}
-#| label: bf-extract
-extractBF(bf)$bf        # BF10: evidence for a difference vs. no difference
-1 / extractBF(bf)$bf    # BF01: the same evidence, read the other way
-```
-
-::: incremental
-- A Bayes factor is a **ratio of predictions**: how well did "some difference" predict these data vs. "no difference"?
-- $BF_{10} = `r round(extractBF(bf)$bf, 2)`$ — *below* 1. The data are about **`r round(1 / extractBF(bf)$bf, 1)` times more consistent with the null**
-- Rules of thumb: 1–3 barely worth mentioning · 3–10 moderate · 10–30 strong · 30–100 very strong · 100+ extreme (mirror image below 1)
-:::
-
-## Hold On — the p-Value Said "Significant"
-
-| | Frequentist | Bayesian |
-|---|---|---|
-| Result | $p = `r round(tt$p.value, 3)`$ → reject $H_0$ | $BF_{10} = `r round(extractBF(bf)$bf, 2)`$ → mild evidence *for* $H_0$ |
-
-::: incremental
-- With ~19,500 cases, the test can detect *microscopic* gaps — and 15 minutes is microscopic
-- The BF asks a harder question: did "a difference of plausible size" predict the data better than "zero"? This close to zero, **the null predicted slightly better**
-- Neither is wrong. They answer **different questions** — and only one is impressed by sheer sample size
-:::
-
-## The Posterior for the Difference
-
-The Bayes factor compares models. The **posterior** describes the difference itself — drawn by a sampler (the machinery, called MCMC, is in tonight's optional appendix):
-
-```{r}
-#| label: bf-posterior
-post <- suppressMessages(posterior(bf, iterations = 10000))
-diff_post <- as.numeric(post[, "beta (x - y)"]) * 60   # in minutes: Violent minus Property
-
-quantile(diff_post, c(0.025, 0.975))
-mean(diff_post > 0)
-```
-
-```{r}
-#| label: post-stats
-#| include: false
-cred <- quantile(diff_post, c(0.025, 0.975))
-p_gt0 <- mean(diff_post > 0)
-```
-
-## The Posterior, Seen
-
-```{r}
-#| label: posterior-plot
-#| echo: false
-#| fig-height: 5
-ggplot(tibble(diff_post), aes(diff_post)) +
-  geom_histogram(bins = 60, fill = crju_colors["green"], color = "white") +
-  geom_vline(xintercept = 0, color = crju_colors["garnet"], linewidth = 1.2) +
-  geom_vline(xintercept = cred, color = crju_colors["gold"],
-             linetype = 2, linewidth = 1) +
-  labs(title = "Posterior distribution of the difference (Violent minus Property)",
-       subtitle = paste0("95% credible interval: ", round(cred[1]), " to ",
-                         round(cred[2]), " minutes · P(difference > 0) = ",
-                         round(p_gt0, 3)),
-       x = "Difference in mean time of day, minutes", y = "Posterior samples")
-```
-
-. . .
-
-Now say the sentence Session 5 forbade — **legally**: *"There is a 95% probability the true difference lies between about `r round(cred[1])` and `r round(cred[2])` minutes."* Under the Bayesian license (given the model and prior), that is exactly what this interval means.
-
-## Detectable, Probable — and Tiny
-
-One more number every report owes its reader — a standardized **effect size** (Cohen's *d*):
-
-```{r}
-#| label: cohens-d
-sd_pooled <- sqrt((var(violent_hours) + var(property_hours)) / 2)
-(mean(violent_hours) - mean(property_hours)) / sd_pooled
-```
-
-::: incremental
-- Benchmarks: 0.2 "small" · 0.5 "medium" · 0.8 "large." We measured **~0.04**
-- A ~15-minute shift against SDs of nearly 7 *hours*. Would any commander re-draw a patrol schedule over this?
-- The full picture: the difference is *probably real* (posterior), *utterly trivial* (d), and "significant" (p) only because n is enormous. **Report all three; never let the star do the talking**
-:::
-
-# Act IV · A Cleaner Collision: The Recidivism Trial {background-color="#1B2A4A"}
+# Act III · The Recidivism Trial, Both Ways {background-color="#1B2A4A"}
 
 ## The Setup
 
-- **Context:** typical recidivism runs about **60%** — that's our prior belief
+- **Context:** typical recidivism runs about **60%** — that's what we believed going in
 - **Design:** randomized trial of a reentry program — **100 treated, 100 control**
-- **Outcomes:** control **50/100** reoffend · treatment **40/100** reoffend
+- **Outcomes:** treatment **40/100** reoffend · control **50/100** reoffend
 - **Question:** did the program reduce recidivism?
 
 . . .
@@ -467,68 +362,140 @@ Ten percentage points, exactly the kind of effect a city would fund. Both tradit
 
 ## The Frequentist Answer
 
+Treatment first, so the difference reads **Treatment minus Control**:
+
 ```{r}
 #| label: recid-freq
 prop.test(x = c(40, 50), n = c(100, 100))
 ```
 
-## The Frequentist Answer, Read Aloud
-
 ```{r}
-#| label: recid-freq-p
-prop.test(x = c(40, 50), n = c(100, 100))$p.value
+#| label: recid-freq-store
+#| include: false
+pt_trial <- prop.test(x = c(40, 50), n = c(100, 100))
+pt_real  <- prop.test(x = c(740, 714), n = c(3749, 5399))
 ```
 
+## The Frequentist Answer, Read Aloud
+
 ::: incremental
-- $p = 0.20$ — **not statistically significant**
+- $p = `r sprintf("%.2f", pt_trial$p.value)`$ — **not statistically significant**
+- The interval, about `r round(100 * pt_trial$conf.int[1])` to +`r round(100 * pt_trial$conf.int[2])` points, has zero inside it
 - Honest reading: *a 10-point gap like this could plausibly occur even if the program did nothing*
 - The grant report writes itself — "no significant effect" — and the program probably dies there
 :::
 
+## What We Knew Before the Trial
+
+A Bayesian has to say, out loud, what they believed **before** seeing the data. That is the **prior**.
+
+::: incremental
+- We said it already: recidivism typically runs about **60%**
+- How firmly do we believe that? Let's say: about as firmly as if we had already watched **10 people** — **6 reoffended, 4 did not**
+- In R, that whole belief is two numbers: `prior = c(6, 4)`
+- Then the trial's 200 real people get added to our 10 imaginary ones. That adding-up is the **posterior**: what we believe *after* the data
+:::
+
 ## The Bayesian Answer
 
-Prior: Beta(6, 4) — mean 0.6, worth about 10 observations. Update each group, then ask the question we care about directly:
+Same two numbers per group as `prop.test()`, plus the prior:
 
 ```{r}
 #| label: recid-bayes
-set.seed(705)
-theta_treat   <- rbeta(10000, 6 + 40, 4 + 60)   # posterior, treatment
-theta_control <- rbeta(10000, 6 + 50, 4 + 50)   # posterior, control
-
-mean(theta_treat < theta_control)   # P(program reduces recidivism)
+bayes_prop_test(x = c(40, 50), n = c(100, 100), prior = c(6, 4))
 ```
+
+```{r}
+#| label: recid-bayes-store
+#| include: false
+invisible(capture.output(b_trial <- bayes_prop_test(x = c(40, 50), n = c(100, 100), prior = c(6, 4))))
+invisible(capture.output(b_flat  <- bayes_prop_test(x = c(40, 50), n = c(100, 100))))
+invisible(capture.output(b_real  <- bayes_prop_test(x = c(740, 714), n = c(3749, 5399))))
+```
+
+## Reading It
+
+::: incremental
+- **`estimate`**: our best single guess for each group's true rate, after the data
+- **`95% credible interval`** for the difference: about `r round(100 * b_trial$difference_ci[1])` to +`r round(100 * b_trial$difference_ci[2])` points, Treatment minus Control
+- **`Probability group 1 is lower than group 2`: `r sprintf("%.2f", b_trial$prob_lower)`** — given the prior and the data, about a **`r round(100 * b_trial$prob_lower)`% probability the program reduces recidivism**
+:::
 
 . . .
 
-Given the prior and the data, there is about a **91% probability the program reduces recidivism**.
+And the sentence Session 5 forbade is now **legal**: *"There is a 95% probability the true difference lies between `r round(100 * b_trial$difference_ci[1])` and +`r round(100 * b_trial$difference_ci[2])` points."* That is exactly what a **credible interval** means.
 
 ## The Posteriors, Seen
 
 ```{r}
 #| label: recid-plot
 #| echo: false
-#| fig-height: 5.5
-tibble(theta = c(theta_treat, theta_control),
-       group = rep(c("Treatment", "Control"), each = 10000)) |>
-  ggplot(aes(theta, fill = group)) +
+#| fig-height: 5.2
+set.seed(705)
+b_trial$draws |>
+  slice_sample(n = 20000) |>
+  select(Treatment = group1, Control = group2) |>
+  pivot_longer(everything(), names_to = "group", values_to = "rate") |>
+  ggplot(aes(100 * rate, fill = group)) +
   geom_density(alpha = 0.5, color = NA) +
   scale_fill_manual(values = unname(crju_colors[c("gray", "garnet")])) +
-  labs(title = "Posterior beliefs about each group's recidivism rate",
-       subtitle = "Overlap is real — and still, treatment sits lower in 91% of draws",
-       x = "Recidivism probability (θ)", y = "Posterior density", fill = NULL)
+  labs(title = "What we now believe about each group's recidivism rate",
+       subtitle = paste0("The overlap is real. Still, treatment sits lower ",
+                         round(100 * b_trial$prob_lower), "% of the time"),
+       x = "Recidivism rate (%)", y = "Posterior density", fill = NULL)
 ```
 
 ## Same Data, Different Questions
 
 | | Frequentist | Bayesian |
 |---|---|---|
-| Verdict | $p = 0.20$: cannot reject "no effect" | $P(\text{treatment} < \text{control}) \approx 0.91$ |
-| Plain English | "This gap could plausibly be luck" | "9-to-1 odds the program works" |
+| Verdict | $p = `r sprintf("%.2f", pt_trial$p.value)`$: cannot reject "no effect" | Probability the program works ≈ `r sprintf("%.2f", b_trial$prob_lower)` |
+| Plain English | "This gap could plausibly be luck" | "About 9-to-1 odds the program works" |
 
 ::: incremental
 - Both statements are **true of the same data**. Neither is a trick
 - A policymaker deciding whether to fund the program next year: which sentence actually helps?
 - Your homework asks you to sit with exactly this discomfort
+:::
+
+## Does the Prior Matter Here?
+
+Leave `prior =` out and the function starts from "I know nothing":
+
+```{r}
+#| label: recid-flat
+#| eval: false
+bayes_prop_test(x = c(40, 50), n = c(100, 100))
+```
+
+::: incremental
+- Probability the program works: **`r sprintf("%.2f", b_flat$prob_lower)`** instead of `r sprintf("%.2f", b_trial$prob_lower)`. It barely moved
+- Why? 200 real people outweigh 10 imaginary ones. **Data overwhelm a modest prior**
+- A prior matters most when data are scarce — which is exactly when you most need to say it out loud
+:::
+
+# Act IV · Back to Chicago, Both Ways {background-color="#73000A"}
+
+## The Bayesian Answer to Tonight's Question {.smaller}
+
+We have no strong belief going in, so no `prior =`:
+
+```{r}
+#| label: real-bayes
+bayes_prop_test(x = c(740, 714), n = c(3749, 5399))
+```
+
+## Big Sample, Small Sample {.smaller}
+
+| | Chicago arrests (`r format(n_dom + n_non, big.mark = ",")` cases) | Reentry trial (200 people) |
+|---|---|---|
+| `prop.test()` | 95% CI: `r round(100 * pt_real$conf.int[1], 1)` to `r round(100 * pt_real$conf.int[2], 1)` points · $p < .001$ | 95% CI: `r round(100 * pt_trial$conf.int[1])` to +`r round(100 * pt_trial$conf.int[2])` points · $p = `r sprintf("%.2f", pt_trial$p.value)`$ |
+| `bayes_prop_test()` | 95% credible: `r round(100 * b_real$difference_ci[1], 1)` to `r round(100 * b_real$difference_ci[2], 1)` points | 95% credible: `r round(100 * b_trial$difference_ci[1])` to +`r round(100 * b_trial$difference_ci[2])` points · P(works) ≈ `r sprintf("%.2f", b_trial$prob_lower)` |
+
+::: incremental
+- With thousands of cases the two traditions hand you **nearly the same range**. The data drown out everything else
+- With 100 per group, both ranges still include zero — but one tradition stops at "not significant," and the other tells you *how probable* the effect is
+- Neither is wrong. They answer **different questions**
 :::
 
 # Act V · Sample Size Changes Everything {background-color="#73000A"}
@@ -547,29 +514,37 @@ Same trivial effect, Bayesian glasses — watch the posterior for the difference
 
 ![](../media/week-06/bayes_samplesize.gif)
 
-More data doesn't flip a verdict — it **sharpens the estimate**, which visibly converges on "about 0.1, i.e., almost nothing." The tininess stays in view. (This is Act III's collision, run in slow motion.)
+More data doesn't flip a verdict — it **sharpens the estimate**, which visibly converges on "about 0.1, i.e., almost nothing." The tininess stays in view.
+
+## So Always Ask: How Big?
+
+::: incremental
+- "Significant" only means *detectable*. With enough cases, a gap of a single percentage point would earn a tiny p-value too
+- So after either test, say the size **in real units**: arrest rates about **`r round(obs_gap, 1)` points** apart (`r round(100 * x_dom / n_dom, 1)`% vs `r round(100 * x_non / n_non, 1)`%)
+- Then ask the question no test can answer for you: is a gap that size big enough to *matter*?
+:::
 
 ## What We Learned Today
 
 ::: incremental
 - **NHST**: standardized and everywhere — but it only asks *how surprising are the data under the null?*, never scores the alternative, and rewards sheer n
 - **p-values** are not the probability any hypothesis is true, and are silent about *size*
-- **Bayes** answers $P(H \mid \text{data})$ at the price of a stated prior; MCMC made it computable (appendix, if you want the machinery)
-- The same data can yield $p < .05$ *and* a BF favoring the null — or $p = 0.20$ *and* 91% posterior confidence
-- Whatever tradition you use: **report the effect size, in units a human cares about**
+- **Bayes** answers $P(H \mid \text{data})$ at the price of a stated prior — tonight, in one line of R
+- The same trial gave $p = 0.20$ *and* a 91% probability the program works. Both true; different questions
+- Whatever tradition you use: **say how big the difference is, in units a human cares about**
 :::
 
 ## Today's Lab & Homework
 
-- **Lab 6:** joining data — `left_join()` on the two Chicago files, and the ways a join quietly goes wrong ([lab page](../labs/lab-06-joins.qmd))
-- **Homework 6:** Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question (posted on the [Session 6 page](../weeks/week-06.qmd))
+- **Lab 6:** one question about the correctional officers, answered twice. You run both tests, step by step, and submit your script ([lab page](../labs/lab-06-testing.qmd))
+- **Homework 6:** Bayesian vs. frequentist reasoning, plus both tests on the Alaska crash data, and four R4DS exercises from **Ch. 17, Dates and times** (posted on the [Session 6 page](../weeks/week-06.qmd))
 - **Next session — the applied data workshop:** the full messy-data pipeline, start to finish. **Your final-project dataset selection is due at Session 7** — come with a candidate dataset and be ready to defend it
 
 # Appendix · How Bayes Became Computable (optional) {background-color="#1B2A4A"}
 
 ## The Ugly Denominator
 
-*Not on any exam — this is the machinery behind the two-second `ttestBF()` call, for the curious.*
+*Not on any exam — this is the machinery behind the Bayesian models we start fitting in Session 8, for the curious.*
 
 $$
 P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
@@ -607,5 +582,5 @@ A Metropolis sampler exploring a distribution (left) while its samples pile up i
 ::: incremental
 - The pile of accepted samples **is** the posterior — to any precision you like, just run longer
 - Think back to Session 4: we approximated *sampling* distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the *posterior*
-- This is why modern Bayes is possible at all — and it is what `BayesFactor` quietly does for you in about two seconds
+- This is why modern Bayes is possible at all — and it is what `brms` will do for us starting in Session 8. (Tonight's `bayes_prop_test()` did not need it: for a simple proportion, the posterior has an exact formula.)
 :::

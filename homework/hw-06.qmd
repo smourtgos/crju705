@@ -7,7 +7,7 @@ format:
 format-links: [docx]
 ---
 
-**Instructions:** submit a single `.R` script via **Canvas**. Parts 1 and 2 are written questions — answer each in **3–5 sentences**, as comments (`#`) in your script. Part 3 requires code; include comments interpreting your output. Write in your own words — these questions are about whether *you* can explain the ideas, not whether you can locate a definition.
+**Instructions:** submit a single `.R` script via **Canvas**. Parts 1 and 2 are written questions — answer each in **3–5 sentences**, as comments (`#`) in your script. Part 3 requires code; include comments interpreting your output. Every step in Part 3 is one you ran in **Lab 6**, pointed at a new question. Write in your own words — these questions are about whether *you* can explain the ideas, not whether you can locate a definition.
 
 ## Part 1: Core Concepts
 
@@ -35,47 +35,70 @@ format-links: [docx]
 
 ## Part 3: Both Tests on Real Data
 
-In class we compared violent and property crimes by hour of day. Your question is different: **do domestic incidents happen at a different time of day than non-domestic incidents?**
+Back to the Alaska crash data from Homework 5. Last week you compared *how many* people were injured. This week's question is yes/no: **are crashes with an intoxicated driver more likely to hurt someone at all?**
 
-1. Load the packages and the Chicago incident data:
+1. Start your script with the same setup as Homework 5, plus the one new line from Lab 6:
 
    ```r
    library(tidyverse)
-   library(BayesFactor)   # install.packages("BayesFactor") first, if needed
+   source("https://smourtgos.github.io/crju705/R/bayes.R")
 
-   crimes <- read_csv("https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv")
+   crashes <- read_csv("https://smourtgos.github.io/crju705/data/crash-ak.csv") |>
+     mutate(intox = if_else(intox_any == 1, "Intoxicated", "Sober"),
+            anyone_hurt = injuries > 0)
    ```
 
-2. `domestic` is TRUE/FALSE. Copy this line and run it; it labels the two groups in words and puts Domestic first, so every comparison below reads **Domestic minus Not domestic** (the Session 5 move):
+   `anyone_hurt` is TRUE when at least one person was injured (the same line from Lab 4).
+
+2. Count: `crashes |> count(intox, anyone_hurt)`. **In a comment:** write the four numbers you need — how many intoxicated-driver crashes hurt someone, out of how many, and the same for sober-driver crashes — and compute the two rates. Intoxicated goes first all the way through, so every difference reads **Intoxicated minus Sober**.
+
+3. Run the **frequentist** test with your four numbers:
 
    ```r
-   crimes <- crimes |>
-     mutate(domestic = factor(if_else(domestic, "Domestic", "Not domestic"),
-                              levels = c("Domestic", "Not domestic")))
+   prop.test(x = c(__, __), n = c(__, __))
    ```
 
-   Then compute the mean `hour` for each group (`summarize()` with `.by = domestic`). **In a comment:** which group happens earlier in the day, on average, and by roughly how many minutes?
+   **In a comment:** report the 95% confidence interval for the difference in percentage points, and the p-value. Do you reject the null? (If R prints the p-value with an `e-` in it, say in words what that means.)
 
-3. Run the **frequentist** test:
+4. Run the **Bayesian** test with the same four numbers in `bayes_prop_test()`. **In a comment:** report the 95% credible interval for the difference, and write the one sentence this output lets you say that the `prop.test()` output does not.
 
-   ```r
-   t.test(hour ~ domestic, data = crimes)
-   ```
+5. **In a comment:** compare the two intervals from steps 3 and 4. How close are they? Using what we saw in class about sample size, explain why.
 
-   **In a comment:** report the p-value and the 95% confidence interval in minutes, then interpret the result in plain English — one sentence a police commander would understand. *(Direction check, as in Lab 5: the output lists Domestic first, so the interval is Domestic minus Not domestic. Confirm its sign against the two group means at the bottom of the output.)*
+6. A rarer outcome. Add `fatal = fatalities > 0` to `crashes` with `mutate()`, count `intox` by `fatal`, and run both tests again. **In a comment:** report both intervals. The gap here is only a few percentage points, and the p-value is still tiny. What does that tell you about what a p-value does and does not measure?
 
-4. Run the **Bayesian** test on the same question, handing it the two groups in the same order:
+7. A small study, with a prior. *(Pretend numbers.)* A county pilots a DUI court. Of **60** participants, **18** are re-arrested for DUI within two years; of **60** similar people who went through regular court, **27** are. Before the pilot, the county's best information was that about 45% of people like these are re-arrested, and they trust that about as much as having seen 20 cases: `prior = c(9, 11)`.
 
-   ```r
-   dom_hours    <- crimes$hour[crimes$domestic == "Domestic"]
-   nondom_hours <- crimes$hour[crimes$domestic == "Not domestic"]
+   Run `prop.test()` and then `bayes_prop_test()` with that prior, DUI court first. **In a comment:** report the p-value, and report the probability that the DUI court's re-arrest rate is lower. Then answer: if you were advising the county on whether to keep funding the court, which result would you put in front of them, and what would you be careful to say about it?
 
-   bf <- ttestBF(x = dom_hours, y = nondom_hours)
-   extractBF(bf)$bf
-   ```
+8. **How big, in real units.** Go back to step 3. **In a comment:** state the size of the difference in plain words a legislator would understand (no p-values, no intervals), and say whether you think a gap that size is big enough to matter, and why.
 
-   **In a comment:** report the Bayes factor and interpret it in plain English. Which hypothesis do the data support, and how strongly?
+## R4DS Exercises (required)
 
-5. **Interpretation (in comments):**
-   - Do the frequentist and Bayesian results **agree** here? In class, on the violent-vs-property question, they pointed in different directions — why do you think these two analyses line up (or don't)?
-   - Is this difference **practically important**? Consider the size of the gap in minutes against the spread of incident times across a 24-hour day, and answer in one or two sentences.
+From your R4DS reading for Session 7 — **[Ch. 17, Dates and times](https://r4ds.hadley.nz/datetimes.html)**. No new packages: lubridate loads with the tidyverse. You will need `library(nycflights13)` for one exercise (you installed it for Homework 2). All four exercises are about one idea: a date is not text, and R can only do date arithmetic once you have told it how the date was written.
+
+Work these in the **same `.R` script**, under a `# ---- R4DS ----` header.
+
+- **17.2.5** #1 — what happens if you parse a string that contains invalid dates? Run `ymd(c("2010-10-10", "bananas"))` and say in a comment what R did with each of the two strings.
+- **17.2.5** #3 — parse each of these with the right lubridate function (`ymd()`, `mdy()`, or `dmy()`). Do the lubridate half only; skip the "readr column specification" half, and skip `t1` and `t2`. The function's name is just the order the pieces appear in: year, month, day.
+
+  ```r
+  d1 <- "January 1, 2010"
+  d2 <- "2015-Mar-07"
+  d3 <- "06-Jun-2017"
+  d4 <- c("August 19 (2015)", "July 1 (2015)")
+  d5 <- "12/30/14" # Dec 30, 2014
+  ```
+
+- **17.3.4** #5 — on what day of the week should you leave if you want to minimise the chance of a delay? Start from this, which builds a real date out of three number columns and then pulls the weekday out of it. Finish it with a `summarize()` by `weekday` (average `dep_delay`, with `na.rm = TRUE`) and answer in a comment.
+
+  ```r
+  library(nycflights13)
+
+  flights |>
+    mutate(date = make_date(year, month, day),
+           weekday = wday(date, label = TRUE))
+  ```
+
+- **17.4.4** #2 — create a vector of dates giving the first day of every month in 2015. (Hint: start from `ymd("2015-01-01")` and add `months(0:11)`.) Do the 2015 half only.
+
+Chapter 17 has more exercises than these. Skip them; these four are the ones worth your time. Look at the `date` column in the crash data while you are at it: it is text written month/day/year, which is exactly what `mdy()` is for. Your final-project data will very likely have a column like it.
