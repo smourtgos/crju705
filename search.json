@@ -116,7 +116,7 @@
     "href": "weeks/week-07.html#before-class",
     "title": "Session 7 · Applied Data Workshop",
     "section": "Before class",
-    "text": "Before class\n\nNo new Stanton reading this week — use the breathing room to catch up if you’re behind\nBring a candidate dataset for your final project (two, if you’re torn) — requirements are on the final project page. Have the actual file(s) downloaded to your laptop before class; hunting for data during the workshop wastes your workshop\nSkim back over the R4DS chapters we assigned (Ch. 1–5, 10, 16) wherever you feel shaky — today assembles all of it\nBring your laptop"
+    "text": "Before class\n\nNo new Stanton reading this week — use the breathing room to catch up if you’re behind\nBring a candidate dataset for your final project (two, if you’re torn) — requirements are on the final project page. Have the actual file(s) downloaded to your laptop before class; hunting for data during the workshop wastes your workshop\nSkim back over the R4DS chapters we assigned (Ch. 1–5, 10, 16, 17) wherever you feel shaky — today assembles all of it\nBring your laptop"
   },
   {
     "objectID": "weeks/week-07.html#in-class",
@@ -1838,7 +1838,7 @@
     "href": "resources.html#datasets",
     "title": "Resources",
     "section": "Datasets",
-    "text": "Datasets\nDownload by clicking, or read directly in R. read_csv() comes from the tidyverse, so load it first — once per R session, before any of the lines below:\nlibrary(tidyverse)\n\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n(If you get could not find function \"read_csv\", that’s the missing library(tidyverse).)\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nchicago-crimes-2025.csv\nAnchor dataset: 30,000 real Chicago crime incidents from 2025 — full codebook\nLectures, all semester\n\n\nchicago-areas.csv\nAnchor dataset: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — full codebook\nLectures (correlation → regression)\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLab 6\n\n\n\nThe two Chicago anchor files are real data (Chicago Police Department portal + Census/ACS via CMAP) — see the full codebook and caveats. The remaining datasets are simulated but realistic, generously shared by a colleague."
+    "text": "Datasets\nDownload by clicking, or read directly in R. read_csv() comes from the tidyverse, so load it first — once per R session, before any of the lines below:\nlibrary(tidyverse)\n\nprisoners &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/prisoners.csv\")\n(If you get could not find function \"read_csv\", that’s the missing library(tidyverse).)\n\n\n\nFile\nDescription\nUsed in\n\n\n\n\nchicago-crimes-2025.csv\nAnchor dataset: 30,000 real Chicago crime incidents from 2025 — full codebook\nLectures, all semester\n\n\nchicago-areas.csv\nAnchor dataset: all 2025 Chicago crime aggregated to 77 community areas + ACS covariates — full codebook\nLectures (correlation → regression)\n\n\nprisoners.csv\n300 incarcerated persons: demographics, offense type, sentence, stress/depression/sleep measures (simulated)\nLab 2\n\n\nneighborhoods.csv\n500 neighborhoods: poverty, unemployment, disorder level, assaults (simulated)\nLab 3\n\n\ncities-wide.csv\n100 cities with violent-crime rates 2015–2025 in wide format (simulated)\nLab 4\n\n\nreentry-wide.csv\n150 reentry program participants, monthly outcomes in wide format (simulated)\nLab 4\n\n\npopulation-data.csv\nA full “population” of test scores for sampling-distribution simulations\nSession 4\n\n\ncrash-ak.csv\n20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated)\nLab 5, Workshop\n\n\ncrash-ak.xlsx\nThe same crashes as a (messier) Excel file — for import practice\nLab 5\n\n\nofficers.csv\n200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated)\nLabs 5, 6\n\n\n\nThe two Chicago anchor files are real data (Chicago Police Department portal + Census/ACS via CMAP) — see the full codebook and caveats. The remaining datasets are simulated but realistic, generously shared by a colleague."
   },
   {
     "objectID": "resources.html#demos-practice",
@@ -3518,7 +3518,7 @@
     "href": "homework/hw-06.html",
     "title": "Homework 6 · Bayesian and Frequentist Inference",
     "section": "",
-    "text": "Instructions: submit a single .R script via Canvas. Parts 1 and 2 are written questions — answer each in 3–5 sentences, as comments (#) in your script. Part 3 requires code; include comments interpreting your output. Write in your own words — these questions are about whether you can explain the ideas, not whether you can locate a definition."
+    "text": "Instructions: submit a single .R script via Canvas. Parts 1 and 2 are written questions — answer each in 3–5 sentences, as comments (#) in your script. Part 3 requires code; include comments interpreting your output. Every step in Part 3 is one you ran in Lab 6, pointed at a new question. Write in your own words — these questions are about whether you can explain the ideas, not whether you can locate a definition."
   },
   {
     "objectID": "homework/hw-06.html#part-1-core-concepts",
@@ -3539,7 +3539,7 @@
     "href": "homework/hw-06.html#part-3-both-tests-on-real-data",
     "title": "Homework 6 · Bayesian and Frequentist Inference",
     "section": "Part 3: Both Tests on Real Data",
-    "text": "Part 3: Both Tests on Real Data\nIn class we compared violent and property crimes by hour of day. Your question is different: do domestic incidents happen at a different time of day than non-domestic incidents?\n\nLoad the packages and the Chicago incident data:\nlibrary(tidyverse)\nlibrary(BayesFactor)   # install.packages(\"BayesFactor\") first, if needed\n\ncrimes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv\")\ndomestic is TRUE/FALSE. Copy this line and run it; it labels the two groups in words and puts Domestic first, so every comparison below reads Domestic minus Not domestic (the Session 5 move):\ncrimes &lt;- crimes |&gt;\n  mutate(domestic = factor(if_else(domestic, \"Domestic\", \"Not domestic\"),\n                           levels = c(\"Domestic\", \"Not domestic\")))\nThen compute the mean hour for each group (summarize() with .by = domestic). In a comment: which group happens earlier in the day, on average, and by roughly how many minutes?\nRun the frequentist test:\nt.test(hour ~ domestic, data = crimes)\nIn a comment: report the p-value and the 95% confidence interval in minutes, then interpret the result in plain English — one sentence a police commander would understand. (Direction check, as in Lab 5: the output lists Domestic first, so the interval is Domestic minus Not domestic. Confirm its sign against the two group means at the bottom of the output.)\nRun the Bayesian test on the same question, handing it the two groups in the same order:\ndom_hours    &lt;- crimes$hour[crimes$domestic == \"Domestic\"]\nnondom_hours &lt;- crimes$hour[crimes$domestic == \"Not domestic\"]\n\nbf &lt;- ttestBF(x = dom_hours, y = nondom_hours)\nextractBF(bf)$bf\nIn a comment: report the Bayes factor and interpret it in plain English. Which hypothesis do the data support, and how strongly?\nInterpretation (in comments):\n\nDo the frequentist and Bayesian results agree here? In class, on the violent-vs-property question, they pointed in different directions — why do you think these two analyses line up (or don’t)?\nIs this difference practically important? Consider the size of the gap in minutes against the spread of incident times across a 24-hour day, and answer in one or two sentences."
+    "text": "Part 3: Both Tests on Real Data\nBack to the Alaska crash data from Homework 5. Last week you compared how many people were injured. This week’s question is yes/no: are crashes with an intoxicated driver more likely to hurt someone at all?\n\nStart your script with the same setup as Homework 5, plus the one new line from Lab 6:\nlibrary(tidyverse)\nsource(\"https://smourtgos.github.io/crju705/R/bayes.R\")\n\ncrashes &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/crash-ak.csv\") |&gt;\n  mutate(intox = if_else(intox_any == 1, \"Intoxicated\", \"Sober\"),\n         anyone_hurt = injuries &gt; 0)\nanyone_hurt is TRUE when at least one person was injured (the same line from Lab 4).\nCount: crashes |&gt; count(intox, anyone_hurt). In a comment: write the four numbers you need — how many intoxicated-driver crashes hurt someone, out of how many, and the same for sober-driver crashes — and compute the two rates. Intoxicated goes first all the way through, so every difference reads Intoxicated minus Sober.\nRun the frequentist test with your four numbers:\nprop.test(x = c(__, __), n = c(__, __))\nIn a comment: report the 95% confidence interval for the difference in percentage points, and the p-value. Do you reject the null? (If R prints the p-value with an e- in it, say in words what that means.)\nRun the Bayesian test with the same four numbers in bayes_prop_test(). In a comment: report the 95% credible interval for the difference, and write the one sentence this output lets you say that the prop.test() output does not.\nIn a comment: compare the two intervals from steps 3 and 4. How close are they? Using what we saw in class about sample size, explain why.\nA rarer outcome. Add fatal = fatalities &gt; 0 to crashes with mutate(), count intox by fatal, and run both tests again. In a comment: report both intervals. The gap here is only a few percentage points, and the p-value is still tiny. What does that tell you about what a p-value does and does not measure?\nA small study, with a prior. (Pretend numbers.) A county pilots a DUI court. Of 60 participants, 18 are re-arrested for DUI within two years; of 60 similar people who went through regular court, 27 are. Before the pilot, the county’s best information was that about 45% of people like these are re-arrested, and they trust that about as much as having seen 20 cases: prior = c(9, 11).\nRun prop.test() and then bayes_prop_test() with that prior, DUI court first. In a comment: report the p-value, and report the probability that the DUI court’s re-arrest rate is lower. Then answer: if you were advising the county on whether to keep funding the court, which result would you put in front of them, and what would you be careful to say about it?\nHow big, in real units. Go back to step 3. In a comment: state the size of the difference in plain words a legislator would understand (no p-values, no intervals), and say whether you think a gap that size is big enough to matter, and why."
   },
   {
     "objectID": "homework/hw-08.html",
@@ -4064,7 +4064,7 @@
     "href": "schedule.html",
     "title": "Schedule",
     "section": "",
-    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page · Slides\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\nSession page · Slides · Lab · HW\n\n\n3\nProbability, via simulation · first look at Bayes’ theorem\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\nSession page · Slides · Lab · HW\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying)\nSession page · Slides · Lab · HW\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 10 (Exploratory data analysis)\nSession page · Slides · Lab · HW\n\n\n6\nHypothesis testing: frequentist and Bayesian t-tests\nCh. 5\nCh. 16 (Factors)\nSession page · Slides · Lab · HW\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\n(capstone of the R4DS thread)\nSession page · Slides · Lab · HW\n\n\n8\nComparing 3+ groups (ANOVA) · first brms workflow · project checkpoints begin\nCh. 6\n—\nSession page · Slides · Lab · HW\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\nSession page · Study guide\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\nSession page · Slides · Lab · HW\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\nSession page · Slides · Lab · HW\n\n\n12\nLogistic regression · project checkpoint · code clinic + presentation order\nCh. 10\n—\nSession page · Slides · Lab · HW\n\n\n13\nFinal project presentations\n—\n—\nSession page · Project details"
+    "text": "Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.\n\n\n\nReadings are due before the start of the listed class session. “R4DS” = R for Data Science, 2nd ed. (free online). Slide, lab, and homework links go live as each session is published.\n\n\n\n\n\n\n\n\n\n\n#\nTopic\nStanton\nR4DS\nMaterials\n\n\n\n\n1\nClass intro · Why statistics is awesome · Types of data · R & RStudio setup\nIntro, App. A–C\n— (swirl tutorials for homework)\nSession page · Slides\n\n\n2\nDescriptive statistics & exploratory data analysis\nCh. 1\nCh. 1 (Data visualization), Ch. 2 (Workflow: basics)\nSession page · Slides · Lab · HW\n\n\n3\nProbability, via simulation · first look at Bayes’ theorem\nCh. 2\nCh. 3 (Data transformation), Ch. 4 (Workflow: code style)\nSession page · Slides · Lab · HW\n\n\n4\nSampling distributions, via simulation\nCh. 3\nCh. 5 (Data tidying)\nSession page · Slides · Lab · HW\n\n\n5\nConfidence intervals on real data\nCh. 4\nCh. 10 (Exploratory data analysis)\nSession page · Slides · Lab · HW\n\n\n6\nHypothesis testing: frequentist and Bayesian\nCh. 5\nCh. 16 (Factors)\nSession page · Slides · Lab · HW\n\n\n7\nApplied data workshop — full pipeline on messy data · Final-project dataset selection due\n—\nCh. 17 (Dates and times)\nSession page · Slides · Lab · HW\n\n\n8\nComparing 3+ groups (ANOVA) · first brms workflow · project checkpoints begin\nCh. 6\n—\nSession page · Slides · Lab · HW\n\n\n9\nMidterm exam (in class, covers sessions 1–8)\n—\n—\nSession page · Study guide\n\n\n10\nMeasures of association / correlation · project checkpoint\nCh. 7\n—\nSession page · Slides · Lab · HW\n\n\n11\nMultiple linear regression · project checkpoint\nCh. 8\n—\nSession page · Slides · Lab · HW\n\n\n12\nLogistic regression · project checkpoint · code clinic + presentation order\nCh. 10\n—\nSession page · Slides · Lab · HW\n\n\n13\nFinal project presentations\n—\n—\nSession page · Project details"
   },
   {
     "objectID": "slides/week-02-descriptives.html#week-1-follow-up",
@@ -4547,21 +4547,21 @@
     "href": "slides/week-06-hypothesis-testing.html#this-week",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "This Week",
-    "text": "This Week\nTopic: hypothesis testing — twice. One question, both great traditions.\n\nThe Null Hypothesis Significance Test: its logic, and its fine print\np-values: what they are — and what they are not\nBayes’ theorem — back from Session 3, now pointed at hypotheses instead of diagnoses\nBayes factors and posteriors with the BayesFactor package\n\nLearning goals: run t.test() and ttestBF() on the same question; state correctly what each output licenses you to claim."
+    "text": "This Week\nTopic: hypothesis testing — twice. One question, both great traditions.\n\nThe Null Hypothesis Significance Test: its logic, and its fine print\np-values: what they are — and what they are not\nBayes’ theorem — back from Session 3, now pointed at hypotheses instead of diagnoses\nThe Bayesian answer: a posterior and a credible interval, from one line of R\n\nLearning goals: run prop.test() and bayes_prop_test() on the same question; state correctly what each output lets you claim."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#how-today-works",
     "href": "slides/week-06-hypothesis-testing.html#how-today-works",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "How Today Works",
-    "text": "How Today Works\n\n\nThe lecture — concepts\nStanton Ch. 5 → hypothesis testing, both ways: t.test() and ttestBF()\n\nThe in-class exercise — code\nLab 6: joining the two Chicago files with left_join(), step by step\n\nEverything I run today is written up in the demo walkthrough, so nothing on screen is something you have to capture in real time."
+    "text": "How Today Works\n\n\nThe lecture — concepts\nStanton Ch. 5 → hypothesis testing, both ways: the p-value and the posterior\n\nThe in-class exercise — code\nLab 6: you run both tests yourself, step by step\n\nEverything I run today is written up in the demo walkthrough, so nothing on screen is something you have to capture in real time."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#where-weve-been",
     "href": "slides/week-06-hypothesis-testing.html#where-weve-been",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "Where We’ve Been",
-    "text": "Where We’ve Been\n\nSession 3: Bayes’ theorem — beliefs update by evidence; ignore the base rate and “90% accurate” becomes a 15% answer\nSession 4: sampling distributions — sample statistics fluctuate in predictable ways\nSession 5: confidence intervals — an honest range; our violent-vs-property gap came out detectable but tiny (≈4–27 min)\nToday: the formal machinery for “is there a difference?” — then a second tradition answering the question you meant to ask\n\n\nIf this course has a thesis, today is it: the two traditions are complements, not rivals — and you will leave able to use both."
+    "text": "Where We’ve Been\n\nSession 3: Bayes’ theorem — beliefs update by evidence; ignore the base rate and “90% accurate” becomes a 15% answer\nSession 4: sampling distributions — sample statistics fluctuate in predictable ways\nSession 5: confidence intervals — an honest range around an estimate, and one sentence we were not allowed to say about it\nToday: the formal machinery for “is there a difference?” — then a second tradition answering the question you meant to ask"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#remember-our-question",
@@ -4575,7 +4575,7 @@
     "href": "slides/week-06-hypothesis-testing.html#lets-pretend-we-sampled-repeatedly",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "Let’s Pretend We Sampled Repeatedly",
-    "text": "Let’s Pretend We Sampled Repeatedly\nBootstrap each group’s mean 10,000 times — Session 4’s logic, applied to both groups at once:\n\nboot &lt;- tibble(\n  Violent  = replicate(10000, mean(sample(violent_hours,  replace = TRUE))),\n  Property = replicate(10000, mean(sample(property_hours, replace = TRUE)))\n)\n\nboot |&gt;\n  pivot_longer(everything(), names_to = \"group\", values_to = \"boot_mean\") |&gt;\n  mutate(group = factor(group, levels = c(\"Violent\", \"Property\"))) |&gt;\n  ggplot(aes(boot_mean, fill = group)) +\n  geom_histogram(bins = 60, alpha = 0.6, position = \"identity\", color = NA) +\n  scale_fill_manual(values = unname(crju_colors[c(\"garnet\", \"blue\")])) +\n  scale_x_continuous(labels = clock) +\n  labs(title = \"10,000 bootstrap means per group\",\n       x = \"Mean time of day\", y = \"Count\", fill = NULL)"
+    "text": "Let’s Pretend We Sampled Repeatedly\nSession 4’s move, applied to both groups at once: draw 10,000 repeated samples of each group and compute the arrest rate every time.\n\nThe two piles do not even touch."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#lets-pretend-we-sampled-repeatedly-output",
@@ -4610,7 +4610,7 @@
     "href": "slides/week-06-hypothesis-testing.html#the-null-hypothesis-significance-test",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "The Null Hypothesis Significance Test",
-    "text": "The Null Hypothesis Significance Test\n\nState the null, \\(H_0\\): no difference (\\(\\mu_V - \\mu_P = 0\\)). The boring world.\nState the alternative, \\(H_1\\): some difference. Note how little we commit to.\nCompute a test statistic: \\(t = \\text{observed difference} \\,/\\, SE\\) — the gap, in SE units.\nAsk: how often would \\(|t|\\) this large appear by luck in the boring world? The p-value.\nVerdict: \\(p &lt; \\alpha\\) (usually .05) → “reject \\(H_0\\).” Otherwise → “fail to reject.”\nNote: the machine only weighs evidence against the null — \\(H_1\\) never gets scored."
+    "text": "The Null Hypothesis Significance Test\n\nState the null, \\(H_0\\): the two arrest rates are the same (difference = 0). The boring world.\nState the alternative, \\(H_1\\): some difference. Note how little we commit to.\nCompute a test statistic: the observed gap, measured against how much gaps bounce by chance.\nAsk: how often would a gap this large appear by luck in the boring world? The p-value.\nVerdict: \\(p &lt; \\alpha\\) (usually .05) → “reject \\(H_0\\).” Otherwise → “fail to reject.”\nNote: the machine only weighs evidence against the null — \\(H_1\\) never gets scored."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#watch-the-p-value-do-its-job",
@@ -4638,7 +4638,7 @@
     "href": "slides/week-06-hypothesis-testing.html#reading-the-verdict",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "Reading the Verdict",
-    "text": "Reading the Verdict\n\nViolent is listed first because we told R so (Session 5’s factor() line), so this tests Violent minus Property: the same 4-to-27-minute interval as our bootstrap, now with a t and a p attached\n\\(t = 2.61\\), and \\(p = 0.009\\)\n\n\n\\(p &lt; .05\\) — “statistically significant.” Reject the null. Publish the press release?\n\n\nHold that thought until Act III. First, some fine print about what this machine quietly assumed."
+    "text": "Reading the Verdict\n\nprop 1 and prop 2 at the bottom: 19.7% and 13.2%. Domestic is first because we typed it first\n95 percent confidence interval: about 4.9 to 8.1 points, Domestic minus Not domestic. Last week’s skill\np-value &lt; 2.2e-16: R’s way of writing a decimal point followed by fifteen zeros. In the boring world, a gap like ours essentially never happens\n\n\n\\(p &lt; .05\\) — “statistically significant.” Reject the null."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#assumption-1-the-null-stands-alone",
@@ -4659,7 +4659,7 @@
     "href": "slides/week-06-hypothesis-testing.html#assumption-2-the-shape-itself",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "Assumption 2 · The Shape Itself",
-    "text": "Assumption 2 · The Shape Itself\n\nThe p-value came from this specific curve — which assumes (roughly) normal-enough data, independent observations, well-behaved variances."
+    "text": "Assumption 2 · The Shape Itself\n\nThe p-value came from this specific curve — which assumes large-enough samples, independent observations, and a model that fits the data."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#and-many-shapes-fit-the-same-data",
@@ -4680,7 +4680,7 @@
     "href": "slides/week-06-hypothesis-testing.html#the-two-traditions-side-by-side",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "The Two Traditions, Side by Side",
-    "text": "The Two Traditions, Side by Side\n\n\n\n\n\n\n\n\n\nFrequentist\nBayesian\n\n\n\n\nAsks\nHow surprising are these data if \\(H_0\\) is true?\nHow probable is each hypothesis, given the data?\n\n\nProbability attaches to\nData, over imagined repeated samples\nHypotheses and parameters directly\n\n\nPrior knowledge\nNone used\nExplicit, stated up front\n\n\nOutput\np-value, confidence interval\nPosterior distribution, Bayes factor, credible interval\n\n\n“95%” means\nThe procedure captures the truth in 95% of replications\n95% probability the parameter lies in this interval"
+    "text": "The Two Traditions, Side by Side\n\n\n\n\n\n\n\n\n\nFrequentist\nBayesian\n\n\n\n\nAsks\nHow surprising are these data if \\(H_0\\) is true?\nHow probable is each hypothesis, given the data?\n\n\nProbability attaches to\nData, over imagined repeated samples\nHypotheses and parameters directly\n\n\nPrior knowledge\nNone used\nExplicit, stated up front\n\n\nOutput\np-value, confidence interval\nPosterior distribution, credible interval\n\n\n“95%” means\nThe procedure captures the truth in 95% of replications\n95% probability the parameter lies in this interval"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#the-bayesian-t-test-ttestbf",
@@ -4729,28 +4729,28 @@
     "href": "slides/week-06-hypothesis-testing.html#the-setup",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "The Setup",
-    "text": "The Setup\n\nContext: typical recidivism runs about 60% — that’s our prior belief\nDesign: randomized trial of a reentry program — 100 treated, 100 control\nOutcomes: control 50/100 reoffend · treatment 40/100 reoffend\nQuestion: did the program reduce recidivism?\n\n\nTen percentage points, exactly the kind of effect a city would fund. Both traditions, go."
+    "text": "The Setup\n\nContext: typical recidivism runs about 60% — that’s what we believed going in\nDesign: randomized trial of a reentry program — 100 treated, 100 control\nOutcomes: treatment 40/100 reoffend · control 50/100 reoffend\nQuestion: did the program reduce recidivism?\n\n\nTen percentage points, exactly the kind of effect a city would fund. Both traditions, go."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#the-frequentist-answer",
     "href": "slides/week-06-hypothesis-testing.html#the-frequentist-answer",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "The Frequentist Answer",
-    "text": "The Frequentist Answer\n\nprop.test(x = c(40, 50), n = c(100, 100))\n\n\n    2-sample test for equality of proportions with continuity correction\n\ndata:  c(40, 50) out of c(100, 100)\nX-squared = 1.6364, df = 1, p-value = 0.2008\nalternative hypothesis: two.sided\n95 percent confidence interval:\n -0.24719748  0.04719748\nsample estimates:\nprop 1 prop 2 \n   0.4    0.5"
+    "text": "The Frequentist Answer\nTreatment first, so the difference reads Treatment minus Control:\n\nprop.test(x = c(40, 50), n = c(100, 100))\n\n\n    2-sample test for equality of proportions with continuity correction\n\ndata:  c(40, 50) out of c(100, 100)\nX-squared = 1.6364, df = 1, p-value = 0.2008\nalternative hypothesis: two.sided\n95 percent confidence interval:\n -0.24719748  0.04719748\nsample estimates:\nprop 1 prop 2 \n   0.4    0.5"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#the-frequentist-answer-read-aloud",
     "href": "slides/week-06-hypothesis-testing.html#the-frequentist-answer-read-aloud",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "The Frequentist Answer, Read Aloud",
-    "text": "The Frequentist Answer, Read Aloud\n\nprop.test(x = c(40, 50), n = c(100, 100))$p.value\n\n[1] 0.2008251\n\n\n\n\\(p = 0.20\\) — not statistically significant\nHonest reading: a 10-point gap like this could plausibly occur even if the program did nothing\nThe grant report writes itself — “no significant effect” — and the program probably dies there"
+    "text": "The Frequentist Answer, Read Aloud\n\n\\(p = 0.20\\) — not statistically significant\nThe interval, about -25 to +5 points, has zero inside it\nHonest reading: a 10-point gap like this could plausibly occur even if the program did nothing\nThe grant report writes itself — “no significant effect” — and the program probably dies there"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#the-bayesian-answer",
     "href": "slides/week-06-hypothesis-testing.html#the-bayesian-answer",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "The Bayesian Answer",
-    "text": "The Bayesian Answer\nPrior: Beta(6, 4) — mean 0.6, worth about 10 observations. Update each group, then ask the question we care about directly:\n\nset.seed(705)\ntheta_treat   &lt;- rbeta(10000, 6 + 40, 4 + 60)   # posterior, treatment\ntheta_control &lt;- rbeta(10000, 6 + 50, 4 + 50)   # posterior, control\n\nmean(theta_treat &lt; theta_control)   # P(program reduces recidivism)\n\n[1] 0.9122\n\n\n\nGiven the prior and the data, there is about a 91% probability the program reduces recidivism."
+    "text": "The Bayesian Answer\nSame two numbers per group as prop.test(), plus the prior:\n\nbayes_prop_test(x = c(40, 50), n = c(100, 100), prior = c(6, 4))\n\n\n    Bayesian test of two proportions \n\ndata, group 1:  40 of 100 (40.0%)\ndata, group 2:  50 of 100 (50.0%)\nprior:          6 yes, 4 no (about 60%, worth 10 cases), same for both groups\n\n                         estimate      95% credible interval\ngroup 1                  41.8%         32.8% to 51.1%\ngroup 2                  50.9%         41.6% to 60.2%\ndifference (1 minus 2)   -9.1 points   -22.0 to 4.0 points\n\nProbability group 1 is higher than group 2: 0.09 \nProbability group 1 is lower than group 2:  0.91"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#the-posteriors-seen",
@@ -4764,7 +4764,7 @@
     "href": "slides/week-06-hypothesis-testing.html#same-data-different-questions",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "Same Data, Different Questions",
-    "text": "Same Data, Different Questions\n\n\n\n\n\n\n\n\n\nFrequentist\nBayesian\n\n\n\n\nVerdict\n\\(p = 0.20\\): cannot reject “no effect”\n\\(P(\\text{treatment} &lt; \\text{control}) \\approx 0.91\\)\n\n\nPlain English\n“This gap could plausibly be luck”\n“9-to-1 odds the program works”\n\n\n\n\nBoth statements are true of the same data. Neither is a trick\nA policymaker deciding whether to fund the program next year: which sentence actually helps?\nYour homework asks you to sit with exactly this discomfort"
+    "text": "Same Data, Different Questions\n\n\n\n\n\n\n\n\n\nFrequentist\nBayesian\n\n\n\n\nVerdict\n\\(p = 0.20\\): cannot reject “no effect”\nProbability the program works ≈ 0.91\n\n\nPlain English\n“This gap could plausibly be luck”\n“About 9-to-1 odds the program works”\n\n\n\n\nBoth statements are true of the same data. Neither is a trick\nA policymaker deciding whether to fund the program next year: which sentence actually helps?\nYour homework asks you to sit with exactly this discomfort"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#the-p-value-and-sample-size",
@@ -4778,28 +4778,28 @@
     "href": "slides/week-06-hypothesis-testing.html#bayes-and-sample-size",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "Bayes and Sample Size",
-    "text": "Bayes and Sample Size\nSame trivial effect, Bayesian glasses — watch the posterior for the difference as n grows:\n\nMore data doesn’t flip a verdict — it sharpens the estimate, which visibly converges on “about 0.1, i.e., almost nothing.” The tininess stays in view. (This is Act III’s collision, run in slow motion.)"
+    "text": "Bayes and Sample Size\nSame trivial effect, Bayesian glasses — watch the posterior for the difference as n grows:\n\nMore data doesn’t flip a verdict — it sharpens the estimate, which visibly converges on “about 0.1, i.e., almost nothing.” The tininess stays in view."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#what-we-learned-today",
     "href": "slides/week-06-hypothesis-testing.html#what-we-learned-today",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "What We Learned Today",
-    "text": "What We Learned Today\n\nNHST: standardized and everywhere — but it only asks how surprising are the data under the null?, never scores the alternative, and rewards sheer n\np-values are not the probability any hypothesis is true, and are silent about size\nBayes answers \\(P(H \\mid \\text{data})\\) at the price of a stated prior; MCMC made it computable (appendix, if you want the machinery)\nThe same data can yield \\(p &lt; .05\\) and a BF favoring the null — or \\(p = 0.20\\) and 91% posterior confidence\nWhatever tradition you use: report the effect size, in units a human cares about"
+    "text": "What We Learned Today\n\nNHST: standardized and everywhere — but it only asks how surprising are the data under the null?, never scores the alternative, and rewards sheer n\np-values are not the probability any hypothesis is true, and are silent about size\nBayes answers \\(P(H \\mid \\text{data})\\) at the price of a stated prior — tonight, in one line of R\nThe same trial gave \\(p = 0.20\\) and a 91% probability the program works. Both true; different questions\nWhatever tradition you use: say how big the difference is, in units a human cares about"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#todays-lab-homework",
     "href": "slides/week-06-hypothesis-testing.html#todays-lab-homework",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "Today’s Lab & Homework",
-    "text": "Today’s Lab & Homework\n\nLab 6: joining data — left_join() on the two Chicago files, and the ways a join quietly goes wrong (lab page)\nHomework 6: Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question (posted on the Session 6 page)\nNext session — the applied data workshop: the full messy-data pipeline, start to finish. Your final-project dataset selection is due at Session 7 — come with a candidate dataset and be ready to defend it"
+    "text": "Today’s Lab & Homework\n\nLab 6: one question about the correctional officers, answered twice. You run both tests, step by step, and submit your script (lab page)\nHomework 6: Bayesian vs. frequentist reasoning, plus both tests on the Alaska crash data, and four R4DS exercises from Ch. 17, Dates and times (posted on the Session 6 page)\nNext session — the applied data workshop: the full messy-data pipeline, start to finish. Your final-project dataset selection is due at Session 7 — come with a candidate dataset and be ready to defend it"
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#the-ugly-denominator",
     "href": "slides/week-06-hypothesis-testing.html#the-ugly-denominator",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "The Ugly Denominator",
-    "text": "The Ugly Denominator\nNot on any exam — this is the machinery behind the two-second ttestBF() call, for the curious.\n\\[\nP(H \\mid \\text{data}) = \\frac{P(\\text{data} \\mid H)\\,P(H)}{\\color{#73000A}{P(\\text{data})}}\n\\]\nThat innocent-looking denominator is the probability of the data under every possible hypothesis, weighted by its prior:\n\\[\n\\color{#73000A}{P(\\text{data}) = \\int P(\\text{data} \\mid \\theta)\\, P(\\theta)\\, d\\theta}\n\\]\n\nFor realistic models this integral is intractable — for most of the 20th century, Bayes was philosophically beautiful and practically unusable."
+    "text": "The Ugly Denominator\nNot on any exam — this is the machinery behind the Bayesian models we start fitting in Session 8, for the curious.\n\\[\nP(H \\mid \\text{data}) = \\frac{P(\\text{data} \\mid H)\\,P(H)}{\\color{#73000A}{P(\\text{data})}}\n\\]\nThat innocent-looking denominator is the probability of the data under every possible hypothesis, weighted by its prior:\n\\[\n\\color{#73000A}{P(\\text{data}) = \\int P(\\text{data} \\mid \\theta)\\, P(\\theta)\\, d\\theta}\n\\]\n\nFor realistic models this integral is intractable — for most of the 20th century, Bayes was philosophically beautiful and practically unusable."
   },
   {
     "objectID": "slides/week-06-hypothesis-testing.html#enter-mcmc",
@@ -4820,7 +4820,7 @@
     "href": "slides/week-06-hypothesis-testing.html#we-end-up-with-the-probability-distribution",
     "title": "Hypothesis Testing: Frequentist and Bayesian",
     "section": "We End Up With the Probability Distribution",
-    "text": "We End Up With the Probability Distribution\n\nThe pile of accepted samples is the posterior — to any precision you like, just run longer\nThink back to Session 4: we approximated sampling distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the posterior\nThis is why modern Bayes is possible at all — and it is what BayesFactor quietly does for you in about two seconds"
+    "text": "We End Up With the Probability Distribution\n\nThe pile of accepted samples is the posterior — to any precision you like, just run longer\nThink back to Session 4: we approximated sampling distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the posterior\nThis is why modern Bayes is possible at all — and it is what brms will do for us starting in Session 8. (Tonight’s bayes_prop_test() did not need it: for a simple proportion, the posterior has an exact formula.)"
   },
   {
     "objectID": "slides/week-08-anova.html#this-week",
@@ -5478,14 +5478,14 @@
     "href": "syllabus.html#session-6-september-22",
     "title": "Syllabus",
     "section": "Session 6 — September 22",
-    "text": "Session 6 — September 22\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 16 (Factors)\nIn-class exercise (graded) · Homework: Problem set 6 · No new Stanton chapter · Final-project dataset selection is due at Session 7 — come with a candidate and be ready to say what one row represents"
+    "text": "Session 6 — September 22\nTopics: Hypothesis testing — Bayesian vs. traditional (frequentist), with t-tests\nReadings due: Stanton Ch. 5 · R4DS Ch. 16 (Factors)\nIn-class exercise (graded) · Homework: Problem set 6 (includes the R4DS Ch. 17 exercises) · Read R4DS Ch. 17 (Dates and times) · No new Stanton chapter · Final-project dataset selection is due at Session 7 — come with a candidate and be ready to say what one row represents"
   },
   {
     "objectID": "syllabus.html#session-7-september-29",
     "href": "syllabus.html#session-7-september-29",
     "title": "Syllabus",
     "section": "Session 7 — September 29",
-    "text": "Session 7 — September 29\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nDue in class: Final-project dataset selection\nHomework: Problem set 7 — the workshop write-up plus your formal final-project dataset selection · Read Stanton Ch. 6 · Bring your dataset and script to Session 8, where project checkpoints begin"
+    "text": "Session 7 — September 29\nTopics: Applied data workshop — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)\nReadings due: R4DS Ch. 17 (Dates and times)\nDue in class: Final-project dataset selection\nHomework: Problem set 7 — the workshop write-up plus your formal final-project dataset selection · Read Stanton Ch. 6 · Bring your dataset and script to Session 8, where project checkpoints begin"
   },
   {
     "objectID": "syllabus.html#session-8-october-06",
@@ -5555,7 +5555,7 @@
     "href": "syllabus.html#grading-scheme",
     "title": "Syllabus",
     "section": "Grading Scheme",
-    "text": "Grading Scheme\nYour final grade has three components:\n\n\n\n\n\n\n\nComponent\nWeight\nWhat it covers\n\n\n\nHomework, labs & in-class exercises\n45%\nWeekly problem sets (including the R4DS exercises attached to Problem Sets 2–5 and the project checkpoints in Problem Sets 8–12) and the graded in-class exercises\n\n\nMid-term exam\n25%\nIn class at Session 9; covers Sessions 1–8\n\n\nFinal project\n30%\nWritten report, script & output (22%) + in-class presentation (8%)\n\n\n\nGraded in-class exercises are scored on active participation that day and cannot be made up (see the Attendance Policy). Final letter grades follow the standard scale:\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
+    "text": "Grading Scheme\nYour final grade has three components:\n\n\n\n\n\n\n\nComponent\nWeight\nWhat it covers\n\n\n\nHomework, labs & in-class exercises\n45%\nWeekly problem sets (including the R4DS exercises attached to Problem Sets 2–6 and the project checkpoints in Problem Sets 8–12) and the graded in-class exercises\n\n\nMid-term exam\n25%\nIn class at Session 9; covers Sessions 1–8\n\n\nFinal project\n30%\nWritten report, script & output (22%) + in-class presentation (8%)\n\n\n\nGraded in-class exercises are scored on active participation that day and cannot be made up (see the Attendance Policy). Final letter grades follow the standard scale:\n\n\n\n\nCourse Percentage\nLetter Grade\nDescription\n\n\n\n90-100\nA\nOutstanding\n\n\n87-89\nB+\nGood work\n\n\n80-86\nB\nAcceptable work\n\n\n77-79\nC+\nSlightly Below standard\n\n\n70-76\nC\nBelow standard\n\n\n67-69\nD+\nInadequate work\n\n\n60-66\nD\nVery Inadequate work\n\n\nBelow 60\nF\nFailing\n\n\n\n\n\nExtra Credit\nI do not offer extra credit for this course.\nContested Grades\nIf you would like an assignment regraded, email me in advance stating clearly what the issue is and the reasons justifying an adjustment. We will then schedule an in-person meeting. If I agree to regrade, the entire assignment will be evaluated again — your grade can be lowered as well as raised, and the new grade is final. For concerns about a single item, just email me or bring it up in class. No regrading is done for the final project, as the semester will have ended.\nGrade Grubbing\n“Grade grubbing” — pestering for a higher grade or repeatedly asking for extra credit — will not help you in this course. Instead of grade grubbing, focus on understanding the material and doing your best on each assignment: that improves both your grade and your actual skills."
   },
   {
     "objectID": "syllabus.html#attendance-policy",
@@ -5660,35 +5660,35 @@
     "href": "weeks/week-06.html",
     "title": "Session 6 · Hypothesis Testing: Frequentist and Bayesian",
     "section": "",
-    "text": "📽️ Slides: Hypothesis Testing: Frequentist and Bayesian · 🧪 Lab 6: Joining Data · 📝 Homework 6 · 🎬 Demo walkthrough · ✍️ Practice\nThis is the signature week of the course: the same research question answered by both of statistics’ great traditions, side by side — the reason we use the Stanton book at all. Session 5’s confidence intervals grow into the Null Hypothesis Significance Test (fine print included), and then Session 3’s Bayes’ theorem returns — pointed at hypotheses instead of diagnoses, answering the question you probably meant to ask. Every method from here to the end of the course runs in both traditions, so this week’s vocabulary is permanent."
+    "text": "📽️ Slides: Hypothesis Testing: Frequentist and Bayesian · 🧪 Lab 6: One Question, Two Tests · 📝 Homework 6 · 🎬 Demo walkthrough · ✍️ Practice\nThis is the signature week of the course: the same research question answered by both of statistics’ great traditions, side by side — the reason we use the Stanton book at all. Session 5’s confidence intervals grow into the Null Hypothesis Significance Test (fine print included), and then Session 3’s Bayes’ theorem returns — pointed at hypotheses instead of diagnoses, answering the question you probably meant to ask. Every method from here to the end of the course runs in both traditions, so this week’s vocabulary is permanent."
   },
   {
     "objectID": "weeks/week-06.html#learning-objectives",
     "href": "weeks/week-06.html#learning-objectives",
     "title": "Session 6 · Hypothesis Testing: Frequentist and Bayesian",
     "section": "Learning objectives",
-    "text": "Learning objectives\nBy the end of this week you can:\n\nrun t.test() and ttestBF() on the same question, and state correctly what each output licenses you to claim\nexplain in plain language what a p-value is — and name the things it is not\nread a Bayes factor and a posterior distribution, and report a credible interval honestly\njoin related tables with left_join(), inner_join(), and anti_join(), checking keys and missing values first"
+    "text": "Learning objectives\nBy the end of this week you can:\n\nrun prop.test() and bayes_prop_test() on the same question, and state correctly what each output lets you claim\nexplain in plain language what a p-value is — and name the things it is not\nstate a prior in plain words, read a posterior, and report a credible interval honestly\nfind the p-value in prop.test() and t.test() output, and say how big a difference is in real units"
   },
   {
     "objectID": "weeks/week-06.html#before-class",
     "href": "weeks/week-06.html#before-class",
     "title": "Session 6 · Hypothesis Testing: Frequentist and Bayesian",
     "section": "Before class",
-    "text": "Before class\n\nRead: Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing)\nRead: Mourtgos, S. M. (2023). “Bayesian Inference in Criminological Research.” Police Forum, 32(1), 7–16 — PDF posted on Canvas. Yes, I assigned my own article; consider it a preview of where your instructor’s sympathies lie, and feel free to argue with it in class\nRead: R4DS Ch. 16 — Factors — plus the exercises assigned in Session 5\nInstall the Bayesian engine before class so we can use it together: install.packages(\"BayesFactor\")"
+    "text": "Before class\n\nRead: Stanton Ch. 5 (Bayesian & Frequentist Hypothesis Testing)\nRead: Mourtgos, S. M. (2023). “Bayesian Inference in Criminological Research.” Police Forum, 32(1), 7–16 — PDF posted on Canvas. Yes, I assigned my own article; consider it a preview of where your instructor’s sympathies lie, and feel free to argue with it in class\nRead: R4DS Ch. 16 — Factors — plus the exercises assigned in Session 5\nNothing new to install: tonight’s Bayesian tool is a course function you load with one source() line"
   },
   {
     "objectID": "weeks/week-06.html#in-class",
     "href": "weeks/week-06.html#in-class",
     "title": "Session 6 · Hypothesis Testing: Frequentist and Bayesian",
     "section": "In class",
-    "text": "In class\nThis week’s two threads: hypothesis testing in both traditions (lecture + homework) · joins (lab).\n\nFrom Session 5’s confidence intervals to the Null Hypothesis Significance Test: bootstrap logic, the null, the verdict machine — and an animation of what the p-value is actually doing\nWhat a p-value is, and the long list of things it is not\nThe fine print: NHST never scores the alternative hypothesis, and rarely checks the distribution it assumes\nBayes’ theorem, recapped from Session 3 — and the new insight: the p-value lives entirely in the likelihood, and never becomes P(H₀ | data); the two traditions side by side\nOptional self-study appendix (end of the deck): why Bayes was long impractical (the intractable denominator) and how MCMC solved it, watched live\nBoth traditions on our real Chicago question — t.test() says significant, ttestBF() mildly favors the null, the posterior says the difference is almost surely real and almost surely trivial. Sorting out that collision (effect sizes!) is the heart of the week\nThe recidivism trial: p = 0.20 vs. a 91% posterior probability the program works — same data, different questions\nSample size pathologies, animated: p-values dive below .05 for trivial effects as n grows; posteriors just sharpen around the truth\nLab 6: joining the two Chicago files — left_join(), inner_join(), anti_join(), key checks, and the missing-values discipline (lab page)\n\nMissed class? The demo walkthrough reproduces today’s live demos step by step."
+    "text": "In class\n\nFrom Session 5’s confidence intervals to the Null Hypothesis Significance Test: repeated sampling, a world with no real difference, the verdict machine — and an animation of what the p-value is actually doing\nWhat a p-value is, and the long list of things it is not\nThe fine print: NHST never scores the alternative hypothesis, and rarely checks the distribution it assumes\nBayes’ theorem, recapped from Session 3 — and the new insight: the p-value lives entirely in the likelihood, and never becomes P(H₀ | data); the two traditions side by side\nOptional self-study appendix (end of the deck): why Bayes was long impractical (the intractable denominator) and how MCMC solved it, watched live\nTonight’s real question, in percent: among Chicago’s violent crimes, are domestic ones more likely to end in arrest? (19.7% vs 13.2%)\nThe recidivism trial, both ways: p = 0.20 from prop.test() vs. a 91% probability the program works from bayes_prop_test() — same data, different questions — with the prior stated in plain words\nBack to Chicago with both tools: with thousands of cases the two traditions give nearly the same range; with 100 per group they read very differently\nSample size, animated: p-values dive below .05 for trivial effects as n grows; posteriors just sharpen around the truth. So always say how big the difference is, in real units\nLab 6: one question about the correctional officers, answered twice — prop.test() and bayes_prop_test(), step by step (lab page). You submit your Your Turn script\n\nMissed class? The demo walkthrough reproduces today’s live demos step by step."
   },
   {
     "objectID": "weeks/week-06.html#homework",
     "href": "weeks/week-06.html#homework",
     "title": "Session 6 · Hypothesis Testing: Frequentist and Bayesian",
     "section": "Homework",
-    "text": "Homework\n\nHomework 6 — Bayesian vs. frequentist reasoning, plus both t-tests on a new Chicago question; submit your .R file via Canvas by 11:59 pm Sunday\nNo new Stanton chapter before Session 7 — the applied data workshop, where we run the full messy-data pipeline end to end (the capstone of the R4DS thread)\nFinal-project dataset selection is due at Session 7. Come with a candidate dataset and be ready to say what one row represents, what the interesting variables are, and what question you might ask of it — details on the final project page"
+    "text": "Homework\n\nHomework 6 — Bayesian vs. frequentist reasoning, plus both tests on the Alaska crash data, step for step what we did in Lab 6; submit your .R file via Canvas by 11:59 pm Sunday\nRead R4DS Ch. 17 — Dates and times. Almost every criminal justice dataset has a date column, and R treats it as plain text until you tell it otherwise\n\nR4DS exercises — four, all about one idea: a date is not text\n\n17.2.5 #1 — what an invalid date does\n17.2.5 #3 — parse five differently written dates (ymd(), mdy(), dmy())\n17.3.4 #5 — which weekday has the fewest flight delays (a starter line is in the homework)\n17.4.4 #2 — the first day of every month in 2015\nRequired and submitted — they are the R4DS Exercises section of Homework 6; put them in the same .R script under a # ---- R4DS ---- header\n\n\nNo new Stanton chapter before Session 7 — the applied data workshop, where we run the full messy-data pipeline end to end\nFinal-project dataset selection is due at Session 7. Come with a candidate dataset and be ready to say what one row represents, what the interesting variables are, and what question you might ask of it — details on the final project page"
   },
   {
     "objectID": "weeks/week-08.html",
@@ -5794,5 +5794,96 @@
     "title": "Session 12 · Logistic Regression: Yes/No Outcomes",
     "section": "Homework",
     "text": "Homework\n\nHomework 12 — entirely about your project this week: summary()/str() proof of your cleaned model variables, your model equation (linear or logistic, and why), plus Project Checkpoint 4 (final): fit and interpret your final model, produce one presentation-ready table or figure, and write the three sentences you’d say to a non-statistician. Submit your .R file via Canvas by 11:59 pm the Sunday after this session — one week before the full project is due.\nThe full project — script, dataset, written report — is due via Canvas before midnight the Sunday before Session 13 (details and rubric), with presentations in class at Session 13."
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#tonights-question",
+    "href": "slides/week-06-hypothesis-testing.html#tonights-question",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "Tonight’s Question",
+    "text": "Tonight’s Question\nAmong violent crimes in our Chicago sample: are the domestic ones more likely to end in an arrest?\n\nviolent &lt;- crimes |&gt; filter(crime_category == \"Violent\")\n\nviolent |&gt; count(domestic, arrest)\n\n# A tibble: 4 × 3\n  domestic arrest     n\n  &lt;lgl&gt;    &lt;lgl&gt;  &lt;int&gt;\n1 FALSE    FALSE   4685\n2 FALSE    TRUE     714\n3 TRUE     FALSE   3009\n4 TRUE     TRUE     740"
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#reading-the-table",
+    "href": "slides/week-06-hypothesis-testing.html#reading-the-table",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "Reading the Table",
+    "text": "Reading the Table\n\n\n\n\nArrests\nOut of\nArrest rate\n\n\n\n\nDomestic\n740\n740 + 3,009 = 3,749\n19.7%\n\n\nNot domestic\n714\n714 + 4,685 = 5,399\n13.2%\n\n\n\n\nA gap of about 6.5 percentage points. All night the difference reads one way: Domestic minus Not domestic.\n\n\nBut this is a sample of Chicago’s 2025 incidents. Session 4 taught us that sample numbers bounce around. Could a gap like this be nothing but bounce?"
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#the-difference-and-its-95-interval",
+    "href": "slides/week-06-hypothesis-testing.html#the-difference-and-its-95-interval",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "The Difference and Its 95% Interval",
+    "text": "The Difference and Its 95% Interval\nSubtract, pair by pair, and the difference gets its own pile:\n\nThe middle 95% runs from about 5 to 8.1 points. Zero is nowhere near it."
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#what-if-there-were-no-real-difference",
+    "href": "slides/week-06-hypothesis-testing.html#what-if-there-were-no-real-difference",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "What If There Were No Real Difference?",
+    "text": "What If There Were No Real Difference?\nBuild the boring world on purpose: give both groups the same arrest rate (the overall 15.9%), and run the same machinery.\n\nChance alone makes gaps of a point or two. It made a gap as big as ours in 0 of 10,000 tries. That count is the whole idea of a p-value."
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#prop.test-on-the-real-question",
+    "href": "slides/week-06-hypothesis-testing.html#prop.test-on-the-real-question",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "prop.test() on the Real Question",
+    "text": "prop.test() on the Real Question\nLab 5’s function, now with two groups: how many, out of how many, for each. Domestic first.\n\nprop.test(x = c(740, 714), n = c(3749, 5399))\n\n\n    2-sample test for equality of proportions with continuity correction\n\ndata:  c(740, 714) out of c(3749, 5399)\nX-squared = 69.744, df = 1, p-value &lt; 2.2e-16\nalternative hypothesis: two.sided\n95 percent confidence interval:\n 0.04929331 0.08098520\nsample estimates:\n   prop 1    prop 2 \n0.1973860 0.1322467"
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#the-same-line-lives-in-t.test",
+    "href": "slides/week-06-hypothesis-testing.html#the-same-line-lives-in-t.test",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "The Same Line Lives in t.test()",
+    "text": "The Same Line Lives in t.test()\nLast week’s homework, comparing two means. The p-value sat right above the interval the whole time:\n\nt.test(injuries ~ intox, data = crashes)\n\n\n    Welch Two Sample t-test\n\ndata:  injuries by intox\nt = 12.489, df = 1732.6, p-value &lt; 2.2e-16\nalternative hypothesis: true difference in means between group Intoxicated and group Sober is not equal to 0\n95 percent confidence interval:\n 0.3259893 0.4474533\nsample estimates:\nmean in group Intoxicated       mean in group Sober \n                1.1300971                 0.7433758 \n\n\nSame reading: if both kinds of crash truly injured the same number of people, a gap this big would essentially never appear."
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#what-we-knew-before-the-trial",
+    "href": "slides/week-06-hypothesis-testing.html#what-we-knew-before-the-trial",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "What We Knew Before the Trial",
+    "text": "What We Knew Before the Trial\nA Bayesian has to say, out loud, what they believed before seeing the data. That is the prior.\n\nWe said it already: recidivism typically runs about 60%\nHow firmly do we believe that? Let’s say: about as firmly as if we had already watched 10 people — 6 reoffended, 4 did not\nIn R, that whole belief is two numbers: prior = c(6, 4)\nThen the trial’s 200 real people get added to our 10 imaginary ones. That adding-up is the posterior: what we believe after the data"
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#reading-it",
+    "href": "slides/week-06-hypothesis-testing.html#reading-it",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "Reading It",
+    "text": "Reading It\n\nestimate: our best single guess for each group’s true rate, after the data\n95% credible interval for the difference: about -22 to +4 points, Treatment minus Control\nProbability group 1 is lower than group 2: 0.91 — given the prior and the data, about a 91% probability the program reduces recidivism\n\n\nAnd the sentence Session 5 forbade is now legal: “There is a 95% probability the true difference lies between -22 and +4 points.” That is exactly what a credible interval means."
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#does-the-prior-matter-here",
+    "href": "slides/week-06-hypothesis-testing.html#does-the-prior-matter-here",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "Does the Prior Matter Here?",
+    "text": "Does the Prior Matter Here?\nLeave prior = out and the function starts from “I know nothing”:\n\nbayes_prop_test(x = c(40, 50), n = c(100, 100))\n\n\nProbability the program works: 0.92 instead of 0.91. It barely moved\nWhy? 200 real people outweigh 10 imaginary ones. Data overwhelm a modest prior\nA prior matters most when data are scarce — which is exactly when you most need to say it out loud"
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#the-bayesian-answer-to-tonights-question",
+    "href": "slides/week-06-hypothesis-testing.html#the-bayesian-answer-to-tonights-question",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "The Bayesian Answer to Tonight’s Question",
+    "text": "The Bayesian Answer to Tonight’s Question\nWe have no strong belief going in, so no prior =:\n\nbayes_prop_test(x = c(740, 714), n = c(3749, 5399))\n\n\n    Bayesian test of two proportions \n\ndata, group 1:  740 of 3,749 (19.7%)\ndata, group 2:  714 of 5,399 (13.2%)\nprior:          know-nothing (1 yes, 1 no), same for both groups\n\n                         estimate      95% credible interval\ngroup 1                  19.8%         18.5% to 21.0%\ngroup 2                  13.2%         12.3% to 14.2%\ndifference (1 minus 2)   6.5 points    5.0 to 8.1 points\n\nProbability group 1 is higher than group 2: more than 0.99 \nProbability group 1 is lower than group 2:  less than 0.01"
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#big-sample-small-sample",
+    "href": "slides/week-06-hypothesis-testing.html#big-sample-small-sample",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "Big Sample, Small Sample",
+    "text": "Big Sample, Small Sample\n\n\n\n\n\n\n\n\n\nChicago arrests (9,148 cases)\nReentry trial (200 people)\n\n\n\n\nprop.test()\n95% CI: 4.9 to 8.1 points · \\(p &lt; .001\\)\n95% CI: -25 to +5 points · \\(p = 0.20\\)\n\n\nbayes_prop_test()\n95% credible: 5 to 8.1 points\n95% credible: -22 to +4 points · P(works) ≈ 0.91\n\n\n\n\nWith thousands of cases the two traditions hand you nearly the same range. The data drown out everything else\nWith 100 per group, both ranges still include zero — but one tradition stops at “not significant,” and the other tells you how probable the effect is\nNeither is wrong. They answer different questions"
+  },
+  {
+    "objectID": "slides/week-06-hypothesis-testing.html#so-always-ask-how-big",
+    "href": "slides/week-06-hypothesis-testing.html#so-always-ask-how-big",
+    "title": "Hypothesis Testing: Frequentist and Bayesian",
+    "section": "So Always Ask: How Big?",
+    "text": "So Always Ask: How Big?\n\n“Significant” only means detectable. With enough cases, a gap of a single percentage point would earn a tiny p-value too\nSo after either test, say the size in real units: arrest rates about 6.5 points apart (19.7% vs 13.2%)\nThen ask the question no test can answer for you: is a gap that size big enough to matter?"
+  },
+  {
+    "objectID": "homework/hw-06.html#r4ds-exercises-required",
+    "href": "homework/hw-06.html#r4ds-exercises-required",
+    "title": "Homework 6 · Bayesian and Frequentist Inference",
+    "section": "R4DS Exercises (required)",
+    "text": "R4DS Exercises (required)\nFrom your R4DS reading for Session 7 — Ch. 17, Dates and times. No new packages: lubridate loads with the tidyverse. You will need library(nycflights13) for one exercise (you installed it for Homework 2). All four exercises are about one idea: a date is not text, and R can only do date arithmetic once you have told it how the date was written.\nWork these in the same .R script, under a # ---- R4DS ---- header.\n\n17.2.5 #1 — what happens if you parse a string that contains invalid dates? Run ymd(c(\"2010-10-10\", \"bananas\")) and say in a comment what R did with each of the two strings.\n17.2.5 #3 — parse each of these with the right lubridate function (ymd(), mdy(), or dmy()). Do the lubridate half only; skip the “readr column specification” half, and skip t1 and t2. The function’s name is just the order the pieces appear in: year, month, day.\nd1 &lt;- \"January 1, 2010\"\nd2 &lt;- \"2015-Mar-07\"\nd3 &lt;- \"06-Jun-2017\"\nd4 &lt;- c(\"August 19 (2015)\", \"July 1 (2015)\")\nd5 &lt;- \"12/30/14\" # Dec 30, 2014\n17.3.4 #5 — on what day of the week should you leave if you want to minimise the chance of a delay? Start from this, which builds a real date out of three number columns and then pulls the weekday out of it. Finish it with a summarize() by weekday (average dep_delay, with na.rm = TRUE) and answer in a comment.\nlibrary(nycflights13)\n\nflights |&gt;\n  mutate(date = make_date(year, month, day),\n         weekday = wday(date, label = TRUE))\n17.4.4 #2 — create a vector of dates giving the first day of every month in 2015. (Hint: start from ymd(\"2015-01-01\") and add months(0:11).) Do the 2015 half only.\n\nChapter 17 has more exercises than these. Skip them; these four are the ones worth your time. Look at the date column in the crash data while you are at it: it is text written month/day/year, which is exactly what mdy() is for. Your final-project data will very likely have a column like it."
   }
 ]

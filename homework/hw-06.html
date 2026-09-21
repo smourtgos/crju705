@@ -258,6 +258,7 @@ window.Quarto = {
   <li><a href="#part-1-core-concepts" id="toc-part-1-core-concepts" class="nav-link active" data-scroll-target="#part-1-core-concepts">Part 1: Core Concepts</a></li>
   <li><a href="#part-2-interpretation-reflection" id="toc-part-2-interpretation-reflection" class="nav-link" data-scroll-target="#part-2-interpretation-reflection">Part 2: Interpretation &amp; Reflection</a></li>
   <li><a href="#part-3-both-tests-on-real-data" id="toc-part-3-both-tests-on-real-data" class="nav-link" data-scroll-target="#part-3-both-tests-on-real-data">Part 3: Both Tests on Real Data</a></li>
+  <li><a href="#r4ds-exercises-required" id="toc-r4ds-exercises-required" class="nav-link" data-scroll-target="#r4ds-exercises-required">R4DS Exercises (required)</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-06.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -284,7 +285,7 @@ window.Quarto = {
 </header>
 
 
-<p><strong>Instructions:</strong> submit a single <code>.R</code> script via <strong>Canvas</strong>. Parts 1 and 2 are written questions — answer each in <strong>3–5 sentences</strong>, as comments (<code>#</code>) in your script. Part 3 requires code; include comments interpreting your output. Write in your own words — these questions are about whether <em>you</em> can explain the ideas, not whether you can locate a definition.</p>
+<p><strong>Instructions:</strong> submit a single <code>.R</code> script via <strong>Canvas</strong>. Parts 1 and 2 are written questions — answer each in <strong>3–5 sentences</strong>, as comments (<code>#</code>) in your script. Part 3 requires code; include comments interpreting your output. Every step in Part 3 is one you ran in <strong>Lab 6</strong>, pointed at a new question. Write in your own words — these questions are about whether <em>you</em> can explain the ideas, not whether you can locate a definition.</p>
 <section id="part-1-core-concepts" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-core-concepts">Part 1: Core Concepts</h2>
 <ol type="1">
@@ -307,34 +308,49 @@ window.Quarto = {
 </section>
 <section id="part-3-both-tests-on-real-data" class="level2">
 <h2 class="anchored" data-anchor-id="part-3-both-tests-on-real-data">Part 3: Both Tests on Real Data</h2>
-<p>In class we compared violent and property crimes by hour of day. Your question is different: <strong>do domestic incidents happen at a different time of day than non-domestic incidents?</strong></p>
+<p>Back to the Alaska crash data from Homework 5. Last week you compared <em>how many</em> people were injured. This week’s question is yes/no: <strong>are crashes with an intoxicated driver more likely to hurt someone at all?</strong></p>
 <ol type="1">
-<li><p>Load the packages and the Chicago incident data:</p>
+<li><p>Start your script with the same setup as Homework 5, plus the one new line from Lab 6:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BayesFactor)   <span class="co"># install.packages("BayesFactor") first, if needed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"https://smourtgos.github.io/crju705/R/bayes.R"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>crimes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p><code>domestic</code> is TRUE/FALSE. Copy this line and run it; it labels the two groups in words and puts Domestic first, so every comparison below reads <strong>Domestic minus Not domestic</strong> (the Session 5 move):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crimes <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">domestic =</span> <span class="fu">factor</span>(<span class="fu">if_else</span>(domestic, <span class="st">"Domestic"</span>, <span class="st">"Not domestic"</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Domestic"</span>, <span class="st">"Not domestic"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then compute the mean <code>hour</code> for each group (<code>summarize()</code> with <code>.by = domestic</code>). <strong>In a comment:</strong> which group happens earlier in the day, on average, and by roughly how many minutes?</p></li>
-<li><p>Run the <strong>frequentist</strong> test:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(hour <span class="sc">~</span> domestic, <span class="at">data =</span> crimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>In a comment:</strong> report the p-value and the 95% confidence interval in minutes, then interpret the result in plain English — one sentence a police commander would understand. <em>(Direction check, as in Lab 5: the output lists Domestic first, so the interval is Domestic minus Not domestic. Confirm its sign against the two group means at the bottom of the output.)</em></p></li>
-<li><p>Run the <strong>Bayesian</strong> test on the same question, handing it the two groups in the same order:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dom_hours    <span class="ot">&lt;-</span> crimes<span class="sc">$</span>hour[crimes<span class="sc">$</span>domestic <span class="sc">==</span> <span class="st">"Domestic"</span>]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>nondom_hours <span class="ot">&lt;-</span> crimes<span class="sc">$</span>hour[crimes<span class="sc">$</span>domestic <span class="sc">==</span> <span class="st">"Not domestic"</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>bf <span class="ot">&lt;-</span> <span class="fu">ttestBF</span>(<span class="at">x =</span> dom_hours, <span class="at">y =</span> nondom_hours)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">extractBF</span>(bf)<span class="sc">$</span>bf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>In a comment:</strong> report the Bayes factor and interpret it in plain English. Which hypothesis do the data support, and how strongly?</p></li>
-<li><p><strong>Interpretation (in comments):</strong></p>
-<ul>
-<li>Do the frequentist and Bayesian results <strong>agree</strong> here? In class, on the violent-vs-property question, they pointed in different directions — why do you think these two analyses line up (or don’t)?</li>
-<li>Is this difference <strong>practically important</strong>? Consider the size of the gap in minutes against the spread of incident times across a 24-hour day, and answer in one or two sentences.</li>
-</ul></li>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">intox =</span> <span class="fu">if_else</span>(intox_any <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Intoxicated"</span>, <span class="st">"Sober"</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">anyone_hurt =</span> injuries <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>anyone_hurt</code> is TRUE when at least one person was injured (the same line from Lab 4).</p></li>
+<li><p>Count: <code>crashes |&gt; count(intox, anyone_hurt)</code>. <strong>In a comment:</strong> write the four numbers you need — how many intoxicated-driver crashes hurt someone, out of how many, and the same for sober-driver crashes — and compute the two rates. Intoxicated goes first all the way through, so every difference reads <strong>Intoxicated minus Sober</strong>.</p></li>
+<li><p>Run the <strong>frequentist</strong> test with your four numbers:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(__, __), <span class="at">n =</span> <span class="fu">c</span>(__, __))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>In a comment:</strong> report the 95% confidence interval for the difference in percentage points, and the p-value. Do you reject the null? (If R prints the p-value with an <code>e-</code> in it, say in words what that means.)</p></li>
+<li><p>Run the <strong>Bayesian</strong> test with the same four numbers in <code>bayes_prop_test()</code>. <strong>In a comment:</strong> report the 95% credible interval for the difference, and write the one sentence this output lets you say that the <code>prop.test()</code> output does not.</p></li>
+<li><p><strong>In a comment:</strong> compare the two intervals from steps 3 and 4. How close are they? Using what we saw in class about sample size, explain why.</p></li>
+<li><p>A rarer outcome. Add <code>fatal = fatalities &gt; 0</code> to <code>crashes</code> with <code>mutate()</code>, count <code>intox</code> by <code>fatal</code>, and run both tests again. <strong>In a comment:</strong> report both intervals. The gap here is only a few percentage points, and the p-value is still tiny. What does that tell you about what a p-value does and does not measure?</p></li>
+<li><p>A small study, with a prior. <em>(Pretend numbers.)</em> A county pilots a DUI court. Of <strong>60</strong> participants, <strong>18</strong> are re-arrested for DUI within two years; of <strong>60</strong> similar people who went through regular court, <strong>27</strong> are. Before the pilot, the county’s best information was that about 45% of people like these are re-arrested, and they trust that about as much as having seen 20 cases: <code>prior = c(9, 11)</code>.</p>
+<p>Run <code>prop.test()</code> and then <code>bayes_prop_test()</code> with that prior, DUI court first. <strong>In a comment:</strong> report the p-value, and report the probability that the DUI court’s re-arrest rate is lower. Then answer: if you were advising the county on whether to keep funding the court, which result would you put in front of them, and what would you be careful to say about it?</p></li>
+<li><p><strong>How big, in real units.</strong> Go back to step 3. <strong>In a comment:</strong> state the size of the difference in plain words a legislator would understand (no p-values, no intervals), and say whether you think a gap that size is big enough to matter, and why.</p></li>
 </ol>
+</section>
+<section id="r4ds-exercises-required" class="level2">
+<h2 class="anchored" data-anchor-id="r4ds-exercises-required">R4DS Exercises (required)</h2>
+<p>From your R4DS reading for Session 7 — <strong><a href="https://r4ds.hadley.nz/datetimes.html">Ch. 17, Dates and times</a></strong>. No new packages: lubridate loads with the tidyverse. You will need <code>library(nycflights13)</code> for one exercise (you installed it for Homework 2). All four exercises are about one idea: a date is not text, and R can only do date arithmetic once you have told it how the date was written.</p>
+<p>Work these in the <strong>same <code>.R</code> script</strong>, under a <code># ---- R4DS ----</code> header.</p>
+<ul>
+<li><p><strong>17.2.5</strong> #1 — what happens if you parse a string that contains invalid dates? Run <code>ymd(c("2010-10-10", "bananas"))</code> and say in a comment what R did with each of the two strings.</p></li>
+<li><p><strong>17.2.5</strong> #3 — parse each of these with the right lubridate function (<code>ymd()</code>, <code>mdy()</code>, or <code>dmy()</code>). Do the lubridate half only; skip the “readr column specification” half, and skip <code>t1</code> and <code>t2</code>. The function’s name is just the order the pieces appear in: year, month, day.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="st">"January 1, 2010"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="st">"2015-Mar-07"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="st">"06-Jun-2017"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"August 19 (2015)"</span>, <span class="st">"July 1 (2015)"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>d5 <span class="ot">&lt;-</span> <span class="st">"12/30/14"</span> <span class="co"># Dec 30, 2014</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>17.3.4</strong> #5 — on what day of the week should you leave if you want to minimise the chance of a delay? Start from this, which builds a real date out of three number columns and then pulls the weekday out of it. Finish it with a <code>summarize()</code> by <code>weekday</code> (average <code>dep_delay</code>, with <code>na.rm = TRUE</code>) and answer in a comment.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(year, month, day),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">weekday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>17.4.4</strong> #2 — create a vector of dates giving the first day of every month in 2015. (Hint: start from <code>ymd("2015-01-01")</code> and add <code>months(0:11)</code>.) Do the 2015 half only.</p></li>
+</ul>
+<p>Chapter 17 has more exercises than these. Skip them; these four are the ones worth your time. Look at the <code>date</code> column in the crash data while you are at it: it is text written month/day/year, which is exactly what <code>mdy()</code> is for. Your final-project data will very likely have a column like it.</p>
 
 
 </section>

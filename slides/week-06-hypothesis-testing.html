@@ -214,19 +214,19 @@ Scott M. Mourtgos
 <li>The Null Hypothesis Significance Test: its logic, and its fine print</li>
 <li>p-values: what they are — and what they are not</li>
 <li>Bayes’ theorem — back from Session 3, now pointed at hypotheses instead of diagnoses</li>
-<li>Bayes factors and posteriors with the <strong>BayesFactor</strong> package</li>
+<li>The Bayesian answer: a posterior and a <strong>credible interval</strong>, from one line of R</li>
 </ul>
-<p><strong>Learning goals:</strong> run <code>t.test()</code> <em>and</em> <code>ttestBF()</code> on the same question; state correctly what each output licenses you to claim.</p>
+<p><strong>Learning goals:</strong> run <code>prop.test()</code> <em>and</em> <code>bayes_prop_test()</code> on the same question; state correctly what each output lets you claim.</p>
 </section>
 <section id="how-today-works" class="slide level2">
 <h2>How Today Works</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>The lecture</strong> — concepts</p>
-<p>Stanton Ch. 5 → hypothesis testing, both ways: <code>t.test()</code> and <code>ttestBF()</code></p>
+<p>Stanton Ch. 5 → hypothesis testing, both ways: the p-value and the posterior</p>
 </div><div class="column" style="width:50%;">
 <p><strong>The in-class exercise</strong> — code</p>
-<p>Lab 6: joining the two Chicago files with <code>left_join()</code>, step by step</p>
+<p>Lab 6: you run both tests yourself, step by step</p>
 </div></div>
 <p>Everything I run today is written up in the <a href="../demos/demo-06-hypothesis-testing.html">demo walkthrough</a>, so nothing on screen is something you have to capture in real time.</p>
 </section>
@@ -235,103 +235,91 @@ Scott M. Mourtgos
 <ul>
 <li class="fragment"><strong>Session 3:</strong> Bayes’ theorem — beliefs update by evidence; ignore the base rate and “90% accurate” becomes a 15% answer</li>
 <li class="fragment"><strong>Session 4:</strong> sampling distributions — sample statistics fluctuate in predictable ways</li>
-<li class="fragment"><strong>Session 5:</strong> confidence intervals — an honest range; our violent-vs-property gap came out <em>detectable but tiny</em> (≈4–27 min)</li>
+<li class="fragment"><strong>Session 5:</strong> confidence intervals — an honest range around an estimate, and one sentence we were <em>not</em> allowed to say about it</li>
 <li class="fragment"><strong>Today:</strong> the formal machinery for “is there a difference?” — then a second tradition answering the question you <em>meant</em> to ask</li>
 </ul>
-<div class="fragment">
-<p>If this course has a thesis, today is it: <strong>the two traditions are complements, not rivals</strong> — and you will leave able to use both.</p>
-</div>
 </section>
 <section>
 <section id="act-i-testing-the-frequentist-way" class="title-slide slide level1 center" data-background-color="#73000A">
 <h1>Act I · Testing, the Frequentist Way</h1>
 
 </section>
-<section id="remember-our-question" class="slide level2 smaller">
-<h2>Remember Our Question?</h2>
-<p>Session 5 asked whether violent crimes happen later in the day than property crimes:</p>
+<section id="tonights-question" class="slide level2">
+<h2>Tonight’s Question</h2>
+<p>Among <strong>violent crimes</strong> in our Chicago sample: are the <em>domestic</em> ones more likely to end in an arrest?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>vp <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
-<span id="cb1-2"><a></a>  <span class="fu">filter</span>(crime_category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a></a>  <span class="fu">mutate</span>(<span class="at">crime_category =</span> <span class="fu">factor</span>(crime_category, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)))</span>
-<span id="cb1-4"><a></a></span>
-<span id="cb1-5"><a></a>vp <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_hour =</span> <span class="fu">mean</span>(hour), <span class="at">sd_hour =</span> <span class="fu">sd</span>(hour), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> crime_category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>violent <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">filter</span>(crime_category <span class="sc">==</span> <span class="st">"Violent"</span>)</span>
+<span id="cb1-2"><a></a></span>
+<span id="cb1-3"><a></a>violent <span class="sc">|&gt;</span> <span class="fu">count</span>(domestic, arrest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-  crime_category mean_hour sd_hour     n
-  &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
-1 Violent             12.8    6.87  9148
-2 Property            12.5    6.63 10371</code></pre>
+<pre><code># A tibble: 4 × 3
+  domestic arrest     n
+  &lt;lgl&gt;    &lt;lgl&gt;  &lt;int&gt;
+1 FALSE    FALSE   4685
+2 FALSE    TRUE     714
+3 TRUE     FALSE   3009
+4 TRUE     TRUE     740</code></pre>
 </div>
+</div>
+</section>
+<section id="reading-the-table" class="slide level2">
+<h2>Reading the Table</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Arrests</th>
+<th>Out of</th>
+<th>Arrest rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Domestic</strong></td>
+<td>740</td>
+<td>740 + 3,009 = 3,749</td>
+<td><strong>19.7%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Not domestic</strong></td>
+<td>714</td>
+<td>714 + 4,685 = 5,399</td>
+<td><strong>13.2%</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>A gap of about <strong>6.5 percentage points</strong>. All night the difference reads one way: <strong>Domestic minus Not domestic</strong>.</p>
 </div>
 <div class="fragment">
-<p>Same two groups, Violent first, so every difference today reads <strong>Violent minus Property</strong>. Violent incidents average about <strong>12:48 pm</strong>, property about <strong>12:33 pm</strong>: roughly <strong>15 minutes later</strong>. Session 5 gave us an interval for that gap. Today we get the <em>test</em> — a yes/no verdict machine.</p>
+<p>But this is a <em>sample</em> of Chicago’s 2025 incidents. Session 4 taught us that sample numbers bounce around. Could a gap like this be nothing but bounce?</p>
 </div>
 </section>
 <section id="lets-pretend-we-sampled-repeatedly" class="slide level2">
 <h2>Let’s Pretend We Sampled Repeatedly</h2>
-<p>Bootstrap each group’s mean 10,000 times — Session 4’s logic, applied to both groups at once:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>boot <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a></a>  <span class="at">Violent  =</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(violent_hours,  <span class="at">replace =</span> <span class="cn">TRUE</span>))),</span>
-<span id="cb3-3"><a></a>  <span class="at">Property =</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(property_hours, <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
-<span id="cb3-4"><a></a>)</span>
-<span id="cb3-5"><a></a></span>
-<span id="cb3-6"><a></a>boot <span class="sc">|&gt;</span></span>
-<span id="cb3-7"><a></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"group"</span>, <span class="at">values_to =</span> <span class="st">"boot_mean"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-8"><a></a>  <span class="fu">mutate</span>(<span class="at">group =</span> <span class="fu">factor</span>(group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb3-9"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(boot_mean, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb3-10"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">60</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">position =</span> <span class="st">"identity"</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb3-11"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">unname</span>(crju_colors[<span class="fu">c</span>(<span class="st">"garnet"</span>, <span class="st">"blue"</span>)])) <span class="sc">+</span></span>
-<span id="cb3-12"><a></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> clock) <span class="sc">+</span></span>
-<span id="cb3-13"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"10,000 bootstrap means per group"</span>,</span>
-<span id="cb3-14"><a></a>       <span class="at">x =</span> <span class="st">"Mean time of day"</span>, <span class="at">y =</span> <span class="st">"Count"</span>, <span class="at">fill =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>Session 4’s move, applied to both groups at once: draw 10,000 repeated samples of each group and compute the arrest rate every time.</p>
 
+<img data-src="week-06-hypothesis-testing_files/figure-revealjs/rep-rates-1.png" width="960" class="r-stretch"><p>The two piles do not even touch.</p>
 </section>
-<section id="lets-pretend-we-sampled-repeatedly-output" class="slide level2 output-location-slide"><h2>Let’s Pretend We Sampled Repeatedly</h2><div class="cell output-location-slide">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="week-06-hypothesis-testing_files/figure-revealjs/boot-means-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div></section><section id="the-difference-and-its-95-ci" class="slide level2">
-<h2>The Difference and Its 95% CI</h2>
-<p>Subtract, pair by pair, and the <em>difference</em> gets its own distribution:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>boot_diff <span class="ot">&lt;-</span> (boot<span class="sc">$</span>Violent <span class="sc">-</span> boot<span class="sc">$</span>Property) <span class="sc">*</span> <span class="dv">60</span>   <span class="co"># in minutes: Violent minus Property</span></span>
-<span id="cb4-2"><a></a>ci_boot   <span class="ot">&lt;-</span> <span class="fu">quantile</span>(boot_diff, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb4-3"><a></a></span>
-<span id="cb4-4"><a></a>ci_boot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     2.5%     97.5% 
- 3.779588 26.420103 </code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>The middle 95% of plausible differences runs from about <strong>4 to 26 minutes</strong> — the interval sits <em>entirely above zero</em>.</p>
-</div>
-</section>
-<section id="the-difference-seen" class="slide level2">
-<h2>The Difference, Seen</h2>
+<section id="the-difference-and-its-95-interval" class="slide level2">
+<h2>The Difference and Its 95% Interval</h2>
+<p>Subtract, pair by pair, and the <em>difference</em> gets its own pile:</p>
 
-<img data-src="week-06-hypothesis-testing_files/figure-revealjs/boot-diff-plot-1.png" width="960" class="r-stretch"><p>Zero is not among the plausible values. The data lean toward a real (if small) gap.</p>
+<img data-src="week-06-hypothesis-testing_files/figure-revealjs/rep-diff-1.png" width="960" class="r-stretch"><p>The middle 95% runs from about <strong>5 to 8.1 points</strong>. Zero is nowhere near it.</p>
 </section>
-<section id="what-if-the-interval-crossed-zero" class="slide level2">
-<h2>What If the Interval Crossed Zero?</h2>
-<p>Erase the real gap on purpose — shift every violent incident earlier by the observed difference — and re-run the exact same machinery:</p>
+<section id="what-if-there-were-no-real-difference" class="slide level2">
+<h2>What If There Were No Real Difference?</h2>
+<p>Build the <strong>boring world</strong> on purpose: give both groups the <em>same</em> arrest rate (the overall 15.9%), and run the same machinery.</p>
 
-<img data-src="week-06-hypothesis-testing_files/figure-revealjs/boot-null-1.png" width="960" class="r-stretch"><p>When zero sits comfortably inside, the data are <em>consistent with no difference</em> (Session 5’s arrest-versus-no-arrest picture was the real-data version of this). Formalize the intuition and you have invented the NHST.</p>
+<img data-src="week-06-hypothesis-testing_files/figure-revealjs/rep-null-1.png" width="960" class="r-stretch"><p>Chance alone makes gaps of a point or two. It made a gap as big as ours in <strong>0 of 10,000</strong> tries. That count is the whole idea of a <strong>p-value</strong>.</p>
 </section>
 <section id="the-null-hypothesis-significance-test" class="slide level2 smaller">
 <h2>The Null Hypothesis Significance Test</h2>
 <ol type="1">
-<li class="fragment"><strong>State the null</strong>, <span class="math inline">\(H_0\)</span>: no difference (<span class="math inline">\(\mu_V - \mu_P = 0\)</span>). The boring world.</li>
+<li class="fragment"><strong>State the null</strong>, <span class="math inline">\(H_0\)</span>: the two arrest rates are the same (difference = 0). The boring world.</li>
 <li class="fragment"><strong>State the alternative</strong>, <span class="math inline">\(H_1\)</span>: <em>some</em> difference. Note how little we commit to.</li>
-<li class="fragment"><strong>Compute a test statistic</strong>: <span class="math inline">\(t = \text{observed difference} \,/\, SE\)</span> — the gap, in SE units.</li>
-<li class="fragment"><strong>Ask:</strong> how often would <span class="math inline">\(|t|\)</span> this large appear by luck in the boring world? The <strong>p-value</strong>.</li>
+<li class="fragment"><strong>Compute a test statistic</strong>: the observed gap, measured against how much gaps bounce by chance.</li>
+<li class="fragment"><strong>Ask:</strong> how often would a gap this large appear by luck in the boring world? The <strong>p-value</strong>.</li>
 <li class="fragment"><strong>Verdict:</strong> <span class="math inline">\(p &lt; \alpha\)</span> (usually .05) → “reject <span class="math inline">\(H_0\)</span>.” Otherwise → “fail to reject.”</li>
 <li class="fragment">Note: the machine only weighs evidence <strong>against the null</strong> — <span class="math inline">\(H_1\)</span> never gets scored.</li>
 </ol>
@@ -355,37 +343,57 @@ Scott M. Mourtgos
 </ul>
 </div>
 </section>
-<section id="t.test-on-the-real-question" class="slide level2">
-<h2><code>t.test()</code> on the Real Question</h2>
+<section id="prop.test-on-the-real-question" class="slide level2">
+<h2><code>prop.test()</code> on the Real Question</h2>
+<p>Lab 5’s function, now with <strong>two groups</strong>: how many, out of how many, for each. Domestic first.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> vp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">740</span>, <span class="dv">714</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3749</span>, <span class="dv">5399</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-    Welch Two Sample t-test
+    2-sample test for equality of proportions with continuity correction
 
-data:  hour by crime_category
-t = 2.6061, df = 19021, p-value = 0.009164
-alternative hypothesis: true difference in means between group Violent and group Property is not equal to 0
+data:  c(740, 714) out of c(3749, 5399)
+X-squared = 69.744, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: two.sided
 95 percent confidence interval:
- 0.06263688 0.44272107
+ 0.04929331 0.08098520
 sample estimates:
- mean in group Violent mean in group Property 
-              12.79602               12.54334 </code></pre>
+   prop 1    prop 2 
+0.1973860 0.1322467 </code></pre>
 </div>
 </div>
 </section>
 <section id="reading-the-verdict" class="slide level2">
 <h2>Reading the Verdict</h2>
 <ul>
-<li>Violent is listed first because we told R so (Session 5’s <code>factor()</code> line), so this tests <strong>Violent minus Property</strong>: the same 4-to-27-minute interval as our bootstrap, now with a <em>t</em> and a <em>p</em> attached</li>
-<li><span class="math inline">\(t = 2.61\)</span>, and <span class="math inline">\(p = 0.009\)</span></li>
+<li><strong><code>prop 1</code> and <code>prop 2</code></strong> at the bottom: 19.7% and 13.2%. Domestic is first because we typed it first</li>
+<li><strong><code>95 percent confidence interval</code></strong>: about 4.9 to 8.1 points, Domestic minus Not domestic. Last week’s skill</li>
+<li><strong><code>p-value &lt; 2.2e-16</code></strong>: R’s way of writing a decimal point followed by fifteen zeros. In the boring world, a gap like ours essentially never happens</li>
 </ul>
 <div class="fragment">
-<p><span class="math inline">\(p &lt; .05\)</span> — <strong>“statistically significant.”</strong> Reject the null. Publish the press release?</p>
+<p><span class="math inline">\(p &lt; .05\)</span> — <strong>“statistically significant.”</strong> Reject the null.</p>
 </div>
-<div class="fragment">
-<p>Hold that thought until Act III. First, some fine print about what this machine quietly assumed.</p>
+</section>
+<section id="the-same-line-lives-in-t.test" class="slide level2 smaller">
+<h2>The Same Line Lives in <code>t.test()</code></h2>
+<p>Last week’s homework, comparing two <em>means</em>. The p-value sat right above the interval the whole time:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  injuries by intox
+t = 12.489, df = 1732.6, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group Intoxicated and group Sober is not equal to 0
+95 percent confidence interval:
+ 0.3259893 0.4474533
+sample estimates:
+mean in group Intoxicated       mean in group Sober 
+                1.1300971                 0.7433758 </code></pre>
 </div>
+</div>
+<p>Same reading: if both kinds of crash truly injured the same number of people, a gap this big would essentially never appear.</p>
 </section></section>
 <section>
 <section id="the-fine-print-some-strong-assumptions" class="title-slide slide level1 center" data-background-color="#1B2A4A">
@@ -405,7 +413,7 @@ sample estimates:
 <section id="assumption-2-the-shape-itself" class="slide level2">
 <h2>Assumption 2 · The Shape Itself</h2>
 
-<img data-src="week-06-hypothesis-testing_files/figure-revealjs/sketch-dist-null-1.png" width="960" class="r-stretch"><p>The p-value came from <em>this specific curve</em> — which assumes (roughly) normal-enough data, independent observations, well-behaved variances.</p>
+<img data-src="week-06-hypothesis-testing_files/figure-revealjs/sketch-dist-null-1.png" width="960" class="r-stretch"><p>The p-value came from <em>this specific curve</em> — which assumes large-enough samples, independent observations, and a model that fits the data.</p>
 </section>
 <section id="and-many-shapes-fit-the-same-data" class="slide level2">
 <h2>…And Many Shapes Fit the Same Data</h2>
@@ -463,7 +471,7 @@ P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
 <tr class="even">
 <td><strong>Output</strong></td>
 <td>p-value, confidence interval</td>
-<td>Posterior distribution, Bayes factor, credible interval</td>
+<td>Posterior distribution, credible interval</td>
 </tr>
 <tr class="odd">
 <td><strong>“95%” means</strong></td>
@@ -474,128 +482,16 @@ P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
 </table>
 </section></section>
 <section>
-<section id="act-iii-both-traditions-one-real-question" class="title-slide slide level1 center" data-background-color="#73000A">
-<h1>Act III · Both Traditions, One Real Question</h1>
-
-</section>
-<section id="the-bayesian-t-test-ttestbf" class="slide level2">
-<h2>The Bayesian t-Test: <code>ttestBF()</code></h2>
-<p>Same question, second tradition. We hand it the two groups ourselves, Violent first again: <strong>x − y = Violent minus Property</strong>.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># install.packages("BayesFactor")   # once, if you don't have it</span></span>
-<span id="cb8-2"><a></a>bf <span class="ot">&lt;-</span> <span class="fu">ttestBF</span>(<span class="at">x =</span> violent_hours, <span class="at">y =</span> property_hours)</span>
-<span id="cb8-3"><a></a>bf</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Bayes factor analysis
---------------
-[1] Alt., r=0.707 : 0.4887026 ±0.05%
-
-Against denominator:
-  Null, mu1-mu2 = 0 
----
-Bayes factor type: BFindepSample, JZS</code></pre>
-</div>
-</div>
-</section>
-<section id="reading-a-bayes-factor" class="slide level2">
-<h2>Reading a Bayes Factor</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">extractBF</span>(bf)<span class="sc">$</span>bf        <span class="co"># BF10: evidence for a difference vs. no difference</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4887026</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="dv">1</span> <span class="sc">/</span> <span class="fu">extractBF</span>(bf)<span class="sc">$</span>bf    <span class="co"># BF01: the same evidence, read the other way</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.046234</code></pre>
-</div>
-</div>
-<ul>
-<li class="fragment">A Bayes factor is a <strong>ratio of predictions</strong>: how well did “some difference” predict these data vs.&nbsp;“no difference”?</li>
-<li class="fragment"><span class="math inline">\(BF_{10} = 0.49\)</span> — <em>below</em> 1. The data are about <strong>2 times more consistent with the null</strong></li>
-<li class="fragment">Rules of thumb: 1–3 barely worth mentioning · 3–10 moderate · 10–30 strong · 30–100 very strong · 100+ extreme (mirror image below 1)</li>
-</ul>
-</section>
-<section id="hold-on-the-p-value-said-significant" class="slide level2">
-<h2>Hold On — the p-Value Said “Significant”</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Frequentist</th>
-<th>Bayesian</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Result</td>
-<td><span class="math inline">\(p = 0.009\)</span> → reject <span class="math inline">\(H_0\)</span></td>
-<td><span class="math inline">\(BF_{10} = 0.49\)</span> → mild evidence <em>for</em> <span class="math inline">\(H_0\)</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li class="fragment">With ~19,500 cases, the test can detect <em>microscopic</em> gaps — and 15 minutes is microscopic</li>
-<li class="fragment">The BF asks a harder question: did “a difference of plausible size” predict the data better than “zero”? This close to zero, <strong>the null predicted slightly better</strong></li>
-<li class="fragment">Neither is wrong. They answer <strong>different questions</strong> — and only one is impressed by sheer sample size</li>
-</ul>
-</section>
-<section id="the-posterior-for-the-difference" class="slide level2">
-<h2>The Posterior for the Difference</h2>
-<p>The Bayes factor compares models. The <strong>posterior</strong> describes the difference itself — drawn by a sampler (the machinery, called MCMC, is in tonight’s optional appendix):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>post <span class="ot">&lt;-</span> <span class="fu">suppressMessages</span>(<span class="fu">posterior</span>(bf, <span class="at">iterations =</span> <span class="dv">10000</span>))</span>
-<span id="cb14-2"><a></a>diff_post <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(post[, <span class="st">"beta (x - y)"</span>]) <span class="sc">*</span> <span class="dv">60</span>   <span class="co"># in minutes: Violent minus Property</span></span>
-<span id="cb14-3"><a></a></span>
-<span id="cb14-4"><a></a><span class="fu">quantile</span>(diff_post, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     2.5%     97.5% 
- 3.911104 26.431836 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">mean</span>(diff_post <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9953</code></pre>
-</div>
-</div>
-</section>
-<section id="the-posterior-seen" class="slide level2">
-<h2>The Posterior, Seen</h2>
-
-<img data-src="week-06-hypothesis-testing_files/figure-revealjs/posterior-plot-1.png" width="960" class="r-stretch"><div class="fragment">
-<p>Now say the sentence Session 5 forbade — <strong>legally</strong>: <em>“There is a 95% probability the true difference lies between about 4 and 26 minutes.”</em> Under the Bayesian license (given the model and prior), that is exactly what this interval means.</p>
-</div>
-</section>
-<section id="detectable-probable-and-tiny" class="slide level2">
-<h2>Detectable, Probable — and Tiny</h2>
-<p>One more number every report owes its reader — a standardized <strong>effect size</strong> (Cohen’s <em>d</em>):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>sd_pooled <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="fu">var</span>(violent_hours) <span class="sc">+</span> <span class="fu">var</span>(property_hours)) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb18-2"><a></a>(<span class="fu">mean</span>(violent_hours) <span class="sc">-</span> <span class="fu">mean</span>(property_hours)) <span class="sc">/</span> sd_pooled</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.03742312</code></pre>
-</div>
-</div>
-<ul>
-<li class="fragment">Benchmarks: 0.2 “small” · 0.5 “medium” · 0.8 “large.” We measured <strong>~0.04</strong></li>
-<li class="fragment">A ~15-minute shift against SDs of nearly 7 <em>hours</em>. Would any commander re-draw a patrol schedule over this?</li>
-<li class="fragment">The full picture: the difference is <em>probably real</em> (posterior), <em>utterly trivial</em> (d), and “significant” (p) only because n is enormous. <strong>Report all three; never let the star do the talking</strong></li>
-</ul>
-</section></section>
-<section>
-<section id="act-iv-a-cleaner-collision-the-recidivism-trial" class="title-slide slide level1 center" data-background-color="#1B2A4A">
-<h1>Act IV · A Cleaner Collision: The Recidivism Trial</h1>
+<section id="act-iii-the-recidivism-trial-both-ways" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Act III · The Recidivism Trial, Both Ways</h1>
 
 </section>
 <section id="the-setup" class="slide level2">
 <h2>The Setup</h2>
 <ul>
-<li><strong>Context:</strong> typical recidivism runs about <strong>60%</strong> — that’s our prior belief</li>
+<li><strong>Context:</strong> typical recidivism runs about <strong>60%</strong> — that’s what we believed going in</li>
 <li><strong>Design:</strong> randomized trial of a reentry program — <strong>100 treated, 100 control</strong></li>
-<li><strong>Outcomes:</strong> control <strong>50/100</strong> reoffend · treatment <strong>40/100</strong> reoffend</li>
+<li><strong>Outcomes:</strong> treatment <strong>40/100</strong> reoffend · control <strong>50/100</strong> reoffend</li>
 <li><strong>Question:</strong> did the program reduce recidivism?</li>
 </ul>
 <div class="fragment">
@@ -604,8 +500,9 @@ Bayes factor type: BFindepSample, JZS</code></pre>
 </section>
 <section id="the-frequentist-answer" class="slide level2">
 <h2>The Frequentist Answer</h2>
+<p>Treatment first, so the difference reads <strong>Treatment minus Control</strong>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -623,33 +520,55 @@ prop 1 prop 2
 </section>
 <section id="the-frequentist-answer-read-aloud" class="slide level2">
 <h2>The Frequentist Answer, Read Aloud</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))<span class="sc">$</span>p.value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2008251</code></pre>
-</div>
-</div>
 <ul>
 <li class="fragment"><span class="math inline">\(p = 0.20\)</span> — <strong>not statistically significant</strong></li>
+<li class="fragment">The interval, about -25 to +5 points, has zero inside it</li>
 <li class="fragment">Honest reading: <em>a 10-point gap like this could plausibly occur even if the program did nothing</em></li>
 <li class="fragment">The grant report writes itself — “no significant effect” — and the program probably dies there</li>
 </ul>
 </section>
+<section id="what-we-knew-before-the-trial" class="slide level2">
+<h2>What We Knew Before the Trial</h2>
+<p>A Bayesian has to say, out loud, what they believed <strong>before</strong> seeing the data. That is the <strong>prior</strong>.</p>
+<ul>
+<li class="fragment">We said it already: recidivism typically runs about <strong>60%</strong></li>
+<li class="fragment">How firmly do we believe that? Let’s say: about as firmly as if we had already watched <strong>10 people</strong> — <strong>6 reoffended, 4 did not</strong></li>
+<li class="fragment">In R, that whole belief is two numbers: <code>prior = c(6, 4)</code></li>
+<li class="fragment">Then the trial’s 200 real people get added to our 10 imaginary ones. That adding-up is the <strong>posterior</strong>: what we believe <em>after</em> the data</li>
+</ul>
+</section>
 <section id="the-bayesian-answer" class="slide level2">
 <h2>The Bayesian Answer</h2>
-<p>Prior: Beta(6, 4) — mean 0.6, worth about 10 observations. Update each group, then ask the question we care about directly:</p>
+<p>Same two numbers per group as <code>prop.test()</code>, plus the prior:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
-<span id="cb24-2"><a></a>theta_treat   <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">10000</span>, <span class="dv">6</span> <span class="sc">+</span> <span class="dv">40</span>, <span class="dv">4</span> <span class="sc">+</span> <span class="dv">60</span>)   <span class="co"># posterior, treatment</span></span>
-<span id="cb24-3"><a></a>theta_control <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">10000</span>, <span class="dv">6</span> <span class="sc">+</span> <span class="dv">50</span>, <span class="dv">4</span> <span class="sc">+</span> <span class="dv">50</span>)   <span class="co"># posterior, control</span></span>
-<span id="cb24-4"><a></a></span>
-<span id="cb24-5"><a></a><span class="fu">mean</span>(theta_treat <span class="sc">&lt;</span> theta_control)   <span class="co"># P(program reduces recidivism)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>), <span class="at">prior =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9122</code></pre>
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  40 of 100 (40.0%)
+data, group 2:  50 of 100 (50.0%)
+prior:          6 yes, 4 no (about 60%, worth 10 cases), same for both groups
+
+                         estimate      95% credible interval
+group 1                  41.8%         32.8% to 51.1%
+group 2                  50.9%         41.6% to 60.2%
+difference (1 minus 2)   -9.1 points   -22.0 to 4.0 points
+
+Probability group 1 is higher than group 2: 0.09 
+Probability group 1 is lower than group 2:  0.91 </code></pre>
 </div>
 </div>
+</section>
+<section id="reading-it" class="slide level2">
+<h2>Reading It</h2>
+<ul>
+<li class="fragment"><strong><code>estimate</code></strong>: our best single guess for each group’s true rate, after the data</li>
+<li class="fragment"><strong><code>95% credible interval</code></strong> for the difference: about -22 to +4 points, Treatment minus Control</li>
+<li class="fragment"><strong><code>Probability group 1 is lower than group 2</code>: 0.91</strong> — given the prior and the data, about a <strong>91% probability the program reduces recidivism</strong></li>
+</ul>
 <div class="fragment">
-<p>Given the prior and the data, there is about a <strong>91% probability the program reduces recidivism</strong>.</p>
+<p>And the sentence Session 5 forbade is now <strong>legal</strong>: <em>“There is a 95% probability the true difference lies between -22 and +4 points.”</em> That is exactly what a <strong>credible interval</strong> means.</p>
 </div>
 </section>
 <section id="the-posteriors-seen" class="slide level2">
@@ -675,12 +594,12 @@ prop 1 prop 2
 <tr class="odd">
 <td>Verdict</td>
 <td><span class="math inline">\(p = 0.20\)</span>: cannot reject “no effect”</td>
-<td><span class="math inline">\(P(\text{treatment} &lt; \text{control}) \approx 0.91\)</span></td>
+<td>Probability the program works ≈ 0.91</td>
 </tr>
 <tr class="even">
 <td>Plain English</td>
 <td>“This gap could plausibly be luck”</td>
-<td>“9-to-1 odds the program works”</td>
+<td>“About 9-to-1 odds the program works”</td>
 </tr>
 </tbody>
 </table>
@@ -688,6 +607,80 @@ prop 1 prop 2
 <li class="fragment">Both statements are <strong>true of the same data</strong>. Neither is a trick</li>
 <li class="fragment">A policymaker deciding whether to fund the program next year: which sentence actually helps?</li>
 <li class="fragment">Your homework asks you to sit with exactly this discomfort</li>
+</ul>
+</section>
+<section id="does-the-prior-matter-here" class="slide level2">
+<h2>Does the Prior Matter Here?</h2>
+<p>Leave <code>prior =</code> out and the function starts from “I know nothing”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment">Probability the program works: <strong>0.92</strong> instead of 0.91. It barely moved</li>
+<li class="fragment">Why? 200 real people outweigh 10 imaginary ones. <strong>Data overwhelm a modest prior</strong></li>
+<li class="fragment">A prior matters most when data are scarce — which is exactly when you most need to say it out loud</li>
+</ul>
+</section></section>
+<section>
+<section id="act-iv-back-to-chicago-both-ways" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Act IV · Back to Chicago, Both Ways</h1>
+
+</section>
+<section id="the-bayesian-answer-to-tonights-question" class="slide level2 smaller">
+<h2>The Bayesian Answer to Tonight’s Question</h2>
+<p>We have no strong belief going in, so no <code>prior =</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">740</span>, <span class="dv">714</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3749</span>, <span class="dv">5399</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  740 of 3,749 (19.7%)
+data, group 2:  714 of 5,399 (13.2%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  19.8%         18.5% to 21.0%
+group 2                  13.2%         12.3% to 14.2%
+difference (1 minus 2)   6.5 points    5.0 to 8.1 points
+
+Probability group 1 is higher than group 2: more than 0.99 
+Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
+</div>
+</div>
+</section>
+<section id="big-sample-small-sample" class="slide level2 smaller">
+<h2>Big Sample, Small Sample</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Chicago arrests (9,148 cases)</th>
+<th>Reentry trial (200 people)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>prop.test()</code></td>
+<td>95% CI: 4.9 to 8.1 points · <span class="math inline">\(p &lt; .001\)</span></td>
+<td>95% CI: -25 to +5 points · <span class="math inline">\(p = 0.20\)</span></td>
+</tr>
+<tr class="even">
+<td><code>bayes_prop_test()</code></td>
+<td>95% credible: 5 to 8.1 points</td>
+<td>95% credible: -22 to +4 points · P(works) ≈ 0.91</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="fragment">With thousands of cases the two traditions hand you <strong>nearly the same range</strong>. The data drown out everything else</li>
+<li class="fragment">With 100 per group, both ranges still include zero — but one tradition stops at “not significant,” and the other tells you <em>how probable</em> the effect is</li>
+<li class="fragment">Neither is wrong. They answer <strong>different questions</strong></li>
 </ul>
 </section></section>
 <section>
@@ -705,23 +698,31 @@ prop 1 prop 2
 <h2>Bayes and Sample Size</h2>
 <p>Same trivial effect, Bayesian glasses — watch the posterior for the difference as <em>n</em> grows:</p>
 
-<img data-src="../media/week-06/bayes_samplesize.gif" class="r-stretch"><p>More data doesn’t flip a verdict — it <strong>sharpens the estimate</strong>, which visibly converges on “about 0.1, i.e., almost nothing.” The tininess stays in view. (This is Act III’s collision, run in slow motion.)</p>
+<img data-src="../media/week-06/bayes_samplesize.gif" class="r-stretch"><p>More data doesn’t flip a verdict — it <strong>sharpens the estimate</strong>, which visibly converges on “about 0.1, i.e., almost nothing.” The tininess stays in view.</p>
+</section>
+<section id="so-always-ask-how-big" class="slide level2">
+<h2>So Always Ask: How Big?</h2>
+<ul>
+<li class="fragment">“Significant” only means <em>detectable</em>. With enough cases, a gap of a single percentage point would earn a tiny p-value too</li>
+<li class="fragment">So after either test, say the size <strong>in real units</strong>: arrest rates about <strong>6.5 points</strong> apart (19.7% vs 13.2%)</li>
+<li class="fragment">Then ask the question no test can answer for you: is a gap that size big enough to <em>matter</em>?</li>
+</ul>
 </section>
 <section id="what-we-learned-today" class="slide level2">
 <h2>What We Learned Today</h2>
 <ul>
 <li class="fragment"><strong>NHST</strong>: standardized and everywhere — but it only asks <em>how surprising are the data under the null?</em>, never scores the alternative, and rewards sheer n</li>
 <li class="fragment"><strong>p-values</strong> are not the probability any hypothesis is true, and are silent about <em>size</em></li>
-<li class="fragment"><strong>Bayes</strong> answers <span class="math inline">\(P(H \mid \text{data})\)</span> at the price of a stated prior; MCMC made it computable (appendix, if you want the machinery)</li>
-<li class="fragment">The same data can yield <span class="math inline">\(p &lt; .05\)</span> <em>and</em> a BF favoring the null — or <span class="math inline">\(p = 0.20\)</span> <em>and</em> 91% posterior confidence</li>
-<li class="fragment">Whatever tradition you use: <strong>report the effect size, in units a human cares about</strong></li>
+<li class="fragment"><strong>Bayes</strong> answers <span class="math inline">\(P(H \mid \text{data})\)</span> at the price of a stated prior — tonight, in one line of R</li>
+<li class="fragment">The same trial gave <span class="math inline">\(p = 0.20\)</span> <em>and</em> a 91% probability the program works. Both true; different questions</li>
+<li class="fragment">Whatever tradition you use: <strong>say how big the difference is, in units a human cares about</strong></li>
 </ul>
 </section>
 <section id="todays-lab-homework" class="slide level2">
 <h2>Today’s Lab &amp; Homework</h2>
 <ul>
-<li><strong>Lab 6:</strong> joining data — <code>left_join()</code> on the two Chicago files, and the ways a join quietly goes wrong (<a href="../labs/lab-06-joins.html">lab page</a>)</li>
-<li><strong>Homework 6:</strong> Bayesian vs.&nbsp;frequentist reasoning, plus both t-tests on a new Chicago question (posted on the <a href="../weeks/week-06.html">Session 6 page</a>)</li>
+<li><strong>Lab 6:</strong> one question about the correctional officers, answered twice. You run both tests, step by step, and submit your script (<a href="../labs/lab-06-testing.html">lab page</a>)</li>
+<li><strong>Homework 6:</strong> Bayesian vs.&nbsp;frequentist reasoning, plus both tests on the Alaska crash data, and four R4DS exercises from <strong>Ch. 17, Dates and times</strong> (posted on the <a href="../weeks/week-06.html">Session 6 page</a>)</li>
 <li><strong>Next session — the applied data workshop:</strong> the full messy-data pipeline, start to finish. <strong>Your final-project dataset selection is due at Session 7</strong> — come with a candidate dataset and be ready to defend it</li>
 </ul>
 </section></section>
@@ -732,7 +733,7 @@ prop 1 prop 2
 </section>
 <section id="the-ugly-denominator" class="slide level2">
 <h2>The Ugly Denominator</h2>
-<p><em>Not on any exam — this is the machinery behind the two-second <code>ttestBF()</code> call, for the curious.</em></p>
+<p><em>Not on any exam — this is the machinery behind the Bayesian models we start fitting in Session 8, for the curious.</em></p>
 <p><span class="math display">\[
 P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
 \]</span></p>
@@ -764,7 +765,7 @@ P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\te
 <ul>
 <li class="fragment">The pile of accepted samples <strong>is</strong> the posterior — to any precision you like, just run longer</li>
 <li class="fragment">Think back to Session 4: we approximated <em>sampling</em> distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the <em>posterior</em></li>
-<li class="fragment">This is why modern Bayes is possible at all — and it is what <code>BayesFactor</code> quietly does for you in about two seconds</li>
+<li class="fragment">This is why modern Bayes is possible at all — and it is what <code>brms</code> will do for us starting in Session 8. (Tonight’s <code>bayes_prop_test()</code> did not need it: for a simple proportion, the posterior has an exact formula.)</li>
 </ul>
 
 
