@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Practice Problems · Session 6 – CRJU 705</title>
+<title>Lab 6 · One Question, Two Tests – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -97,32 +97,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script><script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
+}</script>
 </head>
 <body class="nav-fixed quarto-light">
 
@@ -237,18 +212,25 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#problem-1-what-a-p-value-promises" id="toc-problem-1-what-a-p-value-promises" class="nav-link active" data-scroll-target="#problem-1-what-a-p-value-promises">Problem 1 · What a p-value promises</a></li>
-  <li><a href="#problem-2-which-finding-is-bigger" id="toc-problem-2-which-finding-is-bigger" class="nav-link" data-scroll-target="#problem-2-which-finding-is-bigger">Problem 2 · Which finding is bigger?</a></li>
-  <li><a href="#problem-3-both-tests-one-new-question" id="toc-problem-3-both-tests-one-new-question" class="nav-link" data-scroll-target="#problem-3-both-tests-one-new-question">Problem 3 · Both tests, one new question</a></li>
-  <li><a href="#problem-4-how-big-in-real-units" id="toc-problem-4-how-big-in-real-units" class="nav-link" data-scroll-target="#problem-4-how-big-in-real-units">Problem 4 · How big, in real units</a></li>
-  <li><a href="#problem-5-the-sentence-youre-licensed-to-say" id="toc-problem-5-the-sentence-youre-licensed-to-say" class="nav-link" data-scroll-target="#problem-5-the-sentence-youre-licensed-to-say">Problem 5 · The sentence you’re licensed to say</a></li>
-  <li><a href="#problem-6-the-diversion-program-trial" id="toc-problem-6-the-diversion-program-trial" class="nav-link" data-scroll-target="#problem-6-the-diversion-program-trial">Problem 6 · The diversion-program trial</a></li>
+<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li>
+<a href="#walkthrough" id="toc-walkthrough" class="nav-link" data-scroll-target="#walkthrough">Walkthrough</a>
+  <ul class="collapse">
+<li><a href="#count-first" id="toc-count-first" class="nav-link" data-scroll-target="#count-first">Count first</a></li>
+  <li><a href="#the-frequentist-test-prop.test-with-two-groups" id="toc-the-frequentist-test-prop.test-with-two-groups" class="nav-link" data-scroll-target="#the-frequentist-test-prop.test-with-two-groups">The frequentist test: <code>prop.test()</code> with two groups</a></li>
+  <li><a href="#saying-it-out-loud-without-lying" id="toc-saying-it-out-loud-without-lying" class="nav-link" data-scroll-target="#saying-it-out-loud-without-lying">Saying it out loud without lying</a></li>
+  <li><a href="#the-bayesian-test-same-four-numbers" id="toc-the-bayesian-test-same-four-numbers" class="nav-link" data-scroll-target="#the-bayesian-test-same-four-numbers">The Bayesian test: same four numbers</a></li>
+  <li><a href="#adding-what-you-knew-beforehand" id="toc-adding-what-you-knew-beforehand" class="nav-link" data-scroll-target="#adding-what-you-knew-beforehand">Adding what you knew beforehand</a></li>
+  <li><a href="#the-p-value-was-in-t.test-the-whole-time" id="toc-the-p-value-was-in-t.test-the-whole-time" class="nav-link" data-scroll-target="#the-p-value-was-in-t.test-the-whole-time">The p-value was in <code>t.test()</code> the whole time</a></li>
+  </ul>
+</li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Practice Problems · Session 6</h1>
-<p class="subtitle lead">Hypothesis testing, both ways: p-values, posteriors, and credible intervals</p>
+<h1 class="title">Lab 6 · One Question, Two Tests</h1>
+<p class="subtitle lead">CRJU 705 · Session 6</p>
 </div>
 
 
@@ -262,268 +244,206 @@ window.Quarto = {
   
 
 
-</header><div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Ungraded self-checks.</strong> Work each problem in your own R session <em>before</em> clicking the solution. These use different questions and numbers than the homework on purpose — if you can run <em>and read</em> both traditions cold here, Homework 6 will feel routine.</p>
-</div>
-</div>
-</div>
-<p>All problems that use data need only:</p>
+</header><p><strong>Goal:</strong> by the end of this lab you can take one yes/no question about two groups and answer it twice: with a <strong>p-value</strong> from <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>, and with a <strong>posterior</strong> from <code>bayes_prop_test()</code>. Same four numbers go into both. What changes is the sentence each one lets you say.</p>
+<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. That script is what you submit to Canvas before you leave.</p>
+<section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Open RStudio, start a new R script, and run:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/R/bayes.R"</span><span class="op">)</span>   <span class="co"># gives you bayes_prop_test()</span></span>
-<span><span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/R/bayes.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">officers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/officers.csv"</span>,</span>
+<span>                     show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">ptsd_screen</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ptsd_screen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">ptsd_screen</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Positive"</span>, <span class="st">"Negative"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="problem-1-what-a-p-value-promises" class="level2"><h2 class="anchored" data-anchor-id="problem-1-what-a-p-value-promises">Problem 1 · What a p-value promises</h2>
-<p>A study compares case-processing times in two courts and reports <strong>p = 0.03</strong>. Three readings:</p>
+<p>These are last week’s correctional officers, set up exactly the same way: the eight officers with no PTSD screen on file are dropped (we say so out loud), which leaves 192, and Positive comes first.</p>
+<p>One line is new. <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> runs an R file from the course website, and that file gives you one new function, <code>bayes_prop_test()</code>. There is nothing to install. If you ever see <code>could not find function "bayes_prop_test"</code>, you skipped this line.</p>
+</section><section id="walkthrough" class="level2"><h2 class="anchored" data-anchor-id="walkthrough">Walkthrough</h2>
+<section id="count-first" class="level3"><h3 class="anchored" data-anchor-id="count-first">Count first</h3>
+<p>Our question: <strong>do male and female officers screen positive for PTSD at different rates?</strong> Every test today starts from a count, just like last week:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">officers</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">gender</span>, <span class="va">ptsd_screen</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  gender          ptsd_screen     n
+  &lt;chr&gt;           &lt;fct&gt;       &lt;int&gt;
+1 Female          Positive        8
+2 Female          Negative       37
+3 Male            Positive       33
+4 Male            Negative      111
+5 Nonbinary/Other Positive        1
+6 Nonbinary/Other Negative        2</code></pre>
+</div>
+</div>
+<p>Read four numbers off that table, two per group: how many screened positive, out of how many.</p>
+<ul>
+<li>
+<strong>Male:</strong> 33 positive, out of 33 + 111 = <strong>144</strong>
+</li>
+<li>
+<strong>Female:</strong> 8 positive, out of 8 + 37 = <strong>45</strong>
+</li>
+</ul>
+<p>(Three officers are listed as Nonbinary/Other. Three people is too few to compare with anyone, so we leave that row alone and say so.)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">33</span> <span class="op">/</span> <span class="fl">144</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2291667</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">8</span> <span class="op">/</span> <span class="fl">45</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1777778</code></pre>
+</div>
+</div>
+<p>About <strong>23%</strong> of the men and <strong>18%</strong> of the women. A gap of about 5 percentage points. Male goes first all the way through, so every difference reads <strong>Male minus Female</strong>.</p>
+<p>Is a 5-point gap real, or is it the kind of gap you get by luck with only 45 women in the sample?</p>
+</section><section id="the-frequentist-test-prop.test-with-two-groups" class="level3"><h3 class="anchored" data-anchor-id="the-frequentist-test-prop.test-with-two-groups">The frequentist test: <code>prop.test()</code> with two groups</h3>
+<p>Last week you typed one “how many” and one “out of how many.” With two groups you type two of each, wrapped in <code><a href="https://rdrr.io/r/base/c.html">c()</a></code>. Male first, both times:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33</span>, <span class="fl">8</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">144</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(33, 8) out of c(144, 45)
+X-squared = 0.27341, df = 1, p-value = 0.6011
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.09430734  0.19708512
+sample estimates:
+   prop 1    prop 2 
+0.2291667 0.1777778 </code></pre>
+</div>
+</div>
+<p>Read it from the bottom up.</p>
+<ul>
+<li>
+<strong><code>prop 1</code> and <code>prop 2</code></strong> are the two rates, 0.229 and 0.178. Male is <code>prop 1</code> because we typed it first.</li>
+<li>
+<strong><code>95 percent confidence interval</code></strong> is for the <em>difference</em>, Male minus Female: about <strong>-0.09 to +0.20</strong>, or 9 points lower to 20 points higher. Zero is inside it. That is last week’s skill.</li>
+<li>
+<strong><code>p-value = 0.6011</code></strong> is tonight’s new line. If men and women truly screened positive at the <em>same</em> rate, a gap this big or bigger would still turn up about <strong>60%</strong> of the time, just from the luck of who landed in the sample.</li>
+</ul>
+<p>A p-value of 0.60 is nowhere near 0.05. The verdict is <strong>“fail to reject the null.”</strong></p>
+</section><section id="saying-it-out-loud-without-lying" class="level3"><h3 class="anchored" data-anchor-id="saying-it-out-loud-without-lying">Saying it out loud without lying</h3>
+<p>Here is the sentence I want:</p>
 <blockquote class="blockquote">
-<ol type="a">
-<li><p>“There is a 3% chance the courts truly process cases at the same speed.”</p></li>
-<li><p>“If the courts truly processed cases at the same speed, a gap this large or larger would show up in about 3% of studies like this one.”</p></li>
-<li><p>“There is a 97% chance the courts differ.”</p></li>
-</ol>
+<p>In this sample, 23% of male officers and 18% of female officers screened positive. A gap that size is well within what chance alone produces (p = 0.60), so these data cannot tell us whether the true rates differ.</p>
 </blockquote>
-<p>Pick the correct one. Then verify the machinery’s actual promise by simulation: run 5,000 t-tests comparing two groups drawn from the <em>same</em> normal distribution (n = 40 each) and compute how often p &lt; .05.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Solution</strong></p>
+<p>And here is what not to say:</p>
+<ul>
+<li>
+<del>“There is a 60% chance that men and women have the same rate.”</del> The p-value is about the <em>data</em>, assuming the null is true. It is never the probability that the null is true.</li>
+<li>
+<del>“We proved there is no difference.”</del> Failing to reject is not proving. The interval allows anything from 9 points lower to 20 points higher.</li>
+<li>
+<del>“Men have higher PTSD rates (23% vs 18%).”</del> That is the estimate with the uncertainty deleted.</li>
+</ul></section><section id="the-bayesian-test-same-four-numbers" class="level3"><h3 class="anchored" data-anchor-id="the-bayesian-test-same-four-numbers">The Bayesian test: same four numbers</h3>
+<p>Now hand the same four numbers to <code>bayes_prop_test()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
-<span><span class="va">null_world_p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">5000</span>, <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">40</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">40</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">null_world_p</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.0552</code></pre>
-</div>
-</div>
-<p><strong>(b)</strong> — and only (b). A <strong>p-value</strong> is <span class="math inline">\(P(\text{data this extreme} \mid H_0)\)</span>, a statement about <em>data under an assumed null</em>; (a) and (c) both flip it into <span class="math inline">\(P(H \mid \text{data})\)</span>, which frequentism never computes (that flip is Bayes’ job, and it costs a prior). The simulation shows the promise being kept: in a world where the null is <em>true</em>, about 5.5% of our 5,000 tests came up “significant” — right around the advertised 5% false-alarm rate, and no better.</p>
-</div>
-</div>
-</div>
-</section><section id="problem-2-which-finding-is-bigger" class="level2"><h2 class="anchored" data-anchor-id="problem-2-which-finding-is-bigger">Problem 2 · Which finding is bigger?</h2>
-<p>Two studies of body-worn cameras and citizen complaints. <strong>Study A</strong> (50,000 police stops): 20.8% of stops without a camera drew a complaint vs 20.0% with one, <strong>p = 0.03</strong>. <strong>Study B</strong> (40 stops): 70% vs 40%, <strong>p = 0.11</strong>. A headline writer says A “found an effect” and B “found nothing.” Check both with <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> (A: 5,200 of 25,000 vs 5,000 of 25,000; B: 14 of 20 vs 8 of 20), then say what the headline gets wrong.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Solution</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5200</span>, <span class="fl">5000</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">25000</span>, <span class="fl">25000</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    2-sample test for equality of proportions with continuity correction
-
-data:  c(5200, 5000) out of c(25000, 25000)
-X-squared = 4.8775, df = 1, p-value = 0.02721
-alternative hypothesis: two.sided
-95 percent confidence interval:
- 0.0008961201 0.0151038799
-sample estimates:
-prop 1 prop 2 
- 0.208  0.200 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">14</span>, <span class="fl">8</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    2-sample test for equality of proportions with continuity correction
-
-data:  c(14, 8) out of c(20, 20)
-X-squared = 2.5253, df = 1, p-value = 0.112
-alternative hypothesis: two.sided
-95 percent confidence interval:
- -0.0439946  0.6439946
-sample estimates:
-prop 1 prop 2 
-   0.7    0.4 </code></pre>
-</div>
-</div>
-<p>Study A’s gap is <strong>0.8 of a percentage point</strong> (interval about 0.1 to 1.5 points): real, probably, and tiny. Study B’s gap is <strong>30 points</strong>, with an interval from about 4 points lower to 64 points higher: possibly huge, possibly nothing, because 40 stops cannot tell. The p-value measures how <em>detectable</em> a gap is, and detectability is mostly sample size. It never measures how <em>big</em> the gap is. “Significant” is not “large,” and “not significant” is not “nothing.”</p>
-</div>
-</div>
-</div>
-</section><section id="problem-3-both-tests-one-new-question" class="level2"><h2 class="anchored" data-anchor-id="problem-3-both-tests-one-new-question">Problem 3 · Both tests, one new question</h2>
-<p>Are crimes on the <strong>street</strong> more likely to end in an arrest than crimes inside a <strong>residence</strong>? Filter <code>crimes</code> to <code>location_description %in% c("STREET", "RESIDENCE")</code>, count arrests by location, and run <strong>both</strong> tests with STREET first: <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> and <code>bayes_prop_test()</code>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Solution</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crimes</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">location_description</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STREET"</span>, <span class="st">"RESIDENCE"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">location_description</span>, <span class="va">arrest</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 3
-  location_description arrest     n
-  &lt;chr&gt;                &lt;lgl&gt;  &lt;int&gt;
-1 RESIDENCE            FALSE   3248
-2 RESIDENCE            TRUE     339
-3 STREET               FALSE   6533
-4 STREET               TRUE    1374</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1374</span>, <span class="fl">339</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7907</span>, <span class="fl">3587</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    2-sample test for equality of proportions with continuity correction
-
-data:  c(1374, 339) out of c(7907, 3587)
-X-squared = 121.61, df = 1, p-value &lt; 2.2e-16
-alternative hypothesis: two.sided
-95 percent confidence interval:
- 0.06635519 0.09216907
-sample estimates:
-    prop 1     prop 2 
-0.17377008 0.09450795 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1374</span>, <span class="fl">339</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">7907</span>, <span class="fl">3587</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33</span>, <span class="fl">8</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">144</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Bayesian test of two proportions 
 
-data, group 1:  1,374 of 7,907 (17.4%)
-data, group 2:  339 of 3,587 (9.5%)
+data, group 1:  33 of 144 (22.9%)
+data, group 2:  8 of 45 (17.8%)
 prior:          know-nothing (1 yes, 1 no), same for both groups
 
                          estimate      95% credible interval
-group 1                  17.4%         16.6% to 18.2%
-group 2                  9.5%          8.5% to 10.5%
-difference (1 minus 2)   7.9 points    6.6 to 9.2 points
+group 1                  23.3%         16.8% to 30.5%
+group 2                  19.1%         9.4% to 31.4%
+difference (1 minus 2)   4.2 points    -9.6 to 16.4 points
 
-Probability group 1 is higher than group 2: more than 0.99 
-Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
+Probability group 1 is higher than group 2: 0.74 
+Probability group 1 is lower than group 2:  0.26 </code></pre>
 </div>
 </div>
-<p>Street: 1,374 arrests out of 1,374 + 6,533 = 7,907 (17.4%). Residence: 339 out of 339 + 3,248 = 3,587 (9.5%). STREET was typed first, so both outputs read STREET minus RESIDENCE. <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>: 95% confidence interval about <strong>6.6 to 9.2 points</strong>, <code>p-value &lt; 2.2e-16</code>, reject the null. <code>bayes_prop_test()</code>: 95% credible interval about <strong>6.6 to 9.2 points</strong>. With more than 11,000 incidents the two traditions return the same range; the data drown out the know-nothing prior.</p>
-</div>
-</div>
-</div>
-</section><section id="problem-4-how-big-in-real-units" class="level2"><h2 class="anchored" data-anchor-id="problem-4-how-big-in-real-units">Problem 4 · How big, in real units</h2>
-<p>Both tests just endorsed the street-vs-residence difference. Before anyone acts on it, say <strong>how big</strong> it is in words a city council member would follow, with no p-value and no interval. Then say what the tests <em>cannot</em> tell the council.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Solution</strong></p>
-<p>About <strong>17 of every 100</strong> street incidents end in an arrest, against about <strong>10 of every 100</strong> incidents inside a residence: roughly 8 more arrests per 100 incidents. That is the size. Whether 8 per 100 is big enough to matter, and <em>why</em> the gap exists (different crime types happen on the street, officers are already nearby, witnesses are present), no test can say. Both tests tell you the gap is almost surely real. Neither tells you it is important, and neither tells you what causes it.</p>
-</div>
-</div>
-</div>
-</section><section id="problem-5-the-sentence-youre-licensed-to-say" class="level2"><h2 class="anchored" data-anchor-id="problem-5-the-sentence-youre-licensed-to-say">Problem 5 · The sentence you’re licensed to say</h2>
-<p>Session 5 forbade “there’s a 95% probability the truth is in this interval.” Using Problem 3’s two outputs, write (1) the honest sentence for the <strong>confidence</strong> interval and (2) the sentence the <strong>credible</strong> interval lets you say. The numbers are the same. What is different?</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Solution</strong></p>
-<ol type="1">
-<li><p>Confidence interval: <em>“We estimate the street arrest rate is 7.9 points higher (95% CI: 6.6 to 9.2); the method that built this interval captures the truth 95% of the time.”</em> The 95% belongs to the <em>procedure</em>.</p></li>
-<li><p>Credible interval: <em>“Given these data, there is a 95% probability that the true difference is between 6.6 and 9.2 points.”</em> The 95% belongs to <em>this interval</em>. That is the sentence everyone wants to say about a confidence interval, and only the Bayesian output licenses it, at the price of a stated prior (here, “know nothing”).</p></li>
-</ol>
-</div>
-</div>
-</div>
-</section><section id="problem-6-the-diversion-program-trial" class="level2"><h2 class="anchored" data-anchor-id="problem-6-the-diversion-program-trial">Problem 6 · The diversion-program trial</h2>
-<p>A county pilots a <strong>pretrial diversion program</strong> to reduce failures to appear (FTA). Historically, about <strong>25%</strong> of defendants fail to appear, and the county trusts that figure about as much as having watched <strong>12 defendants: 3 failed to appear, 9 showed up</strong>. That is <code>prior = c(3, 9)</code>. The pilot randomizes 120 defendants: of <strong>60 diversion clients, 12</strong> fail to appear; of <strong>60 controls, 19</strong> do.</p>
-<ol type="1">
-<li>Run the frequentist test, diversion first: <code>prop.test(x = c(12, 19), n = c(60, 60))</code>.</li>
-<li>Run <code>bayes_prop_test()</code> with the same numbers and the prior.</li>
-<li>Write one sentence for the county board.</li>
-</ol>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p><strong>Solution</strong></p>
+<p>Read it top to bottom.</p>
+<ul>
+<li>The first lines repeat your data back to you, so you can check your typing.</li>
+<li>
+<strong><code>prior</code></strong> says “know-nothing.” We did not tell it what we believed beforehand, so it started from a blank slate.</li>
+<li>
+<strong><code>estimate</code></strong> is the best single guess for each group’s true rate, and each group gets its own <strong>credible interval</strong>.</li>
+<li>
+<strong><code>difference (1 minus 2)</code></strong> is Male minus Female: about <strong>4 points</strong>, with a 95% credible interval of roughly <strong>-10 to +16 points</strong>.</li>
+<li>The last two lines answer the question directly: the probability that the male rate is higher is about <strong>0.74</strong>.</li>
+</ul>
+<p>Here is the sentence this one lets you say, and it is the sentence we were <em>forbidden</em> to say about a confidence interval last week:</p>
+<blockquote class="blockquote">
+<p>Given these data, there is a 95% probability that the true difference is between 10 points lower and 16 points higher for men, and about a 74% probability that the male rate is the higher one.</p>
+</blockquote>
+<p>Notice the two tests do not disagree. Both intervals run from roughly -10 to somewhere between +16 and +20. One stops at “not significant.” The other tells you <em>how probable</em> each direction is: 74% is better than a coin flip, and a long way from sure.</p>
+</section><section id="adding-what-you-knew-beforehand" class="level3"><h3 class="anchored" data-anchor-id="adding-what-you-knew-beforehand">Adding what you knew beforehand</h3>
+<p>A Bayesian can bring in earlier knowledge, as long as they say it out loud. Suppose earlier surveys at these facilities found about <strong>1 officer in 5</strong> screening positive, and you trust that about as much as you would trust having already seen <strong>20 officers: 4 positive, 16 negative</strong>. That belief is two numbers:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">19</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    2-sample test for equality of proportions with continuity correction
-
-data:  c(12, 19) out of c(60, 60)
-X-squared = 1.5658, df = 1, p-value = 0.2108
-alternative hypothesis: two.sided
-95 percent confidence interval:
- -0.28856877  0.05523544
-sample estimates:
-   prop 1    prop 2 
-0.2000000 0.3166667 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">19</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">60</span><span class="op">)</span>, prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">9</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33</span>, <span class="fl">8</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">144</span>, <span class="fl">45</span><span class="op">)</span>, prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">16</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Bayesian test of two proportions 
 
-data, group 1:  12 of 60 (20.0%)
-data, group 2:  19 of 60 (31.7%)
-prior:          3 yes, 9 no (about 25%, worth 12 cases), same for both groups
+data, group 1:  33 of 144 (22.9%)
+data, group 2:  8 of 45 (17.8%)
+prior:          4 yes, 16 no (about 20%, worth 20 cases), same for both groups
 
                          estimate      95% credible interval
-group 1                  20.8%         12.3% to 30.9%
-group 2                  30.6%         20.5% to 41.6%
-difference (1 minus 2)   -9.7 points   -23.7 to 4.4 points
+group 1                  22.6%         16.5% to 29.2%
+group 2                  18.5%         10.1% to 28.7%
+difference (1 minus 2)   4.1 points    -7.6 to 15.0 points
 
-Probability group 1 is higher than group 2: 0.09 
-Probability group 1 is lower than group 2:  0.91 </code></pre>
+Probability group 1 is higher than group 2: 0.77 
+Probability group 1 is lower than group 2:  0.23 </code></pre>
 </div>
 </div>
-<p>The frequentist verdict: p ≈ 0.21 — an 11.7-point gap like this could plausibly arise if the program did nothing, so “not significant,” and the grant report probably ends there. The Bayesian output tells the board what it actually asked: given prior experience and the pilot data, there is about a <strong>91% probability the diversion program lowers failure-to-appear</strong> (credible interval for the difference about −24 to +4 points). One board-ready sentence: <em>“The pilot is too small for a definitive verdict, but the evidence currently runs about 9-to-1 that diversion reduces failures to appear.”</em> Both statements are true of the same data — they answer different questions, and only one of them helps a decision-maker.</p>
+<p>Look at the <code>prior</code> line, then at what changed: almost nothing. The probability moved from 0.74 to 0.77. With 189 real officers in the data, 20 imaginary ones do not carry much weight. A prior matters most when you have very little data.</p>
+</section><section id="the-p-value-was-in-t.test-the-whole-time" class="level3"><h3 class="anchored" data-anchor-id="the-p-value-was-in-t.test-the-whole-time">The p-value was in <code>t.test()</code> the whole time</h3>
+<p>Last week you ran this line and read the interval. Look one line higher:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">sleep_hours</span> <span class="op">~</span> <span class="va">ptsd_screen</span>, data <span class="op">=</span> <span class="va">officers</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  sleep_hours by ptsd_screen
+t = 1.0014, df = 60.499, p-value = 0.3206
+alternative hypothesis: true difference in means between group Positive and group Negative is not equal to 0
+95 percent confidence interval:
+ -0.2568901  0.7721282
+sample estimates:
+mean in group Positive mean in group Negative 
+              6.580952               6.323333 </code></pre>
 </div>
 </div>
+<p><code>p-value = 0.3206</code>. If officers who screen positive and negative truly slept the same amount, a gap as big as ours (about 15 minutes) would turn up about a third of the time by luck. Fail to reject. It is the same conclusion the interval gave you last week, because zero was inside it.</p>
+</section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
+<p>Same moves, new question: <strong>do officers at the North Unit and the Central Unit screen positive at different rates?</strong> Work in your own script and comment each answer. North goes first all the way through.</p>
+<p><strong>1.</strong> Count. Run <code>officers |&gt; count(facility, ptsd_screen)</code>. In a comment, write the four numbers you need: how many screened positive at North, out of how many, and the same for Central. Then compute the two rates.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><strong>2.</strong> The frequentist test. Put your four numbers into <code>prop.test(x = c(__, __), n = c(__, __))</code>, North first. In a comment, report the confidence interval for the difference and the p-value. Do you reject the null or fail to reject it?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>3.</strong> Write the sentence. In a comment, state your Task 2 result the way I did in the walkthrough. Then write one <em>wrong</em> sentence about your p-value underneath it, and label what is wrong with it.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># a comment-only task</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>4.</strong> The Bayesian test. Put the same four numbers into <code>bayes_prop_test()</code>. In a comment, report the credible interval for the difference and the probability that North’s rate is higher. Then write the sentence this output lets you say that Task 2’s output does not.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>5.</strong> The p-value in <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>. Run <code>t.test(job_satisfaction ~ ptsd_screen, data = officers)</code>, the line from last week’s Your Turn. In a comment: what is the p-value, do you reject or fail to reject, and how does that match what the interval told you last week?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>6.</strong> <em>(Stretch)</em> Rerun Task 4 with the walkthrough’s prior, <code>prior = c(4, 16)</code>. In a comment: how much did the probability move, and why so little?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>When you are done, submit your script to Canvas. The in-class exercise is graded on completing it.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

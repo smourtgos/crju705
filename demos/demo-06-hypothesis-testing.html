@@ -239,31 +239,24 @@ window.Quarto = {
   <ul>
 <li><a href="#what-youll-build" id="toc-what-youll-build" class="nav-link active" data-scroll-target="#what-youll-build">What you’ll build</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#the-question-again" id="toc-the-question-again" class="nav-link" data-scroll-target="#the-question-again">1 · The question, again</a></li>
+  <li><a href="#tonights-question" id="toc-tonights-question" class="nav-link" data-scroll-target="#tonights-question">1 · Tonight’s question</a></li>
   <li>
 <a href="#pretend-we-sampled-repeatedly" id="toc-pretend-we-sampled-repeatedly" class="nav-link" data-scroll-target="#pretend-we-sampled-repeatedly">2 · Pretend we sampled repeatedly</a>
   <ul class="collapse">
-<li><a href="#what-if-the-interval-crossed-zero" id="toc-what-if-the-interval-crossed-zero" class="nav-link" data-scroll-target="#what-if-the-interval-crossed-zero">What if the interval crossed zero?</a></li>
+<li><a href="#what-if-there-were-no-real-difference" id="toc-what-if-there-were-no-real-difference" class="nav-link" data-scroll-target="#what-if-there-were-no-real-difference">What if there were no real difference?</a></li>
   </ul>
 </li>
   <li><a href="#the-null-hypothesis-significance-test-in-five-steps" id="toc-the-null-hypothesis-significance-test-in-five-steps" class="nav-link" data-scroll-target="#the-null-hypothesis-significance-test-in-five-steps">3 · The Null Hypothesis Significance Test, in five steps</a></li>
-  <li>
-<a href="#the-bayesian-t-test-ttestbf" id="toc-the-bayesian-t-test-ttestbf" class="nav-link" data-scroll-target="#the-bayesian-t-test-ttestbf">4 · The Bayesian t-test: <code>ttestBF()</code></a>
-  <ul class="collapse">
-<li><a href="#hold-on-the-p-value-said-significant" id="toc-hold-on-the-p-value-said-significant" class="nav-link" data-scroll-target="#hold-on-the-p-value-said-significant">Hold on — the p-value said “significant”</a></li>
-  </ul>
-</li>
-  <li><a href="#the-posterior-for-the-difference" id="toc-the-posterior-for-the-difference" class="nav-link" data-scroll-target="#the-posterior-for-the-difference">5 · The posterior for the difference</a></li>
-  <li><a href="#detectable-probable-and-tiny" id="toc-detectable-probable-and-tiny" class="nav-link" data-scroll-target="#detectable-probable-and-tiny">6 · Detectable, probable — and tiny</a></li>
-  <li><a href="#a-cleaner-collision-the-recidivism-trial" id="toc-a-cleaner-collision-the-recidivism-trial" class="nav-link" data-scroll-target="#a-cleaner-collision-the-recidivism-trial">7 · A cleaner collision: the recidivism trial</a></li>
-  <li><a href="#sample-size-changes-everything" id="toc-sample-size-changes-everything" class="nav-link" data-scroll-target="#sample-size-changes-everything">8 · Sample size changes everything</a></li>
+  <li><a href="#the-recidivism-trial-both-ways" id="toc-the-recidivism-trial-both-ways" class="nav-link" data-scroll-target="#the-recidivism-trial-both-ways">4 · The recidivism trial, both ways</a></li>
+  <li><a href="#back-to-chicago-both-ways" id="toc-back-to-chicago-both-ways" class="nav-link" data-scroll-target="#back-to-chicago-both-ways">5 · Back to Chicago, both ways</a></li>
+  <li><a href="#sample-size-changes-everything" id="toc-sample-size-changes-everything" class="nav-link" data-scroll-target="#sample-size-changes-everything">6 · Sample size changes everything</a></li>
   <li><a href="#try-a-variation" id="toc-try-a-variation" class="nav-link" data-scroll-target="#try-a-variation">Try a variation</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Demo Walkthrough · Session 6</h1>
-<p class="subtitle lead">Hypothesis testing, twice — t.test(), ttestBF(), and the collision between them</p>
+<p class="subtitle lead">Hypothesis testing, twice — the p-value from prop.test(), the posterior from bayes_prop_test()</p>
 </div>
 
 
@@ -289,246 +282,177 @@ window.Quarto = {
 </div>
 <section id="what-youll-build" class="level2"><h2 class="anchored" data-anchor-id="what-youll-build">What you’ll build</h2>
 <ol type="1">
-<li>A bootstrap of the violent-vs-property time gap — 10,000 draws — and the same machinery run after <em>erasing</em> the gap</li>
-<li>The NHST verdict from <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>: p ≈ .009, “statistically significant”</li>
-<li>The Bayesian verdict from <code><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF()</a></code> on the <em>same data</em>: mild evidence <strong>for</strong> the null — and why both are right</li>
-<li>The posterior distribution for the difference, a credible interval, and the sentence Session 5 forbade</li>
-<li>The recidivism trial: p = 0.20 vs.&nbsp;a ~91% posterior probability the program works</li>
+<li>A real question in percent: among Chicago’s violent crimes, are domestic ones more likely to end in an arrest?</li>
+<li>Repeated sampling of that gap — 10,000 draws — and the same machinery run in a world with <em>no</em> real difference</li>
+<li>The NHST verdict from <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>, and where the same p-value lives in last week’s <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>
+</li>
+<li>The recidivism trial, both ways: <span class="math inline">\(p = 0.20\)</span> from <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>, a 91% probability the program works from <code>bayes_prop_test()</code>
+</li>
+<li>Back to Chicago with both tools — and what sample size does to each</li>
 </ol></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<p>The tidyverse plus <strong>BayesFactor</strong>, the two groups from Session 5 (built the same way: Violent first, so every difference reads Violent minus Property), and Session 5’s little <code>clock()</code> helper for axis labels:</p>
+<p>The tidyverse, the Chicago incidents, and one new line: <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> loads the course’s Bayesian function from the course site. There is nothing to install.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/">BayesFactor</a></span><span class="op">)</span>   <span class="co"># install.packages("BayesFactor")  — once, if you don't have it</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/R/bayes.R"</span><span class="op">)</span>   <span class="co"># gives you bayes_prop_test()</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">crimes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-crimes-2025.csv"</span>,</span>
 <span>                   show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vp</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">crime_category</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Violent"</span>, <span class="st">"Property"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>crime_category <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">crime_category</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Violent"</span>, <span class="st">"Property"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">violent_hours</span>  <span class="op">&lt;-</span> <span class="va">vp</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">vp</span><span class="op">$</span><span class="va">crime_category</span> <span class="op">==</span> <span class="st">"Violent"</span><span class="op">]</span></span>
-<span><span class="va">property_hours</span> <span class="op">&lt;-</span> <span class="va">vp</span><span class="op">$</span><span class="va">hour</span><span class="op">[</span><span class="va">vp</span><span class="op">$</span><span class="va">crime_category</span> <span class="op">==</span> <span class="st">"Property"</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">clock</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">h</span><span class="op">)</span> <span class="op">{</span>   <span class="co"># hours after midnight -&gt; "12:48 pm"</span></span>
-<span>  <span class="va">m</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">h</span> <span class="op">*</span> <span class="fl">60</span><span class="op">)</span></span>
-<span>  <span class="va">hh</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">m</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%/%</a></span> <span class="fl">60</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">24</span></span>
-<span>  <span class="va">mm</span> <span class="op">&lt;-</span> <span class="va">m</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">60</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%d:%02d %s"</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">hh</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">12</span> <span class="op">==</span> <span class="fl">0</span>, <span class="fl">12</span>, <span class="va">hh</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">12</span><span class="op">)</span>, <span class="va">mm</span>, <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">hh</span> <span class="op">&lt;</span> <span class="fl">12</span>, <span class="st">"am"</span>, <span class="st">"pm"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">violent</span> <span class="op">&lt;-</span> <span class="va">crimes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">crime_category</span> <span class="op">==</span> <span class="st">"Violent"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section><section id="the-question-again" class="level2"><h2 class="anchored" data-anchor-id="the-question-again">1 · The question, again</h2>
-<p>Session 5 asked whether violent crimes happen later in the day than property crimes:</p>
+</section><section id="tonights-question" class="level2"><h2 class="anchored" data-anchor-id="tonights-question">1 · Tonight’s question</h2>
+<p>Among violent crimes in our sample, are the <em>domestic</em> ones more likely to end in an arrest? Count first, exactly as in Lab 5:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">vp</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>, sd_hour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">hour</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">crime_category</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">violent</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">domestic</span>, <span class="va">arrest</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-  crime_category mean_hour sd_hour     n
-  &lt;fct&gt;              &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
-1 Violent             12.8    6.87  9148
-2 Property            12.5    6.63 10371</code></pre>
+<pre><code># A tibble: 4 × 3
+  domestic arrest     n
+  &lt;lgl&gt;    &lt;lgl&gt;  &lt;int&gt;
+1 FALSE    FALSE   4685
+2 FALSE    TRUE     714
+3 TRUE     FALSE   3009
+4 TRUE     TRUE     740</code></pre>
 </div>
 </div>
-<p>Violent incidents average about <strong>12:48 pm</strong>, property about <strong>12:33 pm</strong>: roughly <strong>15 minutes later</strong>. Session 5 gave us an interval for that gap. Today we get the <em>test</em> — a yes/no verdict machine — and then a second tradition that answers the question you probably <em>meant</em> to ask.</p>
+<p>Read four numbers off that table. Domestic: 740 arrests out of 740 + 3,009 = <strong>3,749</strong>, which is <strong>19.7%</strong>. Not domestic: 714 arrests out of 714 + 4,685 = <strong>5,399</strong>, which is <strong>13.2%</strong>. A gap of about <strong>6.5 percentage points</strong>. Everything below reads the difference one way: <strong>Domestic minus Not domestic</strong>.</p>
+<p>But this is a <em>sample</em> of Chicago’s 2025 incidents, and Session 4 taught us that sample numbers bounce around. Could a gap like this be nothing but bounce?</p>
 </section><section id="pretend-we-sampled-repeatedly" class="level2"><h2 class="anchored" data-anchor-id="pretend-we-sampled-repeatedly">2 · Pretend we sampled repeatedly</h2>
-<p>Bootstrap each group’s mean 10,000 times — Session 4’s logic, applied to both groups at once:</p>
+<p>Session 4’s move, applied to both groups at once. Pull out each group’s arrests (a column of TRUE and FALSE), then draw 10,000 repeated samples of each and compute the arrest rate every time:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
-<span>  Violent  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">violent_hours</span>,  replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  Property <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">property_hours</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dom_arrest</span> <span class="op">&lt;-</span> <span class="va">violent</span><span class="op">$</span><span class="va">arrest</span><span class="op">[</span><span class="va">violent</span><span class="op">$</span><span class="va">domestic</span><span class="op">]</span></span>
+<span><span class="va">non_arrest</span> <span class="op">&lt;-</span> <span class="va">violent</span><span class="op">$</span><span class="va">arrest</span><span class="op">[</span><span class="op">!</span><span class="va">violent</span><span class="op">$</span><span class="va">domestic</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">reps</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  Domestic       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">dom_arrest</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  `Not domestic` <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">non_arrest</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">boot</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"group"</span>, values_to <span class="op">=</span> <span class="st">"boot_mean"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">group</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Violent"</span>, <span class="st">"Property"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">boot_mean</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">60</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>, position <span class="op">=</span> <span class="st">"identity"</span>, color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">reps</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"group"</span>, values_to <span class="op">=</span> <span class="st">"rate"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">group</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Domestic"</span>, <span class="st">"Not domestic"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fl">100</span> <span class="op">*</span> <span class="va">rate</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">60</span>, alpha <span class="op">=</span> <span class="fl">0.7</span>, position <span class="op">=</span> <span class="st">"identity"</span>, color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"firebrick"</span>, <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>labels <span class="op">=</span> <span class="va">clock</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"10,000 bootstrap means per group"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Mean time of day"</span>, y <span class="op">=</span> <span class="st">"Count"</span>, fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"10,000 repeated samples per group"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Arrest rate (%)"</span>, y <span class="op">=</span> <span class="st">"Count"</span>, fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="demo-06-hypothesis-testing_files/figure-html/boot-means-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="demo-06-hypothesis-testing_files/figure-html/rep-rates-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Subtract, pair by pair, and the <em>difference</em> gets its own distribution. We work in minutes from here on:</p>
+<p>The two piles do not even touch. Subtract, pair by pair, and the <em>difference</em> gets its own pile:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">boot_diff</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">boot</span><span class="op">$</span><span class="va">Violent</span> <span class="op">-</span> <span class="va">boot</span><span class="op">$</span><span class="va">Property</span><span class="op">)</span> <span class="op">*</span> <span class="fl">60</span>   <span class="co"># in minutes: Violent minus Property</span></span>
-<span><span class="va">ci_boot</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">boot_diff</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ci_boot</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rep_diff</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="va">reps</span><span class="op">$</span><span class="va">Domestic</span> <span class="op">-</span> <span class="va">reps</span><span class="op">$</span><span class="va">`Not domestic`</span><span class="op">)</span>   <span class="co"># percentage points</span></span>
+<span><span class="va">ci_rep</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">rep_diff</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ci_rep</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     2.5%     97.5% 
- 3.779588 26.420103 </code></pre>
+<pre><code>    2.5%    97.5% 
+4.952760 8.074351 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">boot_diff</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">boot_diff</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">rep_diff</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">rep_diff</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">60</span>, fill <span class="op">=</span> <span class="st">"navy"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"firebrick"</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">ci_boot</span>, color <span class="op">=</span> <span class="st">"goldenrod"</span>, linetype <span class="op">=</span> <span class="fl">2</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Bootstrap distribution of the difference (Violent minus Property)"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Red line = zero (no difference); gold dashes = 95% interval"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Difference in mean time of day, minutes"</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">ci_rep</span>, color <span class="op">=</span> <span class="st">"goldenrod"</span>, linetype <span class="op">=</span> <span class="fl">2</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Repeated-sampling differences (Domestic minus Not domestic)"</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Red line = zero (no difference); gold dashes = middle 95%"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Difference in arrest rate, percentage points"</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="demo-06-hypothesis-testing_files/figure-html/boot-diff-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="demo-06-hypothesis-testing_files/figure-html/rep-diff-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The middle 95% of plausible differences runs from about <strong>4 to 26 minutes</strong> — zero is not among the plausible values. The data lean toward a real (if small) gap.</p>
-<section id="what-if-the-interval-crossed-zero" class="level3"><h3 class="anchored" data-anchor-id="what-if-the-interval-crossed-zero">What if the interval crossed zero?</h3>
-<p>Erase the real gap on purpose — shift every violent incident earlier by the observed difference — and re-run the exact same machinery:</p>
+<p>The middle 95% of plausible differences runs from about <strong>5 to 8 points</strong>. Zero is nowhere near it.</p>
+<section id="what-if-there-were-no-real-difference" class="level3"><h3 class="anchored" data-anchor-id="what-if-there-were-no-real-difference">What if there were no real difference?</h3>
+<p>Build the <strong>boring world</strong> on purpose. Give both groups the <em>same</em> arrest rate (the overall 15.9% among violent crimes) by drawing both groups from the full list of violent incidents, and run the same machinery:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">violent_shifted</span> <span class="op">&lt;-</span> <span class="va">violent_hours</span> <span class="op">-</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">violent_hours</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">property_hours</span><span class="op">)</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">obs_gap</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dom_arrest</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">non_arrest</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">boot_diff_null</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">10000</span>,</span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">violent_shifted</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">property_hours</span>,  replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">60</span>   <span class="co"># minutes</span></span>
+<span><span class="va">null_diff</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">10000</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">violent</span><span class="op">$</span><span class="va">arrest</span>, <span class="fl">3749</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">violent</span><span class="op">$</span><span class="va">arrest</span>, <span class="fl">5399</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ci_null</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">boot_diff_null</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ci_null</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">null_diff</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">null_diff</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">60</span>, fill <span class="op">=</span> <span class="st">"gray50"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">obs_gap</span>, color <span class="op">=</span> <span class="st">"firebrick"</span>, linewidth <span class="op">=</span> <span class="fl">1.4</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"10,000 gaps from a world with NO real difference"</span>,</span>
+<span>       subtitle <span class="op">=</span> <span class="st">"Red line = the gap we actually saw"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Difference in arrest rate, percentage points"</span>, y <span class="op">=</span> <span class="st">"Count"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-06-hypothesis-testing_files/figure-html/rep-null-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">null_diff</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="va">obs_gap</span><span class="op">)</span>   <span class="co"># how many boring-world gaps were as big as ours?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     2.5%     97.5% 
--11.39884  11.49718 </code></pre>
+<pre><code>[1] 0</code></pre>
 </div>
 </div>
-<p>Now the interval runs from about <strong>-11 to +11 minutes</strong> — zero sits comfortably inside, and the data are <em>consistent with no difference</em>. (Session 5’s arrest-versus-no-arrest comparison was the real-data version of this picture.) Formalize the intuition and you have invented the NHST.</p>
+<p>Chance alone makes gaps of a point or two. It made a gap as big as ours in <strong>none</strong> of the 10,000 tries. That count, out of 10,000, is the whole idea of a <strong>p-value</strong>. Formalize it and you have invented the NHST.</p>
 </section></section><section id="the-null-hypothesis-significance-test-in-five-steps" class="level2"><h2 class="anchored" data-anchor-id="the-null-hypothesis-significance-test-in-five-steps">3 · The Null Hypothesis Significance Test, in five steps</h2>
 <ol type="1">
 <li>
-<strong>State the null</strong>, <span class="math inline">\(H_0\)</span>: no difference. The boring world.</li>
+<strong>State the null</strong>, <span class="math inline">\(H_0\)</span>: the two arrest rates are the same (difference = 0). The boring world.</li>
 <li>
 <strong>State the alternative</strong>, <span class="math inline">\(H_1\)</span>: <em>some</em> difference — note how little we commit to.</li>
 <li>
-<strong>Compute a test statistic</strong>: <span class="math inline">\(t = \text{observed difference} / SE\)</span> — the gap, in SE units.</li>
+<strong>Compute a test statistic</strong>: the observed gap, measured against how much gaps bounce by chance.</li>
 <li>
-<strong>Ask:</strong> how often would <span class="math inline">\(|t|\)</span> this large appear by luck in the boring world? That’s the <strong>p-value</strong>.</li>
+<strong>Ask:</strong> how often would a gap this large appear by luck in the boring world? That’s the <strong>p-value</strong>.</li>
 <li>
 <strong>Verdict:</strong> <span class="math inline">\(p &lt; \alpha\)</span> (usually .05) → “reject <span class="math inline">\(H_0\)</span>.” Otherwise → “fail to reject.”</li>
 </ol>
 <p>Notice the machine only weighs evidence <strong>against the null</strong> — <span class="math inline">\(H_1\)</span> never gets scored. And be precise about the p-value. It <strong>is</strong> the probability of data <em>this extreme or more, if the null is true and the model is right</em>. It is <strong>not</strong> the probability the null is true (that’s <span class="math inline">\(P(H_0 \mid \text{data})\)</span>, which frequentism never computes), <strong>not</strong> the probability the result “is due to chance,” and <strong>not</strong> a measure of how <em>big</em> the effect is — with enough data, microscopic effects earn microscopic p-values. Hold that thought.</p>
+<p><code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> is Lab 5’s function, now with <strong>two groups</strong>: how many, out of how many, for each. Domestic first:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">hour</span> <span class="op">~</span> <span class="va">crime_category</span>, data <span class="op">=</span> <span class="va">vp</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">740</span>, <span class="fl">714</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3749</span>, <span class="fl">5399</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(740, 714) out of c(3749, 5399)
+X-squared = 69.744, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.04929331 0.08098520
+sample estimates:
+   prop 1    prop 2 
+0.1973860 0.1322467 </code></pre>
+</div>
+</div>
+<p>Reading the verdict, bottom up. <code>prop 1</code> and <code>prop 2</code> are the two rates, 19.7% and 13.2%; Domestic is first because we typed it first. The <code>95 percent confidence interval</code>, about <strong>4.9 to 8.1 points</strong>, is last week’s skill. And <code>p-value &lt; 2.2e-16</code> is R’s way of writing a decimal point followed by fifteen zeros: in the boring world, a gap like ours essentially never happens. Under .05 — <strong>“statistically significant.”</strong> Reject the null.</p>
+<p>The same line lives in <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>. Last week’s homework compared two <em>means</em>; you read the interval, and the p-value was sitting right above it the whole time:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>,</span>
+<span>                    show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>intox <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">intox_any</span> <span class="op">==</span> <span class="fl">1</span>, <span class="st">"Intoxicated"</span>, <span class="st">"Sober"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">injuries</span> <span class="op">~</span> <span class="va">intox</span>, data <span class="op">=</span> <span class="va">crashes</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
 
-data:  hour by crime_category
-t = 2.6061, df = 19021, p-value = 0.009164
-alternative hypothesis: true difference in means between group Violent and group Property is not equal to 0
+data:  injuries by intox
+t = 12.489, df = 1732.6, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group Intoxicated and group Sober is not equal to 0
 95 percent confidence interval:
- 0.06263688 0.44272107
+ 0.3259893 0.4474533
 sample estimates:
- mean in group Violent mean in group Property 
-              12.79602               12.54334 </code></pre>
+mean in group Intoxicated       mean in group Sober 
+                1.1300971                 0.7433758 </code></pre>
 </div>
 </div>
-<p>Reading the verdict: Violent is listed first because we told R so (the <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> line from Session 5), so this tests <strong>Violent minus Property</strong> — the same 4-to-27-minute interval as our bootstrap, now with a test attached. <span class="math inline">\(t = 2.61\)</span>, <span class="math inline">\(p = .009\)</span>. Under .05 — <strong>“statistically significant.”</strong> Reject the null. Publish the press release?</p>
-<p>One caution before we do: everything above was scored against <em>one</em> curve — the null — and that tidy t-distribution itself assumes normal-enough data, independent observations, and well-behaved variances. NHST never asks what the alternative world looks like, and researchers rarely test the assumptions before trusting the p-value. (The lecture’s sketch figures make this vivid — see the <a href="../slides/week-06-hypothesis-testing.html">Session 6 slides</a>.)</p>
-</section><section id="the-bayesian-t-test-ttestbf" class="level2"><h2 class="anchored" data-anchor-id="the-bayesian-t-test-ttestbf">4 · The Bayesian t-test: <code>ttestBF()</code>
-</h2>
-<p>Session 3’s Bayes’ theorem, now pointed at hypotheses: the p-value lives entirely in the <strong>likelihood</strong>, <span class="math inline">\(P(\text{data} \mid H_0)\)</span>, and never becomes <span class="math inline">\(P(H_0 \mid \text{data})\)</span>. Bayesian testing finishes the flip — at the price of a stated prior. Same question, second tradition. We hand it the two groups ourselves, Violent first again: <strong>x − y = Violent minus Property</strong>.</p>
+<p>One caution: everything above was scored against <em>one</em> curve — the null — and that tidy curve itself assumes large-enough samples, independent observations, and a model that fits the data. NHST never asks what the alternative world looks like, and researchers rarely test the assumptions before trusting the p-value. (The lecture’s sketch figures make this vivid — see the <a href="../slides/week-06-hypothesis-testing.html">Session 6 slides</a>.)</p>
+</section><section id="the-recidivism-trial-both-ways" class="level2"><h2 class="anchored" data-anchor-id="the-recidivism-trial-both-ways">4 · The recidivism trial, both ways</h2>
+<p>Typical recidivism runs about <strong>60%</strong>. A randomized trial of a reentry program puts 100 people in treatment and 100 in control. Outcomes: treatment <strong>40/100</strong> reoffend, control <strong>50/100</strong>. Did the program reduce recidivism? Ten percentage points is exactly the kind of effect a city would fund.</p>
+<p><strong>The frequentist answer.</strong> Treatment first, so the difference reads Treatment minus Control:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">bf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">violent_hours</span>, y <span class="op">=</span> <span class="va">property_hours</span><span class="op">)</span></span>
-<span><span class="va">bf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Bayes factor analysis
---------------
-[1] Alt., r=0.707 : 0.4887026 ±0.05%
-
-Against denominator:
-  Null, mu1-mu2 = 0 
----
-Bayes factor type: BFindepSample, JZS</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/extractBF-methods.html">extractBF</a></span><span class="op">(</span><span class="va">bf</span><span class="op">)</span><span class="op">$</span><span class="va">bf</span>        <span class="co"># BF10: evidence for a difference vs. no difference</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.4887026</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/extractBF-methods.html">extractBF</a></span><span class="op">(</span><span class="va">bf</span><span class="op">)</span><span class="op">$</span><span class="va">bf</span>    <span class="co"># BF01: the same evidence, read the other way</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.046234</code></pre>
-</div>
-</div>
-<p>A Bayes factor is a <strong>ratio of predictions</strong>: how well did “some difference” predict these data versus “no difference”? Here <span class="math inline">\(BF_{10} \approx 0.49\)</span> — <em>below</em> 1. The data are about <strong>2 times more consistent with the null</strong>.</p>
-<p>Rules of thumb for reading a BF: <strong>1–3</strong> barely worth mentioning · <strong>3–10</strong> moderate · <strong>10–30</strong> strong · <strong>30–100</strong> very strong · <strong>100+</strong> extreme — with the mirror image below 1 (so a BF₁₀ of 0.49, i.e.&nbsp;BF₀₁ ≈ 2, is “barely worth mentioning” evidence <em>for</em> the null).</p>
-<section id="hold-on-the-p-value-said-significant" class="level3"><h3 class="anchored" data-anchor-id="hold-on-the-p-value-said-significant">Hold on — the p-value said “significant”</h3>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead><tr class="header">
-<th></th>
-<th>Frequentist</th>
-<th>Bayesian</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td>Result</td>
-<td>
-<span class="math inline">\(p = .009\)</span> → reject <span class="math inline">\(H_0\)</span>
-</td>
-<td>
-<span class="math inline">\(BF_{10} \approx 0.49\)</span> → mild evidence <em>for</em> <span class="math inline">\(H_0\)</span>
-</td>
-</tr></tbody>
-</table>
-<p>Both machines ran on the same 19,500 cases. With that much data, the t-test can detect <em>microscopic</em> gaps — and 15 minutes is microscopic. The BF asks a harder question: did “a difference of plausible size” predict the data better than “exactly zero”? This close to zero, <strong>the null predicted slightly better</strong>. Neither is wrong. They answer <strong>different questions</strong> — and only one is impressed by sheer sample size.</p>
-</section></section><section id="the-posterior-for-the-difference" class="level2"><h2 class="anchored" data-anchor-id="the-posterior-for-the-difference">5 · The posterior for the difference</h2>
-<p>The Bayes factor compares models. The <strong>posterior</strong> describes the difference itself, drawn by a sampler. (The machinery behind that sampler — MCMC — is in the optional appendix of the <a href="../slides/week-06-hypothesis-testing.html">Session 6 slides</a>, if you want to see how Bayes became computable.)</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">post</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/message.html">suppressMessages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/posterior-methods.html">posterior</a></span><span class="op">(</span><span class="va">bf</span>, iterations <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">diff_post</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">post</span><span class="op">[</span>, <span class="st">"beta (x - y)"</span><span class="op">]</span><span class="op">)</span> <span class="op">*</span> <span class="fl">60</span>   <span class="co"># in minutes: Violent minus Property</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">diff_post</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     2.5%     97.5% 
- 3.911104 26.431836 </code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">diff_post</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9953</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">diff_post</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">diff_post</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">diff_post</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">60</span>, fill <span class="op">=</span> <span class="st">"darkgreen"</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fl">0</span>, color <span class="op">=</span> <span class="st">"firebrick"</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="va">cred</span>, color <span class="op">=</span> <span class="st">"goldenrod"</span>, linetype <span class="op">=</span> <span class="fl">2</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Posterior distribution of the difference (Violent minus Property)"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"95% credible interval: "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cred</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="st">" to "</span>,</span>
-<span>                         <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cred</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>, <span class="st">" minutes"</span><span class="op">)</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Difference in mean time of day, minutes"</span>, y <span class="op">=</span> <span class="st">"Posterior samples"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="demo-06-hypothesis-testing_files/figure-html/posterior-plot-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Now say the sentence Session 5 forbade — <strong>legally</strong>: <em>“There is a 95% probability the true difference lies between about 4 and 26 minutes.”</em> Under the Bayesian license (given the model and prior), that is exactly what this <strong>credible interval</strong> means. And about 99.5% of the posterior sits above zero — the difference is almost certainly <em>real</em>. Real, but…</p>
-</section><section id="detectable-probable-and-tiny" class="level2"><h2 class="anchored" data-anchor-id="detectable-probable-and-tiny">6 · Detectable, probable — and tiny</h2>
-<p>One more number every report owes its reader: a standardized <strong>effect size</strong>, Cohen’s <em>d</em>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sd_pooled</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">violent_hours</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">property_hours</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">violent_hours</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">property_hours</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="va">sd_pooled</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.03742312</code></pre>
-</div>
-</div>
-<p>Benchmarks: 0.2 “small” · 0.5 “medium” · 0.8 “large.” We measured <strong>~0.04</strong> — a ~15-minute shift against SDs of nearly 7 <em>hours</em>. Would any commander re-draw a patrol schedule over this? The full picture: the difference is <em>probably real</em> (posterior), <em>utterly trivial</em> (d), and “significant” (p) only because n is enormous. <strong>Report all three; never let the star do the talking.</strong></p>
-</section><section id="a-cleaner-collision-the-recidivism-trial" class="level2"><h2 class="anchored" data-anchor-id="a-cleaner-collision-the-recidivism-trial">7 · A cleaner collision: the recidivism trial</h2>
-<p>The setup: typical recidivism runs about <strong>60%</strong> — that’s our prior belief. A randomized trial of a reentry program enrolls <strong>100 treated, 100 control</strong>. Outcomes: control <strong>50/100</strong> reoffend, treatment <strong>40/100</strong>. Ten percentage points — exactly the kind of effect a city would fund. Both traditions, go.</p>
-<p><strong>Frequentist:</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">50</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">50</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -543,27 +467,56 @@ prop 1 prop 2
    0.4    0.5 </code></pre>
 </div>
 </div>
-<p><span class="math inline">\(p = 0.20\)</span> — <strong>not statistically significant</strong>. Honest reading: <em>a 10-point gap like this could plausibly occur even if the program did nothing.</em> The grant report writes itself — “no significant effect” — and the program probably dies there.</p>
-<p><strong>Bayesian:</strong> prior Beta(6, 4) — mean 0.6, worth about 10 observations. Update each group with its data, then ask the question we care about directly:</p>
+<p><span class="math inline">\(p = 0.20\)</span> — <strong>not statistically significant</strong>, and the interval (about −25 to +5 points) has zero inside it. Honest reading: <em>a 10-point gap like this could plausibly occur even if the program did nothing</em>. The grant report writes itself — “no significant effect” — and the program probably dies there.</p>
+<p><strong>The Bayesian answer.</strong> A Bayesian has to say, out loud, what they believed <em>before</em> the data. That is the <strong>prior</strong>. We said it already: recidivism typically runs about 60%. How firmly? Say about as firmly as if we had already watched <strong>10 people: 6 reoffended, 4 did not</strong>. In R that whole belief is two numbers, <code>prior = c(6, 4)</code>. The function adds the trial’s 200 real people to our 10 imaginary ones; that adding-up is the <strong>posterior</strong>, what we believe <em>after</em> the data.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span>   <span class="co"># re-seeded so these exact draws reproduce on their own</span></span>
-<span><span class="va">theta_treat</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">6</span> <span class="op">+</span> <span class="fl">40</span>, <span class="fl">4</span> <span class="op">+</span> <span class="fl">60</span><span class="op">)</span>   <span class="co"># posterior, treatment</span></span>
-<span><span class="va">theta_control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Beta.html">rbeta</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">6</span> <span class="op">+</span> <span class="fl">50</span>, <span class="fl">4</span> <span class="op">+</span> <span class="fl">50</span><span class="op">)</span>   <span class="co"># posterior, control</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">theta_treat</span> <span class="op">&lt;</span> <span class="va">theta_control</span><span class="op">)</span>   <span class="co"># P(program reduces recidivism)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">50</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9122</code></pre>
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  40 of 100 (40.0%)
+data, group 2:  50 of 100 (50.0%)
+prior:          6 yes, 4 no (about 60%, worth 10 cases), same for both groups
+
+                         estimate      95% credible interval
+group 1                  41.8%         32.8% to 51.1%
+group 2                  50.9%         41.6% to 60.2%
+difference (1 minus 2)   -9.1 points   -22.0 to 4.0 points
+
+Probability group 1 is higher than group 2: 0.09 
+Probability group 1 is lower than group 2:  0.91 </code></pre>
 </div>
 </div>
+<p>Reading it. <code>estimate</code> is the best single guess for each group’s true rate after the data. The <code>95% credible interval</code> for the difference runs from about <strong>−22 to +4 points</strong>, Treatment minus Control. And the last line is the one a policymaker wants: given the prior and the data, there is about a <strong>91% probability the program reduces recidivism</strong>.</p>
+<p>Now say the sentence Session 5 forbade — <strong>legally</strong>: <em>“There is a 95% probability the true difference lies between −22 and +4 points.”</em> That is exactly what a <strong>credible interval</strong> means.</p>
+<p>The function hands back the 100,000 plausible values it used, so you can look at them:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>theta <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">theta_treat</span>, <span class="va">theta_control</span><span class="op">)</span>,</span>
-<span>       group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Treatment"</span>, <span class="st">"Control"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10000</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">theta</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">50</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, prior <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  40 of 100 (40.0%)
+data, group 2:  50 of 100 (50.0%)
+prior:          6 yes, 4 no (about 60%, worth 10 cases), same for both groups
+
+                         estimate      95% credible interval
+group 1                  41.8%         32.8% to 51.1%
+group 2                  50.9%         41.6% to 60.2%
+difference (1 minus 2)   -9.1 points   -22.0 to 4.0 points
+
+Probability group 1 is higher than group 2: 0.09 
+Probability group 1 is lower than group 2:  0.91 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">result</span><span class="op">$</span><span class="va">draws</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>Treatment <span class="op">=</span> <span class="va">group1</span>, Control <span class="op">=</span> <span class="va">group2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"group"</span>, values_to <span class="op">=</span> <span class="st">"rate"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="fl">100</span> <span class="op">*</span> <span class="va">rate</span>, fill <span class="op">=</span> <span class="va">group</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gray50"</span>, <span class="st">"firebrick"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Posterior beliefs about each group's recidivism rate"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Overlap is real — and still, treatment sits lower in ~91% of draws"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Recidivism probability (θ)"</span>, y <span class="op">=</span> <span class="st">"Posterior density"</span>, fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"What we now believe about each group's recidivism rate"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Recidivism rate (%)"</span>, y <span class="op">=</span> <span class="st">"Posterior density"</span>, fill <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-06-hypothesis-testing_files/figure-html/recid-plot-1.png" class="img-fluid figure-img" width="672"></p>
@@ -571,7 +524,6 @@ prop 1 prop 2
 </div>
 </div>
 </div>
-<p>Given the prior and the data, there is about a <strong>91% probability the program reduces recidivism</strong>. Same data, different questions:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -588,25 +540,94 @@ prop 1 prop 2
 <td>Verdict</td>
 <td>
 <span class="math inline">\(p = 0.20\)</span>: cannot reject “no effect”</td>
-<td><span class="math inline">\(P(\text{treatment} &lt; \text{control}) \approx 0.91\)</span></td>
+<td>Probability the program works ≈ 0.91</td>
 </tr>
 <tr class="even">
 <td>Plain English</td>
 <td>“This gap could plausibly be luck”</td>
-<td>“9-to-1 odds the program works”</td>
+<td>“About 9-to-1 odds the program works”</td>
 </tr>
 </tbody>
 </table>
 <p>Both statements are <strong>true of the same data</strong>. Neither is a trick. A policymaker deciding whether to fund the program next year: which sentence actually helps?</p>
-</section><section id="sample-size-changes-everything" class="level2"><h2 class="anchored" data-anchor-id="sample-size-changes-everything">8 · Sample size changes everything</h2>
-<p>The lecture closed with two animations you should watch in the <a href="../slides/week-06-hypothesis-testing.html">Session 6 slides</a>: fix a <em>trivial</em> true effect and just keep collecting data, and <em>p</em> still dives below .05 — <strong>given enough data, everything is “significant.”</strong> The same growing dataset through Bayesian glasses doesn’t flip a verdict; it <strong>sharpens the estimate</strong>, which visibly converges on “almost nothing.” The tininess stays in view. That’s Act III’s collision, run in slow motion — and it’s why, whatever tradition you use, you <strong>report the effect size, in units a human cares about</strong>.</p>
+<p><strong>Does the prior matter here?</strong> Leave <code>prior =</code> out and the function starts from “I know nothing”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">40</span>, <span class="fl">50</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  40 of 100 (40.0%)
+data, group 2:  50 of 100 (50.0%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  40.2%         30.9% to 49.8%
+group 2                  50.0%         40.4% to 59.6%
+difference (1 minus 2)   -9.8 points   -23.2 to 3.7 points
+
+Probability group 1 is higher than group 2: 0.08 
+Probability group 1 is lower than group 2:  0.92 </code></pre>
+</div>
+</div>
+<p>0.92 instead of 0.91. It barely moved, because 200 real people outweigh 10 imaginary ones: <strong>data overwhelm a modest prior</strong>. A prior matters most when data are scarce, which is exactly when you most need to say it out loud.</p>
+</section><section id="back-to-chicago-both-ways" class="level2"><h2 class="anchored" data-anchor-id="back-to-chicago-both-ways">5 · Back to Chicago, both ways</h2>
+<p>We have no strong belief going in about domestic arrest rates, so no <code>prior =</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">740</span>, <span class="fl">714</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3749</span>, <span class="fl">5399</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  740 of 3,749 (19.7%)
+data, group 2:  714 of 5,399 (13.2%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  19.8%         18.5% to 21.0%
+group 2                  13.2%         12.3% to 14.2%
+difference (1 minus 2)   6.5 points    5.0 to 8.1 points
+
+Probability group 1 is higher than group 2: more than 0.99 
+Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>Chicago arrests (9,148 cases)</th>
+<th>Reentry trial (200 people)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code></td>
+<td>95% CI: 4.9 to 8.1 points · <span class="math inline">\(p &lt; .001\)</span>
+</td>
+<td>95% CI: −25 to +5 points · <span class="math inline">\(p = 0.20\)</span>
+</td>
+</tr>
+<tr class="even">
+<td><code>bayes_prop_test()</code></td>
+<td>95% credible: 5.0 to 8.1 points</td>
+<td>95% credible: −22 to +4 points · P(works) ≈ 0.91</td>
+</tr>
+</tbody>
+</table>
+<p>With thousands of cases the two traditions hand you <strong>nearly the same range</strong>; the data drown out everything else. With 100 per group, both ranges still include zero — but one tradition stops at “not significant,” and the other tells you <em>how probable</em> the effect is. Neither is wrong. They answer <strong>different questions</strong>.</p>
+</section><section id="sample-size-changes-everything" class="level2"><h2 class="anchored" data-anchor-id="sample-size-changes-everything">6 · Sample size changes everything</h2>
+<p>The lecture closed with two animations you should watch in the <a href="../slides/week-06-hypothesis-testing.html">Session 6 slides</a>: fix a <em>trivial</em> true effect and just keep collecting data, and <em>p</em> still dives below .05 — <strong>given enough data, everything is “significant.”</strong> The same growing dataset through Bayesian glasses doesn’t flip a verdict; it <strong>sharpens the estimate</strong>, which visibly converges on “almost nothing.” The tininess stays in view.</p>
+<p>So after either test, say the size <strong>in real units</strong>: arrest rates about 6.5 points apart (19.7% vs 13.2%). Then ask the question no test can answer for you: is a gap that size big enough to <em>matter</em>?</p>
 </section><section id="try-a-variation" class="level2"><h2 class="anchored" data-anchor-id="try-a-variation">Try a variation</h2>
 <ol type="1">
-<li>Run both tests on a new question: does <code>hour</code> differ for <strong>domestic vs.&nbsp;non-domestic</strong> incidents? Build the grouping variable first, the Session 5 way, so you choose which group comes first: <code>dom &lt;- crimes |&gt; mutate(domestic = factor(if_else(domestic, "Domestic", "Not domestic"), levels = c("Domestic", "Not domestic")))</code>, then <code>t.test(hour ~ domestic, data = dom)</code> and <code>ttestBF(formula = hour ~ domestic, data = dom)</code>. Do the two traditions agree this time?</li>
-<li>In the recidivism trial, flatten the prior to <code>Beta(1, 1)</code> (no prior information). How does P(program works) move? <em>(This is the prior’s weight, measured in one edit.)</em>
-</li>
-<li>Make the trial’s evidence stronger — treatment 35/100 instead of 40/100 — and re-run both. Where does <em>p</em> land now, and where does the posterior probability?</li>
-<li>Rerun the bootstrap with <code>replicate(100, …)</code> instead of 10,000. How stable are the interval endpoints across reruns? <em>(Monte Carlo error is a sample-size problem too.)</em>
+<li>Ask tonight’s question about <strong>property</strong> crimes instead: <code>crimes |&gt; filter(crime_category == "Property") |&gt; count(domestic, arrest)</code>, then type the four numbers into <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> and <code>bayes_prop_test()</code>. How small is the domestic group, and what does that do to both intervals?</li>
+<li>Give the recidivism trial a <strong>skeptic’s prior</strong>: someone who has watched 100 people, 60 of whom reoffended, writes <code>prior = c(60, 40)</code>. How far does the 0.91 move now, and why more than before?</li>
+<li>Make the trial’s evidence stronger — treatment 35/100 instead of 40/100 — and re-run both tests. Where does <em>p</em> land now, and where does the probability the program works?</li>
+<li>Rerun the repeated sampling with <code>replicate(100, …)</code> instead of 10,000. How stable are the interval endpoints across reruns? <em>(The pile of repeated samples is itself a sample.)</em>
 </li>
 </ol>
 
