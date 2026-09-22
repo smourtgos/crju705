@@ -253,6 +253,14 @@ Scott's review the night before Session 6. Full itemization in
   figures on gh-pages, removed through a worktree; live deck and lab are byte-identical to
   the verified local build.
 
+- **Instructor-only companions, in `../crju705-private/` (not in git):** `keys/lab-06-key.R`
+  (Lab 6 Your Turn worked, with "watch for" lists; North 16 of 67 vs Central 16 of 84, p = 0.60,
+  probability North higher 0.77) and `class-aids/session-06-ci-recap.R`, the Session 6 opener:
+  `make_recap()` animates how two groups' repeated samples become one pile of gaps, where the
+  middle 95% comes from, and where zero falls (one story with zero outside, one with zero
+  inside). It writes a GIF, an MP4, and a PDF flipbook per story. macOS Preview does not play
+  GIFs; use the MP4 or a browser. Detail in the umbrella `Fall/PROJECT_NOTES.md`.
+
 **Now stale elsewhere, to fix in their own weeks:** `labs/lab-07-workshop.qmd` and
 `demos/demo-07-workshop.qmd` run `ttestBF()` (**before Sep 29**); Labs 7–8 Exit Ticket;
 `slides/week-08-anova.qmd:363` and `demos/demo-08-anova.qmd:227` ("`ttestBF()` (S6)");
