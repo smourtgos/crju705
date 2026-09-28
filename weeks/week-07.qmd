@@ -15,7 +15,7 @@ By the end of this week you can:
 
 - take a two-group question about a dataset you have never seen and choose the right test: `prop.test()` (and `bayes_prop_test()`) for a yes/no outcome, `t.test()` for a number
 - say what a result means: the honest sentence, how big in real units, and one thing the test cannot tell you
-- explain why a randomized study can support "caused" and a comparison of existing groups usually cannot, and use `filter()` to compare like with like
+- use `filter()` to compare like with like when two groups differ in more than one way
 - size up a new dataset quickly (what one row is, how many rows, what the variables are, anything strange) and choose one for your final project
 
 ## Before class
@@ -27,8 +27,8 @@ By the end of this week you can:
 ## In class
 
 - The recipe, used all night: **question** (two groups, one outcome) → **count or describe** → **test** → **say it** (the sentence, the size, what it cannot tell you)
-- Four worked examples:
-  - **Reentry:** did financial aid at release lower re-arrest in a randomized experiment? (p = 0.063, and a 97% probability it did)
+- Four worked examples, each with an animation you can replay on the demo page:
+  - **Reentry:** did financial aid at release lower re-arrest? (p = 0.063, and a 97% probability it did; the animation shows what that p-value is measuring)
   - **Pretrial release:** were employed arrestees released more often, and does the gap survive comparing people with the same record?
   - **Neighborhoods:** how much lower is income in Chicago's high-violence community areas, in dollars?
   - **Use of force:** was body camera footage reported more often in fatal police shootings after 2020?
@@ -40,5 +40,5 @@ By the end of this week you can:
 ## Homework
 
 - **[Homework 7](../homework/hw-07.qmd)**: explore **two** datasets from the [data options](../project-data.qmd) (or one you found and cleared with me), then **choose one** for your final project. Submit your `.R` file via Canvas **by 11:59 pm Sunday**
-- No R4DS reading this week: the R4DS thread is complete
-- Read Stanton **Ch. 6** (ANOVA) before Session 8, and bring your chosen dataset. **Project checkpoints begin there**
+- No reading this week, and no R4DS: the R4DS thread is complete
+- **Session 8:** more worked examples like this week's, and review for the midterm

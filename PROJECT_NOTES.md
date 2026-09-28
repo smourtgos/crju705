@@ -249,6 +249,16 @@ tour of what data is out there. The messy-file import/tidy pipeline, `ttestBF()`
   dash, and race-comparison greps clean on the new files; overflow audit v3 clean twice (46
   slides); privacy checks clean after the `_quarto.yml` change; `comm -23` clean.
 
+- **Later the same evening (Scott's review):** Rossi randomization check removed; Bayesian
+  output shown for both Toronto comparisons and `prop.test()` for body cameras; **one plotly
+  animation per lecture example** (null-world histogram for Rossi, shrinking gap for Toronto,
+  77 areas splitting for Chicago, year-by-year bars for body cameras), `echo: false` in the deck
+  and `code-fold: true` on the demo; the Chicago file's ineligibility stated everywhere; no
+  ANOVA reading. Deck 56 slides, audit clean.
+- **DECISION (Scott, Sep 28): ANOVA is removed from the course. Session 8 becomes more worked
+  examples plus midterm review.** Not yet built. See the TODO: Session 8 was also the brms
+  onboarding session, which later sessions depend on.
+
 **Now stale elsewhere, to fix in their own weeks:** `slides/week-08-anova.qmd:49` (S7 recap) and
 `:363`; `labs/lab-12-logistic.qmd:143,150,171` ("Lab 7's lubridate moves," "Lab 7 found…"); the
 midterm (covers S1–8); `weeks/week-06.qmd:53-54` and the S6 deck's closing slide ("selection due
@@ -539,6 +549,12 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - [ ] **Re-record the S12 3D walkthrough video** — the live widget was fixed but `media/week-12/3d-logistic.mp4` still shows the pre-fix transposed surface (CHANGES-week-12).
 - [ ] **Confirm the S6 reading** — the hub assigns Scott's own *Police Forum* Bayes article; confirm that's the intended piece.
 - [ ] **Optional:** eyeball decks at projector resolution; videos cap at 480px tall with headroom to enlarge. Note the exemplar and practice-12 both analyze crash-ak injury~intoxication (different covariates) — coherent by design, but flag if you'd rather they diverge.
+
+- [ ] **(Sep 28, 2026) Rebuild Session 8 without ANOVA** (Scott: "no one does them anymore"; S8 = more worked examples + midterm review). **Before cutting, re-home what S8 carried** (see the Aug 2026 design decision "ANOVA is demoted, not cut"):
+  - **brms onboarding:** install, the Stan compile pause, the crossing-0 interval rule. S11's lab and demo depend on it (`labs/lab-11-regression.qmd:114,139`, `demos/demo-11-regression.qmd:262`), and so does the final project's `brm()` requirement.
+  - **The midterm's Bayesian half** (pre-fit `.rds`) and its ANOVA content: the midterm covers S1–8.
+  - **Project Checkpoint 1** in `hw-08`.
+  - Also affected: `slides/week-08-anova.qmd`, `labs/lab-08-anova.qmd`, `demos/demo-08-anova.qmd`, `practice/practice-08.qmd`, `weeks/week-08.qmd`, the `_quarto.yml` nav label, and the syllabus/schedule S8 rows (Stanton Ch. 6). Also check the final-project timeline row "Session 8 HW: Checkpoint 1".
 
 ### Standing decision-records (already handled)
 - **(Sep 7, 2026) The lecture/lab split — the biggest structural change since the rebuild.** Scott's call, after grading Weeks 1–3: **lectures teach concepts; the in-class exercise is where code is written, together, step by step, with simple code.** Several students have never coded and a few have never taken a stats class, and the lecture coding load was discouraging them. Demos stay complete, both as student catch-up and as something to throw on screen mid-lecture. Consequences already shipped: Lab 4 became sampling distributions (`lab-04-sampling.qmd`), Lab 5 became confidence intervals (`lab-05-intervals.qmd`), and the "Two Threads, One Course" bridge slides in S4 and S5 became "How Today Works." **This dissolves the wrangling thread.** Labs 6 and 7 have not been converted yet — Lab 6 (joins, R4DS Ch. 19) is the next one that will hit this tension, and S7's workshop is still billed as "where the two threads meet." Do not re-add a wrangling lab without talking to Scott first.

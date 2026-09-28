@@ -18,13 +18,16 @@ Four answers to four real questions, each with the same recipe:
 
 The questions: did financial aid at release lower re-arrest? Were employed arrestees released more often? How much lower is income in Chicago's high-violence areas? Was body camera footage reported more often in fatal police shootings after 2020?
 
+Each example also has the **animation** from class. Press **Play** under each one, or drag the slider to step through it at your own pace. The code that draws them is folded away (click "Code" to see it). You do not need to write code like that; it is there so nothing is hidden.
+
 ## Setup
 
-The tidyverse, the course's Bayesian function, and four datasets. Two of them are new to you and live on the course site; one is our Chicago anchor data; one comes straight from the *Washington Post*.
+The tidyverse, the course's Bayesian function, and four datasets. Two of them are new to you and live on the course site; one is our Chicago anchor data; one comes straight from the *Washington Post*. `plotly` draws the animations; if you want to run those chunks yourself, install it once with `install.packages("plotly")`.
 
 ```{r}
 #| label: setup
 library(tidyverse)
+library(plotly)   # only for the animations
 source("https://smourtgos.github.io/crju705/R/bayes.R")   # gives you bayes_prop_test()
 set.seed(705)
 
@@ -58,22 +61,60 @@ prop.test(x = c(48, 66), n = c(216, 216))
 
 The interval runs from about 17 points lower to 0.4 points higher, and **p = 0.063**. Zero is just inside, so: fail to reject the null. A funder who reads only that line cuts the program.
 
+**What is 0.063 measuring? Watch it.** Pretend aid did nothing: everyone has the same 26% chance of re-arrest. Run the study again and again, and pile up the gaps that luck alone produces:
+
+```{r}
+#| label: rossi-anim
+#| code-fold: true
+set.seed(705)
+pooled <- (48 + 66) / 432
+null_gaps <- tibble(gap = 100 * (rbinom(10000, 216, pooled) - rbinom(10000, 216, pooled)) / 216)
+step_size <- 100 / 216
+steps <- c(20, 100, 500, 2000, 10000)
+rossi_anim <- map_dfr(steps, \(k) {
+  first_k <- slice_head(null_gaps, n = k)
+  first_k |>
+    mutate(bin = round(gap / step_size)) |>
+    count(bin) |>
+    complete(bin = -45:45, fill = list(n = 0)) |>
+    mutate(share = 100 * n / k, bin = bin * step_size,
+           as_big = if_else(abs(bin) >= 8.3, "At least as big as ours", "Smaller than ours"),
+           label = paste(format(k, big.mark = ","), "pretend studies"),
+           pct_big = 100 * mean(abs(first_k$gap) >= 8.3))
+}) |>
+  mutate(label = factor(label, levels = unique(label)))
+rossi_text <- rossi_anim |>
+  distinct(label, pct_big) |>
+  mutate(x = 13.5, y = 7.2,
+         txt = paste0(sprintf("%.1f", pct_big), "% had a gap<br>at least as big as ours"))
+
+plot_ly(height = 470) |>
+  add_bars(data = rossi_anim, x = ~bin, y = ~share, frame = ~label, color = ~as_big,
+           colors = c("firebrick", "gray75"), hoverinfo = "none") |>
+  add_text(data = rossi_text, x = ~x, y = ~y, text = ~txt, frame = ~label,
+           textfont = list(size = 16, color = "firebrick"), showlegend = FALSE, hoverinfo = "none") |>
+  layout(barmode = "overlay",
+         xaxis = list(title = "Gap in re-arrest rate, aid minus no aid (points)", range = c(-20.5, 20.5)),
+         yaxis = list(title = "Share of pretend studies (%)", range = c(0, 8)),
+         shapes = list(
+           list(type = "line", x0 = -8.3, x1 = -8.3, y0 = 0, y1 = 8, line = list(color = "navy", width = 3)),
+           list(type = "line", x0 = 8.3, x1 = 8.3, y0 = 0, y1 = 8, line = list(color = "navy", width = 3, dash = "dash"))),
+         annotations = list(list(x = -8.6, y = 7.8, text = "Our study: -8.3", showarrow = FALSE,
+                                 xanchor = "right", font = list(size = 14, color = "navy"))),
+         legend = list(orientation = "h", y = 1.08)) |>
+  animation_opts(frame = 1500, transition = 700, redraw = FALSE) |>
+  animation_slider(currentvalue = list(prefix = "")) |>
+  config(displayModeBar = FALSE)
+```
+
+In a world where aid did nothing, about **5 studies in 100** still show a gap of 8.3 points or more, in one direction or the other. That is what p = 0.063 is measuring (`prop.test()` adds a small correction, so its number is a little bigger). Not rare enough to pass the 0.05 bar. Now ask the other question:
+
 ```{r}
 #| label: rossi-bayes
 bayes_prop_test(x = c(48, 66), n = c(216, 216))
 ```
 
 **Say it.** Given these data, there is about a **97% probability** that men who got aid were re-arrested at a lower rate. About 22 of every 100 men with aid were re-arrested, against about 31 of every 100 without: roughly 8 fewer re-arrests per 100 people released. What this cannot tell you: whether the effect lasts past a year, or would hold today. "Not significant" is not "no effect."
-
-**Why we can say "caused."** The aid was assigned at random, so the groups should look alike before release. Check with a number, prior convictions, putting aid first with `factor()`:
-
-```{r}
-#| label: rossi-check
-rossi <- rossi |> mutate(fin = factor(fin, levels = c("yes", "no")))
-t.test(prio ~ fin, data = rossi)
-```
-
-2.98 prior convictions vs 2.99, p = 0.99. The groups started out the same, so the gap afterward is about the aid. This is the rare test where you *hope* for a big p-value.
 
 ## 2 · Pretrial release: does a job get you released?
 
@@ -89,29 +130,68 @@ Employed: 3,568 released out of 3,568 + 543 = **4,111** (86.8%). Not employed: 7
 ```{r}
 #| label: tor-prop
 prop.test(x = c(3568, 766), n = c(4111, 1115))
+```
+
+```{r}
+#| label: tor-bayes
 bayes_prop_test(x = c(3568, 766), n = c(4111, 1115))
 ```
 
-About 15 to 21 points more often for the employed, by either test. But the two groups differ in other ways. `checks` counts how many of six police databases (prior arrests, convictions, parole, and so on) had the person's name:
+About 15 to 21 points more often for the employed, by either test, and more than a 99% probability the employed rate is higher. But the two groups differ in other ways. `checks` counts how many of six police databases (prior arrests, convictions, parole, and so on) had the person's name:
 
 ```{r}
 #| label: tor-checks
 arrests |> summarize(avg_checks = mean(checks), people = n(), .by = employed)
 ```
 
-People without a job had more of a record, and a record is a reason to hold someone. So compare like with like: keep only people with **no record at all**, and ask again.
+People without a job had more of a record, and a record is a reason to hold someone. **Watch the gap shrink** as we keep only people with less and less of a record:
+
+```{r}
+#| label: tor-anim
+#| code-fold: true
+cutoffs <- tibble(k = c(6, 3, 2, 1, 0),
+                  label = c("Everyone", "In 3 or fewer databases", "In 2 or fewer",
+                            "In 1 or fewer", "No record at all"))
+tor_anim <- cutoffs |>
+  mutate(d = map(k, \(kk) arrests |> filter(checks <= kk) |>
+                   summarize(rate = 100 * mean(released == "Yes"), people = n(), .by = employed))) |>
+  unnest(d) |>
+  mutate(employed = if_else(employed == "Yes", "Employed", "Not employed"),
+         xpos = if_else(employed == "Employed", 1, 2),
+         label = factor(label, levels = cutoffs$label),
+         txt = paste0(round(rate, 1), "%<br>(", format(people, big.mark = ",", trim = TRUE), " people)"))
+tor_gap <- tor_anim |>
+  summarize(gap = rate[employed == "Employed"] - rate[employed == "Not employed"], .by = label) |>
+  mutate(x = 1.5, y = 104, txt = paste0("Gap: ", round(gap, 1), " points"))
+
+plot_ly(height = 470) |>
+  add_bars(data = tor_anim, x = ~xpos, y = ~rate, frame = ~label, color = ~employed,
+           colors = c("firebrick", "steelblue"), text = ~txt, textposition = "inside",
+           insidetextfont = list(size = 15, color = "white"), hoverinfo = "none", showlegend = FALSE) |>
+  add_text(data = tor_gap, x = ~x, y = ~y, text = ~txt, frame = ~label,
+           textfont = list(size = 18, color = "navy"), showlegend = FALSE, hoverinfo = "none") |>
+  layout(xaxis = list(title = "", tickvals = c(1, 2), ticktext = c("Employed", "Not employed"),
+                      range = c(0.4, 2.6)),
+         yaxis = list(title = "Released with a summons (%)", range = c(0, 110))) |>
+  animation_opts(frame = 1600, transition = 800, redraw = FALSE) |>
+  animation_slider(currentvalue = list(prefix = "Who is included: ")) |>
+  config(displayModeBar = FALSE)
+```
+
+Now do the last frame properly: keep only people with **no record at all**, and ask again.
 
 ```{r}
 #| label: tor-clean
 arrests |> filter(checks == 0) |> count(employed, released)
 prop.test(x = c(1526, 166), n = c(1650, 201))
+bayes_prop_test(x = c(1526, 166), n = c(1650, 201))
 ```
 
-**Say it.** Among people with clean records, the employed were released about 10 points more often (92.5% vs 82.6%; interval about 4 to 16 points). The gap shrank from 18 points to 10 when we compared like with like, but it did not disappear. What this cannot tell you: whether some other difference (age, citizenship, where the arrest happened) explains the rest. Only random assignment rules everything out, and nobody randomizes jobs.
+**Say it.** Among people with clean records, the employed were released about 10 points more often (92.5% vs 82.6%; interval about 4 to 16 points, credible interval 5.1 to 15.8 points, more than a 99% probability the employed rate is higher). The gap shrank from 18 points to 10 when we compared like with like, but it did not disappear. What this cannot tell you: whether some other difference (age, citizenship, where the arrest happened) explains the rest.
 
 ## 3 · Neighborhoods: violence and income
 
-Chicago's 77 community areas. `high_violence` marks the 38 areas with the highest violent-crime rates. The outcome is `median_income`, a number in dollars, so the test is `t.test()`. One row is one **area**, not one person. First, name the groups and put High violence first:
+Chicago's 77 community areas. `high_violence` marks the 38 areas whose violent-crime rate is above the city's median. The outcome is `median_income`, a number in dollars, so the test is `t.test()`. One row is one **area**, not one person. First, name the groups and put High violence first:
 
 ```{r}
 #| label: chi-groups
@@ -124,12 +204,48 @@ areas |>
   arrange(violence)
 ```
 
+**See it.** Each dot is one community area:
+
 ```{r}
-#| label: chi-plot
-ggplot(areas, aes(x = violence, y = median_income)) +
-  geom_boxplot(fill = "goldenrod", width = 0.5) +
-  labs(x = NULL, y = "Median household income (dollars)",
-       title = "Chicago community areas, 2025")
+#| label: chi-anim
+#| code-fold: true
+set.seed(705)
+jit <- runif(nrow(areas), -0.18, 0.18)
+stage_labels <- c("All 77 areas", "Split by violence", "The two averages")
+chi_pts <- map_dfr(1:3, \(s) areas |>
+  mutate(x = if (s == 1) 1.5 + jit else if_else(violence == "High violence", 1, 2) + jit,
+         stage = stage_labels[s])) |>
+  mutate(stage = factor(stage, levels = stage_labels),
+         hover = paste0(community, "<br>$", format(round(median_income), big.mark = ",")))
+chi_means <- areas |>
+  summarize(avg = mean(median_income), .by = violence)
+chi_means <- map_dfr(1:3, \(s) chi_means |>
+  mutate(x = if (s < 3) -1 else if_else(violence == "High violence", 1, 2),
+         stage = stage_labels[s])) |>
+  mutate(stage = factor(stage, levels = stage_labels),
+         txt = paste0("Average<br>$", format(round(avg), big.mark = ",")))
+chi_gap <- tibble(stage = factor(stage_labels, levels = stage_labels),
+                  x = c(-1, -1, 1.5), y = 175000, txt = "Gap: about $35,700")
+
+plot_ly(height = 470) |>
+  add_markers(data = chi_pts, x = ~x, y = ~median_income, frame = ~stage, ids = ~community,
+              color = ~violence, colors = c("firebrick", "steelblue"),
+              marker = list(size = 10, opacity = 0.8), text = ~hover, hoverinfo = "text") |>
+  add_markers(data = chi_means, x = ~x, y = ~avg, frame = ~stage, ids = ~violence,
+              marker = list(symbol = "line-ew-open", size = 60, color = "navy",
+                            line = list(width = 4, color = "navy")),
+              showlegend = FALSE, hoverinfo = "none") |>
+  add_text(data = chi_means, x = ~x + 0.33, y = ~avg, text = ~txt, frame = ~stage,
+           textfont = list(size = 14, color = "navy"), showlegend = FALSE, hoverinfo = "none") |>
+  add_text(data = chi_gap, x = ~x, y = ~y, text = ~txt, frame = ~stage,
+           textfont = list(size = 18, color = "navy"), showlegend = FALSE, hoverinfo = "none") |>
+  layout(xaxis = list(title = "", range = c(0.4, 2.6), tickvals = c(1, 2),
+                      ticktext = c("High violence", "Other areas")),
+         yaxis = list(title = "Median household income", tickprefix = "$", range = c(0, 190000)),
+         legend = list(orientation = "h", y = 1.08)) |>
+  animation_opts(frame = 1800, transition = 900, redraw = FALSE) |>
+  animation_slider(currentvalue = list(prefix = "")) |>
+  config(displayModeBar = FALSE)
 ```
 
 ```{r}
@@ -153,6 +269,48 @@ shootings |> count(period, body_camera)
 
 2020 to 2024: 1,205 of 1,205 + 4,302 = **5,507** (21.9%). 2015 to 2019: 594 of 594 + 4,329 = **4,923** (12.1%).
 
+**Year by year** first, because two five-year averages can hide a lot:
+
+```{r}
+#| label: wapo-anim
+#| code-fold: true
+yearly <- shootings |>
+  mutate(year = year(date)) |>
+  summarize(pct = 100 * mean(body_camera), .by = c(year, period)) |>
+  arrange(year)
+yr_labels <- c(as.character(2015:2024), "The two periods")
+bwc_anim <- map_dfr(seq_along(yr_labels), \(s) yearly |>
+  mutate(shown = if_else(s <= 10 & year > 2014 + s, 0, pct), step = yr_labels[s])) |>
+  mutate(step = factor(step, levels = yr_labels),
+         txt = if_else(shown > 0, paste0(round(shown), "%"), ""))
+per <- shootings |> summarize(pct = 100 * mean(body_camera), .by = period)
+bwc_lines <- map_dfr(seq_along(yr_labels), \(s) per |>
+  mutate(x = if (s < 11) 2010 else if_else(period == "2015 to 2019", 2017, 2022),
+         step = yr_labels[s])) |>
+  mutate(step = factor(step, levels = yr_labels),
+         ytxt = if_else(period == "2015 to 2019", 19.5, 35),
+         txt = paste0(period, ": ", round(pct, 1), "%"))
+
+plot_ly(height = 470) |>
+  add_bars(data = bwc_anim, x = ~year, y = ~shown, frame = ~step, color = ~period,
+           colors = c("steelblue", "firebrick"), text = ~txt, textposition = "outside",
+           hoverinfo = "none") |>
+  add_markers(data = bwc_lines, x = ~x, y = ~pct, frame = ~step, ids = ~period,
+              marker = list(symbol = "line-ew-open", size = 200, color = "navy",
+                            line = list(width = 4, color = "navy")),
+              showlegend = FALSE, hoverinfo = "none") |>
+  add_text(data = bwc_lines, x = ~x, y = ~ytxt, text = ~txt, frame = ~step,
+           textfont = list(size = 15, color = "navy"), showlegend = FALSE, hoverinfo = "none") |>
+  layout(xaxis = list(title = "", range = c(2014.4, 2024.6), dtick = 1),
+         yaxis = list(title = "Body camera reported (%)", range = c(0, 38)),
+         legend = list(orientation = "h", y = 1.08)) |>
+  animation_opts(frame = 900, transition = 400, redraw = FALSE) |>
+  animation_slider(currentvalue = list(prefix = "")) |>
+  config(displayModeBar = FALSE)
+```
+
+The rise is real but not smooth: 2023 hit 30%, and 2024 fell back to 20%. Comparing two five-year periods averages over those bumps; that is a choice, and an honest write-up says so. Now both tests on the two periods:
+
 ```{r}
 #| label: wapo-tests
 prop.test(x = c(1205, 594), n = c(5507, 4923))
@@ -165,14 +323,14 @@ bayes_prop_test(x = c(1205, 594), n = c(5507, 4923))
 
 | | Test | Answer | The lesson |
 |---|---|---|---|
-| Reentry | `prop.test()` + Bayes | 22% vs 31%; p = 0.063; 97% probably lower | "Not significant" is not "no effect." Randomization lets us say "caused" |
-| Pretrial | `prop.test()`, then again after `filter()` | 18 points; 10 among clean records | Groups differ in other ways. Compare like with like |
+| Reentry | `prop.test()` + Bayes | 22% vs 31%; p = 0.063; 97% probably lower | "Not significant" is not "no effect" |
+| Pretrial | `prop.test()` + Bayes, then again after `filter()` | 18 points; 10 among clean records | Groups differ in other ways. Compare like with like |
 | Neighborhoods | `t.test()` | $25k to $47k lower | Say the size in real units. Areas are not people |
 | Use of force | `prop.test()` + Bayes | 12% to 22% | With a huge n, the p-value adds nothing; the size is the story |
 
 ## Try a variation
 
-1. **Rossi:** were men released on **parole** (`paro`) re-arrested less often? Count, then both tests. Is parole randomly assigned the way aid was? What does that change about the sentence you can write?
+1. **Rossi:** were men released on **parole** (`paro`) re-arrested less often? Count, then both tests, then say it.
 2. **Toronto:** were **citizens** (`citizen`) released more often than non-citizens? Then ask again among people with `checks == 0`. Does the gap shrink the way the employment gap did?
 3. **Chicago areas:** run `t.test(pct_vacant ~ violence, data = areas)`. How much higher is the share of vacant housing in high-violence areas, in percentage points?
 4. **Shootings:** was a body camera reported more often when the person was in a mental health crisis (`was_mental_illness_related`)? Count, then both tests, and say the size in plain words.

@@ -8,8 +8,8 @@ Your final project needs a real criminal justice dataset. This page is a menu: e
 ::: {.callout-important appearance="simple"}
 **The rules.**
 
-- **Any dataset on this page is eligible**, including the ones we worked in class in Session 7. Your research question and variables have to go beyond what we did in class.
-- The **course datasets** (the Chicago files, crash data, officers, prisoners, neighborhoods, cities, reentry) are **not** eligible. They are for practice.
+- **Any dataset on this page is eligible**, including the ones we worked in class in Session 7 (reentry, pretrial release, police stops, shootings, risk scores). Your research question and variables have to go beyond what we did in class.
+- The **course datasets** are **not** eligible. They are for practice. That includes the **Chicago** files (Session 7's Example 3 used one), plus the crash data, officers, prisoners, neighborhoods, cities, and reentry-wide files. None of them is on this page.
 - **Found something else?** Great. Clear it with me before you commit, and prefer a single file that downloads directly (a CSV is best).
 - Whatever you choose must have **numeric variables for regression** (Sessions 10 to 12). Each entry below says how well it does on that.
 :::

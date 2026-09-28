@@ -9,7 +9,7 @@ format-links: [docx]
 
 **Instructions:** complete the following in a single `.R` script and submit it via **Canvas**. Answer every prompt marked **(comment)** in a comment (`#`) in your script. I will run your script, so every line has to be either code or start with `#`.
 
-This week you choose the dataset for your final project. Explore two options first, then commit to one. The options, with the one line that loads each, are on the **[Final-Project Data Options](../project-data.qmd)** page. You may use any dataset on that page, including the ones we worked in class, as long as your question goes beyond what we did in class. If you found a dataset somewhere else, clear it with me first. The course datasets (Chicago, crash, officers, prisoners, neighborhoods, cities, reentry) are not eligible.
+This week you choose the dataset for your final project. Explore two options first, then commit to one. The options, with the one line that loads each, are on the **[Final-Project Data Options](../project-data.qmd)** page. You may use any dataset on that page, including the reentry, pretrial, police stops, shootings, and risk-assessment data we worked in Session 7, as long as your question goes beyond what we did in class. If you found a dataset somewhere else, clear it with me first. The course datasets are **not** eligible: that includes the **Chicago** data from Session 7's Example 3, plus crash, officers, prisoners, neighborhoods, cities, and reentry-wide.
 
 Start your script with:
 
@@ -51,4 +51,4 @@ Add a clearly marked final section (`# ---- My final-project dataset ----`) with
 ## Deliverable and Due Date
 
 - Submit your `.R` script via **Canvas by 11:59 pm Sunday** ahead of Session 8.
-- **Bring your chosen dataset to Session 8.** Project checkpoints begin there: be ready to say what one row is, what your question is, and which variables answer it.
+- **Bring your chosen dataset to Session 8,** and be ready to say what one row is, what your question is, and which variables answer it.

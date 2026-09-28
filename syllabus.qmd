@@ -267,7 +267,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** R4DS Ch. 17 (Dates and times)
 
-**Homework:** Problem set 7: explore two datasets and **choose your final-project dataset** · Read Stanton Ch. 6 · Bring your chosen dataset to Session 8, where project checkpoints begin
+**Homework:** Problem set 7: explore two datasets and **choose your final-project dataset** · No reading · Bring your chosen dataset to Session 8
 
 ## `r session_headers[8]`
 
