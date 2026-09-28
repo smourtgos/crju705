@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Final-Project Data Options – CRJU 705</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">CRJU 705</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./schedule.html"> 
+<span class="menu-text">Schedule</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./syllabus.html"> 
+<span class="menu-text">Syllabus</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weeks" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weeks</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weeks">    
+        <li>
+    <a class="dropdown-item" href="./weeks/week-01.html">
+ <span class="dropdown-text">Session 1 · Intro &amp; R Setup</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-02.html">
+ <span class="dropdown-text">Session 2 · Descriptive Statistics</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-03.html">
+ <span class="dropdown-text">Session 3 · Probability</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-04.html">
+ <span class="dropdown-text">Session 4 · Sampling Distributions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-05.html">
+ <span class="dropdown-text">Session 5 · Confidence Intervals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-06.html">
+ <span class="dropdown-text">Session 6 · Hypothesis Testing (Freq + Bayes)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-07.html">
+ <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-08.html">
+ <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-09.html">
+ <span class="dropdown-text">Session 9 · Midterm</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-10.html">
+ <span class="dropdown-text">Session 10 · Correlation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-11.html">
+ <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-12.html">
+ <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./weeks/week-13.html">
+ <span class="dropdown-text">Session 13 · Presentations</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./chicago-data.html"> 
+<span class="menu-text">Data Codebook</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-final-project" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Final Project</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-final-project">    
+        <li>
+    <a class="dropdown-item" href="./final-project.html">
+ <span class="dropdown-text">Final Project</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./project-data.html">
+ <span class="dropdown-text">Data Options</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./final-project-exemplar.html">
+ <span class="dropdown-text">Worked Exemplar</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/smourtgos/crju705"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#two-ways-to-load-a-dataset" id="toc-two-ways-to-load-a-dataset" class="nav-link active" data-scroll-target="#two-ways-to-load-a-dataset">Two ways to load a dataset</a></li>
+  <li><a href="#how-to-size-up-a-dataset-in-five-minutes" id="toc-how-to-size-up-a-dataset-in-five-minutes" class="nav-link" data-scroll-target="#how-to-size-up-a-dataset-in-five-minutes">How to size up a dataset in five minutes</a></li>
+  <li><a href="#the-menu" id="toc-the-menu" class="nav-link" data-scroll-target="#the-menu">The menu</a>
+  <ul class="collapse">
+  <li><a href="#rossi" id="toc-rossi" class="nav-link" data-scroll-target="#rossi">Rossi reentry experiment</a></li>
+  <li><a href="#toronto" id="toc-toronto" class="nav-link" data-scroll-target="#toronto">Toronto arrests</a></li>
+  <li><a href="#mpls" id="toc-mpls" class="nav-link" data-scroll-target="#mpls">Minneapolis police stops</a></li>
+  <li><a href="#wapo" id="toc-wapo" class="nav-link" data-scroll-target="#wapo">Fatal police shootings</a></li>
+  <li><a href="#compas" id="toc-compas" class="nav-link" data-scroll-target="#compas">COMPAS risk scores</a></li>
+  <li><a href="#gss" id="toc-gss" class="nav-link" data-scroll-target="#gss">GSS 2024: crime and justice attitudes</a></li>
+  <li><a href="#uscrime" id="toc-uscrime" class="nav-link" data-scroll-target="#uscrime">U.S. states, 1960</a></li>
+  <li><a href="#usarrests" id="toc-usarrests" class="nav-link" data-scroll-target="#usarrests">U.S. arrest rates, 1973</a></li>
+  </ul></li>
+  <li><a href="#finding-your-own" id="toc-finding-your-own" class="nav-link" data-scroll-target="#finding-your-own">Finding your own</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final-Project Data Options</h1>
+<p class="subtitle lead">Real criminal justice datasets that load with one line of R</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Your final project needs a real criminal justice dataset. This page is a menu: eight datasets that are ready to use, each loadable with one line of R, plus a few places to look if none of them fits your question. Explore at least two this week (that is <a href="./homework/hw-07.html">Homework 7</a>), then choose one.</p>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>The rules.</strong></p>
+<ul>
+<li><strong>Any dataset on this page is eligible</strong>, including the ones we worked in class in Session 7. Your research question and variables have to go beyond what we did in class.</li>
+<li>The <strong>course datasets</strong> (the Chicago files, crash data, officers, prisoners, neighborhoods, cities, reentry) are <strong>not</strong> eligible. They are for practice.</li>
+<li><strong>Found something else?</strong> Great. Clear it with me before you commit, and prefer a single file that downloads directly (a CSV is best).</li>
+<li>Whatever you choose must have <strong>numeric variables for regression</strong> (Sessions 10 to 12). Each entry below says how well it does on that.</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="two-ways-to-load-a-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="two-ways-to-load-a-dataset">Two ways to load a dataset</h2>
+<p>Every dataset below has a <strong>course copy</strong> you load the way you have loaded everything this semester. Run <code>library(tidyverse)</code> first, once per session:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>arrests <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/toronto-arrests.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Several also live in an <strong>R package</strong>, which is where the course copy came from. That route needs a one-time install:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"carData"</span>)   <span class="co"># once, typed in the console, not in your script</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(carData)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Arrests)                 <span class="co"># now there is an object called Arrests</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Same data either way. The course copy is simpler, so it is what the examples below use.</p>
+</section>
+<section id="how-to-size-up-a-dataset-in-five-minutes" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-size-up-a-dataset-in-five-minutes">How to size up a dataset in five minutes</h2>
+<ol type="1">
+<li><strong>What is one row?</strong> A person? An arrest? A stop? A state?</li>
+<li><strong>How many rows?</strong> Hundreds is plenty; millions is a headache</li>
+<li><strong>What are the variables?</strong> <code>glimpse(your_data)</code> gives every name and type</li>
+<li><strong>Anything strange?</strong> <code>summary(your_data)</code> shows impossible values (999s, negative ages) and <code>NA</code>s</li>
+<li><strong>Could it answer a question you care about?</strong> Name the two groups and the outcome, or the variables you would relate</li>
+</ol>
+</section>
+<section id="the-menu" class="level2">
+<h2 class="anchored" data-anchor-id="the-menu">The menu</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Dataset</th>
+<th>Topic</th>
+<th>One row is</th>
+<th>Rows</th>
+<th>Regression-ready?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#rossi">Rossi reentry experiment</a></td>
+<td>Reentry, recidivism</td>
+<td>a released prisoner</td>
+<td>432</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td><a href="#toronto">Toronto arrests</a></td>
+<td>Pretrial release</td>
+<td>an arrest</td>
+<td>5,226</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td><a href="#mpls">Minneapolis police stops</a></td>
+<td>Policing, stops and searches</td>
+<td>a stop</td>
+<td>51,920</td>
+<td>Limited</td>
+</tr>
+<tr class="even">
+<td><a href="#wapo">Fatal police shootings</a></td>
+<td>Police use of deadly force</td>
+<td>a person killed</td>
+<td>10,430</td>
+<td>Limited</td>
+</tr>
+<tr class="odd">
+<td><a href="#compas">COMPAS risk scores</a></td>
+<td>Courts, risk assessment</td>
+<td>a defendant</td>
+<td>7,214</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td><a href="#gss">GSS 2024: crime and justice attitudes</a></td>
+<td>Public opinion</td>
+<td>a survey respondent</td>
+<td>3,309</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td><a href="#uscrime">U.S. states, 1960</a></td>
+<td>Crime and punishment by state</td>
+<td>a state</td>
+<td>47</td>
+<td>Yes (small)</td>
+</tr>
+<tr class="even">
+<td><a href="#usarrests">U.S. arrest rates, 1973</a></td>
+<td>Violent crime by state</td>
+<td>a state</td>
+<td>50</td>
+<td>Yes (small)</td>
+</tr>
+</tbody>
+</table>
+<p>“Limited” means most of the variables are categories rather than numbers, so a regression is possible (logistic, with categories as predictors) but you will have fewer choices. Ask me before you commit to one of those.</p>
+<section id="rossi" class="level3">
+<h3 class="anchored" data-anchor-id="rossi">Rossi reentry experiment</h3>
+<p>432 men released from Maryland state prisons in the 1970s, followed for one year. Half were randomly assigned to receive financial aid. We used it in Session 7 (aid vs.&nbsp;no aid).</p>
+<ul>
+<li><strong>Key variables:</strong> <code>arrest</code> (1 = arrested within the year), <code>week</code> (week of first arrest; 52 if never), <code>fin</code> (financial aid), <code>age</code>, <code>prio</code> (number of prior convictions), <code>wexp</code> (work experience before prison), <code>mar</code> (married), <code>paro</code> (released on parole), <code>educ</code> (education level, coded 2 to 6), <code>race</code></li>
+<li><strong>Numbers for regression:</strong> <code>age</code>, <code>prio</code>, <code>week</code>, <code>educ</code></li>
+<li><strong>Starter question:</strong> were men released on parole re-arrested less often than men released without it?</li>
+<li><strong>Quirks:</strong> the original has 52 weekly employment columns (<code>emp1</code> to <code>emp52</code>); the course copy leaves them out. <code>educ</code> is a code, not years: 2 = 6th grade or less, 3 = 7th to 9th, 4 = 10th to 11th, 5 = 12th, 6 = some college.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rossi <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/rossi.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Original: <code>carData</code> package, <code>data(Rossi)</code>. Rossi, Berk &amp; Lenihan (1980), <em>Money, Work, and Crime</em>.</p>
+</section>
+<section id="toronto" class="level3">
+<h3 class="anchored" data-anchor-id="toronto">Toronto arrests</h3>
+<p>5,226 arrests by Toronto police for possession of small amounts of marijuana, 1997 to 2002, from a <em>Toronto Star</em> investigation. We used it in Session 7 (employed vs.&nbsp;not).</p>
+<ul>
+<li><strong>Key variables:</strong> <code>released</code> (released with a summons instead of held for a bail hearing), <code>employed</code>, <code>citizen</code>, <code>sex</code>, <code>age</code>, <code>year</code>, <code>checks</code> (how many of six police databases, such as prior arrests or parole, had the person’s name), <code>colour</code></li>
+<li><strong>Numbers for regression:</strong> <code>age</code>, <code>checks</code>, <code>year</code></li>
+<li><strong>Starter question:</strong> were citizens released with a summons more often than non-citizens?</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>arrests <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/toronto-arrests.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Original: <code>carData</code> package, <code>data(Arrests)</code>.</p>
+</section>
+<section id="mpls" class="level3">
+<h3 class="anchored" data-anchor-id="mpls">Minneapolis police stops</h3>
+<p>Nearly every stop the Minneapolis Police Department made in 2017. We used it in Lab 7 (searches in suspicious-person vs.&nbsp;traffic stops).</p>
+<ul>
+<li><strong>Key variables:</strong> <code>problem</code> (suspicious or traffic), <code>citationIssued</code>, <code>personSearch</code>, <code>vehicleSearch</code>, <code>gender</code>, <code>policePrecinct</code> (1 to 5), <code>neighborhood</code>, <code>date</code>, <code>MDC</code>, <code>race</code>, <code>preRace</code></li>
+<li><strong>Numbers for regression:</strong> almost none (location and date). Outcomes are yes/no, so this one points toward logistic regression with categorical predictors</li>
+<li><strong>Starter question:</strong> among people stopped, were men searched more often than women?</li>
+<li><strong>Quirks:</strong> <code>personSearch</code>, <code>vehicleSearch</code>, and <code>gender</code> were recorded only for stops entered from a squad car’s computer (<code>MDC</code>), so the 8,221 stops by officers on foot, bike, or horseback show <code>NA</code> for them. <code>citationIssued</code> is missing for about 63% of all stops, so be careful building a question on it. <code>NA</code> means “not recorded,” not “no.”</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>stops <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/mpls-stops.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Original: <code>carData</code> package, <code>data(MplsStops)</code>; the Minneapolis open data portal has more years.</p>
+</section>
+<section id="wapo" class="level3">
+<h3 class="anchored" data-anchor-id="wapo">Fatal police shootings</h3>
+<p>The <em>Washington Post</em>’s database of every person shot and killed by an on-duty police officer in the United States, 2015 through 2024. We used it in Session 7 and Lab 7.</p>
+<ul>
+<li><strong>Key variables:</strong> <code>date</code>, <code>state</code>, <code>city</code>, <code>armed_with</code>, <code>threat_type</code>, <code>flee_status</code>, <code>was_mental_illness_related</code>, <code>body_camera</code>, <code>age</code>, <code>gender</code>, <code>race</code></li>
+<li><strong>Numbers for regression:</strong> <code>age</code> only, at the level of the person. (Counting shootings by state or year opens more doors, but that takes skills we have not covered yet.)</li>
+<li><strong>Starter question:</strong> was a body camera reported more often when the person was in a mental health crisis?</li>
+<li><strong>Quirks:</strong> each row is a person who died, and the file includes names. Treat it with care, and leave names out of anything you show. This one is not copied to the course site; it is read straight from the <em>Post</em>.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>shootings <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v2/fatal-police-shootings-data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Source: <a href="https://github.com/washingtonpost/data-police-shootings">github.com/washingtonpost/data-police-shootings</a>. License CC BY-NC-SA 4.0.</p>
+</section>
+<section id="compas" class="level3">
+<h3 class="anchored" data-anchor-id="compas">COMPAS risk scores</h3>
+<p>People arrested in Broward County, Florida, in 2013 and 2014, scored by the COMPAS pretrial risk-assessment tool, then followed for two years by ProPublica. We used it in Lab 7 (High vs.&nbsp;Low labels).</p>
+<ul>
+<li><strong>Key variables:</strong> <code>two_year_recid</code> (1 = arrested again within two years), <code>score_text</code> (Low, Medium, High), <code>age</code>, <code>sex</code>, <code>priors_count...15</code> (number of prior offenses), <code>juv_fel_count</code>, <code>juv_misd_count</code>, <code>c_charge_degree</code> (F = felony, M = misdemeanor), <code>race</code></li>
+<li><strong>Numbers for regression:</strong> several: <code>age</code>, the prior-count columns, the juvenile counts, the decile score</li>
+<li><strong>Starter question:</strong> were people charged with a felony re-arrested more often than people charged with a misdemeanor?</li>
+<li><strong>Quirks:</strong> 53 columns, many of them dates and case numbers you will not need. The file has two columns named <code>decile_score</code> and two named <code>priors_count</code>, so R renames them (the <code>New names:</code> message). The file includes names; leave them out of anything you show. Read straight from ProPublica.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>compas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-two-years.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Source: <a href="https://github.com/propublica/compas-analysis">github.com/propublica/compas-analysis</a> and ProPublica’s 2016 article “Machine Bias.”</p>
+</section>
+<section id="gss" class="level3">
+<h3 class="anchored" data-anchor-id="gss">GSS 2024: crime and justice attitudes</h3>
+<p>The General Social Survey, a national survey of U.S. adults run since 1972. The course copy keeps the 2024 respondents and the questions about crime, courts, guns, and police, plus basic background questions.</p>
+<ul>
+<li><strong>Key variables:</strong>
+<ul>
+<li><code>fear</code>: afraid to walk alone at night in your neighborhood?</li>
+<li><code>cappun</code>: death penalty for murder</li>
+<li><code>gunlaw</code>: require a police permit to buy a gun</li>
+<li><code>owngun</code>: gun in the home</li>
+<li><code>courts</code>: courts too harsh or not harsh enough</li>
+<li><code>grass</code>: legalize marijuana</li>
+<li><code>natcrime</code>: spending on halting rising crime</li>
+<li><code>polhitok</code>, <code>polabuse</code>, <code>polattak</code>: when is it OK for police to strike a citizen</li>
+<li>background: <code>sex</code>, <code>degree</code>, <code>region</code>, <code>partyid</code>, <code>polviews</code></li>
+</ul></li>
+<li><strong>Numbers for regression:</strong> <code>age</code>, <code>educ</code> (years of school), <code>coninc</code> (family income in constant dollars)</li>
+<li><strong>Starter question:</strong> are women more likely than men to be afraid to walk alone at night in their neighborhood?</li>
+<li><strong>Quirks:</strong> the GSS asks each question of only part of the sample (a “split ballot”), so most questions have <code>NA</code> for somewhere between a third and three-quarters of people. <code>NA</code> means “not asked” or “no answer,” not “no.” Ages 89 and older are all coded 89.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/gss-2024-cj.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Source: NORC at the University of Chicago, <a href="https://gss.norc.org">gss.norc.org</a>. The full 2024 file has 813 variables, if you want to look for more.</p>
+</section>
+<section id="uscrime" class="level3">
+<h3 class="anchored" data-anchor-id="uscrime">U.S. states, 1960</h3>
+<p>A classic criminology dataset on crime and punishment across 47 states in 1960 (Ehrlich, 1973).</p>
+<ul>
+<li><strong>Key variables:</strong> <code>y</code> (crime rate), <code>So</code> (1 = Southern state), <code>Prob</code> (probability of imprisonment), <code>Time</code> (average time served), <code>Po1</code> (police spending), <code>Ed</code> (schooling), <code>U1</code>, <code>U2</code> (unemployment), <code>Ineq</code> (income inequality), <code>GDP</code>, <code>M</code> (share of young men)</li>
+<li><strong>Numbers for regression:</strong> nearly everything; this one was built for regression</li>
+<li><strong>Starter question:</strong> did Southern states have higher crime rates than the rest?</li>
+<li><strong>Quirks:</strong> only 47 rows, and several columns were rescaled to convenient numbers (for example, <code>Ed</code> is years of schooling times 10). Read <code>?MASS::UScrime</code> before you interpret a number.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>uscrime <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/uscrime.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Original: the <code>MASS</code> package, which comes with R (nothing to install): <code>MASS::UScrime</code>.</p>
+</section>
+<section id="usarrests" class="level3">
+<h3 class="anchored" data-anchor-id="usarrests">U.S. arrest rates, 1973</h3>
+<p>Arrests per 100,000 residents for murder, assault, and rape in each of the 50 states in 1973, plus the percent of each state’s population living in cities.</p>
+<ul>
+<li><strong>Key variables:</strong> <code>state</code>, <code>Murder</code>, <code>Assault</code>, <code>Rape</code>, <code>UrbanPop</code></li>
+<li><strong>Numbers for regression:</strong> all four, but only 50 rows and four variables</li>
+<li><strong>Starter question:</strong> do more urban states have higher assault arrest rates? (Split <code>UrbanPop</code> into two groups now; in Session 10 you will be able to use it as a number.)</li>
+<li><strong>Quirks:</strong> small and old. Fine for learning, thin for a whole project unless you pair it with a clear question.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>usarrests <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/usarrests.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Original: built into R, no package needed: <code>USArrests</code>.</p>
+</section>
+</section>
+<section id="finding-your-own" class="level2">
+<h2 class="anchored" data-anchor-id="finding-your-own">Finding your own</h2>
+<p>If your question needs something else, these are good places to look. Check with me before you commit, and prefer a single CSV that downloads directly.</p>
+<ul>
+<li><strong>City open data portals.</strong> Chicago, New York, Los Angeles, Dallas, and dozens of other cities post crime incidents, arrests, stops, and use-of-force reports. Search “[city name] open data police.”</li>
+<li><strong>The Stanford Open Policing Project</strong> (<a href="https://openpolicing.stanford.edu/data/">openpolicing.stanford.edu</a>): traffic stops from dozens of states and cities. The files are large; pick one city.</li>
+<li><strong>NACJD at ICPSR</strong> (<a href="https://www.icpsr.umich.edu/web/NACJD/">icpsr.umich.edu/web/NACJD</a>): the national archive of criminal justice research data. Excellent, but many files come in SPSS or Stata formats and need a free account.</li>
+<li><strong>The Bureau of Justice Statistics</strong> (<a href="https://bjs.ojp.gov/">bjs.ojp.gov</a>): national statistics on jails, prisons, victimization, and courts, mostly as summary tables.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CRJU 705 · Fall 2026 · Scott M. Mourtgos · University of South Carolina</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

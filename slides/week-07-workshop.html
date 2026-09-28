@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Scott M. Mourtgos">
-  <title>CRJU 705 – Applied Data Workshop</title>
+  <title>CRJU 705 – Applied Workshop: Real Questions, Real Tests</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -195,7 +195,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Applied Data Workshop</h1>
+  <h1 class="title">Applied Workshop: Real Questions, Real Tests</h1>
   <p class="subtitle">CRJU 705 · Session 7 · Fall 2026</p>
 
 <div class="quarto-title-authors">
@@ -209,264 +209,574 @@ Scott M. Mourtgos
 </section>
 <section id="this-week" class="slide level2">
 <h2>This Week</h2>
-<p><strong>Topic:</strong> the full pipeline, on data nobody cleaned for you</p>
+<p><strong>Topic:</strong> no new statistics. Tonight we <em>use</em> what you already have.</p>
 <ul>
-<li>No new statistics today — everything you need, you already have</li>
-<li>One worked pass through the pipeline together (fast)</li>
-<li>Then most of the session is <strong>Lab 7, on your own data</strong></li>
+<li>Four real questions from four corners of criminal justice: reentry, pretrial release, neighborhoods, police use of force</li>
+<li>Every one answered with tools from Sessions 5 and 6: <code>count()</code>, <code>prop.test()</code>, <code>bayes_prop_test()</code>, <code>t.test()</code></li>
+<li>Then: <strong>what data is out there</strong>, so you can choose your final-project dataset this week</li>
 </ul>
-<p><strong>Learning goals:</strong> run import → tidy → transform → visualize → test start-to-finish without a template; diagnose what’s wrong with a dataset you’ve never seen; commit to a final-project dataset you can defend.</p>
-<p><strong>Due this week:</strong> your <strong>final-project dataset selection</strong> (details at the end).</p>
+<p><strong>Learning goal:</strong> given a two-group question on a dataset you have never seen, pick the test, run it, and say what it means (and what it does not).</p>
 </section>
-<section id="real-analysis-is-80-preparation" class="slide level2">
-<h2>Real Analysis Is 80% Preparation</h2>
-<p>The folk wisdom in data work: <strong>80% of the time goes to getting and preparing data, 20% to analyzing it.</strong> Six sessions in, you can now verify this yourself.</p>
-<ul>
-<li class="fragment">Finding data that can actually answer your question</li>
-<li class="fragment">Importing it without silently mangling anything</li>
-<li class="fragment">Discovering what’s wrong with it (something always is)</li>
-<li class="fragment">Building the variables you actually need — the file never has them</li>
-<li class="fragment">…and then the t-test is <strong>one line of code</strong></li>
-</ul>
-<div class="fragment">
-<p>Every dataset in this course so far arrived clean because <em>I</em> cleaned it. That subsidy ends today.</p>
-</div>
+<section id="how-today-works" class="slide level2">
+<h2>How Today Works</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Lecture</strong></p>
+<p>Four worked examples, one recipe</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Lab 7</strong></p>
+<p>Two more, and you write the code</p>
+</div><div class="column" style="width:33%;">
+<p><strong>What’s out there</strong></p>
+<p>A menu of real datasets to explore this week</p>
+</div></div>
+<p>Everything I run tonight is written up in the <a href="../demos/demo-07-workshop.html">demo walkthrough</a>.</p>
 </section>
-<section id="the-pipeline-start-to-finish" class="slide level2 smaller">
-<h2>The Pipeline, Start to Finish</h2>
+<section id="the-recipe" class="slide level2">
+<h2>The Recipe</h2>
+<p>Every question tonight, the same four steps:</p>
+<ol type="1">
+<li><strong>Question.</strong> Name the two groups and the outcome</li>
+<li><strong>Count or describe.</strong> <code>count()</code> for yes/no; group averages for a number</li>
+<li><strong>Test.</strong> Frequentist always; Bayesian too when the outcome is yes/no</li>
+<li><strong>Say it.</strong> The honest sentence · how big, in real units · one thing this test <strong>cannot</strong> tell you</li>
+</ol>
+</section>
+<section id="which-test" class="slide level2">
+<h2>Which Test?</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 27%">
-<col style="width: 27%">
-<col style="width: 46%">
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Step · learned in</th>
-<th>The job</th>
-<th>Tools</th>
+<th>The outcome is…</th>
+<th>Example</th>
+<th>Test</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Import</strong> · new today</td>
-<td>get data into R intact</td>
-<td><code>read_csv()</code>, <code>read_excel()</code>, <code>col_types</code>, <code>mdy()</code></td>
+<td><strong>yes/no</strong></td>
+<td>arrested again? searched? released?</td>
+<td><code>prop.test()</code> and <code>bayes_prop_test()</code></td>
 </tr>
 <tr class="even">
-<td><strong>Tidy</strong> · new today</td>
-<td>one row = one observation</td>
-<td><code>pivot_longer()</code>, <code>pivot_wider()</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Transform</strong> · Session 3</td>
-<td>filter, derive, summarize</td>
-<td><code>filter()</code>, <code>mutate()</code>, <code>summarize()</code></td>
-</tr>
-<tr class="even">
-<td><strong>Visualize</strong> · Session 2</td>
-<td>see the shape and the pattern</td>
-<td><code>ggplot()</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Model / test</strong> · Sessions 5–6</td>
-<td>formal inference</td>
-<td><code>t.test()</code>, <code>ttestBF()</code>, <code>prop.test()</code></td>
+<td><strong>a number</strong></td>
+<td>age, income, number of prior arrests</td>
+<td><code>t.test(outcome ~ group, data = )</code></td>
 </tr>
 </tbody>
 </table>
-<p>You already own the bottom three, learned in <em>reverse</em> order. The top two are new today, and I hand you the code for both. Today you run the whole thing left to right for the first time.</p>
+<div class="fragment">
+<p>That table covers every question in tonight’s lecture and lab, and a surprising share of what gets published in criminal justice journals.</p>
+</div>
 </section>
 <section>
-<section id="one-pass-through-the-pipeline" class="title-slide slide level1 center" data-background-color="#73000A">
-<h1>One Pass Through the Pipeline</h1>
+<section id="example-1-reentry-does-money-at-release-keep-people-out-of-jail" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Example 1 · Reentry: Does Money at Release Keep People Out of Jail?</h1>
 
 </section>
-<section id="step-1-import" class="slide level2">
-<h2>Step 1 · Import</h2>
-<p>Back to the Alaska crash data — but this time the date is handled <em>at the door</em>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb1-2"><a></a>  <span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>,</span>
-<span id="cb1-3"><a></a>  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">date =</span> <span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">"%m/%d/%Y"</span>))</span>
-<span id="cb1-4"><a></a>)</span>
-<span id="cb1-5"><a></a><span class="co"># (equivalent Lab 5 habit: import, then mutate(date = mdy(date)))</span></span>
-<span id="cb1-6"><a></a></span>
-<span id="cb1-7"><a></a><span class="fu">sum</span>(<span class="fu">is.na</span>(crashes<span class="sc">$</span>date))   <span class="co"># zero NAs = every date parsed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
+<section id="the-study" class="slide level2">
+<h2>The Study</h2>
+<ul>
+<li><strong>432 men</strong> released from Maryland state prisons in the 1970s, followed for one year</li>
+<li>Half were <strong>randomly assigned</strong> to receive financial aid after release; half were not</li>
+<li>Outcome: <strong>arrested again</strong> within the year (1 = yes)</li>
+<li>One row = one released man</li>
+</ul>
+<div class="fragment">
+<p><strong>Question:</strong> did the aid group get re-arrested less often? Two groups, yes/no outcome: <code>prop.test()</code> and <code>bayes_prop_test()</code>.</p>
 </div>
-</div>
-<p>20,000 crashes, 2022–2026. Two roads to a real date column — <code>col_types</code> up front, or <code>mdy()</code> after. Either way: <strong>verify the parse</strong>.</p>
 </section>
-<section id="step-2-clean-derive" class="slide level2">
-<h2>Step 2 · Clean &amp; Derive</h2>
-<p>The file has no “night” or “weekend” column. Files never do — <em>you</em> build the variables your question needs:</p>
+<section id="count" class="slide level2">
+<h2>Count</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>crashes <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a></a>  <span class="fu">mutate</span>(</span>
-<span id="cb3-3"><a></a>    <span class="at">hour    =</span> <span class="fu">hour</span>(time),</span>
-<span id="cb3-4"><a></a>    <span class="at">weekend =</span> <span class="fu">wday</span>(date, <span class="at">week_start =</span> <span class="dv">1</span>) <span class="sc">&gt;=</span> <span class="dv">6</span>,   <span class="co"># Mon = 1 … Sat = 6, Sun = 7</span></span>
-<span id="cb3-5"><a></a>    <span class="at">night   =</span> hour <span class="sc">&gt;=</span> <span class="dv">22</span> <span class="sc">|</span> hour <span class="sc">&lt;</span> <span class="dv">4</span>              <span class="co"># 10 p.m. – 3:59 a.m.</span></span>
-<span id="cb3-6"><a></a>  )</span>
-<span id="cb3-7"><a></a>crashes <span class="sc">|&gt;</span> <span class="fu">count</span>(night)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>rossi <span class="sc">|&gt;</span> <span class="fu">count</span>(fin, arrest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  night     n
-  &lt;lgl&gt; &lt;int&gt;
-1 FALSE 14972
-2 TRUE   5028</code></pre>
+<pre><code># A tibble: 4 × 3
+  fin   arrest     n
+  &lt;chr&gt;  &lt;dbl&gt; &lt;int&gt;
+1 no         0   150
+2 no         1    66
+3 yes        0   168
+4 yes        1    48</code></pre>
 </div>
 </div>
-<p>Night hours hold 25% of all crashes — but 39% of intoxication-involved ones. One <code>mutate()</code> made that pattern visible.</p>
+<ul>
+<li><strong>Aid</strong> (<code>fin = yes</code>): 48 re-arrested out of 48 + 168 = <strong>216</strong> (22.2%)</li>
+<li><strong>No aid:</strong> 66 out of 66 + 150 = <strong>216</strong> (30.6%)</li>
+</ul>
+<p>Aid first all the way through, so every difference reads <strong>Aid minus No aid</strong>.</p>
 </section>
-<section id="step-3-describe" class="slide level2">
-<h2>Step 3 · Describe</h2>
-<p>The Homework 5 question, back for a verdict: <strong>do crashes involving an intoxicated driver injure more people?</strong></p>
+<section id="test-prop.test" class="slide level2">
+<h2>Test: <code>prop.test()</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>crashes <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a></a>  <span class="fu">summarize</span>(</span>
-<span id="cb5-3"><a></a>    <span class="at">crashes  =</span> <span class="fu">n</span>(),</span>
-<span id="cb5-4"><a></a>    <span class="at">mean_inj =</span> <span class="fu">mean</span>(injuries),</span>
-<span id="cb5-5"><a></a>    <span class="at">sd_inj   =</span> <span class="fu">sd</span>(injuries),</span>
-<span id="cb5-6"><a></a>    <span class="at">.by =</span> intox_any</span>
-<span id="cb5-7"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">48</span>, <span class="dv">66</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">216</span>, <span class="dv">216</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-  intox_any crashes mean_inj sd_inj
-      &lt;dbl&gt;   &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-1         0   18455    0.743  0.997
-2         1    1545    1.13   1.18 </code></pre>
-</div>
-</div>
-<p>0.74 vs.&nbsp;1.13 injured people per crash. Point estimates — you know by now that’s not the final word.</p>
-</section>
-<section id="step-4-visualize" class="slide level2">
-<h2>Step 4 · Visualize</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>inj_summary <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a></a>  <span class="fu">mutate</span>(<span class="at">intox_group =</span> <span class="fu">factor</span>(intox_any, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No intox"</span>, <span class="st">"Intox involved"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">mean_inj =</span> <span class="fu">mean</span>(injuries), <span class="at">sd_inj =</span> <span class="fu">sd</span>(injuries),</span>
-<span id="cb7-4"><a></a>            <span class="at">.by =</span> intox_group) <span class="sc">|&gt;</span></span>
-<span id="cb7-5"><a></a>  <span class="fu">mutate</span>(<span class="at">se =</span> sd_inj <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
-<span id="cb7-6"><a></a>         <span class="at">ci_lo =</span> mean_inj <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
-<span id="cb7-7"><a></a>         <span class="at">ci_hi =</span> mean_inj <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)   <span class="co"># Session 5, by hand</span></span>
-<span id="cb7-8"><a></a></span>
-<span id="cb7-9"><a></a><span class="fu">ggplot</span>(inj_summary, <span class="fu">aes</span>(intox_group, mean_inj)) <span class="sc">+</span></span>
-<span id="cb7-10"><a></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_lo, <span class="at">ymax =</span> ci_hi),</span>
-<span id="cb7-11"><a></a>                  <span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>], <span class="at">linewidth =</span> <span class="fl">1.2</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-12"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Mean injuries per crash, with 95% confidence intervals"</span>,</span>
-<span id="cb7-13"><a></a>       <span class="at">subtitle =</span> <span class="st">"Alaska crash data, n = 20,000"</span>,</span>
-<span id="cb7-14"><a></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Mean injuries per crash"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
 
+data:  c(48, 66) out of c(216, 216)
+X-squared = 3.4439, df = 1, p-value = 0.06349
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.170713151  0.004046484
+sample estimates:
+   prop 1    prop 2 
+0.2222222 0.3055556 </code></pre>
+</div>
+</div>
 </section>
-<section id="step-4-visualize-output" class="slide level2 output-location-slide"><h2>Step 4 · Visualize</h2><div class="cell output-location-slide">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="week-07-workshop_files/figure-revealjs/viz-1.png" width="960"></p>
-</figure>
+<section id="reading-it" class="slide level2">
+<h2>Reading It</h2>
+<ul>
+<li>Interval: about <strong>17 points lower to 0.4 points higher</strong>. Zero is (just) inside</li>
+<li><strong>p = 0.063</strong>. Above 0.05: fail to reject the null</li>
+</ul>
+<div class="fragment">
+<p>A funder reading only the p-value writes “no significant effect” and cuts the program. Sound familiar? It is Session 6’s recidivism trial, except this one is real.</p>
 </div>
-</div>
-</div></section><section id="step-5a-test-it-frequentist" class="slide level2">
-<h2>Step 5a · Test It — Frequentist</h2>
+</section>
+<section id="test-bayes_prop_test" class="slide level2">
+<h2>Test: <code>bayes_prop_test()</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox_any, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">48</span>, <span class="dv">66</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">216</span>, <span class="dv">216</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  48 of 216 (22.2%)
+data, group 2:  66 of 216 (30.6%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  22.5%         17.2% to 28.2%
+group 2                  30.7%         24.8% to 37.0%
+difference (1 minus 2)   -8.2 points   -16.5 to 0.0 points
+
+Probability group 1 is higher than group 2: 0.03 
+Probability group 1 is lower than group 2:  0.97 </code></pre>
+</div>
+</div>
+</section>
+<section id="say-it" class="slide level2">
+<h2>Say It</h2>
+<ul>
+<li><strong>The sentence:</strong> given these data, there is about a <strong>97% probability</strong> that men who got aid were re-arrested at a lower rate</li>
+<li><strong>How big:</strong> about <strong>22 of every 100</strong> men with aid were re-arrested, against about <strong>31 of every 100</strong> without: roughly 8 fewer re-arrests per 100 people released</li>
+<li><strong>What this test cannot tell you:</strong> whether the effect lasts past one year, or whether aid would work the same way today</li>
+</ul>
+<div class="fragment">
+<p><strong>“Not significant” is not “no effect.”</strong> Here the best estimate is an 8-point drop, and the data say it is very probably real.</p>
+</div>
+</section>
+<section id="why-we-can-say-caused" class="slide level2">
+<h2>Why We Can Say “Caused”</h2>
+<p>The aid was handed out <strong>at random</strong>, so the two groups should look alike before release. We can check, with a number: prior convictions.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>rossi <span class="ot">&lt;-</span> rossi <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">fin =</span> <span class="fu">factor</span>(fin, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"yes"</span>, <span class="st">"no"</span>)))</span>
+<span id="cb7-2"><a></a><span class="fu">t.test</span>(prio <span class="sc">~</span> fin, <span class="at">data =</span> rossi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
 
-data:  injuries by intox_any
-t = -12.489, df = 1732.6, p-value &lt; 0.00000000000000022
-alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+data:  prio by fin
+t = -0.016594, df = 429.91, p-value = 0.9868
+alternative hypothesis: true difference in means between group yes and group no is not equal to 0
 95 percent confidence interval:
- -0.4474533 -0.3259893
+ -0.5529994  0.5437402
 sample estimates:
-mean in group 0 mean in group 1 
-      0.7433758       1.1300971 </code></pre>
+mean in group yes  mean in group no 
+         2.981481          2.986111 </code></pre>
 </div>
 </div>
-<p>Same gotcha as Homework 5: R computes group 0 − group 1, so the negative signs mean the <em>intoxication</em> group is higher.</p>
 </section>
-<section id="step-5b-test-it-bayesian" class="slide level2">
-<h2>Step 5b · Test It — Bayesian</h2>
-<p><code>BayesFactor</code> insists the grouping variable be a <strong>factor</strong> — so we hand it one:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>crashes <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a></a>  <span class="fu">mutate</span>(<span class="at">intox_group =</span> <span class="fu">factor</span>(intox_any, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"No intox"</span>, <span class="st">"Intox involved"</span>)))</span>
-<span id="cb10-3"><a></a></span>
-<span id="cb10-4"><a></a><span class="fu">ttestBF</span>(<span class="at">formula =</span> injuries <span class="sc">~</span> intox_group, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Bayes factor analysis
---------------
-[1] Alt., r=0.707 : 2.133904e+43 ±0%
-
-Against denominator:
-  Null, mu1-mu2 = 0 
----
-Bayes factor type: BFindepSample, JZS</code></pre>
-</div>
-</div>
-<p>BF<sub>10</sub> ≈ 2 × 10<sup>43</sup>: the data are astronomically better predicted by “the groups differ” than by “no difference.”</p>
-
-<aside><div>
-<p>Depending on your R settings, this may print as <code>2.06e+43</code> or as a 44-digit integer — same number, different formatting. Don’t panic either way.</p>
-</div></aside></section>
-<section id="two-grammars-one-verdict" class="slide level2">
-<h2>Two Grammars, One Verdict</h2>
+<section id="reading-the-check" class="slide level2">
+<h2>Reading the Check</h2>
 <ul>
-<li class="fragment"><strong>Frequentist:</strong> <em>if</em> the true difference were zero, data like ours would essentially never occur — t(1733) = −12.5, p &lt; .001</li>
-<li class="fragment"><strong>Bayesian:</strong> the difference model beats the no-difference model by a factor of ~10<sup>43</sup></li>
-<li class="fragment"><strong>The estimate, in English:</strong> intoxication-involved crashes average <strong>0.33 to 0.45 more injured people per crash</strong> (95% CI)</li>
+<li>Aid: <strong>2.98</strong> prior convictions on average. No aid: <strong>2.99</strong>. p = 0.99</li>
+<li>The groups started out the same, so the gap afterward is about the aid</li>
+</ul>
+<div class="fragment">
+<p>This is the rare test where you <strong>hope</strong> for a big p-value. Random assignment is what lets a difference mean “caused.” None of tonight’s other three examples has it.</p>
+</div>
+</section></section>
+<section>
+<section id="example-2-pretrial-release-does-a-job-get-you-released" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Example 2 · Pretrial Release: Does a Job Get You Released?</h1>
+
+</section>
+<section id="the-data" class="slide level2">
+<h2>The Data</h2>
+<ul>
+<li><strong>5,226 arrests</strong> by Toronto police for possessing small amounts of marijuana, 1997 to 2002</li>
+<li>Outcome: <strong>released</strong> with a summons (instead of held for a bail hearing)</li>
+<li>Group: was the person <strong>employed</strong>?</li>
+<li>One row = one arrest</li>
 </ul>
 </section>
-<section id="two-grammars-one-verdict-continued" class="slide level2">
-<h2>Two Grammars, One Verdict, continued</h2>
+<section id="count-1" class="slide level2">
+<h2>Count</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">count</span>(employed, released)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  employed released     n
+  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;
+1 No       No         349
+2 No       Yes        766
+3 Yes      No         543
+4 Yes      Yes       3568</code></pre>
+</div>
+</div>
 <ul>
-<li class="fragment">The two frameworks agree <em>here</em> because the evidence is overwhelming; with small samples and borderline evidence, they can part ways — that’s when running both matters</li>
-<li class="fragment"><strong>What neither test says:</strong> <em>why</em>. Intoxication crashes also differ in hour, speed, and road conditions — an observational gap no test statistic closes</li>
+<li><strong>Employed:</strong> 3,568 released out of 3,568 + 543 = <strong>4,111</strong> (86.8%)</li>
+<li><strong>Not employed:</strong> 766 out of 766 + 349 = <strong>1,115</strong> (68.7%)</li>
+</ul>
+</section>
+<section id="test" class="slide level2">
+<h2>Test</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3568</span>, <span class="dv">766</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">4111</span>, <span class="dv">1115</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="test-output" class="slide level2 output-location-slide"><h2>Test</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(3568, 766) out of c(4111, 1115)
+X-squared = 201.54, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.1512300 0.2106097
+sample estimates:
+   prop 1    prop 2 
+0.8679153 0.6869955 </code></pre>
+</div>
+</div></section><section id="reading-it-1" class="slide level2">
+<h2>Reading It</h2>
+<ul>
+<li>Employed minus not employed: about <strong>15 to 21 points</strong>, p below 2.2e-16</li>
+<li><code>bayes_prop_test()</code> gives the same range (15.2 to 21.0 points) and more than a 99% probability the employed rate is higher. With 5,000 cases, the two traditions agree</li>
+</ul>
+<div class="fragment">
+<p><strong>So a job gets you released?</strong> Not so fast. What <em>else</em> is different about these two groups?</p>
+</div>
+</section>
+<section id="the-groups-differ-in-other-ways" class="slide level2">
+<h2>The Groups Differ in Other Ways</h2>
+<p><code>checks</code> counts how many police databases (prior arrests, convictions, parole, and so on) had the person’s name in them.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_checks =</span> <span class="fu">mean</span>(checks), <span class="at">people =</span> <span class="fu">n</span>(), <span class="at">.by =</span> employed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  employed avg_checks people
+  &lt;chr&gt;         &lt;dbl&gt;  &lt;int&gt;
+1 Yes            1.44   4111
+2 No             2.35   1115</code></pre>
+</div>
+</div>
+<p>People without a job had <strong>more of a record</strong>, and a record is a reason to hold someone. The 18-point gap could be partly about records, not jobs.</p>
+</section>
+<section id="compare-like-with-like" class="slide level2">
+<h2>Compare Like With Like</h2>
+<p>Keep only people with <strong>no record at all</strong> (<code>checks == 0</code>), and ask again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">filter</span>(checks <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">count</span>(employed, released)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  employed released     n
+  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;
+1 No       No          35
+2 No       Yes        166
+3 Yes      No         124
+4 Yes      Yes       1526</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Employed:</strong> 1,526 of 1,650 released (92.5%)</li>
+<li><strong>Not employed:</strong> 166 of 201 (82.6%)</li>
+</ul>
+</section>
+<section id="test-again" class="slide level2">
+<h2>Test, Again</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1526</span>, <span class="dv">166</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">1650</span>, <span class="dv">201</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="test-again-output" class="slide level2 output-location-slide"><h2>Test, Again</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(1526, 166) out of c(1650, 201)
+X-squared = 21.112, df = 1, p-value = 4.333e-06
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.04224058 0.15571509
+sample estimates:
+   prop 1    prop 2 
+0.9248485 0.8258706 </code></pre>
+</div>
+</div></section><section id="say-it-1" class="slide level2">
+<h2>Say It</h2>
+<ul>
+<li><strong>Among people with clean records</strong>, the employed were released about <strong>10 points</strong> more often (interval about 4 to 16 points, p = 0.000004)</li>
+<li>The gap <strong>shrank</strong> from 18 points to 10 when we compared like with like, but it did <strong>not disappear</strong></li>
+<li><strong>What this cannot tell you:</strong> whether some <em>other</em> difference (age, citizenship, where the arrest happened) explains the rest. Only random assignment rules everything out, and nobody randomizes jobs</li>
+</ul>
+<div class="fragment">
+<p><code>filter()</code> is the simplest honest move you have: <strong>make the groups more alike, then ask again.</strong></p>
+</div>
+</section></section>
+<section>
+<section id="example-3-neighborhoods-violence-and-income" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Example 3 · Neighborhoods: Violence and Income</h1>
+
+</section>
+<section id="the-data-1" class="slide level2">
+<h2>The Data</h2>
+<ul>
+<li>Chicago’s <strong>77 community areas</strong> (our anchor data, 2025 crimes plus census numbers)</li>
+<li>Group: the 38 areas with the highest violent-crime rates vs the other 39</li>
+<li>Outcome: <strong>median household income</strong>, a number in dollars</li>
+<li>One row = one <strong>area</strong>, not one person</li>
+</ul>
+<div class="fragment">
+<p>The outcome is a number, so: <code>t.test()</code>.</p>
+</div>
+</section>
+<section id="describe" class="slide level2">
+<h2>Describe</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>areas <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_income =</span> <span class="fu">mean</span>(median_income), <span class="at">areas =</span> <span class="fu">n</span>(), <span class="at">.by =</span> violence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  violence      avg_income areas
+  &lt;fct&gt;              &lt;dbl&gt; &lt;int&gt;
+1 Other areas       90088.    39
+2 High violence     54355.    38</code></pre>
+</div>
+</div>
+</section>
+<section id="picture-it" class="slide level2">
+<h2>Picture It</h2>
+
+<img data-src="week-07-workshop_files/figure-revealjs/chi-plot-1.png" width="960" class="r-stretch"></section>
+<section id="test-1" class="slide level2">
+<h2>Test</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">t.test</span>(median_income <span class="sc">~</span> violence, <span class="at">data =</span> areas)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="test-1-output" class="slide level2 output-location-slide"><h2>Test</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  median_income by violence
+t = -6.3561, df = 74.959, p-value = 1.458e-08
+alternative hypothesis: true difference in means between group High violence and group Other areas is not equal to 0
+95 percent confidence interval:
+ -46932.44 -24533.58
+sample estimates:
+mean in group High violence   mean in group Other areas 
+                   54354.63                    90087.64 </code></pre>
+</div>
+</div></section><section id="say-it-2" class="slide level2">
+<h2>Say It</h2>
+<ul>
+<li>High-violence areas minus other areas: about <strong>$25,000 to $47,000 lower</strong> median income (averages $54,355 vs $90,088), p = 0.00000001</li>
+<li><strong>How big:</strong> the typical household in a high-violence area earns roughly <strong>$36,000 a year less</strong>. The unit is dollars because the column is dollars</li>
+<li><strong>What this cannot tell you:</strong>
+<ul>
+<li>which way it runs (does poverty breed violence, or does violence drive out income?) or what else explains both</li>
+<li>anything about individual <em>people</em>. Each row is an area. “People with less income commit more violence” is a claim about people, and these data are not about people</li>
+</ul></li>
 </ul>
 </section></section>
 <section>
-<section id="now-you" class="title-slide slide level1 center" data-background-color="#1B2A4A">
-<h1>Now You</h1>
+<section id="example-4-use-of-force-body-cameras-over-time" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Example 4 · Use of Force: Body Cameras Over Time</h1>
 
 </section>
-<section id="todays-workshop" class="slide level2">
-<h2>Today’s Workshop</h2>
-<p>The rest of the session is <strong><a href="../labs/lab-07-workshop.html">Lab 7</a></strong> — the same pipeline, run twice:</p>
+<section id="the-data-2" class="slide level2">
+<h2>The Data</h2>
+<ul>
+<li>The <em>Washington Post</em>’s database of <strong>every person shot and killed by on-duty police</strong> in the U.S., 2015 to 2024: <strong>10,430 people</strong></li>
+<li><code>body_camera</code> is TRUE when news or police reports said a body camera recorded the incident</li>
+<li>One row = one person killed</li>
+</ul>
+<div class="fragment">
+<p><strong>Question:</strong> after 2020’s wave of police reform, did body camera footage exist more often? Group: 2015 to 2019 vs 2020 to 2024. Yes/no outcome.</p>
+</div>
+</section>
+<section id="count-2" class="slide level2">
+<h2>Count</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>shootings <span class="sc">|&gt;</span> <span class="fu">count</span>(period, body_camera)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  period       body_camera     n
+  &lt;chr&gt;        &lt;lgl&gt;       &lt;int&gt;
+1 2015 to 2019 FALSE        4329
+2 2015 to 2019 TRUE          594
+3 2020 to 2024 FALSE        4302
+4 2020 to 2024 TRUE         1205</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>2020 to 2024:</strong> 1,205 of 1,205 + 4,302 = <strong>5,507</strong> (21.9%)</li>
+<li><strong>2015 to 2019:</strong> 594 of 594 + 4,329 = <strong>4,923</strong> (12.1%)</li>
+</ul>
+</section>
+<section id="test-2" class="slide level2">
+<h2>Test</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1205</span>, <span class="dv">594</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">5507</span>, <span class="dv">4923</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+</section>
+<section id="test-2-output" class="slide level2 output-location-slide"><h2>Test</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  1,205 of 5,507 (21.9%)
+data, group 2:  594 of 4,923 (12.1%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  21.9%         20.8% to 23.0%
+group 2                  12.1%         11.2% to 13.0%
+difference (1 minus 2)   9.8 points    8.4 to 11.2 points
+
+Probability group 1 is higher than group 2: more than 0.99 
+Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
+</div>
+</div></section><section id="say-it-3" class="slide level2">
+<h2>Say It</h2>
+<ul>
+<li><code>prop.test()</code>: about <strong>8 to 11 points</strong> higher, p below 2.2e-16. Bayesian: 8.4 to 11.2 points, more than 0.99</li>
+<li><strong>How big:</strong> about <strong>12 in 100</strong> fatal shootings had known camera footage before 2020, and about <strong>22 in 100</strong> after. Close to doubling, yet still fewer than 1 in 4</li>
+<li><strong>What this cannot tell you:</strong> whether cameras changed anything about the shootings, or how many cameras <em>existed</em> but were never reported</li>
+</ul>
+<div class="fragment">
+<p>With 10,430 cases, the p-value was never in doubt. <strong>The size is the whole story.</strong></p>
+</div>
+</section>
+<section id="four-questions-one-recipe" class="slide level2 smaller">
+<h2>Four Questions, One Recipe</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Question</th>
+<th>Test</th>
+<th>Answer</th>
+<th>The lesson</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Reentry</strong></td>
+<td>Does aid lower re-arrest?</td>
+<td><code>prop.test()</code> + Bayes</td>
+<td>22% vs 31%; p = 0.063; 97% probably lower</td>
+<td>“Not significant” is not “no effect.” Randomization lets us say “caused”</td>
+</tr>
+<tr class="even">
+<td><strong>Pretrial</strong></td>
+<td>Does a job get you released?</td>
+<td><code>prop.test()</code>, then again after <code>filter()</code></td>
+<td>18 points; 10 among clean records</td>
+<td>Groups differ in other ways. Compare like with like</td>
+</tr>
+<tr class="odd">
+<td><strong>Neighborhoods</strong></td>
+<td>Lower income where violence is high?</td>
+<td><code>t.test()</code></td>
+<td>$25k to $47k lower</td>
+<td>Size in real units. Areas are not people</td>
+</tr>
+<tr class="even">
+<td><strong>Use of force</strong></td>
+<td>More body camera footage after 2020?</td>
+<td><code>prop.test()</code> + Bayes</td>
+<td>12% to 22%</td>
+<td>Huge n: the p-value adds nothing; the size is the story</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="now-you-lab-7" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Now You: Lab 7</h1>
+
+</section>
+<section id="lab-7" class="slide level2">
+<h2>Lab 7</h2>
+<p>Two more real questions, same recipe, and this time you write the code (<a href="../labs/lab-07-workshop.html">lab page</a>):</p>
+<ul>
+<li><strong>With me:</strong> a pretrial risk-assessment tool. Do people it labels High risk get re-arrested more often than people it labels Low risk?</li>
+<li><strong>Your Turn:</strong> Minneapolis police stops. Are people searched more often in suspicious-person stops than in traffic stops? Then a <code>t.test()</code> on the <em>Post</em> data</li>
+</ul>
+<p>Submit your Your Turn script to Canvas before you leave.</p>
+</section></section>
+<section>
+<section id="whats-out-there" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>What’s Out There</h1>
+
+</section>
+<section id="your-final-project-needs-a-dataset" class="slide level2">
+<h2>Your Final Project Needs a Dataset</h2>
+<p>The <strong><a href="../project-data.qmd">Final-Project Data Options</a></strong> page lists real criminal justice datasets that load with <strong>one line of R</strong>:</p>
+<ul>
+<li>Reentry, pretrial release, police stops, police shootings, risk assessment, public opinion about crime and police, state crime rates</li>
+<li>Each one: what a row is, how many rows, the key variables, a starter question, and whether it has the numeric variables regression will need (Sessions 10 and 11)</li>
+<li>You may use any of them, <strong>including tonight’s</strong>, as long as your question goes beyond what we did in class</li>
+</ul>
+</section>
+<section id="two-ways-to-load-a-dataset" class="slide level2">
+<h2>Two Ways to Load a Dataset</h2>
+<p>Our course copy, the way you have loaded everything all semester:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>arrests <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/toronto-arrests.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The original, from an R package (install once, then load it each time):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">install.packages</span>(<span class="st">"carData"</span>)   <span class="co"># once, in the console</span></span>
+<span id="cb28-2"><a></a><span class="fu">library</span>(carData)</span>
+<span id="cb28-3"><a></a><span class="fu">data</span>(Arrests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Same data either way. Use whichever you like.</p>
+</section>
+<section id="how-to-size-up-a-dataset-in-five-minutes" class="slide level2">
+<h2>How to Size Up a Dataset in Five Minutes</h2>
 <ol type="1">
-<li><strong>With me, on the crash data</strong> — quickly; you’ve seen every piece before</li>
-<li><strong>Alone, on the dataset you’re proposing for your final project</strong> — import it, size up its damage, and decide if it can carry a semester</li>
+<li><strong>What is one row?</strong> A person? An arrest? A neighborhood? A year?</li>
+<li><strong>How many rows?</strong> Hundreds is plenty; millions is a headache</li>
+<li><strong>What are the variables?</strong> <code>glimpse()</code> tells you names and types</li>
+<li><strong>Anything strange?</strong> 999s, negative ages, lots of <code>NA</code>: <code>summary()</code> finds them</li>
+<li><strong>Could it answer a question you care about?</strong> Name the groups, or the variables</li>
 </ol>
 </section>
-<section id="workshop-ground-rules" class="slide level2">
-<h2>Workshop Ground Rules</h2>
+<section id="homework-7-and-next-week" class="slide level2">
+<h2>Homework 7 and Next Week</h2>
 <ul>
-<li>Work in your own <code>.R</code> script from minute one — it becomes Homework 7</li>
-<li>Stuck? Use the Lab 5 ladder: read the error → help page → reprex → me</li>
-<li>Your neighbor’s dataset will break in ways yours didn’t. <strong>Look over shoulders</strong> — other people’s messes are free lessons</li>
-<li><strong>Exit ticket</strong> before you leave</li>
-</ul>
-</section>
-<section id="dataset-selection-due-this-week" class="slide level2">
-<h2>Dataset Selection — Due This Week</h2>
-<p>Your final-project dataset, formally declared in <strong>Homework 7</strong> (by 11:59 pm Sunday):</p>
-<ul>
-<li>A <strong>criminal-justice</strong> dataset — policing, crime, courts, corrections, public opinion</li>
-<li>It <strong>imports into R</strong> — you prove it with working code</li>
-<li>It has <strong>numeric variables</strong> that will support correlation and regression (Sessions 10–11)</li>
-<li>You can state your <strong>research question in one sentence</strong></li>
-</ul>
-<p>Torn between two? Submit both — we settle it at your Session 8 checkpoint. Full requirements: <strong><a href="../final-project.html">final project page</a></strong>.</p>
-</section>
-<section id="todays-lab-homework" class="slide level2">
-<h2>Today’s Lab &amp; Homework</h2>
-<ul>
-<li><strong>Lab 7:</strong> the full pipeline — on the crash data, then on <em>your</em> data (<a href="../labs/lab-07-workshop.html">lab page</a>)</li>
-<li><strong>Homework 7:</strong> workshop write-up <strong>+ formal dataset selection</strong> (posted on the <a href="../weeks/week-07.html">Session 7 page</a>)</li>
-<li><strong>Read before Session 8:</strong> Stanton Ch. 6 (ANOVA) — and project checkpoints begin</li>
+<li><strong>Homework 7:</strong> explore <strong>two</strong> datasets (from the menu, or one you found and cleared with me), then <strong>choose one</strong> for your final project. Due <strong>Sunday by 11:59 pm</strong> (posted on the <a href="../weeks/week-07.html">Session 7 page</a>)</li>
+<li>No R4DS reading this week. The wrangling thread is done</li>
+<li><strong>Before Session 8:</strong> read Stanton Ch. 6 (ANOVA), and bring your chosen dataset. Project checkpoints begin</li>
 </ul>
 
 
