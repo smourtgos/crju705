@@ -555,13 +555,15 @@ sample estimates:
 <section id="describe" class="slide level2">
 <h2>Describe</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>areas <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_income =</span> <span class="fu">mean</span>(median_income), <span class="at">areas =</span> <span class="fu">n</span>(), <span class="at">.by =</span> violence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_income =</span> <span class="fu">mean</span>(median_income), <span class="at">areas =</span> <span class="fu">n</span>(), <span class="at">.by =</span> violence) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">arrange</span>(violence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   violence      avg_income areas
   &lt;fct&gt;              &lt;dbl&gt; &lt;int&gt;
-1 Other areas       90088.    39
-2 High violence     54355.    38</code></pre>
+1 High violence     54355.    38
+2 Other areas       90088.    39</code></pre>
 </div>
 </div>
 </section>
