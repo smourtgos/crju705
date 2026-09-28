@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Session 7 · Applied Data Workshop – CRJU 705</title>
+<title>Session 7 · Applied Workshop: Real Questions, Real Tests – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -128,7 +128,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-07.html">
- <span class="dropdown-text">Session 7 · Applied Data Workshop</span></a>
+ <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-08.html">
@@ -164,10 +164,25 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../chicago-data.html"> 
 <span class="menu-text">Data Codebook</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../final-project.html"> 
-<span class="menu-text">Final Project</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-final-project" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Final Project</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-final-project">    
+        <li>
+    <a class="dropdown-item" href="../final-project.html">
+ <span class="dropdown-text">Final Project</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../project-data.html">
+ <span class="dropdown-text">Data Options</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../final-project-exemplar.html">
+ <span class="dropdown-text">Worked Exemplar</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -203,8 +218,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 7 · Applied Data Workshop</h1>
-<p class="subtitle lead">The full pipeline on messy data · import → tidy → describe → visualize → test · final-project dataset selection due</p>
+<h1 class="title">Session 7 · Applied Workshop: Real Questions, Real Tests</h1>
+<p class="subtitle lead">Six real criminal justice questions, one recipe · what data is out there · choose your final-project dataset</p>
 </div>
 
 
@@ -227,47 +242,51 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-07-workshop.html">📽️ Slides: Applied Data Workshop</a></strong> · <strong><a href="../labs/lab-07-workshop.html">🧪 Lab 7: The Full Pipeline</a></strong> · <strong><a href="../homework/hw-07.html">📝 Homework 7</a></strong> · <strong><a href="../demos/demo-07-workshop.html">🎬 Demo walkthrough</a></strong></p>
+<p><strong><a href="../slides/week-07-workshop.html">📽️ Slides: Real Questions, Real Tests</a></strong> · <strong><a href="../labs/lab-07-workshop.html">🧪 Lab 7: Real Questions, Real Tests</a></strong> · <strong><a href="../homework/hw-07.html">📝 Homework 7</a></strong> · <strong><a href="../demos/demo-07-workshop.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../project-data.html">🗂️ Final-Project Data Options</a></strong></p>
 </div>
 </div>
 </div>
-<p>Sessions 1–6 handed you the pipeline one piece at a time — import, tidy, transform, visualize, test — always on suspiciously clean data. This week there’s no new statistics at all: the pieces get assembled, start to finish, on data nobody cleaned for you. After one fast worked pass together, most of the session is Lab 7 run on the dataset <em>you’re</em> proposing for the final project — which makes this the week your project genuinely begins: the formal dataset selection is due in Homework 7, and graded checkpoints start at Session 8.</p>
+<p>No new statistics this week. Instead, we take the tools you already have (<code>count()</code>, <code>prop.test()</code>, <code>bayes_prop_test()</code>, <code>t.test()</code>) and run them on real data from across criminal justice: reentry, pretrial release, neighborhoods, police use of force, risk assessment, and police stops. Every question runs the same four-step recipe, so by the end of the night the steps should feel routine. Then we look at what data is out there, because this is the week you choose the dataset for your final project.</p>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
 <p>By the end of this week you can:</p>
 <ul>
-<li>run import → tidy → transform → visualize → test start to finish, without a template</li>
-<li>diagnose what’s wrong with a dataset you’ve never seen — types, missingness, structure</li>
-<li>settle a real question at the end of your own pipeline with a t-test run both ways (<code>t.test()</code> and <code>ttestBF()</code>)</li>
-<li>commit to a final-project dataset you can defend in one sentence</li>
+<li>take a two-group question about a dataset you have never seen and choose the right test: <code>prop.test()</code> (and <code>bayes_prop_test()</code>) for a yes/no outcome, <code>t.test()</code> for a number</li>
+<li>say what a result means: the honest sentence, how big in real units, and one thing the test cannot tell you</li>
+<li>explain why a randomized study can support “caused” and a comparison of existing groups usually cannot, and use <code>filter()</code> to compare like with like</li>
+<li>size up a new dataset quickly (what one row is, how many rows, what the variables are, anything strange) and choose one for your final project</li>
 </ul>
 </section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
-<li><strong>No new Stanton reading this week</strong> — use the breathing room to catch up if you’re behind</li>
-<li><strong>Bring a candidate dataset for your final project</strong> (two, if you’re torn) — requirements are on the <a href="../final-project.html">final project page</a>. Have the actual file(s) <em>downloaded to your laptop</em> before class; hunting for data during the workshop wastes your workshop</li>
-<li>Skim back over the R4DS chapters we assigned (<strong>Ch. 1–5</strong>, <strong>10</strong>, <strong>16</strong>, <strong>17</strong>) wherever you feel shaky — today assembles all of it</li>
-<li>Bring your laptop</li>
+<li><strong>No new reading.</strong> Use the breathing room to catch up if you’re behind</li>
+<li>Glance at the <strong><a href="../project-data.html">Final-Project Data Options</a></strong> page so the datasets are not brand new when we tour them</li>
+<li>Bring your laptop. Nothing to install: every dataset tonight loads with <code>read_csv()</code></li>
 </ul>
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
 <ul>
-<li>Why real analysis is 80% preparation — and why every dataset so far arrived suspiciously clean</li>
-<li>The pipeline map: import → tidy → transform → visualize → model/test, tied back to the session that taught each step</li>
-<li>One worked pass, start to finish, on the Alaska crash data: import with type fixes, derived time-of-day variables, group summaries, two polished plots, and the Homework 5 question settled with a t-test run <strong>both ways</strong> — <code>t.test()</code> and <code>ttestBF()</code></li>
-<li><strong>Most of the session is Lab 7</strong>: the same pipeline, run on the dataset <em>you’re</em> proposing for the final project — import it, audit its missingness, summarize it, plot it, and write an honest feasibility memo</li>
-<li>Exit ticket: your dataset’s name and source, plus the biggest cleaning obstacle you hit</li>
+<li>The recipe, used all night: <strong>question</strong> (two groups, one outcome) → <strong>count or describe</strong> → <strong>test</strong> → <strong>say it</strong> (the sentence, the size, what it cannot tell you)</li>
+<li>Four worked examples:
+<ul>
+<li><strong>Reentry:</strong> did financial aid at release lower re-arrest in a randomized experiment? (p = 0.063, and a 97% probability it did)</li>
+<li><strong>Pretrial release:</strong> were employed arrestees released more often, and does the gap survive comparing people with the same record?</li>
+<li><strong>Neighborhoods:</strong> how much lower is income in Chicago’s high-violence community areas, in dollars?</li>
+<li><strong>Use of force:</strong> was body camera footage reported more often in fatal police shootings after 2020?</li>
+</ul></li>
+<li><strong>Lab 7:</strong> two more, and you write the code. A pretrial risk-assessment tool with me, then Minneapolis police stops on your own (<a href="../labs/lab-07-workshop.html">lab page</a>). You submit your Your Turn script</li>
+<li><strong>What’s out there:</strong> a tour of the <a href="../project-data.html">data options</a>, how to size up a dataset in five minutes, and two ways to load one</li>
 </ul>
-<p><em>Missed class? The <a href="../demos/demo-07-workshop.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
+<p><em>Missed class? The <a href="../demos/demo-07-workshop.html">demo walkthrough</a> reproduces all four lecture examples step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>
 <ul>
-<li><strong><a href="../homework/hw-07.html">Homework 7</a></strong> — the workshop write-up <strong>plus your formal final-project dataset selection</strong>; submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday</strong> ahead of Session 8</li>
-<li>Bring your dataset and script to Session 8 — <strong>project checkpoints begin there</strong>, and we’ll discuss your data source, question, and import battles</li>
-<li>Read Stanton <strong>Ch. 6</strong> (ANOVA) before Session 8</li>
+<li><strong><a href="../homework/hw-07.html">Homework 7</a></strong>: explore <strong>two</strong> datasets from the <a href="../project-data.html">data options</a> (or one you found and cleared with me), then <strong>choose one</strong> for your final project. Submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday</strong></li>
+<li>No R4DS reading this week: the R4DS thread is complete</li>
+<li>Read Stanton <strong>Ch. 6</strong> (ANOVA) before Session 8, and bring your chosen dataset. <strong>Project checkpoints begin there</strong></li>
 </ul>
 
 

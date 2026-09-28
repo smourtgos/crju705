@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-07.html">
- <span class="dropdown-text">Session 7 · Applied Data Workshop</span></a>
+ <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-08.html">
@@ -189,10 +189,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="../chicago-data.html"> 
 <span class="menu-text">Data Codebook</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../final-project.html"> 
-<span class="menu-text">Final Project</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-final-project" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Final Project</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-final-project">
+<li>
+    <a class="dropdown-item" href="../final-project.html">
+ <span class="dropdown-text">Final Project</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../project-data.html">
+ <span class="dropdown-text">Data Options</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../final-project-exemplar.html">
+ <span class="dropdown-text">Worked Exemplar</span></a>
+  </li>  
+    </ul>
+</li>
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item compact">
@@ -214,20 +229,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
 <li><a href="#what-youll-build" id="toc-what-youll-build" class="nav-link active" data-scroll-target="#what-youll-build">What you’ll build</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#step-1-import" id="toc-step-1-import" class="nav-link" data-scroll-target="#step-1-import">Step 1 · Import</a></li>
-  <li><a href="#step-2-clean-and-derive" id="toc-step-2-clean-and-derive" class="nav-link" data-scroll-target="#step-2-clean-and-derive">Step 2 · Clean and derive</a></li>
-  <li><a href="#step-3-describe" id="toc-step-3-describe" class="nav-link" data-scroll-target="#step-3-describe">Step 3 · Describe</a></li>
-  <li><a href="#step-4-visualize" id="toc-step-4-visualize" class="nav-link" data-scroll-target="#step-4-visualize">Step 4 · Visualize</a></li>
-  <li><a href="#step-5a-test-it-frequentist" id="toc-step-5a-test-it-frequentist" class="nav-link" data-scroll-target="#step-5a-test-it-frequentist">Step 5a · Test it — frequentist</a></li>
-  <li><a href="#step-5b-test-it-bayesian" id="toc-step-5b-test-it-bayesian" class="nav-link" data-scroll-target="#step-5b-test-it-bayesian">Step 5b · Test it — Bayesian</a></li>
-  <li><a href="#two-grammars-one-verdict" id="toc-two-grammars-one-verdict" class="nav-link" data-scroll-target="#two-grammars-one-verdict">Two grammars, one verdict</a></li>
+  <li><a href="#reentry-does-money-at-release-keep-people-out-of-jail" id="toc-reentry-does-money-at-release-keep-people-out-of-jail" class="nav-link" data-scroll-target="#reentry-does-money-at-release-keep-people-out-of-jail">1 · Reentry: does money at release keep people out of jail?</a></li>
+  <li><a href="#pretrial-release-does-a-job-get-you-released" id="toc-pretrial-release-does-a-job-get-you-released" class="nav-link" data-scroll-target="#pretrial-release-does-a-job-get-you-released">2 · Pretrial release: does a job get you released?</a></li>
+  <li><a href="#neighborhoods-violence-and-income" id="toc-neighborhoods-violence-and-income" class="nav-link" data-scroll-target="#neighborhoods-violence-and-income">3 · Neighborhoods: violence and income</a></li>
+  <li><a href="#use-of-force-body-cameras-over-time" id="toc-use-of-force-body-cameras-over-time" class="nav-link" data-scroll-target="#use-of-force-body-cameras-over-time">4 · Use of force: body cameras over time</a></li>
+  <li><a href="#four-questions-one-recipe" id="toc-four-questions-one-recipe" class="nav-link" data-scroll-target="#four-questions-one-recipe">Four questions, one recipe</a></li>
   <li><a href="#try-a-variation" id="toc-try-a-variation" class="nav-link" data-scroll-target="#try-a-variation">Try a variation</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Demo Walkthrough · Session 7</h1>
-<p class="subtitle lead">The full pipeline, run once — Alaska crash data, import to verdict</p>
+<p class="subtitle lead">Four real criminal justice questions, one recipe: count, test, say it</p>
 </div>
 
 
@@ -247,170 +260,347 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>What this page is.</strong> The Session 7 worked example, written down step by step. No new statistics — this is the import → tidy → describe → visualize → test pipeline you already own, run start-to-finish on one dataset. Every chunk is self-contained; copy any of them into your own R session and they run as-is.</p>
+<p><strong>What this page is.</strong> The Session 7 lecture, written down step by step. Every chunk below is self-contained: copy any of them into your own R session and it runs as-is. Use this page to catch up after a missed class, or to re-run the examples at your own pace.</p>
 </div>
 </div>
 </div>
 <section id="what-youll-build" class="level2"><h2 class="anchored" data-anchor-id="what-youll-build">What you’ll build</h2>
+<p>Four answers to four real questions, each with the same recipe:</p>
 <ol type="1">
-<li>An import where the dates are parsed <em>at the door</em> — and verified</li>
-<li>The variables your question needs that the file doesn’t have (<code>hour</code>, <code>weekend</code>, <code>night</code>)</li>
-<li>Honest description and visualization of the intoxication–injury gap</li>
 <li>
-<code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> <strong>and</strong> <code><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF()</a></code> on the same question — two grammars, one verdict</li>
+<strong>Question.</strong> Name the two groups and the outcome. A yes/no outcome means <code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> and <code>bayes_prop_test()</code>; a number means <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>.</li>
+<li><strong>Count or describe.</strong></li>
+<li><strong>Test.</strong></li>
+<li>
+<strong>Say it.</strong> The honest sentence, how big in real units, and one thing the test cannot tell you.</li>
 </ol>
-<p>The folk wisdom holds: 80% of data work is getting and preparing the data — and then the t-test is one line. Every dataset in this course so far arrived clean because your instructor cleaned it. That subsidy ends here.</p>
+<p>The questions: did financial aid at release lower re-arrest? Were employed arrestees released more often? How much lower is income in Chicago’s high-violence areas? Was body camera footage reported more often in fatal police shootings after 2020?</p>
 </section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>The tidyverse, the course’s Bayesian function, and four datasets. Two of them are new to you and live on the course site; one is our Chicago anchor data; one comes straight from the <em>Washington Post</em>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://richarddmorey.github.io/BayesFactor/">BayesFactor</a></span><span class="op">)</span>   <span class="co"># install.packages("BayesFactor")  — once, if you don't have it</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section><section id="step-1-import" class="level2"><h2 class="anchored" data-anchor-id="step-1-import">Step 1 · Import</h2>
-<p>The Alaska crash data, with the date column handled up front via <code>col_types</code> (the equivalent Lab 5 habit: import first, then <code>mutate(date = mdy(date))</code> — two roads to the same real date column):</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span></span>
-<span>  <span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>,</span>
-<span>  col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/R/bayes.R"</span><span class="op">)</span>   <span class="co"># gives you bayes_prop_test()</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">crashes</span><span class="op">$</span><span class="va">date</span><span class="op">)</span><span class="op">)</span>   <span class="co"># zero NAs = every date parsed</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">rossi</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/rossi.csv"</span>,</span>
+<span>                    show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">arrests</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/toronto-arrests.csv"</span>,</span>
+<span>                    show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">areas</span>   <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>,</span>
+<span>                    show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">shootings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v2/fatal-police-shootings-data.csv"</span>,</span>
+<span>                      show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>More about each dataset, and four more like them, is on the <a href="../project-data.html">Final-Project Data Options</a> page.</p>
+</section><section id="reentry-does-money-at-release-keep-people-out-of-jail" class="level2"><h2 class="anchored" data-anchor-id="reentry-does-money-at-release-keep-people-out-of-jail">1 · Reentry: does money at release keep people out of jail?</h2>
+<p>432 men released from Maryland state prisons in the 1970s were followed for one year. Half were <strong>randomly assigned</strong> to receive financial aid (<code>fin</code>). The outcome is <code>arrest</code>: 1 if arrested again within the year. One row is one man.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rossi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">fin</span>, <span class="va">arrest</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
+<pre><code># A tibble: 4 × 3
+  fin   arrest     n
+  &lt;chr&gt;  &lt;dbl&gt; &lt;int&gt;
+1 no         0   150
+2 no         1    66
+3 yes        0   168
+4 yes        1    48</code></pre>
 </div>
 </div>
-<p>20,000 crashes, 2022–2026. Whichever road you take: <strong>verify the parse</strong>. A silent <code>NA</code> here poisons everything downstream.</p>
-</section><section id="step-2-clean-and-derive" class="level2"><h2 class="anchored" data-anchor-id="step-2-clean-and-derive">Step 2 · Clean and derive</h2>
-<p>The file has no “night” or “weekend” column. Files never do — <em>you</em> build the variables your question needs:</p>
+<p>Aid: 48 re-arrested out of 48 + 168 = <strong>216</strong> (22.2%). No aid: 66 out of 66 + 150 = <strong>216</strong> (30.6%). Aid goes first, so every difference reads <strong>Aid minus No aid</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="va">crashes</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    hour    <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span>,</span>
-<span>    weekend <span class="op">=</span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="va">date</span>, week_start <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">6</span>,   <span class="co"># Mon = 1 … Sat = 6, Sun = 7</span></span>
-<span>    night   <span class="op">=</span> <span class="va">hour</span> <span class="op">&gt;=</span> <span class="fl">22</span> <span class="op">|</span> <span class="va">hour</span> <span class="op">&lt;</span> <span class="fl">4</span>              <span class="co"># 10 p.m. – 3:59 a.m.</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="va">crashes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">night</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">48</span>, <span class="fl">66</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">216</span>, <span class="fl">216</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  night     n
-  &lt;lgl&gt; &lt;int&gt;
-1 FALSE 14972
-2 TRUE   5028</code></pre>
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(48, 66) out of c(216, 216)
+X-squared = 3.4439, df = 1, p-value = 0.06349
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ -0.170713151  0.004046484
+sample estimates:
+   prop 1    prop 2 
+0.2222222 0.3055556 </code></pre>
 </div>
 </div>
-<p>Night hours hold about 25% of all crashes — but look what happens inside the intoxication-involved ones:</p>
+<p>The interval runs from about 17 points lower to 0.4 points higher, and <strong>p = 0.063</strong>. Zero is just inside, so: fail to reject the null. A funder who reads only that line cuts the program.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>p_night <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">night</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">intox_any</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">48</span>, <span class="fl">66</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">216</span>, <span class="fl">216</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  intox_any p_night
-      &lt;dbl&gt;   &lt;dbl&gt;
-1         0   0.240
-2         1   0.386</code></pre>
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  48 of 216 (22.2%)
+data, group 2:  66 of 216 (30.6%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  22.5%         17.2% to 28.2%
+group 2                  30.7%         24.8% to 37.0%
+difference (1 minus 2)   -8.2 points   -16.5 to 0.0 points
+
+Probability group 1 is higher than group 2: 0.03 
+Probability group 1 is lower than group 2:  0.97 </code></pre>
 </div>
 </div>
-<p>24% of sober-driver crashes versus 39% of intoxication-involved ones. One <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> made that pattern visible.</p>
-</section><section id="step-3-describe" class="level2"><h2 class="anchored" data-anchor-id="step-3-describe">Step 3 · Describe</h2>
-<p>The Homework 5 question, back for a verdict: <strong>do crashes involving an intoxicated driver injure more people?</strong></p>
+<p><strong>Say it.</strong> Given these data, there is about a <strong>97% probability</strong> that men who got aid were re-arrested at a lower rate. About 22 of every 100 men with aid were re-arrested, against about 31 of every 100 without: roughly 8 fewer re-arrests per 100 people released. What this cannot tell you: whether the effect lasts past a year, or would hold today. “Not significant” is not “no effect.”</p>
+<p><strong>Why we can say “caused.”</strong> The aid was assigned at random, so the groups should look alike before release. Check with a number, prior convictions, putting aid first with <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
-<span>    crashes  <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    mean_inj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">injuries</span><span class="op">)</span>,</span>
-<span>    sd_inj   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">injuries</span><span class="op">)</span>,</span>
-<span>    .by <span class="op">=</span> <span class="va">intox_any</span></span>
-<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 4
-  intox_any crashes mean_inj sd_inj
-      &lt;dbl&gt;   &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-1         0   18455    0.743  0.997
-2         1    1545    1.13   1.18 </code></pre>
-</div>
-</div>
-<p>0.74 vs.&nbsp;1.13 injured people per crash. Point estimates — you know by now that’s not the final word.</p>
-</section><section id="step-4-visualize" class="level2"><h2 class="anchored" data-anchor-id="step-4-visualize">Step 4 · Visualize</h2>
-<p>Session 5’s confidence interval, built by hand and drawn with an honest caption:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">inj_summary</span> <span class="op">&lt;-</span> <span class="va">crashes</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>intox_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">intox_any</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No intox"</span>, <span class="st">"Intox involved"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, mean_inj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">injuries</span><span class="op">)</span>, sd_inj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">injuries</span><span class="op">)</span>,</span>
-<span>            .by <span class="op">=</span> <span class="va">intox_group</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>se <span class="op">=</span> <span class="va">sd_inj</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
-<span>         ci_lo <span class="op">=</span> <span class="va">mean_inj</span> <span class="op">-</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se</span>,</span>
-<span>         ci_hi <span class="op">=</span> <span class="va">mean_inj</span> <span class="op">+</span> <span class="fl">1.96</span> <span class="op">*</span> <span class="va">se</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">inj_summary</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">intox_group</span>, <span class="va">mean_inj</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html">geom_pointrange</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>ymin <span class="op">=</span> <span class="va">ci_lo</span>, ymax <span class="op">=</span> <span class="va">ci_hi</span><span class="op">)</span>,</span>
-<span>                  color <span class="op">=</span> <span class="st">"firebrick"</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mean injuries per crash, with 95% confidence intervals"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Alaska crash data, n = 20,000"</span>,</span>
-<span>       x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Mean injuries per crash"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="demo-07-workshop_files/figure-html/viz-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The intervals don’t come close to overlapping. Formal tests next — both traditions.</p>
-</section><section id="step-5a-test-it-frequentist" class="level2"><h2 class="anchored" data-anchor-id="step-5a-test-it-frequentist">Step 5a · Test it — frequentist</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">injuries</span> <span class="op">~</span> <span class="va">intox_any</span>, data <span class="op">=</span> <span class="va">crashes</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">rossi</span> <span class="op">&lt;-</span> <span class="va">rossi</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>fin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">fin</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">prio</span> <span class="op">~</span> <span class="va">fin</span>, data <span class="op">=</span> <span class="va">rossi</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
 
-data:  injuries by intox_any
-t = -12.489, df = 1732.6, p-value &lt; 2.2e-16
-alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+data:  prio by fin
+t = -0.016594, df = 429.91, p-value = 0.9868
+alternative hypothesis: true difference in means between group yes and group no is not equal to 0
 95 percent confidence interval:
- -0.4474533 -0.3259893
+ -0.5529994  0.5437402
 sample estimates:
-mean in group 0 mean in group 1 
-      0.7433758       1.1300971 </code></pre>
+mean in group yes  mean in group no 
+         2.981481          2.986111 </code></pre>
 </div>
 </div>
-<p>Same gotcha as Homework 5: R computes group 0 − group 1, so the negative signs mean the <em>intoxication</em> group is higher. t(1733) = −12.5, p &lt; .001.</p>
-</section><section id="step-5b-test-it-bayesian" class="level2"><h2 class="anchored" data-anchor-id="step-5b-test-it-bayesian">Step 5b · Test it — Bayesian</h2>
-<p><code>BayesFactor</code> insists the grouping variable be a <strong>factor</strong> — so we hand it one:</p>
+<p>2.98 prior convictions vs 2.99, p = 0.99. The groups started out the same, so the gap afterward is about the aid. This is the rare test where you <em>hope</em> for a big p-value.</p>
+</section><section id="pretrial-release-does-a-job-get-you-released" class="level2"><h2 class="anchored" data-anchor-id="pretrial-release-does-a-job-get-you-released">2 · Pretrial release: does a job get you released?</h2>
+<p>5,226 Toronto arrests for possessing small amounts of marijuana, 1997 to 2002. <code>released</code> is whether the person was released with a summons instead of held for a bail hearing. The group is <code>employed</code>. One row is one arrest.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="va">crashes</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>intox_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">intox_any</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No intox"</span>, <span class="st">"Intox involved"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/BayesFactor/man/ttestBF.html">ttestBF</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">injuries</span> <span class="op">~</span> <span class="va">intox_group</span>, data <span class="op">=</span> <span class="va">crashes</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arrests</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">employed</span>, <span class="va">released</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Bayes factor analysis
---------------
-[1] Alt., r=0.707 : 2.133904e+43 ±0%
+<pre><code># A tibble: 4 × 3
+  employed released     n
+  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;
+1 No       No         349
+2 No       Yes        766
+3 Yes      No         543
+4 Yes      Yes       3568</code></pre>
+</div>
+</div>
+<p>Employed: 3,568 released out of 3,568 + 543 = <strong>4,111</strong> (86.8%). Not employed: 766 out of 766 + 349 = <strong>1,115</strong> (68.7%).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3568</span>, <span class="fl">766</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4111</span>, <span class="fl">1115</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
 
-Against denominator:
-  Null, mu1-mu2 = 0 
----
-Bayes factor type: BFindepSample, JZS</code></pre>
+data:  c(3568, 766) out of c(4111, 1115)
+X-squared = 201.54, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.1512300 0.2106097
+sample estimates:
+   prop 1    prop 2 
+0.8679153 0.6869955 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3568</span>, <span class="fl">766</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4111</span>, <span class="fl">1115</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  3,568 of 4,111 (86.8%)
+data, group 2:  766 of 1,115 (68.7%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  86.8%         85.7% to 87.8%
+group 2                  68.7%         65.9% to 71.4%
+difference (1 minus 2)   18.1 points   15.2 to 21.0 points
+
+Probability group 1 is higher than group 2: more than 0.99 
+Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 </div>
 </div>
-<p>BF<sub>10</sub> ≈ 2 × 10<sup>43</sup>: the data are astronomically better predicted by “the groups differ” than by “no difference.”</p>
-<p>A formatting aside: depending on your R settings, that number may print as <code>2.13e+43</code> (scientific notation) or as a 44-digit integer (if you’ve set <code>options(scipen = 999)</code>). Same number, different formatting — don’t panic either way.</p>
-</section><section id="two-grammars-one-verdict" class="level2"><h2 class="anchored" data-anchor-id="two-grammars-one-verdict">Two grammars, one verdict</h2>
-<ul>
-<li>
-<strong>Frequentist:</strong> <em>if</em> the true difference were zero, data like ours would essentially never occur — t(1733) = −12.5, p &lt; .001</li>
-<li>
-<strong>Bayesian:</strong> the difference model beats the no-difference model by a factor of ~10<sup>43</sup>
-</li>
-<li>
-<strong>The estimate, in English:</strong> intoxication-involved crashes average <strong>0.33 to 0.45 more injured people per crash</strong> (95% CI)</li>
-</ul>
-<p>The two frameworks agree <em>here</em> because the evidence is overwhelming; with small samples and borderline evidence they can part ways — Session 6’s collision — and that’s exactly when running both matters. <strong>What neither test says:</strong> <em>why</em>. Intoxication crashes also differ in hour, speed, and road conditions — an observational gap no test statistic closes.</p>
-<p>That’s the whole pipeline: import, derive, describe, visualize, test — and the tests were the shortest part. The rest of the workshop turns this loose on the dataset <em>you’re</em> proposing for your final project (<a href="../labs/lab-07-workshop.html">Lab 7</a>, and the <a href="../final-project.html">final project page</a> for the dataset-selection requirements).</p>
-</section><section id="try-a-variation" class="level2"><h2 class="anchored" data-anchor-id="try-a-variation">Try a variation</h2>
+<p>About 15 to 21 points more often for the employed, by either test. But the two groups differ in other ways. <code>checks</code> counts how many of six police databases (prior arrests, convictions, parole, and so on) had the person’s name:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arrests</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avg_checks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">checks</span><span class="op">)</span>, people <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">employed</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  employed avg_checks people
+  &lt;chr&gt;         &lt;dbl&gt;  &lt;int&gt;
+1 Yes            1.44   4111
+2 No             2.35   1115</code></pre>
+</div>
+</div>
+<p>People without a job had more of a record, and a record is a reason to hold someone. So compare like with like: keep only people with <strong>no record at all</strong>, and ask again.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">arrests</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">checks</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">employed</span>, <span class="va">released</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  employed released     n
+  &lt;chr&gt;    &lt;chr&gt;    &lt;int&gt;
+1 No       No          35
+2 No       Yes        166
+3 Yes      No         124
+4 Yes      Yes       1526</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1526</span>, <span class="fl">166</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1650</span>, <span class="fl">201</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(1526, 166) out of c(1650, 201)
+X-squared = 21.112, df = 1, p-value = 4.333e-06
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.04224058 0.15571509
+sample estimates:
+   prop 1    prop 2 
+0.9248485 0.8258706 </code></pre>
+</div>
+</div>
+<p><strong>Say it.</strong> Among people with clean records, the employed were released about 10 points more often (92.5% vs 82.6%; interval about 4 to 16 points). The gap shrank from 18 points to 10 when we compared like with like, but it did not disappear. What this cannot tell you: whether some other difference (age, citizenship, where the arrest happened) explains the rest. Only random assignment rules everything out, and nobody randomizes jobs.</p>
+</section><section id="neighborhoods-violence-and-income" class="level2"><h2 class="anchored" data-anchor-id="neighborhoods-violence-and-income">3 · Neighborhoods: violence and income</h2>
+<p>Chicago’s 77 community areas. <code>high_violence</code> marks the 38 areas with the highest violent-crime rates. The outcome is <code>median_income</code>, a number in dollars, so the test is <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>. One row is one <strong>area</strong>, not one person. First, name the groups and put High violence first:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="va">areas</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>violence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">high_violence</span>, <span class="st">"High violence"</span>, <span class="st">"Other areas"</span><span class="op">)</span>,</span>
+<span>                           levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"High violence"</span>, <span class="st">"Other areas"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">areas</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>avg_income <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">median_income</span><span class="op">)</span>, areas <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">violence</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  violence      avg_income areas
+  &lt;fct&gt;              &lt;dbl&gt; &lt;int&gt;
+1 Other areas       90088.    39
+2 High violence     54355.    38</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">areas</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">violence</span>, y <span class="op">=</span> <span class="va">median_income</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"goldenrod"</span>, width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Median household income (dollars)"</span>,</span>
+<span>       title <span class="op">=</span> <span class="st">"Chicago community areas, 2025"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="demo-07-workshop_files/figure-html/chi-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">median_income</span> <span class="op">~</span> <span class="va">violence</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  median_income by violence
+t = -6.3561, df = 74.959, p-value = 1.458e-08
+alternative hypothesis: true difference in means between group High violence and group Other areas is not equal to 0
+95 percent confidence interval:
+ -46932.44 -24533.58
+sample estimates:
+mean in group High violence   mean in group Other areas 
+                   54354.63                    90087.64 </code></pre>
+</div>
+</div>
+<p><strong>Say it.</strong> High-violence areas minus other areas: about <strong>$25,000 to $47,000 lower</strong> median household income ($54,355 vs $90,088 on average), p = 0.00000001. The unit is dollars because the column is dollars. What this cannot tell you: which way it runs (does poverty breed violence, or does violence drive income out?), and anything about individual people. Each row is an area.</p>
+</section><section id="use-of-force-body-cameras-over-time" class="level2"><h2 class="anchored" data-anchor-id="use-of-force-body-cameras-over-time">4 · Use of force: body cameras over time</h2>
+<p>The <em>Washington Post</em>’s database of every person shot and killed by on-duty police in the U.S., 2015 to 2024. <code>body_camera</code> is TRUE when news or police reports said a camera recorded the incident. One row is one person killed. Group: before and after 2020.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">shootings</span> <span class="op">&lt;-</span> <span class="va">shootings</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>period <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/year.html">year</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">2020</span>, <span class="st">"2020 to 2024"</span>, <span class="st">"2015 to 2019"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">shootings</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">period</span>, <span class="va">body_camera</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  period       body_camera     n
+  &lt;chr&gt;        &lt;lgl&gt;       &lt;int&gt;
+1 2015 to 2019 FALSE        4329
+2 2015 to 2019 TRUE          594
+3 2020 to 2024 FALSE        4302
+4 2020 to 2024 TRUE         1205</code></pre>
+</div>
+</div>
+<p>2020 to 2024: 1,205 of 1,205 + 4,302 = <strong>5,507</strong> (21.9%). 2015 to 2019: 594 of 594 + 4,329 = <strong>4,923</strong> (12.1%).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1205</span>, <span class="fl">594</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5507</span>, <span class="fl">4923</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    2-sample test for equality of proportions with continuity correction
+
+data:  c(1205, 594) out of c(5507, 4923)
+X-squared = 174.76, df = 1, p-value &lt; 2.2e-16
+alternative hypothesis: two.sided
+95 percent confidence interval:
+ 0.08374831 0.11256026
+sample estimates:
+   prop 1    prop 2 
+0.2188124 0.1206581 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">bayes_prop_test</span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1205</span>, <span class="fl">594</span><span class="op">)</span>, n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5507</span>, <span class="fl">4923</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  1,205 of 5,507 (21.9%)
+data, group 2:  594 of 4,923 (12.1%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  21.9%         20.8% to 23.0%
+group 2                  12.1%         11.2% to 13.0%
+difference (1 minus 2)   9.8 points    8.4 to 11.2 points
+
+Probability group 1 is higher than group 2: more than 0.99 
+Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
+</div>
+</div>
+<p><strong>Say it.</strong> About 12 in 100 fatal shootings had known camera footage before 2020, and about 22 in 100 after (8 to 11 points higher, by either test). Close to doubling, and still fewer than 1 in 4. What this cannot tell you: whether cameras changed anything about the shootings, or how many cameras existed but went unreported. With 10,430 cases, the p-value was never in doubt. The size is the whole story.</p>
+</section><section id="four-questions-one-recipe" class="level2"><h2 class="anchored" data-anchor-id="four-questions-one-recipe">Four questions, one recipe</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>Test</th>
+<th>Answer</th>
+<th>The lesson</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Reentry</td>
+<td>
+<code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> + Bayes</td>
+<td>22% vs 31%; p = 0.063; 97% probably lower</td>
+<td>“Not significant” is not “no effect.” Randomization lets us say “caused”</td>
+</tr>
+<tr class="even">
+<td>Pretrial</td>
+<td>
+<code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code>, then again after <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>
+</td>
+<td>18 points; 10 among clean records</td>
+<td>Groups differ in other ways. Compare like with like</td>
+</tr>
+<tr class="odd">
+<td>Neighborhoods</td>
+<td><code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code></td>
+<td>$25k to $47k lower</td>
+<td>Say the size in real units. Areas are not people</td>
+</tr>
+<tr class="even">
+<td>Use of force</td>
+<td>
+<code><a href="https://rdrr.io/r/stats/prop.test.html">prop.test()</a></code> + Bayes</td>
+<td>12% to 22%</td>
+<td>With a huge n, the p-value adds nothing; the size is the story</td>
+</tr>
+</tbody>
+</table></section><section id="try-a-variation" class="level2"><h2 class="anchored" data-anchor-id="try-a-variation">Try a variation</h2>
 <ol type="1">
-<li>Swap the grouping variable: do <strong>weekend</strong> crashes injure more people than weekday ones? Run all of Steps 3–5 with <code>weekend</code> in place of <code>intox_any</code>.</li>
-<li>Ask the same intoxication question about <code>fatalities</code> instead of <code>injuries</code>. Do both grammars still agree — and does the <em>size</em> of the difference still matter to a policy audience?</li>
-<li>Filter to a single county (<code>filter(county == "Anchorage")</code>) and re-run Step 5. What happens to the CI width and the Bayes factor when n shrinks?</li>
-<li>Redefine <code>night</code> as 9 p.m.–4:59 a.m. Does the 25%-vs-39% intoxication pattern from Step 2 survive your definition? <em>(Robustness to arbitrary cutoffs is an analysis habit, not a luxury.)</em>
-</li>
+<li>
+<strong>Rossi:</strong> were men released on <strong>parole</strong> (<code>paro</code>) re-arrested less often? Count, then both tests. Is parole randomly assigned the way aid was? What does that change about the sentence you can write?</li>
+<li>
+<strong>Toronto:</strong> were <strong>citizens</strong> (<code>citizen</code>) released more often than non-citizens? Then ask again among people with <code>checks == 0</code>. Does the gap shrink the way the employment gap did?</li>
+<li>
+<strong>Chicago areas:</strong> run <code>t.test(pct_vacant ~ violence, data = areas)</code>. How much higher is the share of vacant housing in high-violence areas, in percentage points?</li>
+<li>
+<strong>Shootings:</strong> was a body camera reported more often when the person was in a mental health crisis (<code>was_mental_illness_related</code>)? Count, then both tests, and say the size in plain words.</li>
 </ol>
 
 

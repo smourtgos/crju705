@@ -128,7 +128,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
         <li>
     <a class="dropdown-item" href="./weeks/week-07.html">
- <span class="dropdown-text">Session 7 · Applied Data Workshop</span></a>
+ <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./weeks/week-08.html">
@@ -164,10 +164,25 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./chicago-data.html"> 
 <span class="menu-text">Data Codebook</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./final-project.html" aria-current="page"> 
-<span class="menu-text">Final Project</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-final-project" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Final Project</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-final-project">    
+        <li>
+    <a class="dropdown-item" href="./final-project.html">
+ <span class="dropdown-text">Final Project</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./project-data.html">
+ <span class="dropdown-text">Data Options</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./final-project-exemplar.html">
+ <span class="dropdown-text">Worked Exemplar</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -251,10 +266,6 @@ ul.task-list li input[type="checkbox"] {
 <section id="the-timeline-how-the-project-is-paced" class="level2">
 <h2 class="anchored" data-anchor-id="the-timeline-how-the-project-is-paced">The timeline (how the project is paced)</h2>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 64%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>When</th>
@@ -268,7 +279,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><strong>Session 7</strong></td>
-<td><strong>Dataset selection due</strong> (workshop day — you’ll work with your data in class)</td>
+<td>Real questions, real tests, and a tour of the <a href="./project-data.html">data options</a>. <strong>Dataset chosen in Homework 7</strong> (due the Sunday before Session 8)</td>
 </tr>
 <tr class="odd">
 <td>Session 8 HW</td>
@@ -318,7 +329,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="steps-and-expectations" class="level2">
 <h2 class="anchored" data-anchor-id="steps-and-expectations">3. Steps and expectations</h2>
-<p><strong>Step 1 — Find a dataset.</strong> Select a dataset related to criminal justice (policing, courts, corrections, crime, public opinion, etc.) that can be imported into R (CSV, Excel, or an R dataset). It must include enough numeric variables for regression analysis. <em>(Formal selection criteria and the submission form are part of the <a href="./homework/hw-07.html">Session 7 assignment</a>.)</em></p>
+<p><strong>Step 1 — Find a dataset.</strong> Select a dataset related to criminal justice (policing, courts, corrections, crime, public opinion, etc.) that can be imported into R (CSV, Excel, or an R dataset). It must include enough numeric variables for regression analysis. Start with the <strong><a href="./project-data.html">Final-Project Data Options</a></strong>: any dataset there is eligible, including the ones we work in Session 7, as long as your question goes beyond what we did in class. A dataset from somewhere else is welcome once I have cleared it; the course practice datasets are not eligible. <em>(Formal selection criteria are part of the <a href="./homework/hw-07.html">Session 7 assignment</a>.)</em></p>
 <p><strong>Step 2 — Define your research question.</strong> Keep it focused and testable. Examples: <em>“Are violent crime rates associated with police staffing levels?”</em> or <em>“Do education and income predict victimization (or arrests)?”</em></p>
 <p><strong>Step 3 — Apply statistical tools from class.</strong> Use descriptive statistics, visualizations, and measures of association. You <strong>must</strong> include a linear regression or logistic regression for credit. <strong>Your final model must be reported in both traditions</strong> — the frequentist fit (<code>lm()</code>/<code>glm()</code>) <em>and</em> the Bayesian fit (<code>brm()</code>, default priors are fine — say so) — with at least one sentence comparing what each tells you (e.g., the CI vs.&nbsp;the credible interval, or what the posterior lets you say that the p-value doesn’t). This is the both-traditions course; the capstone shows you can drive both. Supporting analyses (descriptives, correlations) may be run in whichever tradition you prefer.</p>
 <p><strong>Step 4 — Write and submit your report.</strong> Organize clearly: Introduction, Methods, Results, Discussion. Interpret results in plain language.</p>
