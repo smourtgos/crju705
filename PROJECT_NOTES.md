@@ -209,6 +209,51 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
 
+## STATUS: Session 7 rebuild (September 28, 2026) COMPLETE ✅ — shipped live
+
+Scott's direction the night before Session 7 (full itemization in
+`_private/notes/CHANGES-week-07.md`, Sep 28 section). **Session 7 is now "Applied Workshop: Real
+Questions, Real Tests":** worked examples of real CJ tests using only Sessions 1–6 tools, then a
+tour of what data is out there. The messy-file import/tidy pipeline, `ttestBF()`, `read_excel()`,
+`across()`/`pivot_longer()`, and the Exit Ticket are all gone from Session 7.
+
+- **The recipe** (used in deck, lab, demo): question (two groups + outcome; yes/no → `prop.test()` +
+  `bayes_prop_test()`, number → `t.test()`) → count or describe → test → say it (the sentence, the
+  size in real units, one thing the test cannot tell you).
+- **Lecture examples:** Rossi financial aid (randomized; p = 0.063, Bayes 0.97; `t.test(prio ~ fin)`
+  as the randomization check), Toronto release by employment (18 points, 10 among `checks == 0`),
+  Chicago areas income by `high_violence` (`t.test`, $25k–$47k), WaPo body cameras by period
+  (12% → 22%). **Lab 7:** COMPAS High vs Low (walkthrough) and Minneapolis searches suspicious vs
+  traffic + WaPo age by crisis (Your Turn). Key: `_private/keys/lab-07-key.R`.
+- **No race comparisons anywhere in Session 7** (Scott's call). The menu's variable lists do name
+  each file's race column.
+- **New page `project-data.qmd` ("Final-Project Data Options")**, in the navbar under Final
+  Project: Rossi, Toronto arrests, Minneapolis stops, WaPo shootings, COMPAS, GSS 2024 CJ items,
+  UScrime, USArrests. **Eligibility rule (Scott, Sep 28):** any menu dataset, including those
+  worked in class, with the student's own question; course practice datasets stay ineligible.
+- **New data** built by `R/build-week07-data.R`: `rossi`, `toronto-arrests`, `mpls-stops`,
+  `uscrime`, `usarrests`, `gss-2024-cj` (CSV copies; GSS from the colleague's `GSS2024.dta` via
+  haven). WaPo and COMPAS are read from their own GitHub URLs, **not rehosted** (licensing). **WaPo
+  is a live repo** (10,430 rows through 2024-12-31 as of Sep 28); if it grows, the deck, demo, lab,
+  and key numbers drift.
+- **HW 7 = explore two datasets, choose one.** No R4DS (the thread ended with HW 6); no test on
+  their own data. Grading guide rewritten (`_private/keys/hw-07-key.qmd`).
+- **GOTCHA — `quarto publish` never deletes files from gh-pages.** Renamed or dropped figures
+  linger until removed through a worktree (`git worktree add ... origin/gh-pages`, `git rm`,
+  push). Run the `comm -23` audit after every publish that drops a file.
+- **GOTCHA — editing any page with brms chunks re-executes them under `freeze: auto`.** The
+  exemplar's one-sentence edit re-ran its model (identical results with the fixed seed); the
+  Week 8 deck's stale recap line was deliberately left for the Session 8 pass for this reason.
+- Verification: build script row counts; lab and demo code run end to end locally, then
+  rendered against the live URLs; every typed number read against output; forbidden-term,
+  dash, and race-comparison greps clean on the new files; overflow audit v3 clean twice (46
+  slides); privacy checks clean after the `_quarto.yml` change; `comm -23` clean.
+
+**Now stale elsewhere, to fix in their own weeks:** `slides/week-08-anova.qmd:49` (S7 recap) and
+`:363`; `labs/lab-12-logistic.qmd:143,150,171` ("Lab 7's lubridate moves," "Lab 7 found…"); the
+midterm (covers S1–8); `weeks/week-06.qmd:53-54` and the S6 deck's closing slide ("selection due
+at Session 7," messy-data pipeline) are history.
+
 ## STATUS: Session 6 rebuild (September 21, 2026) COMPLETE ✅ — shipped live
 
 Scott's review the night before Session 6. Full itemization in
@@ -486,7 +531,7 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 - [ ] **Approve the drafted midterm** — `_private/exams/midterm-2026.R` + key + pre-fit `.rds`; `_private/notes/MIDTERM-REVIEW-NEEDED.md` is now the review checklist. (2025 exam stays archived unmodified.)
 - [x] **Slide-overflow audit — RUN Aug 25, 2026; week-8 overflows FIXED same day** (browser console reached by serving `_site` with `python3 -m http.server`; the server binds fine now). Weeks 1 and 12 clean; week 2 clean after the dispersion reorder. Week 8's two overflows from the August ANOVA-demotion edits — slide 2 "This Week" (169px over the 700px canvas) and slide 36 "This Workflow Is the Point" (45px over) — trimmed without touching the demotion framing: `{.smaller}` on the opener (no text changed), one-line intro trim on the workflow slide (details in CHANGES-week-08 items 27–28). Re-audit clean: 0 of 47 slides overflow.
 - [ ] **Decide about `options(scipen = 999)` in `R/setup.R`.** It prints p-values as `p-value < 0.00000000000000022` and `0.0000000000105` instead of `2.2e-16` / `1.05e-11`. On the Session 1 slide that introduces p-values for the first time that is arguably *harder* to read, not easier. Left alone because the setting is global across every deck, lab, and homework page — changing it is a one-liner but affects everything.
-- [ ] **(Sep 7, 2026) Decide what Session 7 is now.** It is billed as the session where "the two threads meet," and after the lecture/lab split there is only one thread. Its workshop asks students to import and clean a messy file with no import or tidying instruction anywhere behind it. Tonight only corrected the false claims in the pipeline table and Lab 7's missingness block (see CHANGES-week-07). The redesign is a real decision and S7 is Sep 29, but **decide before Session 6**, because Lab 6 (joins, R4DS Ch. 19) is the next lab that hits the same tension. **(Sep 14, 2026)** Sharper now: Ch. 19 is no longer assigned anywhere (S5→S6 is Ch. 16), so `labs/lab-06-joins.qmd:6` ("assumes you've read Ch. 19") and `weeks/week-06.qmd` lines 3, 19, 30, 40 describe a lab with no reading behind it. Scott chose to leave Lab 6 alone on Sep 14 and decide with this item.
+- [x] **(Sep 7, 2026) Decide what Session 7 is now. DONE Sep 28, 2026:** Session 7 is "Real Questions, Real Tests" (worked CJ examples with Sessions 1–6 tools) plus the final-project data menu; see the Sep 28 STATUS section. Original note: It is billed as the session where "the two threads meet," and after the lecture/lab split there is only one thread. Its workshop asks students to import and clean a messy file with no import or tidying instruction anywhere behind it. Tonight only corrected the false claims in the pipeline table and Lab 7's missingness block (see CHANGES-week-07). The redesign is a real decision and S7 is Sep 29, but **decide before Session 6**, because Lab 6 (joins, R4DS Ch. 19) is the next lab that hits the same tension. **(Sep 14, 2026)** Sharper now: Ch. 19 is no longer assigned anywhere (S5→S6 is Ch. 16), so `labs/lab-06-joins.qmd:6` ("assumes you've read Ch. 19") and `weeks/week-06.qmd` lines 3, 19, 30, 40 describe a lab with no reading behind it. Scott chose to leave Lab 6 alone on Sep 14 and decide with this item.
 - [x] **(Sep 14, 2026) Repo moved out of iCloud Drive sync — DONE the same night.** The folder was renamed `crju705-site.nosync` (iCloud skips `.nosync` names); a full copy was taken first, git and `_private/` were verified intact afterwards, and the stale worktree registrations (`bold-volhard-1820af`, two `quarto-publish-worktree-*`) were pruned. No `name 2.ext` duplicates appeared in the renders that followed. Both notes files now use the new path. **Keep the purge-and-`git status` habit for one more pass** to confirm the daemon is really gone.
 - [x] **(Sep 14, 2026) Session 6 deck brought into line with Session 5 — DONE the same night** (Scott's ask). Factor line, "How Today Works," clock times and minutes, no "alphabetically"; demo, hw-06 + key, and practice-06 fixed for the same contradictions. Detail in `_private/notes/CHANGES-week-06.md` (September 14 section). Lab 6 and the week-06 hub's joins lines are untouched, per the Lab 6 decision above.
 - [ ] **(Sep 14, 2026) Propagate the lab-deliverable wording.** Lab 5's "How labs work" and Exit Ticket sections now say to submit the whole Your Turn script with the reflection comments at the bottom. Labs 2–4 and 6–8 still say to submit an Exit Ticket.
@@ -497,6 +542,7 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 
 ### Standing decision-records (already handled)
 - **(Sep 7, 2026) The lecture/lab split — the biggest structural change since the rebuild.** Scott's call, after grading Weeks 1–3: **lectures teach concepts; the in-class exercise is where code is written, together, step by step, with simple code.** Several students have never coded and a few have never taken a stats class, and the lecture coding load was discouraging them. Demos stay complete, both as student catch-up and as something to throw on screen mid-lecture. Consequences already shipped: Lab 4 became sampling distributions (`lab-04-sampling.qmd`), Lab 5 became confidence intervals (`lab-05-intervals.qmd`), and the "Two Threads, One Course" bridge slides in S4 and S5 became "How Today Works." **This dissolves the wrangling thread.** Labs 6 and 7 have not been converted yet — Lab 6 (joins, R4DS Ch. 19) is the next one that will hit this tension, and S7's workshop is still billed as "where the two threads meet." Do not re-add a wrangling lab without talking to Scott first.
+- **(Sep 28, 2026) Session 7 is worked examples plus a data menu, not a pipeline workshop.** Scott's call, answering last year's feedback (more examples, less theory and R). Every example uses only Sessions 1–6 tools and the four-step recipe; no race comparisons; students may use any menu dataset for the project, including those worked in class, with their own question.
 - **(Sep 14, 2026) Two-group comparisons state their direction once, with `factor(levels = ...)`, and never flip.** Scott's call: the deck used to bootstrap Violent − Property and then let `t.test()` report Property − Violent alphabetically, explaining the flipped sign. Now the factor line goes in where the data are built (deck, lab, and the homework's given `if_else()` recode, which happens to sort the right way), and `t.test()` output is read from its `mean in group` lines. Known trap: `summarize(.by = )` prints groups in first-appearance order regardless of the factor, so either `arrange()` the table or skip it and read the means off `t.test()`.
 - **(Sep 14, 2026) Times in the Chicago hour-of-day examples are clock times and minutes**, never decimal hours ("12:48 pm vs 12:33 pm", "4 to 27 minutes later"). A `clock()` helper formats axes.
 - **(Sep 14, 2026) Lab code idiom for intervals: `count()`, read two numbers, type them into `prop.test(x, n)`; one `t.test(y ~ group, data = ...)` line read in full.** No `$conf.int`, `nrow()`, or `sum(x == ...)` in student-facing lab or homework code. `$conf.int` survives only inside the deck's simulation loops.

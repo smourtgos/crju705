@@ -174,7 +174,7 @@ Dates for all assignments and exams are listed on the course Canvas page and dis
 
 ## Final Project Information
 
-The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early — **dataset selection is due at Session 7** (the applied data workshop) — and project checkpoints attached to homework in the second half of the semester keep your analysis moving. Session 12 closes with a **project code clinic** — open Q&A on your own code — before presentations.
+The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early (**you choose it in Homework 7**, after the Session 7 workshop tours the [data options](project-data.qmd)), and project checkpoints attached to homework in the second half of the semester keep your analysis moving. Session 12 closes with a **project code clinic** — open Q&A on your own code — before presentations.
 
 Your completed project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d, %Y')`** (the Sunday before presentations day). You will then present your work in class at Session 13 on `r format(final_day, '%B %d, %Y')`.
 
@@ -263,13 +263,11 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 ## `r session_headers[7]`
 
-**Topics:** **Applied data workshop** — the full pipeline on messy real data: import → tidy → describe → test (frequentist and Bayesian)
+**Topics:** **Applied workshop: real questions, real tests.** Six real criminal justice questions (reentry, pretrial release, neighborhoods, use of force, risk assessment, police stops) answered with `prop.test()`, `bayes_prop_test()`, and `t.test()`; then a tour of the [final-project data options](project-data.qmd)
 
 **Readings due:** R4DS Ch. 17 (Dates and times)
 
-**Due in class:** **Final-project dataset selection**
-
-**Homework:** Problem set 7 — the workshop write-up **plus your formal final-project dataset selection** · Read Stanton Ch. 6 · Bring your dataset and script to Session 8, where project checkpoints begin
+**Homework:** Problem set 7: explore two datasets and **choose your final-project dataset** · Read Stanton Ch. 6 · Bring your chosen dataset to Session 8, where project checkpoints begin
 
 ## `r session_headers[8]`
 

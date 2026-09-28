@@ -1,150 +1,178 @@
 ---
 title: "Demo Walkthrough · Session 7"
-subtitle: "The full pipeline, run once — Alaska crash data, import to verdict"
+subtitle: "Four real criminal justice questions, one recipe: count, test, say it"
 ---
 
 ::: {.callout-note appearance="simple"}
-**What this page is.** The Session 7 worked example, written down step by step. No new statistics — this is the import → tidy → describe → visualize → test pipeline you already own, run start-to-finish on one dataset. Every chunk is self-contained; copy any of them into your own R session and they run as-is.
+**What this page is.** The Session 7 lecture, written down step by step. Every chunk below is self-contained: copy any of them into your own R session and it runs as-is. Use this page to catch up after a missed class, or to re-run the examples at your own pace.
 :::
 
 ## What you'll build
 
-1. An import where the dates are parsed *at the door* — and verified
-2. The variables your question needs that the file doesn't have (`hour`, `weekend`, `night`)
-3. Honest description and visualization of the intoxication–injury gap
-4. `t.test()` **and** `ttestBF()` on the same question — two grammars, one verdict
+Four answers to four real questions, each with the same recipe:
 
-The folk wisdom holds: 80% of data work is getting and preparing the data — and then the t-test is one line. Every dataset in this course so far arrived clean because your instructor cleaned it. That subsidy ends here.
+1. **Question.** Name the two groups and the outcome. A yes/no outcome means `prop.test()` and `bayes_prop_test()`; a number means `t.test()`.
+2. **Count or describe.**
+3. **Test.**
+4. **Say it.** The honest sentence, how big in real units, and one thing the test cannot tell you.
+
+The questions: did financial aid at release lower re-arrest? Were employed arrestees released more often? How much lower is income in Chicago's high-violence areas? Was body camera footage reported more often in fatal police shootings after 2020?
 
 ## Setup
+
+The tidyverse, the course's Bayesian function, and four datasets. Two of them are new to you and live on the course site; one is our Chicago anchor data; one comes straight from the *Washington Post*.
 
 ```{r}
 #| label: setup
 library(tidyverse)
-library(BayesFactor)   # install.packages("BayesFactor")  — once, if you don't have it
+source("https://smourtgos.github.io/crju705/R/bayes.R")   # gives you bayes_prop_test()
 set.seed(705)
+
+rossi   <- read_csv("https://smourtgos.github.io/crju705/data/rossi.csv",
+                    show_col_types = FALSE)
+arrests <- read_csv("https://smourtgos.github.io/crju705/data/toronto-arrests.csv",
+                    show_col_types = FALSE)
+areas   <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv",
+                    show_col_types = FALSE)
+shootings <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v2/fatal-police-shootings-data.csv",
+                      show_col_types = FALSE)
 ```
 
-## Step 1 · Import
+More about each dataset, and four more like them, is on the [Final-Project Data Options](../project-data.qmd) page.
 
-The Alaska crash data, with the date column handled up front via `col_types` (the equivalent Lab 5 habit: import first, then `mutate(date = mdy(date))` — two roads to the same real date column):
+## 1 · Reentry: does money at release keep people out of jail?
+
+432 men released from Maryland state prisons in the 1970s were followed for one year. Half were **randomly assigned** to receive financial aid (`fin`). The outcome is `arrest`: 1 if arrested again within the year. One row is one man.
 
 ```{r}
-#| label: import
-crashes <- read_csv(
-  "https://smourtgos.github.io/crju705/data/crash-ak.csv",
-  col_types = cols(date = col_date(format = "%m/%d/%Y"))
-)
-
-sum(is.na(crashes$date))   # zero NAs = every date parsed
+#| label: rossi-count
+rossi |> count(fin, arrest)
 ```
 
-20,000 crashes, 2022–2026. Whichever road you take: **verify the parse**. A silent `NA` here poisons everything downstream.
-
-## Step 2 · Clean and derive
-
-The file has no "night" or "weekend" column. Files never do — *you* build the variables your question needs:
+Aid: 48 re-arrested out of 48 + 168 = **216** (22.2%). No aid: 66 out of 66 + 150 = **216** (30.6%). Aid goes first, so every difference reads **Aid minus No aid**.
 
 ```{r}
-#| label: derive
-crashes <- crashes |>
-  mutate(
-    hour    = hour(time),
-    weekend = wday(date, week_start = 1) >= 6,   # Mon = 1 … Sat = 6, Sun = 7
-    night   = hour >= 22 | hour < 4              # 10 p.m. – 3:59 a.m.
-  )
-crashes |> count(night)
+#| label: rossi-prop
+prop.test(x = c(48, 66), n = c(216, 216))
 ```
 
-Night hours hold about 25% of all crashes — but look what happens inside the intoxication-involved ones:
+The interval runs from about 17 points lower to 0.4 points higher, and **p = 0.063**. Zero is just inside, so: fail to reject the null. A funder who reads only that line cuts the program.
 
 ```{r}
-#| label: night-by-intox
-crashes |> summarize(p_night = mean(night), .by = intox_any)
+#| label: rossi-bayes
+bayes_prop_test(x = c(48, 66), n = c(216, 216))
 ```
 
-24% of sober-driver crashes versus 39% of intoxication-involved ones. One `mutate()` made that pattern visible.
+**Say it.** Given these data, there is about a **97% probability** that men who got aid were re-arrested at a lower rate. About 22 of every 100 men with aid were re-arrested, against about 31 of every 100 without: roughly 8 fewer re-arrests per 100 people released. What this cannot tell you: whether the effect lasts past a year, or would hold today. "Not significant" is not "no effect."
 
-## Step 3 · Describe
-
-The Homework 5 question, back for a verdict: **do crashes involving an intoxicated driver injure more people?**
+**Why we can say "caused."** The aid was assigned at random, so the groups should look alike before release. Check with a number, prior convictions, putting aid first with `factor()`:
 
 ```{r}
-#| label: describe
-crashes |>
-  summarize(
-    crashes  = n(),
-    mean_inj = mean(injuries),
-    sd_inj   = sd(injuries),
-    .by = intox_any
-  )
+#| label: rossi-check
+rossi <- rossi |> mutate(fin = factor(fin, levels = c("yes", "no")))
+t.test(prio ~ fin, data = rossi)
 ```
 
-0.74 vs. 1.13 injured people per crash. Point estimates — you know by now that's not the final word.
+2.98 prior convictions vs 2.99, p = 0.99. The groups started out the same, so the gap afterward is about the aid. This is the rare test where you *hope* for a big p-value.
 
-## Step 4 · Visualize
+## 2 · Pretrial release: does a job get you released?
 
-Session 5's confidence interval, built by hand and drawn with an honest caption:
+5,226 Toronto arrests for possessing small amounts of marijuana, 1997 to 2002. `released` is whether the person was released with a summons instead of held for a bail hearing. The group is `employed`. One row is one arrest.
 
 ```{r}
-#| label: viz
-#| fig-height: 4.5
-inj_summary <- crashes |>
-  mutate(intox_group = factor(intox_any, labels = c("No intox", "Intox involved"))) |>
-  summarize(n = n(), mean_inj = mean(injuries), sd_inj = sd(injuries),
-            .by = intox_group) |>
-  mutate(se = sd_inj / sqrt(n),
-         ci_lo = mean_inj - 1.96 * se,
-         ci_hi = mean_inj + 1.96 * se)
-
-ggplot(inj_summary, aes(intox_group, mean_inj)) +
-  geom_pointrange(aes(ymin = ci_lo, ymax = ci_hi),
-                  color = "firebrick", linewidth = 1.2, size = 1) +
-  labs(title = "Mean injuries per crash, with 95% confidence intervals",
-       subtitle = "Alaska crash data, n = 20,000",
-       x = NULL, y = "Mean injuries per crash")
+#| label: tor-count
+arrests |> count(employed, released)
 ```
 
-The intervals don't come close to overlapping. Formal tests next — both traditions.
-
-## Step 5a · Test it — frequentist
+Employed: 3,568 released out of 3,568 + 543 = **4,111** (86.8%). Not employed: 766 out of 766 + 349 = **1,115** (68.7%).
 
 ```{r}
-#| label: ttest
-t.test(injuries ~ intox_any, data = crashes)
+#| label: tor-prop
+prop.test(x = c(3568, 766), n = c(4111, 1115))
+bayes_prop_test(x = c(3568, 766), n = c(4111, 1115))
 ```
 
-Same gotcha as Homework 5: R computes group 0 − group 1, so the negative signs mean the *intoxication* group is higher. t(1733) = −12.5, p < .001.
-
-## Step 5b · Test it — Bayesian
-
-`BayesFactor` insists the grouping variable be a **factor** — so we hand it one:
+About 15 to 21 points more often for the employed, by either test. But the two groups differ in other ways. `checks` counts how many of six police databases (prior arrests, convictions, parole, and so on) had the person's name:
 
 ```{r}
-#| label: ttest-bf
-crashes <- crashes |>
-  mutate(intox_group = factor(intox_any, labels = c("No intox", "Intox involved")))
-
-ttestBF(formula = injuries ~ intox_group, data = crashes)
+#| label: tor-checks
+arrests |> summarize(avg_checks = mean(checks), people = n(), .by = employed)
 ```
 
-BF~10~ ≈ 2 × 10^43^: the data are astronomically better predicted by "the groups differ" than by "no difference."
+People without a job had more of a record, and a record is a reason to hold someone. So compare like with like: keep only people with **no record at all**, and ask again.
 
-A formatting aside: depending on your R settings, that number may print as `2.13e+43` (scientific notation) or as a 44-digit integer (if you've set `options(scipen = 999)`). Same number, different formatting — don't panic either way.
+```{r}
+#| label: tor-clean
+arrests |> filter(checks == 0) |> count(employed, released)
+prop.test(x = c(1526, 166), n = c(1650, 201))
+```
 
-## Two grammars, one verdict
+**Say it.** Among people with clean records, the employed were released about 10 points more often (92.5% vs 82.6%; interval about 4 to 16 points). The gap shrank from 18 points to 10 when we compared like with like, but it did not disappear. What this cannot tell you: whether some other difference (age, citizenship, where the arrest happened) explains the rest. Only random assignment rules everything out, and nobody randomizes jobs.
 
-- **Frequentist:** *if* the true difference were zero, data like ours would essentially never occur — t(1733) = −12.5, p < .001
-- **Bayesian:** the difference model beats the no-difference model by a factor of ~10^43^
-- **The estimate, in English:** intoxication-involved crashes average **0.33 to 0.45 more injured people per crash** (95% CI)
+## 3 · Neighborhoods: violence and income
 
-The two frameworks agree *here* because the evidence is overwhelming; with small samples and borderline evidence they can part ways — Session 6's collision — and that's exactly when running both matters. **What neither test says:** *why*. Intoxication crashes also differ in hour, speed, and road conditions — an observational gap no test statistic closes.
+Chicago's 77 community areas. `high_violence` marks the 38 areas with the highest violent-crime rates. The outcome is `median_income`, a number in dollars, so the test is `t.test()`. One row is one **area**, not one person. First, name the groups and put High violence first:
 
-That's the whole pipeline: import, derive, describe, visualize, test — and the tests were the shortest part. The rest of the workshop turns this loose on the dataset *you're* proposing for your final project ([Lab 7](../labs/lab-07-workshop.qmd), and the [final project page](../final-project.qmd) for the dataset-selection requirements).
+```{r}
+#| label: chi-groups
+areas <- areas |>
+  mutate(violence = factor(if_else(high_violence, "High violence", "Other areas"),
+                           levels = c("High violence", "Other areas")))
+
+areas |>
+  summarize(avg_income = mean(median_income), areas = n(), .by = violence) |>
+  arrange(violence)
+```
+
+```{r}
+#| label: chi-plot
+ggplot(areas, aes(x = violence, y = median_income)) +
+  geom_boxplot(fill = "goldenrod", width = 0.5) +
+  labs(x = NULL, y = "Median household income (dollars)",
+       title = "Chicago community areas, 2025")
+```
+
+```{r}
+#| label: chi-ttest
+t.test(median_income ~ violence, data = areas)
+```
+
+**Say it.** High-violence areas minus other areas: about **$25,000 to $47,000 lower** median household income ($54,355 vs $90,088 on average), p = 0.00000001. The unit is dollars because the column is dollars. What this cannot tell you: which way it runs (does poverty breed violence, or does violence drive income out?), and anything about individual people. Each row is an area.
+
+## 4 · Use of force: body cameras over time
+
+The *Washington Post*'s database of every person shot and killed by on-duty police in the U.S., 2015 to 2024. `body_camera` is TRUE when news or police reports said a camera recorded the incident. One row is one person killed. Group: before and after 2020.
+
+```{r}
+#| label: wapo-period
+shootings <- shootings |>
+  mutate(period = if_else(year(date) >= 2020, "2020 to 2024", "2015 to 2019"))
+
+shootings |> count(period, body_camera)
+```
+
+2020 to 2024: 1,205 of 1,205 + 4,302 = **5,507** (21.9%). 2015 to 2019: 594 of 594 + 4,329 = **4,923** (12.1%).
+
+```{r}
+#| label: wapo-tests
+prop.test(x = c(1205, 594), n = c(5507, 4923))
+bayes_prop_test(x = c(1205, 594), n = c(5507, 4923))
+```
+
+**Say it.** About 12 in 100 fatal shootings had known camera footage before 2020, and about 22 in 100 after (8 to 11 points higher, by either test). Close to doubling, and still fewer than 1 in 4. What this cannot tell you: whether cameras changed anything about the shootings, or how many cameras existed but went unreported. With 10,430 cases, the p-value was never in doubt. The size is the whole story.
+
+## Four questions, one recipe
+
+| | Test | Answer | The lesson |
+|---|---|---|---|
+| Reentry | `prop.test()` + Bayes | 22% vs 31%; p = 0.063; 97% probably lower | "Not significant" is not "no effect." Randomization lets us say "caused" |
+| Pretrial | `prop.test()`, then again after `filter()` | 18 points; 10 among clean records | Groups differ in other ways. Compare like with like |
+| Neighborhoods | `t.test()` | $25k to $47k lower | Say the size in real units. Areas are not people |
+| Use of force | `prop.test()` + Bayes | 12% to 22% | With a huge n, the p-value adds nothing; the size is the story |
 
 ## Try a variation
 
-1. Swap the grouping variable: do **weekend** crashes injure more people than weekday ones? Run all of Steps 3–5 with `weekend` in place of `intox_any`.
-2. Ask the same intoxication question about `fatalities` instead of `injuries`. Do both grammars still agree — and does the *size* of the difference still matter to a policy audience?
-3. Filter to a single county (`filter(county == "Anchorage")`) and re-run Step 5. What happens to the CI width and the Bayes factor when n shrinks?
-4. Redefine `night` as 9 p.m.–4:59 a.m. Does the 25%-vs-39% intoxication pattern from Step 2 survive your definition? *(Robustness to arbitrary cutoffs is an analysis habit, not a luxury.)*
+1. **Rossi:** were men released on **parole** (`paro`) re-arrested less often? Count, then both tests. Is parole randomly assigned the way aid was? What does that change about the sentence you can write?
+2. **Toronto:** were **citizens** (`citizen`) released more often than non-citizens? Then ask again among people with `checks == 0`. Does the gap shrink the way the employment gap did?
+3. **Chicago areas:** run `t.test(pct_vacant ~ violence, data = areas)`. How much higher is the share of vacant housing in high-violence areas, in percentage points?
+4. **Shootings:** was a body camera reported more often when the person was in a mental health crisis (`was_mental_illness_related`)? Count, then both tests, and say the size in plain words.

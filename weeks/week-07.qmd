@@ -1,42 +1,44 @@
 ---
-title: "Session 7 · Applied Data Workshop"
-subtitle: "The full pipeline on messy data · import → tidy → describe → visualize → test · final-project dataset selection due"
+title: "Session 7 · Applied Workshop: Real Questions, Real Tests"
+subtitle: "Six real criminal justice questions, one recipe · what data is out there · choose your final-project dataset"
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Applied Data Workshop](../slides/week-07-workshop.qmd)** · **[🧪 Lab 7: The Full Pipeline](../labs/lab-07-workshop.qmd)** · **[📝 Homework 7](../homework/hw-07.qmd)** · **[🎬 Demo walkthrough](../demos/demo-07-workshop.qmd)**
+**[📽️ Slides: Real Questions, Real Tests](../slides/week-07-workshop.qmd)** · **[🧪 Lab 7: Real Questions, Real Tests](../labs/lab-07-workshop.qmd)** · **[📝 Homework 7](../homework/hw-07.qmd)** · **[🎬 Demo walkthrough](../demos/demo-07-workshop.qmd)** · **[🗂️ Final-Project Data Options](../project-data.qmd)**
 :::
 
-Sessions 1–6 handed you the pipeline one piece at a time — import, tidy, transform, visualize, test — always on suspiciously clean data. This week there's no new statistics at all: the pieces get assembled, start to finish, on data nobody cleaned for you. After one fast worked pass together, most of the session is Lab 7 run on the dataset *you're* proposing for the final project — which makes this the week your project genuinely begins: the formal dataset selection is due in Homework 7, and graded checkpoints start at Session 8.
+No new statistics this week. Instead, we take the tools you already have (`count()`, `prop.test()`, `bayes_prop_test()`, `t.test()`) and run them on real data from across criminal justice: reentry, pretrial release, neighborhoods, police use of force, risk assessment, and police stops. Every question runs the same four-step recipe, so by the end of the night the steps should feel routine. Then we look at what data is out there, because this is the week you choose the dataset for your final project.
 
 ## Learning objectives
 
 By the end of this week you can:
 
-- run import → tidy → transform → visualize → test start to finish, without a template
-- diagnose what's wrong with a dataset you've never seen — types, missingness, structure
-- settle a real question at the end of your own pipeline with a t-test run both ways (`t.test()` and `ttestBF()`)
-- commit to a final-project dataset you can defend in one sentence
+- take a two-group question about a dataset you have never seen and choose the right test: `prop.test()` (and `bayes_prop_test()`) for a yes/no outcome, `t.test()` for a number
+- say what a result means: the honest sentence, how big in real units, and one thing the test cannot tell you
+- explain why a randomized study can support "caused" and a comparison of existing groups usually cannot, and use `filter()` to compare like with like
+- size up a new dataset quickly (what one row is, how many rows, what the variables are, anything strange) and choose one for your final project
 
 ## Before class
 
-- **No new Stanton reading this week** — use the breathing room to catch up if you're behind
-- **Bring a candidate dataset for your final project** (two, if you're torn) — requirements are on the [final project page](../final-project.qmd). Have the actual file(s) *downloaded to your laptop* before class; hunting for data during the workshop wastes your workshop
-- Skim back over the R4DS chapters we assigned (**Ch. 1–5**, **10**, **16**, **17**) wherever you feel shaky — today assembles all of it
-- Bring your laptop
+- **No new reading.** Use the breathing room to catch up if you're behind
+- Glance at the **[Final-Project Data Options](../project-data.qmd)** page so the datasets are not brand new when we tour them
+- Bring your laptop. Nothing to install: every dataset tonight loads with `read_csv()`
 
 ## In class
 
-- Why real analysis is 80% preparation — and why every dataset so far arrived suspiciously clean
-- The pipeline map: import → tidy → transform → visualize → model/test, tied back to the session that taught each step
-- One worked pass, start to finish, on the Alaska crash data: import with type fixes, derived time-of-day variables, group summaries, two polished plots, and the Homework 5 question settled with a t-test run **both ways** — `t.test()` and `ttestBF()`
-- **Most of the session is Lab 7**: the same pipeline, run on the dataset *you're* proposing for the final project — import it, audit its missingness, summarize it, plot it, and write an honest feasibility memo
-- Exit ticket: your dataset's name and source, plus the biggest cleaning obstacle you hit
+- The recipe, used all night: **question** (two groups, one outcome) → **count or describe** → **test** → **say it** (the sentence, the size, what it cannot tell you)
+- Four worked examples:
+  - **Reentry:** did financial aid at release lower re-arrest in a randomized experiment? (p = 0.063, and a 97% probability it did)
+  - **Pretrial release:** were employed arrestees released more often, and does the gap survive comparing people with the same record?
+  - **Neighborhoods:** how much lower is income in Chicago's high-violence community areas, in dollars?
+  - **Use of force:** was body camera footage reported more often in fatal police shootings after 2020?
+- **Lab 7:** two more, and you write the code. A pretrial risk-assessment tool with me, then Minneapolis police stops on your own ([lab page](../labs/lab-07-workshop.qmd)). You submit your Your Turn script
+- **What's out there:** a tour of the [data options](../project-data.qmd), how to size up a dataset in five minutes, and two ways to load one
 
-*Missed class? The [demo walkthrough](../demos/demo-07-workshop.qmd) reproduces today's live demos step by step.*
+*Missed class? The [demo walkthrough](../demos/demo-07-workshop.qmd) reproduces all four lecture examples step by step.*
 
 ## Homework
 
-- **[Homework 7](../homework/hw-07.qmd)** — the workshop write-up **plus your formal final-project dataset selection**; submit your `.R` file via Canvas **by 11:59 pm Sunday** ahead of Session 8
-- Bring your dataset and script to Session 8 — **project checkpoints begin there**, and we'll discuss your data source, question, and import battles
-- Read Stanton **Ch. 6** (ANOVA) before Session 8
+- **[Homework 7](../homework/hw-07.qmd)**: explore **two** datasets from the [data options](../project-data.qmd) (or one you found and cleared with me), then **choose one** for your final project. Submit your `.R` file via Canvas **by 11:59 pm Sunday**
+- No R4DS reading this week: the R4DS thread is complete
+- Read Stanton **Ch. 6** (ANOVA) before Session 8, and bring your chosen dataset. **Project checkpoints begin there**

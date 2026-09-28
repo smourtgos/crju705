@@ -1,0 +1,194 @@
+---
+title: "Final-Project Data Options"
+subtitle: "Real criminal justice datasets that load with one line of R"
+---
+
+Your final project needs a real criminal justice dataset. This page is a menu: eight datasets that are ready to use, each loadable with one line of R, plus a few places to look if none of them fits your question. Explore at least two this week (that is [Homework 7](homework/hw-07.qmd)), then choose one.
+
+::: {.callout-important appearance="simple"}
+**The rules.**
+
+- **Any dataset on this page is eligible**, including the ones we worked in class in Session 7. Your research question and variables have to go beyond what we did in class.
+- The **course datasets** (the Chicago files, crash data, officers, prisoners, neighborhoods, cities, reentry) are **not** eligible. They are for practice.
+- **Found something else?** Great. Clear it with me before you commit, and prefer a single file that downloads directly (a CSV is best).
+- Whatever you choose must have **numeric variables for regression** (Sessions 10 to 12). Each entry below says how well it does on that.
+:::
+
+## Two ways to load a dataset
+
+Every dataset below has a **course copy** you load the way you have loaded everything this semester. Run `library(tidyverse)` first, once per session:
+
+```r
+library(tidyverse)
+arrests <- read_csv("https://smourtgos.github.io/crju705/data/toronto-arrests.csv")
+```
+
+Several also live in an **R package**, which is where the course copy came from. That route needs a one-time install:
+
+```r
+install.packages("carData")   # once, typed in the console, not in your script
+library(carData)
+data(Arrests)                 # now there is an object called Arrests
+```
+
+Same data either way. The course copy is simpler, so it is what the examples below use.
+
+## How to size up a dataset in five minutes
+
+1. **What is one row?** A person? An arrest? A stop? A state?
+2. **How many rows?** Hundreds is plenty; millions is a headache
+3. **What are the variables?** `glimpse(your_data)` gives every name and type
+4. **Anything strange?** `summary(your_data)` shows impossible values (999s, negative ages) and `NA`s
+5. **Could it answer a question you care about?** Name the two groups and the outcome, or the variables you would relate
+
+## The menu
+
+| Dataset | Topic | One row is | Rows | Regression-ready? |
+|---|---|---|---|---|
+| [Rossi reentry experiment](#rossi) | Reentry, recidivism | a released prisoner | 432 | Yes |
+| [Toronto arrests](#toronto) | Pretrial release | an arrest | 5,226 | Yes |
+| [Minneapolis police stops](#mpls) | Policing, stops and searches | a stop | 51,920 | Limited |
+| [Fatal police shootings](#wapo) | Police use of deadly force | a person killed | 10,430 | Limited |
+| [COMPAS risk scores](#compas) | Courts, risk assessment | a defendant | 7,214 | Yes |
+| [GSS 2024: crime and justice attitudes](#gss) | Public opinion | a survey respondent | 3,309 | Yes |
+| [U.S. states, 1960](#uscrime) | Crime and punishment by state | a state | 47 | Yes (small) |
+| [U.S. arrest rates, 1973](#usarrests) | Violent crime by state | a state | 50 | Yes (small) |
+
+"Limited" means most of the variables are categories rather than numbers, so a regression is possible (logistic, with categories as predictors) but you will have fewer choices. Ask me before you commit to one of those.
+
+### Rossi reentry experiment {#rossi}
+
+432 men released from Maryland state prisons in the 1970s, followed for one year. Half were randomly assigned to receive financial aid. We used it in Session 7 (aid vs. no aid).
+
+- **Key variables:** `arrest` (1 = arrested within the year), `week` (week of first arrest; 52 if never), `fin` (financial aid), `age`, `prio` (number of prior convictions), `wexp` (work experience before prison), `mar` (married), `paro` (released on parole), `educ` (education level, coded 2 to 6), `race`
+- **Numbers for regression:** `age`, `prio`, `week`, `educ`
+- **Starter question:** were men released on parole re-arrested less often than men released without it?
+- **Quirks:** the original has 52 weekly employment columns (`emp1` to `emp52`); the course copy leaves them out. `educ` is a code, not years: 2 = 6th grade or less, 3 = 7th to 9th, 4 = 10th to 11th, 5 = 12th, 6 = some college.
+
+```r
+rossi <- read_csv("https://smourtgos.github.io/crju705/data/rossi.csv")
+```
+
+Original: `carData` package, `data(Rossi)`. Rossi, Berk & Lenihan (1980), *Money, Work, and Crime*.
+
+### Toronto arrests {#toronto}
+
+5,226 arrests by Toronto police for possession of small amounts of marijuana, 1997 to 2002, from a *Toronto Star* investigation. We used it in Session 7 (employed vs. not).
+
+- **Key variables:** `released` (released with a summons instead of held for a bail hearing), `employed`, `citizen`, `sex`, `age`, `year`, `checks` (how many of six police databases, such as prior arrests or parole, had the person's name), `colour`
+- **Numbers for regression:** `age`, `checks`, `year`
+- **Starter question:** were citizens released with a summons more often than non-citizens?
+
+```r
+arrests <- read_csv("https://smourtgos.github.io/crju705/data/toronto-arrests.csv")
+```
+
+Original: `carData` package, `data(Arrests)`.
+
+### Minneapolis police stops {#mpls}
+
+Nearly every stop the Minneapolis Police Department made in 2017. We used it in Lab 7 (searches in suspicious-person vs. traffic stops).
+
+- **Key variables:** `problem` (suspicious or traffic), `citationIssued`, `personSearch`, `vehicleSearch`, `gender`, `policePrecinct` (1 to 5), `neighborhood`, `date`, `MDC`, `race`, `preRace`
+- **Numbers for regression:** almost none (location and date). Outcomes are yes/no, so this one points toward logistic regression with categorical predictors
+- **Starter question:** among people stopped, were men searched more often than women?
+- **Quirks:** `personSearch`, `vehicleSearch`, and `gender` were recorded only for stops entered from a squad car's computer (`MDC`), so the 8,221 stops by officers on foot, bike, or horseback show `NA` for them. `citationIssued` is missing for about 63% of all stops, so be careful building a question on it. `NA` means "not recorded," not "no."
+
+```r
+stops <- read_csv("https://smourtgos.github.io/crju705/data/mpls-stops.csv")
+```
+
+Original: `carData` package, `data(MplsStops)`; the Minneapolis open data portal has more years.
+
+### Fatal police shootings {#wapo}
+
+The *Washington Post*'s database of every person shot and killed by an on-duty police officer in the United States, 2015 through 2024. We used it in Session 7 and Lab 7.
+
+- **Key variables:** `date`, `state`, `city`, `armed_with`, `threat_type`, `flee_status`, `was_mental_illness_related`, `body_camera`, `age`, `gender`, `race`
+- **Numbers for regression:** `age` only, at the level of the person. (Counting shootings by state or year opens more doors, but that takes skills we have not covered yet.)
+- **Starter question:** was a body camera reported more often when the person was in a mental health crisis?
+- **Quirks:** each row is a person who died, and the file includes names. Treat it with care, and leave names out of anything you show. This one is not copied to the course site; it is read straight from the *Post*.
+
+```r
+shootings <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v2/fatal-police-shootings-data.csv")
+```
+
+Source: [github.com/washingtonpost/data-police-shootings](https://github.com/washingtonpost/data-police-shootings). License CC BY-NC-SA 4.0.
+
+### COMPAS risk scores {#compas}
+
+People arrested in Broward County, Florida, in 2013 and 2014, scored by the COMPAS pretrial risk-assessment tool, then followed for two years by ProPublica. We used it in Lab 7 (High vs. Low labels).
+
+- **Key variables:** `two_year_recid` (1 = arrested again within two years), `score_text` (Low, Medium, High), `age`, `sex`, `priors_count...15` (number of prior offenses), `juv_fel_count`, `juv_misd_count`, `c_charge_degree` (F = felony, M = misdemeanor), `race`
+- **Numbers for regression:** several: `age`, the prior-count columns, the juvenile counts, the decile score
+- **Starter question:** were people charged with a felony re-arrested more often than people charged with a misdemeanor?
+- **Quirks:** 53 columns, many of them dates and case numbers you will not need. The file has two columns named `decile_score` and two named `priors_count`, so R renames them (the `New names:` message). The file includes names; leave them out of anything you show. Read straight from ProPublica.
+
+```r
+compas <- read_csv("https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-two-years.csv")
+```
+
+Source: [github.com/propublica/compas-analysis](https://github.com/propublica/compas-analysis) and ProPublica's 2016 article "Machine Bias."
+
+### GSS 2024: crime and justice attitudes {#gss}
+
+The General Social Survey, a national survey of U.S. adults run since 1972. The course copy keeps the 2024 respondents and the questions about crime, courts, guns, and police, plus basic background questions.
+
+- **Key variables:**
+  - `fear`: afraid to walk alone at night in your neighborhood?
+  - `cappun`: death penalty for murder
+  - `gunlaw`: require a police permit to buy a gun
+  - `owngun`: gun in the home
+  - `courts`: courts too harsh or not harsh enough
+  - `grass`: legalize marijuana
+  - `natcrime`: spending on halting rising crime
+  - `polhitok`, `polabuse`, `polattak`: when is it OK for police to strike a citizen
+  - background: `sex`, `degree`, `region`, `partyid`, `polviews`
+- **Numbers for regression:** `age`, `educ` (years of school), `coninc` (family income in constant dollars)
+- **Starter question:** are women more likely than men to be afraid to walk alone at night in their neighborhood?
+- **Quirks:** the GSS asks each question of only part of the sample (a "split ballot"), so most questions have `NA` for somewhere between a third and three-quarters of people. `NA` means "not asked" or "no answer," not "no." Ages 89 and older are all coded 89.
+
+```r
+gss <- read_csv("https://smourtgos.github.io/crju705/data/gss-2024-cj.csv")
+```
+
+Source: NORC at the University of Chicago, [gss.norc.org](https://gss.norc.org). The full 2024 file has 813 variables, if you want to look for more.
+
+### U.S. states, 1960 {#uscrime}
+
+A classic criminology dataset on crime and punishment across 47 states in 1960 (Ehrlich, 1973).
+
+- **Key variables:** `y` (crime rate), `So` (1 = Southern state), `Prob` (probability of imprisonment), `Time` (average time served), `Po1` (police spending), `Ed` (schooling), `U1`, `U2` (unemployment), `Ineq` (income inequality), `GDP`, `M` (share of young men)
+- **Numbers for regression:** nearly everything; this one was built for regression
+- **Starter question:** did Southern states have higher crime rates than the rest?
+- **Quirks:** only 47 rows, and several columns were rescaled to convenient numbers (for example, `Ed` is years of schooling times 10). Read `?MASS::UScrime` before you interpret a number.
+
+```r
+uscrime <- read_csv("https://smourtgos.github.io/crju705/data/uscrime.csv")
+```
+
+Original: the `MASS` package, which comes with R (nothing to install): `MASS::UScrime`.
+
+### U.S. arrest rates, 1973 {#usarrests}
+
+Arrests per 100,000 residents for murder, assault, and rape in each of the 50 states in 1973, plus the percent of each state's population living in cities.
+
+- **Key variables:** `state`, `Murder`, `Assault`, `Rape`, `UrbanPop`
+- **Numbers for regression:** all four, but only 50 rows and four variables
+- **Starter question:** do more urban states have higher assault arrest rates? (Split `UrbanPop` into two groups now; in Session 10 you will be able to use it as a number.)
+- **Quirks:** small and old. Fine for learning, thin for a whole project unless you pair it with a clear question.
+
+```r
+usarrests <- read_csv("https://smourtgos.github.io/crju705/data/usarrests.csv")
+```
+
+Original: built into R, no package needed: `USArrests`.
+
+## Finding your own
+
+If your question needs something else, these are good places to look. Check with me before you commit, and prefer a single CSV that downloads directly.
+
+- **City open data portals.** Chicago, New York, Los Angeles, Dallas, and dozens of other cities post crime incidents, arrests, stops, and use-of-force reports. Search "[city name] open data police."
+- **The Stanford Open Policing Project** ([openpolicing.stanford.edu](https://openpolicing.stanford.edu/data/)): traffic stops from dozens of states and cities. The files are large; pick one city.
+- **NACJD at ICPSR** ([icpsr.umich.edu/web/NACJD](https://www.icpsr.umich.edu/web/NACJD/)): the national archive of criminal justice research data. Excellent, but many files come in SPSS or Stata formats and need a free account.
+- **The Bureau of Justice Statistics** ([bjs.ojp.gov](https://bjs.ojp.gov/)): national statistics on jails, prisons, victimization, and courts, mostly as summary tables.

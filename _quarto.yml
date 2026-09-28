@@ -40,7 +40,7 @@ website:
           - href: weeks/week-06.qmd
             text: "Session 6 · Hypothesis Testing (Freq + Bayes)"
           - href: weeks/week-07.qmd
-            text: "Session 7 · Applied Data Workshop"
+            text: "Session 7 · Applied Workshop: Real Questions"
           - href: weeks/week-08.qmd
             text: "Session 8 · Comparing 3+ Groups (ANOVA)"
           - href: weeks/week-09.qmd
@@ -57,8 +57,14 @@ website:
         text: Resources
       - href: chicago-data.qmd
         text: Data Codebook
-      - href: final-project.qmd
-        text: Final Project
+      - text: Final Project
+        menu:
+          - href: final-project.qmd
+            text: "Final Project"
+          - href: project-data.qmd
+            text: "Data Options"
+          - href: final-project-exemplar.qmd
+            text: "Worked Exemplar"
     right:
       - icon: github
         href: https://github.com/smourtgos/crju705

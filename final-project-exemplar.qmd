@@ -4,7 +4,7 @@ subtitle: "A complete worked example — what an 'Excellent' project looks like"
 ---
 
 ::: {.callout-important appearance="simple"}
-**Read me first.** This page is a full final project, written to score "Excellent" on every row of the [grading rubric](final-project.qmd#grading-criteria) — with 📋 **rubric notes** in the margins explaining *why* each part earns its points. It uses the course's Alaska crash dataset, which — like all course datasets — is **not eligible for your own project** (you select your own data at Session 7). So study the *shape*, not the content. The complete script is downloadable: **[final-project-exemplar-script.R](final-project-exemplar-script.R)**.
+**Read me first.** This page is a full final project, written to score "Excellent" on every row of the [grading rubric](final-project.qmd#grading-criteria) — with 📋 **rubric notes** in the margins explaining *why* each part earns its points. It uses the course's Alaska crash dataset, which — like all course datasets — is **not eligible for your own project** (you choose your own in Homework 7, starting from the [data options](project-data.qmd)). So study the *shape*, not the content. The complete script is downloadable: **[final-project-exemplar-script.R](final-project-exemplar-script.R)**.
 :::
 
 ::: {.callout-note appearance="simple"}

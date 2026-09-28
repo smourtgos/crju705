@@ -79,11 +79,13 @@ prisoners <- read_csv("https://smourtgos.github.io/crju705/data/prisoners.csv")
 | [cities-wide.csv](data/cities-wide.csv) | 100 cities with violent-crime rates 2015–2025 in wide format (simulated) | Lab 4 |
 | [reentry-wide.csv](data/reentry-wide.csv) | 150 reentry program participants, monthly outcomes in wide format (simulated) | Lab 4 |
 | [population-data.csv](data/population-data.csv) | A full "population" of test scores for sampling-distribution simulations | Session 4 |
-| [crash-ak.csv](data/crash-ak.csv) | 20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated) | Lab 5, Workshop |
+| [crash-ak.csv](data/crash-ak.csv) | 20,000 Alaska traffic-crash incidents: causes, severity, intoxication flags (simulated) | Lab 4, Homework 5 and 6, Labs 8 and 12 |
 | [crash-ak.xlsx](data/crash-ak.xlsx) | The same crashes as a (messier) Excel file — for import practice | Lab 5 |
 | [officers.csv](data/officers.csv) | 200 corrections officers: shift, tenure, overtime, burnout, PTSD screen (simulated) | Labs 5, 6 |
 
 The two **Chicago anchor files are real data** (Chicago Police Department portal + Census/ACS via CMAP) — see the [full codebook and caveats](chicago-data.qmd). The remaining datasets are simulated but realistic, generously shared by a colleague.
+
+**Looking for your final-project dataset?** Those are on a separate page: **[Final-Project Data Options](project-data.qmd)**, eight real criminal justice datasets that load with one line of R, plus where to look for more.
 
 ## Demos & practice {#demos-practice}
 
@@ -100,7 +102,7 @@ Most sessions have two self-contained companion pages — every chunk on them ru
 | 4 · Sampling distributions | [Demo 4](demos/demo-04-sampling-distributions.qmd) | [Practice 4](practice/practice-04.qmd) |
 | 5 · Confidence intervals | [Demo 5](demos/demo-05-confidence-intervals.qmd) | [Practice 5](practice/practice-05.qmd) |
 | 6 · Hypothesis testing (freq + Bayes) | [Demo 6](demos/demo-06-hypothesis-testing.qmd) | [Practice 6](practice/practice-06.qmd) |
-| 7 · Applied data workshop | [Demo 7](demos/demo-07-workshop.qmd) | — (Lab 7 on your own data is the practice) |
+| 7 · Applied workshop: real questions | [Demo 7](demos/demo-07-workshop.qmd) | — (the demo's four worked examples and Lab 7 are the practice) |
 | 8 · ANOVA | [Demo 8](demos/demo-08-anova.qmd) | [Practice 8](practice/practice-08.qmd) |
 | 10 · Correlation | [Demo 10](demos/demo-10-correlation.qmd) | [Practice 10](practice/practice-10.qmd) |
 | 11 · Multiple regression | [Demo 11](demos/demo-11-regression.qmd) | [Practice 11](practice/practice-11.qmd) |

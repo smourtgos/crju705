@@ -18,7 +18,7 @@ The final project integrates conceptual understanding with applied statistical s
 | When | Milestone |
 |------|-----------|
 | Session 6 | Start scouting datasets (guidance in class) |
-| **Session 7** | **Dataset selection due** (workshop day — you'll work with your data in class) |
+| **Session 7** | Real questions, real tests, and a tour of the [data options](project-data.qmd). **Dataset chosen in Homework 7** (due the Sunday before Session 8) |
 | Session 8 HW | Checkpoint 1: descriptives + a plot of your outcome variable |
 | Session 10 HW | Checkpoint 2: measures of association among your key variables |
 | Session 11 HW | Checkpoint 3: a first regression model |
@@ -44,7 +44,7 @@ Your submission must include **all** of the following:
 
 ## 3. Steps and expectations
 
-**Step 1 — Find a dataset.** Select a dataset related to criminal justice (policing, courts, corrections, crime, public opinion, etc.) that can be imported into R (CSV, Excel, or an R dataset). It must include enough numeric variables for regression analysis. *(Formal selection criteria and the submission form are part of the [Session 7 assignment](homework/hw-07.qmd).)*
+**Step 1 — Find a dataset.** Select a dataset related to criminal justice (policing, courts, corrections, crime, public opinion, etc.) that can be imported into R (CSV, Excel, or an R dataset). It must include enough numeric variables for regression analysis. Start with the **[Final-Project Data Options](project-data.qmd)**: any dataset there is eligible, including the ones we work in Session 7, as long as your question goes beyond what we did in class. A dataset from somewhere else is welcome once I have cleared it; the course practice datasets are not eligible. *(Formal selection criteria are part of the [Session 7 assignment](homework/hw-07.qmd).)*
 
 **Step 2 — Define your research question.** Keep it focused and testable. Examples: *"Are violent crime rates associated with police staffing levels?"* or *"Do education and income predict victimization (or arrests)?"*
 
