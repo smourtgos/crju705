@@ -1,13 +1,13 @@
 ---
-title: "Lab 11 · Multiple Regression: Chicago's 77 Areas, Then 500 Neighborhoods"
-subtitle: "CRJU 705 · Session 11"
+title: "Lab 10 · Multiple Regression: Chicago's 77 Areas, Then 500 Neighborhoods"
+subtitle: "CRJU 705 · Session 10"
 ---
 
-**Goal:** run the complete multiple-regression workflow from today's lecture — fit with `lm()`, interpret coefficients in *holding-constant* language, diagnose with a residual plot and VIF, then fit the Bayesian twin with `brms` and read the posteriors — first on the Chicago community-area data from lecture, then on your own model with the Lab 3 neighborhoods.
+**Goal:** run the complete multiple-regression workflow from today's lecture (fit with `lm()`, interpret coefficients in *holding-constant* language, diagnose with a residual plot and VIF, then fit the Bayesian twin with `brms` and read the posteriors), first on the Chicago community-area data from lecture, then on your own model with the Lab 3 neighborhoods.
 
-There's no new data-skills content today: this lab is pure statistics practice. (Homework 11 brings the wrangling back — you'll clean a file *before* regressing on it.)
+There's no new data-skills content today: this lab is pure statistics practice. (Homework 10 brings the wrangling back: you'll clean a file *before* regressing on it.)
 
-**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.
+**How labs work:** run the Setup chunk as-is, follow the Walkthrough along with me, then complete the **Your Turn** tasks in your own script. That script is what you submit to Canvas before you leave.
 
 ## Setup
 
@@ -25,12 +25,14 @@ areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv")
 ```
 
 ::: {.callout-warning appearance="simple"}
-**One new package today:** `install.packages("car")` — we use it for VIF. (`bayesplot` came along free when you installed `brms` for ANOVA week, so `library(bayesplot)` should just work.) And the usual `brms` reminder: the first `brm()` of a session pauses at `Compiling Stan program...` for a minute. Not frozen. Compiling.
+**One new package today:** `install.packages("car")`, which we use for VIF. You installed `brms` for Project Checkpoint 2, and `bayesplot` came along free with it, so `library(bayesplot)` should just work. If your Checkpoint 2 test fit failed, flag me down before we start.
+
+**First time with `brms`?** When you run your first `brm()` model of an R session, R will sit at `Compiling Stan program...` for about a minute before sampling starts. That's normal: Stan is compiling your model into C++. It is not frozen. If instead you get an error mentioning a *compiler* or *toolchain*, flag me down.
 :::
 
-Our walkthrough data are the 77 Chicago community areas — every 2025 incident aggregated to the area level and joined with census measures (codebook on the [Data page](../chicago-data.qmd)). One row per *area*, not per person or per crime. Keep that word — **area** — in every sentence you write today.
+Our walkthrough data are the 77 Chicago community areas: every 2025 incident aggregated to the area level and joined with census measures (codebook on the [Data page](../chicago-data.qmd)). One row per *area*, not per person or per crime. Keep that word, **area**, in every sentence you write today.
 
-**The question:** how do unemployment and vacant housing relate to an area's violent-crime rate — each adjusted for the other?
+**The question:** how do unemployment and vacant housing relate to an area's violent-crime rate: each adjusted for the other?
 
 ## Walkthrough
 
@@ -48,7 +50,7 @@ ggplot(areas, aes(unemployment_rate, violent_rate)) +
        y = "Violent crimes per 1,000 residents")
 ```
 
-A strong, roughly linear, upward relationship — with the high-violence areas scattering farther from the line. Remember that scatter; it comes back in diagnostics.
+A strong, roughly linear, upward relationship, with the high-violence areas scattering farther from the line. Remember that scatter; it comes back in diagnostics.
 
 ### One predictor
 
@@ -62,7 +64,7 @@ Three numbers to pull out of that wall of output, in order of importance:
 
 - **The slope (~3.3):** each additional percentage point of unemployment is associated with about 3.3 more violent crimes per 1,000 residents.
 - **Multiple R-squared (~0.71):** unemployment alone accounts for about 71% of the variance in violent-crime rates *across areas*.
-- **The slope's p-value:** far below .05 — a slope this steep essentially never shows up when the true slope is zero.
+- **The slope's p-value:** far below .05: a slope this steep essentially never shows up when the true slope is zero.
 
 ### Two predictors
 
@@ -74,13 +76,13 @@ chi_m2 <- lm(violent_rate ~ unemployment_rate + pct_vacant, data = areas)
 summary(chi_m2)
 ```
 
-Compare the unemployment slope across the two models: **~3.3 alone → ~2.1 with vacancy in the model**. That drop is the whole point of multiple regression: part of what the simple model credited to unemployment was really variance it *shares* with vacancy. Each coefficient is now an **adjusted** association — unemployment's relationship with violence *among areas with similar vacancy*, and vice versa. Both stay strongly significant, and R² rises to ~0.82.
+Compare the unemployment slope across the two models: **~3.3 alone → ~2.1 with vacancy in the model**. That drop is the whole point of multiple regression: part of what the simple model credited to unemployment was really variance it *shares* with vacancy. Each coefficient is now an **adjusted** association: unemployment's relationship with violence *among areas with similar vacancy*, and vice versa. Both stay strongly significant, and R² rises to ~0.82.
 
 **Interpretation sentences worth copying:**
 
 - "Holding vacancy constant, each additional percentage point of unemployment is associated with about 2.1 more violent crimes per 1,000 residents."
 - "Holding unemployment constant, each additional percentage point of vacant housing is associated with about 1.9 more violent crimes per 1,000 residents."
-- What we may **not** say: anything with "causes," "drives," or "increases" as an action verb — and nothing about individual *people*. These are adjusted associations between *areas* (Session 10's ecological fallacy never left).
+- What we may **not** say: anything with "causes," "drives," or "increases" as an action verb, and nothing about individual *people*. These are adjusted associations between *areas* (Session 8's ecological fallacy never left).
 
 ### Diagnose: the residual plot
 
@@ -96,7 +98,7 @@ ggplot(chi_diag, aes(fitted, residual)) +
   labs(x = "Fitted violent-crime rate", y = "Residual")
 ```
 
-What to check, in order: (1) **no curve** — the cloud shouldn't bend (a bend means the straight-plane shape is wrong); (2) **even spread** — here the spread visibly widens at higher fitted values, so the model misses by more in high-violence areas. That fanning doesn't bias the slopes, but it means the error bars are least trustworthy exactly where the stakes are highest — say so when you report.
+What to check, in order: (1) **no curve**: the cloud shouldn't bend (a bend means the straight-plane shape is wrong); (2) **even spread**: here the spread visibly widens at higher fitted values, so the model misses by more in high-violence areas. That fanning doesn't bias the slopes, but it means the error bars are least trustworthy exactly where the stakes are highest: say so when you report.
 
 ### Diagnose: VIF
 
@@ -107,11 +109,11 @@ If predictors are near-duplicates of each other, the model can't apportion credi
 vif(chi_m2)
 ```
 
-Rules of thumb: **above 5, pay attention; above 10, you have a problem.** Ours sit around 1.8 — unemployment and vacancy are correlated (r ≈ 0.67) but each still brings its own information. If you ever do see a huge VIF: drop one of the offenders, or combine them into an index. More data won't fix redundancy.
+Rules of thumb: **above 5, pay attention; above 10, you have a problem.** Ours sit around 1.8: unemployment and vacancy are correlated (r ≈ 0.67) but each still brings its own information. If you ever do see a huge VIF: drop one of the offenders, or combine them into an index. More data won't fix redundancy.
 
 ### The Bayesian version
 
-Same formula, same `brm()` pattern as ANOVA week:
+Same formula, Bayesian machinery. `brm()`, from the **brms** package (Bayesian Regression Models using Stan), takes the same formula you just gave `lm()`:
 
 ```{r}
 #| label: chi-brm
@@ -126,7 +128,9 @@ chi_bayes <- brm(violent_rate ~ unemployment_rate + pct_vacant,
 summary(chi_bayes)
 ```
 
-Reading the `Regression Coefficients` block: `Estimate` is the posterior mean (it lands almost exactly on `lm()`'s estimate — expected with default priors and 77 areas), and `l-95% CI` / `u-95% CI` bound the **credible interval**. Both intervals sit clearly away from zero. Quick health checks: `Rhat` at 1.00 and ESS in the hundreds-plus mean the chains behaved.
+The settings you'll use all semester: `chains = 2, iter = 2000` runs two independent samplers for 2,000 steps each (the first half is warm-up and gets thrown away), which together build a full **posterior distribution** for every coefficient; `seed = 705` makes your numbers match mine; `refresh = 0` just silences the sampling progress log. We didn't state any priors, so `brms` used its **defaults**: essentially flat on the coefficients, weakly informative on the intercept and spread. That means "the data do the talking," which is fine here, but *say so*: "we used brms default priors" belongs in any write-up that reports a posterior.
+
+Reading the `Regression Coefficients` block: `Estimate` is the posterior mean (it lands almost exactly on `lm()`'s estimate, as expected with default priors and 77 areas), and `l-95% CI` / `u-95% CI` bound the **credible interval**. Both intervals sit clearly away from zero. Quick health checks: `Rhat` at 1.00 and ESS in the hundreds-plus mean the chains behaved.
 
 ```{r}
 #| label: chi-mcmc
@@ -136,11 +140,11 @@ mcmc_areas(chi_bayes, pars = c("b_unemployment_rate", "b_pct_vacant"),
        subtitle = "Shaded = central 95% credible interval")
 ```
 
-**The interpretation rule, carried over from ANOVA week:** if a coefficient's 95% credible interval **includes 0**, zero remains a credible value — no credible association. If it **excludes 0**, the association is credible, and you may say: "given the data and priors, there's a 95% probability the coefficient lies in this range." (The sentence the confidence interval never let you say.)
+**The interpretation rule (you'll use it for every `brm()` model from here on):** if a coefficient's 95% credible interval **crosses 0**, zero remains a credible value: no credible association. If it **excludes 0**, the association is credible, and you may say: "given the data and priors, there's a 95% probability the coefficient lies in this range." (The sentence the confidence interval never let you say.)
 
 ## Your Turn
 
-Back to the 500 simulated neighborhoods from Lab 3 — poverty, unemployment, disorder, and last year's assault counts:
+Back to the 500 simulated neighborhoods from Lab 3: poverty, unemployment, disorder, and last year's assault counts:
 
 ```{r}
 #| label: yt-load
@@ -150,7 +154,7 @@ nbhd <- read_csv("https://smourtgos.github.io/crju705/data/neighborhoods.csv")
 
 Work in your own script. Comment each answer.
 
-**1. Make the units speak.** `poverty_rate` and `unemployment_rate` are stored as proportions (0–1), so a raw slope would describe an absurd 0%-to-100% jump. Rescale before fitting — lecture's "watch the units" lesson, applied:
+**1. Make the units speak.** `poverty_rate` and `unemployment_rate` are stored as proportions (0 to 1), so a raw slope would describe an absurd 0%-to-100% jump. Rescale before fitting: lecture's "watch the units" lesson, applied:
 
 ```{r}
 #| label: yt-1
@@ -161,7 +165,7 @@ nbhd <- nbhd |>
 # Then look first: scatterplot assaults ~ poverty_pct with an lm smooth.
 ```
 
-**2. Fit and interpret.** Regress `assaults` on `poverty_pct` and `unemployment_pct`. In comments: one holding-constant sentence per coefficient (units: assaults per percentage point), and what R² says. Expect a much humbler R² than Chicago's — real-feeling individual-ish noise, and that's fine; say what the model *does* explain, not more.
+**2. Fit and interpret.** Regress `assaults` on `poverty_pct` and `unemployment_pct`. In comments: one holding-constant sentence per coefficient (units: assaults per percentage point), and what R² says. Expect a much humbler R² than Chicago's: real-feeling individual-ish noise, and that's fine; say what the model *does* explain, not more.
 
 ```{r}
 #| label: yt-2
@@ -170,7 +174,7 @@ nbhd <- nbhd |>
 # summary(nbhd_m)
 ```
 
-**3. The diagnostics moment.** Residual plot + VIF, exactly as in the Walkthrough. Two things to note in comments: (a) the residuals form diagonal stripes — that's because `assaults` only takes small whole values (0, 1, 2, …), not a bug, but it *is* a hint that a count outcome bends the linear model's assumptions (counts and yes/no outcomes get their own tools — that story starts next session); (b) the VIF values — poverty and unemployment are correlated here (r ≈ 0.48), so is it redundancy trouble or not?
+**3. The diagnostics moment.** Residual plot + VIF, exactly as in the Walkthrough. Two things to note in comments: (a) the residuals form diagonal stripes, because `assaults` only takes small whole values (0, 1, 2, …); that's not a bug, but it *is* a hint that a count outcome bends the linear model's assumptions (counts and yes/no outcomes get their own tools, and that story starts next session); (b) the VIF values: poverty and unemployment are correlated here (r ≈ 0.48), so is it redundancy trouble or not?
 
 ```{r}
 #| label: yt-3
@@ -178,7 +182,7 @@ nbhd <- nbhd |>
 # residual plot on nbhd_m, then vif(nbhd_m)
 ```
 
-**4. The Bayesian twin.** Fit the `brm()` version (same options as the Walkthrough; ~500 rows samples fast), look at `summary()`, and make the `mcmc_areas()` plot for `b_poverty_pct` and `b_unemployment_pct`. In comments: one frequentist sentence and one Bayesian sentence about the poverty coefficient — each including the **size** of the association (assaults per percentage point, or per 10 points if that reads better), not just "significant"/"credible."
+**4. The Bayesian twin.** Fit the `brm()` version (same options as the Walkthrough; ~500 rows samples fast), look at `summary()`, and make the `mcmc_areas()` plot for `b_poverty_pct` and `b_unemployment_pct`. In comments: one frequentist sentence and one Bayesian sentence about the poverty coefficient, each including the **size** of the association (assaults per percentage point, or per 10 points if that reads better), not just "significant"/"credible."
 
 ```{r}
 #| label: yt-4
@@ -189,7 +193,7 @@ nbhd <- nbhd |>
 
 **5. *(Stretch)* Does disorder earn its keep?** Add `disorder_level` to the frequentist model (make it a factor with levels Low → Moderate → High → Very High first). Check the coefficients and the **adjusted** R². Does observed disorder tell you anything about assaults that poverty and unemployment didn't already? Connect your answer to lecture's third-predictor slide.
 
-*(Reading a factor in `lm()`: R drops the first level — Low — as the reference, so each `disorder_level` coefficient is that level's difference from Low, holding the other predictors constant. Same idea as ANOVA's group comparisons, wearing regression clothes.)*
+*(Reading a factor in `lm()`: R drops the first level, Low, as the reference, so each `disorder_level` coefficient is that level's difference from Low, holding the other predictors constant. It's a comparison of each group against one baseline group, wearing regression clothes.)*
 
 ```{r}
 #| label: yt-5
@@ -197,12 +201,4 @@ nbhd <- nbhd |>
 # your code here
 ```
 
-## Exit Ticket
-
-Submit a short R script to Canvas before you leave, containing:
-
-1. A comment: your holding-constant interpretation of the `poverty_pct` coefficient — one sentence, with units
-2. A comment: what R² told you about your neighborhoods model, in signal-and-noise terms — and one thing the model *leaves* unexplained
-3. A comment: what your residual plot and VIF each checked, and what each said (one sentence apiece)
-4. Your poverty conclusion, two ways: one frequentist sentence (estimate + CI or p) and one Bayesian sentence (posterior + credible interval)
-5. A comment: why "holding unemployment constant" is *not* the same claim as "poverty causes assaults" — name one lurker these neighborhoods might be hiding
+When you are done, submit your script to Canvas. The in-class exercise is graded on completing it.

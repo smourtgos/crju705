@@ -49,7 +49,9 @@ not_here_dates <- c(
   # Fall Break — Thu–Fri, does not hit a Tuesday
   seq(ymd("2026-10-15"), ymd("2026-10-16"), by = 1),
   # Thanksgiving Break — CONFIRMED
-  seq(ymd("2026-11-22"), ymd("2026-11-29"), by = 1)
+  seq(ymd("2026-11-22"), ymd("2026-11-29"), by = 1),
+  # Instructor travel — added Sep 29, 2026 (ANOVA also removed; 12 sessions)
+  ymd("2026-11-17")
 )
 
 # All Tuesdays in the semester
@@ -57,14 +59,14 @@ all_tues <- seq(firstday, semester_end, by = "1 week")
 # Class sessions = Tuesdays not blocked by breaks/election/conference
 session_dates <- all_tues[!all_tues %in% not_here_dates]
 
-n_sessions <- length(session_dates)          # 13 for Fall 2026
+n_sessions <- length(session_dates)          # 12 for Fall 2026 (was 13 before Nov 17 was lost)
 exam_dates <- c(session_dates[9], session_dates[n_sessions])  # midterm, presentations
 final_day  <- session_dates[n_sessions]
 # Sunday before presentations (presentations fall on a Tuesday)
 project_due <- final_day - days(2)
 
 session_headers <- str_c(
-  "Session ", seq_along(session_dates), " — ",
+  "Session ", seq_along(session_dates), ": ",
   format(session_dates, "%B %d")
 )
 ```
@@ -111,12 +113,12 @@ class_cal <- tibble(date = seq(ymd("2026-08-01"), ymd("2026-12-31"), by = 1)) |>
   ) +
   labs(
     fill = "", x = "", y = "",
-    caption = "Provisional: dates pending the official USC Fall 2026 academic calendar."
+    caption = "Updated September 29, 2026: no class November 17."
   )
 ```
 
 ::: {.callout-warning appearance="simple"}
-**Provisional dates.** The meeting pattern (Tuesdays, 6:00–8:45 pm, Currell 204) and the no-class dates (Oct 27, Nov 3, and Thanksgiving week) are set. The individual *session dates* still derive from a provisional semester start and will be confirmed against USC's official Fall 2026 calendar before the semester begins. Topics, their order, and course policies are final.
+**Schedule update (September 29).** We meet Tuesdays, 6:00 to 8:45 pm, in Currell 204. There is **no class on October 27, November 3, November 17, or November 24** (Thanksgiving week). ANOVA has been removed from the course, so correlation moves up to Session 8, regression to Session 10, and logistic regression to Session 11. Presentations stay on December 1, which is now Session 12.
 :::
 
 ::: {.content-visible when-format="html"}
@@ -148,7 +150,7 @@ By the end of this course, students will be able to:
 - Import, clean, transform, and visualize real data in R using modern (tidyverse) tools.
 - Apply descriptive statistics to summarize and interpret data.
 - Explain the concepts of probability and distributions as they relate to criminological data.
-- Conduct and interpret basic statistical tests — from both frequentist and Bayesian perspectives — including t-tests, ANOVA, correlation, and regression.
+- Conduct and interpret basic statistical tests — from both frequentist and Bayesian perspectives — including t-tests, tests of proportions, correlation, and regression.
 - Critically evaluate statistical claims in criminal justice policy and research.
 - Effectively communicate statistical findings in both written and visual formats.
 
@@ -174,9 +176,9 @@ Dates for all assignments and exams are listed on the course Canvas page and dis
 
 ## Final Project Information
 
-The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early (**you choose it in Homework 7**, after the Session 7 workshop tours the [data options](project-data.qmd)), and project checkpoints attached to homework in the second half of the semester keep your analysis moving. Session 12 closes with a **project code clinic** — open Q&A on your own code — before presentations.
+The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early (**you choose it in Homework 7**, after the Session 7 workshop tours the [data options](project-data.qmd)), and project checkpoints attached to homework in the second half of the semester keep your analysis moving. Session 11 closes with a **project code clinic** — open Q&A on your own code — before presentations.
 
-Your completed project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d, %Y')`** (the Sunday before presentations day). You will then present your work in class at Session 13 on `r format(final_day, '%B %d, %Y')`.
+Your completed project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d, %Y')`** (the Sunday before presentations day). You will then present your work in class at Session 12 on `r format(final_day, '%B %d, %Y')`.
 
 There will be *absolutely* no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.
 
@@ -267,49 +269,45 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** R4DS Ch. 17 (Dates and times)
 
-**Homework:** Problem set 7: explore two datasets and **choose your final-project dataset** · No reading · Bring your chosen dataset to Session 8
+**Homework:** Problem set 7: explore two datasets and **choose your final-project dataset** · Read Stanton Ch. 7 (Measures of Association) · Bring your chosen dataset to Session 8
 
 ## `r session_headers[8]`
 
-**Topics:** ANOVA
-
-**Readings due:** Stanton Ch. 6
-
-**In-class exercise (graded)** · **Homework:** Problem set 8 (includes **project checkpoint 1**: descriptives on your project data) · Study for mid-term
-
-## `r session_headers[9]`
-
-**Topics:** **Mid-Term Exam (in class)** — covers Sessions 1–8
-
-**No in-class exercise or problem set.** Read Stanton Ch. 7 before next class.
-
-## `r session_headers[10]`
-
-**Topics:** Measures of association / correlation
+**Topics:** Measures of association: correlation (first half) · **Mid-term review** (second half)
 
 **Readings due:** Stanton Ch. 7
 
-**In-class exercise (graded)** · **Homework:** Problem set 10 (includes **project checkpoint 2**) · Read Stanton Ch. 8
+**In-class exercise (graded)** · **Homework:** Problem set 8 (correlation, plus **project checkpoint 1**: descriptives on your project data) · Study for mid-term
 
-## `r session_headers[11]`
+## `r session_headers[9]`
 
-**Topics:** Multiple linear regression
+**Topics:** **Mid-Term Exam (in class)**, covering Sessions 1 to 8
+
+**No in-class exercise or problem set.** **Project checkpoint 2** (correlations in your project data, plus installing `brms` and running one test model) is due Sunday, `r format(session_dates[9] + days(5), '%B %d')`. Read Stanton Ch. 8 before next class.
+
+## `r session_headers[10]`
+
+**Topics:** Multiple linear regression (and your first Bayesian model in `brms`)
 
 **Readings due:** Stanton Ch. 8
 
-**In-class exercise (graded)** · **Homework:** Problem set 11 (includes **project checkpoint 3**) · Read Stanton Ch. 10
+**In-class exercise (graded)** · **Homework:** Problem set 10 (includes **project checkpoint 3**), due Sunday, `r format(session_dates[11] - days(2), '%B %d')` · Read Stanton Ch. 10
 
-## `r session_headers[12]`
+*No class October 27 or November 3.*
+
+## `r session_headers[11]`
 
 **Topics:** Logistic regression
 
 **Readings due:** Stanton Ch. 10
 
-**In-class exercise (graded)** · **Homework:** Problem set 12 (includes **project checkpoint 4**) — due the Sunday *after* this session · **Full project due via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d')`**, one week later
+**In-class exercise (graded)** · **Homework:** Problem set 11 (includes **project checkpoint 4**), due Sunday, `r format(project_due - days(7), '%B %d')` · **Full project due via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d')`**, one week later
 
-This is the last session with new statistical content. The final half hour is a **project code clinic** — bring your project code and your two most stuck-on problems — and **presentation order is announced today**.
+This is the last session with new statistical content. The final half hour is a **project code clinic** (bring your project code and your two most stuck-on problems), and **presentation order is announced today**.
 
-## `r session_headers[13]`
+*No class November 17 or November 24.*
+
+## `r session_headers[12]`
 
 **Topics:** **Final Project Presentations (in class)**
 
@@ -340,8 +338,8 @@ Your final grade has three components:
 
 | Component | Weight | What it covers |
 |:---|:---:|:---|
-| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the R4DS exercises attached to Problem Sets 2–6 and the project checkpoints in Problem Sets 8–12) and the graded in-class exercises |
-| Mid-term exam | **25%** | In class at Session 9; covers Sessions 1–8 |
+| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the R4DS exercises attached to Problem Sets 2–6 and the project checkpoints in Problem Sets 8, 10, and 11 and during midterm week) and the graded in-class exercises |
+| Mid-term exam | **25%** | In class at Session 9; covers Sessions 1 to 8 |
 | Final project | **30%** | Written report, script & output (22%) + in-class presentation (8%) |
 
 Graded in-class exercises are scored on active participation that day and cannot be made up (see the [Attendance Policy](#attendance-policy)). Final letter grades follow the standard scale:

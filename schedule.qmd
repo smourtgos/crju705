@@ -4,25 +4,24 @@ toc: false
 ---
 
 ::: {.callout-warning appearance="simple"}
-Session dates below are provisional until the official USC Fall 2026 academic calendar is confirmed. Topics and their order are final.
+**Schedule update (September 29).** ANOVA has been removed from the course. Correlation moves up to Session 8 (October 6, with midterm review), the midterm stays at Session 9 (October 13), regression is Session 10 (October 20), logistic regression is Session 11 (November 10), and presentations are Session 12 (December 1). **No class October 27, November 3, November 17, or November 24.** Session dates are on the [syllabus calendar](syllabus.qmd).
 :::
 
 Readings are due **before** the start of the listed class session. "R4DS" = [*R for Data Science*, 2nd ed.](https://r4ds.hadley.nz/) (free online). Slide, lab, and homework links go live as each session is published.
 
 | # | Topic | Stanton | R4DS | Materials |
 |---|-------------------------------|---------|------|-----------|
-| 1 | Class intro · Why statistics is awesome · Types of data · R & RStudio setup | Intro, App. A–C | — (swirl tutorials for homework) | [Session page](weeks/week-01.qmd) · [Slides](slides/week-01-stats-is-awesome.qmd) |
+| 1 | Class intro · Why statistics is awesome · Types of data · R & RStudio setup | Intro, App. A to C | none (swirl tutorials for homework) | [Session page](weeks/week-01.qmd) · [Slides](slides/week-01-stats-is-awesome.qmd) |
 | 2 | Descriptive statistics & exploratory data analysis | Ch. 1 | Ch. 1 (Data visualization), Ch. 2 (Workflow: basics) | [Session page](weeks/week-02.qmd) · [Slides](slides/week-02-descriptives.qmd) · [Lab](labs/lab-02-visualize.qmd) · [HW](homework/hw-02.qmd) |
 | 3 | Probability, via simulation · first look at Bayes' theorem | Ch. 2 | Ch. 3 (Data transformation), Ch. 4 (Workflow: code style) | [Session page](weeks/week-03.qmd) · [Slides](slides/week-03-probability.qmd) · [Lab](labs/lab-03-transform.qmd) · [HW](homework/hw-03.qmd) |
 | 4 | Sampling distributions, via simulation | Ch. 3 | Ch. 5 (Data tidying) | [Session page](weeks/week-04.qmd) · [Slides](slides/week-04-sampling-distributions.qmd) · [Lab](labs/lab-04-sampling.qmd) · [HW](homework/hw-04.qmd) |
 | 5 | Confidence intervals on real data | Ch. 4 | Ch. 10 (Exploratory data analysis) | [Session page](weeks/week-05.qmd) · [Slides](slides/week-05-confidence-intervals.qmd) · [Lab](labs/lab-05-intervals.qmd) · [HW](homework/hw-05.qmd) |
 | 6 | Hypothesis testing: frequentist **and** Bayesian | Ch. 5 | Ch. 16 (Factors) | [Session page](weeks/week-06.qmd) · [Slides](slides/week-06-hypothesis-testing.qmd) · [Lab](labs/lab-06-testing.qmd) · [HW](homework/hw-06.qmd) |
-| 7 | **Applied workshop: real questions, real tests** · tour of the [data options](project-data.qmd) · **Final-project dataset chosen in HW 7** | — | Ch. 17 (Dates and times) | [Session page](weeks/week-07.qmd) · [Slides](slides/week-07-workshop.qmd) · [Lab](labs/lab-07-workshop.qmd) · [HW](homework/hw-07.qmd) |
-| 8 | Comparing 3+ groups (ANOVA) · first `brms` workflow · project checkpoints begin | Ch. 6 | — | [Session page](weeks/week-08.qmd) · [Slides](slides/week-08-anova.qmd) · [Lab](labs/lab-08-anova.qmd) · [HW](homework/hw-08.qmd) |
-| 9 | **Midterm exam** (in class, covers sessions 1–8) | — | — | [Session page](weeks/week-09.qmd) · [Study guide](midterm.qmd) |
-| 10 | Measures of association / correlation · project checkpoint | Ch. 7 | — | [Session page](weeks/week-10.qmd) · [Slides](slides/week-10-correlation.qmd) · [Lab](labs/lab-10-correlation.qmd) · [HW](homework/hw-10.qmd) |
-| 11 | Multiple linear regression · project checkpoint | Ch. 8 | — | [Session page](weeks/week-11.qmd) · [Slides](slides/week-11-regression.qmd) · [Lab](labs/lab-11-regression.qmd) · [HW](homework/hw-11.qmd) |
-| 12 | Logistic regression · project checkpoint · **code clinic + presentation order** | Ch. 10 | — | [Session page](weeks/week-12.qmd) · [Slides](slides/week-12-logistic.qmd) · [Lab](labs/lab-12-logistic.qmd) · [HW](homework/hw-12.qmd) |
-| 13 | **Final project presentations** | — | — | [Session page](weeks/week-13.qmd) · [Project details](final-project.qmd) |
+| 7 | **Applied workshop: real questions, real tests** · tour of the [data options](project-data.qmd) · **Final-project dataset chosen in HW 7** | none | Ch. 17 (Dates and times) | [Session page](weeks/week-07.qmd) · [Slides](slides/week-07-workshop.qmd) · [Lab](labs/lab-07-workshop.qmd) · [HW](homework/hw-07.qmd) |
+| 8 | Measures of association: correlation · **midterm review** · project checkpoints begin | Ch. 7 | none | [Session page](weeks/week-10.qmd) · [Slides](slides/week-10-correlation.qmd) · [Lab](labs/lab-10-correlation.qmd) · [HW](homework/hw-10.qmd) |
+| 9 | **Midterm exam** (in class, covers Sessions 1 to 8) · project checkpoint 2 due that Sunday | none | none | [Session page](weeks/week-09.qmd) · [Study guide](midterm.qmd) |
+| 10 | Multiple linear regression · first `brms` model · project checkpoint | Ch. 8 | none | [Session page](weeks/week-11.qmd) · [Slides](slides/week-11-regression.qmd) · [Lab](labs/lab-11-regression.qmd) · [HW](homework/hw-11.qmd) |
+| 11 | Logistic regression · project checkpoint · **code clinic + presentation order** | Ch. 10 | none | [Session page](weeks/week-12.qmd) · [Slides](slides/week-12-logistic.qmd) · [Lab](labs/lab-12-logistic.qmd) · [HW](homework/hw-12.qmd) |
+| 12 | **Final project presentations** | none | none | [Session page](weeks/week-13.qmd) · [Project details](final-project.qmd) |
 
 : {.schedule-table .striped .hover tbl-colwidths="[4,40,10,26,20]"}

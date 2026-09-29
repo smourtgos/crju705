@@ -11,7 +11,7 @@ Your final project needs a real criminal justice dataset. This page is a menu: e
 - **Any dataset on this page is eligible**, including the ones we worked in class in Session 7 (reentry, pretrial release, police stops, shootings, risk scores). Your research question and variables have to go beyond what we did in class.
 - The **course datasets** are **not** eligible. They are for practice. That includes the **Chicago** files (Session 7's Example 3 used one), plus the crash data, officers, prisoners, neighborhoods, cities, and reentry-wide files. None of them is on this page.
 - **Found something else?** Great. Clear it with me before you commit, and prefer a single file that downloads directly (a CSV is best).
-- Whatever you choose must have **numeric variables for regression** (Sessions 10 to 12). Each entry below says how well it does on that.
+- Whatever you choose must have **numeric variables for regression** (Sessions 10 and 11). Each entry below says how well it does on that.
 :::
 
 ## Two ways to load a dataset
@@ -175,7 +175,7 @@ Arrests per 100,000 residents for murder, assault, and rape in each of the 50 st
 
 - **Key variables:** `state`, `Murder`, `Assault`, `Rape`, `UrbanPop`
 - **Numbers for regression:** all four, but only 50 rows and four variables
-- **Starter question:** do more urban states have higher assault arrest rates? (Split `UrbanPop` into two groups now; in Session 10 you will be able to use it as a number.)
+- **Starter question:** do more urban states have higher assault arrest rates? (Split `UrbanPop` into two groups now; in Session 8 you will be able to use it as a number.)
 - **Quirks:** small and old. Fine for learning, thin for a whole project unless you pair it with a clear question.
 
 ```r

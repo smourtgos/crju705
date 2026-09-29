@@ -41,13 +41,13 @@ zone_pal <- unname(palette.colors(6, palette = "Okabe-Ito"))[2:6]
 
 **Today:** a real case study, the course tour, types of data, and your first R commands.
 
-**Learning goals** — by the end of tonight you can:
+**Learning goals**: by the end of tonight you can:
 
 - name the four levels of measurement and classify a variable into them
 - explain why a variable's scale constrains the math *and* the plots you may use
 - run your first R commands and know what to install before next week
 
-*(No statistics background assumed. If the case study feels like magic tonight, good — by Session 12 you'll be able to build it.)*
+*(No statistics background assumed. If the case study feels like magic tonight, good: by Session 11 you'll be able to build it.)*
 
 # A City Under Siege {background-color="#1B2A4A"}
 
@@ -81,7 +81,7 @@ Over three months, **40 bank robberies** strike across a city's five zones: Nort
 
 ## Before We Model, We Look
 
-Very little information is available: no suspect descriptions, no MO patterns — just **when** and **where**.
+Very little information is available: no suspect descriptions, no MO patterns: just **when** and **where**.
 
 Can we use this simple dataset to build a predictive model with statistics?
 
@@ -115,7 +115,7 @@ robberies <- tibble(
   arrange(date)
 ```
 
-## Timeline of Robberies by Zone — any patterns?
+## Timeline of Robberies by Zone: any patterns?
 
 ```{r}
 #| label: timeline-plot
@@ -133,7 +133,7 @@ ggplot(robberies, aes(x = date, y = zone, color = zone)) +
 
 <video src="../media/week-01/robbery_timeline.mp4" controls preload="metadata"></video>
 
-## Mapped Locations — any patterns?
+## Mapped Locations: any patterns?
 
 <video src="../media/week-01/animated_robberies_map.mp4" controls preload="metadata"></video>
 
@@ -154,7 +154,7 @@ We use **logistic regression** to predict whether the same zone will be hit agai
 - **Outcome:** `future_hit` = 1 if another robbery occurs in the *same zone* within the next 10 days; otherwise 0
 - This creates a **binary classification** problem
 
-*(Don't worry about the machinery today — logistic regression is Session 12. This is a preview of where we're headed.)*
+*(Don't worry about the machinery today: logistic regression is Session 11. This is a preview of where we're headed.)*
 
 ```{r}
 #| label: fit-model
@@ -215,7 +215,7 @@ Based on the model, the **West Zone** has the highest likelihood of being target
 
 **Outcome:** Within days, officers apprehended the suspect in the predicted area as he was approaching a bank.
 
-Statistics turned scattered crime data into a clear lead — saving time, resources, and preventing further victimization.
+Statistics turned scattered crime data into a clear lead, saving time, resources, and preventing further victimization.
 
 ::: incremental
 - What data did we *not* use? How could we update this model as new robberies occur in real time?
@@ -228,25 +228,25 @@ Statistics turned scattered crime data into a clear lead — saving time, resour
 Look at what you just did with the robbery case:
 
 ::: incremental
-- You started with a vague hunch spread across five zones — statisticians call that a **prior**
+- You started with a vague hunch spread across five zones: statisticians call that a **prior**
 - Each new robbery was **evidence** that reshaped the hunch
 - The model's "predicted risk by zone" is an **updated belief, given the data**
 - Sending officers to the West Zone = **deciding under quantified uncertainty**
-- The formal name is **Bayesian updating**. The formula arrives in Session 3; the full machinery in Session 6 — side by side with the other great tradition, the frequentist one
+- The formal name is **Bayesian updating**. The formula arrives in Session 3; the full machinery in Session 6: side by side with the other great tradition, the frequentist one
 :::
 
 # Course Structure {background-color="#73000A"}
 
 ## How This Course Works
 
-Everything lives on the course website — bookmark it:
+Everything lives on the course website: bookmark it:
 
 **<https://smourtgos.github.io/crju705/>**
 
-- **[Schedule](https://smourtgos.github.io/crju705/schedule.html)** — topics, readings, slides, labs, homework for every session
-- **[Syllabus](https://smourtgos.github.io/crju705/syllabus.html)** — walk-through now (grading, policies, AI policy, the mid-term warning)
+- **[Schedule](https://smourtgos.github.io/crju705/schedule.html)**: topics, readings, slides, labs, homework for every session
+- **[Syllabus](https://smourtgos.github.io/crju705/syllabus.html)**: walk-through now (grading, policies, AI policy, the mid-term warning)
 - **Two textbooks:** Stanton (required) + *R for Data Science* (free online)
-- **Both traditions:** you will learn frequentist **and** Bayesian inference — few courses teach both
+- **Both traditions:** you will learn frequentist **and** Bayesian inference: few courses teach both
 - Submissions happen via Canvas; materials live here
 
 # Types of Data & Levels of Measurement {background-color="#1B2A4A"}
@@ -333,7 +333,7 @@ mean(rob$temp_c)             # ~20 °C
 mean(rob$temp_c * 1.8 + 32)  # same temperatures in °F
 ```
 
-Temperature has **no true zero** — 0 °C is just where water freezes.
+Temperature has **no true zero**: 0 °C is just where water freezes.
 
 - "30 °C is 10 °C warmer than 20 °C" ✔ (differences are fine)
 - "20 °C is *twice as hot* as 10 °C" ✘ (ratios are meaningless)
@@ -345,7 +345,7 @@ Temperature has **no true zero** — 0 °C is just where water freezes.
 mean(rob$age)
 ```
 
-Age **has** a true zero — a 40-year-old *is* twice as old as a 20-year-old. Differences **and** ratios both work.
+Age **has** a true zero: a 40-year-old *is* twice as old as a 20-year-old. Differences **and** ratios both work.
 
 ## Plots That Match the Scale
 
@@ -359,7 +359,7 @@ p1 <- ggplot(rob, aes(zone)) + geom_bar(fill = crju_colors["garnet"]) +
   labs(title = "Nominal: bar chart", x = NULL)
 p2 <- ggplot(rob, aes(factor(risk_likert, levels = 1:7))) +
   geom_bar(fill = crju_colors["navy"]) +
-  labs(title = "Ordinal: ordered bars", x = "Risk (1–7)")
+  labs(title = "Ordinal: ordered bars", x = "Risk (1 to 7)")
 p3 <- ggplot(rob, aes(age)) + geom_histogram(binwidth = 5, fill = crju_colors["blue"]) +
   labs(title = "Continuous (ratio): histogram")
 p4 <- ggplot(rob, aes(prior_robberies_in_zone)) + geom_bar(fill = crju_colors["gold"]) +
@@ -372,12 +372,12 @@ p4 <- ggplot(rob, aes(prior_robberies_in_zone)) + geom_bar(fill = crju_colors["g
 ```{r}
 #| label: test-preview-data
 #| include: false
-# Anchor datasets — also reused by the "Coming Attractions" slide at the end
+# Anchor datasets: also reused by the "Coming Attractions" slide at the end
 crimes <- read_csv(here::here("data/chicago-crimes-2025.csv"), show_col_types = FALSE)
 areas  <- read_csv(here::here("data/chicago-areas.csv"), show_col_types = FALSE)
 ```
 
-Real Chicago data — the questions, not the code, are the point today.
+Real Chicago data: the questions, not the code, are the point today.
 
 ```{r}
 #| label: test-preview
@@ -388,17 +388,9 @@ chisq.test(table(crimes$crime_category, crimes$arrest))
 ```
 
 ```{r}
-#| label: test-preview-2
-#| output-location: fragment
-# Numeric by category → ANOVA                    [Session 8]
-# Do violent, property, and other crimes happen at different times of day?
-aov(hour ~ crime_category, data = crimes) |> summary()
-```
-
-```{r}
 #| label: test-preview-3
 #| output-location: fragment
-# Numeric × numeric → correlation                [Session 10]
+# Numeric × numeric → correlation                [Session 8]
 # Across the 77 community areas: unemployment and violent crime rate
 cor(areas$unemployment_rate, areas$violent_rate)
 ```
@@ -421,11 +413,11 @@ ggplot(tibble(educ, income), aes(educ, income)) +
   geom_point(size = 3, alpha = 0.6, color = crju_colors["garnet"]) +
   geom_smooth(method = lm, se = FALSE, color = crju_colors["navy"]) +
   scale_y_log10() +
-  labs(x = "Education (1–5 coded as numbers)", y = "Income (log scale)",
+  labs(x = "Education (1 to 5 coded as numbers)", y = "Income (log scale)",
        title = "Ordinal codes hide wildly unequal spacing")
 ```
 
-The correlation is "large," but the categories are **not equally spaced** — code numbers ≠ measurements.
+The correlation is "large," but the categories are **not equally spaced**: code numbers ≠ measurements.
 
 # Getting You Running in R {background-color="#73000A"}
 
@@ -462,7 +454,7 @@ sum(x); mean(x); sd(x)
 ```{r}
 #| label: appendix-a-help
 #| eval: false
-?mean   # every function has a help page — use them constantly
+?mean   # every function has a help page: use them constantly
 ```
 
 ## First Steps: Logical Indexing
@@ -488,7 +480,7 @@ f
 **Your turn:** build a vector of seven ages; compute the mean & SD; subset the values > 30; then use `?seq` to generate `seq(0, 1, by = 0.2)`.
 :::
 
-## Your Turn: Vectors — One Way to Do It {.smaller}
+## Your Turn: Vectors, One Way to Do It {.smaller}
 
 ```{r}
 #| label: your-turn-vectors
@@ -507,7 +499,7 @@ seq(0, 1, by = 0.2)   # `?seq` is where you'd find the `by =` argument
 
 ## Data Frames & dplyr {.smaller}
 
-*(Stanton Appendix B — modern form)*
+*(Stanton Appendix B: modern form)*
 
 ```{r}
 #| label: appendix-b1
@@ -517,17 +509,17 @@ head(cars_data, 4)
 ```
 
 ::: aside
-The `|>` symbol is the **pipe**: `x |> f()` means `f(x)` — "take x, *then* do f." Older code (including the Stanton book) writes it `%>%`; they work the same way for everything we do.
+The `|>` symbol is the **pipe**: `x |> f()` means `f(x)`: "take x, *then* do f." Older code (including the Stanton book) writes it `%>%`; they work the same way for everything we do.
 :::
 
-## select — pick columns
+## select: pick columns
 
 ```{r}
 #| label: appendix-b2
 cars_data |> select(model, mpg, cyl, hp) |> head(4)
 ```
 
-## filter — pick rows {.smaller}
+## filter: pick rows {.smaller}
 
 ```{r}
 #| label: appendix-b3
@@ -556,9 +548,9 @@ Using the built-in `mpg` data:
 2. Compute the average `cty` by `class`.
 :::
 
-*(Hints: `arrange(desc(...))`, `slice_head()`, and `summarize(..., .by = ...)` — all from your R4DS Ch. 3 reading next week.)*
+*(Hints: `arrange(desc(...))`, `slice_head()`, and `summarize(..., .by = ...)`, all from your R4DS Ch. 3 reading next week.)*
 
-## Your Turn: dplyr — One Way to Do It {.smaller}
+## Your Turn: dplyr, One Way to Do It {.smaller}
 
 ```{r}
 #| label: your-turn-1
@@ -595,7 +587,7 @@ crimes |>
 
 ## Homework (Due by 11:59 pm Sunday)
 
-**swirl tutorials** — interactive R lessons *inside* R:
+**swirl tutorials**: interactive R lessons *inside* R:
 
 ```{r}
 #| label: swirl-hw

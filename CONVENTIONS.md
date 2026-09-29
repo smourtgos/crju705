@@ -6,6 +6,8 @@ Rules for all course materials in this repo. Follow these when adding or editing
 
 Lowercase, hyphenated, zero-padded session numbers:
 
+> **Since Sep 29, 2026 the file number and the session number differ from Session 8 on.** ANOVA was cut and Nov 17 lost, so the course has 12 sessions and filenames were **kept** (Canvas links and bookmarks point at them; the site has no redirects). Map: `week-10`/`lab-10`/`hw-10`/`demo-10`/`practice-10` = **Session 8** (correlation + midterm review); `week-09` = Session 9 (midterm); `*-11` = **Session 10** (regression); `*-12` = **Session 11** (logistic); `week-13` = **Session 12** (presentations). Titles, subtitles, footers, and link text carry the session number; never infer it from the filename. No `*-08` files exist any more.
+
 - Slides: `slides/week-02-descriptives.qmd`
 - Weekly hub pages: `weeks/week-02.qmd` (topic goes in the page title, keeping nav links stable)
 - Labs: `labs/lab-02-visualize.qmd`
@@ -65,13 +67,13 @@ Four-part structure (adapted from a colleague's proven template):
 1. **Setup** — packages + `read_csv("data/…")`; chunk given to students, runs as-is
 2. **Walkthrough** — worked examples, executed, output shown
 3. **Your Turn (1..n)** — task prompts + empty chunks with `#| eval: false`
-4. ~~**Exit Ticket**~~ — **dropped from Lab 6 on (Scott, Sep 21, 2026).** Students submit their Your Turn script and nothing else; the lab ends with one line saying so. Labs 7 and 8 still carry the old section and "How labs work" sentence; remove them in their own weeks. (Labs 2–5 are history; leave them.)
+4. ~~**Exit Ticket**~~ — **dropped from Lab 6 on (Scott, Sep 21, 2026).** Students submit their Your Turn script and nothing else; the lab ends with one line saying so. Lab 7 and the rebuilt Session 8 lab (`lab-10-correlation.qmd`) follow this; the regression and logistic labs had their Exit Tickets removed Sep 29, 2026. (Labs 2–5 are history; leave them.)
 
 ## Demo walkthroughs (`demos/demo-NN-topic.qmd`)
 
 One per content session — "the lecture, written down." Purpose: a student who missed class can reproduce every key demo start to finish without the instructor's environment.
 
-- Naming matches the slide topic: `demos/demo-08-anova.qmd`
+- Naming matches the slide topic: `demos/demo-10-correlation.qmd`
 - **MUST be fully self-contained**: a *visible* setup chunk with `library()` calls, data loaded from the public URL (`https://smourtgos.github.io/crju705/data/…`), plain color names (NO `crju_colors`, NO `source(R/setup.R)`, NO `here::`), `set.seed(705)`
 - Structure: *What you'll build* → *Setup* → sections mirroring the deck's arc, reproducing every key demo → *Try a variation* prompts at the end
 - brms chunks use the standard sampler settings (chains = 2, iter = 2000, seed = 705, refresh = 0) and a compile-pause warning; `freeze: auto` caches them

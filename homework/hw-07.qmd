@@ -1,6 +1,6 @@
 ---
 title: "Homework 7 · Explore Two Datasets, Choose One"
-subtitle: "CRJU 705 · due by 11:59 pm Sunday ahead of Session 8"
+subtitle: "CRJU 705 · due by 11:59 pm Sunday, October 4 (ahead of Session 8)"
 format:
   html: default
   docx: default
@@ -29,7 +29,7 @@ Do all five steps for **each** of your two datasets, under a clear header (`# --
 
 4. **One count or summary.** Run one `count()` or `summarize()` on a variable you find interesting. **(comment)** In one sentence, say what it shows, with the numbers.
 
-5. **One question it could answer. (comment)** Write one question this dataset could answer, and name the variables: the two groups and the outcome (like tonight), or two variables you would expect to be related (like you will do in Sessions 10 and 11).
+5. **One question it could answer. (comment)** Write one question this dataset could answer, and name the variables: the two groups and the outcome (like tonight), or two variables you would expect to be related (like you will do with correlation in Session 8 and regression in Sessions 10 and 11).
 
 ## Part 2: Choose One
 
@@ -44,11 +44,12 @@ Add a clearly marked final section (`# ---- My final-project dataset ----`) with
 4. **The selection check (comment).** Confirm, honestly, that your dataset:
    - concerns a **criminal justice** topic;
    - **reads into R** (your Part 1 code is the proof);
-   - has **numeric variables** that can go into a regression in Sessions 10 to 12. Name them. If your dataset is one the options page marks "Limited," say which variables you would use and I will tell you at Session 8 whether it will work.
+   - has **numeric variables** that can go into a regression in Sessions 10 and 11. Name them. If your dataset is one the options page marks "Limited," say which variables you would use and I will tell you at Session 8 whether it will work.
 
 5. **A preview.** Run `summary()` on your chosen dataset. **(comment)** Name anything strange it shows: impossible values (a 999, a negative age), or a variable with a lot of `NA`s. If nothing is strange, say that.
 
 ## Deliverable and Due Date
 
-- Submit your `.R` script via **Canvas by 11:59 pm Sunday** ahead of Session 8.
+- Submit your `.R` script via **Canvas by 11:59 pm Sunday, October 4**, ahead of Session 8.
+- **Also before Session 8:** read Stanton **Ch. 7** (Measures of Association). Session 8 is correlation, then midterm review.
 - **Bring your chosen dataset to Session 8,** and be ready to say what one row is, what your question is, and which variables answer it.

@@ -1,69 +1,80 @@
 ---
 title: "Midterm Study Guide"
-subtitle: "Session 9 · in class · covers Sessions 1–8"
+subtitle: "Session 9 (Tuesday, October 13) · in class · covers Sessions 1 to 8"
 ---
 
 ::: {.callout-important appearance="simple"}
-The midterm is **in class and monitored**. You write and troubleshoot real R code. You may use your **printed** notes and homework — no internet, no AI tools. (This is the assessment the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools) warns you about: if AI has been writing your homework, this is where it shows.)
+The midterm is **in class and monitored**. You write and troubleshoot real R code. You may use your **printed** notes and homework: no internet, no AI tools. (This is the assessment the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools) warns you about: if AI has been writing your homework, this is where it shows.)
 :::
 
-**How it works mechanically:** you get an `.R` script with the questions plus the data files it needs, all distributed together — you answer in the script and submit it. Two things to know in advance:
+**How it works mechanically:** you get an `.R` script with the questions plus the files it needs, all distributed together. You answer in the script and submit it. Three things to know in advance:
 
-- **Light data wrangling IS testable.** The exam is code-based, so expect to `read_csv()` a file and use the everyday verbs — `filter()`, `count()`, `summarize()`, `mean()` of a logical. Nothing from the pivot/join weeks will be tested cold, but getting data *into* a testable shape is part of doing statistics.
-- **No live `brm()` fit during the exam.** The Bayesian ANOVA model comes **pre-fit** — you load it with `readRDS()` and do the `emmeans` interpretation workflow (plot the posterior means, run the pairwise comparisons, read the intervals). Practice *fitting* models before the exam anyway: the interpretation only makes sense if you've run the workflow yourself.
+- **Light data wrangling IS testable.** The exam is code-based, so expect to `read_csv()` a file and use the everyday verbs: `filter()`, `count()`, `summarize()`. Getting data *into* a testable shape is part of doing statistics.
+- **`bayes_prop_test()` comes in a file.** There is no internet during the exam, so the course's `bayes.R` file is in the exam folder and you load it with `source("bayes.R")`. Everything else about it works exactly as in Sessions 6 and 7.
+- **Packages:** `tidyverse` and `modeest`, both installed earlier this semester. Check that `library(tidyverse)` and `library(modeest)` both load on your laptop before exam day.
 
-**Best preparation:** the [practice banks](resources.qmd#demos-practice) for Sessions 2–8 — ungraded problems with hidden solutions, in exactly the exam's style.
+**Best preparation:** the practice banks for Sessions [2](practice/practice-02.qmd), [3](practice/practice-03.qmd), [4](practice/practice-04.qmd), [5](practice/practice-05.qmd), [6](practice/practice-06.qmd), and [8](practice/practice-10.qmd) (ungraded problems with hidden solutions, in the exam's style), plus the midterm review at the end of the [Session 8 slides](slides/week-10-correlation.qmd).
 
-## 1. Data & measurement
+## The six parts
+
+| Part | Topic | Points |
+|---|---|---|
+| 1 | Data and levels of measurement | 10 |
+| 2 | Descriptive statistics | 20 |
+| 3 | Probability, sampling, and Bayes counting tables | 20 |
+| 4 | Confidence intervals and `t.test()` | 20 |
+| 5 | Frequentist and Bayesian thinking | 15 |
+| 6 | Correlation | 15 |
+
+## 1. Data and measurement
 
 - Explain the four levels of measurement (nominal, ordinal, interval, ratio)
-- Give examples of each, especially from criminal justice research
+- Give an example of each, especially from criminal justice research
 
 ## 2. Descriptive statistics
 
-- Calculate mean, median, and mode in R
-- Compute variance and standard deviation in R
+- Calculate the mean, median, and mode in R
+- Compute the variance and standard deviation in R
 - Explain what the standard deviation means in plain language
 - Make and interpret a histogram
-- Explain why an outlier affects the mean more than the median or mode
+- Explain why an outlier moves the mean more than the median or mode
 
-## 3. Probability & sampling
+## 3. Probability and sampling
 
-- Simulate random events (e.g., `sample()`, `rbinom()`)
-- Count outcomes with `count()` or `table()`
-- The difference between small and large samples (law of large numbers)
+- Simulate random events (for example, `sample()`) and count outcomes with `count()` or `table()`
+- The difference between small and large samples (the law of large numbers)
 - Build and interpret a contingency table
-- Calculate and interpret a conditional probability from a table
-- Reverse a conditional with Bayes' theorem using a counting table: base rate + sensitivity/false-positive rate → P(condition | positive test)
+- Calculate a conditional probability from a table, and tell it apart from a joint probability
+- Reverse a conditional with a counting table: base rate + how often the test flags true cases + how often it flags false ones → P(condition | flagged)
 
-## 4. Inference & confidence intervals
+## 4. Confidence intervals and the t-test
 
 - Compute group means
 - Make and interpret a boxplot
-- Run a two-sample t-test with `t.test()`
-- Interpret a 95% confidence interval (what it means when the CI includes 0 vs. not)
+- Run a two-sample t-test with `t.test(outcome ~ group, data = )`
+- Read the interval: which group minus which, in what units, and where zero is
+- Tell apart "is the difference detectable?" and "is the difference large?"
 
-## 5. Frequentist vs. Bayesian thinking
+## 5. Frequentist and Bayesian thinking
 
-- What a p-value means (and doesn't mean)
-- How Bayesian probability statements differ — P(hypothesis | data)
-- Why priors matter and how ignoring them can mislead
-- The recidivism example: same data, different interpretations
-- Run and interpret a Bayesian t-test with `ttestBF()`
+- What a p-value means, and what it does **not** mean (it is never the probability the null is true)
+- How a Bayesian probability statement differs: the probability of a claim *given the data*
+- Why priors matter, and how ignoring a base rate can mislead
+- Run `prop.test()` and `bayes_prop_test()` on the same four numbers, and say what each output lets you conclude
 
-## 6. Comparing groups / ANOVA
+## 6. Correlation
 
-- Make a boxplot of groups
-- Run a one-way ANOVA with `aov()` and interpret the output (at least one group mean differs)
-- Interpret a Bayesian ANOVA using the workflow we practiced (`brms` + `emmeans`) — on the exam the model arrives **pre-fit** (`readRDS()`); you run `emmeans()`, `plot()`, and `pairs()` on it
-- Interpret pairwise comparisons (posterior interval crossing 0 = no credible difference)
+- Make and read a scatterplot: direction, strength, a straight line or not, wild points
+- Compute r with `cor()` and describe it in words
+- Run `cor.test(x, y)` and read r, the confidence interval, and the p-value. Where is zero?
+- Explain what a correlation cannot tell you: cause, and (when the rows are places) anything about individuals (the ecological fallacy)
 
 ## General advice
 
-- **Practice running the R code from your homework, labs, and in-class exercises** — the midterm only asks you to do things we've already done.
+- **Practice running the R code from your homework, labs, and in-class exercises.** The midterm only asks you to do things we've already done.
 - Make sure you can both *run* the code and *explain in words* what the output means.
-- Focus on big ideas: variability, sampling, inference, and comparing groups.
-- Don't overthink the Bayesian part — it will be at the same level as what you've already done in class and on homework.
+- Focus on the big ideas: variability, sampling, inference, comparing groups, and association.
+- Don't overthink the Bayesian part. It is at the same level as Sessions 6 and 7.
 
 ## R you should know cold
 
@@ -75,39 +86,33 @@ var(x); sd(x)
 # plots (ggplot as practiced in lab; base equivalents also fine)
 ggplot(df, aes(x)) + geom_histogram()
 ggplot(df, aes(group, y)) + geom_boxplot()
+ggplot(df, aes(x, y)) + geom_point()
 
-# counting & contingency tables
+# counting and contingency tables
 df |> count(x, y)
 table(df$x, df$y)
 
-# inference
-t.test(y ~ group, data = df)              # two-sample t-test + CI
-library(BayesFactor); ttestBF(...)        # Bayesian t-test
+# two groups, a number: t-test and its confidence interval
+t.test(y ~ group, data = df)
 
-# ANOVA
-aov(y ~ group, data = df) |> summary()
+# two groups, yes/no: both traditions
+prop.test(x = c(40, 30), n = c(100, 100))
+source("bayes.R")                          # on the exam; in class it came from the course site
+bayes_prop_test(x = c(40, 30), n = c(100, 100))
 
-# Bayesian ANOVA workflow (exam version: the model is pre-fit)
-library(emmeans)
-bayes_model <- readRDS("midterm-anova-fit.rds")   # distributed with the exam
-bayes_anova <- emmeans(bayes_model, ~ group)
-plot(bayes_anova)
-pairs(bayes_anova)                         # interval crossing 0 = no difference
-
-# (For practice at home, fitting it yourself looks like:)
-library(brms)
-bayes_model <- brm(y ~ group, data = df, chains = 2, iter = 2000, seed = 705)
+# two numbers: correlation
+cor(df$x, df$y)
+cor.test(df$x, df$y)
 ```
 
 ## Concepts you should be able to explain
 
-- **Levels of measurement** — nominal, ordinal, interval, ratio (with examples)
-- **Mean/median/mode** — what each tells you; effect of outliers
-- **Variance & SD** — measure of spread; SD ≈ typical distance from the mean
-- **Law of large numbers** — small samples fluctuate; large samples stabilize
-- **Contingency tables** — marginal totals, conditional probability
-- **Confidence intervals** — CI includes 0 → difference not supported; excludes 0 → supported
-- **p-value** — probability of data this extreme (or more) *if the null is true*
-- **Bayesian probability** — probability of the hypothesis *given the data*; priors matter — a low base rate can turn a "90% accurate" test into a mostly-wrong one
-- **ANOVA** — compares variance between groups vs. within groups
-- **Bayesian ANOVA** — pairwise posterior intervals; crossing 0 = no credible difference
+- **Levels of measurement:** nominal, ordinal, interval, ratio (with examples)
+- **Mean, median, mode:** what each tells you; the effect of outliers
+- **Variance and SD:** measures of spread; the SD is roughly the typical distance from the mean
+- **Law of large numbers:** small samples bounce around; large samples settle down
+- **Contingency tables:** totals, joint probability, conditional probability
+- **Confidence intervals:** zero inside the interval → no detectable difference; zero outside → detectable
+- **p-value:** the probability of data at least this extreme *if the null is true*
+- **Bayesian probability:** the probability of the claim *given the data*; priors and base rates matter
+- **Correlation:** r runs from -1 to +1; sign = direction, size = strength; only straight lines; not cause; areas are not people

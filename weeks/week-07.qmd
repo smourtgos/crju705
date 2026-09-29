@@ -40,5 +40,5 @@ By the end of this week you can:
 ## Homework
 
 - **[Homework 7](../homework/hw-07.qmd)**: explore **two** datasets from the [data options](../project-data.qmd) (or one you found and cleared with me), then **choose one** for your final project. Submit your `.R` file via Canvas **by 11:59 pm Sunday**
-- No reading this week, and no R4DS: the R4DS thread is complete
-- **Session 8:** more worked examples like this week's, and review for the midterm
+- **Read before Session 8:** Stanton **Ch. 7** (Measures of Association). No R4DS: the R4DS thread is complete
+- **Session 8:** correlation (two numeric variables, no groups), then review for the midterm

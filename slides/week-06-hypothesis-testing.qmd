@@ -42,11 +42,11 @@ crashes <- read_csv(here::here("data/crash-ak.csv"), show_col_types = FALSE) |>
 
 ## This Week
 
-**Topic:** hypothesis testing — *twice*. One question, both great traditions.
+**Topic:** hypothesis testing: *twice*. One question, both great traditions.
 
 - The Null Hypothesis Significance Test: its logic, and its fine print
-- p-values: what they are — and what they are not
-- Bayes' theorem — back from Session 3, now pointed at hypotheses instead of diagnoses
+- p-values: what they are, and what they are not
+- Bayes' theorem: back from Session 3, now pointed at hypotheses instead of diagnoses
 - The Bayesian answer: a posterior and a **credible interval**, from one line of R
 
 **Learning goals:** run `prop.test()` *and* `bayes_prop_test()` on the same question; state correctly what each output lets you claim.
@@ -55,13 +55,13 @@ crashes <- read_csv(here::here("data/crash-ak.csv"), show_col_types = FALSE) |>
 
 :::: columns
 ::: {.column width="50%"}
-**The lecture** — concepts
+**The lecture**: concepts
 
 Stanton Ch. 5 → hypothesis testing, both ways: the p-value and the posterior
 :::
 
 ::: {.column width="50%"}
-**The in-class exercise** — code
+**The in-class exercise**: code
 
 Lab 6: you run both tests yourself, step by step
 :::
@@ -72,10 +72,10 @@ Everything I run today is written up in the [demo walkthrough](../demos/demo-06-
 ## Where We've Been
 
 ::: incremental
-- **Session 3:** Bayes' theorem — beliefs update by evidence; ignore the base rate and "90% accurate" becomes a 15% answer
-- **Session 4:** sampling distributions — sample statistics fluctuate in predictable ways
-- **Session 5:** confidence intervals — an honest range around an estimate, and one sentence we were *not* allowed to say about it
-- **Today:** the formal machinery for "is there a difference?" — then a second tradition answering the question you *meant* to ask
+- **Session 3:** Bayes' theorem: beliefs update by evidence; ignore the base rate and "90% accurate" becomes a 15% answer
+- **Session 4:** sampling distributions: sample statistics fluctuate in predictable ways
+- **Session 5:** confidence intervals: an honest range around an estimate, and one sentence we were *not* allowed to say about it
+- **Today:** the formal machinery for "is there a difference?", then a second tradition answering the question you *meant* to ask
 :::
 
 # Act I · Testing, the Frequentist Way {background-color="#73000A"}
@@ -184,7 +184,7 @@ Chance alone makes gaps of a point or two. It made a gap as big as ours in **`r 
 3. **Compute a test statistic**: the observed gap, measured against how much gaps bounce by chance.
 4. **Ask:** how often would a gap this large appear by luck in the boring world? The **p-value**.
 5. **Verdict:** $p < \alpha$ (usually .05) → "reject $H_0$." Otherwise → "fail to reject."
-6. Note: the machine only weighs evidence **against the null** — $H_1$ never gets scored.
+6. Note: the machine only weighs evidence **against the null**: $H_1$ never gets scored.
 :::
 
 ## Watch the p-Value Do Its Job
@@ -193,7 +193,7 @@ Chance alone makes gaps of a point or two. It made a gap as big as ours in **`r 
 
 As the true difference grows, the overlap shrinks and *p* falls. Black = null · green = one alternative · orange = overlap · blue dashes = the α = .05 cutoffs.
 
-## What a p-Value Is — and Is Not
+## What a p-Value Is, and Is Not
 
 **It is:** the probability of data *this extreme or more*, **if** the null is true and the model is right.
 
@@ -202,10 +202,10 @@ As the true difference grows, the overlap shrinks and *p* falls. Black = null ·
 **It is not:**
 
 ::: incremental
-- ~~the probability the null hypothesis is true~~ — that's $P(H_0 \mid \text{data})$, which frequentism never computes
-- ~~the probability the result "is due to chance"~~ — same confusion, folksier outfit
-- ~~1 − the probability the alternative is true~~
-- ~~a measure of how *big* or *important* the effect is~~ — with enough data, microscopic effects earn microscopic p-values (hold that thought)
+- ~~the probability the null hypothesis is true~~: that's $P(H_0 \mid \text{data})$, which frequentism never computes
+- ~~the probability the result "is due to chance"~~: same confusion, folksier outfit
+- ~~1 - the probability the alternative is true~~
+- ~~a measure of how *big* or *important* the effect is~~: with enough data, microscopic effects earn microscopic p-values (hold that thought)
 :::
 
 ## `prop.test()` on the Real Question
@@ -225,7 +225,7 @@ prop.test(x = c(740, 714), n = c(3749, 5399))
 
 . . .
 
-$p < .05$ — **"statistically significant."** Reject the null.
+$p < .05$: **"statistically significant."** Reject the null.
 
 ## The Same Line Lives in `t.test()` {.smaller}
 
@@ -262,7 +262,7 @@ sketch_base +
        subtitle = "Black = null distribution · garnet dash = an observed result (sketched at 1.8)")
 ```
 
-We computed how surprising the data are *under the null* — and never once said what the alternative world looks like.
+We computed how surprising the data are *under the null*, and never once said what the alternative world looks like.
 
 ## …But the Alternative Could Be Anywhere
 
@@ -297,7 +297,7 @@ sketch_base +
        subtitle = "That tidy curve presumes the model behind it is right")
 ```
 
-The p-value came from *this specific curve* — which assumes large-enough samples, independent observations, and a model that fits the data.
+The p-value came from *this specific curve*, which assumes large-enough samples, independent observations, and a model that fits the data.
 
 ## …And Many Shapes Fit the Same Data
 
@@ -324,7 +324,7 @@ How often do researchers *test* those assumptions before trusting the p-value? L
 
 # Act II · Bayes, Recapped {background-color="#73000A"}
 
-## Bayes' Theorem — Recap from Session 3
+## Bayes' Theorem: Recap from Session 3
 
 $$
 P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
@@ -332,9 +332,9 @@ P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
 $$
 
 ::: incremental
-- Session 3's move: conditioning is *shrink the world, re-proportion* — Bayes' theorem reverses the direction. Ianfluenza: prior 1% + "90% accurate" → posterior ≈ **15%**
-- **New today:** look where the p-value lives — entirely in the **likelihood**, $P(\text{data} \mid H_0)$. It never becomes $P(H_0 \mid \text{data})$
-- Bayesian testing finishes the flip — $P(H \mid \text{data})$, the question your chief, judge, or city council actually asked — at the price of a stated prior
+- Session 3's move: conditioning is *shrink the world, re-proportion*; Bayes' theorem reverses the direction. Ianfluenza: prior 1% + "90% accurate" → posterior ≈ **15%**
+- **New today:** look where the p-value lives: entirely in the **likelihood**, $P(\text{data} \mid H_0)$. It never becomes $P(H_0 \mid \text{data})$
+- Bayesian testing finishes the flip: $P(H \mid \text{data})$, the question your chief, judge, or city council actually asked, at the price of a stated prior
 :::
 
 ## The Two Traditions, Side by Side {.smaller}
@@ -351,8 +351,8 @@ $$
 
 ## The Setup
 
-- **Context:** typical recidivism runs about **60%** — that's what we believed going in
-- **Design:** randomized trial of a reentry program — **100 treated, 100 control**
+- **Context:** typical recidivism runs about **60%**: that's what we believed going in
+- **Design:** randomized trial of a reentry program: **100 treated, 100 control**
 - **Outcomes:** treatment **40/100** reoffend · control **50/100** reoffend
 - **Question:** did the program reduce recidivism?
 
@@ -379,10 +379,10 @@ pt_real  <- prop.test(x = c(740, 714), n = c(3749, 5399))
 ## The Frequentist Answer, Read Aloud
 
 ::: incremental
-- $p = `r sprintf("%.2f", pt_trial$p.value)`$ — **not statistically significant**
+- $p = `r sprintf("%.2f", pt_trial$p.value)`$: **not statistically significant**
 - The interval, about `r round(100 * pt_trial$conf.int[1])` to +`r round(100 * pt_trial$conf.int[2])` points, has zero inside it
 - Honest reading: *a 10-point gap like this could plausibly occur even if the program did nothing*
-- The grant report writes itself — "no significant effect" — and the program probably dies there
+- The grant report writes itself ("no significant effect"), and the program probably dies there
 :::
 
 ## What We Knew Before the Trial
@@ -391,7 +391,7 @@ A Bayesian has to say, out loud, what they believed **before** seeing the data. 
 
 ::: incremental
 - We said it already: recidivism typically runs about **60%**
-- How firmly do we believe that? Let's say: about as firmly as if we had already watched **10 people** — **6 reoffended, 4 did not**
+- How firmly do we believe that? Let's say: about as firmly as if we had already watched **10 people**: **6 reoffended, 4 did not**
 - In R, that whole belief is two numbers: `prior = c(6, 4)`
 - Then the trial's 200 real people get added to our 10 imaginary ones. That adding-up is the **posterior**: what we believe *after* the data
 :::
@@ -418,7 +418,7 @@ invisible(capture.output(b_real  <- bayes_prop_test(x = c(740, 714), n = c(3749,
 ::: incremental
 - **`estimate`**: our best single guess for each group's true rate, after the data
 - **`95% credible interval`** for the difference: about `r round(100 * b_trial$difference_ci[1])` to +`r round(100 * b_trial$difference_ci[2])` points, Treatment minus Control
-- **`Probability group 1 is lower than group 2`: `r sprintf("%.2f", b_trial$prob_lower)`** — given the prior and the data, about a **`r round(100 * b_trial$prob_lower)`% probability the program reduces recidivism**
+- **`Probability group 1 is lower than group 2`: `r sprintf("%.2f", b_trial$prob_lower)`**: given the prior and the data, about a **`r round(100 * b_trial$prob_lower)`% probability the program reduces recidivism**
 :::
 
 . . .
@@ -471,7 +471,7 @@ bayes_prop_test(x = c(40, 50), n = c(100, 100))
 ::: incremental
 - Probability the program works: **`r sprintf("%.2f", b_flat$prob_lower)`** instead of `r sprintf("%.2f", b_trial$prob_lower)`. It barely moved
 - Why? 200 real people outweigh 10 imaginary ones. **Data overwhelm a modest prior**
-- A prior matters most when data are scarce — which is exactly when you most need to say it out loud
+- A prior matters most when data are scarce, which is exactly when you most need to say it out loud
 :::
 
 # Act IV · Back to Chicago, Both Ways {background-color="#73000A"}
@@ -494,7 +494,7 @@ bayes_prop_test(x = c(740, 714), n = c(3749, 5399))
 
 ::: incremental
 - With thousands of cases the two traditions hand you **nearly the same range**. The data drown out everything else
-- With 100 per group, both ranges still include zero — but one tradition stops at "not significant," and the other tells you *how probable* the effect is
+- With 100 per group, both ranges still include zero, but one tradition stops at "not significant," and the other tells you *how probable* the effect is
 - Neither is wrong. They answer **different questions**
 :::
 
@@ -506,15 +506,15 @@ Fix a *trivial* true effect (Δ = 0.1) and just keep collecting data:
 
 ![](../media/week-06/p_samplesize.gif)
 
-The effect never grows — only *n* does — and *p* still dives below .05. **Given enough data, everything is "significant."**
+The effect never grows, only *n* does, and *p* still dives below .05. **Given enough data, everything is "significant."**
 
 ## Bayes and Sample Size
 
-Same trivial effect, Bayesian glasses — watch the posterior for the difference as *n* grows:
+Same trivial effect, Bayesian glasses: watch the posterior for the difference as *n* grows:
 
 ![](../media/week-06/bayes_samplesize.gif)
 
-More data doesn't flip a verdict — it **sharpens the estimate**, which visibly converges on "about 0.1, i.e., almost nothing." The tininess stays in view.
+More data doesn't flip a verdict: it **sharpens the estimate**, which visibly converges on "about 0.1, i.e., almost nothing." The tininess stays in view.
 
 ## So Always Ask: How Big?
 
@@ -527,9 +527,9 @@ More data doesn't flip a verdict — it **sharpens the estimate**, which visibly
 ## What We Learned Today
 
 ::: incremental
-- **NHST**: standardized and everywhere — but it only asks *how surprising are the data under the null?*, never scores the alternative, and rewards sheer n
+- **NHST**: standardized and everywhere, but it only asks *how surprising are the data under the null?*, never scores the alternative, and rewards sheer n
 - **p-values** are not the probability any hypothesis is true, and are silent about *size*
-- **Bayes** answers $P(H \mid \text{data})$ at the price of a stated prior — tonight, in one line of R
+- **Bayes** answers $P(H \mid \text{data})$ at the price of a stated prior: tonight, in one line of R
 - The same trial gave $p = 0.20$ *and* a 91% probability the program works. Both true; different questions
 - Whatever tradition you use: **say how big the difference is, in units a human cares about**
 :::
@@ -538,13 +538,13 @@ More data doesn't flip a verdict — it **sharpens the estimate**, which visibly
 
 - **Lab 6:** one question about the correctional officers, answered twice. You run both tests, step by step, and submit your script ([lab page](../labs/lab-06-testing.qmd))
 - **Homework 6:** Bayesian vs. frequentist reasoning, plus both tests on the Alaska crash data, and four R4DS exercises from **Ch. 17, Dates and times** (posted on the [Session 6 page](../weeks/week-06.qmd))
-- **Next session — the applied data workshop:** the full messy-data pipeline, start to finish. **Your final-project dataset selection is due at Session 7** — come with a candidate dataset and be ready to defend it
+- **Next session, the applied data workshop:** the full messy-data pipeline, start to finish. **Your final-project dataset selection is due at Session 7**: come with a candidate dataset and be ready to defend it
 
 # Appendix · How Bayes Became Computable (optional) {background-color="#1B2A4A"}
 
 ## The Ugly Denominator
 
-*Not on any exam — this is the machinery behind the Bayesian models we start fitting in Session 8, for the curious.*
+*Not on any exam: this is the machinery behind the Bayesian models we start fitting in Session 10, for the curious.*
 
 $$
 P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
@@ -558,17 +558,17 @@ $$
 
 . . .
 
-For realistic models this integral is **intractable** — for most of the 20th century, Bayes was philosophically beautiful and practically unusable.
+For realistic models this integral is **intractable**: for most of the 20th century, Bayes was philosophically beautiful and practically unusable.
 
 ## Enter MCMC
 
 How Markov chain Monte Carlo "measures the curve" without solving the integral:
 
 ::: incremental
-- We don't know the whole posterior curve — but we *do* know its **formula up to a constant** (likelihood × prior)
+- We don't know the whole posterior curve, but we *do* know its **formula up to a constant** (likelihood × prior)
 - A sampler evaluates that formula at its **current spot** and at a **proposed spot**
 - Compare the two values: if the new spot is higher → **accept**; if lower → accept *with that probability*
-- The impossible constant appears in both numerator and denominator — it **cancels in the ratio**. We never need to know it
+- The impossible constant appears in both numerator and denominator: it **cancels in the ratio**. We never need to know it
 :::
 
 ## MCMC, Watched Live
@@ -580,7 +580,7 @@ A Metropolis sampler exploring a distribution (left) while its samples pile up i
 ## We End Up With the Probability Distribution
 
 ::: incremental
-- The pile of accepted samples **is** the posterior — to any precision you like, just run longer
+- The pile of accepted samples **is** the posterior: to any precision you like, just run longer
 - Think back to Session 4: we approximated *sampling* distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the *posterior*
-- This is why modern Bayes is possible at all — and it is what `brms` will do for us starting in Session 8. (Tonight's `bayes_prop_test()` did not need it: for a simple proportion, the posterior has an exact formula.)
+- This is why modern Bayes is possible at all, and it is what `brms` will do for us starting in Session 10. (Tonight's `bayes_prop_test()` did not need it: for a simple proportion, the posterior has an exact formula.)
 :::

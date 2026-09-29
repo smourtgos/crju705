@@ -559,5 +559,5 @@ Same data either way. Use whichever you like.
 ## Homework 7 and Next Week
 
 - **Homework 7:** explore **two** datasets (from the menu, or one you found and cleared with me), then **choose one** for your final project. Due **Sunday by 11:59 pm** (posted on the [Session 7 page](../weeks/week-07.qmd))
-- No reading this week
-- **Session 8:** more worked examples like tonight's, and review for the midterm
+- **Read before Session 8:** Stanton Ch. 7 (Measures of Association)
+- **Session 8:** correlation (two numeric variables, no groups), then review for the midterm
