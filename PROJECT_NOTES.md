@@ -220,8 +220,8 @@ tour of what data is out there. The messy-file import/tidy pipeline, `ttestBF()`
 - **The recipe** (used in deck, lab, demo): question (two groups + outcome; yes/no → `prop.test()` +
   `bayes_prop_test()`, number → `t.test()`) → count or describe → test → say it (the sentence, the
   size in real units, one thing the test cannot tell you).
-- **Lecture examples:** Rossi financial aid (randomized; p = 0.063, Bayes 0.97; `t.test(prio ~ fin)`
-  as the randomization check), Toronto release by employment (18 points, 10 among `checks == 0`),
+- **Lecture examples:** Rossi financial aid (randomized; p = 0.063, Bayes 0.97; the `t.test(prio ~ fin)`
+  randomization check was cut at Scott's request), Toronto release by employment (18 points, 10 among `checks == 0`),
   Chicago areas income by `high_violence` (`t.test`, $25k–$47k), WaPo body cameras by period
   (12% → 22%). **Lab 7:** COMPAS High vs Low (walkthrough) and Minneapolis searches suspicious vs
   traffic + WaPo age by crisis (Your Turn). Key: `_private/keys/lab-07-key.R`.
@@ -230,7 +230,9 @@ tour of what data is out there. The messy-file import/tidy pipeline, `ttestBF()`
 - **New page `project-data.qmd` ("Final-Project Data Options")**, in the navbar under Final
   Project: Rossi, Toronto arrests, Minneapolis stops, WaPo shootings, COMPAS, GSS 2024 CJ items,
   UScrime, USArrests. **Eligibility rule (Scott, Sep 28):** any menu dataset, including those
-  worked in class, with the student's own question; course practice datasets stay ineligible.
+  worked in class, with the student's own question; course practice datasets stay ineligible,
+  **including the Chicago file used in Example 3** (stated in the deck's "What's Eligible" slide,
+  hw-07, and the options page, after Scott caught the first deck saying "including tonight's").
 - **New data** built by `R/build-week07-data.R`: `rossi`, `toronto-arrests`, `mpls-stops`,
   `uscrime`, `usarrests`, `gss-2024-cj` (CSV copies; GSS from the colleague's `GSS2024.dta` via
   haven). WaPo and COMPAS are read from their own GitHub URLs, **not rehosted** (licensing). **WaPo
@@ -264,6 +266,18 @@ tour of what data is out there. The messy-file import/tidy pipeline, `ttestBF()`
   `include-after-body` `text:` entries. Four concepts per widget: rerun the study, arrows between
   groups, is zero plausible, more-data dial. Spread comes from R's interval, so the widget's
   interval and zero verdict match R exactly. Detail in CHANGES-week-07 (night section).
+  - **Concept 3 is "the zero world" (revised the same night).** The first version swept a curve
+    across every candidate true gap, and Scott could not tell why the curve kept moving. Now one
+    fixed curve: where studies like ours would land if there were truly no difference, its middle
+    95% shaded green, then our result dropped on it (Step or Play; three stages). Inside the green
+    ⇔ R's interval contains zero. The number-line range always spans ±3 se around zero so the curve fits.
+    **Design lesson for later animations: a fixed reference picture beats a moving sweep.**
+  - Concept 1's blue bar shows the long-run middle 95% (= R's interval), not the percentile of
+    the 500 simulated reruns, which landed at −16.1 to −0.1 for Rossi in testing: the wrong side of zero.
+  - Text is scaled 1.45× inside reveal slides and 1.3× on web pages (`this.fs` in the JS). Default
+    concepts: Rossi 1, Toronto 2 (Everyone / No record only toggle), Chicago 2, body cameras 4.
+  - Verified all 4 concepts × 4 examples in the browser; zero plausible only for Rossi; overflow
+    audit clean (57 slides), including every widget forced to its longest end-of-run caption.
 - **DECISION (Scott, Sep 28): ANOVA is removed from the course. Session 8 becomes more worked
   examples plus midterm review.** Not yet built. See the TODO: Session 8 was also the brms
   onboarding session, which later sessions depend on.
