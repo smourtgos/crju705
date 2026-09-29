@@ -26,7 +26,7 @@ Each example also has the **"Where is zero?" explorer** from class: four ways to
 
 - **Rerun the study:** run the same study again and again; each rerun's gap drops onto the number line. The middle 95% of reruns is the confidence interval.
 - **Arrows between groups:** pick a plausible value for each group; the arrow between them is the gap. Arrows pointing the other way cross zero.
-- **Is zero plausible?:** sweep across possible true gaps and check which ones fit our data. The ones that fit are the interval. Watch what zero does.
+- **Is zero plausible?:** imagine a world where the two groups are truly the same. Luck alone would still spread studies like ours around zero; 95% of them land in the green. Then drop our actual result on it: inside the green means zero is plausible, far outside means it is ruled out.
 - **More-data dial:** keep the gap, change the amount of data, and watch the interval shrink or grow around it.
 
 Chicago and the body-camera example also have a descriptive animation from class (Chicago's areas splitting into two groups, and camera footage year by year). Their code is folded away (click "Code" to see it); you do not need to write code like that.
@@ -85,7 +85,7 @@ Now ask the other question:
 bayes_prop_test(x = c(48, 66), n = c(216, 216))
 ```
 
-**Where is zero?** Start with *Rerun the study*, then try *Is zero plausible?*: zero lands just inside the interval, which is exactly why p = 0.063.
+**Where is zero?** Start with *Rerun the study*, then try *Is zero plausible?*: our gap of -8.3 lands just inside the green of the no-difference world, which is exactly why p = 0.063.
 
 ```{r}
 #| label: rossi-widget

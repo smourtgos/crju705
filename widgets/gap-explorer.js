@@ -7,8 +7,9 @@
 //
 // Spread: se = (hi - lo) / 3.92, from R's interval. Both prop.test() and
 // t.test() intervals are symmetric around the observed gap, so concept 3's
-// green stretch is exactly R's interval. Group spreads are rescaled so they
-// combine to that same se.
+// verdict (is our result inside the middle 95% of the no-difference world?)
+// is exactly R's (does the interval contain 0?). Group spreads are rescaled
+// so they combine to that same se.
 (function () {
   "use strict";
   var COL = { A: "#73000A", B: "#4A76B5", same: "#495057", other: "#D62728",
@@ -22,7 +23,8 @@
   function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function T(x, y, s, o) { o = o || {};
     return '<text x="' + x + '" y="' + y + '" text-anchor="' + (o.a || "middle") + '" style="font-size:' +
-      ((o.sz || 15) * FS).toFixed(1) + 'px;fill:' + (o.c || COL.muted) + ';font-weight:' + (o.w || 400) + '">' + esc(s) + "</text>"; }
+      ((o.sz || 15) * FS).toFixed(1) + 'px;fill:' + (o.c || COL.muted) + ';font-weight:' + (o.w || 400) +
+      (o.halo ? ';paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round' : '') + '">' + esc(s) + "</text>"; }
   function niceStep(span, n) { var raw = span / n, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p;
     return (m < 1.5 ? 1 : m < 3.5 ? 2 : m < 7.5 ? 5 : 10) * p; }
   function pctTxt(p) { return p < 0.01 ? "less than 1%" : p > 0.99 ? "more than 99%" : Math.round(100 * p) + "%"; }
@@ -45,7 +47,7 @@
       c.se = (c.hi - c.lo) / 3.92;
       var k = c.se / Math.sqrt(c.sa0 * c.sa0 + c.sb0 * c.sb0);
       c.sa = c.sa0 * k; c.sb = c.sb0 * k;
-      var lo = Math.min(c.lo, 0, c.obs - 4.2 * c.se), hi = Math.max(c.hi, 0, c.obs + 4.2 * c.se), pad = 0.06 * (hi - lo);
+      var lo = Math.min(c.lo, -3 * c.se, c.obs - 4.2 * c.se), hi = Math.max(c.hi, 3 * c.se, c.obs + 4.2 * c.se), pad = 0.06 * (hi - lo);
       c.xlo = lo - pad; c.xhi = hi + pad;
       c.dollars = c.unit === "dollars";
       c._ready = true;
@@ -95,9 +97,7 @@
   GapExplorer.prototype.init = function () {
     this.stop();
     var c = this.cmp(), O = this.O;
-    var st3 = (c.xhi - c.xlo) / 90;   // concept 3 sweep step, aligned so one candidate is exactly 0
-    this.S = { gaps: [], arrows: [], first: true, va: c.ea, vb: c.eb, done: [], step3: st3,
-               cand: -Math.floor((0 - c.xlo) / st3) * st3 };
+    this.S = { gaps: [], arrows: [], first: true, va: c.ea, vb: c.eb, stage: 0 };
     this.range.value = 50;
     var play = O !== 4;
     ["ge-play", "ge-step", "ge-reset"].forEach(function (k) { this.root.querySelector("." + k).style.display = play ? "" : "none"; }, this);
@@ -114,7 +114,7 @@
   };
   GapExplorer.prototype.finished = function () {
     var c = this.cmp();
-    return (this.O <= 2 && this.S.gaps.length >= 500) || (this.O === 3 && this.S.cand > c.xhi);
+    return (this.O <= 2 && this.S.gaps.length >= 500) || (this.O === 3 && this.S.stage >= 3);
   };
   GapExplorer.prototype.togglePlay = function () {
     var self = this;
@@ -124,7 +124,7 @@
     var loop = function () {
       if (self.finished()) { self.stop(); return; }
       self.tick();
-      var n = self.S.gaps.length, d = self.O === 3 ? 140 : (n < 12 ? 650 : n < 60 ? 90 : 18);
+      var n = self.S.gaps.length, d = self.O === 3 ? 2200 : (n < 12 ? 650 : n < 60 ? 90 : 18);
       self.timer = setTimeout(loop, d);
     };
     loop();
@@ -137,8 +137,8 @@
       var a = c.ea + c.sa * rn(), b = c.eb + c.sb * rn();
       S.first = false; S.va = a; S.vb = b; S.gaps.push(a - b); S.arrows.push([a, b]);
     } else if (this.O === 3) {
-      if (S.cand > c.xhi) return;
-      S.done.push(S.cand); S.cand += S.step3;
+      if (S.stage >= 3) return;
+      S.stage += 1;
     }
     this.draw();
   };
@@ -258,38 +258,41 @@
     return [h, cap];
   };
 
-  // ---- concept 3: is zero a plausible truth? -------------------------------
+  // ---- concept 3: the zero world ------------------------------------------
+  // One curve that never moves: where studies like ours would land if there
+  // were truly no difference. Stage 1 draws it, stage 2 shades its middle 95%,
+  // stage 3 drops our result on it.
   GapExplorer.prototype.draw3 = function () {
-    var c = this.cmp(), S = this.S, self = this, h = "", se = c.se;
-    var cand = Math.min(S.cand, c.xhi), started = S.done.length > 0;
-    if (started) {
-      var d = "", step = (c.xhi - c.xlo) / 300, base = 205;
-      for (var g = c.xlo; g <= c.xhi; g += step) { var y = base - 120 * Math.exp(-0.5 * Math.pow((g - cand) / se, 2)); d += (d ? "L" : "M") + this.X(g).toFixed(1) + "," + y.toFixed(1); }
-      var ord = Math.abs(c.obs - cand) <= 1.96 * se;
-      h += T(W / 2, 18, "Suppose the true gap were " + this.fmtGap(cand) + this.unitWord(), { c: COL.text, sz: 17, w: 600 });
-      h += '<rect x="' + this.X(cand - 1.96 * se) + '" y="80" width="' + (this.X(cand + 1.96 * se) - this.X(cand - 1.96 * se)) + '" height="125" style="fill:' + COL.line + ';opacity:.25"/>';
-      h += '<path d="' + d + '" style="fill:none;stroke:' + COL.same + ';stroke-width:2"/>' + T(Math.min(R - 190, Math.max(L + 190, this.X(cand))), 72, "studies like ours would usually land in the gray", { sz: 13 });
-      h += '<line x1="' + this.X(c.obs) + '" x2="' + this.X(c.obs) + '" y1="80" y2="205" style="stroke:' + COL.A + ';stroke-width:3.5"/>' + T(this.X(c.obs), 225, "our result: " + this.fmtGap(c.obs), { c: COL.A, sz: 15, w: 600 });
-      h += T(W / 2, 44, ord ? "Our result would be ordinary: this truth is plausible" : "Our result would be surprising: this truth is ruled out", { c: ord ? COL.ok : COL.bad, sz: 16, w: 600 });
-    } else {
-      h += T(W / 2, 18, "Which true gaps fit our data?", { c: COL.text, sz: 17, w: 600 });
-      h += '<line x1="' + this.X(c.obs) + '" x2="' + this.X(c.obs) + '" y1="80" y2="205" style="stroke:' + COL.A + ';stroke-width:3.5"/>' + T(this.X(c.obs), 225, "our result: " + this.fmtGap(c.obs), { c: COL.A, sz: 15, w: 600 });
+    var c = this.cmp(), S = this.S, se = c.se, h = "", st = S.stage, base = AX - 4;
+    var inside = Math.abs(c.obs) <= 1.96 * se, zlo = -1.96 * se, zhi = 1.96 * se;
+    h += T(W / 2, 18, "Imagine there were no real difference: the true gap is exactly 0", { c: COL.text, sz: 17, w: 600 });
+    if (st >= 1) {
+      var d = "", step = (c.xhi - c.xlo) / 400;
+      for (var g = c.xlo; g <= c.xhi; g += step) { var y = base - 190 * Math.exp(-0.5 * Math.pow(g / se, 2)); d += (d ? "L" : "M") + this.X(g).toFixed(1) + "," + y.toFixed(1); }
+      if (st >= 2) {
+        var a = "";
+        for (var g2 = zlo; g2 <= zhi; g2 += step) { var y2 = base - 190 * Math.exp(-0.5 * Math.pow(g2 / se, 2)); a += (a ? "L" : "M") + this.X(g2).toFixed(1) + "," + y2.toFixed(1); }
+        a += "L" + this.X(zhi).toFixed(1) + "," + base + "L" + this.X(zlo).toFixed(1) + "," + base + "Z";
+        h += '<path d="' + a + '" style="fill:' + COL.ok + ';opacity:.28"/>';
+        h += '<rect x="' + this.X(zlo) + '" y="' + (AX + 27) + '" width="' + (this.X(zhi) - this.X(zlo)) + '" height="9" rx="3" style="fill:' + COL.ok + '"/>';
+      }
+      h += '<path d="' + d + '" style="fill:none;stroke:' + COL.same + ';stroke-width:2.5"/>';
+      var cx = Math.min(R - 150, Math.max(L + 150, this.X(0)));
+      h += T(cx, base - 196, "world with no real difference", { sz: 15, c: COL.same, w: 600, halo: true });
+      if (st >= 2) h += T(cx, base - 16, "95% land in the green", { sz: 15, c: COL.ok, w: 600, halo: true });
     }
-    var w = (R - L) / 90 + 0.6;
-    S.done.forEach(function (g) {
-      var o = Math.abs(c.obs - g) <= 1.96 * se, z = Math.abs(g) < S.step3 / 2;
-      h += '<rect x="' + (self.X(g) - w / 2) + '" y="262" width="' + w + '" height="26" style="fill:' + (o ? COL.ok : COL.bad) + ';opacity:' + (z ? 1 : 0.55) + (z ? ';stroke:' + COL.text + ';stroke-width:2.5' : '') + '"/>';
-    });
-    h += T(L, 254, "Each possible true gap, checked:", { a: "start", sz: 13 });
-    h += this.numline(null);
-    var zr3 = this.X(0) > R - 220;
-    h += T(this.X(0) + (zr3 ? -7 : 7), 248, "0 = no difference", { a: zr3 ? "end" : "start", c: COL.text, sz: 15, w: 600 });
-    var zeroDone = S.done.length && S.done[S.done.length - 1] >= -S.step3 / 2, zOk = Math.abs(c.obs) <= 1.96 * se, cap;
-    if (!started) cap = "Press Play to sweep across possible truths. At each one: if that were the true gap, would a result like ours be ordinary (green) or surprising (red)? Watch what happens at zero.";
-    else if (!zeroDone) cap = "Green so far = true gaps our data cannot rule out. Keep going until the sweep reaches zero.";
-    else cap = (zOk ? "<b style=\"color:" + COL.ok + "\">Zero is green.</b> \"No difference\" is still a plausible truth, so the interval crosses zero and we fail to reject."
-      : "<b style=\"color:" + COL.bad + "\">Zero is red.</b> If there were no difference, a result like ours would be surprising, so \"no difference\" is ruled out.") +
-      " The green stretch is the 95% interval: " + this.fmtGap(c.lo) + " to " + this.fmtGap(c.hi) + ".";
+    if (st >= 3) {
+      h += '<line x1="' + this.X(c.obs) + '" x2="' + this.X(c.obs) + '" y1="72" y2="' + (AX + 4) + '" style="stroke:' + COL.A + ';stroke-width:4"/>' +
+        T(this.X(c.obs), 64, "our result: " + this.fmtGap(c.obs), { c: COL.A, sz: 16, w: 600 });
+    }
+    h += this.numline(62);
+    var cap;
+    if (st === 0) cap = "Start in an imaginary world where " + c.A + " and " + c.B + " are truly the same. Press Step (or Play) to see what studies like ours would show there.";
+    else if (st === 1) cap = "Even with no real difference, studies like ours would not all show a gap of exactly 0. Luck alone spreads them out like this.";
+    else if (st === 2) cap = "95% of those studies land in the green stretch, from " + this.fmtGap(zlo) + " to " + this.fmtGap(zhi) + ". Now: where does our actual result land?";
+    else cap = inside
+      ? "<b style=\"color:" + COL.ok + "\">Zero is plausible.</b> A gap of " + this.fmtGap(c.obs) + " is an ordinary result even if there were no difference, so we cannot rule \"no difference\" out. That is the same as the interval (" + this.fmtGap(c.lo) + " to " + this.fmtGap(c.hi) + ") crossing zero."
+      : "<b style=\"color:" + COL.bad + "\">Zero is ruled out.</b> If there were no difference, a gap like " + this.fmtGap(c.obs) + " would almost never happen. That is the same as the interval (" + this.fmtGap(c.lo) + " to " + this.fmtGap(c.hi) + ") staying clear of zero.";
     return [h, cap];
   };
 
