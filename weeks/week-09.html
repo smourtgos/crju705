@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -32,15 +67,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -131,28 +165,24 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -209,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link active" data-scroll-target="#learning-objectives">Learning objectives</a></li>
   <li><a href="#before-class" id="toc-before-class" class="nav-link" data-scroll-target="#before-class">Before class</a></li>
   <li><a href="#in-class" id="toc-in-class" class="nav-link" data-scroll-target="#in-class">In class</a></li>
-  <li><a href="#after-class" id="toc-after-class" class="nav-link" data-scroll-target="#after-class">After class</a></li>
+  <li><a href="#after-class-project-checkpoint-2-due-sunday-october-18-1159-pm" id="toc-after-class-project-checkpoint-2-due-sunday-october-18-1159-pm" class="nav-link" data-scroll-target="#after-class-project-checkpoint-2-due-sunday-october-18-1159-pm">After class: Project Checkpoint 2 (due Sunday, October 18, 11:59 pm)</a></li>
   </ul>
 </nav>
     </div>
@@ -219,7 +249,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Session 9 · Midterm Exam</h1>
-<p class="subtitle lead">In class · covers Sessions 1–8</p>
+<p class="subtitle lead">In class, Tuesday, October 13 · covers Sessions 1 to 8 · Project Checkpoint 2 due Sunday, October 18</p>
 </div>
 
 
@@ -242,28 +272,28 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>In-class, monitored exam.</strong> You write and troubleshoot real R code. Printed notes and homework allowed — <strong>no internet, no AI tools.</strong></p>
+<p><strong>In-class, monitored exam.</strong> You write and troubleshoot real R code. Printed notes and homework allowed: <strong>no internet, no AI tools.</strong></p>
 </div>
 </div>
 </div>
-<p>The first half of the course is complete: describing data, probability, sampling distributions, confidence intervals, hypothesis testing in both traditions, ANOVA — plus the whole wrangling thread from ggplot2 through joins. The midterm asks you to show you can <em>use</em> it: an <code>.R</code> script you complete in class, code and interpretation together, drawn only from things we’ve already done. Nothing on it is new; the preparation is re-running your own work until it feels routine.</p>
+<p>The first half of the course is complete: describing data, probability, sampling distributions, confidence intervals, hypothesis testing in both traditions, real questions answered with real tests, and correlation. The midterm asks you to show you can <em>use</em> it: an <code>.R</code> script you complete in class, code and interpretation together, drawn only from things we’ve already done. Nothing on it is new; the preparation is re-running your own work until it feels routine.</p>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
 <p>You’re ready for the midterm when you can:</p>
 <ul>
-<li>run and interpret every test from Sessions 1–8 — descriptives, confidence intervals, t-tests in both traditions, ANOVA — without help</li>
-<li>wrangle a dataset into shape first: filter, mutate, summarize, pivot, join</li>
-<li>explain in a written comment what a p-value, a confidence interval, and a Bayes factor each mean</li>
+<li>run and interpret every test from Sessions 1 to 8 without help: descriptives, confidence intervals, <code>t.test()</code>, <code>prop.test()</code> and <code>bayes_prop_test()</code>, and <code>cor.test()</code></li>
+<li>get a dataset into shape first: <code>filter()</code>, <code>count()</code>, <code>summarize()</code></li>
+<li>explain in a written comment what a p-value, a confidence interval, and a Bayesian probability each mean</li>
 <li>read an R error message and troubleshoot your own code with only printed notes at hand</li>
 </ul>
 </section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
-<li>Work through the <strong><a href="../midterm.html">Midterm Study Guide</a></strong> — it lists every skill and concept on the exam</li>
-<li>Re-run your homework and lab code from Sessions 1–8; the exam only asks things we’ve already done</li>
-<li>The best drill after the study guide is the <strong>practice pages</strong> — ungraded problems with worked solutions, same skills as the exam, different numbers: Sessions <a href="../practice/practice-02.html">2</a>, <a href="../practice/practice-03.html">3</a>, <a href="../practice/practice-04.html">4</a>, <a href="../practice/practice-05.html">5</a>, <a href="../practice/practice-06.html">6</a>, and <a href="../practice/practice-08.html">8</a> (or see <a href="../resources.html#demos-practice">all demos &amp; practice</a>)</li>
-<li>Charge your laptop; arrive a few minutes early</li>
+<li>Work through the <strong><a href="../midterm.html">Midterm Study Guide</a></strong>: it lists every skill and concept on the exam, part by part</li>
+<li>Re-run your homework and lab code from Sessions 2 to 8; the exam only asks things we’ve already done</li>
+<li>The best drill after the study guide is the <strong>practice pages</strong> (ungraded problems with worked solutions, same skills as the exam, different numbers): Sessions <a href="../practice/practice-02.html">2</a>, <a href="../practice/practice-03.html">3</a>, <a href="../practice/practice-04.html">4</a>, <a href="../practice/practice-05.html">5</a>, <a href="../practice/practice-06.html">6</a>, and <a href="../practice/practice-10.html">8</a> (or see <a href="../resources.html#demos-practice">all demos and practice</a>). The midterm review slides are at the end of the <a href="../slides/week-10-correlation.html">Session 8 slides</a></li>
+<li>Charge your laptop, check that <code>library(tidyverse)</code> and <code>library(modeest)</code> load, and arrive a few minutes early</li>
 </ul>
 </section>
 <section id="in-class" class="level2">
@@ -272,12 +302,29 @@ ul.task-list li input[type="checkbox"] {
 <li>The midterm (delivered as an <code>.R</code> script you complete: code answers run in R, conceptual answers written in comments)</li>
 </ul>
 </section>
-<section id="after-class" class="level2">
-<h2 class="anchored" data-anchor-id="after-class">After class</h2>
+<section id="after-class-project-checkpoint-2-due-sunday-october-18-1159-pm" class="level2">
+<h2 class="anchored" data-anchor-id="after-class-project-checkpoint-2-due-sunday-october-18-1159-pm">After class: Project Checkpoint 2 (due Sunday, October 18, 11:59 pm)</h2>
+<p>No problem set this week. Instead, one short checkpoint on <strong>your</strong> project dataset, submitted as an <code>.R</code> script via Canvas. It does for your project what Session 8 did for Chicago, and it gets <code>brms</code> ready for Session 10.</p>
+<p>In a script with a clearly marked section (for example, <code># ---- PROJECT CHECKPOINT 2 ----</code>):</p>
+<ol type="1">
+<li><p><strong>Associations.</strong> For your outcome and each of your 2 or 3 candidate predictors from Checkpoint 1 (swapping one is fine, with one comment line saying why):</p>
 <ul>
-<li>No problem set this week</li>
-<li>Read <strong>Stanton Ch. 7</strong> (Measures of Association) before Session 10</li>
-<li>Keep working with your project dataset — Checkpoint 2 arrives with the Session 10 homework</li>
+<li>a <strong>numeric</strong> predictor gets a scatterplot against your outcome <em>plus</em> <code>cor()</code>. Use Spearman (<code>method = "spearman"</code>) instead if the plot shows serious skew or wild values, and say why;</li>
+<li>a <strong>categorical</strong> predictor gets a grouped boxplot or a table of group means instead, since r doesn’t apply to categories.</li>
+</ul></li>
+<li><p><strong>One test.</strong> Run <code>cor.test()</code> on the predictor that looks most promising, and report it in one sentence: r, the confidence interval, the p-value, direction, and strength.</p></li>
+<li><p><strong>A paragraph</strong> (as a comment block, roughly 5 to 8 sentences): what each association looks like, and whether the plot makes the number a fair summary; any <strong>surprises</strong> (a predictor you expected to matter that shows nothing, a sign pointing the “wrong” way, one wild point doing all the work); and which predictors you’ll carry into the regression in Checkpoint 3.</p></li>
+<li><p><strong>Install <code>brms</code> and run one test model.</strong> Session 10 fits your first Bayesian regression, and the first install can take a while. Run this once (the fit takes a minute or two the first time while it compiles; that pause is normal):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"brms"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>test_fit <span class="ot">&lt;-</span> <span class="fu">brm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars, <span class="at">chains =</span> <span class="dv">1</span>, <span class="at">iter =</span> <span class="dv">500</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>test_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If it prints a summary table, you’re ready. If it errors, <strong>paste the error into a comment</strong> and email me before Session 10, so we can fix it before class rather than during it.</p></li>
+</ol>
+<p>Checkpoint 2 is graded on <strong>completion and quality of reasoning</strong>, not on whether your correlations turn out strong. If everything is essentially zero, or a variable turns out to be broken, say so plainly: finding that now is the checkpoint working.</p>
+<ul>
+<li><strong>Read before Session 10:</strong> Stanton <strong>Ch. 8</strong> (Multiple Regression)</li>
+<li><strong>No class October 27 or November 3.</strong> Session 10 is Tuesday, October 20</li>
 </ul>
 
 
@@ -335,14 +382,13 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

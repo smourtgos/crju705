@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – The Logic of Inference: Confidence Intervals</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -276,7 +276,7 @@ Scott M. Mourtgos
 <section id="sampled-evidence-deaths-and-pumps" class="slide level2">
 <h2>Sampled Evidence: Deaths and Pumps</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1-2|4-8|10-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>deaths <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(Snow.deaths) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">did =</span> <span class="fu">row_number</span>())</span>
+<div class="sourceCode cell-code" id="cb1" data-code-line-numbers="1-2|4-8|10-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>deaths <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(Snow.deaths) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">did =</span> <span class="fu">row_number</span>())</span>
 <span id="cb1-2"><a></a>pumps  <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(Snow.pumps)  <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">pid =</span> <span class="fu">row_number</span>())</span>
 <span id="cb1-3"><a></a></span>
 <span id="cb1-4"><a></a><span class="co"># Every death-pump distance, then each death's NEAREST pump</span></span>
@@ -291,7 +291,7 @@ Scott M. Mourtgos
 <span id="cb1-13"><a></a>by_pump <span class="ot">&lt;-</span> nearest <span class="sc">|&gt;</span></span>
 <span id="cb1-14"><a></a>  <span class="fu">count</span>(pid, <span class="at">name =</span> <span class="st">"deaths_nearest"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-15"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(deaths_nearest))</span>
-<span id="cb1-16"><a></a>by_pump</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-16"><a></a>by_pump</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -345,7 +345,7 @@ Scott M. Mourtgos
 <h2>A Rare Luxury: We Know the Truth</h2>
 <p>Our Chicago file holds ~30,000 incidents from 2025. Today, <em>pretend the file is the whole population</em> — then we can check our inferences against the truth.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">pop_arrest_rate =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">pop_arrest_rate =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   pop_arrest_rate     n
@@ -359,9 +359,9 @@ Scott M. Mourtgos
 <h2>Now Act Like a Researcher: Draw One Sample</h2>
 <p>A researcher can rarely afford all 30,000 case files. Suppose we pull a random sample of <strong>250</strong> incidents:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>sample_250 <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">250</span>)</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>sample_250 <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">250</span>)</span>
 <span id="cb5-2"><a></a></span>
-<span id="cb5-3"><a></a>sample_250 <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">sample_arrest_rate =</span> <span class="fu">mean</span>(arrest))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-3"><a></a>sample_250 <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">sample_arrest_rate =</span> <span class="fu">mean</span>(arrest))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   sample_arrest_rate
@@ -378,7 +378,7 @@ Scott M. Mourtgos
 <h2>Caution! Samples Fluctuate</h2>
 <p>Draw a fresh sample of 250 and the estimate moves. Do it 1,000 times:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>many_estimates <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(i) {</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>many_estimates <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, \(i) {</span>
 <span id="cb7-2"><a></a>  crimes <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">250</span>) <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">p =</span> <span class="fu">mean</span>(arrest)) <span class="sc">|&gt;</span> <span class="fu">pull</span>(p)</span>
 <span id="cb7-3"><a></a>})</span>
 <span id="cb7-4"><a></a></span>
@@ -388,7 +388,7 @@ Scott M. Mourtgos
 <span id="cb7-8"><a></a>             <span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>], <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
 <span id="cb7-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"1,000 sample estimates of the arrest rate (n = 250 each)"</span>,</span>
 <span id="cb7-10"><a></a>       <span class="at">subtitle =</span> <span class="st">"Garnet line = the true population value"</span>,</span>
-<span id="cb7-11"><a></a>       <span class="at">x =</span> <span class="st">"Sample arrest proportion"</span>, <span class="at">y =</span> <span class="st">"Number of samples"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-11"><a></a>       <span class="at">x =</span> <span class="st">"Sample arrest proportion"</span>, <span class="at">y =</span> <span class="st">"Number of samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -403,7 +403,7 @@ Scott M. Mourtgos
 </div></section><section id="what-the-fluctuation-tells-us" class="slide level2">
 <h2>What the Fluctuation Tells Us</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">quantile</span>(many_estimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))   <span class="co"># what is this telling us?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">quantile</span>(many_estimates, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))   <span class="co"># what is this telling us?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 2.5% 97.5% 
 0.120 0.208 </code></pre>
@@ -434,7 +434,7 @@ Scott M. Mourtgos
 <section id="r-does-this-for-us-prop.test" class="slide level2">
 <h2>R Does This For Us: <code>prop.test()</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">prop.test</span>(<span class="fu">sum</span>(sample_250<span class="sc">$</span>arrest), <span class="at">n =</span> <span class="dv">250</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">prop.test</span>(<span class="fu">sum</span>(sample_250<span class="sc">$</span>arrest), <span class="at">n =</span> <span class="dv">250</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     1-sample proportions test with continuity correction
@@ -457,7 +457,7 @@ sample estimates:
 <h2>The Classic Picture: 100 Samples, 100 Intervals</h2>
 <p>Draw 100 samples; build a 95% CI from each:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>ci_100 <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, \(i) {</span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>ci_100 <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, \(i) {</span>
 <span id="cb12-2"><a></a>  s  <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">250</span>)</span>
 <span id="cb12-3"><a></a>  ci <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="fu">sum</span>(s<span class="sc">$</span>arrest), <span class="at">n =</span> <span class="dv">250</span>)<span class="sc">$</span>conf.int</span>
 <span id="cb12-4"><a></a>  <span class="fu">tibble</span>(<span class="at">sample =</span> i, <span class="at">estimate =</span> <span class="fu">mean</span>(s<span class="sc">$</span>arrest), <span class="at">lo =</span> ci[<span class="dv">1</span>], <span class="at">hi =</span> ci[<span class="dv">2</span>])</span>
@@ -465,7 +465,7 @@ sample estimates:
 <span id="cb12-6"><a></a>  <span class="fu">list_rbind</span>() <span class="sc">|&gt;</span></span>
 <span id="cb12-7"><a></a>  <span class="fu">mutate</span>(<span class="at">captured =</span> lo <span class="sc">&lt;=</span> <span class="fu">mean</span>(crimes<span class="sc">$</span>arrest) <span class="sc">&amp;</span> <span class="fu">mean</span>(crimes<span class="sc">$</span>arrest) <span class="sc">&lt;=</span> hi)</span>
 <span id="cb12-8"><a></a></span>
-<span id="cb12-9"><a></a><span class="fu">sum</span>(ci_100<span class="sc">$</span>captured)   <span class="co"># how many of the 100 intervals caught the truth?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-9"><a></a><span class="fu">sum</span>(ci_100<span class="sc">$</span>captured)   <span class="co"># how many of the 100 intervals caught the truth?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 97</code></pre>
 </div>
@@ -555,7 +555,7 @@ sample estimates:
 <h2>Sample Size Buys Precision</h2>
 <p>Same procedure, four sample sizes, one draw each:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>width_tbl <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">1000</span>, <span class="dv">4000</span>), \(n) {</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a>width_tbl <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">1000</span>, <span class="dv">4000</span>), \(n) {</span>
 <span id="cb14-2"><a></a>  s  <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> n)</span>
 <span id="cb14-3"><a></a>  ci <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="fu">sum</span>(s<span class="sc">$</span>arrest), <span class="at">n =</span> n)<span class="sc">$</span>conf.int</span>
 <span id="cb14-4"><a></a>  <span class="fu">tibble</span>(<span class="at">n =</span> n, <span class="at">estimate =</span> <span class="fu">mean</span>(s<span class="sc">$</span>arrest),</span>
@@ -563,7 +563,7 @@ sample estimates:
 <span id="cb14-6"><a></a>}) <span class="sc">|&gt;</span></span>
 <span id="cb14-7"><a></a>  <span class="fu">list_rbind</span>()</span>
 <span id="cb14-8"><a></a></span>
-<span id="cb14-9"><a></a>width_tbl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-9"><a></a>width_tbl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -593,11 +593,11 @@ sample estimates:
 <h2>A Real Question: Do Violent Crimes Happen Later in the Day?</h2>
 <p>Street lore says violence is a nighttime phenomenon. Property crime, the daytime hustle. Our data:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>vp <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>vp <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a></a>  <span class="fu">filter</span>(crime_category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb16-3"><a></a>  <span class="fu">mutate</span>(<span class="at">crime_category =</span> <span class="fu">factor</span>(crime_category, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)))</span>
 <span id="cb16-4"><a></a></span>
-<span id="cb16-5"><a></a>vp <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_hour =</span> <span class="fu">mean</span>(hour), <span class="at">sd_hour =</span> <span class="fu">sd</span>(hour), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> crime_category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-5"><a></a>vp <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">mean_hour =</span> <span class="fu">mean</span>(hour), <span class="at">sd_hour =</span> <span class="fu">sd</span>(hour), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> crime_category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   crime_category mean_hour sd_hour     n
@@ -612,7 +612,7 @@ sample estimates:
 </section>
 <section id="one-extra-line-who-comes-first" class="slide level2">
 <h2>One Extra Line: Who Comes First</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">mutate</span>(<span class="at">crime_category =</span> <span class="fu">factor</span>(crime_category, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">mutate</span>(<span class="at">crime_category =</span> <span class="fu">factor</span>(crime_category, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Violent"</span>, <span class="st">"Property"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">R’s default order is <strong>alphabetical</strong>: Property before Violent, so every “difference” it reported would come out as Property minus Violent, the reverse of how we asked the question</li>
 <li class="fragment"><code>factor(levels = ...)</code> tells R which group comes <strong>first</strong>. From here on, every subtraction reads <strong>Violent minus Property</strong></li>
@@ -622,12 +622,12 @@ sample estimates:
 <section id="lets-look-at-it-visually" class="slide level2">
 <h2>Let’s Look at It Visually</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">ggplot</span>(vp, <span class="fu">aes</span>(crime_category, hour, <span class="at">fill =</span> crime_category)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">ggplot</span>(vp, <span class="fu">aes</span>(crime_category, hour, <span class="at">fill =</span> crime_category)) <span class="sc">+</span></span>
 <span id="cb19-2"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb19-3"><a></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">unname</span>(crju_colors[<span class="fu">c</span>(<span class="st">"garnet"</span>, <span class="st">"blue"</span>)])) <span class="sc">+</span></span>
 <span id="cb19-4"><a></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>),</span>
 <span id="cb19-5"><a></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"midnight"</span>, <span class="st">"6 am"</span>, <span class="st">"noon"</span>, <span class="st">"6 pm"</span>, <span class="st">"midnight"</span>)) <span class="sc">+</span></span>
-<span id="cb19-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Time of day"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-6"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Time of day"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="week-05-confidence-intervals_files/figure-revealjs/two-group-box-1.png" width="960" class="r-stretch"><p>The boxes nearly coincide — the eye can’t settle this one. We need inference.</p>
@@ -636,7 +636,7 @@ sample estimates:
 <h2>Resample the Difference</h2>
 <p>Same trick as before — resample each group, compute the difference in means, repeat:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
 <span id="cb20-2"><a></a>violent_hours  <span class="ot">&lt;-</span> vp<span class="sc">$</span>hour[vp<span class="sc">$</span>crime_category <span class="sc">==</span> <span class="st">"Violent"</span>]</span>
 <span id="cb20-3"><a></a>property_hours <span class="ot">&lt;-</span> vp<span class="sc">$</span>hour[vp<span class="sc">$</span>crime_category <span class="sc">==</span> <span class="st">"Property"</span>]</span>
 <span id="cb20-4"><a></a></span>
@@ -644,7 +644,7 @@ sample estimates:
 <span id="cb20-6"><a></a>boot_property <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(property_hours, <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
 <span id="cb20-7"><a></a>mean_diffs    <span class="ot">&lt;-</span> boot_violent <span class="sc">-</span> boot_property</span>
 <span id="cb20-8"><a></a></span>
-<span id="cb20-9"><a></a><span class="fu">quantile</span>(mean_diffs, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)) <span class="sc">*</span> <span class="dv">60</span>   <span class="co"># in minutes: Violent minus Property</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-9"><a></a><span class="fu">quantile</span>(mean_diffs, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)) <span class="sc">*</span> <span class="dv">60</span>   <span class="co"># in minutes: Violent minus Property</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     2.5%     97.5% 
  3.709722 26.345208 </code></pre>
@@ -659,7 +659,7 @@ sample estimates:
 <section id="the-two-sample-t-test-gives-the-ci-directly" class="slide level2">
 <h2>The Two-Sample t-Test Gives the CI Directly</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> vp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> crime_category, <span class="at">data =</span> vp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -700,7 +700,7 @@ sample estimates:
 <section id="r-agrees" class="slide level2">
 <h2>R Agrees</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> arrest, <span class="at">data =</span> violent)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">t.test</span>(hour <span class="sc">~</span> arrest, <span class="at">data =</span> violent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -720,8 +720,8 @@ sample estimates:
 <section id="your-turn-5-minutes-with-a-neighbor" class="slide level2">
 <h2>Your Turn (5 minutes, with a neighbor)</h2>
 <p>Using <code>crimes</code>, compute a 95% CI for the proportion of incidents flagged as <strong>domestic</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(domestic)      <span class="co"># how many TRUE, out of 30,000?</span></span>
-<span id="cb26-2"><a></a><span class="fu">prop.test</span>(____, <span class="dv">30000</span>)         <span class="co"># type the count you just read</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(domestic)      <span class="co"># how many TRUE, out of 30,000?</span></span>
+<span id="cb26-2"><a></a><span class="fu">prop.test</span>(____, <span class="dv">30000</span>)         <span class="co"># type the count you just read</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol type="1">
 <li>Write one <strong>defensible</strong> sentence reporting your interval.</li>
 <li>Trade sentences with your neighbor and audit each other: does the sentence claim a probability about <em>this</em> interval? If so, fix it.</li>
@@ -928,7 +928,7 @@ sample estimates:
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1040,14 +1040,13 @@ sample estimates:
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

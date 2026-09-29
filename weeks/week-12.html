@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Session 12 · Logistic Regression: Yes/No Outcomes – CRJU 705</title>
+<title>Session 11 · Logistic Regression: Yes/No Outcomes – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,15 +32,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -131,28 +130,24 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -218,7 +213,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 12 · Logistic Regression: Yes/No Outcomes</h1>
+<h1 class="title">Session 11 · Logistic Regression: Yes/No Outcomes</h1>
 <p class="subtitle lead">Odds and log-odds · glm(family = binomial) · odds ratios + predicted probabilities · the 3D logistic surface · Bayesian logistic with brms · Project Checkpoint 4 (final)</p>
 </div>
 
@@ -242,18 +237,18 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-12-logistic.html">📽️ Slides: Logistic Regression</a></strong> · <strong><a href="../labs/lab-12-logistic.html">🧪 Lab 12: Logistic Regression — Chicago Neighborhoods, Then Alaska Nights</a></strong> · <strong><a href="../homework/hw-12.html">📝 Homework 12 + Project Checkpoint 4</a></strong> · <strong><a href="../demos/demo-12-logistic.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-12.html">✍️ Practice</a></strong></p>
+<p><strong><a href="../slides/week-12-logistic.html">📽️ Slides: Logistic Regression</a></strong> · <strong><a href="../labs/lab-12-logistic.html">🧪 Lab 11: Logistic Regression: Chicago Neighborhoods, Then Alaska Nights</a></strong> · <strong><a href="../homework/hw-12.html">📝 Homework 11 + Project Checkpoint 4</a></strong> · <strong><a href="../demos/demo-12-logistic.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-12.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
-<p>Every model so far predicted a <em>number</em>; this week the outcome is yes or no — arrest or not, reoffend or desist — which is the form most criminal-justice questions actually take. A straight line can’t live on a 0/1 outcome, so probability climbs the ladder to odds and log-odds, and <code>lm()</code> becomes <code>glm(family = binomial)</code>. It’s also the week the course pays off its opening promise: the Session 1 bank-robbery model you couldn’t read gets re-fit and finally read, line by line. This is the last session of new statistical content — the toolbox is complete, and Checkpoint 4 (the final one) fits your actual project model.</p>
+<p>Every model so far predicted a <em>number</em>; this week the outcome is yes or no (arrest or not, reoffend or desist), which is the form most criminal-justice questions actually take. A straight line can’t live on a 0/1 outcome, so probability climbs the ladder to odds and log-odds, and <code>lm()</code> becomes <code>glm(family = binomial)</code>. It’s also the week the course pays off its opening promise: the Session 1 bank-robbery model you couldn’t read gets re-fit and finally read, line by line. This is the last session of new statistical content: the toolbox is complete, and Checkpoint 4 (the final one) fits your actual project model.</p>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
 <p>By the end of this week you can:</p>
 <ul>
 <li>explain why <code>lm()</code> fails on a 0/1 outcome, and how the probability → odds → log-odds ladder fixes it</li>
 <li>fit a logistic regression in both traditions: <code>glm(family = binomial)</code> and <code>brm(family = bernoulli())</code></li>
-<li>translate coefficients into odds ratios <em>and</em> predicted probabilities — and keep the two straight</li>
+<li>translate coefficients into odds ratios <em>and</em> predicted probabilities, and keep the two straight</li>
 <li>say logistic results in plain language a police chief could act on, without confusing odds with probability</li>
 </ul>
 </section>
@@ -261,31 +256,31 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
 <li>Read: Stanton <strong>Ch. 10</strong> (Logistic Regression)</li>
-<li>No new packages — <code>brms</code> (installed for Session 8) covers the Bayesian side. If you want to spin the 3D surface on your own machine, <code>install.packages("plotly")</code> is optional.</li>
-<li>Bring your laptop <strong>and your final-project data</strong> — this week’s homework contains <strong>Checkpoint 4, the final checkpoint</strong>, and it asks you to fit your actual project model</li>
-<li>This is the last session with new statistical content. The final half hour is a <strong>project code clinic</strong> — bring your project code and your two most stuck-on problems — and <strong>presentation order is announced today</strong>. Session 13 is presentations.</li>
+<li>No new packages: <code>brms</code> (installed for Project Checkpoint 2, first used in Session 10) covers the Bayesian side. If you want to spin the 3D surface on your own machine, <code>install.packages("plotly")</code> is optional.</li>
+<li>Bring your laptop <strong>and your final-project data</strong>: this week’s homework contains <strong>Checkpoint 4, the final checkpoint</strong>, and it asks you to fit your actual project model</li>
+<li>This is the last session with new statistical content. The final half hour is a <strong>project code clinic</strong> (bring your project code and your two most stuck-on problems), and <strong>presentation order is announced today</strong>. Session 12 (Tue, Dec 1) is presentations. No class Nov 17 or Nov 24 (Thanksgiving).</li>
 </ul>
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
 <ul>
-<li>Why criminal justice runs on binary outcomes (arrest, failure to appear, re-arrest, intoxicated or not) — and why <code>lm()</code> predicts impossible probabilities when you feed it one</li>
-<li><strong>Closing the loop on Session 1:</strong> the bank-robbery case study that opened the course was a logistic regression — we re-fit the exact model and finally read its table (coefficients are log-odds; <code>exp()</code> them into odds ratios; West Zone’s odds ratio is why the cars went west)</li>
+<li>Why criminal justice runs on binary outcomes (arrest, failure to appear, re-arrest, intoxicated or not), and why <code>lm()</code> predicts impossible probabilities when you feed it one</li>
+<li><strong>Closing the loop on Session 1:</strong> the bank-robbery case study that opened the course was a logistic regression: we re-fit the exact model and finally read its table (coefficients are log-odds; <code>exp()</code> them into odds ratios; West Zone’s odds ratio is why the cars went west)</li>
 <li>The ladder: probability → odds → log-odds, and why a straight line can only live on the last rung</li>
-<li><code>glm(family = binomial)</code> — one argument away from <code>lm()</code> — and the two interpretation moves: <strong>odds ratios</strong> for effects, <strong>predicted probabilities</strong> for cases</li>
-<li><strong>The 3D logistic surface:</strong> Session 11’s flat plane, bent into an S-shaped probability sheet — built live from <code>predict()</code> on a 40 × 40 grid, plus the recorded guided tour</li>
-<li>The <strong>Bayesian version</strong>: <code>brm(family = bernoulli())</code> with the Session 8 settings, posterior odds ratios, and the credible-interval sentence you’re allowed to say</li>
-<li>Real-data thread: which Chicago community areas are <strong>high-violence</strong>? Unemployment (OR ≈ 1.45 per point) and vacant housing (OR ≈ 1.33 per point) both raise the odds; predicted probabilities run from ~3% (Forest Glen) to over 99% (West Garfield Park). Associations, not causes — and we say so.</li>
-<li><strong>Lab 12:</strong> the whole workflow yourself — Chicago walkthrough, then intoxicated-crash odds in the Alaska data with lubridate-built night/weekend flags, plus odds-ratio translation drills</li>
-<li><strong>Code clinic (final half hour):</strong> open floor for your project — live debugging, interpretation workshopping, and the <strong>presentation order draw</strong>. Bring a runnable draft and your two hardest problems — Checkpoint 4 is due the following Sunday, so the clinic is where you get unstuck before you finish it.</li>
+<li><code>glm(family = binomial)</code>, one argument away from <code>lm()</code>, and the two interpretation moves: <strong>odds ratios</strong> for effects, <strong>predicted probabilities</strong> for cases</li>
+<li><strong>The 3D logistic surface:</strong> Session 10’s flat plane, bent into an S-shaped probability sheet: built live from <code>predict()</code> on a 40 × 40 grid, plus the recorded guided tour</li>
+<li>The <strong>Bayesian version</strong>: <code>brm(family = bernoulli())</code> with the same settings as Session 10’s regression, posterior odds ratios, and the credible-interval sentence you’re allowed to say</li>
+<li>Real-data thread: which Chicago community areas are <strong>high-violence</strong>? Unemployment (OR ≈ 1.45 per point) and vacant housing (OR ≈ 1.33 per point) both raise the odds; predicted probabilities run from ~3% (Forest Glen) to over 99% (West Garfield Park). Associations, not causes, and we say so.</li>
+<li><strong>Lab 11:</strong> the whole workflow yourself: Chicago walkthrough, then intoxicated-crash odds in the Alaska data with lubridate-built night/weekend flags, plus odds-ratio translation drills</li>
+<li><strong>Code clinic (final half hour):</strong> open floor for your project: live debugging, interpretation workshopping, and the <strong>presentation order draw</strong>. Bring a runnable draft and your two hardest problems: Checkpoint 4 is due Sunday, November 22, so the clinic is where you get unstuck before you finish it.</li>
 </ul>
 <p><em>Missed class? The <a href="../demos/demo-12-logistic.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>
 <ul>
-<li><strong><a href="../homework/hw-12.html">Homework 12</a></strong> — entirely about <strong>your</strong> project this week: <code>summary()</code>/<code>str()</code> proof of your cleaned model variables, your model equation (linear or logistic, and why), <strong>plus Project Checkpoint 4 (final)</strong>: fit and interpret your final model, produce one presentation-ready table or figure, and write the three sentences you’d say to a non-statistician. Submit your <code>.R</code> file via Canvas <strong>by 11:59 pm the Sunday <em>after</em> this session</strong> — one week before the full project is due.</li>
-<li>The <strong>full project</strong> — script, dataset, written report — is due via Canvas <strong>before midnight the Sunday before Session 13</strong> (<a href="../final-project.html">details and rubric</a>), with presentations in class at <a href="../weeks/week-13.html">Session 13</a>.</li>
+<li><strong><a href="../homework/hw-12.html">Homework 11</a></strong>: entirely about <strong>your</strong> project this week: <code>summary()</code>/<code>str()</code> proof of your cleaned model variables, your model equation (linear or logistic, and why), <strong>plus Project Checkpoint 4 (final)</strong>: fit and interpret your final model, produce one presentation-ready table or figure, and write the three sentences you’d say to a non-statistician. Submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday, November 22</strong>, one week before the full project is due.</li>
+<li>The <strong>full project</strong> (script, dataset, written report) is due via Canvas <strong>before midnight Sunday, November 29, the Sunday before Session 12</strong> (<a href="../final-project.html">details and rubric</a>), with presentations in class at <a href="../weeks/week-13.html">Session 12</a> on Tuesday, December 1.</li>
 </ul>
 
 
@@ -343,14 +338,13 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

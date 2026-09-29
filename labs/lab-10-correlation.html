@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Lab 10 · Correlation: Chicago Areas, Then a Null Worth Reporting – CRJU 705</title>
+<title>Lab 8 · Correlation: Do Two Numbers Move Together? – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,15 +63,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -156,28 +155,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
 </li>
@@ -227,26 +222,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">On this page</h2>
    
   <ul>
-<li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+<li><a href="#the-recipe" id="toc-the-recipe" class="nav-link active" data-scroll-target="#the-recipe">The recipe</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li>
 <a href="#walkthrough" id="toc-walkthrough" class="nav-link" data-scroll-target="#walkthrough">Walkthrough</a>
   <ul class="collapse">
-<li><a href="#look-first" id="toc-look-first" class="nav-link" data-scroll-target="#look-first">Look first</a></li>
-  <li><a href="#the-correlation-matrix" id="toc-the-correlation-matrix" class="nav-link" data-scroll-target="#the-correlation-matrix">The correlation matrix</a></li>
-  <li><a href="#the-correlation-upgrade" id="toc-the-correlation-upgrade" class="nav-link" data-scroll-target="#the-correlation-upgrade">The <code>correlation()</code> upgrade</a></li>
-  <li><a href="#frequentist-inference-on-one-pair" id="toc-frequentist-inference-on-one-pair" class="nav-link" data-scroll-target="#frequentist-inference-on-one-pair">Frequentist inference on one pair</a></li>
-  <li><a href="#the-bayesian-version" id="toc-the-bayesian-version" class="nav-link" data-scroll-target="#the-bayesian-version">The Bayesian version</a></li>
-  <li><a href="#r-is-blind-anscombes-quartet-hands-on" id="toc-r-is-blind-anscombes-quartet-hands-on" class="nav-link" data-scroll-target="#r-is-blind-anscombes-quartet-hands-on">“r is blind” — Anscombe’s quartet, hands on</a></li>
+<li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
+  <li><a href="#question" id="toc-question" class="nav-link" data-scroll-target="#question">Question</a></li>
+  <li><a href="#look" id="toc-look" class="nav-link" data-scroll-target="#look">Look</a></li>
+  <li><a href="#number" id="toc-number" class="nav-link" data-scroll-target="#number">Number</a></li>
+  <li><a href="#test" id="toc-test" class="nav-link" data-scroll-target="#test">Test</a></li>
+  <li><a href="#say-it" id="toc-say-it" class="nav-link" data-scroll-target="#say-it">Say it</a></li>
   </ul>
 </li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
-  <li><a href="#exit-ticket" id="toc-exit-ticket" class="nav-link" data-scroll-target="#exit-ticket">Exit Ticket</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Lab 10 · Correlation: Chicago Areas, Then a Null Worth Reporting</h1>
-<p class="subtitle lead">CRJU 705 · Session 10</p>
+<h1 class="title">Lab 8 · Correlation: Do Two Numbers Move Together?</h1>
+<p class="subtitle lead">CRJU 705 · Session 8</p>
 </div>
 
 
@@ -260,94 +255,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p><strong>Goal:</strong> run the complete correlation workflow from today’s lecture — scatterplots first, then <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> and the correlation matrix, then inference in both traditions with <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> and the <code>correlation</code> package — on the Chicago community areas, and then on two lab datasets you already know. One of them has real associations to find. The other has <em>nothing</em>, and learning to say “there’s nothing here” out loud is half of this lab’s point.</p>
-<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.</p>
-<section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
+</header><p><strong>Goal:</strong> by the end of this lab you can take two numeric variables, look at them, put one number on how tightly they move together, test it, and say what it means (and what it does not). Two new functions tonight, <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> and <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code>, and <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> reads a lot like the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> output you already know.</p>
+<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. That script is what you submit to Canvas before you leave.</p>
+<section id="the-recipe" class="level2"><h2 class="anchored" data-anchor-id="the-recipe">The recipe</h2>
+<p>Same idea as Session 7, with one change: there are no groups. Both variables are numbers.</p>
+<ol type="1">
+<li>
+<strong>Question.</strong> Name the two numeric variables, and what one row is (a person? a neighborhood?).</li>
+<li>
+<strong>Look.</strong> A scatterplot, always, before any number.</li>
+<li>
+<strong>Number and test.</strong> <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> gives r. <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> gives r, a confidence interval, and a p-value.</li>
+<li>
+<strong>Say it.</strong> The honest sentence, how strong in plain words, and one thing a correlation cannot tell you.</li>
+</ol></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Open RStudio, start a new R script, and run:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/correlation/">correlation</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co"># Walkthrough: Chicago's 77 community areas, 2025</span></span>
+<span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>,</span>
+<span>                  show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Your Turn: 500 neighborhoods (the Lab 3 data)</span></span>
+<span><span class="va">nbhd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/neighborhoods.csv"</span>,</span>
+<span>                 show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Your Turn: 200 correctional officers (the Lab 5 and 6 data)</span></span>
+<span><span class="va">officers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/officers.csv"</span>,</span>
+<span>                     show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout callout-style-simple callout-warning">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>One new package this week:</strong> <code>install.packages("correlation")</code>. Good news after Session 8’s <code>brms</code> marathon — it’s a small install, and its Bayesian correlations sample instantly. No “Compiling Stan program…” pause this time.</p>
-</div>
-</div>
-</div>
-<p><code>areas</code> is the anchor dataset’s second level (<a href="../chicago-data.html">codebook</a>): Chicago’s 77 community areas, each with 2025 crime rates and Census-based structural measures. One row = one community area — <strong>not</strong> one person. Keep that in mind all lab; it decides what your sentences are allowed to claim.</p>
+<p>Nothing new to install tonight.</p>
 </section><section id="walkthrough" class="level2"><h2 class="anchored" data-anchor-id="walkthrough">Walkthrough</h2>
-<section id="look-first" class="level3"><h3 class="anchored" data-anchor-id="look-first">Look first</h3>
-<p>Always. Before any correlation:</p>
+<section id="the-data" class="level3"><h3 class="anchored" data-anchor-id="the-data">The data</h3>
+<p><code>areas</code> has one row per Chicago <strong>community area</strong> (77 of them), with 2025 crime rates and Census measures (<a href="../chicago-data.html">codebook</a>). One row is one area, <strong>not</strong> one person. Keep that in mind all night: it decides what your sentences are allowed to claim.</p>
+</section><section id="question" class="level3"><h3 class="anchored" data-anchor-id="question">Question</h3>
+<p><strong>Do community areas with higher unemployment have higher violent-crime rates?</strong> Two numeric variables: <code>unemployment_rate</code> (percent) and <code>violent_rate</code> (violent crimes per 1,000 residents).</p>
+</section><section id="look" class="level3"><h3 class="anchored" data-anchor-id="look">Look</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">areas</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">unemployment_rate</span>, <span class="va">violent_rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2.5</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Violent-crime rate vs. unemployment rate — 77 community areas"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Unemployment rate (%)"</span>, y <span class="op">=</span> <span class="st">"Violent crimes per 1,000 residents"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">areas</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">unemployment_rate</span>, <span class="va">violent_rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="lab-10-correlation_files/figure-html/look-first-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="lab-10-correlation_files/figure-html/wt-look-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>A strong, roughly linear, positive association — and no wild outlier manufacturing it. <em>Now</em> it’s safe to summarize with one number:</p>
+<p>Read the picture before any number: the dots climb from left to right (positive), they hug the line fairly tightly (strong), the pattern is roughly a straight line, and no single wild point is creating it. <em>Now</em> one number is a fair summary.</p>
+</section><section id="number" class="level3"><h3 class="anchored" data-anchor-id="number">Number</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">areas</span><span class="op">$</span><span class="va">unemployment_rate</span>, <span class="va">areas</span><span class="op">$</span><span class="va">violent_rate</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">areas</span><span class="op">$</span><span class="va">unemployment_rate</span>, <span class="va">areas</span><span class="op">$</span><span class="va">violent_rate</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8398579</code></pre>
 </div>
 </div>
-<p>r = 0.84: very strong and positive, matching what the plot already told us.</p>
-</section><section id="the-correlation-matrix" class="level3"><h3 class="anchored" data-anchor-id="the-correlation-matrix">The correlation matrix</h3>
-<p>Real analyses look at several candidate variables at once. <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> takes every numeric column you feed it:</p>
+<p>r = 0.84. Positive, and very strong: r always lands between -1 and +1, and 0.84 is close to the top.</p>
+</section><section id="test" class="level3"><h3 class="anchored" data-anchor-id="test">Test</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">areas</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">violent_rate</span>, <span class="va">unemployment_rate</span>, <span class="va">median_income</span>, <span class="va">pct_bachelors</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                  violent_rate unemployment_rate median_income pct_bachelors
-violent_rate              1.00              0.84         -0.71         -0.45
-unemployment_rate         0.84              1.00         -0.81         -0.62
-median_income            -0.71             -0.81          1.00          0.76
-pct_bachelors            -0.45             -0.62          0.76          1.00</code></pre>
-</div>
-</div>
-<p>Read it like a mileage chart: symmetric, 1s on the diagonal. Violence correlates strongly with unemployment (0.84), strongly and negatively with income (−0.71), moderately and negatively with college education (−0.45). But this table carries <strong>no uncertainty</strong> — no tests, no intervals.</p>
-</section><section id="the-correlation-upgrade" class="level3"><h3 class="anchored" data-anchor-id="the-correlation-upgrade">The <code>correlation()</code> upgrade</h3>
-<p>The <code>correlation</code> package tests every pair and attaches confidence intervals — and it Holm-adjusts the p-values because six tests at once is exactly the pile-of-tests problem from Session 8:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">areas</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">violent_rate</span>, <span class="va">unemployment_rate</span>, <span class="va">median_income</span>, <span class="va">pct_bachelors</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1        |        Parameter2 |     r |         95% CI |  t(75) |         p
------------------------------------------------------------------------------------
-violent_rate      | unemployment_rate |  0.84 | [ 0.76,  0.90] |  13.40 | &lt; .001***
-violent_rate      |     median_income | -0.71 | [-0.80, -0.57] |  -8.66 | &lt; .001***
-violent_rate      |     pct_bachelors | -0.45 | [-0.61, -0.25] |  -4.33 | &lt; .001***
-unemployment_rate |     median_income | -0.81 | [-0.88, -0.72] | -12.05 | &lt; .001***
-unemployment_rate |     pct_bachelors | -0.62 | [-0.74, -0.46] |  -6.90 | &lt; .001***
-median_income     |     pct_bachelors |  0.76 | [ 0.65,  0.84] |  10.24 | &lt; .001***
-
-p-value adjustment method: Holm (1979)
-Observations: 77</code></pre>
-</div>
-</div>
-<p>Same r values as the matrix, now each with a 95% CI and an adjusted p-value.</p>
-</section><section id="frequentist-inference-on-one-pair" class="level3"><h3 class="anchored" data-anchor-id="frequentist-inference-on-one-pair">Frequentist inference on one pair</h3>
-<p>When one relationship is the star of your analysis, <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> gives the full readout:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">areas</span><span class="op">$</span><span class="va">unemployment_rate</span>, <span class="va">areas</span><span class="op">$</span><span class="va">violent_rate</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">areas</span><span class="op">$</span><span class="va">unemployment_rate</span>, <span class="va">areas</span><span class="op">$</span><span class="va">violent_rate</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -362,125 +329,55 @@ sample estimates:
 0.8398579 </code></pre>
 </div>
 </div>
-<p>The reporting sentence, built from that output:</p>
-<blockquote class="blockquote">
-<p>“Across Chicago’s 77 community areas, unemployment was strongly associated with the violent-crime rate, r = .84, t(75) = 13.4, p &lt; .001, 95% CI [.76, .90].”</p>
-</blockquote>
-<p>Note what the sentence does <em>not</em> say: nothing about unemployed <em>people</em> (ecological fallacy — these are areas), and nothing about unemployment <em>causing</em> violence.</p>
-</section><section id="the-bayesian-version" class="level3"><h3 class="anchored" data-anchor-id="the-bayesian-version">The Bayesian version</h3>
-<p>Same package, one new argument:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span>   <span class="co"># the Bayesian version samples from the posterior — seed keeps output stable</span></span>
-<span><span class="va">areas</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">violent_rate</span>, <span class="va">unemployment_rate</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span>bayesian <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1   |        Parameter2 |  rho |       95% CI |      pd | % in ROPE
-----------------------------------------------------------------------------
-violent_rate | unemployment_rate | 0.82 | [0.73, 0.87] | 100%*** |        0%
-
-Parameter1   |         Prior |          BF
-------------------------------------------
-violent_rate | Beta (3 +- 3) | 6.64e+17***
-
-Observations: 77</code></pre>
-</div>
-</div>
-<p>Four things to read, all lecture echoes:</p>
+<p>Read it the way you read <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code>:</p>
 <ul>
 <li>
-<strong>rho</strong> ≈ 0.82 — the posterior median, pulled <em>slightly</em> toward 0 relative to the frequentist 0.84 by the mildly skeptical prior</li>
+<strong><code>cor</code></strong> at the bottom is r, 0.84</li>
 <li>
-<strong>95% CI</strong> — a <em>credible</em> interval: given data and prior, 95% probability the correlation lies in this range (the direct statement a confidence interval can’t make)</li>
+<strong>95 percent confidence interval:</strong> 0.76 to 0.90. It is an interval for the correlation, not for a difference, so it is in r’s units (between -1 and +1). Zero is far outside it</li>
 <li>
-<strong>pd</strong> = 100% — the posterior probability the correlation is positive</li>
+<strong>p-value</strong> below 2.2e-16: reject the null of no correlation</li>
+</ul></section><section id="say-it" class="level3"><h3 class="anchored" data-anchor-id="say-it">Say it</h3>
+<p><strong>The sentence:</strong> across Chicago’s 77 community areas, those with higher unemployment had higher violent-crime rates, r = 0.84 (95% CI 0.76 to 0.90).</p>
+<p><strong>How strong, in plain words:</strong> a very strong association. Knowing an area’s unemployment rate tells you a lot about where its violent-crime rate sits.</p>
+<p><strong>What it cannot tell you:</strong></p>
+<ul>
 <li>
-<strong>BF</strong> ≈ 10¹⁷ — on Session 6’s scale, evidence beyond “extreme.” Hold this number in mind: in Your Turn 2 you’ll meet its opposite.</li>
-</ul></section><section id="r-is-blind-anscombes-quartet-hands-on" class="level3"><h3 class="anchored" data-anchor-id="r-is-blind-anscombes-quartet-hands-on">“r is blind” — Anscombe’s quartet, hands on</h3>
-<p>From lecture: four datasets that ship with R, statistically identical, visually nothing alike. The pivot gymnastics below just reshape <code>anscombe</code>’s eight columns into tidy (set, x, y) rows — copy it as given; the payoff is the summary and the plot:</p>
+<strong>Cause.</strong> Unemployment and violence could both be driven by something else (concentrated poverty, disinvestment). A correlation is a pattern, not a proof.</li>
+<li>
+<strong>Anything about individuals.</strong> These rows are areas. Nothing here says unemployed <em>people</em> commit violence. Making that jump from areas to people is the <strong>ecological fallacy</strong>.</li>
+</ul></section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
+<p>Work in your own script and comment each answer.</p>
+<p><strong>Question 1:</strong> in the 500 neighborhoods, <strong>do neighborhoods with more poverty have more assaults?</strong> <code>poverty_rate</code> is the share of residents in poverty (0.25 means 25%) and <code>assaults</code> is the number of assaults recorded there.</p>
+<p><strong>1.</strong> Look. Make a scatterplot with <code>poverty_rate</code> on the x-axis and <code>assaults</code> on the y-axis, and add <code>geom_smooth(method = "lm", se = FALSE)</code>. In a comment: which direction do the dots go, and is the pattern straight enough for r to be a fair summary? (The dots sit in rows because <code>assaults</code> is a whole-number count. That is fine.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">anscombe_long</span> <span class="op">&lt;-</span> <span class="va">anscombe</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>               names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"set"</span><span class="op">)</span>, names_pattern <span class="op">=</span> <span class="st">"(.)(.)"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">anscombe_long</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, mean_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">set</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 4
-  set   mean_x mean_y     r
-  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 1          9   7.50 0.816
-2 2          9   7.50 0.816
-3 3          9   7.5  0.816
-4 4          9   7.50 0.817</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
+<p><strong>2.</strong> Number. Run <code>cor(nbhd$poverty_rate, nbhd$assaults)</code>. In a comment, write r and describe it in words: positive or negative, and weak, moderate, or strong.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">anscombe_long</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, linewidth <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">set</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="lab-10-correlation_files/figure-html/anscombe-plot-lab-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<p>Four times r = 0.82: one genuine linear trend, one curve, one outlier-hijacked line, one vertical stack with a single point doing all the work. <strong>r summarizes a shape it never checks.</strong> Plot first, every time.</p>
-</section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
-<p>Work in your own script. Comment each answer.</p>
-<p><strong>1. Neighborhoods — real associations.</strong> Back to the 500 simulated-but-realistic neighborhoods from Lab 3:</p>
+<p><strong>3.</strong> Test. Run <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> on the same two variables. In a comment, report the 95% confidence interval and the p-value. Reject or fail to reject the null of no correlation?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nbhd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/neighborhoods.csv"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># a) Run correlation() on poverty_rate, unemployment_rate, and assaults.</span></span>
-<span><span class="co">#    Which pair is strongest? Which is weakest?</span></span>
-<span><span class="co"># b) Scatterplot the strongest pair (put assaults on the y-axis if it's involved),</span></span>
-<span><span class="co">#    with a fitted line. Does the shape look linear enough for r to be a fair summary?</span></span>
-<span><span class="co"># c) cor.test() on poverty_rate and assaults. Write the one-sentence report,</span></span>
-<span><span class="co">#    lecture style: r, df, p, CI, direction, strength.</span></span>
-<span><span class="co"># d) These rows are neighborhoods, not residents. Reread your sentence from (c):</span></span>
-<span><span class="co">#    does it accidentally make a claim about people? Fix it if so.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>2. Officers — an honest null.</strong> The 200 correctional officers from Lab 6, and a question the wellness literature cares about: does overtime track burnout?</p>
+<p><strong>4.</strong> Say it. In a comment, write one sentence about these neighborhoods that a city council member would understand. Then name one thing this correlation cannot tell you. Check your sentence: does it accidentally make a claim about <em>people</em> rather than neighborhoods?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">officers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/officers.csv"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># a) Run correlation() on overtime_hours_mo, burnout, sleep_hours, job_satisfaction.</span></span>
-<span><span class="co">#    Describe what you see. (Expect to be underwhelmed. That's the data, not a bug.)</span></span>
-<span><span class="co"># b) Now the Bayesian version on just overtime_hours_mo and burnout:</span></span>
-<span><span class="co">#    officers |&gt;</span></span>
-<span><span class="co">#      select(overtime_hours_mo, burnout) |&gt;</span></span>
-<span><span class="co">#      correlation(bayesian = TRUE)</span></span>
-<span><span class="co">#    Look at the BF. It's BELOW 1 — remember Session 6: a BF &lt; 1 is evidence FOR</span></span>
-<span><span class="co">#    the null. Compute 1/BF: how many times more consistent are these data with</span></span>
-<span><span class="co">#    "no correlation" than with a correlation?</span></span>
-<span><span class="co"># c) In a comment, report this result honestly in both traditions:</span></span>
-<span><span class="co">#    one frequentist sentence (r, p — what are you allowed to conclude? recall</span></span>
-<span><span class="co">#    Session 6: can a p-value ever SUPPORT the null?), and one Bayesian sentence</span></span>
-<span><span class="co">#    (what the BF lets you say that the p-value doesn't).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># a comment-only task</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>3. <em>(Stretch)</em> Rank correlation on an ordinal variable.</strong> <code>disorder_level</code> is ordered categories (Low → Very High) — Pearson’s r has no business there, but Spearman’s rank correlation is fine:</p>
+<p><strong>Question 2:</strong> among the 200 correctional officers, <strong>do officers who have been on the job longer have lower (or higher) job satisfaction?</strong> <code>tenure_years</code> is years on the job; <code>job_satisfaction</code> is a 0 to 100 score.</p>
+<p><strong>5.</strong> Run the recipe again: scatterplot (tenure on the x-axis), then <code>cor.test(officers$tenure_years, officers$job_satisfaction)</code>. In a comment: r, the confidence interval, and the p-value. Does the interval include zero? Then write the honest sentence. Careful: failing to reject is not the same as proving there is no relationship.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nbhd</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>6.</strong> <em>(Stretch)</em> Spearman on an ordered category. <code>disorder_level</code> is ordered (Low, Moderate, High, Very High), so Pearson’s r does not fit it, but a rank correlation does. Run this, then say in a comment what it shows about disorder and assaults:</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nbhd</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>disorder_rank <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">disorder_level</span>,</span>
 <span>    levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low"</span>, <span class="st">"Moderate"</span>, <span class="st">"High"</span>, <span class="st">"Very High"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">disorder_rank</span>, <span class="va">assaults</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># In comments: what does rho say about disorder and assaults?</span></span>
-<span><span class="co"># And why was Spearman the right tool here when Pearson wasn't?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">disorder_rank</span>, <span class="va">assaults</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="exit-ticket" class="level2"><h2 class="anchored" data-anchor-id="exit-ticket">Exit Ticket</h2>
-<p>Submit a short R script to Canvas before you leave, containing:</p>
-<ol type="1">
-<li>A comment, 2–3 sentences: what Pearson’s r measures, its possible range, and one thing r = 0 does <strong>not</strong> mean</li>
-<li>The strongest and the weakest association you found across Your Turn 1 and 2, each with its r value and a plain-English direction/strength label</li>
-<li>Your two honest sentences about overtime and burnout from Your Turn 2c — the frequentist one and the Bayesian one</li>
-<li>A comment: what Anscombe’s quartet proves about correlation coefficients, and the habit it should build into every analysis you run from now on</li>
-</ol>
+<p>When you are done, submit your script to Canvas. The in-class exercise is graded on completing it.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -534,14 +431,13 @@ Observations: 77</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

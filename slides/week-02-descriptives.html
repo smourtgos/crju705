@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Descriptive Statistics</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -271,18 +271,18 @@ Scott M. Mourtgos
 <section id="practice-the-mean" class="slide level2">
 <h2>Practice — The Mean</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>rainfall <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>)   <span class="co"># rain each day this week</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>rainfall <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>)   <span class="co"># rain each day this week</span></span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># The hard way:</span></span>
-<span id="cb1-4"><a></a><span class="fu">sum</span>(rainfall) <span class="sc">/</span> <span class="fu">length</span>(rainfall)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a></a><span class="fu">sum</span>(rainfall) <span class="sc">/</span> <span class="fu">length</span>(rainfall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.142857</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># The easy way:</span></span>
-<span id="cb3-2"><a></a><span class="fu">mean</span>(rainfall)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># The easy way:</span></span>
+<span id="cb3-2"><a></a><span class="fu">mean</span>(rainfall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.142857</code></pre>
 </div>
@@ -292,18 +292,18 @@ Scott M. Mourtgos
 <section id="practice-the-median" class="slide level2">
 <h2>Practice — The Median</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>rainfall</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>rainfall</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 0 0 2 1 1 4</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">sort</span>(rainfall)   <span class="co"># middle value of the sorted data?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">sort</span>(rainfall)   <span class="co"># middle value of the sorted data?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 0 0 1 1 2 4</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">median</span>(rainfall)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">median</span>(rainfall)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -313,12 +313,12 @@ Scott M. Mourtgos
 <section id="practice-the-mode" class="slide level2">
 <h2>Practice — The Mode</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>rainfall          <span class="co"># which value appears most often?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>rainfall          <span class="co"># which value appears most often?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0 0 0 2 1 1 4</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(modeest)  <span class="co"># install.packages("modeest") once, library() every session</span></span>
-<span id="cb13-2"><a></a><span class="fu">mfv</span>(rainfall)     <span class="co"># mfv = "most frequent value"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">library</span>(modeest)  <span class="co"># install.packages("modeest") once, library() every session</span></span>
+<span id="cb13-2"><a></a><span class="fu">mfv</span>(rainfall)     <span class="co"># mfv = "most frequent value"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
@@ -327,7 +327,7 @@ Scott M. Mourtgos
 <section id="what-do-these-look-like" class="slide level2">
 <h2>What Do These Look Like?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" data-code-line-numbers="3-6|7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>stats <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="sourceCode cell-code" id="cb15" data-code-line-numbers="3-6|7-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>stats <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb15-2"><a></a>  <span class="at">measure =</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"Median"</span>, <span class="st">"Mode"</span>),</span>
 <span id="cb15-3"><a></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="fu">mean</span>(rainfall), <span class="fu">median</span>(rainfall), <span class="fu">mfv</span>(rainfall))</span>
 <span id="cb15-4"><a></a>)</span>
@@ -336,7 +336,7 @@ Scott M. Mourtgos
 <span id="cb15-7"><a></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> stats, <span class="fu">aes</span>(<span class="at">xintercept =</span> value, <span class="at">color =</span> measure),</span>
 <span id="cb15-8"><a></a>             <span class="at">linewidth =</span> <span class="fl">1.2</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb15-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rainfall with Mean, Median, and Mode"</span>,</span>
-<span id="cb15-10"><a></a>       <span class="at">x =</span> <span class="st">"Rainfall (inches)"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb15-10"><a></a>       <span class="at">x =</span> <span class="st">"Rainfall (inches)"</span>, <span class="at">y =</span> <span class="st">"Frequency"</span>, <span class="at">color =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -351,18 +351,18 @@ Scott M. Mourtgos
 </div></section><section id="why-we-care-in-cj-sentencing" class="slide level2">
 <h2>Why We Care in CJ: Sentencing</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Sentence lengths for 10 people convicted of robbery (years)</span></span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Sentence lengths for 10 people convicted of robbery (years)</span></span>
 <span id="cb16-2"><a></a>sentences <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">30</span>)   <span class="co"># note the outlier!</span></span>
 <span id="cb16-3"><a></a></span>
-<span id="cb16-4"><a></a><span class="fu">mean</span>(sentences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-4"><a></a><span class="fu">mean</span>(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">median</span>(sentences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">median</span>(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">mfv</span>(sentences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">mfv</span>(sentences)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3</code></pre>
 </div>
@@ -385,12 +385,12 @@ Scott M. Mourtgos
 <h2>The Same Thing in Real Data</h2>
 <p>Community-level crime rates in Chicago, 2025:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>areas <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a></a>  <span class="fu">summarize</span>(</span>
 <span id="cb22-3"><a></a>    <span class="at">mean_rate   =</span> <span class="fu">mean</span>(crime_rate),</span>
 <span id="cb22-4"><a></a>    <span class="at">median_rate =</span> <span class="fu">median</span>(crime_rate),</span>
 <span id="cb22-5"><a></a>    <span class="at">max_rate    =</span> <span class="fu">max</span>(crime_rate)</span>
-<span id="cb22-6"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-6"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   mean_rate median_rate max_rate
@@ -402,7 +402,7 @@ Scott M. Mourtgos
 <section id="whos-dragging-the-mean" class="slide level2">
 <h2>Who’s Dragging the Mean?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>areas <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(crime_rate, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(community, crime_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>areas <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(crime_rate, <span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">select</span>(community, crime_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   community          crime_rate
@@ -452,10 +452,10 @@ Scott M. Mourtgos
 <section id="practice-range" class="slide level2">
 <h2>Practice — Range</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>votes1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>)   <span class="co"># wide spread</span></span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>votes1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>)   <span class="co"># wide spread</span></span>
 <span id="cb26-2"><a></a>votes2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">299</span>, <span class="dv">300</span>, <span class="dv">301</span>)   <span class="co"># tight cluster</span></span>
 <span id="cb26-3"><a></a></span>
-<span id="cb26-4"><a></a><span class="fu">mean</span>(votes1); <span class="fu">mean</span>(votes2)   <span class="co"># identical means</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb26-4"><a></a><span class="fu">mean</span>(votes1); <span class="fu">mean</span>(votes2)   <span class="co"># identical means</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 300</code></pre>
 </div>
@@ -465,14 +465,14 @@ Scott M. Mourtgos
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">range</span>(votes1); <span class="fu">diff</span>(<span class="fu">range</span>(votes1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">range</span>(votes1); <span class="fu">diff</span>(<span class="fu">range</span>(votes1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 200 400</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 200</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">range</span>(votes2); <span class="fu">diff</span>(<span class="fu">range</span>(votes2))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">range</span>(votes2); <span class="fu">diff</span>(<span class="fu">range</span>(votes2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 299 301</code></pre>
 </div>
@@ -490,11 +490,11 @@ Scott M. Mourtgos
 <section id="practice-deviations-from-the-mean" class="slide level2">
 <h2>Practice — Deviations from the Mean</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -100    0  100</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>votes2 <span class="sc">-</span> <span class="fu">mean</span>(votes2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>votes2 <span class="sc">-</span> <span class="fu">mean</span>(votes2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1  0  1</code></pre>
 </div>
@@ -502,7 +502,7 @@ Scott M. Mourtgos
 <div class="fragment">
 <p><strong>Why can’t we just sum the deviations?</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">sum</span>(votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))   <span class="co"># they always cancel to zero!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">sum</span>(votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))   <span class="co"># they always cancel to zero!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>
@@ -518,11 +518,11 @@ Scott M. Mourtgos
 <h2>Practice — Sum of Squares</h2>
 <p>Squaring makes every deviation positive (and emphasizes big misses):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a><span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20000</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">sum</span>((votes2 <span class="sc">-</span> <span class="fu">mean</span>(votes2))<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">sum</span>((votes2 <span class="sc">-</span> <span class="fu">mean</span>(votes2))<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
@@ -531,8 +531,8 @@ Scott M. Mourtgos
 <section id="practice-variance" class="slide level2">
 <h2>Practice — Variance</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co"># Variance = mean squared deviation (population formula)</span></span>
-<span id="cb45-2"><a></a><span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co"># Variance = mean squared deviation (population formula)</span></span>
+<span id="cb45-2"><a></a><span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6666.667</code></pre>
 </div>
@@ -549,22 +549,22 @@ Scott M. Mourtgos
 <section id="practice-standard-deviation" class="slide level2">
 <h2>Practice — Standard Deviation</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="co"># Standard deviation = square root of variance (back to vote units!)</span></span>
-<span id="cb47-2"><a></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a><span class="co"># Standard deviation = square root of variance (back to vote units!)</span></span>
+<span id="cb47-2"><a></a><span class="fu">sqrt</span>(<span class="fu">sum</span>((votes1 <span class="sc">-</span> <span class="fu">mean</span>(votes1))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(votes1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 81.64966</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="fu">var</span>(votes1); <span class="fu">sd</span>(votes1)   <span class="co"># R's built-ins use the SAMPLE formula (divide by n-1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a><span class="fu">var</span>(votes1); <span class="fu">sd</span>(votes1)   <span class="co"># R's built-ins use the SAMPLE formula (divide by n-1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10000</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 100</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">var</span>(votes2); <span class="fu">sd</span>(votes2)   <span class="co"># more on WHY in Session 4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="fu">var</span>(votes2); <span class="fu">sd</span>(votes2)   <span class="co"># more on WHY in Session 4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
@@ -598,14 +598,14 @@ Scott M. Mourtgos
 <section id="real-data-consistency-across-communities" class="slide level2">
 <h2>Real Data: Consistency Across Communities</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="co"># Violent-crime rates: how much do Chicago communities differ?</span></span>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="co"># Violent-crime rates: how much do Chicago communities differ?</span></span>
 <span id="cb55-2"><a></a>areas <span class="sc">|&gt;</span></span>
 <span id="cb55-3"><a></a>  <span class="fu">summarize</span>(</span>
 <span id="cb55-4"><a></a>    <span class="at">mean_violent =</span> <span class="fu">mean</span>(violent_rate),</span>
 <span id="cb55-5"><a></a>    <span class="at">sd_violent   =</span> <span class="fu">sd</span>(violent_rate),</span>
 <span id="cb55-6"><a></a>    <span class="at">min_violent  =</span> <span class="fu">min</span>(violent_rate),</span>
 <span id="cb55-7"><a></a>    <span class="at">max_violent  =</span> <span class="fu">max</span>(violent_rate)</span>
-<span id="cb55-8"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb55-8"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   mean_violent sd_violent min_violent max_violent
@@ -634,8 +634,8 @@ Scott M. Mourtgos
 <section id="the-normal-distribution" class="slide level2">
 <h2>The Normal Distribution</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>sims <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>))</span>
-<span id="cb57-2"><a></a><span class="fu">ggplot</span>(sims, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a>sims <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">10</span>))</span>
+<span id="cb57-2"><a></a><span class="fu">ggplot</span>(sims, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"grey80"</span>, <span class="at">color =</span> <span class="st">"white"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="week-02-descriptives_files/figure-revealjs/normal-hist-1.png" width="960" class="r-stretch"><p>Symmetrical, bell-shaped; defined by <strong>two numbers</strong> — the mean (center) and SD (spread). <strong>Try different values!</strong></p>
@@ -644,8 +644,8 @@ Scott M. Mourtgos
 <h2>SD and the Normal: the Empirical Rule</h2>
 
 <img data-src="week-02-descriptives_files/figure-revealjs/empirical-rule-1.png" width="960" class="r-stretch"><div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>pct_within <span class="ot">&lt;-</span> <span class="cf">function</span>(k) <span class="dv">100</span> <span class="sc">*</span> (<span class="fu">pnorm</span>(k) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span>k))</span>
-<span id="cb58-2"><a></a><span class="fu">tibble</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pct_within =</span> <span class="fu">round</span>(<span class="fu">pct_within</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a></a>pct_within <span class="ot">&lt;-</span> <span class="cf">function</span>(k) <span class="dv">100</span> <span class="sc">*</span> (<span class="fu">pnorm</span>(k) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="sc">-</span>k))</span>
+<span id="cb58-2"><a></a><span class="fu">tibble</span>(<span class="at">k =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">pct_within =</span> <span class="fu">round</span>(<span class="fu">pct_within</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>), <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
       k pct_within
@@ -659,8 +659,8 @@ Scott M. Mourtgos
 <section id="the-poisson-distribution" class="slide level2">
 <h2>The Poisson Distribution</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a>pois_sims <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
-<span id="cb60-2"><a></a><span class="fu">ggplot</span>(pois_sims, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">fill =</span> crju_colors[<span class="st">"navy"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a></a>pois_sims <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">rpois</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">lambda =</span> <span class="dv">1</span>))</span>
+<span id="cb60-2"><a></a><span class="fu">ggplot</span>(pois_sims, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_bar</span>(<span class="at">fill =</span> crju_colors[<span class="st">"navy"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="week-02-descriptives_files/figure-revealjs/poisson-hist-1.png" width="960" class="r-stretch"><p>Often <strong>skewed</strong>, especially when λ is low. Models <strong>counts of rare events</strong>: 911 calls per hour, crimes per day, cars per minute. One parameter: <strong>λ</strong> = expected number of events. <strong>Try different values!</strong></p>
@@ -669,14 +669,14 @@ Scott M. Mourtgos
 <h2>The Poisson Is Not Hypothetical</h2>
 <p>Daily robbery counts in our Chicago sample, all of 2025:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>daily_robberies <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a></a>daily_robberies <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span></span>
 <span id="cb61-2"><a></a>  <span class="fu">filter</span>(primary_type <span class="sc">==</span> <span class="st">"ROBBERY"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb61-3"><a></a>  <span class="fu">count</span>(date)</span>
 <span id="cb61-4"><a></a></span>
 <span id="cb61-5"><a></a><span class="fu">ggplot</span>(daily_robberies, <span class="fu">aes</span>(n)) <span class="sc">+</span></span>
 <span id="cb61-6"><a></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
 <span id="cb61-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Robberies per day"</span>, <span class="at">y =</span> <span class="st">"Number of days"</span>,</span>
-<span id="cb61-8"><a></a>       <span class="at">title =</span> <span class="st">"Real crime counts look Poisson"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb61-8"><a></a>       <span class="at">title =</span> <span class="st">"Real crime counts look Poisson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="week-02-descriptives_files/figure-revealjs/chicago-poisson-1.png" width="960" class="r-stretch"></section>
@@ -889,7 +889,7 @@ Scott M. Mourtgos
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1001,14 +1001,13 @@ Scott M. Mourtgos
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

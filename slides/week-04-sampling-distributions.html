@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Sampling Distributions</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -255,8 +255,8 @@ Scott M. Mourtgos
 <h2>Theoretical vs.&nbsp;Empirical Probability</h2>
 <p>Flip a fair coin 10 times:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>flips_10 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-2"><a></a><span class="fu">table</span>(flips_10) <span class="sc">/</span> <span class="dv">10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>flips_10 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a></a><span class="fu">table</span>(flips_10) <span class="sc">/</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>flips_10
 heads tails 
@@ -266,8 +266,8 @@ heads tails
 <div class="fragment">
 <p>Now 10,000 times:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>flips_10k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-2"><a></a><span class="fu">table</span>(flips_10k) <span class="sc">/</span> <span class="dv">10000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>flips_10k <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a></a><span class="fu">table</span>(flips_10k) <span class="sc">/</span> <span class="dv">10000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>flips_10k
  heads  tails 
@@ -280,7 +280,7 @@ heads tails
 <section id="watching-the-long-run-arrive" class="slide level2">
 <h2>Watching the Long Run Arrive</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1-5|6-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>lln <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="sourceCode cell-code" id="cb5" data-code-line-numbers="1-5|6-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a>lln <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb5-2"><a></a>  <span class="at">flip =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>,</span>
 <span id="cb5-3"><a></a>  <span class="at">heads =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">size =</span> <span class="dv">10000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb5-4"><a></a>) <span class="sc">|&gt;</span></span>
@@ -289,7 +289,7 @@ heads tails
 <span id="cb5-7"><a></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> crju_colors[<span class="st">"navy"</span>]) <span class="sc">+</span></span>
 <span id="cb5-8"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb5-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Proportion of heads in coin flips"</span>,</span>
-<span id="cb5-10"><a></a>       <span class="at">x =</span> <span class="st">"Number of flips"</span>, <span class="at">y =</span> <span class="st">"Proportion heads"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-10"><a></a>       <span class="at">x =</span> <span class="st">"Number of flips"</span>, <span class="at">y =</span> <span class="st">"Proportion heads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p><strong>Concept:</strong> in the long run, empirical ≈ theoretical. But “long run” might be longer than we think — look how wild the first few hundred flips are.</p>
@@ -306,9 +306,9 @@ heads tails
 <h2>Simulating Probabilities in CJ (1)</h2>
 <p><strong>Roadside drug tests.</strong> A field test for illegal drugs flags 5% of the drivers who are carrying nothing at all (a 5% false-positive rate). Simulate 100 tests of drivers who are clean:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>tests <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"false positive"</span>, <span class="st">"correct"</span>), <span class="at">size =</span> <span class="dv">100</span>,</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>tests <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"false positive"</span>, <span class="st">"correct"</span>), <span class="at">size =</span> <span class="dv">100</span>,</span>
 <span id="cb6-2"><a></a>                <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span>
-<span id="cb6-3"><a></a><span class="fu">table</span>(tests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-3"><a></a><span class="fu">table</span>(tests)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tests
        correct false positive 
@@ -333,9 +333,9 @@ heads tails
 <h2>Simulating Probabilities in CJ (2)</h2>
 <p><strong>Stop &amp; frisk outcomes.</strong> Suppose 8% of stops yield contraband. What happens over 1,000 stops?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>stop_outcomes <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"found"</span>, <span class="st">"nothing"</span>), <span class="at">size =</span> <span class="dv">1000</span>,</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>stop_outcomes <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"found"</span>, <span class="st">"nothing"</span>), <span class="at">size =</span> <span class="dv">1000</span>,</span>
 <span id="cb8-2"><a></a>                        <span class="at">replace =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.08</span>, <span class="fl">0.92</span>))</span>
-<span id="cb8-3"><a></a><span class="fu">table</span>(stop_outcomes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-3"><a></a><span class="fu">table</span>(stop_outcomes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stop_outcomes
   found nothing 
@@ -350,7 +350,7 @@ heads tails
 <h2>Random Does Not Mean Balanced</h2>
 <p>Two runs of 100 dice rolls — same die, same code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>dice <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>dice <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb10-2"><a></a>  <span class="at">run  =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Run 1"</span>, <span class="st">"Run 2"</span>), <span class="at">each =</span> <span class="dv">100</span>),</span>
 <span id="cb10-3"><a></a>  <span class="at">roll =</span> <span class="fu">c</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb10-4"><a></a>           <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
@@ -359,7 +359,7 @@ heads tails
 <span id="cb10-7"><a></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
 <span id="cb10-8"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>run) <span class="sc">+</span></span>
 <span id="cb10-9"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Dice roll frequencies — two runs of 100"</span>,</span>
-<span id="cb10-10"><a></a>       <span class="at">x =</span> <span class="st">"Face"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-10"><a></a>       <span class="at">x =</span> <span class="st">"Face"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>Does either look fair? <strong>Both are.</strong> Random does not mean balanced in small samples — remember this every time you see a “streak” in real data.</p>
@@ -381,9 +381,9 @@ heads tails
 <h2>A Population We Can Actually See</h2>
 <p><code>population-data.csv</code> — 10,000 test scores. In real research we <em>never</em> see the whole population; today we get to cheat:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>pop <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>pop <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(score), <span class="at">median =</span> <span class="fu">median</span>(score),</span>
-<span id="cb11-3"><a></a>            <span class="at">sd =</span> <span class="fu">sd</span>(score), <span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-3"><a></a>            <span class="at">sd =</span> <span class="fu">sd</span>(score), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
    mean median    sd     n
@@ -396,12 +396,12 @@ heads tails
 <section id="one-sample-of-30" class="slide level2">
 <h2>One Sample of 30</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>samp <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop<span class="sc">$</span>score, <span class="at">size =</span> <span class="dv">30</span>)</span>
-<span id="cb13-2"><a></a><span class="fu">mean</span>(samp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>samp <span class="ot">&lt;-</span> <span class="fu">sample</span>(pop<span class="sc">$</span>score, <span class="at">size =</span> <span class="dv">30</span>)</span>
+<span id="cb13-2"><a></a><span class="fu">mean</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 100.3389</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">sd</span>(samp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">sd</span>(samp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 13.16761</code></pre>
 </div>
@@ -415,9 +415,9 @@ heads tails
 <h2>What If We Sampled From the Tail?</h2>
 <p>Draw 10 scores from the bottom 5% of the population — and look at them <em>in context</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>tail_scores <span class="ot">&lt;-</span> pop <span class="sc">|&gt;</span> <span class="fu">filter</span>(score <span class="sc">&lt;</span> <span class="fu">quantile</span>(score, <span class="fl">0.05</span>))</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>tail_scores <span class="ot">&lt;-</span> pop <span class="sc">|&gt;</span> <span class="fu">filter</span>(score <span class="sc">&lt;</span> <span class="fu">quantile</span>(score, <span class="fl">0.05</span>))</span>
 <span id="cb17-2"><a></a>tail_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(tail_scores<span class="sc">$</span>score, <span class="at">size =</span> <span class="dv">10</span>)</span>
-<span id="cb17-3"><a></a><span class="fu">mean</span>(tail_sample)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-3"><a></a><span class="fu">mean</span>(tail_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 70.02723</code></pre>
 </div>
@@ -434,10 +434,10 @@ heads tails
 <h2>Do It a Thousand Times</h2>
 <p>The key move of this whole session — instead of drawing <em>one</em> sample, draw <strong>1,000 samples of 30</strong> and keep each sample’s mean:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>sample_means <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">draw =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>sample_means <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">draw =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a></a>  <span class="fu">mutate</span>(<span class="at">mean_score =</span> <span class="fu">map_dbl</span>(draw, \(d) <span class="fu">mean</span>(<span class="fu">sample</span>(pop<span class="sc">$</span>score, <span class="at">size =</span> <span class="dv">30</span>))))</span>
 <span id="cb19-3"><a></a></span>
-<span id="cb19-4"><a></a>sample_means</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-4"><a></a>sample_means</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,000 × 2
    draw mean_score
@@ -458,11 +458,11 @@ heads tails
 <section id="the-sampling-distribution-of-the-mean" class="slide level2">
 <h2>The Sampling Distribution of the Mean</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(sample_means, <span class="fu">aes</span>(mean_score)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(sample_means, <span class="fu">aes</span>(mean_score)) <span class="sc">+</span></span>
 <span id="cb21-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> crju_colors[<span class="st">"blue"</span>], <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb21-3"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(pop<span class="sc">$</span>score), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
 <span id="cb21-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"1,000 sample means (n = 30 each)"</span>,</span>
-<span id="cb21-5"><a></a>       <span class="at">x =</span> <span class="st">"Sample mean"</span>, <span class="at">y =</span> <span class="st">"Number of samples"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-5"><a></a>       <span class="at">x =</span> <span class="st">"Sample mean"</span>, <span class="at">y =</span> <span class="st">"Number of samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="week-04-sampling-distributions_files/figure-revealjs/sampling-dist-plot-1.png" width="960" class="r-stretch"><p>This histogram <em>of means</em> is a <strong>sampling distribution</strong>. It’s centered on the true population mean — and it’s much narrower than the population itself.</p>
@@ -476,11 +476,11 @@ heads tails
 <h2>The Standard Error</h2>
 <p>The SD of the sampling distribution has its own name: the <strong>standard error</strong>. And it has a formula — which our simulation can check:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">sd</span>(sample_means<span class="sc">$</span>mean_score)   <span class="co"># SE from the simulation</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">sd</span>(sample_means<span class="sc">$</span>mean_score)   <span class="co"># SE from the simulation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.648695</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">sd</span>(pop<span class="sc">$</span>score) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">30</span>)      <span class="co"># SE from the formula: SD / sqrt(n)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">sd</span>(pop<span class="sc">$</span>score) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">30</span>)      <span class="co"># SE from the formula: SD / sqrt(n)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.733584</code></pre>
 </div>
@@ -495,19 +495,19 @@ heads tails
 <section id="sample-size-buys-precision" class="slide level2">
 <h2>Sample Size Buys Precision</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26" data-code-line-numbers="1-2|3-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>many_ns <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">100</span>), <span class="at">draw =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb26" data-code-line-numbers="1-2|3-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a>many_ns <span class="ot">&lt;-</span> <span class="fu">expand_grid</span>(<span class="at">n =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">100</span>), <span class="at">draw =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a></a>  <span class="fu">mutate</span>(<span class="at">mean_score =</span> <span class="fu">map_dbl</span>(n, \(k) <span class="fu">mean</span>(<span class="fu">sample</span>(pop<span class="sc">$</span>score, <span class="at">size =</span> k))))</span>
 <span id="cb26-3"><a></a><span class="fu">ggplot</span>(many_ns, <span class="fu">aes</span>(mean_score)) <span class="sc">+</span></span>
 <span id="cb26-4"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">fill =</span> crju_colors[<span class="st">"navy"</span>], <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb26-5"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(pop<span class="sc">$</span>score), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb26-6"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>n, <span class="at">labeller =</span> label_both) <span class="sc">+</span></span>
-<span id="cb26-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample mean"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb26-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sample mean"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>many_ns <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>many_ns <span class="sc">|&gt;</span></span>
 <span id="cb27-2"><a></a>  <span class="fu">summarize</span>(<span class="at">simulated_se =</span> <span class="fu">sd</span>(mean_score), <span class="at">formula_se =</span> <span class="fu">sd</span>(pop<span class="sc">$</span>score) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">first</span>(n)),</span>
-<span id="cb27-3"><a></a>            <span class="at">.by =</span> n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-3"><a></a>            <span class="at">.by =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
       n simulated_se formula_se
@@ -536,7 +536,7 @@ heads tails
 <h2>The Least Normal Variable Imaginable</h2>
 <p>Back to our 30,000 real Chicago incidents. Whether an incident ended in <strong>arrest</strong> is as far from a bell curve as data gets — every value is TRUE or FALSE:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(arrest) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(arrest) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   arrest     n  prop
@@ -552,15 +552,15 @@ heads tails
 <h2>Sample 100 Incidents. Repeat 1,000 Times.</h2>
 <p>Imagine an analyst who can only pull 100 case files at a time:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>arrest_props <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">draw =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a></a>  <span class="fu">mutate</span>(<span class="at">prop_arrest =</span> <span class="fu">map_dbl</span>(draw, \(d) <span class="fu">mean</span>(<span class="fu">sample</span>(crimes<span class="sc">$</span>arrest, <span class="at">size =</span> <span class="dv">100</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>arrest_props <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">draw =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a></a>  <span class="fu">mutate</span>(<span class="at">prop_arrest =</span> <span class="fu">map_dbl</span>(draw, \(d) <span class="fu">mean</span>(<span class="fu">sample</span>(crimes<span class="sc">$</span>arrest, <span class="at">size =</span> <span class="dv">100</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(arrest_props, <span class="fu">aes</span>(prop_arrest)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(arrest_props, <span class="fu">aes</span>(prop_arrest)) <span class="sc">+</span></span>
 <span id="cb32-2"><a></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.01</span>, <span class="at">fill =</span> crju_colors[<span class="st">"blue"</span>], <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
 <span id="cb32-3"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">mean</span>(crimes<span class="sc">$</span>arrest), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
 <span id="cb32-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"1,000 sample arrest proportions (n = 100 incidents each)"</span>,</span>
-<span id="cb32-5"><a></a>       <span class="at">x =</span> <span class="st">"Proportion of sampled incidents with an arrest"</span>, <span class="at">y =</span> <span class="st">"Samples"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb32-5"><a></a>       <span class="at">x =</span> <span class="st">"Proportion of sampled incidents with an arrest"</span>, <span class="at">y =</span> <span class="st">"Samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="week-04-sampling-distributions_files/figure-revealjs/arrest-sim-plot-1.png" width="960" class="r-stretch"></section>
@@ -590,14 +590,14 @@ heads tails
 <h2>Session 2’s IOU</h2>
 <p>In Session 2 we noticed <code>var()</code> and <code>sd()</code> divide by <strong>n − 1</strong>, not n, and I promised you’d see why. Simulation pays the debt. Draw 5,000 tiny samples (n = 5) and compute the variance <em>both</em> ways:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>var_pop <span class="ot">&lt;-</span> <span class="fu">mean</span>((pop<span class="sc">$</span>score <span class="sc">-</span> <span class="fu">mean</span>(pop<span class="sc">$</span>score))<span class="sc">^</span><span class="dv">2</span>)   <span class="co"># true population variance</span></span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>var_pop <span class="ot">&lt;-</span> <span class="fu">mean</span>((pop<span class="sc">$</span>score <span class="sc">-</span> <span class="fu">mean</span>(pop<span class="sc">$</span>score))<span class="sc">^</span><span class="dv">2</span>)   <span class="co"># true population variance</span></span>
 <span id="cb33-2"><a></a></span>
 <span id="cb33-3"><a></a>variance_sims <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">draw =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>) <span class="sc">|&gt;</span></span>
 <span id="cb33-4"><a></a>  <span class="fu">mutate</span>(</span>
 <span id="cb33-5"><a></a>    <span class="at">s            =</span> <span class="fu">map</span>(draw, \(d) <span class="fu">sample</span>(pop<span class="sc">$</span>score, <span class="at">size =</span> <span class="dv">5</span>)),</span>
 <span id="cb33-6"><a></a>    <span class="at">var_div_n    =</span> <span class="fu">map_dbl</span>(s, \(x) <span class="fu">sum</span>((x <span class="sc">-</span> <span class="fu">mean</span>(x))<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> <span class="fu">length</span>(x)),</span>
 <span id="cb33-7"><a></a>    <span class="at">var_div_nm1  =</span> <span class="fu">map_dbl</span>(s, \(x) <span class="fu">var</span>(x))          <span class="co"># R's built-in: n - 1</span></span>
-<span id="cb33-8"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-8"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <aside><div>
@@ -606,12 +606,12 @@ heads tails
 <section id="divide-by-n-and-youre-biased" class="slide level2">
 <h2>Divide by n, and You’re Biased</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>variance_sims <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a>variance_sims <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a></a>  <span class="fu">summarize</span>(</span>
 <span id="cb34-3"><a></a>    <span class="at">true_variance   =</span> var_pop,</span>
 <span id="cb34-4"><a></a>    <span class="at">avg_divide_by_n =</span> <span class="fu">mean</span>(var_div_n),</span>
 <span id="cb34-5"><a></a>    <span class="at">avg_divide_by_n_minus_1 =</span> <span class="fu">mean</span>(var_div_nm1)</span>
-<span id="cb34-6"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb34-6"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   true_variance avg_divide_by_n avg_divide_by_n_minus_1
@@ -632,9 +632,9 @@ heads tails
 <h2>What If the Population Is Unknown?</h2>
 <p>In real life you <em>never</em> get the left-hand panel. One draw from a mystery population:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>unknown_population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">50</span>)   <span class="co"># don't peek!</span></span>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a>unknown_population <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">50</span>)   <span class="co"># don't peek!</span></span>
 <span id="cb36-2"><a></a>mystery_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(unknown_population, <span class="at">size =</span> <span class="dv">30</span>)</span>
-<span id="cb36-3"><a></a><span class="fu">mean</span>(mystery_sample)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb36-3"><a></a><span class="fu">mean</span>(mystery_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 95.44168</code></pre>
 </div>
@@ -864,7 +864,7 @@ heads tails
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -976,14 +976,13 @@ heads tails
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

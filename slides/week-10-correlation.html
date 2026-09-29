@@ -6,11 +6,11 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Scott M. Mourtgos">
-  <title>CRJU 705 – Associations Between Variables: Correlation</title>
+  <title>CRJU 705 – Correlation, Then Midterm Review</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -195,8 +195,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Associations Between Variables: Correlation</h1>
-  <p class="subtitle">CRJU 705 · Session 10 · Fall 2026</p>
+  <h1 class="title">Correlation, Then Midterm Review</h1>
+  <p class="subtitle">CRJU 705 · Session 8 · Fall 2026</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -209,26 +209,60 @@ Scott M. Mourtgos
 </section>
 <section id="this-week" class="slide level2">
 <h2>This Week</h2>
-<p><strong>Topic:</strong> measuring how two <em>numeric</em> variables move together</p>
+<p><strong>Topic:</strong> one new tool, then we get ready for next week’s midterm.</p>
 <ul>
-<li>Association vs.&nbsp;causation (and the lurking third variable)</li>
-<li>Covariance → <strong>Pearson’s r</strong>: one number for direction and strength</li>
-<li>What r <em>cannot</em> see — and why you always plot first</li>
-<li>Inference on r: frequentist <code>cor.test()</code> <strong>and</strong> Bayesian, via the <code>correlation</code> package</li>
-<li>Real data: which structural features of Chicago’s 77 areas track violence — and what that does <strong>not</strong> say about individuals</li>
+<li><strong>First half:</strong> correlation. Both variables are numbers, no groups. Do two measures <strong>move together</strong>?</li>
+<li><strong>Lab 8:</strong> you run the correlation recipe yourself</li>
+<li><strong>Second half:</strong> midterm review, part by part</li>
 </ul>
-<p><strong>Learning goals:</strong> interpret r’s sign and size; test it in both traditions; explain the ecological fallacy in one sentence.</p>
+<p><strong>Learning goals:</strong> read r’s sign and strength; test it with <code>cor.test()</code>; explain why a correlation between <strong>areas</strong> says nothing about <strong>people</strong>.</p>
 </section>
-<section id="where-weve-been" class="slide level2">
-<h2>Where We’ve Been</h2>
-<ul>
-<li class="fragment"><strong>Session 6:</strong> two group means — is <em>this</em> mean different from <em>that</em> one?</li>
-<li class="fragment"><strong>Session 8:</strong> three or more group means — ANOVA</li>
-<li class="fragment">Both had the same shape: a <strong>categorical</strong> IV (the groups) and a <strong>numeric</strong> DV</li>
-<li class="fragment"><strong>Session 9:</strong> the midterm. You survived. Welcome to the second half.</li>
-<li class="fragment"><strong>Today:</strong> <em>both</em> variables are numeric — no groups at all. The question changes from “do groups differ?” to “<strong>do two measures move together?</strong>”</li>
-<li class="fragment">This is the doorway to regression (Sessions 11–12), where your final projects live</li>
-</ul>
+<section id="how-today-works" class="slide level2">
+<h2>How Today Works</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><strong>Lecture</strong></p>
+<p>Correlation: what r is, what it cannot see, and how to test it</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Lab 8</strong></p>
+<p>The recipe on two datasets, and you write the code</p>
+</div><div class="column" style="width:33%;">
+<p><strong>Midterm review</strong></p>
+<p>What’s on the exam, and one practice problem per part</p>
+</div></div>
+<p>Everything I run tonight is written up in the <a href="../demos/demo-10-correlation.html">demo walkthrough</a>.</p>
+</section>
+<section id="which-test-one-new-row" class="slide level2">
+<h2>Which Test? One New Row</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>The outcome is…</th>
+<th>Compared across…</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>yes/no</strong></td>
+<td>two groups</td>
+<td><code>prop.test()</code> and <code>bayes_prop_test()</code></td>
+</tr>
+<tr class="even">
+<td><strong>a number</strong></td>
+<td>two groups</td>
+<td><code>t.test(outcome ~ group, data = )</code></td>
+</tr>
+<tr class="odd">
+<td><strong>a number</strong></td>
+<td><strong>another number</strong></td>
+<td><code>cor.test(x, y)</code></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Sessions 5 to 7 were all about groups. Tonight every row has two numbers: do they rise and fall together? This is the doorway to regression (Sessions 10 and 11).</p>
+</div>
 </section>
 <section>
 <section id="a-new-kind-of-question" class="title-slide slide level1 center" data-background-color="#73000A">
@@ -239,12 +273,12 @@ Scott M. Mourtgos
 <h2>What Does Correlation Tell Us?</h2>
 <p>When two variables move together, how can we describe that relationship?</p>
 <ul>
-<li>One goes up when the other goes up → <strong>positive correlation</strong></li>
-<li>One goes up when the other goes down → <strong>negative correlation</strong></li>
-<li>Changes in one don’t track changes in the other → <strong>no correlation</strong></li>
+<li>One goes up when the other goes up: <strong>positive correlation</strong></li>
+<li>One goes up when the other goes down: <strong>negative correlation</strong></li>
+<li>Changes in one don’t track changes in the other: <strong>no correlation</strong></li>
 </ul>
 <div class="fragment">
-<p>Direction is only half the story. The <strong>strength</strong> of the relationship tells how tightly the changes are linked — that’s the number we build today.</p>
+<p>Direction is only half the story. The <strong>strength</strong> of the relationship tells how tightly the changes are linked. That’s the number we build today.</p>
 </div>
 </section>
 <section id="which-is-which" class="slide level2">
@@ -253,10 +287,10 @@ Scott M. Mourtgos
 
 <img data-src="week-10-correlation_files/figure-revealjs/guess-panels-1.png" width="960" class="r-stretch"></section>
 <section id="which-is-which-revealed" class="slide level2">
-<h2>Which Is Which? — Revealed</h2>
+<h2>Which Is Which? Revealed</h2>
 
 <img data-src="week-10-correlation_files/figure-revealjs/guess-reveal-1.png" width="960" class="r-stretch"><div class="fragment">
-<p>The lines make it obvious — and the r values put a number on what your eye already knew.</p>
+<p>The lines make it obvious, and the r values put a number on what your eye already knew.</p>
 </div>
 </section>
 <section id="real-world-examples" class="slide level2">
@@ -264,20 +298,20 @@ Scott M. Mourtgos
 <ul>
 <li><strong>Positive:</strong> hours studied ↑, exam scores ↑</li>
 <li><strong>Negative:</strong> officers on shift ↑, response times ↓</li>
-<li><strong>Near zero:</strong> shoe size vs.&nbsp;GPA</li>
+<li><strong>Near zero:</strong> shoe size and GPA</li>
 </ul>
 <div class="fragment">
-<p><strong>Your turn:</strong> give me a CJ example of each — <em>and</em> one pair you suspect people <strong>believe</strong> is correlated but isn’t.</p>
+<p><strong>Your turn:</strong> give me a CJ example of each, <em>and</em> one pair you suspect people <strong>believe</strong> is correlated but isn’t.</p>
 </div>
 </section>
 <section id="correlation-does-not-mean-causation" class="slide level2">
 <h2>Correlation Does NOT Mean Causation</h2>
 <ul>
 <li class="fragment">Correlation shows <strong>association</strong>, not cause and effect</li>
-<li class="fragment">Ice cream sales and violent crime rise together every year. Does ice cream cause violence???</li>
-<li class="fragment">Two variables can move together because of a <strong>third variable</strong> — summer heat drives both — or by pure coincidence</li>
-<li class="fragment">When you see a correlation, ask: does X cause Y? Y cause X? Does Z drive both? Or is it luck?</li>
-<li class="fragment">Correlation is a <strong>pattern</strong>, not proof of cause. <strong>Beware the evil lurking third variable!</strong></li>
+<li class="fragment">Ice cream sales and violent crime rise together every year. Does ice cream cause violence?</li>
+<li class="fragment">Two variables can move together because of a <strong>third variable</strong> (summer heat drives both), or by pure coincidence</li>
+<li class="fragment">When you see a correlation, ask: does X cause Y? Y cause X? Does something else drive both? Or is it luck?</li>
+<li class="fragment">Correlation is a <strong>pattern</strong>, not proof of cause. <strong>Beware the lurking third variable!</strong></li>
 </ul>
 </section></section>
 <section>
@@ -287,29 +321,29 @@ Scott M. Mourtgos
 </section>
 <section id="covariance-moving-together-in-raw-units" class="slide level2">
 <h2>Covariance: Moving Together, in Raw Units</h2>
-<p>Observation by observation: do x and y sit on the <em>same side</em> of their means?</p>
+<p>Row by row: do x and y sit on the <em>same side</em> of their averages?</p>
 <p><span class="math display">\[\text{cov}(x, y) \;=\; \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{n - 1}\]</span></p>
 <ul>
-<li class="fragment">Both above average (or both below) → positive products → <strong>positive covariance</strong>; opposite sides → <strong>negative covariance</strong></li>
+<li class="fragment">Both above average (or both below): positive products, <strong>positive covariance</strong>. Opposite sides: <strong>negative covariance</strong></li>
 <li class="fragment">The <strong>sign</strong> is trustworthy: covariance tells you <em>whether</em> two variables move together</li>
-<li class="fragment">The <strong>size</strong> is not — watch what happens on real data</li>
+<li class="fragment">The <strong>size</strong> is not. Watch what happens on real data</li>
 </ul>
 </section>
 <section id="the-units-problem" class="slide level2">
 <h2>The Units Problem</h2>
-<p>Two covariances with violent crime, from our 77 Chicago community areas:</p>
+<p>Two covariances with violent crime, from Chicago’s 77 community areas:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 107.7543</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>median_income,     areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>median_income,     areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -482660.1</code></pre>
 </div>
 </div>
 <div class="fragment">
-<p>Is −482,660 a “stronger” relationship than 108? No idea — the first number lives in <em>dollars × crimes per 1,000</em>, the second in <em>percentage points × crimes per 1,000</em>. <strong>Covariance is glued to its units.</strong> You can’t compare across pairs.</p>
+<p>Is -482,660 a “stronger” relationship than 108? No idea. The first number is in <em>dollars times crimes per 1,000</em>; the second in <em>percentage points times crimes per 1,000</em>. <strong>Covariance is glued to its units</strong>, so you can’t compare across pairs.</p>
 </div>
 </section>
 <section id="correlation-rescales-it" class="slide level2">
@@ -317,84 +351,66 @@ Scott M. Mourtgos
 <p>Divide the covariance by both standard deviations and the units cancel:</p>
 <p><span class="math display">\[r \;=\; \frac{\text{cov}(x, y)}{s_x \, s_y}\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate) <span class="sc">/</span></span>
-<span id="cb5-2"><a></a>  (<span class="fu">sd</span>(areas<span class="sc">$</span>unemployment_rate) <span class="sc">*</span> <span class="fu">sd</span>(areas<span class="sc">$</span>violent_rate))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate) <span class="sc">/</span></span>
+<span id="cb5-2"><a></a>  (<span class="fu">sd</span>(areas<span class="sc">$</span>unemployment_rate) <span class="sc">*</span> <span class="fu">sd</span>(areas<span class="sc">$</span>violent_rate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8398579</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)   <span class="co"># same thing, one function</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)   <span class="co"># same thing, one function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8398579</code></pre>
 </div>
 </div>
 <div class="fragment">
-<p>Always between <strong>−1 and +1</strong>, unit-free, comparable: income runs r = −0.71 with violence — so unemployment (0.84) tracks violence more tightly than income does, direction aside.</p>
+<p>Always between <strong>-1 and +1</strong>, no units, comparable. Income runs r = -0.71 with violence, so unemployment (0.84) tracks violence more tightly than income does, direction aside.</p>
 </div>
 </section>
-<section id="reading-r-the-conventional-bands" class="slide level2 smaller">
-<h2>Reading r: The Conventional Bands</h2>
+<section id="reading-r" class="slide level2 smaller">
+<h2>Reading r</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 22%">
-<col style="width: 18%">
-<col style="width: 18%">
-<col style="width: 42%">
+<col style="width: 28%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Range of r</th>
+<th>r (either sign)</th>
 <th>Strength</th>
-<th>Direction</th>
-<th>Example interpretation</th>
+<th>What the scatterplot looks like</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>+0.8 to +1.0</td>
+<td>0.8 to 1.0</td>
 <td>Very strong</td>
-<td>Positive</td>
-<td>More prior arrests → much higher recidivism score</td>
+<td>Dots hug a line</td>
 </tr>
 <tr class="even">
-<td>+0.4 to +0.7</td>
+<td>0.4 to 0.7</td>
 <td>Moderate</td>
-<td>Positive</td>
-<td>More training hours → higher confidence</td>
+<td>A clear trend, with plenty of scatter</td>
 </tr>
 <tr class="odd">
-<td>0 to +0.3</td>
+<td>0.1 to 0.3</td>
 <td>Weak</td>
-<td>Positive</td>
-<td>Slight upward trend</td>
+<td>A slight tilt you might not see without the line</td>
 </tr>
 <tr class="even">
-<td>−0.3 to 0</td>
-<td>Weak</td>
-<td>Negative</td>
-<td>Slight inverse trend</td>
-</tr>
-<tr class="odd">
-<td>−0.7 to −0.4</td>
-<td>Moderate</td>
-<td>Negative</td>
-<td>More absences → lower grades</td>
-</tr>
-<tr class="even">
-<td>−1.0 to −0.8</td>
-<td>Very strong</td>
-<td>Negative</td>
-<td>More speed → less accuracy</td>
+<td>about 0</td>
+<td>None (no <em>straight-line</em> pattern)</td>
+<td>A shapeless cloud</td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p>These bands are <strong>conventions, not laws</strong> — in messy social-science data, a “moderate” r can be a major finding.</p>
+<p>The <strong>sign</strong> gives the direction: + means both rise together; - means one rises as the other falls. These bands are <strong>conventions, not laws</strong>: in messy social-science data, a “moderate” r can be a major finding.</p>
 </div>
 </section>
 <section id="calibrate-your-eye" class="slide level2">
 <h2>Calibrate Your Eye</h2>
 
-<img data-src="week-10-correlation_files/figure-revealjs/r-grid-1.png" width="960" class="r-stretch"><p>By ±0.5 the trend is visible; below ±0.2 your eye mostly sees noise — and it’s right.</p>
+<img data-src="week-10-correlation_files/figure-revealjs/r-grid-1.png" width="960" class="r-stretch"><p>By 0.5 (either sign) the trend is visible; below 0.2 your eye mostly sees noise, and it’s right.</p>
 </section></section>
 <section>
 <section id="what-r-cannot-see" class="title-slide slide level1 center" data-background-color="#73000A">
@@ -404,11 +420,11 @@ Scott M. Mourtgos
 <section id="anscombes-quartet-four-identical-summaries" class="slide level2">
 <h2>Anscombe’s Quartet: Four Identical Summaries</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>anscombe_long <span class="ot">&lt;-</span> anscombe <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>anscombe_long <span class="ot">&lt;-</span> anscombe <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"set"</span>), <span class="at">names_pattern =</span> <span class="st">"(.)(.)"</span>)</span>
 <span id="cb9-3"><a></a></span>
 <span id="cb9-4"><a></a>anscombe_long <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x), <span class="at">mean_y =</span> <span class="fu">mean</span>(y), <span class="at">r =</span> <span class="fu">cor</span>(x, y), <span class="at">.by =</span> set)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-5"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x), <span class="at">mean_y =</span> <span class="fu">mean</span>(y), <span class="at">r =</span> <span class="fu">cor</span>(x, y), <span class="at">.by =</span> set)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   set   mean_x mean_y     r
@@ -420,7 +436,7 @@ Scott M. Mourtgos
 </div>
 </div>
 <div class="fragment">
-<p>Four little datasets that ship with R (Anscombe, 1973). Same means, same r = 0.82 to two decimals — statistically interchangeable. Right?</p>
+<p>Four little datasets that ship with R (Anscombe, 1973). Same averages, same r = 0.82. Statistically interchangeable. Right?</p>
 </div>
 </section>
 <section id="anscombes-quartet-seen" class="slide level2">
@@ -431,7 +447,7 @@ Scott M. Mourtgos
 <section id="limitation-1-r-only-sees-straight-lines" class="slide level2">
 <h2>Limitation 1: r Only Sees Straight Lines</h2>
 
-<img data-src="week-10-correlation_files/figure-revealjs/u-shape-1.png" width="960" class="r-stretch"><p>Think stress vs.&nbsp;performance: an inverted U. r ≈ 0 means no <strong>linear</strong> relationship — not no relationship.</p>
+<img data-src="week-10-correlation_files/figure-revealjs/u-shape-1.png" width="960" class="r-stretch"><p>Think stress and performance: an upside-down U. r near 0 means no <strong>straight-line</strong> relationship, not no relationship.</p>
 </section>
 <section id="limitation-2-one-point-can-manufacture-a-correlation" class="slide level2">
 <h2>Limitation 2: One Point Can Manufacture a Correlation</h2>
@@ -440,26 +456,26 @@ Scott M. Mourtgos
 <section id="what-just-happened" class="slide level2">
 <h2>What Just Happened</h2>
 <ul>
-<li class="fragment">Twenty points of pure noise happened to give r = −0.28 — <strong>small samples produce correlations out of nothing</strong>; that’s why we’ll test, not just compute</li>
-<li class="fragment">Adding <strong>one</strong> extreme pair swung r from −0.28 to <strong>+0.42</strong> — a single point flipped the sign <em>and</em> manufactured a “moderate positive” correlation</li>
+<li class="fragment">Twenty points of pure noise happened to give r = -0.28. <strong>Small samples produce correlations out of nothing</strong>; that’s why we test, not just compute</li>
+<li class="fragment">Adding <strong>one</strong> extreme point swung r to <strong>+0.42</strong>: it flipped the sign <em>and</em> manufactured a “moderate positive” correlation</li>
 <li class="fragment">Neither number describes a real relationship</li>
 <li class="fragment">Outliers can also work the other way, <em>hiding</em> a real correlation</li>
-<li class="fragment">Defenses: <strong>plot first</strong> (you’d catch this instantly) — and a correlation that doesn’t care about wild values —</li>
+<li class="fragment">Defenses: <strong>plot first</strong> (you’d catch this instantly), and a correlation that doesn’t care about wild values…</li>
 </ul>
 </section>
 <section id="a-rank-based-backup-spearmans-rho" class="slide level2">
 <h2>A Rank-Based Backup: Spearman’s rho</h2>
-<p>Replace each value with its <strong>rank</strong> (1st, 2nd, 3rd…), then correlate the ranks. Spearman asks only: <em>is the relationship consistently up or consistently down?</em></p>
+<p>Replace each value with its <strong>rank</strong> (1st, 2nd, 3rd…), then correlate the ranks. Spearman asks only: <em>is the relationship consistently up, or consistently down?</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">c</span>(<span class="at">pearson  =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y),</span>
-<span id="cb11-2"><a></a>  <span class="at">spearman =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">c</span>(<span class="at">pearson  =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y),</span>
+<span id="cb11-2"><a></a>  <span class="at">spearman =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   pearson   spearman 
  0.4235804 -0.1142857 </code></pre>
 </div>
 </div>
 <div class="fragment">
-<p>To Spearman, the wild point is just “rank 21”: it drifts from -0.29 to -0.11 — sign intact, still weak — while Pearson swung 0.70 and flipped sign. When data are skewed or outlier-prone, check Spearman alongside Pearson.</p>
+<p>To Spearman, the wild point is just “rank 21”: rho drifts from -0.29 to -0.11, still weak, while Pearson flipped sign. When data are skewed or have wild values, check Spearman alongside Pearson.</p>
 </div>
 </section></section>
 <section>
@@ -469,11 +485,11 @@ Scott M. Mourtgos
 </section>
 <section id="from-incidents-to-areas" class="slide level2">
 <h2>From Incidents to Areas</h2>
-<p>The anchor data’s <strong>second level</strong> (<a href="../chicago-data.html">codebook</a>): all 237,472 of 2025’s incidents, aggregated to the <strong>77 community areas</strong> and joined with Census measures:</p>
+<p>The anchor data’s <strong>second level</strong> (<a href="../chicago-data.html">codebook</a>): all 237,472 of 2025’s incidents, added up to the <strong>77 community areas</strong> and joined with Census measures:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>areas <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a></a>  <span class="fu">select</span>(community, violent_rate, unemployment_rate, median_income, pct_vacant) <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-3"><a></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   community   violent_rate unemployment_rate median_income pct_vacant
@@ -484,7 +500,7 @@ Scott M. Mourtgos
 </div>
 </div>
 <div class="fragment">
-<p>A classic criminology-of-place question: <strong>which structural features of a neighborhood track its violence?</strong> Correlation is exactly the right first tool.</p>
+<p>A classic question about places: <strong>which features of a neighborhood track its violence?</strong> Correlation is the right first tool.</p>
 </div>
 </section>
 <section id="look-first-unemployment-and-violence" class="slide level2">
@@ -495,7 +511,7 @@ Scott M. Mourtgos
 <section id="the-full-menu-in-one-dataset" class="slide level2">
 <h2>The Full Menu, in One Dataset</h2>
 
-<img data-src="week-10-correlation_files/figure-revealjs/four-covariates-1.png" width="960" class="r-stretch"><p>Strong positive, moderate positive, strong negative — and one genuine <em>nothing</em> (median age). Real data span the whole menu.</p>
+<img data-src="week-10-correlation_files/figure-revealjs/four-covariates-1.png" width="960" class="r-stretch"><p>Strong positive, moderate positive, strong negative, and one genuine <em>nothing</em> (median age). Real data span the whole menu.</p>
 </section>
 <section id="these-are-areas-not-people" class="slide level2">
 <h2>These Are Areas, Not People</h2>
@@ -506,68 +522,52 @@ Scott M. Mourtgos
 <i class="callout-icon"></i>
 </div>
 <div class="callout-content">
-<p><strong>The ecological fallacy:</strong> using an aggregate-level association to make claims about individuals. Our data contain <strong>no individuals</strong> — every resident of an area gets the same 77 values. Nothing here says <em>unemployed people</em> commit violence.</p>
+<p><strong>The ecological fallacy:</strong> using an association between <em>groups</em> (areas, states, cities) to make claims about <em>individuals</em>. Our data contain <strong>no individuals</strong>. Nothing here says <em>unemployed people</em> commit violence.</p>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p>The classic demonstration (Robinson, 1950): across U.S. <strong>states</strong>, more foreign-born residents went with <em>higher</em> literacy; across <strong>individuals</strong>, foreign-born residents had <em>lower</em> literacy. Same data, opposite signs — immigrants had settled in high-literacy states. Aggregation can weaken, exaggerate, or even <strong>flip</strong> an individual-level relationship.</p>
+<p>The classic example (Robinson, 1950): across U.S. <strong>states</strong>, more immigrants went with <em>higher</em> literacy. Across <strong>individuals</strong>, immigrants had <em>lower</em> literacy. Immigrants had settled in states with high literacy. Adding people up into areas can weaken, exaggerate, or even <strong>flip</strong> a relationship.</p>
 </div>
 </section>
-<section id="saying-it-out-loud-area-data-edition" class="slide level2">
-<h2>Saying It Out Loud (Area-Data Edition)</h2>
+<section id="saying-it-out-loud-area-data" class="slide level2">
+<h2>Saying It Out Loud (Area Data)</h2>
 <p>✅ <strong>Defensible:</strong></p>
 <blockquote>
 <p>“Community areas with higher unemployment rates recorded higher violent-crime rates (r = 0.84).”</p>
 </blockquote>
 <p>❌ <strong>Not defensible:</strong></p>
 <blockquote>
-<p>“Unemployed residents commit more violent crime.” <em>(An individual-level claim — these data can’t see individuals.)</em></p>
+<p>“Unemployed residents commit more violent crime.” <em>(A claim about individuals. These data can’t see individuals.)</em></p>
 </blockquote>
 <blockquote>
-<p>“Unemployment drives up violence.” <em>(A causal claim — concentrated disadvantage, disinvestment, and policing patterns all lurk behind both variables.)</em></p>
+<p>“Unemployment drives up violence.” <em>(A claim about cause. Concentrated poverty, disinvestment, and policing patterns all lurk behind both variables.)</em></p>
 </blockquote>
-</section>
-<section id="income-when-pearson-and-spearman-disagree" class="slide level2">
-<h2>Income: When Pearson and Spearman Disagree</h2>
-
-<img data-src="week-10-correlation_files/figure-revealjs/income-scatter-1.png" width="960" class="r-stretch"><p>The decline is real but <strong>bent</strong> — steep across the lower-income areas, nearly flat past ~$90k — and income is right-skewed. The rank-based Spearman (−0.82) runs stronger than Pearson (−0.71) because it only asks “downhill?”, not “straight line?”.</p>
 </section></section>
 <section>
 <section id="putting-uncertainty-on-r" class="title-slide slide level1 center" data-background-color="#73000A">
 <h1>Putting Uncertainty on r</h1>
 
 </section>
-<section id="from-description-to-inference" class="slide level2">
-<h2>From Description to Inference</h2>
-<p>We can <em>see</em> r = 0.84. Two honest questions remain — one per tradition:</p>
+<section id="from-description-to-a-test" class="slide level2">
+<h2>From Description to a Test</h2>
+<p>We can <em>see</em> r = 0.84. The same question as every test since Session 6:</p>
 <ul>
-<li class="fragment"><strong>Frequentist:</strong> if nothing truly connected these variables, how often would 77 paired observations line up this tightly by luck?</li>
-<li class="fragment"><strong>Bayesian:</strong> given the data, what <em>range</em> of correlation values is credible?</li>
-<li class="fragment">One wrinkle: these 77 areas are <strong>all of Chicago</strong>, not a sample from a bag of Chicagos. Read the null as a claim about the <em>process generating neighborhood outcomes</em>, not about a larger population of areas we sampled from.</li>
+<li class="fragment"><strong>Null hypothesis:</strong> the true correlation is 0. No straight-line association in the process that produced these data</li>
+<li class="fragment"><em>If</em> it were 0, how surprising would an r like ours be, with 77 areas?</li>
+<li class="fragment">One wrinkle: these 77 areas are <strong>all of Chicago</strong>, not a sample. Read the null as a claim about the <em>process</em> that produces neighborhood outcomes, not about a bigger population we sampled from</li>
 </ul>
-</section>
-<section id="the-frequentist-test-on-r" class="slide level2">
-<h2>The Frequentist Test on r</h2>
-<ul>
-<li><strong>Null hypothesis: ρ = 0</strong> — no linear association in the process that generated the data</li>
-<li>Test statistic: a <strong>t</strong> with <strong>n − 2</strong> degrees of freedom — the same machinery as Sessions 6–8</li>
-<li>Same logic as every test we’ve run: <em>if ρ were zero, how surprising is an r like ours?</em></li>
-</ul>
-<div class="fragment">
-<p>In R, one function does the whole thing — and hands you a confidence interval too.</p>
-</div>
 </section>
 <section id="cor.test" class="slide level2">
 <h2><code>cor.test()</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
 
 data:  areas$unemployment_rate and areas$violent_rate
-t = 13.4, df = 75, p-value &lt; 0.00000000000000022
+t = 13.4, df = 75, p-value &lt; 2.2e-16
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
  0.7585749 0.8954023
@@ -577,23 +577,47 @@ sample estimates:
 </div>
 </div>
 </section>
-<section id="reading-it-honestly" class="slide level2">
-<h2>Reading It Honestly</h2>
+<section id="reading-it" class="slide level2">
+<h2>Reading It</h2>
 <ul>
-<li class="fragment"><strong>r = 0.84, t(75) = 13.4, p &lt; .001</strong> — a null world essentially never makes 77 paired observations line up this tightly</li>
-<li class="fragment"><strong>95% CI [0.76, 0.90]</strong> — Session 5’s reading still applies: the <em>procedure</em> captures the true value in 95% of replications; this particular interval either does or doesn’t</li>
-<li class="fragment">Perspective: with n = 77, any |r| above about <strong>0.22</strong> clears p &lt; .05. Significance is a low bar — <strong>the strength is the story</strong></li>
-<li class="fragment">And nothing in this output upgrades association to causation, or areas to individuals</li>
+<li class="fragment"><strong>cor = 0.84</strong> at the bottom: that’s r</li>
+<li class="fragment"><strong>95% confidence interval: 0.76 to 0.90.</strong> An interval for the <em>correlation</em>, so it lives between -1 and +1. <strong>Where is zero?</strong> Far outside it</li>
+<li class="fragment"><strong>p-value &lt; 2.2e-16:</strong> reject the null. A world with no correlation essentially never lines up 77 areas this tightly</li>
+<li class="fragment">With 77 areas, any r above about <strong>0.22</strong> (either sign) clears p &lt; 0.05. Passing the test is a low bar; <strong>the strength is the story</strong></li>
+<li class="fragment">Nothing in this output turns association into cause, or areas into individuals</li>
 </ul>
 </section>
-<section id="the-whole-matrix-at-once" class="slide level2">
-<h2>The Whole Matrix at Once</h2>
-<p>Real analyses rarely stop at one pair. <code>cor()</code> takes every numeric column you feed it:</p>
+<section id="when-the-answer-is-nothing-here" class="slide level2">
+<h2>When the Answer Is “Nothing Here”</h2>
+<p>Median age and violence, from the menu slide:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>areas <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a></a>  <span class="fu">select</span>(violent_rate, unemployment_rate, median_income, pct_vacant) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>median_age, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  areas$median_age and areas$violent_rate
+t = -0.1336, df = 75, p-value = 0.8941
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2385791  0.2092774
+sample estimates:
+        cor 
+-0.01542445 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Interval -0.24 to +0.21: <strong>zero is inside</strong>. Fail to reject. Say <em>no evidence of a straight-line association</em>, which is <strong>not</strong> proof there is none.</p>
+</div>
+</section>
+<section id="several-pairs-at-once" class="slide level2">
+<h2>Several Pairs at Once</h2>
+<p>Real analyses rarely stop at one pair. <code>cor()</code> takes every numeric column you give it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a></a>  <span class="fu">select</span>(violent_rate, unemployment_rate, median_income, pct_vacant) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  violent_rate unemployment_rate median_income pct_vacant
 violent_rate              1.00              0.84         -0.71       0.81
@@ -603,212 +627,283 @@ pct_vacant                0.81              0.67         -0.55       1.00</code>
 </div>
 </div>
 <div class="fragment">
-<p>Symmetric, 1s on the diagonal — a compact map of the association structure. But: no tests, no intervals.</p>
+<p>Read it like a mileage chart: each pair appears twice, and the 1s down the diagonal are each variable with itself. Handy for a first look at your project variables. Then plot and <code>cor.test()</code> the pairs that matter.</p>
 </div>
-</section>
-<section id="same-matrix-with-uncertainty-correlation" class="slide level2">
-<h2>Same Matrix, With Uncertainty: <code>correlation()</code></h2>
-<p>The <strong>correlation</strong> package (easystats) tests every pair and attaches CIs — and it <strong>Holm-adjusts the p-values</strong> for the number of pairs. Six tests at once is exactly Session 8’s pile-of-tests problem, and the package handles it by default:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>areas <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a></a>  <span class="fu">select</span>(violent_rate, unemployment_rate, median_income, pct_vacant) <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a></a>  <span class="fu">correlation</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-
-</section><section id="same-matrix-with-uncertainty-correlation-output" class="slide level2 output-location-slide"><h2>Same Matrix, With Uncertainty: <code>correlation()</code></h2><div class="cell output-location-slide">
-<div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1        |        Parameter2 |     r |         95% CI |  t(75) |         p
------------------------------------------------------------------------------------
-violent_rate      | unemployment_rate |  0.84 | [ 0.76,  0.90] |  13.40 | &lt; .001***
-violent_rate      |     median_income | -0.71 | [-0.80, -0.57] |  -8.66 | &lt; .001***
-violent_rate      |        pct_vacant |  0.81 | [ 0.72,  0.88] |  12.00 | &lt; .001***
-unemployment_rate |     median_income | -0.81 | [-0.88, -0.72] | -12.05 | &lt; .001***
-unemployment_rate |        pct_vacant |  0.67 | [ 0.52,  0.78] |   7.78 | &lt; .001***
-median_income     |        pct_vacant | -0.55 | [-0.69, -0.37] |  -5.67 | &lt; .001***
-
-p-value adjustment method: Holm (1979)
-Observations: 77</code></pre>
-</div>
-</div></section></section>
-<section>
-<section id="the-bayesian-version" class="title-slide slide level1 center" data-background-color="#1B2A4A">
-<h1>The Bayesian Version</h1>
-
-</section>
-<section id="bayesian-correlation-the-idea" class="slide level2">
-<h2>Bayesian Correlation: The Idea</h2>
-<ul>
-<li class="fragment">Instead of a single r and a p-value, you get a <strong>posterior distribution</strong> of plausible correlation values (ρ)</li>
-<li class="fragment">You can ask direct questions: <em>given my data, what’s the probability ρ &gt; 0?</em></li>
-<li class="fragment">The prior encodes mild skepticism — real-world correlations are rarely extreme — gently pulling estimates toward 0</li>
-<li class="fragment">Same package, one new argument: <code>bayesian = TRUE</code></li>
-<li class="fragment">And unlike <code>brms</code> in Session 8, <strong>no compilation wait</strong> — this samples in a blink</li>
-</ul>
-</section>
-<section id="correlation...-bayesian-true" class="slide level2">
-<h2><code>correlation(..., bayesian = TRUE)</code></h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)   <span class="co"># inline seed: posterior sampling, keeps printed values stable</span></span>
-<span id="cb21-2"><a></a>bayes_pair <span class="ot">&lt;-</span> areas <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a></a>  <span class="fu">select</span>(violent_rate, unemployment_rate) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a></a>  <span class="fu">correlation</span>(<span class="at">bayesian =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-5"><a></a>bayes_pair</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1   |        Parameter2 |  rho |       95% CI |      pd | % in ROPE
-----------------------------------------------------------------------------
-violent_rate | unemployment_rate | 0.82 | [0.73, 0.87] | 100%*** |        0%
-
-Parameter1   |         Prior |          BF
-------------------------------------------
-violent_rate | Beta (3 +- 3) | 6.64e+17***
-
-Observations: 77</code></pre>
-</div>
-</div>
-</section>
-<section id="reading-the-bayesian-output" class="slide level2">
-<h2>Reading the Bayesian Output</h2>
-<ul>
-<li class="fragment"><strong>rho = 0.82</strong> — the posterior <em>median</em>, a touch below the frequentist 0.84: that’s the prior’s gentle pull toward zero</li>
-<li class="fragment"><strong>95% CI [0.73, 0.87]</strong> — a <strong>credible interval</strong>: given data and prior, 95% probability ρ lies in this range. <em>The direct statement Session 5 taught you the confidence interval can’t make.</em></li>
-<li class="fragment"><strong>pd = 100%</strong> — the posterior probability the correlation is positive — and <strong>0% in ROPE</strong>: none of the posterior sits in a “practically zero” band</li>
-<li class="fragment"><strong>BF ≈ 10¹⁷</strong> — the data are astronomically more likely under “correlated” than “not.” On Session 6’s scale, anything past 100 is extreme evidence; this is 10¹⁷.</li>
-</ul>
-</section>
-<section id="the-posterior-seen" class="slide level2">
-<h2>The Posterior, Seen</h2>
-
-<img data-src="week-10-correlation_files/figure-revealjs/bayes-posterior-1.png" width="960" class="r-stretch"><p>The entire heap of credible values sits far from 0 (dashed line). <em>That picture</em> is what pd = 100% and the huge BF are summarizing.</p>
-</section>
-<section id="the-bayesian-matrix" class="slide level2">
-<h2>The Bayesian Matrix</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)   <span class="co"># inline seed: posterior sampling</span></span>
-<span id="cb23-2"><a></a>areas <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a></a>  <span class="fu">select</span>(violent_rate, unemployment_rate, median_income, pct_vacant) <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a></a>  <span class="fu">correlation</span>(<span class="at">bayesian =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-5"><a></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter         | pct_vacant | median_income | unemployment_rate
-------------------------------------------------------------------
-violent_rate      |    0.79*** |      -0.68*** |           0.82***
-unemployment_rate |    0.64*** |      -0.79*** |                  
-median_income     |   -0.52*** |               |                  </code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>Same map as the frequentist matrix, but every entry is now a posterior median with full uncertainty machinery behind it.</p>
-</div>
-</section>
-<section id="but-the-priors" class="slide level2">
-<h2>But the Priors…</h2>
-<p>The default prior is <code>"medium"</code> skepticism. Loosen it and see what moves:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)   <span class="co"># inline seed: posterior sampling</span></span>
-<span id="cb25-2"><a></a>areas <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a></a>  <span class="fu">select</span>(violent_rate, unemployment_rate) <span class="sc">|&gt;</span></span>
-<span id="cb25-4"><a></a>  <span class="fu">correlation</span>(<span class="at">bayesian =</span> <span class="cn">TRUE</span>, <span class="at">bayesian_prior =</span> <span class="st">"wide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1   |        Parameter2 |  rho |       95% CI |      pd | % in ROPE
-----------------------------------------------------------------------------
-violent_rate | unemployment_rate | 0.83 | [0.75, 0.89] | 100%*** |        0%
-
-Parameter1   |               Prior |          BF
-------------------------------------------------
-violent_rate | Beta (1.73 +- 1.73) | 2.05e+18***
-
-Observations: 77</code></pre>
-</div>
-</div>
-</section>
-<section id="what-changed-almost-nothing-here" class="slide level2">
-<h2>What Changed? Almost Nothing — Here</h2>
-<ul>
-<li class="fragment">The wide prior is <em>less</em> skeptical of big correlations, so it shrinks rho toward 0 slightly less — the estimate creeps closer to the raw r = 0.84</li>
-<li class="fragment">With <strong>77 areas of strongly correlated data, the data dominate</strong>: the prior choice moves the second decimal</li>
-<li class="fragment">With 15 areas and a modest correlation, the same choice could visibly move the estimate — priors matter most when data are thin</li>
-<li class="fragment">Practical rule for this course: <strong>defaults are fine — but say which prior you used.</strong> If your conclusion survives medium <em>and</em> wide, say that too; it’s a free robustness check.</li>
-</ul>
-</section>
-<section id="frequentist-vs.-bayesian-correlation" class="slide level2 smaller">
-<h2>Frequentist vs.&nbsp;Bayesian Correlation</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 24%">
-<col style="width: 38%">
-<col style="width: 38%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Feature</th>
-<th>Frequentist (Pearson’s r)</th>
-<th>Bayesian (ρ)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Output</td>
-<td>Single value, r</td>
-<td>Posterior distribution of ρ</td>
-</tr>
-<tr class="even">
-<td>Uncertainty</td>
-<td>95% confidence interval</td>
-<td>95% credible interval</td>
-</tr>
-<tr class="odd">
-<td>Evidence measure</td>
-<td>p-value</td>
-<td>Posterior probability, Bayes factor</td>
-</tr>
-<tr class="even">
-<td>Prior information</td>
-<td>None</td>
-<td>Included (by prior width)</td>
-</tr>
-<tr class="odd">
-<td>Interpretation</td>
-<td>“If no true correlation…”</td>
-<td>“Given data, how probable is each value of ρ?”</td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="how-to-report-it" class="slide level2">
 <h2>How to Report It</h2>
 <blockquote>
-<p><strong>Frequentist:</strong> “Across Chicago’s 77 community areas, unemployment was strongly associated with the violent-crime rate, r = .84, t(75) = 13.4, p &lt; .001, 95% CI [.76, .90]. This is an area-level association; it does not speak to individuals.”</p>
+<p>“Across Chicago’s 77 community areas, unemployment was strongly associated with the violent-crime rate, r = 0.84, 95% CI 0.76 to 0.90, p &lt; 0.001. This is an area-level association; it does not speak to individuals.”</p>
 </blockquote>
-<blockquote>
-<p><strong>Bayesian:</strong> “The posterior median correlation was ρ ≈ .82, 95% credible interval [.73, .87], BF₁₀ ≈ 10¹⁷ — overwhelming evidence for a strong positive area-level association.”</p>
-</blockquote>
-<p>Direction, strength, uncertainty, and the level of analysis — every time.</p>
+<p>Direction, strength, uncertainty, and the level of analysis. Every time.</p>
 </section>
 <section id="your-turn-5-minutes" class="slide level2">
 <h2>Your Turn (5 Minutes)</h2>
-<p><code>pct_no_hs_diploma</code> — the share of an area’s adults without a high-school diploma. <strong>Before you compute anything:</strong> write down your predicted sign and rough size of its correlation with <code>violent_rate</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span>
-<span id="cb27-2"><a></a></span>
-<span id="cb27-3"><a></a><span class="fu">ggplot</span>(areas, <span class="fu">aes</span>(pct_no_hs_diploma, violent_rate)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb27-4"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>pct_no_hs_diploma, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>pct_no_hs_diploma</code> is the share of an area’s adults without a high-school diploma. <strong>Before you compute anything:</strong> write down your guess for the sign and rough size of its correlation with <code>violent_rate</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span>
+<span id="cb21-2"><a></a></span>
+<span id="cb21-3"><a></a><span class="fu">ggplot</span>(areas, <span class="fu">aes</span>(pct_no_hs_diploma, violent_rate)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb21-4"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>pct_no_hs_diploma, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<p>Most people predict a strong positive. The data: <strong>r = 0.17, p = .14</strong> — indistinguishable from nothing. Yet <code>pct_bachelors</code> runs a solid <strong>−0.45</strong>. Plausible-sounding covariates can fail, and correlated predictors tangle — untangling them is <em>exactly</em> Session 11’s job.</p>
+<p>Most people guess a strong positive. The data: <strong>r = 0.17, p = 0.13</strong>, no evidence of an association. Yet <code>pct_bachelors</code> runs <strong>-0.45</strong>. Sensible-sounding measures can fail, and related measures tangle together. Untangling them is <em>exactly</em> what regression does in Session 10.</p>
+</div>
+</section></section>
+<section>
+<section id="now-you-lab-8" class="title-slide slide level1 center" data-background-color="#1B2A4A">
+<h1>Now You: Lab 8</h1>
+
+</section>
+<section id="lab-8" class="slide level2">
+<h2>Lab 8</h2>
+<ul>
+<li>The same recipe, twice: <strong>question, look, number and test, say it</strong></li>
+<li>Neighborhoods: poverty and assaults</li>
+<li>Correctional officers: time on the job and job satisfaction</li>
+<li>Submit your Your Turn script to Canvas before you leave</li>
+</ul>
+<p><a href="../labs/lab-10-correlation.html">Lab 8 page</a></p>
+</section></section>
+<section>
+<section id="midterm-review" class="title-slide slide level1 center" data-background-color="#73000A">
+<h1>Midterm Review</h1>
+
+</section>
+<section id="the-midterm-next-week-session-9" class="slide level2">
+<h2>The Midterm: Next Week, Session 9</h2>
+<ul>
+<li><strong>In class, monitored.</strong> You get an <code>.R</code> script and the data files; you answer in the script and submit it</li>
+<li><strong>Allowed:</strong> your <em>printed</em> notes and homework. <strong>Not allowed:</strong> internet, AI tools, messaging</li>
+<li>Code answers run in R; interpretation answers go in <code>#</code> comments</li>
+<li>Everything on it is something we’ve already done. <strong>Nothing new</strong></li>
+<li>Full list of skills: the <a href="../midterm.html">Midterm Study Guide</a></li>
+</ul>
+</section>
+<section id="six-parts" class="slide level2 smaller">
+<h2>Six Parts</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 52%">
+<col style="width: 12%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Topic</th>
+<th>Points</th>
+<th>Where we did it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Data and levels of measurement</td>
+<td>10</td>
+<td>Sessions 1 and 2</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Descriptive statistics</td>
+<td>20</td>
+<td>Session 2</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Probability, sampling, and Bayes counting tables</td>
+<td>20</td>
+<td>Sessions 3 and 4</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Confidence intervals and <code>t.test()</code></td>
+<td>20</td>
+<td>Sessions 5 to 7</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Frequentist and Bayesian: p-values, <code>bayes_prop_test()</code></td>
+<td>15</td>
+<td>Sessions 6 and 7</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Correlation</td>
+<td>15</td>
+<td>Tonight</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>The next slides are one practice problem per part. <strong>Different data from the exam, same skills.</strong></p>
 </div>
 </section>
-<section id="todays-lab-homework" class="slide level2">
-<h2>Today’s Lab &amp; Homework</h2>
+<section id="part-1-levels-of-measurement" class="slide level2">
+<h2>Part 1: Levels of Measurement</h2>
+<p>Crash data: nominal, ordinal, interval, or ratio?</p>
 <ul>
-<li><strong>Lab 10:</strong> the full correlation workflow — Chicago areas, then neighborhoods and officers, including one dataset where the honest answer is <em>“there’s nothing here”</em> (<a href="../labs/lab-10-correlation.html">lab page</a>)</li>
-<li><strong>Homework 10:</strong> correlation in both traditions on the Chicago areas — <em>plus</em> <strong>Project Checkpoint 2</strong>: the first associations in <strong>your</strong> project dataset, feeding straight into Checkpoint 3’s regression (<a href="../weeks/week-10.html">Session 10 page</a>)</li>
-<li><strong>Read before Session 11:</strong> Stanton Ch. 8 — multiple regression, where today’s scatterplots grow a second predictor</li>
+<li><code>road_condition</code> (normal, wet, icy)</li>
+<li><code>severity</code> (coded 1, 2, 3, from least to most severe)</li>
+<li><code>driver_age</code></li>
+<li><code>vehicle1_year</code></li>
+</ul>
+<div class="fragment">
+<p><strong>Nominal</strong> (no order) · <strong>ordinal</strong> (ordered, uneven spacing, even when stored as 1, 2, 3) · <strong>ratio</strong> (true zero) · <strong>interval</strong> (equal steps, no true zero: year 0 is not “no year”)</p>
+<p>On the exam: explain each level, with your own CJ example. <strong>Order, spacing, zero.</strong></p>
+</div>
+</section>
+<section id="part-2-describe-a-small-vector" class="slide level2">
+<h2>Part 2: Describe a Small Vector</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>days_held <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">20</span>)</span>
+<span id="cb22-2"><a></a><span class="fu">mean</span>(days_held)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.375</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">median</span>(days_held)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">sd</span>(days_held)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.390562</code></pre>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>One long stay (20 days) pulls the <strong>mean</strong> up to 4.4, while the <strong>median</strong> stays at 2. Which one describes a <em>typical</em> stay? The median. The tail names the skew: this is <strong>right-skewed</strong></li>
+<li>The SD, in words: <em>how far a typical value sits from the mean</em>. Here, about 6 days, and most of that comes from one person</li>
+</ul>
+</div>
+</section>
+<section id="part-3-the-counting-table" class="slide level2">
+<h2>Part 3: The Counting Table</h2>
+<p>A risk tool flags people as “likely to reoffend.” <strong>10%</strong> of people actually reoffend. The tool flags <strong>80%</strong> of those who do, and <strong>20%</strong> of those who don’t. Out of 1,000 people: of everyone flagged, what share actually reoffends?</p>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Flagged</th>
+<th>Not flagged</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reoffends</td>
+<td>80</td>
+<td>20</td>
+<td>100</td>
+</tr>
+<tr class="even">
+<td>Does not</td>
+<td>180</td>
+<td>720</td>
+<td>900</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>260</strong></td>
+<td>740</td>
+<td>1,000</td>
+</tr>
+</tbody>
+</table>
+<p>P(reoffends | flagged) = 80 / <strong>260</strong> = <strong>0.31</strong>. The “80%” is P(flagged | reoffends), the <em>other</em> conditional. <strong>Read the bar out loud: whatever follows it is the denominator.</strong></p>
+</div>
+</section>
+<section id="part-4-a-two-group-t.test" class="slide level2">
+<h2>Part 4: A Two-Group <code>t.test()</code></h2>
+<p>Were intoxicated drivers younger than sober drivers, on average? (Intoxicated first, set by a <code>factor()</code> line.)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">t.test</span>(driver_age <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+</section>
+<section id="part-4-a-two-group-t.test-output" class="slide level2 output-location-slide"><h2>Part 4: A Two-Group <code>t.test()</code></h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  driver_age by intox
+t = -0.72468, df = 1808.5, p-value = 0.4687
+alternative hypothesis: true difference in means between group Intoxicated and group Sober is not equal to 0
+95 percent confidence interval:
+ -1.0104429  0.4652006
+sample estimates:
+mean in group Intoxicated       mean in group Sober 
+                 38.33204                  38.60466 </code></pre>
+</div>
+</div></section><section id="part-4-reading-it" class="slide level2">
+<h2>Part 4: Reading It</h2>
+<ul>
+<li>Averages: intoxicated drivers 38.3, sober drivers 38.6. The interval is <strong>Intoxicated minus Sober</strong>, in <strong>years</strong>, because age is in years: -1.0 to 0.5</li>
+<li><strong>Where is zero?</strong> Inside the interval, so no detectable difference (p = 0.47)</li>
+<li><strong>Detectable is not the same as large.</strong> The exam asks both: is there a difference, and is it big in real units?</li>
+<li>A boxplot first (<code>ggplot(crashes, aes(intox, driver_age)) + geom_boxplot()</code>) shows you the answer before the test does</li>
+</ul>
+</section>
+<section id="part-5-which-sentence-belongs-to-which-output" class="slide level2">
+<h2>Part 5: Which Sentence Belongs to Which Output?</h2>
+<p>Lab 7: suspicious-person stops vs traffic stops, searched or not.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3214</span>, <span class="dv">2023</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3214</span> <span class="sc">+</span> <span class="dv">17271</span>, <span class="dv">2023</span> <span class="sc">+</span> <span class="dv">21191</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="fragment">
+<ul>
+<li><em>“If there were truly no difference, a gap this large would almost never happen.”</em> That’s the <strong>p-value</strong> (<code>prop.test()</code>)</li>
+<li><em>“Given these data, there is more than a 99% probability that suspicious-person stops have the higher search rate.”</em> That’s <strong><code>bayes_prop_test()</code></strong></li>
+<li>A p-value is <strong>never</strong> the probability that the null is true</li>
+<li>On the exam: <code>source("bayes.R")</code> (the file is in the exam folder)</li>
+</ul>
+</div>
+</section>
+<section id="part-5-which-sentence-belongs-to-which-output-output" class="slide level2 output-location-slide"><h2>Part 5: Which Sentence Belongs to Which Output?</h2><div class="cell output-location-slide">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Bayesian test of two proportions 
+
+data, group 1:  3,214 of 20,485 (15.7%)
+data, group 2:  2,023 of 23,214 (8.7%)
+prior:          know-nothing (1 yes, 1 no), same for both groups
+
+                         estimate      95% credible interval
+group 1                  15.7%         15.2% to 16.2%
+group 2                  8.7%          8.4% to 9.1%
+difference (1 minus 2)   7.0 points    6.4 to 7.6 points
+
+Probability group 1 is higher than group 2: more than 0.99 
+Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
+</div>
+</div></section><section id="part-6-correlation" class="slide level2">
+<h2>Part 6: Correlation</h2>
+<p>You did it tonight. On the exam, the same four steps:</p>
+<ol type="1">
+<li><strong>Look:</strong> a scatterplot</li>
+<li><strong>Number and test:</strong> <code>cor.test(x, y)</code>. Report r, the confidence interval, and the p-value</li>
+<li><strong>Where is zero?</strong> Inside the interval or outside?</li>
+<li><strong>Say it:</strong> direction and strength in words, and what the correlation <strong>cannot</strong> tell you (cause; and if the rows are places, anything about individuals)</li>
+</ol>
+</section>
+<section id="how-to-study-this-week" class="slide level2">
+<h2>How to Study This Week</h2>
+<ul>
+<li>Work through the <a href="../midterm.html">Midterm Study Guide</a>: every skill on the exam is listed there</li>
+<li>Re-run your own labs and homework from Sessions 2 to 8 until the code feels routine</li>
+<li>Do the practice pages: Sessions <a href="../practice/practice-02.html">2</a>, <a href="../practice/practice-03.html">3</a>, <a href="../practice/practice-04.html">4</a>, <a href="../practice/practice-05.html">5</a>, <a href="../practice/practice-06.html">6</a>, and <a href="../practice/practice-10.html">8</a></li>
+<li><strong>Print</strong> the notes you want to have. No internet during the exam</li>
+<li>Charge your laptop, and make sure <code>library(tidyverse)</code> and <code>library(modeest)</code> load</li>
+</ul>
+</section>
+<section id="homework-and-next-week" class="slide level2">
+<h2>Homework and Next Week</h2>
+<ul>
+<li><strong>Homework 8:</strong> correlation on the Chicago areas, <strong>plus Project Checkpoint 1</strong>: describe your project’s outcome and two or three predictors (<a href="../weeks/week-10.html">Session 8 page</a>). Due Sunday</li>
+<li><strong>Session 9:</strong> the midterm</li>
+<li><strong>Checkpoint 2</strong> is due the Sunday after the midterm: correlations in <em>your</em> data, plus installing <code>brms</code> for Session 10</li>
+<li><strong>Read before Session 10:</strong> Stanton Ch. 8 (multiple regression)</li>
 </ul>
 
 
@@ -816,7 +911,7 @@ Observations: 77</code></pre>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>CRJU 705 · Session 10</p>
+<p>CRJU 705 · Session 8</p>
 </div>
 </div></div>
 
@@ -1004,7 +1099,7 @@ Observations: 77</code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1116,14 +1211,13 @@ Observations: 77</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

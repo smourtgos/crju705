@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,15 +67,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,28 +165,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -253,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Homework 7 · Explore Two Datasets, Choose One</h1>
-<p class="subtitle lead">CRJU 705 · due by 11:59 pm Sunday ahead of Session 8</p>
+<p class="subtitle lead">CRJU 705 · due by 11:59 pm Sunday, October 4 (ahead of Session 8)</p>
 </div>
 
 
@@ -273,7 +268,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Instructions:</strong> complete the following in a single <code>.R</code> script and submit it via <strong>Canvas</strong>. Answer every prompt marked <strong>(comment)</strong> in a comment (<code>#</code>) in your script. I will run your script, so every line has to be either code or start with <code>#</code>.</p>
 <p>This week you choose the dataset for your final project. Explore two options first, then commit to one. The options, with the one line that loads each, are on the <strong><a href="../project-data.html">Final-Project Data Options</a></strong> page. You may use any dataset on that page, including the reentry, pretrial, police stops, shootings, and risk-assessment data we worked in Session 7, as long as your question goes beyond what we did in class. If you found a dataset somewhere else, clear it with me first. The course datasets are <strong>not</strong> eligible: that includes the <strong>Chicago</strong> data from Session 7’s Example 3, plus crash, officers, prisoners, neighborhoods, cities, and reentry-wide.</p>
 <p>Start your script with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="part-1-explore-two-datasets" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-explore-two-datasets">Part 1: Explore Two Datasets</h2>
 <p>Do all five steps for <strong>each</strong> of your two datasets, under a clear header (<code># ---- Dataset 1: ... ----</code>).</p>
@@ -282,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>Look at it.</strong> Run <code>glimpse()</code> on it.</p></li>
 <li><p><strong>What is one row? (comment)</strong> One row = one <em>what</em>? (A person? An arrest? A stop? A state?) And how many rows are there?</p></li>
 <li><p><strong>One count or summary.</strong> Run one <code>count()</code> or <code>summarize()</code> on a variable you find interesting. <strong>(comment)</strong> In one sentence, say what it shows, with the numbers.</p></li>
-<li><p><strong>One question it could answer. (comment)</strong> Write one question this dataset could answer, and name the variables: the two groups and the outcome (like tonight), or two variables you would expect to be related (like you will do in Sessions 10 and 11).</p></li>
+<li><p><strong>One question it could answer. (comment)</strong> Write one question this dataset could answer, and name the variables: the two groups and the outcome (like tonight), or two variables you would expect to be related (like you will do with correlation in Session 8 and regression in Sessions 10 and 11).</p></li>
 </ol>
 </section>
 <section id="part-2-choose-one" class="level2">
@@ -296,7 +291,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>concerns a <strong>criminal justice</strong> topic;</li>
 <li><strong>reads into R</strong> (your Part 1 code is the proof);</li>
-<li>has <strong>numeric variables</strong> that can go into a regression in Sessions 10 to 12. Name them. If your dataset is one the options page marks “Limited,” say which variables you would use and I will tell you at Session 8 whether it will work.</li>
+<li>has <strong>numeric variables</strong> that can go into a regression in Sessions 10 and 11. Name them. If your dataset is one the options page marks “Limited,” say which variables you would use and I will tell you at Session 8 whether it will work.</li>
 </ul></li>
 <li><p><strong>A preview.</strong> Run <code>summary()</code> on your chosen dataset. <strong>(comment)</strong> Name anything strange it shows: impossible values (a 999, a negative age), or a variable with a lot of <code>NA</code>s. If nothing is strange, say that.</p></li>
 </ol>
@@ -304,7 +299,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="deliverable-and-due-date" class="level2">
 <h2 class="anchored" data-anchor-id="deliverable-and-due-date">Deliverable and Due Date</h2>
 <ul>
-<li>Submit your <code>.R</code> script via <strong>Canvas by 11:59 pm Sunday</strong> ahead of Session 8.</li>
+<li>Submit your <code>.R</code> script via <strong>Canvas by 11:59 pm Sunday, October 4</strong>, ahead of Session 8.</li>
+<li><strong>Also before Session 8:</strong> read Stanton <strong>Ch. 7</strong> (Measures of Association). Session 8 is correlation, then midterm review.</li>
 <li><strong>Bring your chosen dataset to Session 8,</strong> and be ready to say what one row is, what your question is, and which variables answer it.</li>
 </ul>
 
@@ -363,14 +359,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

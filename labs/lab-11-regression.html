@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Lab 11 · Multiple Regression: Chicago’s 77 Areas, Then 500 Neighborhoods – CRJU 705</title>
+<title>Lab 10 · Multiple Regression: Chicago’s 77 Areas, Then 500 Neighborhoods – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,15 +63,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -156,28 +155,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
 </li>
@@ -240,13 +235,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul>
 </li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your Turn</a></li>
-  <li><a href="#exit-ticket" id="toc-exit-ticket" class="nav-link" data-scroll-target="#exit-ticket">Exit Ticket</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Lab 11 · Multiple Regression: Chicago’s 77 Areas, Then 500 Neighborhoods</h1>
-<p class="subtitle lead">CRJU 705 · Session 11</p>
+<h1 class="title">Lab 10 · Multiple Regression: Chicago’s 77 Areas, Then 500 Neighborhoods</h1>
+<p class="subtitle lead">CRJU 705 · Session 10</p>
 </div>
 
 
@@ -260,18 +254,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header><p><strong>Goal:</strong> run the complete multiple-regression workflow from today’s lecture — fit with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>, interpret coefficients in <em>holding-constant</em> language, diagnose with a residual plot and VIF, then fit the Bayesian twin with <code>brms</code> and read the posteriors — first on the Chicago community-area data from lecture, then on your own model with the Lab 3 neighborhoods.</p>
-<p>There’s no new data-skills content today: this lab is pure statistics practice. (Homework 11 brings the wrangling back — you’ll clean a file <em>before</em> regressing on it.)</p>
-<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. The Exit Ticket gets submitted to Canvas before you leave.</p>
+</header><p><strong>Goal:</strong> run the complete multiple-regression workflow from today’s lecture (fit with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>, interpret coefficients in <em>holding-constant</em> language, diagnose with a residual plot and VIF, then fit the Bayesian twin with <code>brms</code> and read the posteriors), first on the Chicago community-area data from lecture, then on your own model with the Lab 3 neighborhoods.</p>
+<p>There’s no new data-skills content today: this lab is pure statistics practice. (Homework 10 brings the wrangling back: you’ll clean a file <em>before</em> regressing on it.)</p>
+<p><strong>How labs work:</strong> run the Setup chunk as-is, follow the Walkthrough along with me, then complete the <strong>Your Turn</strong> tasks in your own script. That script is what you submit to Canvas before you leave.</p>
 <section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Open RStudio, start a new R script, and run:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot/">bayesplot</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paul-buerkner/brms">brms</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bprice2652/car_repo">car</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
@@ -279,22 +273,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>One new package today:</strong> <code>install.packages("car")</code> — we use it for VIF. (<code>bayesplot</code> came along free when you installed <code>brms</code> for ANOVA week, so <code><a href="https://mc-stan.org/bayesplot/">library(bayesplot)</a></code> should just work.) And the usual <code>brms</code> reminder: the first <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> of a session pauses at <code>Compiling Stan program...</code> for a minute. Not frozen. Compiling.</p>
+<p><strong>One new package today:</strong> <code>install.packages("car")</code>, which we use for VIF. You installed <code>brms</code> for Project Checkpoint 2, and <code>bayesplot</code> came along free with it, so <code><a href="https://mc-stan.org/bayesplot/">library(bayesplot)</a></code> should just work. If your Checkpoint 2 test fit failed, flag me down before we start.</p>
+<p><strong>First time with <code>brms</code>?</strong> When you run your first <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> model of an R session, R will sit at <code>Compiling Stan program...</code> for about a minute before sampling starts. That’s normal: Stan is compiling your model into C++. It is not frozen. If instead you get an error mentioning a <em>compiler</em> or <em>toolchain</em>, flag me down.</p>
 </div>
 </div>
 </div>
-<p>Our walkthrough data are the 77 Chicago community areas — every 2025 incident aggregated to the area level and joined with census measures (codebook on the <a href="../chicago-data.html">Data page</a>). One row per <em>area</em>, not per person or per crime. Keep that word — <strong>area</strong> — in every sentence you write today.</p>
-<p><strong>The question:</strong> how do unemployment and vacant housing relate to an area’s violent-crime rate — each adjusted for the other?</p>
+<p>Our walkthrough data are the 77 Chicago community areas: every 2025 incident aggregated to the area level and joined with census measures (codebook on the <a href="../chicago-data.html">Data page</a>). One row per <em>area</em>, not per person or per crime. Keep that word, <strong>area</strong>, in every sentence you write today.</p>
+<p><strong>The question:</strong> how do unemployment and vacant housing relate to an area’s violent-crime rate: each adjusted for the other?</p>
 </section><section id="walkthrough" class="level2"><h2 class="anchored" data-anchor-id="walkthrough">Walkthrough</h2>
 <section id="look-first" class="level3"><h3 class="anchored" data-anchor-id="look-first">Look first</h3>
 <p>Always. Before any model:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">areas</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">unemployment_rate</span>, <span class="va">violent_rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">areas</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">unemployment_rate</span>, <span class="va">violent_rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, color <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"77 community areas, 2025"</span>,</span>
 <span>       x <span class="op">=</span> <span class="st">"Unemployment rate (%)"</span>,</span>
-<span>       y <span class="op">=</span> <span class="st">"Violent crimes per 1,000 residents"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>       y <span class="op">=</span> <span class="st">"Violent crimes per 1,000 residents"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="lab-11-regression_files/figure-html/look-first-1.png" class="img-fluid figure-img" width="672"></p>
@@ -302,11 +297,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>A strong, roughly linear, upward relationship — with the high-violence areas scattering farther from the line. Remember that scatter; it comes back in diagnostics.</p>
+<p>A strong, roughly linear, upward relationship, with the high-violence areas scattering farther from the line. Remember that scatter; it comes back in diagnostics.</p>
 </section><section id="one-predictor" class="level3"><h3 class="anchored" data-anchor-id="one-predictor">One predictor</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -335,12 +330,12 @@ F-statistic: 179.5 on 1 and 75 DF,  p-value: &lt; 2.2e-16</code></pre>
 <li>
 <strong>Multiple R-squared (~0.71):</strong> unemployment alone accounts for about 71% of the variance in violent-crime rates <em>across areas</em>.</li>
 <li>
-<strong>The slope’s p-value:</strong> far below .05 — a slope this steep essentially never shows up when the true slope is zero.</li>
+<strong>The slope’s p-value:</strong> far below .05: a slope this steep essentially never shows up when the true slope is zero.</li>
 </ul></section><section id="two-predictors" class="level3"><h3 class="anchored" data-anchor-id="two-predictors">Two predictors</h3>
 <p>Areas with high unemployment also tend to have more vacant housing. Does each carry its own association, or is one riding the other’s coattails?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -363,21 +358,21 @@ Multiple R-squared:  0.818, Adjusted R-squared:  0.8131
 F-statistic: 166.3 on 2 and 74 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Compare the unemployment slope across the two models: <strong>~3.3 alone → ~2.1 with vacancy in the model</strong>. That drop is the whole point of multiple regression: part of what the simple model credited to unemployment was really variance it <em>shares</em> with vacancy. Each coefficient is now an <strong>adjusted</strong> association — unemployment’s relationship with violence <em>among areas with similar vacancy</em>, and vice versa. Both stay strongly significant, and R² rises to ~0.82.</p>
+<p>Compare the unemployment slope across the two models: <strong>~3.3 alone → ~2.1 with vacancy in the model</strong>. That drop is the whole point of multiple regression: part of what the simple model credited to unemployment was really variance it <em>shares</em> with vacancy. Each coefficient is now an <strong>adjusted</strong> association: unemployment’s relationship with violence <em>among areas with similar vacancy</em>, and vice versa. Both stay strongly significant, and R² rises to ~0.82.</p>
 <p><strong>Interpretation sentences worth copying:</strong></p>
 <ul>
 <li>“Holding vacancy constant, each additional percentage point of unemployment is associated with about 2.1 more violent crimes per 1,000 residents.”</li>
 <li>“Holding unemployment constant, each additional percentage point of vacant housing is associated with about 1.9 more violent crimes per 1,000 residents.”</li>
-<li>What we may <strong>not</strong> say: anything with “causes,” “drives,” or “increases” as an action verb — and nothing about individual <em>people</em>. These are adjusted associations between <em>areas</em> (Session 10’s ecological fallacy never left).</li>
+<li>What we may <strong>not</strong> say: anything with “causes,” “drives,” or “increases” as an action verb, and nothing about individual <em>people</em>. These are adjusted associations between <em>areas</em> (Session 8’s ecological fallacy never left).</li>
 </ul></section><section id="diagnose-the-residual-plot" class="level3"><h3 class="anchored" data-anchor-id="diagnose-the-residual-plot">Diagnose: the residual plot</h3>
 <p>The model assumes its misses are patternless. Look:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_diag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>fitted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span>, residual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_diag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>fitted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span>, residual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">chi_diag</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">fitted</span>, <span class="va">residual</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted violent-crime rate"</span>, y <span class="op">=</span> <span class="st">"Residual"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Fitted violent-crime rate"</span>, y <span class="op">=</span> <span class="st">"Residual"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="lab-11-regression_files/figure-html/chi-resid-1.png" class="img-fluid figure-img" width="672"></p>
@@ -385,26 +380,26 @@ F-statistic: 166.3 on 2 and 74 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p>What to check, in order: (1) <strong>no curve</strong> — the cloud shouldn’t bend (a bend means the straight-plane shape is wrong); (2) <strong>even spread</strong> — here the spread visibly widens at higher fitted values, so the model misses by more in high-violence areas. That fanning doesn’t bias the slopes, but it means the error bars are least trustworthy exactly where the stakes are highest — say so when you report.</p>
+<p>What to check, in order: (1) <strong>no curve</strong>: the cloud shouldn’t bend (a bend means the straight-plane shape is wrong); (2) <strong>even spread</strong>: here the spread visibly widens at higher fitted values, so the model misses by more in high-violence areas. That fanning doesn’t bias the slopes, but it means the error bars are least trustworthy exactly where the stakes are highest: say so when you report.</p>
 </section><section id="diagnose-vif" class="level3"><h3 class="anchored" data-anchor-id="diagnose-vif">Diagnose: VIF</h3>
 <p>If predictors are near-duplicates of each other, the model can’t apportion credit between them and the coefficients wobble. VIF puts a number on the redundancy:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>unemployment_rate        pct_vacant 
          1.807177          1.807177 </code></pre>
 </div>
 </div>
-<p>Rules of thumb: <strong>above 5, pay attention; above 10, you have a problem.</strong> Ours sit around 1.8 — unemployment and vacancy are correlated (r ≈ 0.67) but each still brings its own information. If you ever do see a huge VIF: drop one of the offenders, or combine them into an index. More data won’t fix redundancy.</p>
+<p>Rules of thumb: <strong>above 5, pay attention; above 10, you have a problem.</strong> Ours sit around 1.8: unemployment and vacancy are correlated (r ≈ 0.67) but each still brings its own information. If you ever do see a huge VIF: drop one of the offenders, or combine them into an index. More data won’t fix redundancy.</p>
 </section><section id="the-bayesian-version" class="level3"><h3 class="anchored" data-anchor-id="the-bayesian-version">The Bayesian version</h3>
-<p>Same formula, same <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> pattern as ANOVA week:</p>
+<p>Same formula, Bayesian machinery. <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code>, from the <strong>brms</strong> package (Bayesian Regression Models using Stan), takes the same formula you just gave <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>,</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>,</span>
 <span>                 data <span class="op">=</span> <span class="va">areas</span>,</span>
-<span>                 chains <span class="op">=</span> <span class="fl">2</span>, iter <span class="op">=</span> <span class="fl">2000</span>, seed <span class="op">=</span> <span class="fl">705</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                 chains <span class="op">=</span> <span class="fl">2</span>, iter <span class="op">=</span> <span class="fl">2000</span>, seed <span class="op">=</span> <span class="fl">705</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_bayes</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_bayes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Family: gaussian 
   Links: mu = identity 
@@ -428,12 +423,13 @@ and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
-<p>Reading the <code>Regression Coefficients</code> block: <code>Estimate</code> is the posterior mean (it lands almost exactly on <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>’s estimate — expected with default priors and 77 areas), and <code>l-95% CI</code> / <code>u-95% CI</code> bound the <strong>credible interval</strong>. Both intervals sit clearly away from zero. Quick health checks: <code>Rhat</code> at 1.00 and ESS in the hundreds-plus mean the chains behaved.</p>
+<p>The settings you’ll use all semester: <code>chains = 2, iter = 2000</code> runs two independent samplers for 2,000 steps each (the first half is warm-up and gets thrown away), which together build a full <strong>posterior distribution</strong> for every coefficient; <code>seed = 705</code> makes your numbers match mine; <code>refresh = 0</code> just silences the sampling progress log. We didn’t state any priors, so <code>brms</code> used its <strong>defaults</strong>: essentially flat on the coefficients, weakly informative on the intercept and spread. That means “the data do the talking,” which is fine here, but <em>say so</em>: “we used brms default priors” belongs in any write-up that reports a posterior.</p>
+<p>Reading the <code>Regression Coefficients</code> block: <code>Estimate</code> is the posterior mean (it lands almost exactly on <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>’s estimate, as expected with default priors and 77 areas), and <code>l-95% CI</code> / <code>u-95% CI</code> bound the <strong>credible interval</strong>. Both intervals sit clearly away from zero. Quick health checks: <code>Rhat</code> at 1.00 and ESS in the hundreds-plus mean the chains behaved.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span><span class="op">(</span><span class="va">chi_bayes</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b_unemployment_rate"</span>, <span class="st">"b_pct_vacant"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span><span class="op">(</span><span class="va">chi_bayes</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b_unemployment_rate"</span>, <span class="st">"b_pct_vacant"</span><span class="op">)</span>,</span>
 <span>           prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Posteriors for the two predictors"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Shaded = central 95% credible interval"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>       subtitle <span class="op">=</span> <span class="st">"Shaded = central 95% credible interval"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="lab-11-regression_files/figure-html/chi-mcmc-1.png" class="img-fluid figure-img" width="672"></p>
@@ -441,48 +437,40 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 </div>
 </div>
 </div>
-<p><strong>The interpretation rule, carried over from ANOVA week:</strong> if a coefficient’s 95% credible interval <strong>includes 0</strong>, zero remains a credible value — no credible association. If it <strong>excludes 0</strong>, the association is credible, and you may say: “given the data and priors, there’s a 95% probability the coefficient lies in this range.” (The sentence the confidence interval never let you say.)</p>
+<p><strong>The interpretation rule (you’ll use it for every <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> model from here on):</strong> if a coefficient’s 95% credible interval <strong>crosses 0</strong>, zero remains a credible value: no credible association. If it <strong>excludes 0</strong>, the association is credible, and you may say: “given the data and priors, there’s a 95% probability the coefficient lies in this range.” (The sentence the confidence interval never let you say.)</p>
 </section></section><section id="your-turn" class="level2"><h2 class="anchored" data-anchor-id="your-turn">Your Turn</h2>
-<p>Back to the 500 simulated neighborhoods from Lab 3 — poverty, unemployment, disorder, and last year’s assault counts:</p>
+<p>Back to the 500 simulated neighborhoods from Lab 3: poverty, unemployment, disorder, and last year’s assault counts:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nbhd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/neighborhoods.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nbhd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/neighborhoods.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Work in your own script. Comment each answer.</p>
-<p><strong>1. Make the units speak.</strong> <code>poverty_rate</code> and <code>unemployment_rate</code> are stored as proportions (0–1), so a raw slope would describe an absurd 0%-to-100% jump. Rescale before fitting — lecture’s “watch the units” lesson, applied:</p>
+<p><strong>1. Make the units speak.</strong> <code>poverty_rate</code> and <code>unemployment_rate</code> are stored as proportions (0 to 1), so a raw slope would describe an absurd 0%-to-100% jump. Rescale before fitting: lecture’s “watch the units” lesson, applied:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nbhd</span> <span class="op">&lt;-</span> <span class="va">nbhd</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nbhd</span> <span class="op">&lt;-</span> <span class="va">nbhd</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>poverty_pct      <span class="op">=</span> <span class="va">poverty_rate</span> <span class="op">*</span> <span class="fl">100</span>,</span>
 <span>         unemployment_pct <span class="op">=</span> <span class="va">unemployment_rate</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span>
-<span><span class="co"># Then look first: scatterplot assaults ~ poverty_pct with an lm smooth.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="co"># Then look first: scatterplot assaults ~ poverty_pct with an lm smooth.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>2. Fit and interpret.</strong> Regress <code>assaults</code> on <code>poverty_pct</code> and <code>unemployment_pct</code>. In comments: one holding-constant sentence per coefficient (units: assaults per percentage point), and what R² says. Expect a much humbler R² than Chicago’s — real-feeling individual-ish noise, and that’s fine; say what the model <em>does</em> explain, not more.</p>
+<p><strong>2. Fit and interpret.</strong> Regress <code>assaults</code> on <code>poverty_pct</code> and <code>unemployment_pct</code>. In comments: one holding-constant sentence per coefficient (units: assaults per percentage point), and what R² says. Expect a much humbler R² than Chicago’s: real-feeling individual-ish noise, and that’s fine; say what the model <em>does</em> explain, not more.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># nbhd_m &lt;- lm(assaults ~ poverty_pct + unemployment_pct, data = nbhd)</span></span>
-<span><span class="co"># summary(nbhd_m)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># nbhd_m &lt;- lm(assaults ~ poverty_pct + unemployment_pct, data = nbhd)</span></span>
+<span><span class="co"># summary(nbhd_m)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>3. The diagnostics moment.</strong> Residual plot + VIF, exactly as in the Walkthrough. Two things to note in comments: (a) the residuals form diagonal stripes — that’s because <code>assaults</code> only takes small whole values (0, 1, 2, …), not a bug, but it <em>is</em> a hint that a count outcome bends the linear model’s assumptions (counts and yes/no outcomes get their own tools — that story starts next session); (b) the VIF values — poverty and unemployment are correlated here (r ≈ 0.48), so is it redundancy trouble or not?</p>
+<p><strong>3. The diagnostics moment.</strong> Residual plot + VIF, exactly as in the Walkthrough. Two things to note in comments: (a) the residuals form diagonal stripes, because <code>assaults</code> only takes small whole values (0, 1, 2, …); that’s not a bug, but it <em>is</em> a hint that a count outcome bends the linear model’s assumptions (counts and yes/no outcomes get their own tools, and that story starts next session); (b) the VIF values: poverty and unemployment are correlated here (r ≈ 0.48), so is it redundancy trouble or not?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># residual plot on nbhd_m, then vif(nbhd_m)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># residual plot on nbhd_m, then vif(nbhd_m)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>4. The Bayesian twin.</strong> Fit the <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> version (same options as the Walkthrough; ~500 rows samples fast), look at <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, and make the <code><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas()</a></code> plot for <code>b_poverty_pct</code> and <code>b_unemployment_pct</code>. In comments: one frequentist sentence and one Bayesian sentence about the poverty coefficient — each including the <strong>size</strong> of the association (assaults per percentage point, or per 10 points if that reads better), not just “significant”/“credible.”</p>
+<p><strong>4. The Bayesian twin.</strong> Fit the <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> version (same options as the Walkthrough; ~500 rows samples fast), look at <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, and make the <code><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas()</a></code> plot for <code>b_poverty_pct</code> and <code>b_unemployment_pct</code>. In comments: one frequentist sentence and one Bayesian sentence about the poverty coefficient, each including the <strong>size</strong> of the association (assaults per percentage point, or per 10 points if that reads better), not just “significant”/“credible.”</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># nbhd_bayes &lt;- brm(assaults ~ poverty_pct + unemployment_pct, data = nbhd,</span></span>
-<span><span class="co">#                   chains = 2, iter = 2000, seed = 705, refresh = 0)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># nbhd_bayes &lt;- brm(assaults ~ poverty_pct + unemployment_pct, data = nbhd,</span></span>
+<span><span class="co">#                   chains = 2, iter = 2000, seed = 705, refresh = 0)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>5. <em>(Stretch)</em> Does disorder earn its keep?</strong> Add <code>disorder_level</code> to the frequentist model (make it a factor with levels Low → Moderate → High → Very High first). Check the coefficients and the <strong>adjusted</strong> R². Does observed disorder tell you anything about assaults that poverty and unemployment didn’t already? Connect your answer to lecture’s third-predictor slide.</p>
-<p><em>(Reading a factor in <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>: R drops the first level — Low — as the reference, so each <code>disorder_level</code> coefficient is that level’s difference from Low, holding the other predictors constant. Same idea as ANOVA’s group comparisons, wearing regression clothes.)</em></p>
+<p><em>(Reading a factor in <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>: R drops the first level, Low, as the reference, so each <code>disorder_level</code> coefficient is that level’s difference from Low, holding the other predictors constant. It’s a comparison of each group against one baseline group, wearing regression clothes.)</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="exit-ticket" class="level2"><h2 class="anchored" data-anchor-id="exit-ticket">Exit Ticket</h2>
-<p>Submit a short R script to Canvas before you leave, containing:</p>
-<ol type="1">
-<li>A comment: your holding-constant interpretation of the <code>poverty_pct</code> coefficient — one sentence, with units</li>
-<li>A comment: what R² told you about your neighborhoods model, in signal-and-noise terms — and one thing the model <em>leaves</em> unexplained</li>
-<li>A comment: what your residual plot and VIF each checked, and what each said (one sentence apiece)</li>
-<li>Your poverty conclusion, two ways: one frequentist sentence (estimate + CI or p) and one Bayesian sentence (posterior + credible interval)</li>
-<li>A comment: why “holding unemployment constant” is <em>not</em> the same claim as “poverty causes assaults” — name one lurker these neighborhoods might be hiding</li>
-</ol>
+<p>When you are done, submit your script to Canvas. The in-class exercise is graded on completing it.</p>
 
 
 </section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
@@ -536,14 +524,13 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

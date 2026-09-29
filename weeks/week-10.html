@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Session 10 · Measures of Association: Correlation – CRJU 705</title>
+<title>Session 8 · Correlation + Midterm Review – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,15 +32,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -131,28 +130,24 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -218,8 +213,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Session 10 · Measures of Association: Correlation</h1>
-<p class="subtitle lead">Covariance → Pearson’s r · always plot first · cor.test() · Bayesian correlation with the correlation package · the ecological fallacy · Project Checkpoint 2</p>
+<h1 class="title">Session 8 · Correlation + Midterm Review</h1>
+<p class="subtitle lead">Do two numbers move together? · always plot first · cor.test() · the ecological fallacy · midterm review · Project Checkpoint 1</p>
 </div>
 
 
@@ -242,49 +237,52 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><a href="../slides/week-10-correlation.html">📽️ Slides: Associations Between Variables — Correlation</a></strong> · <strong><a href="../labs/lab-10-correlation.html">🧪 Lab 10: Correlation — Chicago Areas, Then a Null Worth Reporting</a></strong> · <strong><a href="../homework/hw-10.html">📝 Homework 10 + Project Checkpoint 2</a></strong> · <strong><a href="../demos/demo-10-correlation.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-10.html">✍️ Practice</a></strong></p>
+<p><strong><a href="../slides/week-10-correlation.html">📽️ Slides: Correlation, Then Midterm Review</a></strong> · <strong><a href="../labs/lab-10-correlation.html">🧪 Lab 8: Correlation</a></strong> · <strong><a href="../homework/hw-10.html">📝 Homework 8 + Project Checkpoint 1</a></strong> · <strong><a href="../demos/demo-10-correlation.html">🎬 Demo walkthrough</a></strong> · <strong><a href="../practice/practice-10.html">✍️ Practice</a></strong></p>
 </div>
 </div>
 </div>
-<p>Before the midterm, every test had the same shape: a categorical grouping variable and a numeric outcome. The second half of the course drops the groups — this week <em>both</em> variables are numeric, and the question becomes whether two measures move together. Covariance grows into Pearson’s r, inference runs in both traditions, and the real-data thread climbs to Chicago’s 77 community areas — which forces the semester’s standing warning, the ecological fallacy, out into the open. Correlation is the doorway to regression in Sessions 11–12, where your final project lives; Checkpoint 2 computes the first associations in your own data.</p>
+<p>Until now, every test had the same shape: two groups and one outcome. Tonight there are no groups. Both variables are numbers, and the question is whether two measures move together. Pearson’s r puts one number on it, <code>cor.test()</code> tests it, and Chicago’s 77 community areas force the semester’s standing warning into the open: a correlation between <em>areas</em> says nothing about <em>people</em> (the ecological fallacy). Correlation is the doorway to regression in Sessions 10 and 11, where your final project lives. The second half of the night is review for next week’s midterm.</p>
 <section id="learning-objectives" class="level2">
 <h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
 <p>By the end of this week you can:</p>
 <ul>
-<li>interpret r’s sign and size — and explain why you always plot before you trust it (Anscombe’s quartet is the cautionary tale)</li>
-<li>test a correlation in both traditions: <code>cor.test()</code>, then the correlation package’s Bayesian output (posterior, credible interval, Bayes factor)</li>
+<li>read r’s sign and strength, and explain why you always plot before you trust it</li>
+<li>test a correlation with <code>cor.test()</code> and read its confidence interval and p-value</li>
 <li>explain the ecological fallacy in one sentence, and catch a claim that commits it</li>
-<li>report a null association honestly, letting the Bayes factor say “there’s nothing here”</li>
+<li>say what’s on the midterm and which session each part comes from</li>
 </ul>
 </section>
 <section id="before-class" class="level2">
 <h2 class="anchored" data-anchor-id="before-class">Before class</h2>
 <ul>
+<li><strong>Homework 7 is due Sunday:</strong> your chosen final-project dataset</li>
 <li>Read: Stanton <strong>Ch. 7</strong> (Measures of Association)</li>
-<li>Install one new package <strong>before</strong> class: <code>install.packages("correlation")</code>. It’s a quick install — no compiling this time — and it runs both our frequentist and Bayesian correlations this week.</li>
-<li>Bring your laptop <strong>and your final-project dataset</strong> — Homework 10 contains Project Checkpoint 2, which computes the first associations in <em>your</em> data</li>
-<li>No new R4DS reading</li>
+<li>Bring your laptop <strong>and your final-project dataset</strong>. Nothing new to install</li>
 </ul>
 </section>
 <section id="in-class" class="level2">
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
 <ul>
-<li>A new kind of question: both variables numeric, no groups — do two measures <em>move together</em>? (The doorway to regression in Sessions 11–12.)</li>
-<li>Association vs.&nbsp;causation: ice cream and violent crime, and the lurking third variable</li>
-<li><strong>Covariance</strong> — the right idea, glued to its units — and <strong>Pearson’s r</strong>, the rescaled version that always lands between −1 and +1</li>
-<li>What r <em>cannot</em> see: <strong>Anscombe’s quartet</strong> (four datasets, identical r, wildly different shapes), curved relationships, and one outlier manufacturing a correlation out of noise — plus <strong>Spearman’s rho</strong>, the rank-based backup</li>
-<li>Real-data thread moves to the anchor dataset’s <strong>second level</strong> (<a href="../chicago-data.html">codebook</a>): Chicago’s 77 community areas. Unemployment tracks violent-crime rates at r = 0.84; median age gives a genuine zero; income shows why Pearson and Spearman can disagree</li>
-<li><strong>The ecological fallacy</strong>, named and practiced: area-level associations license <em>no</em> claims about individuals — the codebook has been promising this conversation all semester</li>
-<li>Inference on r, both traditions: <code>cor.test()</code> (t on n − 2 df, CI) and the <strong>correlation</strong> package — correlation matrices with Holm-adjusted p-values, then <code>bayesian = TRUE</code> for posterior medians, credible intervals, pd, and Bayes factors, including what the <code>"medium"</code> vs.&nbsp;<code>"wide"</code> prior actually changes</li>
-<li><strong>Lab 10:</strong> the full workflow yourself — Chicago areas, then the Lab 3 neighborhoods (real associations) and the Lab 6 officers, where the honest answer is a null and the Bayes factor lets you <em>say so</em></li>
+<li><strong>Correlation (first half):</strong>
+<ul>
+<li>A new kind of question: both variables are numbers, no groups</li>
+<li>Association is not causation: ice cream, violent crime, and the lurking third variable</li>
+<li>From <strong>covariance</strong> (the right idea, stuck in its units) to <strong>Pearson’s r</strong> (always between -1 and +1)</li>
+<li>What r <em>cannot</em> see: <strong>Anscombe’s quartet</strong>, curved relationships, one outlier creating a correlation out of noise, and <strong>Spearman’s rho</strong> as the backup</li>
+<li>Chicago’s 77 community areas: unemployment tracks violent-crime rates at r = 0.84; median age gives a genuine zero</li>
+<li><strong>The ecological fallacy:</strong> area-level patterns license no claims about individuals</li>
+<li><code>cor.test()</code>: r, a confidence interval, and a p-value. Where is zero?</li>
+</ul></li>
+<li><strong>Lab 8:</strong> the recipe yourself, on neighborhoods (poverty and assaults) and correctional officers (time on the job and job satisfaction). You submit your Your Turn script</li>
+<li><strong>Midterm review (second half):</strong> the exam’s format and six parts, and one practice problem for each part</li>
 </ul>
-<p><em>Missed class? The <a href="../demos/demo-10-correlation.html">demo walkthrough</a> reproduces today’s live demos step by step.</em></p>
+<p><em>Missed class? The <a href="../demos/demo-10-correlation.html">demo walkthrough</a> reproduces tonight’s correlation lecture step by step. The review slides are at the end of the <a href="../slides/week-10-correlation.html">slides</a>.</em></p>
 </section>
 <section id="homework" class="level2">
 <h2 class="anchored" data-anchor-id="homework">Homework</h2>
 <ul>
-<li><strong><a href="../homework/hw-10.html">Homework 10</a></strong> — the correlation workflow, both traditions, on the Chicago community areas, <strong>plus Project Checkpoint 2</strong>: compute and visualize the associations between your outcome and your 2–3 candidate predictors in <em>your</em> project dataset, interpret them, and flag any surprises. These associations feed directly into the regression you’ll run in Checkpoint 3. Submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday</strong>.</li>
-<li><strong>Read before Session 11:</strong> Stanton <strong>Ch. 8</strong> (Multiple Regression) — today’s scatterplots grow a second predictor, and your project’s candidate predictors finally get to compete.</li>
+<li><strong><a href="../homework/hw-10.html">Homework 8</a>:</strong> correlation on the Chicago community areas, <strong>plus Project Checkpoint 1</strong>: describe the outcome and two or three predictors in <em>your</em> project dataset. Submit your <code>.R</code> file via Canvas <strong>by 11:59 pm Sunday, October 11</strong></li>
+<li><strong>Study for the midterm</strong> (Session 9, October 13) with the <a href="../midterm.html">Midterm Study Guide</a> and the practice pages</li>
 </ul>
 
 
@@ -342,14 +340,13 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

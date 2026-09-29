@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Demo Walkthrough · Session 11 – CRJU 705</title>
+<title>Demo Walkthrough · Session 10 – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,15 +63,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -156,28 +155,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
 </li>
@@ -246,8 +241,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Demo Walkthrough · Session 11</h1>
-<p class="subtitle lead">Multiple linear regression — least squares, R², ‘holding constant,’ and the Bayesian version</p>
+<h1 class="title">Demo Walkthrough · Session 10</h1>
+<p class="subtitle lead">Multiple linear regression: least squares, R², ‘holding constant,’ and the Bayesian version</p>
 </div>
 
 
@@ -267,27 +262,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>What this page is.</strong> The Session 11 lecture demos, written down step by step. Run the setup chunk once, then work top to bottom — every demo reproduces exactly what happened on screen. Use this page to catch up after a missed class, or to re-run the lecture at your own pace.</p>
+<p><strong>What this page is.</strong> The Session 10 lecture demos, written down step by step. Run the setup chunk once, then work top to bottom: every demo reproduces exactly what happened on screen. Use this page to catch up after a missed class, or to re-run the lecture at your own pace.</p>
 </div>
 </div>
 </div>
 <section id="what-youll-build" class="level2"><h2 class="anchored" data-anchor-id="what-youll-build">What you’ll build</h2>
 <ol type="1">
-<li>A hand-rolled ruler for “best line” — <code>SSR()</code> — tested on three candidate lines, the proof that <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> beats every hand-picked guess, and the check that one-predictor R² is just Session 10’s correlation, squared</li>
-<li>The best-fitting <em>plane</em> for two predictors (static slices here — the slides have the spinnable 3D version)</li>
+<li>A hand-rolled ruler for “best line” (<code>SSR()</code>), tested on three candidate lines, the proof that <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> beats every hand-picked guess, and the check that one-predictor R² is just Session 8’s correlation, squared</li>
+<li>The best-fitting <em>plane</em> for two predictors (static slices here: the slides have the spinnable 3D version)</li>
 <li>The ice-cream/drownings lurker: a “significant” coefficient that evaporates when the third variable enters</li>
-<li>A real two-predictor model of violent crime across Chicago’s 77 community areas — read honestly, then diagnosed (residual plot, VIF)</li>
+<li>A real two-predictor model of violent crime across Chicago’s 77 community areas: read honestly, then diagnosed (residual plot, VIF)</li>
 <li>The same model in <code>brms</code>: posterior distributions, and the reporting sentence each tradition licenses</li>
 </ol></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot/">bayesplot</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paul-buerkner/brms">brms</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bprice2652/car_repo">car</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>,</span>
-<span>                  show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                  show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-warning">
 <div class="callout-body d-flex">
@@ -295,14 +290,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>Two non-tidyverse packages today: <code>car</code> (for VIF — <code>install.packages("car")</code> if you don’t have it) and <code>brms</code> from ANOVA week (<code>bayesplot</code> came along free when you installed it). The usual <code>brms</code> reminder: the first <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> of a session pauses at <code>Compiling Stan program...</code> for a minute before sampling starts. It is not frozen. Compiling.</p>
+<p>Two non-tidyverse packages today: <code>car</code> (for VIF; <code>install.packages("car")</code> if you don’t have it) and <code>brms</code>, which you installed for Project Checkpoint 2 (<code>bayesplot</code> came along free with it). If your Checkpoint 2 test fit failed, sort that out before Section 5. <code>brms</code> compiles models with your computer’s C++ toolchain, so the first <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> of an R session pauses at <code>Compiling Stan program...</code> for about a minute before sampling starts. That’s normal, not a crash.</p>
 </div>
 </div>
 </div>
 </section><section id="least-squares-build-the-ruler-by-hand" class="level2"><h2 class="anchored" data-anchor-id="least-squares-build-the-ruler-by-hand">1 · Least squares: build the ruler by hand</h2>
-<p>Ten students, hours studied and exam scores. Some line through this cloud is the “best” one — but best by what ruler? Start with three candidates. (Seed 1 is kept from the lecture so every number matches the slides.)</p>
+<p>Ten students, hours studied and exam scores. Some line through this cloud is the “best” one, but best by what ruler? Start with three candidates. (Seed 1 is kept from the lecture so every number matches the slides.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">students</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  hours <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
 <span>  score <span class="op">=</span> <span class="fl">40</span> <span class="op">+</span> <span class="fl">5</span> <span class="op">*</span> <span class="va">hours</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span></span>
@@ -320,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">4</span>, color <span class="op">=</span> <span class="st">"navy"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"firebrick"</span>, <span class="st">"seagreen"</span>, <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Hours studied"</span>, y <span class="op">=</span> <span class="st">"Exam score"</span>, color <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>       title <span class="op">=</span> <span class="st">"Which line is best? We need a ruler, not a vibe."</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>       title <span class="op">=</span> <span class="st">"Which line is best? We need a ruler, not a vibe."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-11-regression_files/figure-html/candidate-lines-1.png" class="img-fluid figure-img" width="672"></p>
@@ -330,53 +325,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The ruler: for any candidate line, measure every vertical miss, square it (so misses above and below don’t cancel), and add them up. That total is the <strong>sum of squared residuals</strong>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SSR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SSR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">predicted</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span> <span class="op">*</span> <span class="va">students</span><span class="op">$</span><span class="va">hours</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">students</span><span class="op">$</span><span class="va">score</span> <span class="op">-</span> <span class="va">predicted</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu">SSR</span><span class="op">(</span><span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span>      <span class="co"># too low</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu">SSR</span><span class="op">(</span><span class="fl">20</span>, <span class="fl">5</span><span class="op">)</span>      <span class="co"># too low</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4405.871</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SSR</span><span class="op">(</span><span class="fl">50</span>, <span class="fl">3</span><span class="op">)</span>      <span class="co"># too flat</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SSR</span><span class="op">(</span><span class="fl">50</span>, <span class="fl">3</span><span class="op">)</span>      <span class="co"># too flat</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 584.9933</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SSR</span><span class="op">(</span><span class="fl">37</span>, <span class="fl">5.2</span><span class="op">)</span>    <span class="co"># roughly right</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SSR</span><span class="op">(</span><span class="fl">37</span>, <span class="fl">5.2</span><span class="op">)</span>    <span class="co"># roughly right</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 196.9529</code></pre>
 </div>
 </div>
-<p>Smaller total = better line. <strong>Least squares</strong> = find the line with the smallest total of all. No trial and error required — <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> solves for it directly:</p>
+<p>Smaller total = better line. <strong>Least squares</strong> = find the line with the smallest total of all. No trial and error required: <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> solves for it directly:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit_hours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">hours</span>, data <span class="op">=</span> <span class="va">students</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fit_hours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">hours</span>, data <span class="op">=</span> <span class="va">students</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)       hours 
    39.15588     5.27366 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SSR</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">SSR</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 130.9173</code></pre>
 </div>
 </div>
-<p>Our best hand-picked guess left about 197 in squared misses; <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> gets it down to about 131 — and <strong>no other line does better</strong>. Read the slope: each additional hour of studying predicts about 5.3 more points, in this sample. The vertical gap between each point and the winning line is that student’s <strong>residual</strong> — the miss the model owns. (The slides animate the search: the line tilts until the SSR stops shrinking.) So how much did the winning line explain? That’s <strong>R²</strong>:</p>
+<p>Our best hand-picked guess left about 197 in squared misses; <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> gets it down to about 131, and <strong>no other line does better</strong>. Read the slope: each additional hour of studying predicts about 5.3 more points, in this sample. The vertical gap between each point and the winning line is that student’s <strong>residual</strong>: the miss the model owns. (The slides animate the search: the line tilts until the SSR stops shrinking.) So how much did the winning line explain? That’s <strong>R²</strong>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit_hours</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9460216</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">students</span><span class="op">$</span><span class="va">hours</span>, <span class="va">students</span><span class="op">$</span><span class="va">score</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">students</span><span class="op">$</span><span class="va">hours</span>, <span class="va">students</span><span class="op">$</span><span class="va">score</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9460216</code></pre>
 </div>
 </div>
-<p><strong>R² is the proportion of the outcome’s variance the model accounts for</strong> — here about 95% (it’s simulated data; real life humbles us below). And notice the second line: with one predictor, R² is just Session 10’s correlation, squared. With multiple predictors, R² keeps the same meaning — variance explained by the whole team — but no single correlation owns it anymore.</p>
+<p><strong>R² is the proportion of the outcome’s variance the model accounts for</strong>: here about 95% (it’s simulated data; real life humbles us below). And notice the second line: with one predictor, R² is just Session 8’s correlation, squared. With multiple predictors, R² keeps the same meaning (variance explained by the whole team), but no single correlation owns it anymore.</p>
 </section><section id="two-predictors-from-line-to-plane" class="level2"><h2 class="anchored" data-anchor-id="two-predictors-from-line-to-plane">2 · Two predictors: from line to plane</h2>
-<p>With one predictor the model is a line through a 2-D cloud. With two, it’s a <strong>plane</strong> floating in a 3-D cloud — one slope along each predictor’s axis, chosen by the same ruler: minimize the total squared vertical distance from every point to the surface. Simulate data where we <em>know</em> the truth — intercept 10, slopes 2 and 3 — and check that <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> finds it:</p>
+<p>With one predictor the model is a line through a 2-D cloud. With two, it’s a <strong>plane</strong> floating in a 3-D cloud, with one slope along each predictor’s axis, chosen by the same ruler: minimize the total squared vertical distance from every point to the surface. Simulate data where we <em>know</em> the truth (intercept 10, slopes 2 and 3) and check that <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> finds it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>   <span class="co"># kept from the lecture — same cloud as the slides</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>   <span class="co"># kept from the lecture: same cloud as the slides</span></span>
 <span><span class="va">plane_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>  x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
@@ -384,15 +379,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">plane_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">+</span> <span class="va">x2</span>, data <span class="op">=</span> <span class="va">plane_data</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">plane_fit</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">plane_fit</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)          x1          x2 
        9.80        1.98        3.02 </code></pre>
 </div>
 </div>
-<p>Close to (10, 2, 3) — least squares recovered the plane. A flat page can’t spin a 3-D plot, but slicing the plane says the same thing: hold <code>x2</code> fixed at a few values and plot predicted <code>y</code> against <code>x1</code>:</p>
+<p>Close to (10, 2, 3): least squares recovered the plane. A flat page can’t spin a 3-D plot, but slicing the plane says the same thing: hold <code>x2</code> fixed at a few values and plot predicted <code>y</code> against <code>x1</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand_grid.html">expand_grid</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>, x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">slices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand_grid.html">expand_grid</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>, x2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">slices</span><span class="op">$</span><span class="va">predicted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">plane_fit</span>, newdata <span class="op">=</span> <span class="va">slices</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">slices</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">x1</span>, <span class="va">predicted</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -400,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"steelblue"</span>, <span class="st">"navy"</span>, <span class="st">"firebrick"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"The plane, sliced: the x1 slope is the same at every fixed x2"</span>,</span>
 <span>       subtitle <span class="op">=</span> <span class="st">"Parallel lines are what 'holding x2 constant' looks like"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"x1"</span>, y <span class="op">=</span> <span class="st">"Predicted y"</span>, color <span class="op">=</span> <span class="st">"x2 held at"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>       x <span class="op">=</span> <span class="st">"x1"</span>, y <span class="op">=</span> <span class="st">"Predicted y"</span>, color <span class="op">=</span> <span class="st">"x2 held at"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-11-regression_files/figure-html/plane-slices-1.png" class="img-fluid figure-img" width="672"></p>
@@ -408,11 +403,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Every slice climbs at slope ≈ 2 (the <code>x1</code> coefficient); jumping <em>between</em> slices is the <code>x2</code> coefficient’s job. For the grab-and-spin 3-D version — points, plane, and residuals — open the <a href="../slides/week-11-regression.html">Session 11 slides</a> (“The Best-Fitting Plane, Live”).</p>
+<p>Every slice climbs at slope ≈ 2 (the <code>x1</code> coefficient); jumping <em>between</em> slices is the <code>x2</code> coefficient’s job. For the grab-and-spin 3-D version (points, plane, and residuals), open the <a href="../slides/week-11-regression.html">Session 10 slides</a> (“The Best-Fitting Plane, Live”).</p>
 </section><section id="the-lurking-third-variable" class="level2"><h2 class="anchored" data-anchor-id="the-lurking-third-variable">3 · The lurking third variable</h2>
 <p>Ice cream sales and drowning deaths are strongly correlated. Every summer. Reliably. Build the world where temperature secretly drives both:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
 <span><span class="va">lurk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  temperature    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">60</span>, <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  icecream_sales <span class="op">=</span> <span class="fl">20</span> <span class="op">+</span> <span class="fl">5</span> <span class="op">*</span> <span class="va">temperature</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">30</span><span class="op">)</span>,</span>
@@ -422,8 +417,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">lurk</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">icecream_sales</span>, <span class="va">drownings</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"navy"</span>, size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, color <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"r = 0.6 — ban ice cream?"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Ice cream sales"</span>, y <span class="op">=</span> <span class="st">"Drownings"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"r = 0.6. Ban ice cream?"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Ice cream sales"</span>, y <span class="op">=</span> <span class="st">"Drownings"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-11-regression_files/figure-html/lurker-data-1.png" class="img-fluid figure-img" width="672"></p>
@@ -431,20 +426,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Model 1 fits what the scatterplot suggests — ice cream “predicts” drownings:</p>
+<p>Model 1 fits what the scatterplot suggests: ice cream “predicts” drownings:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lurk_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">drownings</span> <span class="op">~</span> <span class="va">icecream_sales</span>, data <span class="op">=</span> <span class="va">lurk</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lurk_m1</span><span class="op">)</span><span class="op">$</span><span class="va">coefficients</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lurk_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">drownings</span> <span class="op">~</span> <span class="va">icecream_sales</span>, data <span class="op">=</span> <span class="va">lurk</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lurk_m1</span><span class="op">)</span><span class="op">$</span><span class="va">coefficients</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)     -0.3876     7.5245 -0.0515    0.959
 icecream_sales   0.1315     0.0175  7.5165    0.000</code></pre>
 </div>
 </div>
-<p>The coefficient is positive and the p-value has ten zeros in it. Statistically significant; the model says it’s real. Do we believe it? No — but notice that <em>nothing in this output warns us</em>. The model can only see the variables we gave it. So give it the lurker:</p>
+<p>The coefficient is positive and the p-value has ten zeros in it. Statistically significant; the model says it’s real. Do we believe it? No, but notice that <em>nothing in this output warns us</em>. The model can only see the variables we gave it. So give it the lurker:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lurk_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">drownings</span> <span class="op">~</span> <span class="va">icecream_sales</span> <span class="op">+</span> <span class="va">temperature</span>, data <span class="op">=</span> <span class="va">lurk</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lurk_m2</span><span class="op">)</span><span class="op">$</span><span class="va">coefficients</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">lurk_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">drownings</span> <span class="op">~</span> <span class="va">icecream_sales</span> <span class="op">+</span> <span class="va">temperature</span>, data <span class="op">=</span> <span class="va">lurk</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lurk_m2</span><span class="op">)</span><span class="op">$</span><span class="va">coefficients</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)    -10.0979     6.5333 -1.5456   0.1255
@@ -452,10 +447,10 @@ icecream_sales  -0.0339     0.0299 -1.1352   0.2591
 temperature      0.9884     0.1553  6.3634   0.0000</code></pre>
 </div>
 </div>
-<p>Holding temperature constant, ice cream’s coefficient collapses from 0.13 to about −0.03 and goes nonsignificant (p ≈ 0.26), while R² jumps from 0.37 to 0.55. Temperature was driving both variables the whole time. This is <em>holding constant</em> doing real work: comparing days with the <strong>same temperature</strong>, ice cream tells you nothing about drownings. An <strong>added-variable plot</strong> (from <code>car</code>) shows exactly that — the ice cream–drownings relationship after temperature’s contribution is removed from both:</p>
+<p>Holding temperature constant, ice cream’s coefficient collapses from 0.13 to about -0.03 and goes nonsignificant (p ≈ 0.26), while R² jumps from 0.37 to 0.55. Temperature was driving both variables the whole time. This is <em>holding constant</em> doing real work: comparing days with the <strong>same temperature</strong>, ice cream tells you nothing about drownings. An <strong>added-variable plot</strong> (from <code>car</code>) shows exactly that: the relationship between ice cream and drownings after temperature’s contribution is removed from both:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/avPlots.html">avPlots</a></span><span class="op">(</span><span class="va">lurk_m2</span>, terms <span class="op">=</span> <span class="op">~</span> <span class="va">icecream_sales</span>,</span>
-<span>        main <span class="op">=</span> <span class="st">"Ice cream vs. drownings, with temperature partialed out"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/avPlots.html">avPlots</a></span><span class="op">(</span><span class="va">lurk_m2</span>, terms <span class="op">=</span> <span class="op">~</span> <span class="va">icecream_sales</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">"Ice cream vs. drownings, with temperature partialed out"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-11-regression_files/figure-html/lurker-avplot-1.png" class="img-fluid figure-img" width="672"></p>
@@ -463,12 +458,12 @@ temperature      0.9884     0.1553  6.3634   0.0000</code></pre>
 </div>
 </div>
 </div>
-<p>Flat. That flat line <em>is</em> the multiple-regression coefficient for ice cream. The moral: multiple regression holds constant <strong>only the variables you measured and included</strong>. Every observational model has potential lurkers you didn’t measure — so coefficients are <strong>adjusted associations, not causal effects</strong>. Keep that loaded; the Chicago models below will tempt you to talk causally.</p>
+<p>Flat. That flat line <em>is</em> the multiple-regression coefficient for ice cream. The moral: multiple regression holds constant <strong>only the variables you measured and included</strong>. Every observational model has potential lurkers you didn’t measure, so coefficients are <strong>adjusted associations, not causal effects</strong>. Keep that loaded; the Chicago models below will tempt you to talk causally.</p>
 </section><section id="real-data-violence-across-chicagos-77-areas" class="level2"><h2 class="anchored" data-anchor-id="real-data-violence-across-chicagos-77-areas">4 · Real data: violence across Chicago’s 77 areas</h2>
-<p>You plotted violent-crime rate against unemployment across the 77 community areas in Session 10 — a strong upward cloud, each dot an <em>area</em>, not a person (say it with me: ecological). Look at that scatter again first if it isn’t fresh, then fit one predictor:</p>
+<p>You plotted violent-crime rate against unemployment across the 77 community areas in Session 8: a strong upward cloud, each dot an <em>area</em>, not a person (say it with me: ecological). Look at that scatter again first if it isn’t fresh, then fit one predictor:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -490,10 +485,10 @@ Multiple R-squared:  0.7054,    Adjusted R-squared:  0.7014
 F-statistic: 179.5 on 1 and 75 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Each additional percentage point of unemployment is associated with <strong>3.3 more violent crimes per 1,000 residents</strong>, and unemployment alone accounts for about 70% of the between-area variance. Strong — but is unemployment getting credit for other disadvantage it travels with? Add vacant housing:</p>
+<p>Each additional percentage point of unemployment is associated with <strong>3.3 more violent crimes per 1,000 residents</strong>, and unemployment alone accounts for about 70% of the between-area variance. Strong, but is unemployment getting credit for other disadvantage it travels with? Add vacant housing:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -516,10 +511,10 @@ Multiple R-squared:  0.818, Adjusted R-squared:  0.8131
 F-statistic: 166.3 on 2 and 74 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Both predictors earn significant coefficients, and R² climbs from 0.70 to <strong>0.82</strong>. But watch unemployment’s slope: <strong>3.3 → 2.1</strong>. Some of what looked like “unemployment” in the simple model was shared with vacancy. That shrinkage <em>is</em> “holding constant” — the lurker lesson, on real data. Reading the coefficients out loud:</p>
+<p>Both predictors earn significant coefficients, and R² climbs from 0.70 to <strong>0.82</strong>. But watch unemployment’s slope: <strong>3.3 → 2.1</strong>. Some of what looked like “unemployment” in the simple model was shared with vacancy. That shrinkage <em>is</em> “holding constant”: the lurker lesson, on real data. Reading the coefficients out loud:</p>
 <ul>
 <li>
-<strong>Intercept (−9.3):</strong> predicted rate when both predictors are 0 — no Chicago area looks like that; it anchors the plane, nothing more</li>
+<strong>Intercept (-9.3):</strong> predicted rate when both predictors are 0: no Chicago area looks like that; it anchors the plane, nothing more</li>
 <li>
 <strong><code>unemployment_rate</code> (2.12):</strong> +1 point of unemployment ↔︎ about 2.1 more violent crimes per 1,000 residents, <strong>vacancy held fixed</strong>
 </li>
@@ -527,30 +522,30 @@ F-statistic: 166.3 on 2 and 74 DF,  p-value: &lt; 2.2e-16</code></pre>
 <strong><code>pct_vacant</code> (1.94):</strong> +1 point of vacancy ↔︎ about 1.9 more violent crimes per 1,000 residents, <strong>unemployment held fixed</strong>
 </li>
 </ul>
-<p>And what they are <em>not</em>: not causal effects (these are adjusted associations between <em>areas</em>, with every unmeasured lurker still at large); not people-level claims (an unemployed <em>person</em> is not “2.1 crimes more dangerous” — Session 10’s ecological fallacy rides along with every coefficient today); and not the full story (the model holds constant <em>only what’s in the model</em>).</p>
+<p>And what they are <em>not</em>: not causal effects (these are adjusted associations between <em>areas</em>, with every unmeasured lurker still at large); not people-level claims (an unemployed <em>person</em> is not “2.1 crimes more dangerous”; Session 8’s ecological fallacy rides along with every coefficient today); and not the full story (the model holds constant <em>only what’s in the model</em>).</p>
 <section id="watch-the-units" class="level3"><h3 class="anchored" data-anchor-id="watch-the-units">Watch the units</h3>
 <p>Coefficient <em>size</em> is meaningless until you check the predictor’s units. Median income, in dollars:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">median_income</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">median_income</span>, data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  (Intercept) median_income 
 68.5585257487 -0.0005221118 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">areas</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">areas</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>income_10k <span class="op">=</span> <span class="va">median_income</span> <span class="op">/</span> <span class="fl">10000</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">income_10k</span>, data <span class="op">=</span> <span class="va">_</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)  income_10k 
   68.558526   -5.221118 </code></pre>
 </div>
 </div>
-<p>Same model, same fit. But −0.0005 “looks like” nothing; the honest reading is <strong>about 5 <em>fewer</em> violent crimes per 1,000 residents per $10,000 of median income</strong>. Rescale before you interpret.</p>
+<p>Same model, same fit. But -0.0005 “looks like” nothing; the honest reading is <strong>about 5 <em>fewer</em> violent crimes per 1,000 residents per $10,000 of median income</strong>. Rescale before you interpret.</p>
 </section><section id="does-a-third-predictor-earn-its-keep" class="level3"><h3 class="anchored" data-anchor-id="does-a-third-predictor-earn-its-keep">Does a third predictor earn its keep?</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span> <span class="op">+</span> <span class="va">pct_no_hs_diploma</span>,</span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span> <span class="op">+</span> <span class="va">pct_no_hs_diploma</span>,</span>
 <span>             data <span class="op">=</span> <span class="va">areas</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m3</span><span class="op">)</span><span class="op">$</span><span class="va">coefficients</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">chi_m3</span><span class="op">)</span><span class="op">$</span><span class="va">coefficients</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)         -8.853      2.862  -3.093    0.003
@@ -559,16 +554,16 @@ pct_vacant           1.923      0.291   6.613    0.000
 pct_no_hs_diploma   -0.039      0.135  -0.290    0.773</code></pre>
 </div>
 </div>
-<p>Coefficient ≈ 0, p ≈ 0.77 — with unemployment and vacancy already in, the diploma share adds nothing detectable. And <strong>adjusted R²</strong> (R² with a per-predictor penalty) actually <em>falls</em>, 0.813 → 0.811 (compare <code>summary(chi_m2)$adj.r.squared</code> with <code>summary(chi_m3)$adj.r.squared</code>). More predictors ≠ more truth. Every variable argues its way in — theory first, fit second.</p>
+<p>Coefficient ≈ 0, p ≈ 0.77: with unemployment and vacancy already in, the diploma share adds nothing detectable. And <strong>adjusted R²</strong> (R² with a per-predictor penalty) actually <em>falls</em>, 0.813 → 0.811 (compare <code>summary(chi_m2)$adj.r.squared</code> with <code>summary(chi_m3)$adj.r.squared</code>). More predictors ≠ more truth. Every variable argues its way in: theory first, fit second.</p>
 </section><section id="diagnostics-the-residual-plot-and-vif" class="level3"><h3 class="anchored" data-anchor-id="diagnostics-the-residual-plot-and-vif">Diagnostics: the residual plot and VIF</h3>
 <p>Regression assumes the misses are patternless. So look at the misses:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>fitted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span>, residual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>fitted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span>, residual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">fitted</span>, <span class="va">residual</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"navy"</span>, size <span class="op">=</span> <span class="fl">2.5</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Residuals vs. fitted values — the all-purpose diagnostic"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Fitted violent-crime rate"</span>, y <span class="op">=</span> <span class="st">"Residual"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Residuals vs. fitted values: the all-purpose diagnostic"</span>,</span>
+<span>       x <span class="op">=</span> <span class="st">"Fitted violent-crime rate"</span>, y <span class="op">=</span> <span class="st">"Residual"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-11-regression_files/figure-html/residual-plot-1.png" class="img-fluid figure-img" width="672"></p>
@@ -576,25 +571,25 @@ pct_no_hs_diploma   -0.039      0.135  -0.290    0.773</code></pre>
 </div>
 </div>
 </div>
-<p>Read it honestly. What we want: a patternless horizontal band around zero. What we have: centered on zero with no obvious curve (good — the straight-plane assumption isn’t visibly wrong), but the <strong>spread widens at higher fitted values</strong> — the model misses by more in high-violence areas. That fanning (<strong>heteroscedasticity</strong>) is common with rate outcomes; it doesn’t bias the coefficients, but it makes the standard errors less trustworthy at the extremes — worth a sentence when you report. A <em>curve</em> in this plot would be worse news: it would say the model’s <em>shape</em> is wrong, not just its noise.</p>
-<p><strong>Multicollinearity</strong> is the other standard check: if two predictors move in near-lockstep, the model can’t tell whose coefficient the shared variance belongs to — estimates get wobbly and standard errors balloon. <strong>VIF</strong> measures how redundant each predictor is with the others (rules of thumb: &gt; 5, pay attention; &gt; 10, you have a problem):</p>
+<p>Read it honestly. What we want: a patternless horizontal band around zero. What we have: centered on zero with no obvious curve (good: the straight-plane assumption isn’t visibly wrong), but the <strong>spread widens at higher fitted values</strong>, so the model misses by more in high-violence areas. That fanning (<strong>heteroscedasticity</strong>) is common with rate outcomes; it doesn’t bias the coefficients, but it makes the standard errors less trustworthy at the extremes: worth a sentence when you report. A <em>curve</em> in this plot would be worse news: it would say the model’s <em>shape</em> is wrong, not just its noise.</p>
+<p><strong>Multicollinearity</strong> is the other standard check: if two predictors move in near-lockstep, the model can’t tell whose coefficient the shared variance belongs to; estimates get wobbly and standard errors balloon. <strong>VIF</strong> measures how redundant each predictor is with the others (rules of thumb: &gt; 5, pay attention; &gt; 10, you have a problem):</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="va">chi_m2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>unemployment_rate        pct_vacant 
          1.807177          1.807177 </code></pre>
 </div>
 </div>
-<p>About 1.8: unemployment and vacancy are correlated (r ≈ 0.67), but each still carries plenty of its own information. If VIF <em>were</em> high: drop one predictor, combine them into an index, or accept wide intervals — you cannot p-value your way out.</p>
+<p>About 1.8: unemployment and vacancy are correlated (r ≈ 0.67), but each still carries plenty of its own information. If VIF <em>were</em> high: drop one predictor, combine them into an index, or accept wide intervals; you cannot p-value your way out.</p>
 </section></section><section id="the-bayesian-version" class="level2"><h2 class="anchored" data-anchor-id="the-bayesian-version">5 · The Bayesian version</h2>
-<p>Identical formula, Bayesian machinery — the same <code>brms</code> workflow you’ve run since ANOVA week. (This is the chunk with the compile pause. Go refill your coffee.)</p>
+<p>Identical formula, Bayesian machinery. <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code>, from the <strong>brms</strong> package (Bayesian Regression Models using Stan), takes the same formula as <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and returns a full <strong>posterior distribution</strong> for every coefficient instead of a single estimate. The sampler settings are the ones you’ll use for the rest of the course: <code>chains = 2, iter = 2000</code> runs two independent samplers for 2,000 steps each (the first half is warm-up); <code>seed = 705</code> makes your numbers match these; <code>refresh = 0</code> just silences the sampling progress log. (This is the chunk with the compile pause. Go refill your coffee.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>,</span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">chi_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">violent_rate</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>,</span>
 <span>                 data <span class="op">=</span> <span class="va">areas</span>,</span>
-<span>                 chains <span class="op">=</span> <span class="fl">2</span>, iter <span class="op">=</span> <span class="fl">2000</span>, seed <span class="op">=</span> <span class="fl">705</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>                 chains <span class="op">=</span> <span class="fl">2</span>, iter <span class="op">=</span> <span class="fl">2000</span>, seed <span class="op">=</span> <span class="fl">705</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/fixed.effects.html">fixef</a></span><span class="op">(</span><span class="va">chi_bayes</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/fixed.effects.html">fixef</a></span><span class="op">(</span><span class="va">chi_bayes</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Estimate Est.Error   Q2.5 Q97.5
 Intercept            -9.25      2.42 -13.93 -4.68
@@ -602,12 +597,13 @@ unemployment_rate     2.12      0.27   1.58  2.64
 pct_vacant            1.92      0.29   1.36  2.48</code></pre>
 </div>
 </div>
-<p>Posterior means land almost exactly on the least-squares estimates — with <code>brms</code>’s default priors (flat on the slopes, weakly informative on the intercept and spread) and a decent <em>n</em>, they should. The Session 10 rule travels: defaults are fine, <strong>but say which prior you used</strong>. One sentence in your methods — “brms default priors, 2 chains × 2,000 iterations, seed 705” — covers it. Below the posterior plot: the sentence each tradition licenses.</p>
+<p>Posterior means land almost exactly on the least-squares estimates, and with a decent <em>n</em> they should. <strong>The prior we just used:</strong> we didn’t state one, so <code>brms</code> fell back on its <strong>defaults</strong>, essentially flat on the coefficients and weakly informative on the intercept and spread. Flat priors mean “the data do the talking,” which is fine here, but <em>say so</em>: “we used brms default priors” belongs in any write-up that reports a posterior. One sentence in your methods (“brms default priors, 2 chains × 2,000 iterations, seed 705”) covers it.</p>
+<p><strong>The interpretation rule</strong> for every <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> coefficient from here on: if its 95% credible interval <strong>crosses 0</strong>, zero remains a credible value, so there is no credible effect; if it <strong>excludes 0</strong>, the effect is credible. Below the posterior plot: the sentence each tradition licenses.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span><span class="op">(</span><span class="va">chi_bayes</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b_unemployment_rate"</span>, <span class="st">"b_pct_vacant"</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-intervals.html">mcmc_areas</a></span><span class="op">(</span><span class="va">chi_bayes</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"b_unemployment_rate"</span>, <span class="st">"b_pct_vacant"</span><span class="op">)</span>,</span>
 <span>           prob <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Posterior distributions: predictors of violent-crime rate"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"Shaded = central 95% credible interval — both sit clear of zero"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>       subtitle <span class="op">=</span> <span class="st">"Shaded = central 95% credible interval: both sit clear of zero"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-11-regression_files/figure-html/chicago-mcmc-areas-1.png" class="img-fluid figure-img" width="672"></p>
@@ -617,15 +613,15 @@ pct_vacant            1.92      0.29   1.36  2.48</code></pre>
 </div>
 <blockquote class="blockquote">
 <p><strong>Frequentist:</strong> “Holding vacancy constant, each percentage point of unemployment was associated with about 2.1 more violent crimes per 1,000 residents (b = 2.12, 95% CI [1.59, 2.64], p &lt; .001).”</p>
-<p><strong>Bayesian:</strong> “Given the data and priors, there is a 95% probability the unemployment coefficient lies between ≈ 1.6 and ≈ 2.6 — zero is not a credible value.”</p>
+<p><strong>Bayesian:</strong> “Given the data and priors, there is a 95% probability the unemployment coefficient lies between ≈ 1.6 and ≈ 2.6: zero is not a credible value.”</p>
 </blockquote>
-<p>Both are area-level, adjusted <strong>associations</strong> — neither sentence licenses “unemployment causes violence.”</p>
+<p>Both are area-level, adjusted <strong>associations</strong>: neither sentence licenses “unemployment causes violence.”</p>
 </section><section id="try-a-variation" class="level2"><h2 class="anchored" data-anchor-id="try-a-variation">Try a variation</h2>
 <ol type="1">
 <li>Beat the machine: using <code>SSR()</code>, hunt by hand for an (a, b) pair that gets below 131. (Spoiler: you can tie <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> to more decimal places, but never beat it.)</li>
-<li>In the lurker simulation, give ice cream a <em>real</em> effect — change the <code>drownings</code> line to <code>-10 + 0.8 * temperature + 0.05 * icecream_sales + rnorm(100, 0, 10)</code>. Does <code>lurk_m2</code> find it?</li>
-<li>In the third-predictor test, swap <code>pct_no_hs_diploma</code> for a predictor of your choice (<code>pct_renter</code>? <code>median_rent</code>?). Does anything earn its keep next to unemployment and vacancy — by its coefficient <em>and</em> by adjusted R²?</li>
-<li>Run <code>predict(chi_m2, newdata = tibble(unemployment_rate = 23, pct_vacant = 25))</code> — roughly Englewood — and then again with 10 and 10. Which prediction does the residual plot say to trust more, and why?</li>
+<li>In the lurker simulation, give ice cream a <em>real</em> effect: change the <code>drownings</code> line to <code>-10 + 0.8 * temperature + 0.05 * icecream_sales + rnorm(100, 0, 10)</code>. Does <code>lurk_m2</code> find it?</li>
+<li>In the third-predictor test, swap <code>pct_no_hs_diploma</code> for a predictor of your choice (<code>pct_renter</code>? <code>median_rent</code>?). Does anything earn its keep next to unemployment and vacancy: by its coefficient <em>and</em> by adjusted R²?</li>
+<li>Run <code>predict(chi_m2, newdata = tibble(unemployment_rate = 23, pct_vacant = 25))</code>, roughly Englewood, and then again with 10 and 10. Which prediction does the residual plot say to trust more, and why?</li>
 </ol>
 
 
@@ -680,14 +676,13 @@ pct_vacant            1.92      0.29   1.36  2.48</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

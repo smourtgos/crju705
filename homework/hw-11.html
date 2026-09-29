@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Homework 11 · Cleaning Data for Regression + Project Checkpoint 3 – CRJU 705</title>
+<title>Homework 10 · Cleaning Data for Regression + Project Checkpoint 3 – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,15 +67,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,28 +165,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -253,8 +248,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework 11 · Cleaning Data for Regression + Project Checkpoint 3</h1>
-<p class="subtitle lead">CRJU 705 · due by 11:59 pm Sunday ahead of Session 12</p>
+<h1 class="title">Homework 10 · Cleaning Data for Regression + Project Checkpoint 3</h1>
+<p class="subtitle lead">CRJU 705 · due by 11:59 pm Sunday, November 8 (ahead of Session 11)</p>
 </div>
 
 
@@ -272,24 +267,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><strong>Instructions:</strong> complete the following exercises in a single <code>.R</code> script file. Your script must run top-to-bottom when I execute it, with answers to interpretive questions in <code>#comments</code>. Submit your <code>.R</code> file via <strong>Canvas</strong> for credit.</p>
-<p>As you begin working with your final-project data, you will quickly discover that most of your time is spent <strong>cleaning</strong> the data — getting it into a shape where a model will even run, and where the numbers it returns mean what you think they mean. That’s not a detour from analysis; it <em>is</em> analysis. This homework makes the point the honest way: you’ll clean a dirty file, then watch what regression does <strong>before and after</strong> you cleaned it.</p>
-<p>Do not shortcut Part 1. Every minute you spend on these verbs now is an hour saved on your final project. (If any verb feels shaky, the reference chapter is <a href="https://r4ds.hadley.nz/data-transform.html">R4DS Ch. 3, Data transformation</a> — the same toolkit from Labs 3–6.)</p>
+<p>As you begin working with your final-project data, you will quickly discover that most of your time is spent <strong>cleaning</strong> the data: getting it into a shape where a model will even run, and where the numbers it returns mean what you think they mean. That’s not a detour from analysis; it <em>is</em> analysis. This homework makes the point the honest way: you’ll clean a dirty file, then watch what regression does <strong>before and after</strong> you cleaned it.</p>
+<p>Do not shortcut Part 1. Every minute you spend on these verbs now is an hour saved on your final project. (If any verb feels shaky, the reference chapter is <a href="https://r4ds.hadley.nz/data-transform.html">R4DS Ch. 3, Data transformation</a>, the same toolkit from Labs 3 to 6.)</p>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(brms)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>officers <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/officers.csv"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(officers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The file holds survey records for <strong>200 correctional officers</strong> (simulated, but realistically messy): facility, shift, tenure, monthly overtime hours, hours of sleep, and a <strong>burnout score that is supposed to run 0–100</strong>. Your eventual model: <code>burnout ~ overtime_hours_mo + sleep_hours</code>.</p>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(officers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The file holds survey records for <strong>200 correctional officers</strong> (simulated, but realistically messy): facility, shift, tenure, monthly overtime hours, hours of sleep, and a <strong>burnout score that is supposed to run 0 to 100</strong>. Your eventual model: <code>burnout ~ overtime_hours_mo + sleep_hours</code>.</p>
 </section>
 <section id="part-1-find-the-dirt-fix-the-dirt" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-find-the-dirt-fix-the-dirt">Part 1: Find the Dirt, Fix the Dirt</h2>
 <ol type="1">
 <li><p><strong>First pass.</strong> Run <code>summary()</code> on the data (or on the numeric columns). <strong>In a comment:</strong> identify <strong>two impossible values</strong> hiding in variables your model needs. (Hint: check each variable’s minimum and maximum against what the variable <em>is</em>.)</p></li>
-<li><p><strong>Categorical hygiene.</strong> Run <code>count(officers, shift)</code>. <strong>In a comment:</strong> what went wrong in data entry? Fix it with <code>mutate()</code> + <code>str_to_title()</code>, then re-run <code>count()</code> to confirm exactly three shifts remain — and report the three counts.</p></li>
-<li><p><strong>Sentinels to NA.</strong> The burnout instrument’s codebook says <strong>999 = “declined to answer.”</strong> That is a <em>code</em>, not a score — left as a number, it will poison every mean, SD, and slope downstream. Convert it: <code>mutate(burnout = na_if(burnout, 999))</code>. Then deal with the impossible overtime value the same general way (negative hours cannot happen; make it <code>NA</code> — <code>if_else()</code> is one route). <strong>In a comment:</strong> how many <code>NA</code>s does each of your two repaired variables now contain?</p></li>
+<li><p><strong>Categorical hygiene.</strong> Run <code>count(officers, shift)</code>. <strong>In a comment:</strong> what went wrong in data entry? Fix it with <code>mutate()</code> + <code>str_to_title()</code>, then re-run <code>count()</code> to confirm exactly three shifts remain, and report the three counts.</p></li>
+<li><p><strong>Sentinels to NA.</strong> The burnout instrument’s codebook says <strong>999 = “declined to answer.”</strong> That is a <em>code</em>, not a score: left as a number, it will poison every mean, SD, and slope downstream. Convert it: <code>mutate(burnout = na_if(burnout, 999))</code>. Then deal with the impossible overtime value the same general way (negative hours cannot happen; make it <code>NA</code>; <code>if_else()</code> is one route). <strong>In a comment:</strong> how many <code>NA</code>s does each of your two repaired variables now contain?</p></li>
 <li><p><strong>Build the analysis file.</strong> Create <code>officers_clean</code> by dropping the rows with <code>NA</code> on any model variable: <code>drop_na(burnout, overtime_hours_mo, sleep_hours)</code>. <strong>In a comment:</strong> how many rows did you lose, and out of how many?</p></li>
 <li><p><strong>Grouped summary practice.</strong> On <code>officers_clean</code>, compute the mean burnout score and the number of officers <strong>per facility</strong> (<code>summarize()</code> with <code>.by = facility</code>), and <code>arrange()</code> the result in descending order. <strong>In a comment:</strong> which facility reports the highest average burnout, and is the gap between facilities large relative to burnout’s SD?</p></li>
 </ol>
@@ -297,19 +292,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="part-2-regression-before-and-after-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-regression-before-and-after-cleaning">Part 2: Regression, Before and After Cleaning</h2>
 <ol start="6" type="1">
-<li><p><strong>Fit the dirty model.</strong> On the <strong>original</strong> <code>officers</code> data, fit <code>lm(burnout ~ overtime_hours_mo + sleep_hours)</code>. Look at <code>summary()</code>, then make the residuals-vs-fitted plot from Lab 11. <strong>In a comment:</strong> what in the plot (and in the residual standard error) screams that something is wrong? Remember the outcome is supposed to live between 0 and 100.</p></li>
+<li><p><strong>Fit the dirty model.</strong> On the <strong>original</strong> <code>officers</code> data, fit <code>lm(burnout ~ overtime_hours_mo + sleep_hours)</code>. Look at <code>summary()</code>, then make the residuals-vs-fitted plot from Lab 10. <strong>In a comment:</strong> what in the plot (and in the residual standard error) screams that something is wrong? Remember the outcome is supposed to live between 0 and 100.</p></li>
 <li><p><strong>Fit the clean model.</strong> Same formula on <code>officers_clean</code>. <strong>In a comment:</strong> compare the residual standard error across the two fits, and explain <em>why</em> a handful of 999s did that much damage. (Think about what least squares does to a residual of ~900 when it <strong>squares</strong> it.)</p></li>
 <li><p><strong>Interpret the clean model honestly.</strong> Look at the coefficients and <code>confint()</code>, and run <code>vif()</code>. <strong>In comments:</strong></p>
 <ul>
-<li>One holding-constant sentence per predictor — <em>including the direction and size</em> of each estimated coefficient.</li>
-<li>Neither predictor reaches conventional significance in this sample. Write the honest version of that finding in one sentence — what the data do and don’t show about overtime, sleep, and burnout here. (“We found no reliable association…” is a legitimate scientific result, not a failure. You will need this sentence again in your career, probably often.)</li>
+<li>One holding-constant sentence per predictor, <em>including the direction and size</em> of each estimated coefficient.</li>
+<li>Neither predictor reaches conventional significance in this sample. Write the honest version of that finding in one sentence: what the data do and don’t show about overtime, sleep, and burnout here. (“We found no reliable association…” is a legitimate scientific result, not a failure. You will need this sentence again in your career, probably often.)</li>
 <li>What does the VIF tell you about these two predictors?</li>
 </ul></li>
 <li><p><strong>The Bayesian check.</strong> Fit the clean model with <code>brms</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>burnout_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(burnout <span class="sc">~</span> overtime_hours_mo <span class="sc">+</span> sleep_hours,</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>burnout_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(burnout <span class="sc">~</span> overtime_hours_mo <span class="sc">+</span> sleep_hours,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> officers_clean,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>, <span class="at">refresh =</span> <span class="dv">0</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(burnout_bayes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(burnout_bayes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>In a comment:</strong> do the 95% credible intervals include 0? Write one Bayesian sentence about the sleep coefficient, and say whether the two traditions agree here.</p></li>
 </ol>
 </section>
@@ -321,20 +316,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>This section uses YOUR final-project dataset.</strong> Checkpoint 3 of 4: you described your variables in Checkpoint 1 and explored the bivariate relationships in Checkpoint 2 — now you fit the <strong>first regression model</strong> of your project. Like the others, it is graded on <strong>completion and quality of reasoning</strong> — not on whether the model comes out significant, and not on polish. A model that comes out null, weird, or broken — <em>noticed and discussed</em> — is a successful checkpoint.</p>
+<p><strong>This section uses YOUR final-project dataset.</strong> Checkpoint 3 of 4: you described your variables in Checkpoint 1 (Homework 8) and explored the correlations among them in Checkpoint 2 (midterm week); now you fit the <strong>first regression model</strong> of your project. Like the others, it is graded on <strong>completion and quality of reasoning</strong>, not on whether the model comes out significant, and not on polish. A model that comes out null, weird, or broken, <em>noticed and discussed</em>, is a successful checkpoint.</p>
 </div>
 </div>
 </div>
 <p>In a clearly marked section at the end of your <code>.R</code> script (e.g., <code># ---- PROJECT CHECKPOINT 3 ----</code>):</p>
 <ol type="1">
-<li><p><strong>Fit a first regression model:</strong> your outcome regressed on <strong>2–3 predictors</strong> (the ones your Checkpoint 2 exploration made most promising).</p>
+<li><p><strong>Fit a first regression model:</strong> your outcome regressed on <strong>2 to 3 predictors</strong> (the ones your Checkpoint 2 exploration made most promising).</p>
 <ul>
-<li>If your outcome is <strong>continuous</strong> (or close to it), use <code>lm()</code> — this is your tool.</li>
-<li>If your outcome is <strong>binary</strong> (yes/no, arrest/no arrest, recidivated/didn’t), <strong>say so in a comment</strong> — the right tool is <em>logistic regression</em>, which is exactly what Session 12 covers. For now, fit the linear model anyway as a rough first pass (with a binary outcome its coefficients read approximately as changes in the <em>probability</em> of a “yes”), and label it clearly as a placeholder you’ll replace next week.</li>
+<li>If your outcome is <strong>continuous</strong> (or close to it), use <code>lm()</code>: this is your tool.</li>
+<li>If your outcome is <strong>binary</strong> (yes/no, arrest/no arrest, recidivated/didn’t), <strong>say so in a comment</strong>: the right tool is <em>logistic regression</em>, which is exactly what Session 11 covers. For now, fit the linear model anyway as a rough first pass (with a binary outcome its coefficients read approximately as changes in the <em>probability</em> of a “yes”), and label it clearly as a placeholder you’ll replace after Session 11.</li>
 </ul></li>
-<li><p><strong>Report and interpret the coefficients:</strong> one plain-language, holding-constant sentence per predictor, <strong>with units</strong> — plus one sentence on R² (or note that R² will make more sense post-logistic if your outcome is binary).</p></li>
-<li><p><strong>One diagnostic check:</strong> a residuals-vs-fitted plot <em>or</em> <code>vif()</code> (VIF only makes sense with 2+ predictors — running both earns no extra credit but will earn my respect). One comment on what it shows.</p></li>
-<li><p><strong>Write a short paragraph</strong> (comment block, roughly 5–8 sentences): what does this first model say about your research question? Which coefficient is most interesting, and is its direction what you predicted in Checkpoint 1? Name <strong>one lurking variable your model cannot hold constant</strong> because your dataset doesn’t measure it. And if anything looks broken — a nonsense coefficient, an outcome that clearly isn’t continuous, residuals doing something alarming — say so plainly and come see me. Catching it <em>now</em> is the checkpoint working.</p></li>
+<li><p><strong>Report and interpret the coefficients:</strong> one plain-language, holding-constant sentence per predictor, <strong>with units</strong>, plus one sentence on R² (or note that R² will make more sense post-logistic if your outcome is binary).</p></li>
+<li><p><strong>One diagnostic check:</strong> a residuals-vs-fitted plot <em>or</em> <code>vif()</code> (VIF only makes sense with 2+ predictors; running both earns no extra credit but will earn my respect). One comment on what it shows.</p></li>
+<li><p><strong>Write a short paragraph</strong> (comment block, roughly 5 to 8 sentences): what does this first model say about your research question? Which coefficient is most interesting, and is its direction what you predicted in Checkpoint 1? Name <strong>one lurking variable your model cannot hold constant</strong> because your dataset doesn’t measure it. And if anything looks broken (a nonsense coefficient, an outcome that clearly isn’t continuous, residuals doing something alarming), say so plainly and come see me. Catching it <em>now</em> is the checkpoint working.</p></li>
 </ol>
 
 
@@ -392,14 +387,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

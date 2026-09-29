@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Homework 12 · Your Final Model + Project Checkpoint 4 – CRJU 705</title>
+<title>Homework 11 · Your Final Model + Project Checkpoint 4 – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,15 +67,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,28 +165,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -253,8 +248,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework 12 · Your Final Model + Project Checkpoint 4</h1>
-<p class="subtitle lead">CRJU 705 · due by 11:59 pm the Sunday after Session 12</p>
+<h1 class="title">Homework 11 · Your Final Model + Project Checkpoint 4</h1>
+<p class="subtitle lead">CRJU 705 · due by 11:59 pm Sunday, November 22 (one week before the full project)</p>
 </div>
 
 
@@ -271,27 +266,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Instructions:</strong> complete the following in a single <code>.R</code> script file and submit it via <strong>Canvas</strong> for credit. This week the entire homework is about <strong>your final project</strong> — there is no practice dataset. Every part below uses the dataset you selected in Session 7 and have been building through Checkpoints 1–3.</p>
-<p><em>(Session 12 closes with a code clinic — no new material, just you, your code, and me. Bring whatever state this homework is in: the clinic exists to unstick Parts 1–3 while you still have a week to finish them.)</em></p>
+<p><strong>Instructions:</strong> complete the following in a single <code>.R</code> script file and submit it via <strong>Canvas</strong> for credit. This week the entire homework is about <strong>your final project</strong>: there is no practice dataset. Every part below uses the dataset you selected in Session 7 and have been building through Checkpoints 1 to 3.</p>
+<p><em>(Session 11, on Tuesday, November 10, closes with a code clinic: no new material, just you, your code, and me. Bring whatever state this homework is in: the clinic exists to unstick Parts 1 to 3 while you still have nearly two weeks to finish them.)</em></p>
 <section id="part-1-your-cleaned-variables" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-your-cleaned-variables">Part 1: Your Cleaned Variables</h2>
-<p>Run <code>summary()</code> and <code>str()</code> on the <strong>cleaned and transformed variables you plan to use in your final model</strong> — the outcome and every predictor. Paste the output into your script as comments directly below each call, so I can see exactly what you saw.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For example, if your model variables live in a cleaned data frame:</span></span>
+<p>Run <code>summary()</code> and <code>str()</code> on the <strong>cleaned and transformed variables you plan to use in your final model</strong>: the outcome and every predictor. Paste the output into your script as comments directly below each call, so I can see exactly what you saw.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For example, if your model variables live in a cleaned data frame:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>model_vars <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(outcome_variable, predictor_1, predictor_2, predictor_3)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_vars)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># (paste the output here as comments)</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(model_vars)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># (paste the output here as comments)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># (paste the output here as comments)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>What I’m checking: every variable is the <strong>type</strong> your model needs (numeric predictors numeric, a binary outcome coded 0/1, logical, or a two-level factor), the values are plausible (no impossible numbers, no accidental character columns), and any missing values are ones you know about.</p>
 </section>
 <section id="part-2-your-model-equation" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-your-model-equation">Part 2: Your Model Equation</h2>
 <p>Write out, in a comment, the equation you plan to use to answer your research question. For example, if you were running a multiple linear regression model on violent crime, it might look like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ViolentCrime = Intercept + Poverty + HighSchool + SingleParent + Error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Be sure to specify whether you’re running a <strong>linear or logistic</strong> regression model — and add one sentence on <em>why</em>: what type of variable is your outcome?</p>
-<p>It can be that simple. I just want to see that you understand your dependent variable and all of the independent variables you plan to include in the model. <strong>Make sure your equation matches the cleaned variables in your Part 1 output</strong> — every term in the equation should appear in your <code>summary()</code>/<code>str()</code> results, and nothing extra.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ViolentCrime = Intercept + Poverty + HighSchool + SingleParent + Error</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Be sure to specify whether you’re running a <strong>linear or logistic</strong> regression model, and add one sentence on <em>why</em>: what type of variable is your outcome?</p>
+<p>It can be that simple. I just want to see that you understand your dependent variable and all of the independent variables you plan to include in the model. <strong>Make sure your equation matches the cleaned variables in your Part 1 output</strong>: every term in the equation should appear in your <code>summary()</code>/<code>str()</code> results, and nothing extra.</p>
 </section>
 <section id="part-3-project-checkpoint-4-final" class="level2">
 <h2 class="anchored" data-anchor-id="part-3-project-checkpoint-4-final">Part 3: Project Checkpoint 4 (final)</h2>
@@ -301,28 +296,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>This is the last of the four project checkpoints.</strong> Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model — Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on <strong>completion and quality of reasoning</strong>, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings. The Session 12 code clinic comes <em>before</em> this checkpoint on purpose: bring the shaky parts to class, then finish the checkpoint with those problems solved.</p>
+<p><strong>This is the last of the four project checkpoints.</strong> Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model. Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on <strong>completion and quality of reasoning</strong>, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings. The Session 11 code clinic comes <em>before</em> this checkpoint on purpose: bring the shaky parts to class, then finish the checkpoint with those problems solved.</p>
 </div>
 </div>
 </div>
 <p>In a clearly marked section at the end of your <code>.R</code> script (e.g., <code># ---- PROJECT CHECKPOINT 4 ----</code>):</p>
 <ol type="1">
-<li><p><strong>Fit your final model — in both traditions.</strong> The frequentist fit (<code>lm()</code> for a continuous outcome, <code>glm(family = binomial)</code> for a binary one) <em>and</em> the Bayesian fit (<code>brm()</code> with the same formula — default priors are fine, standard settings: <code>chains = 2, iter = 2000, seed = 705, refresh = 0</code>; expect the compile pause). Both fits must match your Part 2 equation. <em>(This is the final-project requirement — see <a href="../final-project.html">Step 3</a> — so Checkpoint 4 is where you get it running with a week of slack.)</em></p></li>
+<li><p><strong>Fit your final model, in both traditions.</strong> The frequentist fit (<code>lm()</code> for a continuous outcome, <code>glm(family = binomial)</code> for a binary one) <em>and</em> the Bayesian fit (<code>brm()</code> with the same formula; default priors are fine, standard settings: <code>chains = 2, iter = 2000, seed = 705, refresh = 0</code>; expect the compile pause). Both fits must match your Part 2 equation. <em>(This is the final-project requirement; see <a href="../final-project.html">Step 3</a>. Checkpoint 4 is where you get it running with a week of slack.)</em></p></li>
 <li><p><strong>Interpret the key coefficients</strong> in comments, on the right scale:</p>
 <ul>
-<li><em>Linear:</em> the change in your outcome per one-unit change in each predictor, holding the others constant — with units.</li>
-<li><em>Logistic:</em> exponentiate. Odds ratios per one-unit change, holding the others constant — and at least one <strong>predicted probability</strong> for a concrete, meaningful case, as we did in class.</li>
-<li>Include the uncertainty from <strong>both</strong> fits — the 95% CI <em>and</em> the 95% credible interval — plus <strong>one sentence comparing them</strong>: do the two traditions agree here, and what does the posterior let you <em>say</em> that the p-value doesn’t?</li>
+<li><em>Linear:</em> the change in your outcome per one-unit change in each predictor, holding the others constant, with units.</li>
+<li><em>Logistic:</em> exponentiate. Odds ratios per one-unit change, holding the others constant, and at least one <strong>predicted probability</strong> for a concrete, meaningful case, as we did in class.</li>
+<li>Include the uncertainty from <strong>both</strong> fits (the 95% CI <em>and</em> the 95% credible interval), plus <strong>one sentence comparing them</strong>: do the two traditions agree here, and what does the posterior let you <em>say</em> that the p-value doesn’t?</li>
 </ul></li>
-<li><p><strong>Produce ONE table or figure you plan to show at presentations.</strong> A tidy coefficient table, a plot of predicted values or probabilities, a well-labeled scatterplot with your fitted line — your choice, but it must be presentation-ready: real variable names, labeled axes or columns, a title. Not raw console output.</p></li>
-<li><p><strong>Write the three sentences you’d say about it to a non-statistician.</strong> As a comment block. Imagine a police chief, a judge, or a city council member: no “log-odds,” no “p &lt; .05,” no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 13 presentation — write them now and presentation prep gets much easier.</p></li>
+<li><p><strong>Produce ONE table or figure you plan to show at presentations.</strong> A tidy coefficient table, a plot of predicted values or probabilities, a well-labeled scatterplot with your fitted line: your choice, but it must be presentation-ready: real variable names, labeled axes or columns, a title. Not raw console output.</p></li>
+<li><p><strong>Write the three sentences you’d say about it to a non-statistician.</strong> As a comment block. Imagine a police chief, a judge, or a city council member: no “log-odds,” no “p &lt; .05,” no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 12 presentation: write them now and presentation prep gets much easier.</p></li>
 </ol>
-<p>If anything above breaks — the model won’t run, a coefficient makes no sense, the output contradicts Checkpoint 3 — <strong>say so in your comments — and if it surfaced by clinic day, bring it to class.</strong> Finding that out now, with a week before the full project is due, is precisely what this checkpoint is for.</p>
+<p>If anything above breaks (the model won’t run, a coefficient makes no sense, the output contradicts Checkpoint 3), <strong>say so in your comments, and if it surfaced by clinic day, bring it to class.</strong> Finding that out now, with a week before the full project is due, is precisely what this checkpoint is for.</p>
 </section>
 <section id="if-you-get-stuck" class="level2">
 <h2 class="anchored" data-anchor-id="if-you-get-stuck">If You Get Stuck</h2>
-<p>If you run into problems cleaning or transforming your data, email me the code you’re using (copy and paste into the email is fine — no need to attach a script), along with a short explanation of what you’re trying to do and what the issue is. I’m happy to help with the data-cleaning process. There’s usually a simple fix that’s easy to miss when you’re still learning R.</p>
-<p><strong>Looking ahead:</strong> this checkpoint is due the Sunday <em>after</em> Session 12; the <strong>full project</strong> (script, dataset, and written report) follows one week later, due via Canvas <strong>before midnight the Sunday before Session 13</strong>. Presentations are at Session 13. Details on the <a href="../final-project.html">Final Project page</a>.</p>
+<p>If you run into problems cleaning or transforming your data, email me the code you’re using (copy and paste into the email is fine; no need to attach a script), along with a short explanation of what you’re trying to do and what the issue is. I’m happy to help with the data-cleaning process. There’s usually a simple fix that’s easy to miss when you’re still learning R.</p>
+<p><strong>Looking ahead:</strong> this checkpoint is due Sunday, November 22; the <strong>full project</strong> (script, dataset, and written report) follows one week later, due via Canvas <strong>before midnight Sunday, November 29, the Sunday before Session 12</strong>. Presentations are at Session 12, Tuesday, December 1. (No class November 17 or November 24.) Details on the <a href="../final-project.html">Final Project page</a>.</p>
 
 
 </section>
@@ -379,14 +374,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
