@@ -1,6 +1,10 @@
 ---
 title: "Demo Walkthrough · Session 7"
 subtitle: "Four real criminal justice questions, one recipe: count, test, say it"
+include-in-header:
+  - text: '<link rel="stylesheet" href="../widgets/gap-explorer.css">'
+include-after-body:
+  - text: '<script src="../widgets/gap-explorer.js"></script>'
 ---
 
 ::: {.callout-note appearance="simple"}
@@ -18,11 +22,18 @@ Four answers to four real questions, each with the same recipe:
 
 The questions: did financial aid at release lower re-arrest? Were employed arrestees released more often? How much lower is income in Chicago's high-violence areas? Was body camera footage reported more often in fatal police shootings after 2020?
 
-Each example also has the **animation** from class. Press **Play** under each one, or drag the slider to step through it at your own pace. The code that draws them is folded away (click "Code" to see it). You do not need to write code like that; it is there so nothing is hidden.
+Each example also has the **"Where is zero?" explorer** from class: four ways to see what the test is measuring, built from that example's own numbers. Pick one of the four buttons, then press **Play** (or **Step** to go one at a time). Every one asks the same question: the gap between the two groups is uncertain, so where could it really be, and is zero (no difference) one of the places?
+
+- **Rerun the study:** run the same study again and again; each rerun's gap drops onto the number line. The middle 95% of reruns is the confidence interval.
+- **Arrows between groups:** pick a plausible value for each group; the arrow between them is the gap. Arrows pointing the other way cross zero.
+- **Is zero plausible?:** sweep across possible true gaps and check which ones fit our data. The ones that fit are the interval. Watch what zero does.
+- **More-data dial:** keep the gap, change the amount of data, and watch the interval shrink or grow around it.
+
+Chicago and the body-camera example also have a descriptive animation from class (Chicago's areas splitting into two groups, and camera footage year by year). Their code is folded away (click "Code" to see it); you do not need to write code like that.
 
 ## Setup
 
-The tidyverse, the course's Bayesian function, and four datasets. Two of them are new to you and live on the course site; one is our Chicago anchor data; one comes straight from the *Washington Post*. `plotly` draws the animations; if you want to run those chunks yourself, install it once with `install.packages("plotly")`.
+The tidyverse, the course's Bayesian function, and four datasets. Two of them are new to you and live on the course site; one is our Chicago anchor data; one comes straight from the *Washington Post*. `plotly` draws the two descriptive animations; if you want to run those chunks yourself, install it once with `install.packages("plotly")`.
 
 ```{r}
 #| label: setup
@@ -39,6 +50,12 @@ areas   <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv"
                     show_col_types = FALSE)
 shootings <- read_csv("https://raw.githubusercontent.com/washingtonpost/data-police-shootings/master/v2/fatal-police-shootings-data.csv",
                       show_col_types = FALSE)
+```
+
+```{r}
+#| label: explorer-helper
+#| include: false
+source("../R/gap-explorer.R")   # builds each "Where is zero?" explorer from the real test output
 ```
 
 More about each dataset, and four more like them, is on the [Final-Project Data Options](../project-data.qmd) page.
@@ -61,57 +78,25 @@ prop.test(x = c(48, 66), n = c(216, 216))
 
 The interval runs from about 17 points lower to 0.4 points higher, and **p = 0.063**. Zero is just inside, so: fail to reject the null. A funder who reads only that line cuts the program.
 
-**What is 0.063 measuring? Watch it.** Pretend aid did nothing: everyone has the same 26% chance of re-arrest. Run the study again and again, and pile up the gaps that luck alone produces:
-
-```{r}
-#| label: rossi-anim
-#| code-fold: true
-set.seed(705)
-pooled <- (48 + 66) / 432
-null_gaps <- tibble(gap = 100 * (rbinom(10000, 216, pooled) - rbinom(10000, 216, pooled)) / 216)
-step_size <- 100 / 216
-steps <- c(20, 100, 500, 2000, 10000)
-rossi_anim <- map_dfr(steps, \(k) {
-  first_k <- slice_head(null_gaps, n = k)
-  first_k |>
-    mutate(bin = round(gap / step_size)) |>
-    count(bin) |>
-    complete(bin = -45:45, fill = list(n = 0)) |>
-    mutate(share = 100 * n / k, bin = bin * step_size,
-           as_big = if_else(abs(bin) >= 8.3, "At least as big as ours", "Smaller than ours"),
-           label = paste(format(k, big.mark = ","), "pretend studies"),
-           pct_big = 100 * mean(abs(first_k$gap) >= 8.3))
-}) |>
-  mutate(label = factor(label, levels = unique(label)))
-rossi_text <- rossi_anim |>
-  distinct(label, pct_big) |>
-  mutate(x = 13.5, y = 7.2,
-         txt = paste0(sprintf("%.1f", pct_big), "% had a gap<br>at least as big as ours"))
-
-plot_ly(height = 470) |>
-  add_bars(data = rossi_anim, x = ~bin, y = ~share, frame = ~label, color = ~as_big,
-           colors = c("firebrick", "gray75"), hoverinfo = "none") |>
-  add_text(data = rossi_text, x = ~x, y = ~y, text = ~txt, frame = ~label,
-           textfont = list(size = 16, color = "firebrick"), showlegend = FALSE, hoverinfo = "none") |>
-  layout(barmode = "overlay",
-         xaxis = list(title = "Gap in re-arrest rate, aid minus no aid (points)", range = c(-20.5, 20.5)),
-         yaxis = list(title = "Share of pretend studies (%)", range = c(0, 8)),
-         shapes = list(
-           list(type = "line", x0 = -8.3, x1 = -8.3, y0 = 0, y1 = 8, line = list(color = "navy", width = 3)),
-           list(type = "line", x0 = 8.3, x1 = 8.3, y0 = 0, y1 = 8, line = list(color = "navy", width = 3, dash = "dash"))),
-         annotations = list(list(x = -8.6, y = 7.8, text = "Our study: -8.3", showarrow = FALSE,
-                                 xanchor = "right", font = list(size = 14, color = "navy"))),
-         legend = list(orientation = "h", y = 1.08)) |>
-  animation_opts(frame = 1500, transition = 700, redraw = FALSE) |>
-  animation_slider(currentvalue = list(prefix = "")) |>
-  config(displayModeBar = FALSE)
-```
-
-In a world where aid did nothing, about **5 studies in 100** still show a gap of 8.3 points or more, in one direction or the other. That is what p = 0.063 is measuring (`prop.test()` adds a small correction, so its number is a little bigger). Not rare enough to pass the 0.05 bar. Now ask the other question:
+Now ask the other question:
 
 ```{r}
 #| label: rossi-bayes
 bayes_prop_test(x = c(48, 66), n = c(216, 216))
+```
+
+**Where is zero?** Start with *Rerun the study*, then try *Is zero plausible?*: zero lands just inside the interval, which is exactly why p = 0.063.
+
+```{r}
+#| label: rossi-widget
+#| echo: false
+#| output: asis
+ge_widget(
+  ge_prop("Aid vs no aid", A = "Aid", B = "No aid", out = "re-arrested",
+          xa = 48, na = 216, xb = 66, nb = 216,
+          left = "aid group re-arrested less", right = "aid group re-arrested more",
+          rerun = "same program, 432 different men", unit_group = "men"),
+  default = 1)
 ```
 
 **Say it.** Given these data, there is about a **97% probability** that men who got aid were re-arrested at a lower rate. About 22 of every 100 men with aid were re-arrested, against about 31 of every 100 without: roughly 8 fewer re-arrests per 100 people released. What this cannot tell you: whether the effect lasts past a year, or would hold today. "Not significant" is not "no effect."
@@ -144,47 +129,31 @@ About 15 to 21 points more often for the employed, by either test, and more than
 arrests |> summarize(avg_checks = mean(checks), people = n(), .by = employed)
 ```
 
-People without a job had more of a record, and a record is a reason to hold someone. **Watch the gap shrink** as we keep only people with less and less of a record:
-
-```{r}
-#| label: tor-anim
-#| code-fold: true
-cutoffs <- tibble(k = c(6, 3, 2, 1, 0),
-                  label = c("Everyone", "In 3 or fewer databases", "In 2 or fewer",
-                            "In 1 or fewer", "No record at all"))
-tor_anim <- cutoffs |>
-  mutate(d = map(k, \(kk) arrests |> filter(checks <= kk) |>
-                   summarize(rate = 100 * mean(released == "Yes"), people = n(), .by = employed))) |>
-  unnest(d) |>
-  mutate(employed = if_else(employed == "Yes", "Employed", "Not employed"),
-         xpos = if_else(employed == "Employed", 1, 2),
-         label = factor(label, levels = cutoffs$label),
-         txt = paste0(round(rate, 1), "%<br>(", format(people, big.mark = ",", trim = TRUE), " people)"))
-tor_gap <- tor_anim |>
-  summarize(gap = rate[employed == "Employed"] - rate[employed == "Not employed"], .by = label) |>
-  mutate(x = 1.5, y = 104, txt = paste0("Gap: ", round(gap, 1), " points"))
-
-plot_ly(height = 470) |>
-  add_bars(data = tor_anim, x = ~xpos, y = ~rate, frame = ~label, color = ~employed,
-           colors = c("firebrick", "steelblue"), text = ~txt, textposition = "inside",
-           insidetextfont = list(size = 15, color = "white"), hoverinfo = "none", showlegend = FALSE) |>
-  add_text(data = tor_gap, x = ~x, y = ~y, text = ~txt, frame = ~label,
-           textfont = list(size = 18, color = "navy"), showlegend = FALSE, hoverinfo = "none") |>
-  layout(xaxis = list(title = "", tickvals = c(1, 2), ticktext = c("Employed", "Not employed"),
-                      range = c(0.4, 2.6)),
-         yaxis = list(title = "Released with a summons (%)", range = c(0, 110))) |>
-  animation_opts(frame = 1600, transition = 800, redraw = FALSE) |>
-  animation_slider(currentvalue = list(prefix = "Who is included: ")) |>
-  config(displayModeBar = FALSE)
-```
-
-Now do the last frame properly: keep only people with **no record at all**, and ask again.
+People without a job had more of a record, and a record is a reason to hold someone. So compare like with like: keep only people with **no record at all**, and ask again.
 
 ```{r}
 #| label: tor-clean
 arrests |> filter(checks == 0) |> count(employed, released)
 prop.test(x = c(1526, 166), n = c(1650, 201))
 bayes_prop_test(x = c(1526, 166), n = c(1650, 201))
+```
+
+**Where is zero?** Start with *Arrows between groups*, then switch between *Everyone* and *No record only*: with only 201 people in the not-employed group, its curve gets wider, and so does the gap's pile, but it never reaches zero.
+
+```{r}
+#| label: tor-widget
+#| echo: false
+#| output: asis
+ge_widget(
+  ge_prop("Everyone", A = "Employed", B = "Not employed", out = "released",
+          xa = 3568, na = 4111, xb = 766, nb = 1115,
+          left = "employed released less often", right = "employed released more often",
+          rerun = "another 5,226 arrests", unit_group = "arrests"),
+  ge_prop("No record only", A = "Employed", B = "Not employed", out = "released",
+          xa = 1526, na = 1650, xb = 166, nb = 201,
+          left = "employed released less often", right = "employed released more often",
+          rerun = "another 1,851 arrests with no record", unit_group = "arrests"),
+  default = 2)
 ```
 
 **Say it.** Among people with clean records, the employed were released about 10 points more often (92.5% vs 82.6%; interval about 4 to 16 points, credible interval 5.1 to 15.8 points, more than a 99% probability the employed rate is higher). The gap shrank from 18 points to 10 when we compared like with like, but it did not disappear. What this cannot tell you: whether some other difference (age, citizenship, where the arrest happened) explains the rest.
@@ -253,6 +222,21 @@ plot_ly(height = 470) |>
 t.test(median_income ~ violence, data = areas)
 ```
 
+**Where is zero?** Start with *Arrows between groups*: the two curves are where each group's true average income could be, and the arrows between them never come close to pointing the other way.
+
+```{r}
+#| label: chi-widget
+#| echo: false
+#| output: asis
+ge_widget(
+  ge_mean("Income", A = "High violence", B = "Other areas",
+          a = areas$median_income[areas$violence == "High violence"],
+          b = areas$median_income[areas$violence == "Other areas"],
+          left = "high-violence areas poorer", right = "high-violence areas richer",
+          rerun = "another 77 areas like these", unit_group = "areas"),
+  default = 2)
+```
+
 **Say it.** High-violence areas minus other areas: about **$25,000 to $47,000 lower** median household income ($54,355 vs $90,088 on average), p = 0.00000001. The unit is dollars because the column is dollars. What this cannot tell you: which way it runs (does poverty breed violence, or does violence drive income out?), and anything about individual people. Each row is an area.
 
 ## 4 · Use of force: body cameras over time
@@ -315,6 +299,20 @@ The rise is real but not smooth: 2023 hit 30%, and 2024 fell back to 20%. Compar
 #| label: wapo-tests
 prop.test(x = c(1205, 594), n = c(5507, 4923))
 bayes_prop_test(x = c(1205, 594), n = c(5507, 4923))
+```
+
+**Where is zero?** Start with the *More-data dial*: even with a quarter of the data, the interval stays well clear of zero. With 10,430 cases, a gap this size could not hide.
+
+```{r}
+#| label: wapo-widget
+#| echo: false
+#| output: asis
+ge_widget(
+  ge_prop("Body cameras", A = "2020 to 2024", B = "2015 to 2019", out = "with a camera",
+          xa = 1205, na = 5507, xb = 594, nb = 4923,
+          left = "cameras less common after 2020", right = "cameras more common after 2020",
+          rerun = "another 10,430 shootings", unit_group = "shootings"),
+  default = 4)
 ```
 
 **Say it.** About 12 in 100 fatal shootings had known camera footage before 2020, and about 22 in 100 after (8 to 11 points higher, by either test). Close to doubling, and still fewer than 1 in 4. What this cannot tell you: whether cameras changed anything about the shootings, or how many cameras existed but went unreported. With 10,430 cases, the p-value was never in doubt. The size is the whole story.

@@ -1,0 +1,19 @@
+/* gap-explorer.css: CRJU 705 teaching widget (see gap-explorer.js) */
+.gap-explorer { font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif; color: #212529; margin: 0.5em 0 1.5em 0; text-align: left; }
+.reveal .gap-explorer { margin: 0; }
+.gap-explorer .ge-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 6px 0; }
+.gap-explorer .ge-btn { font: inherit; font-size: 15px; line-height: 1.2; padding: 5px 10px; border: 1px solid #ADB5BD;
+  border-radius: 6px; background: #fff; color: #212529; cursor: pointer; }
+.gap-explorer .ge-btn.on { background: #73000A; border-color: #73000A; color: #fff; }
+.gap-explorer .ge-sep { width: 14px; }
+.gap-explorer .ge-dial { align-items: center; gap: 8px; }
+.gap-explorer .ge-lab { font-size: 15px; color: #495057; }
+.gap-explorer .ge-dialv { font-size: 15px; color: #495057; }
+.gap-explorer .ge-range { width: 260px; }
+.gap-explorer .ge-svg { width: 100%; height: auto; display: block; max-height: none; }
+.gap-explorer .ge-cap { font-size: 17px; line-height: 1.35; min-height: 46px; margin-top: 2px; }
+.reveal .gap-explorer .ge-svg { max-height: 420px; }
+.reveal .gap-explorer .ge-btn { font-size: 21px; padding: 4px 12px; }
+.reveal .gap-explorer .ge-lab, .reveal .gap-explorer .ge-dialv { font-size: 21px; }
+.reveal .gap-explorer .ge-range { width: 300px; }
+.reveal .gap-explorer .ge-cap { font-size: 25px; line-height: 1.3; min-height: 64px; }

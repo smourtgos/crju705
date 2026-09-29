@@ -14,6 +14,7 @@ project:
     - data/
     - final-project-exemplar-script.R
     - R/bayes.R
+    - widgets/
 
 website:
   title: "CRJU 705"

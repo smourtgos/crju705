@@ -255,6 +255,15 @@ tour of what data is out there. The messy-file import/tidy pipeline, `ttestBF()`
   77 areas splitting for Chicago, year-by-year bars for body cameras), `echo: false` in the deck
   and `code-fold: true` on the demo; the Chicago file's ineligibility stated everywhere; no
   ANOVA reading. Deck 56 slides, audit clean.
+- **Later that night: "Where Is Zero?" explorers replace the Rossi and Toronto animations**
+  (Scott: those two did not explain the tests; the Chicago dots and body-camera bars stay as
+  description). **Reusable for any later two-group week:** `widgets/gap-explorer.js` + `.css`
+  (published via `resources:`), driven by `R/gap-explorer.R`: `ge_prop()` / `ge_mean()` build a
+  comparison from the real `prop.test()` / `t.test()` (+ `bayes_prop_test()`) output, and `ge_widget()`
+  writes the div in an `output: asis` chunk. Pages load the CSS and JS with `include-in-header` /
+  `include-after-body` `text:` entries. Four concepts per widget: rerun the study, arrows between
+  groups, is zero plausible, more-data dial. Spread comes from R's interval, so the widget's
+  interval and zero verdict match R exactly. Detail in CHANGES-week-07 (night section).
 - **DECISION (Scott, Sep 28): ANOVA is removed from the course. Session 8 becomes more worked
   examples plus midterm review.** Not yet built. See the TODO: Session 8 was also the brms
   onboarding session, which later sessions depend on.
