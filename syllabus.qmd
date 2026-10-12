@@ -277,13 +277,13 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **Readings due:** Stanton Ch. 7
 
-**In-class exercise (graded)** · **Homework:** Problem set 8 (correlation, plus **project checkpoint 1**: descriptives on your project data) · Study for mid-term
+**In-class exercise (graded)** · **Homework:** Problem set 8 (correlation) · Study for mid-term
 
 ## `r session_headers[9]`
 
 **Topics:** **Mid-Term Exam (in class)**, covering Sessions 1 to 8
 
-**No in-class exercise or problem set.** **Project checkpoint 2** (correlations in your project data, plus installing `brms` and running one test model) is due Sunday, `r format(session_dates[9] + days(5), '%B %d')`. Read Stanton Ch. 8 before next class.
+**No in-class exercise or problem set.** **Project checkpoints 1 and 2** (descriptives, then correlations, in your project data, plus installing `brms` and running one test model) are due Sunday, `r format(session_dates[9] + days(5), '%B %d')`. Read Stanton Ch. 8 before next class.
 
 ## `r session_headers[10]`
 
@@ -338,7 +338,7 @@ Your final grade has three components:
 
 | Component | Weight | What it covers |
 |:---|:---:|:---|
-| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the R4DS exercises attached to Problem Sets 2–6 and the project checkpoints in Problem Sets 8, 10, and 11 and during midterm week) and the graded in-class exercises |
+| Homework, labs & in-class exercises | **45%** | Weekly problem sets (including the R4DS exercises attached to Problem Sets 2 to 6 and the project checkpoints in Problem Sets 10 and 11 and during midterm week) and the graded in-class exercises |
 | Mid-term exam | **25%** | In class at Session 9; covers Sessions 1 to 8 |
 | Final project | **30%** | Written report, script & output (22%) + in-class presentation (8%) |
 

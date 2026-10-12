@@ -1,10 +1,10 @@
 ---
 title: "Session 8 · Correlation + Midterm Review"
-subtitle: "Do two numbers move together? · always plot first · cor.test() · the ecological fallacy · midterm review · Project Checkpoint 1"
+subtitle: "Do two numbers move together? · always plot first · cor.test() · the ecological fallacy · midterm review"
 ---
 
 ::: {.callout-tip appearance="simple"}
-**[📽️ Slides: Correlation, Then Midterm Review](../slides/week-10-correlation.qmd)** · **[🧪 Lab 8: Correlation](../labs/lab-10-correlation.qmd)** · **[📝 Homework 8 + Project Checkpoint 1](../homework/hw-10.qmd)** · **[🎬 Demo walkthrough](../demos/demo-10-correlation.qmd)** · **[✍️ Practice](../practice/practice-10.qmd)**
+**[📽️ Slides: Correlation, Then Midterm Review](../slides/week-10-correlation.qmd)** · **[🧪 Lab 8: Correlation](../labs/lab-10-correlation.qmd)** · **[📝 Homework 8](../homework/hw-10.qmd)** · **[🎬 Demo walkthrough](../demos/demo-10-correlation.qmd)** · **[✍️ Practice](../practice/practice-10.qmd)**
 :::
 
 Until now, every test had the same shape: two groups and one outcome. Tonight there are no groups. Both variables are numbers, and the question is whether two measures move together. Pearson's r puts one number on it, `cor.test()` tests it, and Chicago's 77 community areas force the semester's standing warning into the open: a correlation between *areas* says nothing about *people* (the ecological fallacy). Correlation is the doorway to regression in Sessions 10 and 11, where your final project lives. The second half of the night is review for next week's midterm.
@@ -41,5 +41,6 @@ By the end of this week you can:
 
 ## Homework
 
-- **[Homework 8](../homework/hw-10.qmd):** correlation on the Chicago community areas, **plus Project Checkpoint 1**: describe the outcome and two or three predictors in *your* project dataset. Submit your `.R` file via Canvas **by 11:59 pm Sunday, October 11**
+- **[Homework 8](../homework/hw-10.qmd):** correlation on the Chicago community areas. Submit your `.R` file via Canvas **by 11:59 pm Sunday, October 11**
+- **Project Checkpoint 1 has moved to next week.** It is due with Checkpoint 2 on Sunday, October 18; instructions for both are on the [Session 9 page](week-09.qmd)
 - **Study for the midterm** (Session 9, October 13) with the [Midterm Study Guide](../midterm.qmd) and the practice pages

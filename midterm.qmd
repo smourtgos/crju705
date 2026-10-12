@@ -7,10 +7,11 @@ subtitle: "Session 9 (Tuesday, October 13) · in class · covers Sessions 1 to 8
 The midterm is **in class and monitored**. You write and troubleshoot real R code. You may use your **printed** notes and homework: no internet, no AI tools. (This is the assessment the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools) warns you about: if AI has been writing your homework, this is where it shows.)
 :::
 
-**How it works mechanically:** you get an `.R` script with the questions plus the files it needs, all distributed together. You answer in the script and submit it. Three things to know in advance:
+**How it works mechanically:** you get one `.R` script with the questions. You answer in the script and submit it. Four things to know in advance:
 
-- **Light data wrangling IS testable.** The exam is code-based, so expect to `read_csv()` a file and use the everyday verbs: `filter()`, `count()`, `summarize()`. Getting data *into* a testable shape is part of doing statistics.
-- **`bayes_prop_test()` comes in a file.** There is no internet during the exam, so the course's `bayes.R` file is in the exam folder and you load it with `source("bayes.R")`. Everything else about it works exactly as in Sessions 6 and 7.
+- **We load everything together, then the internet goes off.** The script starts with a Setup block: the packages, the `read_csv()` lines for the data, and the `source()` line for `bayes_prop_test()`, the same kind of lines you have run in every lab. We run that block together at the start of class, with the internet on. Then you turn your internet off, and nothing else on the exam needs it. There is no folder to set up and no working directory to set.
+- **Light data wrangling IS testable.** The exam is code-based, so expect to use the everyday verbs on the data from Setup: `filter()`, `count()`, `summarize()`. Getting data *into* a testable shape is part of doing statistics.
+- **Code beyond the list below is given to you.** The "R you should know cold" list at the bottom of this page is what you write yourself. Where a question needs anything more than that, the line is already in the script, ready to run.
 - **Packages:** `tidyverse` and `modeest`, both installed earlier this semester. Check that `library(tidyverse)` and `library(modeest)` both load on your laptop before exam day.
 
 **Best preparation:** the practice banks for Sessions [2](practice/practice-02.qmd), [3](practice/practice-03.qmd), [4](practice/practice-04.qmd), [5](practice/practice-05.qmd), [6](practice/practice-06.qmd), and [8](practice/practice-10.qmd) (ungraded problems with hidden solutions, in the exam's style), plus the midterm review at the end of the [Session 8 slides](slides/week-10-correlation.qmd).
@@ -97,8 +98,7 @@ t.test(y ~ group, data = df)
 
 # two groups, yes/no: both traditions
 prop.test(x = c(40, 30), n = c(100, 100))
-source("bayes.R")                          # on the exam; in class it came from the course site
-bayes_prop_test(x = c(40, 30), n = c(100, 100))
+bayes_prop_test(x = c(40, 30), n = c(100, 100))   # loaded for you in the exam's Setup block
 
 # two numbers: correlation
 cor(df$x, df$y)

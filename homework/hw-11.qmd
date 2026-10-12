@@ -63,7 +63,7 @@ The file holds survey records for **200 correctional officers** (simulated, but 
 ## Part 3: Project Checkpoint 3
 
 ::: {.callout-important appearance="simple"}
-**This section uses YOUR final-project dataset.** Checkpoint 3 of 4: you described your variables in Checkpoint 1 (Homework 8) and explored the correlations among them in Checkpoint 2 (midterm week); now you fit the **first regression model** of your project. Like the others, it is graded on **completion and quality of reasoning**, not on whether the model comes out significant, and not on polish. A model that comes out null, weird, or broken, *noticed and discussed*, is a successful checkpoint.
+**This section uses YOUR final-project dataset.** Checkpoint 3 of 4: you described your variables in Checkpoint 1 and explored the correlations among them in Checkpoint 2 (both due midterm week); now you fit the **first regression model** of your project. Like the others, it is graded on **completion and quality of reasoning**, not on whether the model comes out significant, and not on polish. A model that comes out null, weird, or broken, *noticed and discussed*, is a successful checkpoint.
 :::
 
 In a clearly marked section at the end of your `.R` script (e.g., `# ---- PROJECT CHECKPOINT 3 ----`):

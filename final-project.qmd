@@ -19,8 +19,7 @@ The final project integrates conceptual understanding with applied statistical s
 |------|-----------|
 | Session 6 | Start scouting datasets (guidance in class) |
 | **Session 7** | Real questions, real tests, and a tour of the [data options](project-data.qmd). **Dataset chosen in Homework 7** (due Sunday, October 4) |
-| Session 8 HW (Homework 8, due Sunday, October 11) | Checkpoint 1: descriptives + a plot of your outcome variable |
-| Midterm week (due Sunday, October 18) | Checkpoint 2: correlations among your project variables + `brms` install check (one test fit) |
+| Midterm week (both due Sunday, October 18) | Checkpoint 1: descriptives + a plot of your outcome variable. Checkpoint 2: correlations among your project variables + `brms` install check (one test fit) |
 | Session 10 HW (Homework 10, due Sunday, November 8) | Checkpoint 3: a first regression model |
 | Session 11 (Tuesday, November 10) | Code clinic (last half hour): open Q&A; **presentation order announced** |
 | Session 11 HW (Homework 11, due Sunday, November 22) | Checkpoint 4: refined model (linear or logistic) + interpretation |

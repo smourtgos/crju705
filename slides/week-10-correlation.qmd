@@ -538,7 +538,7 @@ Most people guess a strong positive. The data: **r = `r sprintf("%.2f", cor(area
 
 ## The Midterm: Next Week, Session 9
 
-- **In class, monitored.** You get an `.R` script and the data files; you answer in the script and submit it
+- **In class, monitored.** You get one `.R` script. We run its Setup block together to load the data, then the internet goes off
 - **Allowed:** your *printed* notes and homework. **Not allowed:** internet, AI tools, messaging
 - Code answers run in R; interpretation answers go in `#` comments
 - Everything on it is something we've already done. **Nothing new**
@@ -643,7 +643,7 @@ bayes_prop_test(x = c(3214, 2023), n = c(3214 + 17271, 2023 + 21191))
 - *"If there were truly no difference, a gap this large would almost never happen."* That's the **p-value** (`prop.test()`)
 - *"Given these data, there is more than a 99% probability that suspicious-person stops have the higher search rate."* That's **`bayes_prop_test()`**
 - A p-value is **never** the probability that the null is true
-- On the exam: `source("bayes.R")` (the file is in the exam folder)
+- On the exam: it is loaded for you in the Setup block
 
 ## Part 6: Correlation
 
@@ -664,7 +664,7 @@ You did it tonight. On the exam, the same four steps:
 
 ## Homework and Next Week
 
-- **Homework 8:** correlation on the Chicago areas, **plus Project Checkpoint 1**: describe your project's outcome and two or three predictors ([Session 8 page](../weeks/week-10.qmd)). Due Sunday
+- **Homework 8:** correlation on the Chicago areas ([Session 8 page](../weeks/week-10.qmd)). Due Sunday
 - **Session 9:** the midterm
-- **Checkpoint 2** is due the Sunday after the midterm: correlations in *your* data, plus installing `brms` for Session 10
+- **Project Checkpoints 1 and 2** are due the Sunday after the midterm ([Session 9 page](../weeks/week-09.qmd)): describe *your* data, then its correlations, plus installing `brms` for Session 10
 - **Read before Session 10:** Stanton Ch. 8 (multiple regression)
