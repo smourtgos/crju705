@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Homework 8 · Correlation with the Chicago Areas + Project Checkpoint 1 – CRJU 705</title>
+<title>Homework 8 · Correlation with the Chicago Areas – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -239,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#part-1-plot-it-then-summarize-it" id="toc-part-1-plot-it-then-summarize-it" class="nav-link" data-scroll-target="#part-1-plot-it-then-summarize-it">Part 1: Plot It, Then Summarize It</a></li>
   <li><a href="#part-2-testing-r" id="toc-part-2-testing-r" class="nav-link" data-scroll-target="#part-2-testing-r">Part 2: Testing r</a></li>
-  <li><a href="#part-3-project-checkpoint-1" id="toc-part-3-project-checkpoint-1" class="nav-link" data-scroll-target="#part-3-project-checkpoint-1">Part 3: Project Checkpoint 1</a></li>
+  <li><a href="#project-checkpoint-1-has-moved" id="toc-project-checkpoint-1-has-moved" class="nav-link" data-scroll-target="#project-checkpoint-1-has-moved">Project Checkpoint 1 has moved</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hw-10.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
     </div>
@@ -248,7 +248,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Homework 8 · Correlation with the Chicago Areas + Project Checkpoint 1</h1>
+<h1 class="title">Homework 8 · Correlation with the Chicago Areas</h1>
 <p class="subtitle lead">CRJU 705 · due by 11:59 pm Sunday, October 11 (ahead of Session 9, the midterm)</p>
 </div>
 
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><strong>Instructions:</strong> complete the following exercises in a single <code>.R</code> script file. Include comments explaining your code and answers to any interpretive questions. Submit your <code>.R</code> file via <strong>Canvas</strong> for credit.</p>
-<p>Parts 1 and 2 use the community-area level of the Chicago anchor dataset (<a href="../chicago-data.html">codebook</a>): 77 community areas with 2025 crime rates and Census measures. One row = one <strong>area</strong>, not one person; several questions turn on remembering that. Part 3 uses <strong>your own</strong> final-project dataset.</p>
+<p>Parts 1 and 2 use the community-area level of the Chicago anchor dataset (<a href="../chicago-data.html">codebook</a>): 77 community areas with 2025 crime rates and Census measures. One row = one <strong>area</strong>, not one person; several questions turn on remembering that.</p>
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -298,30 +298,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Run <code>cor.test(areas$median_age, areas$violent_rate)</code>. <strong>In a comment:</strong> report the confidence interval. Where is zero, inside or outside? Reject or fail to reject? Then write the honest one-sentence conclusion, and say why “median age has no relationship with violence” goes further than these data allow.</p></li>
 </ol>
 </section>
-<section id="part-3-project-checkpoint-1" class="level2">
-<h2 class="anchored" data-anchor-id="part-3-project-checkpoint-1">Part 3: Project Checkpoint 1</h2>
+<section id="project-checkpoint-1-has-moved" class="level2">
+<h2 class="anchored" data-anchor-id="project-checkpoint-1-has-moved">Project Checkpoint 1 has moved</h2>
 <div class="callout callout-style-simple callout-important">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>This section uses YOUR final-project dataset</strong>, the one you chose in Homework 7. It is the first of four short checkpoints between now and the end of the semester, each adding one graded step toward the final project, so nothing about the project is a surprise in the last week. Checkpoint 1 is graded on <strong>completion and quality of reasoning</strong>, not polish, and not whether your dataset turns out to be perfect.</p>
+<p><strong>Project Checkpoint 1 is not part of Homework 8.</strong> It is now due with Checkpoint 2 on <strong>Sunday, October 18, by 11:59 pm</strong>, the Sunday after the midterm. The instructions for both are on the <a href="../weeks/week-09.html">Session 9 page</a>. If you already wrote your Checkpoint 1 section, keep it: it goes into that script unchanged.</p>
 </div>
 </div>
 </div>
-<p>In a clearly marked section at the end of your <code>.R</code> script (for example, <code># ---- PROJECT CHECKPOINT 1 ----</code>):</p>
-<ol type="1">
-<li><p><strong>Load your dataset</strong> and run <strong>descriptive statistics</strong> on your intended <strong>outcome variable</strong> and on <strong>2 or 3 candidate predictors</strong>: for numeric variables, at least the mean, median, SD, and range; for categorical variables, counts or proportions per category.</p></li>
-<li><p>Make <strong>one plot</strong> that shows something about your outcome variable (histogram, boxplot, bar chart: whatever suits its type).</p></li>
-<li><p><strong>Write a paragraph</strong> (as a comment block, roughly 5 to 8 sentences) covering:</p>
-<ul>
-<li>what your <strong>outcome variable</strong> measures, what type of variable it is, and what the descriptives and plot show about its distribution (skew? outliers? mostly zeros?);</li>
-<li>your <strong>2 or 3 candidate predictors</strong>, with one sentence each on <em>why</em> that variable plausibly relates to your outcome.</li>
-</ul></li>
-</ol>
-<p>If Step 1 reveals a problem (the outcome is nearly constant, a key variable is mostly missing, the file won’t load cleanly), <strong>say so in your paragraph</strong> and come talk to me. Catching that <em>now</em> is exactly what this checkpoint is for.</p>
-<p><strong>Coming next:</strong> Checkpoint 2 is due the Sunday after the midterm (October 18). It puts correlations on your own variables, the way Parts 1 and 2 did for Chicago, and it has you install <code>brms</code> for Session 10. Instructions are on the <a href="../weeks/week-09.html">Session 9 page</a>.</p>
 
 
 </section>

@@ -282,10 +282,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><strong>How it works mechanically:</strong> you get an <code>.R</code> script with the questions plus the files it needs, all distributed together. You answer in the script and submit it. Three things to know in advance:</p>
+<p><strong>How it works mechanically:</strong> you get one <code>.R</code> script with the questions. You answer in the script and submit it. Four things to know in advance:</p>
 <ul>
-<li><strong>Light data wrangling IS testable.</strong> The exam is code-based, so expect to <code>read_csv()</code> a file and use the everyday verbs: <code>filter()</code>, <code>count()</code>, <code>summarize()</code>. Getting data <em>into</em> a testable shape is part of doing statistics.</li>
-<li><strong><code>bayes_prop_test()</code> comes in a file.</strong> There is no internet during the exam, so the course’s <code>bayes.R</code> file is in the exam folder and you load it with <code>source("bayes.R")</code>. Everything else about it works exactly as in Sessions 6 and 7.</li>
+<li><strong>We load everything together, then the internet goes off.</strong> The script starts with a Setup block: the packages, the <code>read_csv()</code> lines for the data, and the <code>source()</code> line for <code>bayes_prop_test()</code>, the same kind of lines you have run in every lab. We run that block together at the start of class, with the internet on. Then you turn your internet off, and nothing else on the exam needs it. There is no folder to set up and no working directory to set.</li>
+<li><strong>Light data wrangling IS testable.</strong> The exam is code-based, so expect to use the everyday verbs on the data from Setup: <code>filter()</code>, <code>count()</code>, <code>summarize()</code>. Getting data <em>into</em> a testable shape is part of doing statistics.</li>
+<li><strong>Code beyond the list below is given to you.</strong> The “R you should know cold” list at the bottom of this page is what you write yourself. Where a question needs anything more than that, the line is already in the script, ready to run.</li>
 <li><strong>Packages:</strong> <code>tidyverse</code> and <code>modeest</code>, both installed earlier this semester. Check that <code>library(tidyverse)</code> and <code>library(modeest)</code> both load on your laptop before exam day.</li>
 </ul>
 <p><strong>Best preparation:</strong> the practice banks for Sessions <a href="./practice/practice-02.html">2</a>, <a href="./practice/practice-03.html">3</a>, <a href="./practice/practice-04.html">4</a>, <a href="./practice/practice-05.html">5</a>, <a href="./practice/practice-06.html">6</a>, and <a href="./practice/practice-10.html">8</a> (ungraded problems with hidden solutions, in the exam’s style), plus the midterm review at the end of the <a href="./slides/week-10-correlation.html">Session 8 slides</a>.</p>
@@ -417,12 +418,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># two groups, yes/no: both traditions</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">30</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"bayes.R"</span>)                          <span class="co"># on the exam; in class it came from the course site</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">30</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># two numbers: correlation</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>x, df<span class="sc">$</span>y)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>x, df<span class="sc">$</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">30</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))   <span class="co"># loaded for you in the exam's Setup block</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># two numbers: correlation</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(df<span class="sc">$</span>x, df<span class="sc">$</span>y)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>x, df<span class="sc">$</span>y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="concepts-you-should-be-able-to-explain" class="level2">
 <h2 class="anchored" data-anchor-id="concepts-you-should-be-able-to-explain">Concepts you should be able to explain</h2>
