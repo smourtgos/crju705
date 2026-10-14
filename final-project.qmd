@@ -10,7 +10,7 @@ The final project integrates conceptual understanding with applied statistical s
 :::
 
 ::: {.callout-tip appearance="simple"}
-**Want to see what "done well" looks like?** A complete worked example (report structure, code, both-traditions model, honest limitations) is at the [project exemplar](final-project-exemplar.qmd).
+**Want to see what "done well" looks like?** A complete worked example (report structure, code, both-traditions model, honest limitations) is at the [project exemplar](final-project-exemplar.qmd). The same page has [four real reports from last year's class](final-project-exemplar.qmd#student-examples), names removed.
 :::
 
 ## The timeline (how the project is paced)

@@ -11,6 +11,10 @@ subtitle: "A complete worked example — what an 'Excellent' project looks like"
 In a real submission this report would be a 3–5 page `.docx` with the figures pasted in, plus the `.R` script and the dataset. Here it's one web page so you can see everything at once.
 :::
 
+::: {.callout-tip appearance="simple"}
+**Want to see real student reports?** Four from last year's class, names removed, are at the bottom of this page: [Student examples from Fall 2025](#student-examples).
+:::
+
 # Do intoxication-involved crashes injure more people? Evidence from 20,000 Alaska traffic crashes
 
 ## 1 · Introduction
@@ -163,3 +167,22 @@ A real submission of this project would upload to Canvas:
 3. **`crash-report.docx`** — sections 1–4 above as a 3–5 page report, figures pasted in
 
 📋 **Rubric note (Completeness & reproducibility):** the script runs top-to-bottom on the submitted data with the seed set — the grader can reproduce every number on this page.
+
+# Student examples from Fall 2025 {#student-examples}
+
+The worked example above is mine. These four are real final project reports from last year's class, shared with the names removed.
+
+All four earned high scores. None of them is perfect, and you will spot things in each one you would do differently. What they have in common is that, for the most part, they covered all the bases I expect: a clear question, a dataset described well enough to follow, descriptive statistics, figures, a regression, and results explained in plain language.
+
+| Report | The question | Data | Pages |
+|---|---|---|:---:|
+| [Example 1](media/final-project/fall-2025-example-1-violent-crime-by-region.pdf) | Is there more violent crime in the Northeast than in the Midwest, and does urban population explain the difference? | `USArrests` | 5 |
+| [Example 2](media/final-project/fall-2025-example-2-poverty-and-murder-rates.pdf) | Do poverty, unemployment, and metropolitan living predict state murder rates? | State crime data | 4 |
+| [Example 3](media/final-project/fall-2025-example-3-suicide-in-west-germany.pdf) | How do age, sex, and method relate to suicide frequency in West Germany? | `crimedatasets` package | 6 |
+| [Example 4](media/final-project/fall-2025-example-4-murders-by-region.pdf) | Do murder totals differ by U.S. region once state population is accounted for? | `murders` (`dslabs` package) | 5 |
+
+: Each link opens the report as a PDF. {tbl-colwidths="[14,48,26,12]"}
+
+::: {.callout-warning appearance="simple"}
+**Read these for what a solid report looks like, not as a template for this year.** All four report their final model in the frequentist tradition only. Your final model must be reported in **both** traditions, `lm()` or `glm()` and `brm()`, with a sentence comparing the two (see [Step 3](final-project.qmd#steps-and-expectations)). Your dataset also has to come from the [data options](project-data.qmd) or be cleared with me first, and your report should run 3 to 5 pages.
+:::

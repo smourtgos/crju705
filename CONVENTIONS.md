@@ -133,6 +133,14 @@ find _site -name "*key*" -not -path "*site_libs*"
 
 (The older `grep "answer" | grep -i key` check is retired: since the demos/practice/joins content landed, public pages legitimately contain "answer" near "key" — join keys, "pairwise answer," and the practice banks' *intentionally public* collapsed solutions. The two checks above target actual answer-key artifacts: the phrase "answer key" and key-named files. Avoid naming chunks `key-*` in public pages so the `find` stays clean.)
 
+## Privacy — student work
+
+Student work never enters this repo or the site, with one exception: **redacted final project reports from a prior year**, posted at Scott's request, in `media/final-project/` and linked from `final-project-exemplar.qmd#student-examples`. The repo is public and git history is permanent, so before committing one:
+
+- Neutral filename: `fall-YYYY-example-N-topic.pdf`. Never the downloaded name (Canvas and students put names in filenames).
+- No name in the text layer, the metadata, or any figure: `pdftotext file.pdf - | grep -i <name>`, `pdfinfo file.pdf`, `pdfdetach -list file.pdf`, and look at every page.
+- Never current-semester work.
+
 ## Slide improvements (vs. the original PPT decks)
 
 Improving decks is encouraged (extra examples, better plots, clearer explanations), but every **substantive** addition or change vs. the original PowerPoint gets one bullet in `_private/notes/CHANGES-week-NN.md` so Scott can review it. Straight conversion/recoding needs no flag; new content does. The 3D plotly visualizations (weeks 10–11) are keepers: regenerate live from code, do not redesign.
