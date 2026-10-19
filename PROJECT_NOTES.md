@@ -211,6 +211,10 @@ Built by `R/build-anchor-dataset.R` (reproducible; raw downloads go in gitignore
 
 Lab datasets (from colleague, CSV-cleaned, in `data/`): `prisoners`, `neighborhoods`, `cities-wide`, `reentry-wide`, `crash-ak` (+ `.xlsx` twin), `officers`, `population-data`.
 
+## STATUS: Session 10 pass (October 19, 2026) COMPLETE ✅ — shipped live
+
+Scott's slide-by-slide list for Session 10 (deck, Lab 10, HW 10 + key, hub). Full detail in `_private/notes/CHANGES-week-11.md` (last section). Headlines: **diagnostics (residual plots, VIF) are out of Session 10 entirely**, including Checkpoint 3; `car` is no longer installed for it (the deck still loads `car` for `avPlots()`); **no fixed "crosses 0 = no effect" rule** for posteriors (students judge how much probability is enough); HW 10's cleaning code is all given. Gotchas: `mcmc_areas()` ignores `expand_limits()` (use `coord_cartesian(xlim = c(0, NA))`); the theme caps code/output boxes at 400px, so long `summary()` output on its own slide scrolls unless raised (deck-local CSS). Demo-11 and practice-11 were aligned the same night (diagnostics problem removed, later problems renumbered). Not touched: the final-project rubric's "diagnostics" line.
+
 ## STATUS: Student examples on the exemplar page (October 13, 2026) COMPLETE ✅
 
 Scott's ask: put four redacted final project reports from Fall 2025 on the Worked Exemplar page.

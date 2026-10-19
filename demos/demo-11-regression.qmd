@@ -12,7 +12,7 @@ subtitle: "Multiple linear regression: least squares, R², 'holding constant,' a
 1. A hand-rolled ruler for "best line" (`SSR()`), tested on three candidate lines, the proof that `lm()` beats every hand-picked guess, and the check that one-predictor R² is just Session 8's correlation, squared
 2. The best-fitting *plane* for two predictors (static slices here: the slides have the spinnable 3D version)
 3. The ice-cream/drownings lurker: a "significant" coefficient that evaporates when the third variable enters
-4. A real two-predictor model of violent crime across Chicago's 77 community areas: read honestly, then diagnosed (residual plot, VIF)
+4. A real two-predictor model of violent crime across Chicago's 77 community areas, read honestly
 5. The same model in `brms`: posterior distributions, and the reporting sentence each tradition licenses
 
 ## Setup
@@ -30,7 +30,7 @@ areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv",
 ```
 
 ::: {.callout-warning appearance="simple"}
-Two non-tidyverse packages today: `car` (for VIF; `install.packages("car")` if you don't have it) and `brms`, which you installed for Project Checkpoint 2 (`bayesplot` came along free with it). If your Checkpoint 2 test fit failed, sort that out before Section 5. `brms` compiles models with your computer's C++ toolchain, so the first `brm()` of an R session pauses at `Compiling Stan program...` for about a minute before sampling starts. That's normal, not a crash.
+Two non-tidyverse packages today: `car` (for the added-variable plot in Section 3; `install.packages("car")` if you don't have it) and `brms`, which you installed for Project Checkpoint 2 (`bayesplot` came along free with it). If your Checkpoint 2 test fit failed, sort that out before Section 5. `brms` compiles models with your computer's C++ toolchain, so the first `brm()` of an R session pauses at `Compiling Stan program...` for about a minute before sampling starts. That's normal, not a crash.
 :::
 
 ## 1 · Least squares: build the ruler by hand
@@ -58,7 +58,7 @@ ggplot(students, aes(hours, score)) +
   geom_point(size = 4, color = "navy") +
   scale_color_manual(values = c("firebrick", "seagreen", "steelblue")) +
   labs(x = "Hours studied", y = "Exam score", color = NULL,
-       title = "Which line is best? We need a ruler, not a vibe.")
+       title = "Which line is best?")
 ```
 
 The ruler: for any candidate line, measure every vertical miss, square it (so misses above and below don't cancel), and add them up. That total is the **sum of squared residuals**:
@@ -176,11 +176,11 @@ avPlots(lurk_m2, terms = ~ icecream_sales,
         main = "Ice cream vs. drownings, with temperature partialed out")
 ```
 
-Flat. That flat line *is* the multiple-regression coefficient for ice cream. The moral: multiple regression holds constant **only the variables you measured and included**. Every observational model has potential lurkers you didn't measure, so coefficients are **adjusted associations, not causal effects**. Keep that loaded; the Chicago models below will tempt you to talk causally.
+Flat. That flat line *is* the multiple-regression coefficient for ice cream. The moral: multiple regression holds constant **only the variables you measured and included**. Every observational model has potential lurkers you didn't measure, so coefficients are **adjusted associations, not causal effects**. The Chicago models below will tempt you to talk causally.
 
 ## 4 · Real data: violence across Chicago's 77 areas
 
-You plotted violent-crime rate against unemployment across the 77 community areas in Session 8: a strong upward cloud, each dot an *area*, not a person (say it with me: ecological). Look at that scatter again first if it isn't fresh, then fit one predictor:
+You plotted violent-crime rate against unemployment across the 77 community areas in Session 8: a strong upward cloud, each dot an *area*, not a person. Look at that scatter again first if it isn't fresh, then fit one predictor:
 
 ```{r}
 #| label: chicago-m1
@@ -204,22 +204,6 @@ Both predictors earn significant coefficients, and R² climbs from 0.70 to **0.8
 
 And what they are *not*: not causal effects (these are adjusted associations between *areas*, with every unmeasured lurker still at large); not people-level claims (an unemployed *person* is not "2.1 crimes more dangerous"; Session 8's ecological fallacy rides along with every coefficient today); and not the full story (the model holds constant *only what's in the model*).
 
-### Watch the units
-
-Coefficient *size* is meaningless until you check the predictor's units. Median income, in dollars:
-
-```{r}
-#| label: chicago-units
-coef(lm(violent_rate ~ median_income, data = areas))
-
-areas |>
-  mutate(income_10k = median_income / 10000) |>
-  lm(violent_rate ~ income_10k, data = _) |>
-  coef()
-```
-
-Same model, same fit. But -0.0005 "looks like" nothing; the honest reading is **about 5 *fewer* violent crimes per 1,000 residents per $10,000 of median income**. Rescale before you interpret.
-
 ### Does a third predictor earn its keep?
 
 ```{r}
@@ -231,42 +215,16 @@ summary(chi_m3)$coefficients |> round(3)
 
 Coefficient ≈ 0, p ≈ 0.77: with unemployment and vacancy already in, the diploma share adds nothing detectable. And **adjusted R²** (R² with a per-predictor penalty) actually *falls*, 0.813 → 0.811 (compare `summary(chi_m2)$adj.r.squared` with `summary(chi_m3)$adj.r.squared`). More predictors ≠ more truth. Every variable argues its way in: theory first, fit second.
 
-### Diagnostics: the residual plot and VIF
-
-Regression assumes the misses are patternless. So look at the misses:
-
-```{r}
-#| label: residual-plot
-#| fig-height: 4.5
-tibble(fitted = fitted(chi_m2), residual = resid(chi_m2)) |>
-  ggplot(aes(fitted, residual)) +
-  geom_hline(yintercept = 0, linetype = 2) +
-  geom_point(color = "navy", size = 2.5, alpha = 0.8) +
-  labs(title = "Residuals vs. fitted values: the all-purpose diagnostic",
-       x = "Fitted violent-crime rate", y = "Residual")
-```
-
-Read it honestly. What we want: a patternless horizontal band around zero. What we have: centered on zero with no obvious curve (good: the straight-plane assumption isn't visibly wrong), but the **spread widens at higher fitted values**, so the model misses by more in high-violence areas. That fanning (**heteroscedasticity**) is common with rate outcomes; it doesn't bias the coefficients, but it makes the standard errors less trustworthy at the extremes: worth a sentence when you report. A *curve* in this plot would be worse news: it would say the model's *shape* is wrong, not just its noise.
-
-**Multicollinearity** is the other standard check: if two predictors move in near-lockstep, the model can't tell whose coefficient the shared variance belongs to; estimates get wobbly and standard errors balloon. **VIF** measures how redundant each predictor is with the others (rules of thumb: > 5, pay attention; > 10, you have a problem):
-
-```{r}
-#| label: chicago-vif
-vif(chi_m2)
-```
-
-About 1.8: unemployment and vacancy are correlated (r ≈ 0.67), but each still carries plenty of its own information. If VIF *were* high: drop one predictor, combine them into an index, or accept wide intervals; you cannot p-value your way out.
-
 ## 5 · The Bayesian version
 
-Identical formula, Bayesian machinery. `brm()`, from the **brms** package (Bayesian Regression Models using Stan), takes the same formula as `lm()` and returns a full **posterior distribution** for every coefficient instead of a single estimate. The sampler settings are the ones you'll use for the rest of the course: `chains = 2, iter = 2000` runs two independent samplers for 2,000 steps each (the first half is warm-up); `seed = 705` makes your numbers match these; `refresh = 0` just silences the sampling progress log. (This is the chunk with the compile pause. Go refill your coffee.)
+Identical formula, Bayesian machinery. `brm()`, from the **brms** package (Bayesian Regression Models using Stan), takes the same formula as `lm()` and returns a full **posterior distribution** for every coefficient instead of a single estimate. The sampler settings are the ones you'll use for the rest of the course: `chains = 2, iter = 2000` runs two independent samplers for 2,000 steps each; `seed = 705` makes your numbers match these. (This is the chunk with the compile pause. Go refill your coffee.)
 
 ```{r}
 #| label: chicago-brm
 #| output: false
 chi_bayes <- brm(violent_rate ~ unemployment_rate + pct_vacant,
                  data = areas,
-                 chains = 2, iter = 2000, seed = 705, refresh = 0)
+                 chains = 2, iter = 2000, seed = 705)
 ```
 
 ```{r}
@@ -276,15 +234,17 @@ fixef(chi_bayes) |> round(2)
 
 Posterior means land almost exactly on the least-squares estimates, and with a decent *n* they should. **The prior we just used:** we didn't state one, so `brms` fell back on its **defaults**, essentially flat on the coefficients and weakly informative on the intercept and spread. Flat priors mean "the data do the talking," which is fine here, but *say so*: "we used brms default priors" belongs in any write-up that reports a posterior. One sentence in your methods ("brms default priors, 2 chains × 2,000 iterations, seed 705") covers it.
 
-**The interpretation rule** for every `brm()` coefficient from here on: if its 95% credible interval **crosses 0**, zero remains a credible value, so there is no credible effect; if it **excludes 0**, the effect is credible. Below the posterior plot: the sentence each tradition licenses.
+**Reading a posterior**, for every `brm()` coefficient from here on: how much of it sits on one side of 0? Here, essentially all of both. When a credible interval crosses 0, the posterior can still lean one way. How much probability is enough depends on the question and the cost of a wrong call: your judgment to make and defend, not a fixed 95% cutoff. Below the posterior plot: the sentence each tradition licenses.
 
 ```{r}
 #| label: chicago-mcmc-areas
 #| fig-height: 4
 mcmc_areas(chi_bayes, pars = c("b_unemployment_rate", "b_pct_vacant"),
            prob = 0.95) +
-  labs(title = "Posterior distributions: predictors of violent-crime rate",
-       subtitle = "Shaded = central 95% credible interval: both sit clear of zero")
+  geom_vline(xintercept = 0, linetype = 2) +
+  coord_cartesian(xlim = c(0, NA)) +
+  labs(title = "Posteriors: predictors of violent-crime rate",
+       subtitle = "Shaded = 95% credible interval; dashed = zero")
 ```
 
 > **Frequentist:** "Holding vacancy constant, each percentage point of unemployment was associated with about 2.1 more violent crimes per 1,000 residents (b = 2.12, 95% CI [1.59, 2.64], p < .001)."
@@ -298,4 +258,4 @@ Both are area-level, adjusted **associations**: neither sentence licenses "unemp
 1. Beat the machine: using `SSR()`, hunt by hand for an (a, b) pair that gets below 131. (Spoiler: you can tie `lm()` to more decimal places, but never beat it.)
 2. In the lurker simulation, give ice cream a *real* effect: change the `drownings` line to `-10 + 0.8 * temperature + 0.05 * icecream_sales + rnorm(100, 0, 10)`. Does `lurk_m2` find it?
 3. In the third-predictor test, swap `pct_no_hs_diploma` for a predictor of your choice (`pct_renter`? `median_rent`?). Does anything earn its keep next to unemployment and vacancy: by its coefficient *and* by adjusted R²?
-4. Run `predict(chi_m2, newdata = tibble(unemployment_rate = 23, pct_vacant = 25))`, roughly Englewood, and then again with 10 and 10. Which prediction does the residual plot say to trust more, and why?
+4. Run `predict(chi_m2, newdata = tibble(unemployment_rate = 23, pct_vacant = 25))`, roughly Englewood, and then again with 10 and 10. Write each prediction as a sentence about an area, not a person.

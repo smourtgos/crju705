@@ -3,7 +3,7 @@ title: "Lab 10 · Multiple Regression: Chicago's 77 Areas, Then 500 Neighborhood
 subtitle: "CRJU 705 · Session 10"
 ---
 
-**Goal:** run the complete multiple-regression workflow from today's lecture (fit with `lm()`, interpret coefficients in *holding-constant* language, diagnose with a residual plot and VIF, then fit the Bayesian twin with `brms` and read the posteriors), first on the Chicago community-area data from lecture, then on your own model with the Lab 3 neighborhoods.
+**Goal:** run the complete multiple-regression workflow from today's lecture (fit with `lm()`, interpret coefficients in *holding-constant* language, then fit the Bayesian twin with `brms` and read the posteriors), first on the Chicago community-area data from lecture, then on your own model with the Lab 3 neighborhoods.
 
 There's no new data-skills content today: this lab is pure statistics practice. (Homework 10 brings the wrangling back: you'll clean a file *before* regressing on it.)
 
@@ -19,13 +19,12 @@ Open RStudio, start a new R script, and run:
 library(tidyverse)
 library(bayesplot)
 library(brms)
-library(car)
 
 areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv")
 ```
 
 ::: {.callout-warning appearance="simple"}
-**One new package today:** `install.packages("car")`, which we use for VIF. You installed `brms` for Project Checkpoint 2, and `bayesplot` came along free with it, so `library(bayesplot)` should just work. If your Checkpoint 2 test fit failed, flag me down before we start.
+**No new packages today.** You installed `brms` for Project Checkpoint 2, and `bayesplot` came along free with it, so `library(bayesplot)` should just work. If your Checkpoint 2 test fit failed, flag me down before we start.
 
 **First time with `brms`?** When you run your first `brm()` model of an R session, R will sit at `Compiling Stan program...` for about a minute before sampling starts. That's normal: Stan is compiling your model into C++. It is not frozen. If instead you get an error mentioning a *compiler* or *toolchain*, flag me down.
 :::
@@ -50,7 +49,7 @@ ggplot(areas, aes(unemployment_rate, violent_rate)) +
        y = "Violent crimes per 1,000 residents")
 ```
 
-A strong, roughly linear, upward relationship, with the high-violence areas scattering farther from the line. Remember that scatter; it comes back in diagnostics.
+A strong, roughly linear, upward relationship, with the high-violence areas scattering farther from the line.
 
 ### One predictor
 
@@ -84,33 +83,6 @@ Compare the unemployment slope across the two models: **~3.3 alone → ~2.1 with
 - "Holding unemployment constant, each additional percentage point of vacant housing is associated with about 1.9 more violent crimes per 1,000 residents."
 - What we may **not** say: anything with "causes," "drives," or "increases" as an action verb, and nothing about individual *people*. These are adjusted associations between *areas* (Session 8's ecological fallacy never left).
 
-### Diagnose: the residual plot
-
-The model assumes its misses are patternless. Look:
-
-```{r}
-#| label: chi-resid
-chi_diag <- tibble(fitted = fitted(chi_m2), residual = resid(chi_m2))
-
-ggplot(chi_diag, aes(fitted, residual)) +
-  geom_hline(yintercept = 0, linetype = 2) +
-  geom_point(alpha = 0.8) +
-  labs(x = "Fitted violent-crime rate", y = "Residual")
-```
-
-What to check, in order: (1) **no curve**: the cloud shouldn't bend (a bend means the straight-plane shape is wrong); (2) **even spread**: here the spread visibly widens at higher fitted values, so the model misses by more in high-violence areas. That fanning doesn't bias the slopes, but it means the error bars are least trustworthy exactly where the stakes are highest: say so when you report.
-
-### Diagnose: VIF
-
-If predictors are near-duplicates of each other, the model can't apportion credit between them and the coefficients wobble. VIF puts a number on the redundancy:
-
-```{r}
-#| label: chi-vif
-vif(chi_m2)
-```
-
-Rules of thumb: **above 5, pay attention; above 10, you have a problem.** Ours sit around 1.8: unemployment and vacancy are correlated (r ≈ 0.67) but each still brings its own information. If you ever do see a huge VIF: drop one of the offenders, or combine them into an index. More data won't fix redundancy.
-
 ### The Bayesian version
 
 Same formula, Bayesian machinery. `brm()`, from the **brms** package (Bayesian Regression Models using Stan), takes the same formula you just gave `lm()`:
@@ -120,7 +92,7 @@ Same formula, Bayesian machinery. `brm()`, from the **brms** package (Bayesian R
 #| output: false
 chi_bayes <- brm(violent_rate ~ unemployment_rate + pct_vacant,
                  data = areas,
-                 chains = 2, iter = 2000, seed = 705, refresh = 0)
+                 chains = 2, iter = 2000, seed = 705)
 ```
 
 ```{r}
@@ -128,7 +100,7 @@ chi_bayes <- brm(violent_rate ~ unemployment_rate + pct_vacant,
 summary(chi_bayes)
 ```
 
-The settings you'll use all semester: `chains = 2, iter = 2000` runs two independent samplers for 2,000 steps each (the first half is warm-up and gets thrown away), which together build a full **posterior distribution** for every coefficient; `seed = 705` makes your numbers match mine; `refresh = 0` just silences the sampling progress log. We didn't state any priors, so `brms` used its **defaults**: essentially flat on the coefficients, weakly informative on the intercept and spread. That means "the data do the talking," which is fine here, but *say so*: "we used brms default priors" belongs in any write-up that reports a posterior.
+The settings you'll use all semester: `chains = 2, iter = 2000` runs two independent samplers for 2,000 steps each, which together build a full **posterior distribution** for every coefficient; `seed = 705` makes your numbers match mine. We didn't state any priors, so `brms` used its **defaults**: essentially flat on the coefficients, weakly informative on the intercept and spread. That means "the data do the talking," which is fine here, but *say so*: "we used brms default priors" belongs in any write-up that reports a posterior.
 
 Reading the `Regression Coefficients` block: `Estimate` is the posterior mean (it lands almost exactly on `lm()`'s estimate, as expected with default priors and 77 areas), and `l-95% CI` / `u-95% CI` bound the **credible interval**. Both intervals sit clearly away from zero. Quick health checks: `Rhat` at 1.00 and ESS in the hundreds-plus mean the chains behaved.
 
@@ -136,11 +108,13 @@ Reading the `Regression Coefficients` block: `Estimate` is the posterior mean (i
 #| label: chi-mcmc
 mcmc_areas(chi_bayes, pars = c("b_unemployment_rate", "b_pct_vacant"),
            prob = 0.95) +
+  geom_vline(xintercept = 0, linetype = 2) +
+  coord_cartesian(xlim = c(0, NA)) +
   labs(title = "Posteriors for the two predictors",
-       subtitle = "Shaded = central 95% credible interval")
+       subtitle = "Shaded = central 95% credible interval; dashed line = zero")
 ```
 
-**The interpretation rule (you'll use it for every `brm()` model from here on):** if a coefficient's 95% credible interval **crosses 0**, zero remains a credible value: no credible association. If it **excludes 0**, the association is credible, and you may say: "given the data and priors, there's a 95% probability the coefficient lies in this range." (The sentence the confidence interval never let you say.)
+**How to read a posterior (for every `brm()` model from here on):** look at where it sits relative to 0. Here both posteriors sit entirely to the right of zero, so nearly all the probability says the association is positive, and you may say: "given the data and priors, there's a 95% probability the coefficient lies in this range." (The sentence the confidence interval never let you say.) When a credible interval crosses 0, the posterior still tells you something: most of it may lean one way. How much probability is enough depends on the question and on what a wrong call would cost; that is a judgment you make and defend, not a fixed 95% cutoff.
 
 ## Your Turn
 
@@ -154,7 +128,7 @@ nbhd <- read_csv("https://smourtgos.github.io/crju705/data/neighborhoods.csv")
 
 Work in your own script. Comment each answer.
 
-**1. Make the units speak.** `poverty_rate` and `unemployment_rate` are stored as proportions (0 to 1), so a raw slope would describe an absurd 0%-to-100% jump. Rescale before fitting: lecture's "watch the units" lesson, applied:
+**1. Make the units speak.** `poverty_rate` and `unemployment_rate` are stored as proportions (0 to 1), so a raw slope would describe an absurd 0%-to-100% jump. Rescale before fitting, so a slope means one percentage point:
 
 ```{r}
 #| label: yt-1
@@ -174,29 +148,31 @@ nbhd <- nbhd |>
 # summary(nbhd_m)
 ```
 
-**3. The diagnostics moment.** Residual plot + VIF, exactly as in the Walkthrough. Two things to note in comments: (a) the residuals form diagonal stripes, because `assaults` only takes small whole values (0, 1, 2, …); that's not a bug, but it *is* a hint that a count outcome bends the linear model's assumptions (counts and yes/no outcomes get their own tools, and that story starts next session); (b) the VIF values: poverty and unemployment are correlated here (r ≈ 0.48), so is it redundancy trouble or not?
+**3. The Bayesian twin.** Fit the `brm()` version (same options as the Walkthrough; ~500 rows samples fast), look at `summary()`, and make the `mcmc_areas()` plot for `b_poverty_pct` and `b_unemployment_pct`. In comments: one frequentist sentence and one Bayesian sentence about the poverty coefficient, each including the **size** of the association (assaults per percentage point, or per 10 points if that reads better), not just "significant"/"credible."
 
 ```{r}
 #| label: yt-3
 #| eval: false
-# residual plot on nbhd_m, then vif(nbhd_m)
+# nbhd_bayes <- brm(assaults ~ poverty_pct + unemployment_pct, data = nbhd,
+#                   chains = 2, iter = 2000, seed = 705)
 ```
 
-**4. The Bayesian twin.** Fit the `brm()` version (same options as the Walkthrough; ~500 rows samples fast), look at `summary()`, and make the `mcmc_areas()` plot for `b_poverty_pct` and `b_unemployment_pct`. In comments: one frequentist sentence and one Bayesian sentence about the poverty coefficient, each including the **size** of the association (assaults per percentage point, or per 10 points if that reads better), not just "significant"/"credible."
+**4. *(Stretch)* Does disorder earn its keep?** First run this line, which puts the disorder levels in order (Low, Moderate, High, Very High) instead of alphabetical:
 
 ```{r}
-#| label: yt-4
+#| label: yt-4-factor
 #| eval: false
-# nbhd_bayes <- brm(assaults ~ poverty_pct + unemployment_pct, data = nbhd,
-#                   chains = 2, iter = 2000, seed = 705, refresh = 0)
+nbhd <- nbhd |>
+  mutate(disorder_level = factor(disorder_level,
+                                 levels = c("Low", "Moderate", "High", "Very High")))
 ```
 
-**5. *(Stretch)* Does disorder earn its keep?** Add `disorder_level` to the frequentist model (make it a factor with levels Low → Moderate → High → Very High first). Check the coefficients and the **adjusted** R². Does observed disorder tell you anything about assaults that poverty and unemployment didn't already? Connect your answer to lecture's third-predictor slide.
+Then add `disorder_level` to your Task 2 model. Check the coefficients and the **adjusted** R². Does observed disorder tell you anything about assaults that poverty and unemployment didn't already? Connect your answer to lecture's third-predictor slide.
 
 *(Reading a factor in `lm()`: R drops the first level, Low, as the reference, so each `disorder_level` coefficient is that level's difference from Low, holding the other predictors constant. It's a comparison of each group against one baseline group, wearing regression clothes.)*
 
 ```{r}
-#| label: yt-5
+#| label: yt-4
 #| eval: false
 # your code here
 ```
