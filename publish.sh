@@ -53,9 +53,9 @@ step "4. Sanity checks on _site"
 [ -f _site/index.html ] || die "_site/index.html missing."
 [ ! -e _site/_private ] || die "_private/ is in _site."
 [ ! -e _site/.claude ] || die ".claude/ is in _site."
-if grep -rlE -- '-key\.(html|qmd|R)|_private/' _site --include='*.html' | head -5 | grep .; then
-  die "A page links to an answer key or _private/."
-fi
+LEAKS="$(grep -rlE --include='*.html' -e '-key\.(html|qmd|R)|_private/' _site || [ $? -eq 1 ])" \
+  || die "The answer-key check itself failed."
+[ -z "$LEAKS" ] || { echo "$LEAKS" | head -5; die "A page links to an answer key or _private/."; }
 echo "ok"
 
 step "5. Files on gh-pages that this build no longer produces"
