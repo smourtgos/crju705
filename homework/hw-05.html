@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,15 +67,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -166,28 +165,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -277,14 +272,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Instructions:</strong> complete the following exercises in a single <code>.R</code> script file. Include comments explaining your code and answers to any interpretive questions. Submit your <code>.R</code> file via <strong>Canvas</strong> for credit.</p>
 <p>This homework uses the Alaska traffic-crash data from Lab 4 — 20,000 real-world-style crash incidents. <strong>Our research question: do crashes involving an intoxicated driver injure more people than crashes that don’t?</strong> Every step below is one you ran in Lab 5, pointed at a new question.</p>
 <p>Start your script with:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="part-1-import-and-name-the-groups" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-import-and-name-the-groups">Part 1: Import and Name the Groups</h2>
 <ol type="1">
 <li><p>Run <code>glimpse(crashes)</code>. The column <code>intox_any</code> is 1 when the driver was intoxicated and 0 when not.</p></li>
 <li><p>Copy this line into your script and run it. It labels each crash in words, so every later result reads “Intoxicated” and “Sober” instead of 1 and 0:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">intox =</span> <span class="fu">if_else</span>(intox_any <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Intoxicated"</span>, <span class="st">"Sober"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> crashes <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">intox =</span> <span class="fu">if_else</span>(intox_any <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Intoxicated"</span>, <span class="st">"Sober"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p>Count the two groups with <code>crashes |&gt; count(intox)</code>. <strong>In a comment:</strong> how many crashes are in each group? You will type these two numbers into <code>prop.test()</code> in Part 5.</p></li>
 </ol>
 </section>
@@ -292,9 +287,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-2-point-estimates-and-spread">Part 2: Point Estimates and Spread</h2>
 <ol type="1">
 <li><p>Get the mean and standard deviation of <code>injuries</code> for each group in one table:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="sc">|&gt;</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_injuries =</span> <span class="fu">mean</span>(injuries), <span class="at">sd_injuries =</span> <span class="fu">sd</span>(injuries), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> intox) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(intox)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(intox)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><strong>In a comment:</strong> write down each mean. Which group has the higher average injury count? Remember what these numbers are — <em>point estimates</em>, not the final word.</p></li>
 <li><p><strong>In a comment:</strong> compare the two standard deviations. Which group’s injury counts vary more?</p></li>
 </ol>
@@ -303,8 +298,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-3-visualize">Part 3: Visualize</h2>
 <ol type="1">
 <li><p>Make a boxplot of <code>injuries</code> for the two groups:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(crashes, <span class="fu">aes</span>(<span class="at">x =</span> intox, <span class="at">y =</span> injuries)) <span class="sc">+</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(crashes, <span class="fu">aes</span>(<span class="at">x =</span> intox, <span class="at">y =</span> injuries)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><strong>In a comment:</strong> interpret the plot. Injury counts are small whole numbers, so the boxes look blocky — can you <em>see</em> a difference between the groups, or do you need inference to settle it?</p></li>
 </ol>
 </section>
@@ -312,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="part-4-the-interval-with-t.test">Part 4: The Interval, with <code>t.test()</code></h2>
 <ol type="1">
 <li><p>Run the two-sample t-test, exactly as in Lab 5:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><strong>In a comment:</strong> copy down the 95% confidence interval. Does it include 0? Then do the direction check from lab: the output lists Intoxicated first, so the interval is <strong>Intoxicated minus Sober</strong>. Confirm that its sign agrees with the two group means at the bottom of the output.</p></li>
 <li><p><strong>In a comment:</strong> say what the interval means in words, the way we did in class: about how many more (or fewer) injuries per crash, and does the data settle the direction?</p></li>
 </ol>
@@ -341,13 +336,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>16.3.1</strong> #1 — make the default bar chart of <code>rincome</code>. What makes it hard to read? How could you improve it? (Hint: the two problems are the overlapping labels and the order of the levels. <code>aes(y = rincome)</code> fixes the first one.)</p></li>
 <li><p><strong>16.4.1</strong> #2 — for each of the six factor columns in <code>gss_cat</code> (<code>marital</code>, <code>race</code>, <code>rincome</code>, <code>partyid</code>, <code>relig</code>, <code>denom</code>), is the order of the levels arbitrary or principled? One comment line each. <code>count()</code> the column, or run <code>levels()</code> on it, to see the order.</p></li>
 <li><p><strong>16.5.1</strong> #2 — collapse <code>rincome</code> into a small set of categories. Start from this, which runs as-is:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rincome2 =</span> <span class="fu">fct_collapse</span>(rincome,</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Unknown"</span>       <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"No answer"</span>, <span class="st">"Don't know"</span>, <span class="st">"Refused"</span>, <span class="st">"Not applicable"</span>),</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Under $10,000"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Lt $1000"</span>, <span class="st">"$1000 to 2999"</span>, <span class="st">"$3000 to 3999"</span>, <span class="st">"$4000 to 4999"</span>,</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"$5000 to 5999"</span>, <span class="st">"$6000 to 6999"</span>, <span class="st">"$7000 to 7999"</span>, <span class="st">"$8000 to 9999"</span>)</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(rincome2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(rincome2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then add the four remaining bands (<code>"$10000 - 14999"</code>, <code>"$15000 - 19999"</code>, <code>"$20000 - 24999"</code>, <code>"$25000 or more"</code>) into one or two groups of your choosing, and run <code>count()</code> again.</p></li>
 </ul>
 <p>Chapter 16 has more exercises than these. Skip them; these four are the ones worth your time.</p>
@@ -407,14 +402,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

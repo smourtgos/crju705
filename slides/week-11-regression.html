@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Multiple Linear Regression</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -298,7 +298,7 @@ Scott M. Mourtgos
 <h2>Ten Students, Hours and Scores</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># seed 1 kept from the 2025 deck: the three</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># seed 1 kept from the 2025 deck: the three</span></span>
 <span id="cb1-2"><a></a><span class="co"># candidate lines coming up were tuned to this draw</span></span>
 <span id="cb1-3"><a></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb1-4"><a></a>students <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -308,7 +308,7 @@ Scott M. Mourtgos
 <span id="cb1-8"><a></a></span>
 <span id="cb1-9"><a></a><span class="fu">ggplot</span>(students, <span class="fu">aes</span>(hours, score)) <span class="sc">+</span></span>
 <span id="cb1-10"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> crju_colors[<span class="st">"navy"</span>]) <span class="sc">+</span></span>
-<span id="cb1-11"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hours studied"</span>, <span class="at">y =</span> <span class="st">"Exam score"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-11"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hours studied"</span>, <span class="at">y =</span> <span class="st">"Exam score"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -336,8 +336,8 @@ Scott M. Mourtgos
 <h2><code>lm()</code> Finds the Winner</h2>
 <p>No trial and error: <code>lm()</code> solves for the one line that minimizes SSR:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>fit_hours <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> hours, <span class="at">data =</span> students)</span>
-<span id="cb2-2"><a></a><span class="fu">coef</span>(fit_hours)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>fit_hours <span class="ot">&lt;-</span> <span class="fu">lm</span>(score <span class="sc">~</span> hours, <span class="at">data =</span> students)</span>
+<span id="cb2-2"><a></a><span class="fu">coef</span>(fit_hours)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(Intercept)       hours 
    39.15588     5.27366 </code></pre>
@@ -360,11 +360,11 @@ Scott M. Mourtgos
 <section id="r²-how-much-did-we-explain" class="slide level2">
 <h2>R²: How Much Did We Explain?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">summary</span>(fit_hours)<span class="sc">$</span>r.squared</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">summary</span>(fit_hours)<span class="sc">$</span>r.squared</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9460216</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">cor</span>(students<span class="sc">$</span>hours, students<span class="sc">$</span>score)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="fu">cor</span>(students<span class="sc">$</span>hours, students<span class="sc">$</span>score)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9460216</code></pre>
 </div>
@@ -429,7 +429,7 @@ Scott M. Mourtgos
 <h2>Remember the Lurker?</h2>
 <p>Ice cream sales and drowning deaths are strongly correlated. Every summer. Reliably.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">set.seed</span>(<span class="dv">705</span>)</span>
 <span id="cb8-2"><a></a>lurk <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb8-3"><a></a>  <span class="at">temperature    =</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">60</span>, <span class="dv">100</span>),</span>
 <span id="cb8-4"><a></a>  <span class="at">icecream_sales =</span> <span class="dv">20</span> <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> temperature <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">30</span>),</span>
@@ -441,7 +441,7 @@ Scott M. Mourtgos
 <span id="cb8-10"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
 <span id="cb8-11"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"r = "</span>, <span class="fu">round</span>(<span class="fu">cor</span>(lurk<span class="sc">$</span>icecream_sales, lurk<span class="sc">$</span>drownings), <span class="dv">2</span>),</span>
 <span id="cb8-12"><a></a>                      <span class="st">". Ban ice cream?"</span>),</span>
-<span id="cb8-13"><a></a>       <span class="at">x =</span> <span class="st">"Ice cream sales"</span>, <span class="at">y =</span> <span class="st">"Drownings"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-13"><a></a>       <span class="at">x =</span> <span class="st">"Ice cream sales"</span>, <span class="at">y =</span> <span class="st">"Drownings"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -456,8 +456,8 @@ Scott M. Mourtgos
 </div></section><section id="model-1-ice-cream-predicts-drownings" class="slide level2">
 <h2>Model 1: Ice Cream “Predicts” Drownings</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>lurk_m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(drownings <span class="sc">~</span> icecream_sales, <span class="at">data =</span> lurk)</span>
-<span id="cb9-2"><a></a><span class="fu">summary</span>(lurk_m1)<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>lurk_m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(drownings <span class="sc">~</span> icecream_sales, <span class="at">data =</span> lurk)</span>
+<span id="cb9-2"><a></a><span class="fu">summary</span>(lurk_m1)<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)     -0.3876     7.5245 -0.0515    0.959
@@ -473,8 +473,8 @@ icecream_sales   0.1315     0.0175  7.5165    0.000</code></pre>
 <section id="model-2-give-the-model-the-lurker" class="slide level2">
 <h2>Model 2: Give the Model the Lurker</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>lurk_m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(drownings <span class="sc">~</span> icecream_sales <span class="sc">+</span> temperature, <span class="at">data =</span> lurk)</span>
-<span id="cb11-2"><a></a><span class="fu">summary</span>(lurk_m2)<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>lurk_m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(drownings <span class="sc">~</span> icecream_sales <span class="sc">+</span> temperature, <span class="at">data =</span> lurk)</span>
+<span id="cb11-2"><a></a><span class="fu">summary</span>(lurk_m2)<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)    -10.0979     6.5333 -1.5456   0.1255
@@ -562,8 +562,8 @@ temperature      0.9884     0.1553  6.3634   0.0000</code></pre>
 <section id="one-predictor-first" class="slide level2">
 <h2>One Predictor First</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>chi_m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(violent_rate <span class="sc">~</span> unemployment_rate, <span class="at">data =</span> areas)</span>
-<span id="cb13-2"><a></a><span class="fu">summary</span>(chi_m1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>chi_m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(violent_rate <span class="sc">~</span> unemployment_rate, <span class="at">data =</span> areas)</span>
+<span id="cb13-2"><a></a><span class="fu">summary</span>(chi_m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -595,8 +595,8 @@ F-statistic: 179.5 on 1 and 75 DF,  p-value: &lt; 0.00000000000000022</code></pr
 <section id="add-a-second-predictor-vacant-housing" class="slide level2">
 <h2>Add a Second Predictor: Vacant Housing</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>chi_m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(violent_rate <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant, <span class="at">data =</span> areas)</span>
-<span id="cb15-2"><a></a><span class="fu">summary</span>(chi_m2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>chi_m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(violent_rate <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant, <span class="at">data =</span> areas)</span>
+<span id="cb15-2"><a></a><span class="fu">summary</span>(chi_m2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
@@ -647,9 +647,9 @@ F-statistic: 166.3 on 2 and 74 DF,  p-value: &lt; 0.00000000000000022</code></pr
 <h2>Does a Third Predictor Earn Its Keep?</h2>
 <p>Add the share of adults without a high-school diploma:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>chi_m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(violent_rate <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant <span class="sc">+</span> pct_no_hs_diploma,</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>chi_m3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(violent_rate <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant <span class="sc">+</span> pct_no_hs_diploma,</span>
 <span id="cb17-2"><a></a>             <span class="at">data =</span> areas)</span>
-<span id="cb17-3"><a></a><span class="fu">summary</span>(chi_m3)<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-3"><a></a><span class="fu">summary</span>(chi_m3)<span class="sc">$</span>coefficients <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)         -8.853      2.862  -3.093    0.003
@@ -722,9 +722,9 @@ pct_no_hs_diploma   -0.039      0.135  -0.290    0.773</code></pre>
 <h2>Fitting It: <code>brm()</code></h2>
 <p>Identical formula, Bayesian machinery:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>chi_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(violent_rate <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant,</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>chi_bayes <span class="ot">&lt;-</span> <span class="fu">brm</span>(violent_rate <span class="sc">~</span> unemployment_rate <span class="sc">+</span> pct_vacant,</span>
 <span id="cb19-2"><a></a>                 <span class="at">data =</span> areas,</span>
-<span id="cb19-3"><a></a>                 <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-3"><a></a>                 <span class="at">chains =</span> <span class="dv">2</span>, <span class="at">iter =</span> <span class="dv">2000</span>, <span class="at">seed =</span> <span class="dv">705</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment">Same formula syntax as <code>lm()</code>: this pattern carries through the rest of the course</li>
@@ -736,7 +736,7 @@ pct_no_hs_diploma   -0.039      0.135  -0.290    0.773</code></pre>
 <section id="the-posterior-and-the-prior-we-used" class="slide level2 smaller">
 <h2>The Posterior, and the Prior We Used</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">fixef</span>(chi_bayes) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">fixef</span>(chi_bayes) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  Estimate Est.Error   Q2.5 Q97.5
 Intercept            -9.25      2.42 -13.93 -4.68
@@ -753,12 +753,12 @@ pct_vacant            1.92      0.29   1.36  2.48</code></pre>
 <section id="the-posteriors-seen" class="slide level2">
 <h2>The Posteriors, Seen</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">mcmc_areas</span>(chi_bayes, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"b_unemployment_rate"</span>, <span class="st">"b_pct_vacant"</span>),</span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">mcmc_areas</span>(chi_bayes, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">"b_unemployment_rate"</span>, <span class="st">"b_pct_vacant"</span>),</span>
 <span id="cb22-2"><a></a>           <span class="at">prob =</span> <span class="fl">0.95</span>) <span class="sc">+</span></span>
 <span id="cb22-3"><a></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb22-4"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
 <span id="cb22-5"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Posteriors: predictors of violent-crime rate"</span>,</span>
-<span id="cb22-6"><a></a>       <span class="at">subtitle =</span> <span class="st">"Shaded = 95% credible interval; dashed = zero"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-6"><a></a>       <span class="at">subtitle =</span> <span class="st">"Shaded = 95% credible interval; dashed = zero"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="week-11-regression_files/figure-revealjs/chi-mcmc-areas-1.png" width="960" class="r-stretch"></section>
@@ -975,7 +975,7 @@ pct_vacant            1.92      0.29   1.36  2.48</code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1087,14 +1087,13 @@ pct_vacant            1.92      0.29   1.36  2.48</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

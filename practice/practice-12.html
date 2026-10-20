@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Practice Problems · Session 12 – CRJU 705</title>
+<title>Practice Problems · Session 11 – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,15 +63,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -156,28 +155,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
 </li>
@@ -237,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Practice Problems · Session 12</h1>
+<h1 class="title">Practice Problems · Session 11</h1>
 <p class="subtitle lead">Logistic regression: odds, odds ratios, and predicted probabilities</p>
 </div>
 
@@ -258,22 +253,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Ungraded self-checks.</strong> Work each problem in your own R session <em>before</em> clicking the solution. Homework 12 is your own final-project model, so this bank is where you drill the logistic workflow on neutral data first — if you can do these cold, Checkpoint 4 (and the presentation questions afterward) will feel routine.</p>
+<p><strong>Ungraded self-checks.</strong> Work each problem in your own R session <em>before</em> clicking the solution. Homework 11 is your own final-project model, so this bank is where you drill the logistic workflow on neutral data first: if you can do these cold, Checkpoint 4 (and the presentation questions afterward) will feel routine.</p>
 </div>
 </div>
 </div>
-<p>Problems that use data need only this setup — the 20,000 Alaska crashes from Labs 5, 7, 8, and 12. In lab you modeled <em>whether the driver was intoxicated</em>; here the question flips: <strong>does an intoxicated driver make a crash more likely to injure someone?</strong> The outcome is a flag we build ourselves:</p>
+<p>Problems that use data need only this setup: the 20,000 Alaska crashes from Lab 4, Homeworks 5 and 6, and Lab 11. In lab you modeled <em>whether the driver was intoxicated</em>; here the question flips: <strong>does an intoxicated driver make a crash more likely to injure someone?</strong> The outcome is a flag we build ourselves:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paul-buerkner/brms">brms</a></span><span class="op">)</span>   <span class="co"># only if you re-fit Problem 6's model yourself</span></span>
 <span></span>
 <span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>injury <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">injuries</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>   <span class="co"># 1 = someone was injured</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>injury <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="va">injuries</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>   <span class="co"># 1 = someone was injured</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="problem-1-odds-probability-three-conversions" class="level2"><h2 class="anchored" data-anchor-id="problem-1-odds-probability-three-conversions">Problem 1 · Odds ↔︎ probability, three conversions</h2>
-<p>No data, just the ladder. (a) About <strong>12%</strong> of released defendants in a jurisdiction fail to appear: convert that probability to <strong>odds</strong>, and phrase it as “1 to ___.” (b) A program director says the odds a participant completes supervision are <strong>4</strong>: what <em>probability</em> is that? (c) A logistic model reports a baseline <strong>log-odds of −1.99</strong>: use <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> to recover the probability — and notice where you’ve landed.</p>
+<p>No data, just the ladder. (a) About <strong>12%</strong> of released defendants in a jurisdiction fail to appear: convert that probability to <strong>odds</strong>, and phrase it as “1 to ___.” (b) A program director says the odds a participant completes supervision are <strong>4</strong>: what <em>probability</em> is that? (c) A logistic model reports a baseline <strong>log-odds of -1.99</strong>: use <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> to recover the probability, and notice where you’ve landed.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -286,34 +281,34 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">0.12</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.12</span><span class="op">)</span>   <span class="co"># (a) probability -&gt; odds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">0.12</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">0.12</span><span class="op">)</span>   <span class="co"># (a) probability -&gt; odds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1363636</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">4</span> <span class="op">/</span> <span class="op">(</span><span class="fl">4</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>         <span class="co"># (b) odds -&gt; probability</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">4</span> <span class="op">/</span> <span class="op">(</span><span class="fl">4</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>         <span class="co"># (b) odds -&gt; probability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.99</span><span class="op">)</span>       <span class="co"># (c) log-odds -&gt; probability</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.99</span><span class="op">)</span>       <span class="co"># (c) log-odds -&gt; probability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1202569</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">qlogis</a></span><span class="op">(</span><span class="fl">0.12</span><span class="op">)</span>        <span class="co"># and back up the ladder: probability -&gt; log-odds</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">qlogis</a></span><span class="op">(</span><span class="fl">0.12</span><span class="op">)</span>        <span class="co"># and back up the ladder: probability -&gt; log-odds</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.99243</code></pre>
 </div>
 </div>
 <ol type="a">
-<li>Odds ≈ <strong>0.136</strong> — about 1 to 7.3: for every failure to appear, roughly seven appearances. (b) Odds of 4 (“four to one”) is a probability of <strong>0.80</strong>. (c) <code>plogis(-1.99)</code> ≈ <strong>0.12</strong> — you’ve climbed back down to (a), because −1.99 is exactly <code>qlogis(0.12)</code>. Probability, odds, and log-odds are three readouts of one quantity; <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> and <code><a href="https://rdrr.io/r/stats/Logistic.html">qlogis()</a></code> move you up and down the ladder, and the model does its arithmetic on the log-odds rung.</li>
+<li>Odds ≈ <strong>0.136</strong>, about 1 to 7.3: for every failure to appear, roughly seven appearances. (b) Odds of 4 (“four to one”) is a probability of <strong>0.80</strong>. (c) <code>plogis(-1.99)</code> ≈ <strong>0.12</strong>: you’ve climbed back down to (a), because -1.99 is exactly <code>qlogis(0.12)</code>. Probability, odds, and log-odds are three readouts of one quantity; <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> and <code><a href="https://rdrr.io/r/stats/Logistic.html">qlogis()</a></code> move you up and down the ladder, and the model does its arithmetic on the log-odds rung.</li>
 </ol>
 </div>
 </div>
 </div>
 </section><section id="problem-2-fit-it-glmfamily-binomial" class="level2"><h2 class="anchored" data-anchor-id="problem-2-fit-it-glmfamily-binomial">Problem 2 · Fit it: <code>glm(family = binomial)</code>
 </h2>
-<p>First check the base rate of <code>injury</code> (you built the flag in Setup — always know the baseline you’re modeling). Then fit <code>injury ~ intox_any + num_vehicles</code>. What do the two coefficients say <em>before</em> any transformation — and what scale are they on?</p>
+<p>First check the base rate of <code>injury</code> (you built the flag in Setup; always know the baseline you’re modeling). Then fit <code>injury ~ intox_any + num_vehicles</code>. What do the two coefficients say <em>before</em> any transformation, and what scale are they on?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -326,13 +321,13 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">crashes</span><span class="op">$</span><span class="va">injury</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">crashes</span><span class="op">$</span><span class="va">injury</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.478</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">injury_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">injury</span> <span class="op">~</span> <span class="va">intox_any</span> <span class="op">+</span> <span class="va">num_vehicles</span>,</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">injury_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">injury</span> <span class="op">~</span> <span class="va">intox_any</span> <span class="op">+</span> <span class="va">num_vehicles</span>,</span>
 <span>                    data <span class="op">=</span> <span class="va">crashes</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -356,14 +351,14 @@ AIC: 27502
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
-<p>Baseline: about <strong>48%</strong> of crashes injure someone — this outcome is nowhere near rare, which will matter in Problem 5. Both coefficients are positive with tiny p-values: intoxication (+0.65) and each additional vehicle (+0.24) raise the <strong>log-odds</strong> of an injury crash. Sign and significance are readable right off this table; the <em>sizes</em> are not, because nobody thinks in log-odds — which is exactly why the next move is always <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code>.</p>
+<p>Baseline: about <strong>48%</strong> of crashes injure someone; this outcome is nowhere near rare, which will matter in Problem 5. Both coefficients are positive with tiny p-values: intoxication (+0.65) and each additional vehicle (+0.24) raise the <strong>log-odds</strong> of an injury crash. Sign and significance are readable right off this table; the <em>sizes</em> are not, because nobody thinks in log-odds, which is exactly why the next move is always <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code>.</p>
 </div>
 </div>
 </div>
 </section><section id="problem-3-exponentiate-log-odds-odds-ratios" class="level2"><h2 class="anchored" data-anchor-id="problem-3-exponentiate-log-odds-odds-ratios">Problem 3 · Exponentiate: log-odds → odds ratios</h2>
-<p>Turn the model into odds ratios with confidence intervals (<code>exp(cbind(OR = coef(...), confint(...)))</code>). Interpret each predictor in one sentence with the holding-constant clause — and state what the “no effect” value is for an odds ratio.</p>
+<p>Turn the model into odds ratios with confidence intervals (<code>exp(cbind(OR = coef(...), confint(...)))</code>). Interpret each predictor in one sentence with the holding-constant clause, and state what the “no effect” value is for an odds ratio.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -376,7 +371,7 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>OR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>OR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   OR     2.5 %    97.5 %
 (Intercept)  0.568485 0.4994012 0.6468929
@@ -386,19 +381,19 @@ num_vehicles 1.267901 1.1823033 1.3598917</code></pre>
 </div>
 <ul>
 <li>
-<strong>Intoxication: OR ≈ 1.91</strong> [1.72, 2.13] — a crash involving an intoxicated driver has about <strong>91% higher odds</strong> of injuring someone than a sober-driver crash, holding the number of vehicles constant.</li>
+<strong>Intoxication: OR ≈ 1.91</strong> [1.72, 2.13]; a crash involving an intoxicated driver has about <strong>91% higher odds</strong> of injuring someone than a sober-driver crash, holding the number of vehicles constant.</li>
 <li>
-<strong>Vehicles: OR ≈ 1.27</strong> [1.18, 1.36] — each additional vehicle multiplies the odds of injury by about 1.27. (In these data <code>num_vehicles</code> is only ever 1 or 2, so this is really the two-vehicle vs.&nbsp;single-vehicle contrast — check your predictor’s actual values before narrating a “per unit” story.)</li>
-<li>For odds ratios the no-effect value is <strong>1</strong>, not 0 — both intervals sit clearly above it.</li>
+<strong>Vehicles: OR ≈ 1.27</strong> [1.18, 1.36]; each additional vehicle multiplies the odds of injury by about 1.27. (In these data <code>num_vehicles</code> is only ever 1 or 2, so this is really the two-vehicle vs.&nbsp;single-vehicle contrast: check your predictor’s actual values before narrating a “per unit” story.)</li>
+<li>For odds ratios the no-effect value is <strong>1</strong>, not 0: both intervals sit clearly above it.</li>
 </ul>
 <p><code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> converts every log-odds coefficient into a multiplier on the <em>odds</em>, and 1 is the number that means “nothing happening.”</p>
 </div>
 </div>
 </div>
 </section><section id="problem-4-from-effects-to-cases-predicted-probabilities" class="level2"><h2 class="anchored" data-anchor-id="problem-4-from-effects-to-cases-predicted-probabilities">Problem 4 · From effects to cases: predicted probabilities</h2>
-<p>Odds ratios describe effects; a briefing needs <em>cases</em>. Use <code>predict(type = "response")</code> for two crash profiles — <strong>(i)</strong> sober driver, single vehicle; <strong>(ii)</strong> intoxicated driver, two vehicles — then reproduce profile (i) by hand with <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> and the coefficients. How do the two probabilities compare with the 48% baseline?</p>
+<p>Odds ratios describe effects; a briefing needs <em>cases</em>. Use <code>predict(type = "response")</code> for two crash profiles (<strong>(i)</strong> sober driver, single vehicle; <strong>(ii)</strong> intoxicated driver, two vehicles), then reproduce profile (i) by hand with <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> and the coefficients. How do the two probabilities compare with the 48% baseline?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -411,10 +406,10 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">profiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>intox_any <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, num_vehicles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">profiles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>intox_any <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, num_vehicles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">profiles</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_injury <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">injury_model</span>, newdata <span class="op">=</span> <span class="va">profiles</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_injury <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">injury_model</span>, newdata <span class="op">=</span> <span class="va">profiles</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   intox_any num_vehicles p_injury
@@ -422,13 +417,13 @@ Tip
 1         0            1    0.419
 2         1            2    0.636</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>   <span class="co"># profile (i), by hand</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">injury_model</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>   <span class="co"># profile (i), by hand</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4188691</code></pre>
 </div>
 </div>
-<p>A sober single-vehicle crash carries about a <strong>42%</strong> predicted probability of injury; an intoxicated two-vehicle crash about <strong>64%</strong> — one below the 48% baseline, one well above it. And the by-hand version demystifies the machinery: plug the profile into the log-odds equation, then <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> climbs down the ladder to a probability. Report odds ratios for <em>effects</em> and predicted probabilities for <em>cases</em> — decision-makers think in probabilities, and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> is how you hand them one.</p>
+<p>A sober single-vehicle crash carries about a <strong>42%</strong> predicted probability of injury; an intoxicated two-vehicle crash about <strong>64%</strong>: one below the 48% baseline, one well above it. And the by-hand version demystifies the machinery: plug the profile into the log-odds equation, then <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> climbs down the ladder to a probability. Report odds ratios for <em>effects</em> and predicted probabilities for <em>cases</em>: decision-makers think in probabilities, and <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> is how you hand them one.</p>
 </div>
 </div>
 </div>
@@ -437,9 +432,9 @@ Tip
 <blockquote class="blockquote">
 <p>“The odds ratio for intoxication is 1.91, so a crash with an intoxicated driver is <strong>91% more likely to injure someone</strong>. Since about 48% of crashes cause injury, that works out to roughly <strong>0.48 × 1.91 ≈ 92% of intoxicated-driver crashes causing injury</strong>.”</p>
 </blockquote>
-<p>Both bolded claims are wrong — and the second one should already smell wrong (what would an OR of 2.5 imply?). Name each error, then compute what the model <em>actually</em> says happens to a two-vehicle crash’s injury probability when the driver is intoxicated, working through the odds.</p>
+<p>Both bolded claims are wrong, and the second one should already smell wrong (what would an OR of 2.5 imply?). Name each error, then compute what the model <em>actually</em> says happens to a two-vehicle crash’s injury probability when the driver is intoxicated, working through the odds.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -452,28 +447,28 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_sober</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>          <span class="co"># sober, two vehicles</span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p_sober</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>          <span class="co"># sober, two vehicles</span></span>
 <span><span class="va">p_intox</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unname.html">unname</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>   <span class="co"># intoxicated, two vehicles</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>p_sober <span class="op">=</span> <span class="va">p_sober</span>, p_intox <span class="op">=</span> <span class="va">p_intox</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>p_sober <span class="op">=</span> <span class="va">p_sober</span>, p_intox <span class="op">=</span> <span class="va">p_intox</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  p_sober   p_intox 
 0.4775014 0.6360684 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">odds_sober</span> <span class="op">&lt;-</span> <span class="va">p_sober</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p_sober</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">odds_sober</span> <span class="op">&lt;-</span> <span class="va">p_sober</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p_sober</span><span class="op">)</span></span>
 <span><span class="va">odds_intox</span> <span class="op">&lt;-</span> <span class="va">p_intox</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p_intox</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>odds_sober <span class="op">=</span> <span class="va">odds_sober</span>, odds_intox <span class="op">=</span> <span class="va">odds_intox</span>, ratio <span class="op">=</span> <span class="va">odds_intox</span> <span class="op">/</span> <span class="va">odds_sober</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>odds_sober <span class="op">=</span> <span class="va">odds_sober</span>, odds_intox <span class="op">=</span> <span class="va">odds_intox</span>, ratio <span class="op">=</span> <span class="va">odds_intox</span> <span class="op">/</span> <span class="va">odds_sober</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>odds_sober odds_intox      ratio 
  0.9138807  1.7477694  1.9124700 </code></pre>
 </div>
 </div>
-<p><strong>Error 1:</strong> “91% more likely” reads the odds ratio as a <em>probability</em> ratio. An OR of 1.91 multiplies the <strong>odds</strong> by 1.91 — nothing else. <strong>Error 2:</strong> multiplying the baseline probability by the OR (0.48 × 1.91) is arithmetic on the wrong scale; with an OR of 2.5 it would “predict” 120% of crashes causing injury, which is the tell that probabilities don’t multiply this way.</p>
-<p>What actually happens: the sober two-vehicle probability of .48 converts to odds of ≈ 0.91; multiply <em>those</em> by 1.91 to get odds ≈ 1.75; convert back and the probability is ≈ <strong>.64</strong>. The real change is 48% → 64% — about 16 percentage points, a ~33% relative rise, nowhere near 91%. When the baseline probability is small, odds and probability move almost together; at a baseline near 50%, they part company badly — so multiply odds, never probabilities, and use <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> when you want the probability itself.</p>
+<p><strong>Error 1:</strong> “91% more likely” reads the odds ratio as a <em>probability</em> ratio. An OR of 1.91 multiplies the <strong>odds</strong> by 1.91: nothing else. <strong>Error 2:</strong> multiplying the baseline probability by the OR (0.48 × 1.91) is arithmetic on the wrong scale; with an OR of 2.5 it would “predict” 120% of crashes causing injury, which is the tell that probabilities don’t multiply this way.</p>
+<p>What actually happens: the sober two-vehicle probability of .48 converts to odds of ≈ 0.91; multiply <em>those</em> by 1.91 to get odds ≈ 1.75; convert back and the probability is ≈ <strong>.64</strong>. The real change is 48% → 64%: about 16 percentage points, a ~33% relative rise, nowhere near 91%. When the baseline probability is small, odds and probability move almost together; at a baseline near 50%, they part company badly, so multiply odds, never probabilities, and use <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> when you want the probability itself.</p>
 </div>
 </div>
 </div>
 </section><section id="problem-6-reading-a-brms-bernoulli-output" class="level2"><h2 class="anchored" data-anchor-id="problem-6-reading-a-brms-bernoulli-output">Problem 6 · Reading a <code>brms</code> bernoulli output</h2>
-<p>A classmate fits the Bayesian twin of your Problem 2 model and sends you the summary below. <strong>Without fitting anything</strong>, answer: (a) what do <code>Family: bernoulli</code> and <code>Links: mu = logit</code> tell you about the scale of the <code>Estimate</code> column? (b) Exponentiate the <code>intox_any</code> estimate and both CI bounds — what odds ratio and 95% credible interval do you get, and does it agree with <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>’s? (c) Are there signs of sampling trouble? (d) Write the one Bayesian sentence about intoxication you’re now licensed to say.</p>
+<p>A classmate fits the Bayesian twin of your Problem 2 model and sends you the summary below. <strong>Without fitting anything</strong>, answer: (a) what do <code>Family: bernoulli</code> and <code>Links: mu = logit</code> tell you about the scale of the <code>Estimate</code> column? (b) Exponentiate the <code>intox_any</code> estimate and both CI bounds: what odds ratio and 95% credible interval do you get, and does it agree with <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>’s? (c) Are there signs of sampling trouble? (d) Write the one Bayesian sentence about intoxication you’re now licensed to say.</p>
 <pre><code> Family: bernoulli
   Links: mu = logit
 Formula: injury ~ intox_any + num_vehicles
@@ -490,15 +485,15 @@ num_vehicles     0.24      0.04     0.17     0.31 1.00     2081     1415
 Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
 scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
-<p><em>(Want to reproduce it? The code is below — but budget for the “Compiling Stan program…” pause plus a couple of minutes of sampling on 20,000 rows. The reading practice is the point; the refit is optional.)</em></p>
+<p><em>(Want to reproduce it? The code is below, but budget for the “Compiling Stan program…” pause plus a couple of minutes of sampling on 20,000 rows. The reading practice is the point; the refit is optional.)</em></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">injury_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">injury</span> <span class="op">~</span> <span class="va">intox_any</span> <span class="op">+</span> <span class="va">num_vehicles</span>, data <span class="op">=</span> <span class="va">crashes</span>,</span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">injury_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">injury</span> <span class="op">~</span> <span class="va">intox_any</span> <span class="op">+</span> <span class="va">num_vehicles</span>, data <span class="op">=</span> <span class="va">crashes</span>,</span>
 <span>                    family <span class="op">=</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brmsfamily.html">bernoulli</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>                    chains <span class="op">=</span> <span class="fl">2</span>, iter <span class="op">=</span> <span class="fl">2000</span>, seed <span class="op">=</span> <span class="fl">705</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">injury_bayes</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">injury_bayes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -511,17 +506,17 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>estimate <span class="op">=</span> <span class="fl">0.65</span>, ci_low <span class="op">=</span> <span class="fl">0.54</span>, ci_high <span class="op">=</span> <span class="fl">0.76</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>estimate <span class="op">=</span> <span class="fl">0.65</span>, ci_low <span class="op">=</span> <span class="fl">0.54</span>, ci_high <span class="op">=</span> <span class="fl">0.76</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>estimate   ci_low  ci_high 
 1.915541 1.716007 2.138276 </code></pre>
 </div>
 </div>
 <ol type="a">
-<li><p><code>bernoulli</code> is <code>brms</code>’s name for a 0/1 outcome and <code>logit</code> is the link — so the <code>Estimate</code> column is in <strong>log-odds</strong>, exactly like <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>’s coefficient table, and needs exponentiating before anyone speaks.</p></li>
-<li><p>exp(0.65) ≈ <strong>1.92</strong>, with a 95% credible interval of roughly <strong>[1.72, 2.14]</strong> — landing almost exactly on <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>’s OR of 1.91 [1.72, 2.13], as expected with default priors and 20,000 crashes.</p></li>
-<li><p>No trouble: <strong>Rhat = 1.00</strong> on every row and effective sample sizes in the 1,400–2,100 range mean the two chains agreed and mixed well.</p></li>
-<li><p>“Given the data and priors, there is a 95% probability that intoxication multiplies a crash’s odds of injuring someone by between roughly 1.7 and 2.1, holding the number of vehicles constant.” Same machinery as every <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> you’ve run — bernoulli is just <code>family = binomial</code> in Bayesian clothing, and the coefficients only become English after <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code>.</p></li>
+<li><p><code>bernoulli</code> is <code>brms</code>’s name for a 0/1 outcome and <code>logit</code> is the link, so the <code>Estimate</code> column is in <strong>log-odds</strong>, exactly like <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>’s coefficient table, and needs exponentiating before anyone speaks.</p></li>
+<li><p>exp(0.65) ≈ <strong>1.92</strong>, with a 95% credible interval of roughly <strong>[1.72, 2.14]</strong>: landing almost exactly on <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>’s OR of 1.91 [1.72, 2.13], as expected with default priors and 20,000 crashes.</p></li>
+<li><p>No trouble: <strong>Rhat = 1.00</strong> on every row and effective sample sizes in the 1,400 to 2,100 range mean the two chains agreed and mixed well.</p></li>
+<li><p>“Given the data and priors, there is a 95% probability that intoxication multiplies a crash’s odds of injuring someone by between roughly 1.7 and 2.1, holding the number of vehicles constant.” Same machinery as every <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> you’ve run: bernoulli is just <code>family = binomial</code> in Bayesian clothing, and the coefficients only become English after <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code>.</p></li>
 </ol>
 </div>
 </div>
@@ -579,14 +574,13 @@ Tip
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

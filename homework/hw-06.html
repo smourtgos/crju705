@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -67,15 +67,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -118,7 +117,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -195,28 +194,24 @@ window.Quarto = {
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
   </li>
@@ -326,16 +321,16 @@ window.Quarto = {
 <p>Back to the Alaska crash data from Homework 5. Last week you compared <em>how many</em> people were injured. This week’s question is yes/no: <strong>are crashes with an intoxicated driver more likely to hurt someone at all?</strong></p>
 <ol type="1">
 <li><p>Start your script with the same setup as Homework 5, plus the one new line from Lab 6:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"https://smourtgos.github.io/crju705/R/bayes.R"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>crashes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">intox =</span> <span class="fu">if_else</span>(intox_any <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Intoxicated"</span>, <span class="st">"Sober"</span>),</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">anyone_hurt =</span> injuries <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">anyone_hurt =</span> injuries <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>anyone_hurt</code> is TRUE when at least one person was injured (the same line from Lab 4).</p></li>
 <li><p>Count: <code>crashes |&gt; count(intox, anyone_hurt)</code>. <strong>In a comment:</strong> write the four numbers you need — how many intoxicated-driver crashes hurt someone, out of how many, and the same for sober-driver crashes — and compute the two rates. Intoxicated goes first all the way through, so every difference reads <strong>Intoxicated minus Sober</strong>.</p></li>
 <li><p>Run the <strong>frequentist</strong> test with your four numbers:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(__, __), <span class="at">n =</span> <span class="fu">c</span>(__, __))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(__, __), <span class="at">n =</span> <span class="fu">c</span>(__, __))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>In a comment:</strong> report the 95% confidence interval for the difference in percentage points, and the p-value. Do you reject the null? (If R prints the p-value with an <code>e-</code> in it, say in words what that means.)</p></li>
 <li><p>Run the <strong>Bayesian</strong> test with the same four numbers in <code>bayes_prop_test()</code>. <strong>In a comment:</strong> report the 95% credible interval for the difference, and write the one sentence this output lets you say that the <code>prop.test()</code> output does not.</p></li>
 <li><p><strong>In a comment:</strong> compare the two intervals from steps 3 and 4. How close are they? Using what we saw in class about sample size, explain why.</p></li>
@@ -352,17 +347,17 @@ window.Quarto = {
 <ul>
 <li><p><strong>17.2.5</strong> #1 — what happens if you parse a string that contains invalid dates? Run <code>ymd(c("2010-10-10", "bananas"))</code> and say in a comment what R did with each of the two strings.</p></li>
 <li><p><strong>17.2.5</strong> #3 — parse each of these with the right lubridate function (<code>ymd()</code>, <code>mdy()</code>, or <code>dmy()</code>). Do the lubridate half only; skip the “readr column specification” half, and skip <code>t1</code> and <code>t2</code>. The function’s name is just the order the pieces appear in: year, month, day.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="st">"January 1, 2010"</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="st">"January 1, 2010"</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="st">"2015-Mar-07"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="st">"06-Jun-2017"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"August 19 (2015)"</span>, <span class="st">"July 1 (2015)"</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>d5 <span class="ot">&lt;-</span> <span class="st">"12/30/14"</span> <span class="co"># Dec 30, 2014</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>d5 <span class="ot">&lt;-</span> <span class="st">"12/30/14"</span> <span class="co"># Dec 30, 2014</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><strong>17.3.4</strong> #5 — on what day of the week should you leave if you want to minimise the chance of a delay? Start from this, which builds a real date out of three number columns and then pulls the weekday out of it. Finish it with a <code>summarize()</code> by <code>weekday</code> (average <code>dep_delay</code>, with <code>na.rm = TRUE</code>) and answer in a comment.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">make_date</span>(year, month, day),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">weekday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">weekday =</span> <span class="fu">wday</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 <li><p><strong>17.4.4</strong> #2 — create a vector of dates giving the first day of every month in 2015. (Hint: start from <code>ymd("2015-01-01")</code> and add <code>months(0:11)</code>.) Do the 2015 half only.</p></li>
 </ul>
 <p>Chapter 17 has more exercises than these. Skip them; these four are the ones worth your time. Look at the <code>date</code> column in the crash data while you are at it: it is text written month/day/year, which is exactly what <code>mdy()</code> is for. Your final-project data will very likely have a column like it.</p>
@@ -422,14 +417,13 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

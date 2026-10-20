@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Hypothesis Testing: Frequentist and Bayesian</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -209,11 +209,11 @@ Scott M. Mourtgos
 </section>
 <section id="this-week" class="slide level2">
 <h2>This Week</h2>
-<p><strong>Topic:</strong> hypothesis testing — <em>twice</em>. One question, both great traditions.</p>
+<p><strong>Topic:</strong> hypothesis testing: <em>twice</em>. One question, both great traditions.</p>
 <ul>
 <li>The Null Hypothesis Significance Test: its logic, and its fine print</li>
-<li>p-values: what they are — and what they are not</li>
-<li>Bayes’ theorem — back from Session 3, now pointed at hypotheses instead of diagnoses</li>
+<li>p-values: what they are, and what they are not</li>
+<li>Bayes’ theorem: back from Session 3, now pointed at hypotheses instead of diagnoses</li>
 <li>The Bayesian answer: a posterior and a <strong>credible interval</strong>, from one line of R</li>
 </ul>
 <p><strong>Learning goals:</strong> run <code>prop.test()</code> <em>and</em> <code>bayes_prop_test()</code> on the same question; state correctly what each output lets you claim.</p>
@@ -222,10 +222,10 @@ Scott M. Mourtgos
 <h2>How Today Works</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>The lecture</strong> — concepts</p>
+<p><strong>The lecture</strong>: concepts</p>
 <p>Stanton Ch. 5 → hypothesis testing, both ways: the p-value and the posterior</p>
 </div><div class="column" style="width:50%;">
-<p><strong>The in-class exercise</strong> — code</p>
+<p><strong>The in-class exercise</strong>: code</p>
 <p>Lab 6: you run both tests yourself, step by step</p>
 </div></div>
 <p>Everything I run today is written up in the <a href="../demos/demo-06-hypothesis-testing.html">demo walkthrough</a>, so nothing on screen is something you have to capture in real time.</p>
@@ -233,10 +233,10 @@ Scott M. Mourtgos
 <section id="where-weve-been" class="slide level2">
 <h2>Where We’ve Been</h2>
 <ul>
-<li class="fragment"><strong>Session 3:</strong> Bayes’ theorem — beliefs update by evidence; ignore the base rate and “90% accurate” becomes a 15% answer</li>
-<li class="fragment"><strong>Session 4:</strong> sampling distributions — sample statistics fluctuate in predictable ways</li>
-<li class="fragment"><strong>Session 5:</strong> confidence intervals — an honest range around an estimate, and one sentence we were <em>not</em> allowed to say about it</li>
-<li class="fragment"><strong>Today:</strong> the formal machinery for “is there a difference?” — then a second tradition answering the question you <em>meant</em> to ask</li>
+<li class="fragment"><strong>Session 3:</strong> Bayes’ theorem: beliefs update by evidence; ignore the base rate and “90% accurate” becomes a 15% answer</li>
+<li class="fragment"><strong>Session 4:</strong> sampling distributions: sample statistics fluctuate in predictable ways</li>
+<li class="fragment"><strong>Session 5:</strong> confidence intervals: an honest range around an estimate, and one sentence we were <em>not</em> allowed to say about it</li>
+<li class="fragment"><strong>Today:</strong> the formal machinery for “is there a difference?”, then a second tradition answering the question you <em>meant</em> to ask</li>
 </ul>
 </section>
 <section>
@@ -248,9 +248,9 @@ Scott M. Mourtgos
 <h2>Tonight’s Question</h2>
 <p>Among <strong>violent crimes</strong> in our Chicago sample: are the <em>domestic</em> ones more likely to end in an arrest?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>violent <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">filter</span>(crime_category <span class="sc">==</span> <span class="st">"Violent"</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>violent <span class="ot">&lt;-</span> crimes <span class="sc">|&gt;</span> <span class="fu">filter</span>(crime_category <span class="sc">==</span> <span class="st">"Violent"</span>)</span>
 <span id="cb1-2"><a></a></span>
-<span id="cb1-3"><a></a>violent <span class="sc">|&gt;</span> <span class="fu">count</span>(domestic, arrest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a></a>violent <span class="sc">|&gt;</span> <span class="fu">count</span>(domestic, arrest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   domestic arrest     n
@@ -321,7 +321,7 @@ Scott M. Mourtgos
 <li class="fragment"><strong>Compute a test statistic</strong>: the observed gap, measured against how much gaps bounce by chance.</li>
 <li class="fragment"><strong>Ask:</strong> how often would a gap this large appear by luck in the boring world? The <strong>p-value</strong>.</li>
 <li class="fragment"><strong>Verdict:</strong> <span class="math inline">\(p &lt; \alpha\)</span> (usually .05) → “reject <span class="math inline">\(H_0\)</span>.” Otherwise → “fail to reject.”</li>
-<li class="fragment">Note: the machine only weighs evidence <strong>against the null</strong> — <span class="math inline">\(H_1\)</span> never gets scored.</li>
+<li class="fragment">Note: the machine only weighs evidence <strong>against the null</strong>: <span class="math inline">\(H_1\)</span> never gets scored.</li>
 </ol>
 </section>
 <section id="watch-the-p-value-do-its-job" class="slide level2">
@@ -331,15 +331,15 @@ Scott M. Mourtgos
 <p>As the true difference grows, the overlap shrinks and <em>p</em> falls. Black = null · green = one alternative · orange = overlap · blue dashes = the α = .05 cutoffs.</p>
 </section>
 <section id="what-a-p-value-is-and-is-not" class="slide level2">
-<h2>What a p-Value Is — and Is Not</h2>
+<h2>What a p-Value Is, and Is Not</h2>
 <p><strong>It is:</strong> the probability of data <em>this extreme or more</em>, <strong>if</strong> the null is true and the model is right.</p>
 <div class="fragment">
 <p><strong>It is not:</strong></p>
 <ul>
-<li class="fragment"><del>the probability the null hypothesis is true</del> — that’s <span class="math inline">\(P(H_0 \mid \text{data})\)</span>, which frequentism never computes</li>
-<li class="fragment"><del>the probability the result “is due to chance”</del> — same confusion, folksier outfit</li>
-<li class="fragment"><del>1 − the probability the alternative is true</del></li>
-<li class="fragment"><del>a measure of how <em>big</em> or <em>important</em> the effect is</del> — with enough data, microscopic effects earn microscopic p-values (hold that thought)</li>
+<li class="fragment"><del>the probability the null hypothesis is true</del>: that’s <span class="math inline">\(P(H_0 \mid \text{data})\)</span>, which frequentism never computes</li>
+<li class="fragment"><del>the probability the result “is due to chance”</del>: same confusion, folksier outfit</li>
+<li class="fragment"><del>1 - the probability the alternative is true</del></li>
+<li class="fragment"><del>a measure of how <em>big</em> or <em>important</em> the effect is</del>: with enough data, microscopic effects earn microscopic p-values (hold that thought)</li>
 </ul>
 </div>
 </section>
@@ -347,7 +347,7 @@ Scott M. Mourtgos
 <h2><code>prop.test()</code> on the Real Question</h2>
 <p>Lab 5’s function, now with <strong>two groups</strong>: how many, out of how many, for each. Domestic first.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">740</span>, <span class="dv">714</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3749</span>, <span class="dv">5399</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">740</span>, <span class="dv">714</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3749</span>, <span class="dv">5399</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -371,14 +371,14 @@ sample estimates:
 <li><strong><code>p-value &lt; 2.2e-16</code></strong>: R’s way of writing a decimal point followed by fifteen zeros. In the boring world, a gap like ours essentially never happens</li>
 </ul>
 <div class="fragment">
-<p><span class="math inline">\(p &lt; .05\)</span> — <strong>“statistically significant.”</strong> Reject the null.</p>
+<p><span class="math inline">\(p &lt; .05\)</span>: <strong>“statistically significant.”</strong> Reject the null.</p>
 </div>
 </section>
 <section id="the-same-line-lives-in-t.test" class="slide level2 smaller">
 <h2>The Same Line Lives in <code>t.test()</code></h2>
 <p>Last week’s homework, comparing two <em>means</em>. The p-value sat right above the interval the whole time:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">t.test</span>(injuries <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -403,7 +403,7 @@ mean in group Intoxicated       mean in group Sober
 <section id="assumption-1-the-null-stands-alone" class="slide level2">
 <h2>Assumption 1 · The Null Stands Alone</h2>
 
-<img data-src="week-06-hypothesis-testing_files/figure-revealjs/sketch-null-1.png" width="960" class="r-stretch"><p>We computed how surprising the data are <em>under the null</em> — and never once said what the alternative world looks like.</p>
+<img data-src="week-06-hypothesis-testing_files/figure-revealjs/sketch-null-1.png" width="960" class="r-stretch"><p>We computed how surprising the data are <em>under the null</em>, and never once said what the alternative world looks like.</p>
 </section>
 <section id="but-the-alternative-could-be-anywhere" class="slide level2">
 <h2>…But the Alternative Could Be Anywhere</h2>
@@ -413,7 +413,7 @@ mean in group Intoxicated       mean in group Sober
 <section id="assumption-2-the-shape-itself" class="slide level2">
 <h2>Assumption 2 · The Shape Itself</h2>
 
-<img data-src="week-06-hypothesis-testing_files/figure-revealjs/sketch-dist-null-1.png" width="960" class="r-stretch"><p>The p-value came from <em>this specific curve</em> — which assumes large-enough samples, independent observations, and a model that fits the data.</p>
+<img data-src="week-06-hypothesis-testing_files/figure-revealjs/sketch-dist-null-1.png" width="960" class="r-stretch"><p>The p-value came from <em>this specific curve</em>, which assumes large-enough samples, independent observations, and a model that fits the data.</p>
 </section>
 <section id="and-many-shapes-fit-the-same-data" class="slide level2">
 <h2>…And Many Shapes Fit the Same Data</h2>
@@ -426,15 +426,15 @@ mean in group Intoxicated       mean in group Sober
 
 </section>
 <section id="bayes-theorem-recap-from-session-3" class="slide level2">
-<h2>Bayes’ Theorem — Recap from Session 3</h2>
+<h2>Bayes’ Theorem: Recap from Session 3</h2>
 <p><span class="math display">\[
 P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
 \qquad \small{\text{posterior} = \text{likelihood} \times \text{prior} / \text{evidence}}
 \]</span></p>
 <ul>
-<li class="fragment">Session 3’s move: conditioning is <em>shrink the world, re-proportion</em> — Bayes’ theorem reverses the direction. Ianfluenza: prior 1% + “90% accurate” → posterior ≈ <strong>15%</strong></li>
-<li class="fragment"><strong>New today:</strong> look where the p-value lives — entirely in the <strong>likelihood</strong>, <span class="math inline">\(P(\text{data} \mid H_0)\)</span>. It never becomes <span class="math inline">\(P(H_0 \mid \text{data})\)</span></li>
-<li class="fragment">Bayesian testing finishes the flip — <span class="math inline">\(P(H \mid \text{data})\)</span>, the question your chief, judge, or city council actually asked — at the price of a stated prior</li>
+<li class="fragment">Session 3’s move: conditioning is <em>shrink the world, re-proportion</em>; Bayes’ theorem reverses the direction. Ianfluenza: prior 1% + “90% accurate” → posterior ≈ <strong>15%</strong></li>
+<li class="fragment"><strong>New today:</strong> look where the p-value lives: entirely in the <strong>likelihood</strong>, <span class="math inline">\(P(\text{data} \mid H_0)\)</span>. It never becomes <span class="math inline">\(P(H_0 \mid \text{data})\)</span></li>
+<li class="fragment">Bayesian testing finishes the flip: <span class="math inline">\(P(H \mid \text{data})\)</span>, the question your chief, judge, or city council actually asked, at the price of a stated prior</li>
 </ul>
 </section>
 <section id="the-two-traditions-side-by-side" class="slide level2 smaller">
@@ -489,8 +489,8 @@ P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
 <section id="the-setup" class="slide level2">
 <h2>The Setup</h2>
 <ul>
-<li><strong>Context:</strong> typical recidivism runs about <strong>60%</strong> — that’s what we believed going in</li>
-<li><strong>Design:</strong> randomized trial of a reentry program — <strong>100 treated, 100 control</strong></li>
+<li><strong>Context:</strong> typical recidivism runs about <strong>60%</strong>: that’s what we believed going in</li>
+<li><strong>Design:</strong> randomized trial of a reentry program: <strong>100 treated, 100 control</strong></li>
 <li><strong>Outcomes:</strong> treatment <strong>40/100</strong> reoffend · control <strong>50/100</strong> reoffend</li>
 <li><strong>Question:</strong> did the program reduce recidivism?</li>
 </ul>
@@ -502,7 +502,7 @@ P(H \mid \text{data}) = P(\text{data} \mid H) \times P(H) \,/\, P(\text{data})
 <h2>The Frequentist Answer</h2>
 <p>Treatment first, so the difference reads <strong>Treatment minus Control</strong>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -521,10 +521,10 @@ prop 1 prop 2
 <section id="the-frequentist-answer-read-aloud" class="slide level2">
 <h2>The Frequentist Answer, Read Aloud</h2>
 <ul>
-<li class="fragment"><span class="math inline">\(p = 0.20\)</span> — <strong>not statistically significant</strong></li>
+<li class="fragment"><span class="math inline">\(p = 0.20\)</span>: <strong>not statistically significant</strong></li>
 <li class="fragment">The interval, about -25 to +5 points, has zero inside it</li>
 <li class="fragment">Honest reading: <em>a 10-point gap like this could plausibly occur even if the program did nothing</em></li>
-<li class="fragment">The grant report writes itself — “no significant effect” — and the program probably dies there</li>
+<li class="fragment">The grant report writes itself (“no significant effect”), and the program probably dies there</li>
 </ul>
 </section>
 <section id="what-we-knew-before-the-trial" class="slide level2">
@@ -532,7 +532,7 @@ prop 1 prop 2
 <p>A Bayesian has to say, out loud, what they believed <strong>before</strong> seeing the data. That is the <strong>prior</strong>.</p>
 <ul>
 <li class="fragment">We said it already: recidivism typically runs about <strong>60%</strong></li>
-<li class="fragment">How firmly do we believe that? Let’s say: about as firmly as if we had already watched <strong>10 people</strong> — <strong>6 reoffended, 4 did not</strong></li>
+<li class="fragment">How firmly do we believe that? Let’s say: about as firmly as if we had already watched <strong>10 people</strong>: <strong>6 reoffended, 4 did not</strong></li>
 <li class="fragment">In R, that whole belief is two numbers: <code>prior = c(6, 4)</code></li>
 <li class="fragment">Then the trial’s 200 real people get added to our 10 imaginary ones. That adding-up is the <strong>posterior</strong>: what we believe <em>after</em> the data</li>
 </ul>
@@ -541,7 +541,7 @@ prop 1 prop 2
 <h2>The Bayesian Answer</h2>
 <p>Same two numbers per group as <code>prop.test()</code>, plus the prior:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>), <span class="at">prior =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>), <span class="at">prior =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Bayesian test of two proportions 
@@ -565,7 +565,7 @@ Probability group 1 is lower than group 2:  0.91 </code></pre>
 <ul>
 <li class="fragment"><strong><code>estimate</code></strong>: our best single guess for each group’s true rate, after the data</li>
 <li class="fragment"><strong><code>95% credible interval</code></strong> for the difference: about -22 to +4 points, Treatment minus Control</li>
-<li class="fragment"><strong><code>Probability group 1 is lower than group 2</code>: 0.91</strong> — given the prior and the data, about a <strong>91% probability the program reduces recidivism</strong></li>
+<li class="fragment"><strong><code>Probability group 1 is lower than group 2</code>: 0.91</strong>: given the prior and the data, about a <strong>91% probability the program reduces recidivism</strong></li>
 </ul>
 <div class="fragment">
 <p>And the sentence Session 5 forbade is now <strong>legal</strong>: <em>“There is a 95% probability the true difference lies between -22 and +4 points.”</em> That is exactly what a <strong>credible interval</strong> means.</p>
@@ -613,12 +613,12 @@ Probability group 1 is lower than group 2:  0.91 </code></pre>
 <h2>Does the Prior Matter Here?</h2>
 <p>Leave <code>prior =</code> out and the function starts from “I know nothing”:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">40</span>, <span class="dv">50</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li class="fragment">Probability the program works: <strong>0.92</strong> instead of 0.91. It barely moved</li>
 <li class="fragment">Why? 200 real people outweigh 10 imaginary ones. <strong>Data overwhelm a modest prior</strong></li>
-<li class="fragment">A prior matters most when data are scarce — which is exactly when you most need to say it out loud</li>
+<li class="fragment">A prior matters most when data are scarce, which is exactly when you most need to say it out loud</li>
 </ul>
 </section></section>
 <section>
@@ -630,7 +630,7 @@ Probability group 1 is lower than group 2:  0.91 </code></pre>
 <h2>The Bayesian Answer to Tonight’s Question</h2>
 <p>We have no strong belief going in, so no <code>prior =</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">740</span>, <span class="dv">714</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3749</span>, <span class="dv">5399</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">740</span>, <span class="dv">714</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3749</span>, <span class="dv">5399</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Bayesian test of two proportions 
@@ -679,7 +679,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 </table>
 <ul>
 <li class="fragment">With thousands of cases the two traditions hand you <strong>nearly the same range</strong>. The data drown out everything else</li>
-<li class="fragment">With 100 per group, both ranges still include zero — but one tradition stops at “not significant,” and the other tells you <em>how probable</em> the effect is</li>
+<li class="fragment">With 100 per group, both ranges still include zero, but one tradition stops at “not significant,” and the other tells you <em>how probable</em> the effect is</li>
 <li class="fragment">Neither is wrong. They answer <strong>different questions</strong></li>
 </ul>
 </section></section>
@@ -692,13 +692,13 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <h2>The p-Value and Sample Size</h2>
 <p>Fix a <em>trivial</em> true effect (Δ = 0.1) and just keep collecting data:</p>
 
-<img data-src="../media/week-06/p_samplesize.gif" class="r-stretch"><p>The effect never grows — only <em>n</em> does — and <em>p</em> still dives below .05. <strong>Given enough data, everything is “significant.”</strong></p>
+<img data-src="../media/week-06/p_samplesize.gif" class="r-stretch"><p>The effect never grows, only <em>n</em> does, and <em>p</em> still dives below .05. <strong>Given enough data, everything is “significant.”</strong></p>
 </section>
 <section id="bayes-and-sample-size" class="slide level2">
 <h2>Bayes and Sample Size</h2>
-<p>Same trivial effect, Bayesian glasses — watch the posterior for the difference as <em>n</em> grows:</p>
+<p>Same trivial effect, Bayesian glasses: watch the posterior for the difference as <em>n</em> grows:</p>
 
-<img data-src="../media/week-06/bayes_samplesize.gif" class="r-stretch"><p>More data doesn’t flip a verdict — it <strong>sharpens the estimate</strong>, which visibly converges on “about 0.1, i.e., almost nothing.” The tininess stays in view.</p>
+<img data-src="../media/week-06/bayes_samplesize.gif" class="r-stretch"><p>More data doesn’t flip a verdict: it <strong>sharpens the estimate</strong>, which visibly converges on “about 0.1, i.e., almost nothing.” The tininess stays in view.</p>
 </section>
 <section id="so-always-ask-how-big" class="slide level2">
 <h2>So Always Ask: How Big?</h2>
@@ -711,9 +711,9 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <section id="what-we-learned-today" class="slide level2">
 <h2>What We Learned Today</h2>
 <ul>
-<li class="fragment"><strong>NHST</strong>: standardized and everywhere — but it only asks <em>how surprising are the data under the null?</em>, never scores the alternative, and rewards sheer n</li>
+<li class="fragment"><strong>NHST</strong>: standardized and everywhere, but it only asks <em>how surprising are the data under the null?</em>, never scores the alternative, and rewards sheer n</li>
 <li class="fragment"><strong>p-values</strong> are not the probability any hypothesis is true, and are silent about <em>size</em></li>
-<li class="fragment"><strong>Bayes</strong> answers <span class="math inline">\(P(H \mid \text{data})\)</span> at the price of a stated prior — tonight, in one line of R</li>
+<li class="fragment"><strong>Bayes</strong> answers <span class="math inline">\(P(H \mid \text{data})\)</span> at the price of a stated prior: tonight, in one line of R</li>
 <li class="fragment">The same trial gave <span class="math inline">\(p = 0.20\)</span> <em>and</em> a 91% probability the program works. Both true; different questions</li>
 <li class="fragment">Whatever tradition you use: <strong>say how big the difference is, in units a human cares about</strong></li>
 </ul>
@@ -723,7 +723,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <ul>
 <li><strong>Lab 6:</strong> one question about the correctional officers, answered twice. You run both tests, step by step, and submit your script (<a href="../labs/lab-06-testing.html">lab page</a>)</li>
 <li><strong>Homework 6:</strong> Bayesian vs.&nbsp;frequentist reasoning, plus both tests on the Alaska crash data, and four R4DS exercises from <strong>Ch. 17, Dates and times</strong> (posted on the <a href="../weeks/week-06.html">Session 6 page</a>)</li>
-<li><strong>Next session — the applied data workshop:</strong> the full messy-data pipeline, start to finish. <strong>Your final-project dataset selection is due at Session 7</strong> — come with a candidate dataset and be ready to defend it</li>
+<li><strong>Next session, the applied data workshop:</strong> the full messy-data pipeline, start to finish. <strong>Your final-project dataset selection is due at Session 7</strong>: come with a candidate dataset and be ready to defend it</li>
 </ul>
 </section></section>
 <section>
@@ -733,7 +733,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 </section>
 <section id="the-ugly-denominator" class="slide level2">
 <h2>The Ugly Denominator</h2>
-<p><em>Not on any exam — this is the machinery behind the Bayesian models we start fitting in Session 8, for the curious.</em></p>
+<p><em>Not on any exam: this is the machinery behind the Bayesian models we start fitting in Session 10, for the curious.</em></p>
 <p><span class="math display">\[
 P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\text{data})}}
 \]</span></p>
@@ -742,17 +742,17 @@ P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\te
 \color{#73000A}{P(\text{data}) = \int P(\text{data} \mid \theta)\, P(\theta)\, d\theta}
 \]</span></p>
 <div class="fragment">
-<p>For realistic models this integral is <strong>intractable</strong> — for most of the 20th century, Bayes was philosophically beautiful and practically unusable.</p>
+<p>For realistic models this integral is <strong>intractable</strong>: for most of the 20th century, Bayes was philosophically beautiful and practically unusable.</p>
 </div>
 </section>
 <section id="enter-mcmc" class="slide level2">
 <h2>Enter MCMC</h2>
 <p>How Markov chain Monte Carlo “measures the curve” without solving the integral:</p>
 <ul>
-<li class="fragment">We don’t know the whole posterior curve — but we <em>do</em> know its <strong>formula up to a constant</strong> (likelihood × prior)</li>
+<li class="fragment">We don’t know the whole posterior curve, but we <em>do</em> know its <strong>formula up to a constant</strong> (likelihood × prior)</li>
 <li class="fragment">A sampler evaluates that formula at its <strong>current spot</strong> and at a <strong>proposed spot</strong></li>
 <li class="fragment">Compare the two values: if the new spot is higher → <strong>accept</strong>; if lower → accept <em>with that probability</em></li>
-<li class="fragment">The impossible constant appears in both numerator and denominator — it <strong>cancels in the ratio</strong>. We never need to know it</li>
+<li class="fragment">The impossible constant appears in both numerator and denominator: it <strong>cancels in the ratio</strong>. We never need to know it</li>
 </ul>
 </section>
 <section id="mcmc-watched-live" class="slide level2">
@@ -763,9 +763,9 @@ P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\te
 <section id="we-end-up-with-the-probability-distribution" class="slide level2">
 <h2>We End Up With the Probability Distribution</h2>
 <ul>
-<li class="fragment">The pile of accepted samples <strong>is</strong> the posterior — to any precision you like, just run longer</li>
+<li class="fragment">The pile of accepted samples <strong>is</strong> the posterior: to any precision you like, just run longer</li>
 <li class="fragment">Think back to Session 4: we approximated <em>sampling</em> distributions by drawing samples and stacking them. MCMC plays exactly the same trick on the <em>posterior</em></li>
-<li class="fragment">This is why modern Bayes is possible at all — and it is what <code>brms</code> will do for us starting in Session 8. (Tonight’s <code>bayes_prop_test()</code> did not need it: for a simple proportion, the posterior has an exact formula.)</li>
+<li class="fragment">This is why modern Bayes is possible at all, and it is what <code>brms</code> will do for us starting in Session 10. (Tonight’s <code>bayes_prop_test()</code> did not need it: for a simple proportion, the posterior has an exact formula.)</li>
 </ul>
 
 
@@ -961,7 +961,7 @@ P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\te
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1073,14 +1073,13 @@ P(H \mid \text{data}) = \frac{P(\text{data} \mid H)\,P(H)}{\color{#73000A}{P(\te
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

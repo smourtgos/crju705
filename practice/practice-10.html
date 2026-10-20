@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.7.32">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Practice Problems · Session 10 – CRJU 705</title>
+<title>Practice Problems · Session 8 – CRJU 705</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -63,15 +63,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -156,28 +155,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Session 7 · Applied Workshop: Real Questions</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-08.html">
- <span class="dropdown-text">Session 8 · Comparing 3+ Groups (ANOVA)</span></a>
+    <a class="dropdown-item" href="../weeks/week-10.html">
+ <span class="dropdown-text">Session 8 · Correlation + Midterm Review</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-09.html">
  <span class="dropdown-text">Session 9 · Midterm</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weeks/week-10.html">
- <span class="dropdown-text">Session 10 · Correlation</span></a>
-  </li>  
-        <li>
     <a class="dropdown-item" href="../weeks/week-11.html">
- <span class="dropdown-text">Session 11 · Multiple Regression</span></a>
+ <span class="dropdown-text">Session 10 · Multiple Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-12.html">
- <span class="dropdown-text">Session 12 · Logistic Regression</span></a>
+ <span class="dropdown-text">Session 11 · Logistic Regression</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../weeks/week-13.html">
- <span class="dropdown-text">Session 13 · Presentations</span></a>
+ <span class="dropdown-text">Session 12 · Presentations</span></a>
   </li>  
     </ul>
 </li>
@@ -230,15 +225,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="#problem-1-covariances-units-problem" id="toc-problem-1-covariances-units-problem" class="nav-link active" data-scroll-target="#problem-1-covariances-units-problem">Problem 1 · Covariance’s units problem</a></li>
   <li><a href="#problem-2-what-r-cant-see" id="toc-problem-2-what-r-cant-see" class="nav-link" data-scroll-target="#problem-2-what-r-cant-see">Problem 2 · What r can’t see</a></li>
   <li><a href="#problem-3-one-unit-can-manufacture-a-correlation" id="toc-problem-3-one-unit-can-manufacture-a-correlation" class="nav-link" data-scroll-target="#problem-3-one-unit-can-manufacture-a-correlation">Problem 3 · One unit can manufacture a correlation</a></li>
-  <li><a href="#problem-4-inference-the-matrix-then-the-star-pair" id="toc-problem-4-inference-the-matrix-then-the-star-pair" class="nav-link" data-scroll-target="#problem-4-inference-the-matrix-then-the-star-pair">Problem 4 · Inference: the matrix, then the star pair</a></li>
-  <li><a href="#problem-5-bayesian-correlation-a-strong-pair-and-an-honest-null" id="toc-problem-5-bayesian-correlation-a-strong-pair-and-an-honest-null" class="nav-link" data-scroll-target="#problem-5-bayesian-correlation-a-strong-pair-and-an-honest-null">Problem 5 · Bayesian correlation: a strong pair and an honest null</a></li>
+  <li><a href="#problem-4-the-matrix-then-the-star-pair" id="toc-problem-4-the-matrix-then-the-star-pair" class="nav-link" data-scroll-target="#problem-4-the-matrix-then-the-star-pair">Problem 4 · The matrix, then the star pair</a></li>
+  <li><a href="#problem-5-an-honest-null" id="toc-problem-5-an-honest-null" class="nav-link" data-scroll-target="#problem-5-an-honest-null">Problem 5 · An honest null</a></li>
   <li><a href="#problem-6-the-sentence-audit" id="toc-problem-6-the-sentence-audit" class="nav-link" data-scroll-target="#problem-6-the-sentence-audit">Problem 6 · The sentence audit</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title">Practice Problems · Session 10</h1>
-<p class="subtitle lead">Correlation: covariance to r, what r can’t see, and inference in both traditions</p>
+<h1 class="title">Practice Problems · Session 8</h1>
+<p class="subtitle lead">Correlation: covariance to r, what r can’t see, and testing r</p>
 </div>
 
 
@@ -258,21 +253,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Ungraded self-checks.</strong> Work each problem in your own R session <em>before</em> clicking the solution. These use different data and variables than the homework on purpose — if you can do these cold, Homework 10 (and Checkpoint 2 on your own project) will feel routine.</p>
+<p><strong>Ungraded self-checks.</strong> Work each problem in your own R session <em>before</em> clicking the solution. These use different data and variables than the homework on purpose: if you can do these cold, Homework 8, Part 6 of the midterm, and Checkpoint 2 on your own project will feel routine.</p>
 </div>
 </div>
 </div>
-<p>Problems that use data need only this setup — <code>cities</code> is the 100 simulated-but-realistic cities you pivoted in Lab 4; today we stay in one year and go cross-sectional. One row = one <strong>city</strong>, not one person. Keep that in mind: it decides what your sentences are allowed to claim (Problem 6 will test you on it).</p>
+<p>Problems that use data need only this setup. <code>cities</code> is 100 simulated-but-realistic cities, and we use one year of it. One row = one <strong>city</strong>, not one person. Keep that in mind: it decides what your sentences are allowed to claim (Problem 6 will test you on it).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/correlation/">correlation</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/cities-wide.csv"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/cities-wide.csv"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="problem-1-covariances-units-problem" class="level2"><h2 class="anchored" data-anchor-id="problem-1-covariances-units-problem">Problem 1 · Covariance’s units problem</h2>
 <p>Compute the covariance of <code>vcr_2025</code> (violent crimes per 100,000 residents) with <strong><code>population_2020</code></strong>, and then with <strong><code>poverty_rate</code></strong>. One of these covariances is roughly 3,800 times the size of the other. Is that association 3,800 times stronger? Settle it: divide each covariance by the two standard deviations involved, then confirm with <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -285,50 +279,50 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">population_2020</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">population_2020</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3449575</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>,    <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>,    <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 914.0015</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Divide out the units: cov / (sd_x * sd_y)</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Divide out the units: cov / (sd_x * sd_y)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">population_2020</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span> <span class="op">/</span></span>
-<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">population_2020</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">population_2020</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04429418</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span> <span class="op">/</span></span>
-<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span> <span class="op">/</span></span>
+<span>  <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6082377</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">population_2020</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">population_2020</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04429418</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>,    <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>,    <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6082377</code></pre>
 </div>
 </div>
-<p>The ~3.4-million covariance turns into <strong>r = 0.04</strong> — essentially nothing — while the “little” 914 becomes <strong>r = 0.61</strong>. The first number was huge only because population is measured in <em>hundreds of thousands of people</em>; covariance is glued to its units, so its size is uninterpretable across pairs. Dividing by both SDs cancels the units and puts every pair on the same −1 to +1 ruler.</p>
+<p>The covariance in the millions turns into <strong>r = 0.04</strong>, essentially nothing, while the “little” one becomes <strong>r = 0.61</strong>. The first number was huge only because population is measured in <em>hundreds of thousands of people</em>; covariance is glued to its units, so its size can’t be compared across pairs. Dividing by both SDs cancels the units and puts every pair on the same -1 to +1 ruler.</p>
 </div>
 </div>
 </div>
 </section><section id="problem-2-what-r-cant-see" class="level2"><h2 class="anchored" data-anchor-id="problem-2-what-r-cant-see">Problem 2 · What r can’t see</h2>
-<p>A training study measures 80 recruits’ pre-qualification <strong>anxiety</strong> (0–10 scale) and their <strong>marksmanship score</strong> (100-point course). Simulate it, compute r, and then plot it:</p>
+<p>A training study measures 80 recruits’ pre-qualification <strong>anxiety</strong> (0 to 10 scale) and their <strong>marksmanship score</strong> (100-point course). Simulate it, compute r, and then plot it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span>   <span class="co"># inline seed: keeps this particular draw stable</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span>   <span class="co"># inline seed: keeps this particular draw stable</span></span>
 <span><span class="va">recruits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  anxiety      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>,</span>
 <span>  marksmanship <span class="op">=</span> <span class="fl">88</span> <span class="op">-</span> <span class="fl">2.1</span> <span class="op">*</span> <span class="op">(</span><span class="va">anxiety</span> <span class="op">-</span> <span class="fl">5</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">0</span>, <span class="fl">6</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>A colleague computes <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>, gets roughly −0.04, and writes: <em>“anxiety and marksmanship are unrelated.”</em> What did they miss, and what habit would have caught it?</p>
+<p>A colleague computes <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>, gets a number near zero, and writes: <em>“anxiety and marksmanship are unrelated.”</em> What did they miss, and what habit would have caught it?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -341,14 +335,14 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">recruits</span><span class="op">$</span><span class="va">anxiety</span>, <span class="va">recruits</span><span class="op">$</span><span class="va">marksmanship</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">recruits</span><span class="op">$</span><span class="va">anxiety</span>, <span class="va">recruits</span><span class="op">$</span><span class="va">marksmanship</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.04161482</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">recruits</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">anxiety</span>, <span class="va">marksmanship</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">recruits</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">anxiety</span>, <span class="va">marksmanship</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.6</span>, color <span class="op">=</span> <span class="st">"grey30"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"loess"</span>, se <span class="op">=</span> <span class="cn">FALSE</span>, color <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Pre-qualification anxiety (0-10)"</span>, y <span class="op">=</span> <span class="st">"Marksmanship score"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Pre-qualification anxiety (0-10)"</span>, y <span class="op">=</span> <span class="st">"Marksmanship score"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="practice-10_files/figure-html/p2-1.png" class="img-fluid figure-img" width="672"></p>
@@ -356,25 +350,25 @@ Tip
 </div>
 </div>
 </div>
-<p>r ≈ −0.04, and the plot shows anything but “unrelated”: scores peak around mid-scale anxiety and collapse at both extremes — a strong inverted-U (the classic arousal-performance curve). Because the upslope and downslope cancel, the <em>linear</em> summary lands near zero. <strong>r measures straight-line association only; r ≈ 0 means no linear relationship, not no relationship</strong> — which is why you plot before you correlate, every time.</p>
+<p>r = -0.04, and the plot shows anything but “unrelated”: scores peak around mid-scale anxiety and collapse at both extremes, a strong upside-down U (the classic arousal and performance curve). Because the upslope and downslope cancel, the <em>straight-line</em> summary lands near zero. <strong>r measures straight-line association only; r near 0 means no straight-line relationship, not no relationship</strong>, which is why you plot before you correlate, every time.</p>
 </div>
 </div>
 </div>
 </section><section id="problem-3-one-unit-can-manufacture-a-correlation" class="level2"><h2 class="anchored" data-anchor-id="problem-3-one-unit-can-manufacture-a-correlation">Problem 3 · One unit can manufacture a correlation</h2>
-<p>Twenty patrol beats, each with an average 911 <strong>response time</strong> (minutes) and a resident <strong>satisfaction</strong> score (0–100). Then the analyst appends beat 21 — the beat covering the airport, a giant low-density parcel: response time 28.4 minutes, satisfaction 31.</p>
+<p>Twenty patrol beats, each with an average 911 <strong>response time</strong> (minutes) and a resident <strong>satisfaction</strong> score (0 to 100). Then the analyst adds beat 21, the beat covering the airport, a giant low-density parcel: response time 28.4 minutes, satisfaction 31.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span>   <span class="co"># inline seed: keeps this particular draw stable</span></span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span>   <span class="co"># inline seed: keeps this particular draw stable</span></span>
 <span><span class="va">beats</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  response_min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">10</span>, <span class="fl">1.5</span><span class="op">)</span>,</span>
 <span>  satisfaction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">70</span>, <span class="fl">6</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">beats_all</span> <span class="op">&lt;-</span> <span class="va">beats</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_row.html">add_row</a></span><span class="op">(</span>response_min <span class="op">=</span> <span class="fl">28.4</span>, satisfaction <span class="op">=</span> <span class="fl">31</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_row.html">add_row</a></span><span class="op">(</span>response_min <span class="op">=</span> <span class="fl">28.4</span>, satisfaction <span class="op">=</span> <span class="fl">31</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Compute <strong>Pearson’s r and Spearman’s rho</strong> for the 20 beats, and again with the airport included. What happens to each — and which coefficient is telling the more honest story about the <em>typical</em> beat?</p>
+<p>Compute <strong>Pearson’s r and Spearman’s rho</strong> for the 20 beats, and again with the airport included. What happens to each, and which coefficient tells the more honest story about the <em>typical</em> beat?</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -387,30 +381,30 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pearson_20  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats</span><span class="op">$</span><span class="va">satisfaction</span><span class="op">)</span>,</span>
-<span>  spearman_20 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats</span><span class="op">$</span><span class="va">satisfaction</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pearson_20  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats</span><span class="op">$</span><span class="va">satisfaction</span><span class="op">)</span>,</span>
+<span>  spearman_20 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats</span><span class="op">$</span><span class="va">satisfaction</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> pearson_20 spearman_20 
  0.03864620 -0.01654135 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pearson_21  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats_all</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats_all</span><span class="op">$</span><span class="va">satisfaction</span><span class="op">)</span>,</span>
-<span>  spearman_21 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats_all</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats_all</span><span class="op">$</span><span class="va">satisfaction</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pearson_21  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats_all</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats_all</span><span class="op">$</span><span class="va">satisfaction</span><span class="op">)</span>,</span>
+<span>  spearman_21 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">beats_all</span><span class="op">$</span><span class="va">response_min</span>, <span class="va">beats_all</span><span class="op">$</span><span class="va">satisfaction</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> pearson_21 spearman_21 
  -0.8071187  -0.1506494 </code></pre>
 </div>
 </div>
-<p>Twenty beats show essentially nothing (r ≈ 0.04). Add <strong>one</strong> unrepresentative unit and Pearson leaps to ≈ <strong>−0.81</strong> — a “very strong” negative correlation manufactured entirely by a single point sitting far out in both variables. Spearman moves only from ≈ −0.02 to ≈ −0.15, because to a rank-based measure the airport is just “rank 21,” not “a dozen standard deviations of leverage.” Neither number substitutes for the scatterplot — but when one wild unit is in the data, Spearman describes the typical beats far more honestly, and a Pearson-Spearman gap this large is itself a red flag to go look.</p>
+<p>Twenty beats show essentially nothing (r = 0.04). Add <strong>one</strong> unusual unit and Pearson leaps to <strong>-0.81</strong>, a “very strong” negative correlation manufactured entirely by a single point sitting far out on both variables. Spearman moves only from -0.02 to -0.15, because to a rank-based measure the airport is just “rank 21.” Neither number substitutes for the scatterplot, but when one wild unit is in the data, Spearman describes the typical beats far more honestly, and a Pearson and Spearman gap this large is itself a red flag to go look.</p>
 </div>
 </div>
 </div>
-</section><section id="problem-4-inference-the-matrix-then-the-star-pair" class="level2"><h2 class="anchored" data-anchor-id="problem-4-inference-the-matrix-then-the-star-pair">Problem 4 · Inference: the matrix, then the star pair</h2>
+</section><section id="problem-4-the-matrix-then-the-star-pair" class="level2"><h2 class="anchored" data-anchor-id="problem-4-the-matrix-then-the-star-pair">Problem 4 · The matrix, then the star pair</h2>
 <ol type="a">
-<li><p>Run <code><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation()</a></code> on <code>vcr_2025</code>, <code>poverty_rate</code>, <code>unemployment_rate</code>, and <code>police_per_10k</code>. Which pairs survive the Holm adjustment — and why do these p-values need adjusting at all?</p></li>
-<li><p>The star pair is poverty and violence. Run <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> on it and write the one-sentence lecture-style report: r, df, p, CI, direction, strength.</p></li>
+<li><p>Run <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> on <code>vcr_2025</code>, <code>poverty_rate</code>, <code>unemployment_rate</code>, and <code>police_per_10k</code> (use <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, then <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>, then <code>round(2)</code>). Which variable has the strongest association with <code>vcr_2025</code>?</p></li>
+<li><p>The star pair is poverty and violence. Run <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> on it and write the one-sentence lecture-style report: r, the 95% confidence interval, the p-value, direction, and strength.</p></li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -423,25 +417,19 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cities</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cities</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">vcr_2025</span>, <span class="va">poverty_rate</span>, <span class="va">unemployment_rate</span>, <span class="va">police_per_10k</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1        |        Parameter2 |     r |        95% CI | t(98) |         p
----------------------------------------------------------------------------------
-vcr_2025          |      poverty_rate |  0.61 | [ 0.47, 0.72] |  7.59 | &lt; .001***
-vcr_2025          | unemployment_rate |  0.08 | [-0.11, 0.28] |  0.84 | &gt; .999   
-vcr_2025          |    police_per_10k | -0.09 | [-0.28, 0.11] | -0.90 | &gt; .999   
-poverty_rate      | unemployment_rate |  0.05 | [-0.15, 0.24] |  0.48 | &gt; .999   
-poverty_rate      |    police_per_10k |  0.05 | [-0.15, 0.24] |  0.46 | &gt; .999   
-unemployment_rate |    police_per_10k |  0.16 | [-0.04, 0.34] |  1.58 | 0.591    
-
-p-value adjustment method: Holm (1979)
-Observations: 100</code></pre>
+<pre><code>                  vcr_2025 poverty_rate unemployment_rate police_per_10k
+vcr_2025              1.00         0.61              0.08          -0.09
+poverty_rate          0.61         1.00              0.05           0.05
+unemployment_rate     0.08         0.05              1.00           0.16
+police_per_10k       -0.09         0.05              0.16           1.00</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">pov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span>
+<span><span class="va">pov</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -457,16 +445,16 @@ sample estimates:
 </div>
 </div>
 <ol type="a">
-<li><p>Exactly <strong>one</strong> pair survives: poverty with violent crime (r = .61, adjusted p &lt; .001). Every other CI crosses 0, with adjusted p-values from .59 to essentially 1. The adjustment exists because this table runs <strong>six tests at once</strong> — six chances at a 5% false alarm is Session 8’s pile-of-t-tests problem wearing correlation clothes, and Holm restores the family-wise honesty.</p></li>
-<li><p>“Across these 100 cities, poverty was moderately associated with the violent-crime rate, r = .61, t(98) = 7.59, p &lt; .001, 95% CI [.47, .72] — cities with higher poverty rates recorded more violent crime per 100,000 residents.” (By the lecture’s bands, .61 is a <em>moderate</em> correlation — and in messy social-science data, a moderate r is a major finding.) A correlation matrix is the map; <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> is the full readout you pull for the one relationship your analysis is actually about.</p></li>
+<li><p>Poverty, at r = 0.61. Every other variable’s correlation with <code>vcr_2025</code> is small.</p></li>
+<li><p>“Across these 100 cities, poverty was moderately associated with the violent-crime rate, r = 0.61, 95% CI 0.47 to 0.72, p &lt; 0.001: cities with higher poverty rates recorded more violent crime per 100,000 residents.” By the lecture’s bands this is a <em>moderate</em> correlation, and in messy social-science data a moderate r is a major finding. The matrix is the map; <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> is the full readout for the one relationship your analysis is actually about.</p></li>
 </ol>
 </div>
 </div>
 </div>
-</section><section id="problem-5-bayesian-correlation-a-strong-pair-and-an-honest-null" class="level2"><h2 class="anchored" data-anchor-id="problem-5-bayesian-correlation-a-strong-pair-and-an-honest-null">Problem 5 · Bayesian correlation: a strong pair and an honest null</h2>
-<p>Run the Bayesian version (<code>bayesian = TRUE</code>) twice: once on <code>poverty_rate</code> + <code>vcr_2025</code>, once on <code>unemployment_rate</code> + <code>vcr_2025</code>. For each, read out <strong>rho, the 95% credible interval, pd, % in ROPE, and the Bayes factor</strong>. For the second pair, also compute 1/BF. What can you say about unemployment that a p-value never could?</p>
+</section><section id="problem-5-an-honest-null" class="level2"><h2 class="anchored" data-anchor-id="problem-5-an-honest-null">Problem 5 · An honest null</h2>
+<p>Run <code><a href="https://rdrr.io/r/stats/cor.test.html">cor.test()</a></code> on <code>unemployment_rate</code> and <code>vcr_2025</code>. Report r, the confidence interval, and the p-value. Where is zero? Then write the honest one-sentence conclusion, and say why “unemployment has nothing to do with violent crime” goes further than these data allow.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -479,64 +467,39 @@ Tip
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span>   <span class="co"># inline seed: the Bayesian version samples from the posterior</span></span>
-<span><span class="va">cities</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">vcr_2025</span>, <span class="va">poverty_rate</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span>bayesian <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">unemp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">unemployment_rate</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span></span>
+<span><span class="va">unemp</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
+<pre><code>
+    Pearson's product-moment correlation
 
-Parameter1 |   Parameter2 |  rho |       95% CI |      pd | % in ROPE
----------------------------------------------------------------------
-vcr_2025   | poverty_rate | 0.58 | [0.46, 0.70] | 100%*** |        0%
-
-Parameter1 |         Prior |          BF
-----------------------------------------
-vcr_2025   | Beta (3 +- 3) | 4.25e+08***
-
-Observations: 100</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
-<span><span class="va">bayes_unemp</span> <span class="op">&lt;-</span> <span class="va">cities</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">vcr_2025</span>, <span class="va">unemployment_rate</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://easystats.github.io/correlation/reference/correlation.html">correlation</a></span><span class="op">(</span>bayesian <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">bayes_unemp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Correlation Matrix (pearson-method)
-
-Parameter1 |        Parameter2 |  rho |        95% CI |     pd | % in ROPE
---------------------------------------------------------------------------
-vcr_2025   | unemployment_rate | 0.08 | [-0.11, 0.25] | 79.83% |    55.05%
-
-Parameter1 |         Prior |     BF
------------------------------------
-vcr_2025   | Beta (3 +- 3) | 0.319°
-
-Observations: 100</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fl">1</span> <span class="op">/</span> <span class="va">bayes_unemp</span><span class="op">$</span><span class="va">BF</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.129932</code></pre>
+data:  cities$unemployment_rate and cities$vcr_2025
+t = 0.83684, df = 98, p-value = 0.4047
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.1140718  0.2760839
+sample estimates:
+       cor 
+0.08423359 </code></pre>
 </div>
 </div>
-<p><strong>Poverty:</strong> rho ≈ .58 (a touch below the frequentist .61 — the mildly skeptical prior’s pull), 95% CI ≈ [.46, .70], pd = 100%, 0% in ROPE, BF ≈ 4 × 10⁸ — evidence far past “extreme” on Session 6’s scale.</p>
-<p><strong>Unemployment:</strong> rho ≈ .08, CI ≈ [−.11, .25] straddling 0, pd ≈ 80% (a coin flip barely leaning positive), and <strong>over half the posterior sits inside the ROPE</strong> — the “practically zero” band. The BF ≈ 0.32 is <em>below 1</em>: taking 1/BF, the data are about <strong>3 times more consistent with no correlation than with one</strong>. That’s the sentence a p-value can never earn — the frequentist p ≈ .40 only says “failed to reject”; the Bayes factor gives you <em>positive evidence for the null</em>, stated as such.</p>
+<p>r = 0.08, 95% CI -0.11 to 0.28, p = 0.40. <strong>Zero is inside the interval</strong>, so we fail to reject. The honest sentence: “These 100 cities show no evidence of a straight-line association between unemployment and violent crime.” Saying “nothing to do with” goes further in two ways: failing to reject is not proof of zero (the interval still allows a modest positive or a small negative correlation), and r only sees straight lines, so check the scatterplot for a curve.</p>
 </div>
 </div>
 </div>
 </section><section id="problem-6-the-sentence-audit" class="level2"><h2 class="anchored" data-anchor-id="problem-6-the-sentence-audit">Problem 6 · The sentence audit</h2>
-<p>Your Problems 4–5 results end up in a briefing. Five draft sentences below — <strong>which are defensible, and what exactly is wrong with the rest?</strong></p>
+<p>Your Problem 4 and 5 results end up in a briefing. Five draft sentences below: <strong>which are defensible, and what exactly is wrong with the rest?</strong></p>
 <blockquote class="blockquote">
 <ol type="a">
-<li><p>“Cities with higher poverty rates recorded higher violent-crime rates in 2025 (r = .61).”</p></li>
+<li><p>“Cities with higher poverty rates recorded higher violent-crime rates in 2025 (r = 0.61).”</p></li>
 <li><p>“Poor residents commit most of the violent crime in these cities.”</p></li>
 <li><p>“Poverty causes violent crime.”</p></li>
-<li><p>“City-level poverty statistically accounts for about 37% of the city-to-city variance in violent-crime rates.”</p></li>
-<li><p>“We found no reliable city-level association between unemployment and violent crime; if anything, the data modestly favor there being none.”</p></li>
+<li><p>“We found no evidence of a city-level association between unemployment and violent crime.”</p></li>
+<li><p>“We proved that unemployment and violent crime are unrelated.”</p></li>
 </ol>
 </blockquote>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -548,14 +511,8 @@ Tip
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Solution</strong></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cities</span><span class="op">$</span><span class="va">poverty_rate</span>, <span class="va">cities</span><span class="op">$</span><span class="va">vcr_2025</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>   <span class="co"># the 37% in sentence (d)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3699531</code></pre>
-</div>
-</div>
-<p><strong>Defensible: (a), (d), and (e).</strong> (a) stays at the level of the rows — cities — and claims only association. (d) is r² = .61² ≈ .37, correctly framed as <em>variance accounted for</em>, still at the city level. (e) matches Problem 5’s output, including the BF ≈ 0.32 nuance.</p>
-<p><strong>(b) fails</strong> — the <strong>ecological fallacy</strong>. These rows are cities; every resident of a city shares one poverty rate and one crime rate, so the data contain nothing about <em>which residents</em> are involved in violence. <strong>(c) fails</strong> — a causal claim from a cross-sectional correlation; disinvestment, housing, policing patterns, and more lurk behind both variables. The audit habit: check every sentence for the <em>level</em> the data measure (areas vs.&nbsp;people) and the <em>strength</em> the design supports (association vs.&nbsp;cause).</p>
+<p><strong>Defensible: (a) and (d).</strong> (a) stays at the level of the rows (cities) and claims only association. (d) matches Problem 5: no evidence, stated at the city level.</p>
+<p><strong>(b) fails</strong>: the <strong>ecological fallacy</strong>. These rows are cities; every resident of a city shares one poverty rate and one crime rate, so the data contain nothing about <em>which residents</em> are involved in violence. <strong>(c) fails</strong>: a claim about cause from a correlation measured at one point in time; disinvestment, housing, policing patterns, and more lurk behind both variables. <strong>(e) fails</strong>: failing to reject never proves the null. The audit habit: check every sentence for the <em>level</em> the data measure (places vs.&nbsp;people) and the <em>strength</em> the design supports (association vs.&nbsp;cause, no evidence vs.&nbsp;proof of none).</p>
 </div>
 </div>
 </div>
@@ -612,14 +569,13 @@ Tip
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

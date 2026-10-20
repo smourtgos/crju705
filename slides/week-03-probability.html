@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Reasoning with Probability</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -246,21 +246,21 @@ Scott M. Mourtgos
 <h2>Probability = Long-Run Proportion</h2>
 <p>Claim: a fair coin lands heads with probability 0.5. Don’t trust me — flip some coins:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>flips <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-2"><a></a>flips</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>flips <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a></a>flips</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "heads" "heads" "heads" "tails" "tails" "tails" "heads" "tails" "heads"
 [10] "heads"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">mean</span>(flips <span class="sc">==</span> <span class="st">"heads"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">mean</span>(flips <span class="sc">==</span> <span class="st">"heads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># six more batches of ten flips each:</span></span>
-<span id="cb5-2"><a></a><span class="fu">replicate</span>(<span class="dv">6</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> <span class="st">"heads"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># six more batches of ten flips each:</span></span>
+<span id="cb5-2"><a></a><span class="fu">replicate</span>(<span class="dv">6</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"heads"</span>, <span class="st">"tails"</span>), <span class="at">size =</span> <span class="dv">10</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">==</span> <span class="st">"heads"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6 0.1 0.5 0.6 0.6 0.7</code></pre>
 </div>
@@ -284,7 +284,7 @@ Scott M. Mourtgos
 <section id="the-long-run-seen" class="slide level2">
 <h2>The Long Run, Seen</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="1-4|5-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>lln <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">flip =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="at">size =</span> <span class="dv">100000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="1-4|5-9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>lln <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">flip =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>), <span class="at">size =</span> <span class="dv">100000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a></a>  <span class="fu">mutate</span>(<span class="at">n_flips =</span> <span class="fu">row_number</span>(),</span>
 <span id="cb7-3"><a></a>         <span class="at">running_prop =</span> <span class="fu">cummean</span>(flip))</span>
 <span id="cb7-4"><a></a></span>
@@ -292,7 +292,7 @@ Scott M. Mourtgos
 <span id="cb7-6"><a></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
 <span id="cb7-7"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb7-8"><a></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb7-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of flips (log scale)"</span>, <span class="at">y =</span> <span class="st">"Running proportion of heads"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of flips (log scale)"</span>, <span class="at">y =</span> <span class="st">"Running proportion of heads"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>Wobbly early, pinned to 0.5 eventually. A <strong>probability</strong> is the value the long-run proportion settles on. Every probability “fact” today gets this treatment.</p>
@@ -309,7 +309,7 @@ Scott M. Mourtgos
 <h2>Real Stakes: P(Arrest) in Chicago</h2>
 <p>Our anchor data: 30,000 real Chicago incidents from 2025. Each incident either ended in an arrest or didn’t — 30,000 recorded trials.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">mean</span>(crimes<span class="sc">$</span>arrest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">mean</span>(crimes<span class="sc">$</span>arrest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1608</code></pre>
 </div>
@@ -321,7 +321,7 @@ Scott M. Mourtgos
 <h2>The Long Run Works on Real Data Too</h2>
 <p>Read case files one at a time, tracking the running arrest proportion:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-code-line-numbers="1-3|4-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>running <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">arrest =</span> <span class="fu">sample</span>(crimes<span class="sc">$</span>arrest, <span class="at">size =</span> <span class="dv">5000</span>)) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="1-3|4-8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>running <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">arrest =</span> <span class="fu">sample</span>(crimes<span class="sc">$</span>arrest, <span class="at">size =</span> <span class="dv">5000</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a></a>  <span class="fu">mutate</span>(<span class="at">n_cases =</span> <span class="fu">row_number</span>(),</span>
 <span id="cb10-3"><a></a>         <span class="at">running_prop =</span> <span class="fu">cummean</span>(arrest))</span>
 <span id="cb10-4"><a></a></span>
@@ -329,7 +329,7 @@ Scott M. Mourtgos
 <span id="cb10-6"><a></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> crju_colors[<span class="st">"navy"</span>]) <span class="sc">+</span></span>
 <span id="cb10-7"><a></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">mean</span>(crimes<span class="sc">$</span>arrest), <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
 <span id="cb10-8"><a></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb10-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Case files read (log scale)"</span>, <span class="at">y =</span> <span class="st">"Running proportion arrested"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Case files read (log scale)"</span>, <span class="at">y =</span> <span class="st">"Running proportion arrested"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>The first few dozen cases can wander far from 0.16. Thousands pin it down. <strong>Small samples lie; long runs don’t.</strong></p>
@@ -359,11 +359,11 @@ Scott M. Mourtgos
 <h2>The Toast Data: 100 Dropped Orders</h2>
 <p>Here’s data from 100 trials:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>toast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>toast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb11-2"><a></a>  <span class="at">jelly_down =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>,</span>
 <span id="cb11-3"><a></a>  <span class="at">trials     =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">20</span>, <span class="dv">34</span>, <span class="dv">21</span>, <span class="dv">11</span>, <span class="dv">1</span>)</span>
 <span id="cb11-4"><a></a>)</span>
-<span id="cb11-5"><a></a>toast</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-5"><a></a>toast</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   jelly_down trials
@@ -381,7 +381,7 @@ Scott M. Mourtgos
 <section id="proportions-probabilities" class="slide level2">
 <h2>Proportions ≈ Probabilities</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>toast <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">prob =</span> trials <span class="sc">/</span> <span class="fu">sum</span>(trials))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>toast <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">prob =</span> trials <span class="sc">/</span> <span class="fu">sum</span>(trials))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 3
   jelly_down trials  prob
@@ -398,7 +398,7 @@ Scott M. Mourtgos
 <div class="fragment">
 <p>Rule #1: probabilities across <strong>all</strong> outcomes sum to 1:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>toast <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">total_prob =</span> <span class="fu">sum</span>(trials <span class="sc">/</span> <span class="fu">sum</span>(trials)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>toast <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">total_prob =</span> <span class="fu">sum</span>(trials <span class="sc">/</span> <span class="fu">sum</span>(trials)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   total_prob
@@ -411,13 +411,13 @@ Scott M. Mourtgos
 <section id="simulate-your-own-toast-drops" class="slide level2">
 <h2>Simulate Your Own Toast Drops</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>drops <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>drops <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
 <span id="cb17-2"><a></a><span class="co"># rbinom() generates random trials of the "binomial distribution"</span></span>
 <span id="cb17-3"><a></a><span class="co"># n = 100 gives the number of trials</span></span>
 <span id="cb17-4"><a></a><span class="co"># size = 6 asks for six pieces of toast in each trial</span></span>
 <span id="cb17-5"><a></a><span class="co"># prob = 0.5 says there's an even (50:50) chance of jelly-down or jelly-up</span></span>
 <span id="cb17-6"><a></a></span>
-<span id="cb17-7"><a></a><span class="fu">tibble</span>(<span class="at">jelly_down =</span> drops) <span class="sc">|&gt;</span> <span class="fu">count</span>(jelly_down)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-7"><a></a><span class="fu">tibble</span>(<span class="at">jelly_down =</span> drops) <span class="sc">|&gt;</span> <span class="fu">count</span>(jelly_down)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   jelly_down     n
@@ -436,7 +436,7 @@ Scott M. Mourtgos
 <section id="run-it-again-it-changes" class="slide level2">
 <h2>Run It Again — It Changes</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" data-code-line-numbers="1-4|5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>two_runs <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<div class="sourceCode cell-code" id="cb19" data-code-line-numbers="1-4|5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>two_runs <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb19-2"><a></a>  <span class="at">run =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Run 1"</span>, <span class="st">"Run 2"</span>), <span class="at">each =</span> <span class="dv">100</span>),</span>
 <span id="cb19-3"><a></a>  <span class="at">jelly_down =</span> <span class="fu">c</span>(<span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>),</span>
 <span id="cb19-4"><a></a>                 <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>))</span>
@@ -444,7 +444,7 @@ Scott M. Mourtgos
 <span id="cb19-6"><a></a><span class="fu">ggplot</span>(two_runs, <span class="fu">aes</span>(jelly_down)) <span class="sc">+</span></span>
 <span id="cb19-7"><a></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> crju_colors[<span class="st">"garnet"</span>]) <span class="sc">+</span></span>
 <span id="cb19-8"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>run) <span class="sc">+</span></span>
-<span id="cb19-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Jelly-down count (out of 6)"</span>, <span class="at">y =</span> <span class="st">"Trials"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Jelly-down count (out of 6)"</span>, <span class="at">y =</span> <span class="st">"Trials"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>Same process, different picture — <strong>sampling variability</strong>. 100 trials is still a shortish run. <strong>Try running it yourself!</strong></p>
@@ -461,12 +461,12 @@ Scott M. Mourtgos
 <h2>The Long Run Tames the Wobble</h2>
 <p>The “theoretical” binomial probabilities are just what the simulation converges to:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">tibble</span>(<span class="at">jelly_down =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">100000</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">tibble</span>(<span class="at">jelly_down =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">100000</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a></a>  <span class="fu">count</span>(jelly_down) <span class="sc">|&gt;</span></span>
 <span id="cb20-3"><a></a>  <span class="fu">mutate</span>(</span>
 <span id="cb20-4"><a></a>    <span class="at">simulated   =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n),</span>
 <span id="cb20-5"><a></a>    <span class="at">theoretical =</span> <span class="fu">dbinom</span>(jelly_down, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb20-6"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-6"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>At 100,000 trials, simulated and theoretical probabilities agree to within a few thousandths. Theory is the long run; simulation is how we <em>watch</em> the long run.</p>
@@ -488,13 +488,13 @@ Scott M. Mourtgos
 <h2>Cumulative Probabilities</h2>
 <p>“What’s the probability of <strong>3 or fewer</strong> jelly-down?” Add up the outcomes as you go:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" data-code-line-numbers="1-4|5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>cum_toast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">jelly_down =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">100000</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb22" data-code-line-numbers="1-4|5-7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>cum_toast <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">jelly_down =</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">100000</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a></a>  <span class="fu">count</span>(jelly_down) <span class="sc">|&gt;</span></span>
 <span id="cb22-3"><a></a>  <span class="fu">mutate</span>(<span class="at">prob =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n),</span>
 <span id="cb22-4"><a></a>         <span class="at">cum_prob =</span> <span class="fu">cumsum</span>(prob))</span>
 <span id="cb22-5"><a></a><span class="fu">ggplot</span>(cum_toast, <span class="fu">aes</span>(jelly_down, cum_prob)) <span class="sc">+</span></span>
 <span id="cb22-6"><a></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> crju_colors[<span class="st">"navy"</span>]) <span class="sc">+</span></span>
-<span id="cb22-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Jelly-down count"</span>, <span class="at">y =</span> <span class="st">"P(this count or fewer)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-7"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Jelly-down count"</span>, <span class="at">y =</span> <span class="st">"P(this count or fewer)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>Each bar = probability of <em>that count or fewer</em>. The last bar is always 1 — rule #1 again.</p>
@@ -516,14 +516,14 @@ Scott M. Mourtgos
 <h2>Linked Outcomes</h2>
 <p>Now each falling piece of toast has <strong>two</strong> classifications: how it lands (down/up) <em>and</em> its topping (jelly/butter). Ten dropped pieces:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>toast10 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>toast10 <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
 <span id="cb23-2"><a></a>  <span class="sc">~</span>topping, <span class="sc">~</span>landed, <span class="sc">~</span>n,</span>
 <span id="cb23-3"><a></a>  <span class="st">"Jelly"</span>,  <span class="st">"Down"</span>,  <span class="dv">2</span>,</span>
 <span id="cb23-4"><a></a>  <span class="st">"Jelly"</span>,  <span class="st">"Up"</span>,    <span class="dv">1</span>,</span>
 <span id="cb23-5"><a></a>  <span class="st">"Butter"</span>, <span class="st">"Down"</span>,  <span class="dv">3</span>,</span>
 <span id="cb23-6"><a></a>  <span class="st">"Butter"</span>, <span class="st">"Up"</span>,    <span class="dv">4</span></span>
 <span id="cb23-7"><a></a>)</span>
-<span id="cb23-8"><a></a>toast10 <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> landed, <span class="at">values_from =</span> n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb23-8"><a></a>toast10 <span class="sc">|&gt;</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> landed, <span class="at">values_from =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   topping  Down    Up
@@ -542,7 +542,7 @@ Scott M. Mourtgos
 <li>Which topping is more common, butter or jelly?</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>toast10 <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">sum</span>(n), <span class="at">.by =</span> landed)    <span class="co"># column margins</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>toast10 <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">sum</span>(n), <span class="at">.by =</span> landed)    <span class="co"># column margins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>The row/column sums live in the <em>margins</em> of the table — hence <strong>marginal</strong> probabilities.</p>
@@ -555,7 +555,7 @@ Scott M. Mourtgos
 1 Down       5
 2 Up         5</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>toast10 <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">sum</span>(n), <span class="at">.by =</span> topping)   <span class="co"># row margins</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>toast10 <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">sum</span>(n), <span class="at">.by =</span> topping)   <span class="co"># row margins</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   topping     n
@@ -563,7 +563,7 @@ Scott M. Mourtgos
 1 Jelly       3
 2 Butter      7</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">sum</span>(toast10<span class="sc">$</span>n)                                    <span class="co"># grand total</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">sum</span>(toast10<span class="sc">$</span>n)                                    <span class="co"># grand total</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10</code></pre>
 </div>
@@ -571,13 +571,13 @@ Scott M. Mourtgos
 <h2>Super Challenge: Does the Topping Matter?</h2>
 <p>Jelly landed down 2/3 of the time (0.67); butter 3/7 (0.43). Is jelly <em>really</em> doomed — or is 10 pieces of toast just a short run? <strong>Simulate a world where topping makes no difference:</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>sim_gap <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>sim_gap <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb31-2"><a></a>  p_jelly  <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">3</span>   <span class="co"># 3 jelly pieces, fair</span></span>
 <span id="cb31-3"><a></a>  p_butter <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">7</span>, <span class="at">prob =</span> <span class="fl">0.5</span>) <span class="sc">/</span> <span class="dv">7</span>   <span class="co"># 7 butter pieces, fair</span></span>
 <span id="cb31-4"><a></a>  <span class="fu">abs</span>(p_jelly <span class="sc">-</span> p_butter)</span>
 <span id="cb31-5"><a></a>}</span>
 <span id="cb31-6"><a></a>gaps <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">sim_gap</span>())</span>
-<span id="cb31-7"><a></a><span class="fu">mean</span>(gaps <span class="sc">&gt;=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">7</span>)   <span class="co"># how often does pure chance produce our gap?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb31-7"><a></a><span class="fu">mean</span>(gaps <span class="sc">&gt;=</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">7</span>)   <span class="co"># how often does pure chance produce our gap?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.611</code></pre>
 </div>
@@ -592,9 +592,9 @@ Scott M. Mourtgos
 <h2>A Real Contingency Table</h2>
 <p>Same structure, real stakes — crime category × arrest, 30,000 Chicago incidents:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>crimes <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>crimes <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a></a>  <span class="fu">count</span>(crime_category, arrest) <span class="sc">|&gt;</span></span>
-<span id="cb33-3"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> arrest, <span class="at">values_from =</span> n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb33-3"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> arrest, <span class="at">values_from =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   crime_category `FALSE` `TRUE`
@@ -610,9 +610,9 @@ Scott M. Mourtgos
 <h2>Joint Probabilities, For Real</h2>
 <p><strong>Joint</strong> — divide every cell by the grand total:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>crimes <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>crimes <span class="sc">|&gt;</span></span>
 <span id="cb35-2"><a></a>  <span class="fu">count</span>(crime_category, arrest) <span class="sc">|&gt;</span></span>
-<span id="cb35-3"><a></a>  <span class="fu">mutate</span>(<span class="at">p =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb35-3"><a></a>  <span class="fu">mutate</span>(<span class="at">p =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
   crime_category arrest     n      p
@@ -631,7 +631,7 @@ Scott M. Mourtgos
 <h2>Marginal Probabilities, For Real</h2>
 <p><strong>Marginal</strong> — collapse one classification:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(crime_category) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>crimes <span class="sc">|&gt;</span> <span class="fu">count</span>(crime_category) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   crime_category     n     p
@@ -652,7 +652,7 @@ Scott M. Mourtgos
 <h2>The Restaurant Work Schedule</h2>
 <p>Back at the toast restaurant — hours worked by four servers:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>hours <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>hours <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
 <span id="cb39-2"><a></a>  <span class="sc">~</span>day,        <span class="sc">~</span>Anne, <span class="sc">~</span>Bill, <span class="sc">~</span>Calvin, <span class="sc">~</span>Devon,</span>
 <span id="cb39-3"><a></a>  <span class="st">"Monday"</span>,        <span class="dv">6</span>,     <span class="dv">0</span>,       <span class="dv">5</span>,      <span class="dv">8</span>,</span>
 <span id="cb39-4"><a></a>  <span class="st">"Tuesday"</span>,       <span class="dv">0</span>,     <span class="dv">6</span>,       <span class="dv">6</span>,      <span class="dv">0</span>,</span>
@@ -662,7 +662,7 @@ Scott M. Mourtgos
 <span id="cb39-8"><a></a>  <span class="st">"Saturday"</span>,      <span class="dv">8</span>,    <span class="dv">10</span>,       <span class="dv">8</span>,      <span class="dv">8</span>,</span>
 <span id="cb39-9"><a></a>  <span class="st">"Sunday"</span>,        <span class="dv">0</span>,     <span class="dv">3</span>,       <span class="dv">6</span>,      <span class="dv">0</span></span>
 <span id="cb39-10"><a></a>)</span>
-<span id="cb39-11"><a></a>hours_long <span class="ot">&lt;-</span> hours <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>day, <span class="at">names_to =</span> <span class="st">"server"</span>, <span class="at">values_to =</span> <span class="st">"hours"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb39-11"><a></a>hours_long <span class="ot">&lt;-</span> hours <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>day, <span class="at">names_to =</span> <span class="st">"server"</span>, <span class="at">values_to =</span> <span class="st">"hours"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Two interesting questions:</p>
 <ol type="1">
@@ -674,9 +674,9 @@ Scott M. Mourtgos
 <h2>Converting to Proportions</h2>
 <p>Every cell divided by the grand total (147 hours) — the joint probabilities:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>hours_long <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>hours_long <span class="sc">|&gt;</span></span>
 <span id="cb40-2"><a></a>  <span class="fu">mutate</span>(<span class="at">p =</span> hours <span class="sc">/</span> <span class="fu">sum</span>(hours)) <span class="sc">|&gt;</span></span>
-<span id="cb40-3"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> day, <span class="at">names_from =</span> server, <span class="at">values_from =</span> p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb40-3"><a></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> day, <span class="at">names_from =</span> server, <span class="at">values_from =</span> p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   day         Anne   Bill Calvin  Devon
@@ -696,10 +696,10 @@ Scott M. Mourtgos
 <h2>Question 1: Bill Is Your Server — What Day Is It?</h2>
 <p>Isolate Bill’s column, then <strong>re-scale it so it sums to 1</strong>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>hours_long <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>hours_long <span class="sc">|&gt;</span></span>
 <span id="cb42-2"><a></a>  <span class="fu">filter</span>(server <span class="sc">==</span> <span class="st">"Bill"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb42-3"><a></a>  <span class="fu">mutate</span>(<span class="at">p_day_given_bill =</span> hours <span class="sc">/</span> <span class="fu">sum</span>(hours)) <span class="sc">|&gt;</span></span>
-<span id="cb42-4"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p_day_given_bill))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb42-4"><a></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(p_day_given_bill))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <p>Most likely Saturday (0.26). That renormalization — <em>shrink the world to the condition, then re-proportion</em> — <strong>is</strong> conditional probability, and it’s the core move behind Bayes’ theorem at the end of today.</p>
@@ -721,9 +721,9 @@ Scott M. Mourtgos
 <h2>Question 2: It’s Monday — Who’s Serving?</h2>
 <p>Same move, conditioning the other way:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a>hours_long <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a>hours_long <span class="sc">|&gt;</span></span>
 <span id="cb44-2"><a></a>  <span class="fu">filter</span>(day <span class="sc">==</span> <span class="st">"Monday"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb44-3"><a></a>  <span class="fu">mutate</span>(<span class="at">p_server_given_monday =</span> hours <span class="sc">/</span> <span class="fu">sum</span>(hours))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb44-3"><a></a>  <span class="fu">mutate</span>(<span class="at">p_server_given_monday =</span> hours <span class="sc">/</span> <span class="fu">sum</span>(hours))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   day    server hours p_server_given_monday
@@ -740,8 +740,8 @@ Scott M. Mourtgos
 <h2>Conditioning = filter(), Then Proportion</h2>
 <p>In real data, conditional probability is just <em>subset, then take the mean</em>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>crimes <span class="sc">|&gt;</span></span>
-<span id="cb46-2"><a></a>  <span class="fu">summarize</span>(<span class="at">p_arrest =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> crime_category)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>crimes <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a></a>  <span class="fu">summarize</span>(<span class="at">p_arrest =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> crime_category)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   crime_category p_arrest     n
@@ -756,9 +756,9 @@ Scott M. Mourtgos
 <section id="conditionals-reveal-what-variables-measure" class="slide level2">
 <h2>Conditionals Reveal What Variables Measure</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>crimes <span class="sc">|&gt;</span></span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>crimes <span class="sc">|&gt;</span></span>
 <span id="cb48-2"><a></a>  <span class="fu">filter</span>(primary_type <span class="sc">==</span> <span class="st">"NARCOTICS"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb48-3"><a></a>  <span class="fu">summarize</span>(<span class="at">p_arrest =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb48-3"><a></a>  <span class="fu">summarize</span>(<span class="at">p_arrest =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   p_arrest     n
@@ -774,12 +774,12 @@ Scott M. Mourtgos
 <section id="when-conditioning-changes-nothing-independence" class="slide level2">
 <h2>When Conditioning Changes Nothing: Independence</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">mean</span>(crimes<span class="sc">$</span>arrest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a><span class="fu">mean</span>(crimes<span class="sc">$</span>arrest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1608</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>crimes <span class="sc">|&gt;</span></span>
-<span id="cb52-2"><a></a>  <span class="fu">summarize</span>(<span class="at">p_arrest =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> domestic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>crimes <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a></a>  <span class="fu">summarize</span>(<span class="at">p_arrest =</span> <span class="fu">mean</span>(arrest), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> domestic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   domestic p_arrest     n
@@ -1099,7 +1099,7 @@ P(\text{sick} \mid +) \;=\; \frac{9}{9 + 50} \;\approx\; 15\%
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1211,14 +1211,13 @@ P(\text{sick} \mid +) \;=\; \frac{9}{9 + 50} \;\approx\; 15\%
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
