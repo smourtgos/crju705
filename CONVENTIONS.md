@@ -147,6 +147,6 @@ Improving decks is encouraged (extra examples, better plots, clearer explanation
 
 ## Publishing
 
-- Weekly loop: edit → `quarto preview` → commit → `quarto publish gh-pages --no-prompt`
+- Weekly loop: edit → `quarto preview` → commit → push → `./publish.sh` (never `quarto publish` directly; see PROJECT_NOTES.md)
 - Source of truth is `main`; the built site lives on `gh-pages`; never edit `gh-pages` by hand
 - `_freeze/` is COMMITTED (freeze: auto) so expensive chunks don't re-run needlessly

@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "grep -Eiq '(\"command\"[[:space:]]*:[[:space:]]*\"|[;&|(])[[:space:]]*([A-Za-z_][A-Za-z0-9_]*=[^[:space:]]*[[:space:]]+)*(\\\\\"|\")?[^[:space:];&|\"\\\\]*quarto[^[:space:];&|\"\\\\]*(\\\\\"|\")?[[:space:]]+publish' && { echo \"BLOCKED: never run quarto publish directly; it ships whatever is in this machine's _site, which can be stale (Oct 19, 2026 incident). Publish only with ./publish.sh in crju705-site.nosync (try --dry-run first). It builds from what is on GitHub and prunes gh-pages. See PROJECT_NOTES.md.\" >&2; exit 2; } || exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}

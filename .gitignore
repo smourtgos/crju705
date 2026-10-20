@@ -23,3 +23,7 @@ data-raw/
 # (e.g. "demos/demo-07-workshop 2.html"). Scoped to .html on purpose -- the
 # similarly-named PNGs under _freeze/ are legitimate and are tracked.
 * [0-9].html
+
+# Claude Code: per-session worktrees and machine-local settings
+.claude/worktrees/
+.claude/settings.local.json

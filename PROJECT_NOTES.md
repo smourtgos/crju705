@@ -30,14 +30,21 @@ Source directories, in student-facing terms: `weeks/` (hub pages — objectives,
 # from crju705-site.nosync/
 git pull                  # FIRST, every session: the other Mac may have pushed
 quarto preview            # live local preview while editing
-quarto render             # build the whole site to _site/
-# then publish:
+quarto render             # build the whole site to _site/, inspect it
+# then publish (the ONLY way, from either Mac):
 git add -A && git commit -m "..." && git push
-quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser
-
-# ...or, after you have already rendered and VERIFIED _site yourself:
-quarto publish gh-pages --id crju705-gh-pages --no-prompt --no-browser --no-render
+./publish.sh --dry-run    # full build from what is on GitHub + checks + stale list
+./publish.sh              # same, then publish and delete stale files from gh-pages
 ```
+
+**Publishing goes through `./publish.sh` only (since Oct 20, 2026).** It refuses to run unless
+the repo is clean and identical to GitHub, deletes `_site`, renders the whole site, refuses to
+publish if the render changed any tracked file (commit a re-executed `_freeze` first), runs
+privacy checks, publishes `--no-render`, then deletes from `gh-pages` everything the build no
+longer produces. So what goes live is always exactly what is in git, whichever Mac runs it. A
+Claude Code hook (`.claude/settings.json` here and `Fall/.claude/settings.json`) blocks any
+direct `quarto publish` run through Bash. The manual steps below (`comm -23` audit, worktree
+cleanup) are what the script now does; they stay for reference.
 
 **If `git push` fails with `HTTP 400` / "the remote end hung up unexpectedly"** (seen Oct 11, 2026 on a push carrying re-rendered figures), retry as `git -c http.postBuffer=524288000 push`. `quarto publish` pushes `gh-pages` itself, so prefix it with `GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=http.postBuffer GIT_CONFIG_VALUE_0=524288000`. Neither changes a saved git setting.
 
@@ -229,7 +236,8 @@ Scott noticed the Final Project page's "four real reports" link opened the exemp
 - **Fix:** `git pull`, then a full `quarto render` on the `s.mourtgos` Mac (Quarto 1.7.32, the copy bundled with RStudio; that Mac has no other Quarto. The other Mac has 1.8.27). No freeze entry re-executed. The visible text of every page was compared against gh-pages: apart from the restored passes, the only differences were the navbar, and the Session 10 pages matched exactly. Then published `--no-render` (commit `c814e09`). Checked live: the link lands on the student-examples table, all four PDFs are linked, and the navbar is correct.
 - **Also in `c814e09`:** `"!.claude/"` added to `resources` in `_quarto.yml`. Two orphaned `chi-resid-1.png` residual plots (no page references them since diagnostics were removed) were dropped from `_freeze` (Lab 11 and the week-11 deck).
 - **The stray `.claude/worktrees/bold-volhard-1820af/` copy on gh-pages (50 files) was checked: all 50 are byte-identical to course data, media, and the exemplar script that were already public. Nothing private shipped.**
-- **NOT done (needs Scott's OK; a permission check blocked the push):** removing 72 stale files from `gh-pages`: the ANOVA pages again (`weeks/week-08.html`, `slides/week-08-anova*`, `labs/lab-08-anova*`, `demos/demo-08-anova*`, `homework/hw-08.*`, `practice/practice-08*`), the 50 `.claude/` copies, and 3 unused Quarto 1.8 `site_libs` files. Nothing links to them, but the URLs still resolve. Use the `comm -23` audit and worktree steps in "Publishing gotcha" above.
+- **Stale files deleted from `gh-pages` with Scott's OK** (gh-pages `6fcc720`): 72 files, namely the ANOVA pages again (`weeks/week-08.html`, `slides/week-08-anova*`, `labs/lab-08-anova*`, `demos/demo-08-anova*`, `homework/hw-08.*`, `practice/practice-08*`), the 50 `.claude/` copies, and 3 unused Quarto 1.8 `site_libs` files. Their URLs return 404.
+- **So it cannot happen again (Scott: working between the two computers must not cause problems):** `publish.sh` is now the only way to publish (see "How to work on it"). A hook blocks direct `quarto publish`, and `.claude/worktrees/` is gitignored.
 - **On the `mourtgosstudio` Mac:** `git pull`, then run a full `quarto render` before its next publish (its `_site` is stale). The worktree `.claude/worktrees/bold-volhard-1820af/` inside the repo there can be deleted if its session is done.
 
 ## STATUS: Session 10 pass (October 19, 2026) COMPLETE ✅ — shipped live
