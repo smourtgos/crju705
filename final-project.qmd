@@ -10,7 +10,7 @@ The final project integrates conceptual understanding with applied statistical s
 :::
 
 ::: {.callout-tip appearance="simple"}
-**Want to see what "done well" looks like?** A complete worked example (report structure, code, both-traditions model, honest limitations) is at the [project exemplar](final-project-exemplar.qmd). The same page has [four real reports from last year's class](final-project-exemplar.qmd#student-examples), names removed.
+**Want to see what "done well" looks like?** A complete worked example (report structure, code, model, honest limitations) is at the [project exemplar](final-project-exemplar.qmd). The same page has [four real reports from last year's class](final-project-exemplar.qmd#student-examples), names removed.
 :::
 
 ## The timeline (how the project is paced)
@@ -21,10 +21,9 @@ The final project integrates conceptual understanding with applied statistical s
 | **Session 7** | Real questions, real tests, and a tour of the [data options](project-data.qmd). **Dataset chosen in Homework 7** (due Sunday, October 4) |
 | Midterm week (both due Sunday, October 18) | Checkpoint 1: descriptives + a plot of your outcome variable. Checkpoint 2: correlations among your project variables + `brms` install check (one test fit) |
 | Session 10 HW (Homework 10, due Sunday, November 8) | Checkpoint 3: a first regression model |
-| Session 11 (Tuesday, November 10) | Code clinic (last half hour): open Q&A; **presentation order announced** |
 | Session 11 HW (Homework 11, due Sunday, November 22) | Checkpoint 4: refined model (linear or logistic) + interpretation |
 | Sunday, November 29 | **Full submission due via Canvas (before midnight)** |
-| **Session 12 (Tuesday, December 1)** | **In-class presentation** (8 min + 2 min Q&A: 8% of your course grade) |
+| **Session 12 (Tuesday, December 1)** | **In-class presentation** (about 5 min + 2 min Q&A: 8% of your course grade) |
 
 By presentation day, every piece of your analysis will already exist: the project is assembled, not started, at the end.
 
@@ -47,7 +46,7 @@ Your submission must include **all** of the following:
 
 **Step 2: Define your research question.** Keep it focused and testable. Examples: *"Are violent crime rates associated with police staffing levels?"* or *"Do education and income predict victimization (or arrests)?"*
 
-**Step 3: Apply statistical tools from class.** Use descriptive statistics, visualizations, and measures of association. You **must** include a linear regression or logistic regression for credit. **Your final model must be reported in both traditions**: the frequentist fit (`lm()`/`glm()`) *and* the Bayesian fit (`brm()`; default priors are fine, but say so), with at least one sentence comparing what each tells you (e.g., the CI vs. the credible interval, or what the posterior lets you say that the p-value doesn't). This is the both-traditions course; the capstone shows you can drive both. Supporting analyses (descriptives, correlations) may be run in whichever tradition you prefer.
+**Step 3: Apply statistical tools from class.** Use descriptive statistics, visualizations, and measures of association. You **must** include a linear regression or logistic regression for credit. Your final model is the frequentist fit (`lm()` or `glm()`), reported with its 95% confidence intervals and interpreted in real units. The Bayesian `brm()` fit from Session 10 is not required for the project.
 
 **Step 4: Write and submit your report.** Organize clearly: Introduction, Methods, Results, Discussion. Interpret results in plain language.
 
@@ -59,14 +58,14 @@ The project is **30% of your course grade**: the written report, script, and out
 
 | Criterion | Weight | Excellent | Adequate | Needs work |
 |---|:---:|---|---|---|
-| **Quality of analysis** | 7% | Right tools for the question; final model in **both traditions** with sound model choices; results interpreted honestly, including the limits of the data | Correct core analysis; both traditions present but one is perfunctory; minor tool misfits | Wrong tool for the question, a missing tradition, or mechanical errors that change conclusions |
+| **Quality of analysis** | 7% | Right tools for the question; final model fit correctly, with sound model choices; results interpreted honestly, including the limits of the data | Correct core analysis; minor tool misfits | Wrong tool for the question, or mechanical errors that change conclusions |
 | **Interpretation & honesty** | 6% | Every claim matches the output; magnitude interpreted in real units; limitations (incl. null or weak results) owned plainly | Mostly accurate; occasional overclaiming or a p-value/posterior misreading; limitations thin | "Significant" treated as "important"; causal language from observational data; results oversold |
 | **Organization & writing** | 4% | Clear Introduction → Methods → Results → Discussion; labeled figures/tables referenced in text; graduate-level prose | Structure present but uneven; figures unlabeled or orphaned | Hard to follow; output pasted without narrative |
 | **Completeness & reproducibility** | 5% | Script runs top to bottom on the submitted data; all four components present; seed set where results are sampled | Runs with minor fixes; a component thin but present | Script errors out, data missing, or a required component absent |
 
 ### The presentation (8% of course grade)
 
-**Format: 8 minutes + 2 minutes of questions.** Presentation order is announced at the Session 11 code clinic. You may present slides or your rendered report on screen: either is fine, but you **must show your one key visualization** and be ready to walk through **any line of your code** on request (see the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools); not being able to explain your own code will cost you well beyond the presentation points).
+**Format: about 5 minutes + 2 minutes of questions.** Presentation order will be announced before Session 12. You may present slides or your rendered report on screen: either is fine, but you **must show your one key visualization** and be ready to walk through **any line of your code** on request (see the [AI policy](syllabus.qmd#use-of-artificial-intelligence-tools); not being able to explain your own code will cost you well beyond the presentation points).
 
 | Criterion | Weight | What earns it |
 |---|:---:|---|
@@ -75,10 +74,10 @@ The project is **30% of your course grade**: the written report, script, and out
 | **The key visualization** | 1.5% | One figure that carries the finding, readable from the back of the room, honestly captioned |
 | **Code ownership** | 1.5% | Any line of your script, explained on request, in your own words |
 
-Running long is the classic failure: **practice once with a timer**. At 8 minutes you'll be stopped so everyone presents.
+Running long is the classic failure: **practice once with a timer**. At about 5 minutes you'll be asked to wrap up so everyone presents.
 
 ## 5. Submission details
 
 Submit all files via **Canvas before midnight Sunday, November 29** (the Sunday before Session 12). Late submissions will not be accepted. You will present your project during class at Session 12, Tuesday, December 1.
 
-*No class October 27, November 3, November 17, or November 24 (Thanksgiving). The code clinic is at Session 11 (Tuesday, November 10).*
+*No class October 27, November 3, November 17, or November 24 (Thanksgiving).*

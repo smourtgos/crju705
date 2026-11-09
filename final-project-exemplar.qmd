@@ -48,7 +48,7 @@ crashes <- crashes |>
   )
 ```
 
-**Outcome.** `any_injury` is binary (someone was hurt / no one was hurt), so the final model is a **logistic regression**; both the frequentist fit (`glm`) and the Bayesian fit (`brm`, default priors, 2 chains × 2,000 iterations, seed 705) are reported, per the course requirement. `driver_age` is included as a control.
+**Outcome.** `any_injury` is binary (someone was hurt / no one was hurt), so the final model is a **logistic regression**; the frequentist fit (`glm`) is reported with its 95% confidence intervals. `driver_age` is included as a control.
 
 📋 **Rubric note (Quality of analysis):** the outcome's *type* drives the model choice, and the sentence says so. The derivations are shown, not hidden — a reader can re-create every variable.
 
@@ -103,9 +103,7 @@ The gap between the red and grey bars — roughly 15 percentage points — is st
 
 📋 **Rubric note (The key visualization):** one figure carries the whole finding, the caption says what the plot *shows* (not what the author hoped), and the y-axis is honest (percentages, baseline visible).
 
-### The final model — both traditions
-
-**Frequentist:**
+### The final model
 
 ```{r}
 #| label: model-freq
@@ -122,35 +120,17 @@ broom::tidy(m_freq) |>
 round(exp(confint(m_freq)), 3)
 ```
 
-**Bayesian twin** (same formula; brms default priors — flat on coefficients, weakly informative on the intercept — 2 chains × 2,000 iterations, seed 705):
-
-```{r}
-#| label: model-bayes
-#| output: false
-#| message: false
-library(brms)
-set.seed(705)
-m_bayes <- brm(any_injury ~ intox_any + night + weekend + driver_age,
-               data = crashes, family = bernoulli(),
-               chains = 2, iter = 2000, seed = 705, refresh = 0)
-```
-
-```{r}
-#| label: model-bayes-or
-round(exp(fixef(m_bayes)[, c("Estimate", "Q2.5", "Q97.5")]), 3)
-```
-
-**Reading the two fits together.** Both traditions tell the same story. Holding time-of-week and driver age constant, intoxication roughly **doubles the odds of an injury crash** (frequentist OR ≈ 1.9, 95% CI ≈ [1.7, 2.1]; Bayesian posterior OR ≈ 1.9, 95% credible interval ≈ [1.7, 2.1], excluding 1 decisively). The Bayesian fit licenses the sentence the frequentist one doesn't: *given the data and priors, there is a 95% probability the true odds ratio lies in that interval* — the confidence interval, by contrast, is a statement about the procedure, not this interval. With 20,000 crashes the two traditions converge numerically; the difference here is what we're *allowed to say*, not the numbers.
+**Reading the fit.** Holding time-of-week and driver age constant, intoxication roughly **doubles the odds of an injury crash** (OR ≈ 1.9, 95% CI ≈ [1.7, 2.1]). The interval sits well above 1, the no-effect value for an odds ratio.
 
 In concrete terms: for a 35-year-old driver on a weekday afternoon, the model puts the probability of an injury crash near **47%** without intoxication and near **62%** with it.
 
-**And the honest nulls:** `night` (OR ≈ 1.01), `weekend` (OR ≈ 0.99), and `driver_age` (OR ≈ 1.00) all sit almost exactly at 1, with intervals straddling it in both traditions. In these data, *when* a crash happens tells us essentially nothing about injury risk once intoxication is accounted for — and there is no evidence the intoxication effect needs nights or weekends to operate.
+**And the honest nulls:** `night` (OR ≈ 1.01), `weekend` (OR ≈ 0.99), and `driver_age` (OR ≈ 1.00) all sit almost exactly at 1, with intervals straddling it. In these data, *when* a crash happens tells us essentially nothing about injury risk once intoxication is accounted for — and there is no evidence the intoxication effect needs nights or weekends to operate.
 
-📋 **Rubric note (Interpretation & honesty):** the null predictors are reported with the same prominence as the significant one, magnitudes are in real units (probabilities, not log-odds), and the both-traditions comparison sentence names the actual philosophical difference instead of hand-waving.
+📋 **Rubric note (Interpretation & honesty):** the null predictors are reported with the same prominence as the significant one, and magnitudes are in real units (probabilities, not log-odds).
 
 ## 4 · Discussion and limitations
 
-**What was found.** Intoxication-involved crashes are substantially more likely to injure someone — an effect visible in the raw percentages, robust to adjustment, and essentially identical in the frequentist and Bayesian fits. The patrol-scheduling assumption fared worse: injury risk shows no independent night or weekend pattern, and the intoxication penalty is as present on a Tuesday afternoon as on a Saturday night.
+**What was found.** Intoxication-involved crashes are substantially more likely to injure someone — an effect visible in the raw percentages, and robust to adjustment. The patrol-scheduling assumption fared worse: injury risk shows no independent night or weekend pattern, and the intoxication penalty is as present on a Tuesday afternoon as on a Saturday night.
 
 **Three sentences for a police chief.** Crashes involving an impaired driver are about twice as likely to hurt somebody, whatever the day or hour. The extra risk does not concentrate on weekend nights — it travels with the impaired driver. If the goal is fewer injuries, impairment enforcement is a seven-day job, not a Friday-night one.
 
@@ -184,5 +164,5 @@ All four earned high scores. None of them is perfect, and you will spot things i
 : Each link opens the report as a PDF. {tbl-colwidths="[14,48,26,12]"}
 
 ::: {.callout-warning appearance="simple"}
-**Read these for what a solid report looks like, not as a template for this year.** All four report their final model in the frequentist tradition only. Your final model must be reported in **both** traditions, `lm()` or `glm()` and `brm()`, with a sentence comparing the two (see [Step 3](final-project.qmd#steps-and-expectations)). Your dataset also has to come from the [data options](project-data.qmd) or be cleared with me first, and your report should run 3 to 5 pages.
+**Read these for what a solid report looks like, not as a template for this year.** Your dataset has to come from the [data options](project-data.qmd) or be cleared with me first, your final model needs its 95% confidence intervals and a plain-language interpretation (see [Step 3](final-project.qmd#steps-and-expectations)), and your report should run 3 to 5 pages.
 :::

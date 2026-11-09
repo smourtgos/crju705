@@ -176,7 +176,7 @@ Dates for all assignments and exams are listed on the course Canvas page and dis
 
 ## Final Project Information
 
-The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early (**you choose it in Homework 7**, after the Session 7 workshop tours the [data options](project-data.qmd)), and project checkpoints attached to homework in the second half of the semester keep your analysis moving. Session 11 closes with a **project code clinic** — open Q&A on your own code — before presentations.
+The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early (**you choose it in Homework 7**, after the Session 7 workshop tours the [data options](project-data.qmd)), and project checkpoints attached to homework in the second half of the semester keep your analysis moving.
 
 Your completed project — R script, output, and written report — is due **via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d, %Y')`** (the Sunday before presentations day). You will then present your work in class at Session 12 on `r format(final_day, '%B %d, %Y')`.
 
@@ -303,7 +303,7 @@ The full week-by-week schedule — with readings, slides, labs, and homework lin
 
 **In-class exercise (graded)** · **Homework:** Problem set 11 (includes **project checkpoint 4**), due Sunday, `r format(project_due - days(7), '%B %d')` · **Full project due via Canvas by 11:59 pm on Sunday, `r format(project_due, '%B %d')`**, one week later
 
-This is the last session with new statistical content. The final half hour is a **project code clinic** (bring your project code and your two most stuck-on problems), and **presentation order is announced today**.
+This is the last session with new statistical content.
 
 *No class November 17 or November 24.*
 

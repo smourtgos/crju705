@@ -9,8 +9,6 @@ format-links: [docx]
 
 **Instructions:** complete the following in a single `.R` script file and submit it via **Canvas** for credit. This week the entire homework is about **your final project**: there is no practice dataset. Every part below uses the dataset you selected in Session 7 and have been building through Checkpoints 1 to 3.
 
-*(Session 11, on Tuesday, November 10, closes with a code clinic: no new material, just you, your code, and me. Bring whatever state this homework is in: the clinic exists to unstick Parts 1 to 3 while you still have nearly two weeks to finish them.)*
-
 ## Part 1: Your Cleaned Variables
 
 Run `summary()` and `str()` on the **cleaned and transformed variables you plan to use in your final model**: the outcome and every predictor. Paste the output into your script as comments directly below each call, so I can see exactly what you saw.
@@ -43,23 +41,23 @@ It can be that simple. I just want to see that you understand your dependent var
 ## Part 3: Project Checkpoint 4 (final)
 
 ::: {.callout-important appearance="simple"}
-**This is the last of the four project checkpoints.** Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model. Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on **completion and quality of reasoning**, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings. The Session 11 code clinic comes *before* this checkpoint on purpose: bring the shaky parts to class, then finish the checkpoint with those problems solved.
+**This is the last of the four project checkpoints.** Checkpoint 1 described your variables, Checkpoint 2 measured their associations, Checkpoint 3 fit a first model. Checkpoint 4 is the real thing: the model you intend to defend at presentations. It is graded on **completion and quality of reasoning**, not on whether your results are exciting. Null findings, honestly interpreted, are full-credit findings.
 :::
 
 In a clearly marked section at the end of your `.R` script (e.g., `# ---- PROJECT CHECKPOINT 4 ----`):
 
-1. **Fit your final model, in both traditions.** The frequentist fit (`lm()` for a continuous outcome, `glm(family = binomial)` for a binary one) *and* the Bayesian fit (`brm()` with the same formula; default priors are fine, standard settings: `chains = 2, iter = 2000, seed = 705, refresh = 0`; expect the compile pause). Both fits must match your Part 2 equation. *(This is the final-project requirement; see [Step 3](../final-project.qmd). Checkpoint 4 is where you get it running with a week of slack.)*
+1. **Fit your final model.** `lm()` for a continuous outcome, `glm(family = binomial)` for a binary one. The fit must match your Part 2 equation. *(This is the final-project requirement; see [Step 3](../final-project.qmd). Checkpoint 4 is where you get it running with a week of slack.)*
 
 2. **Interpret the key coefficients** in comments, on the right scale:
    - *Linear:* the change in your outcome per one-unit change in each predictor, holding the others constant, with units.
    - *Logistic:* exponentiate. Odds ratios per one-unit change, holding the others constant, and at least one **predicted probability** for a concrete, meaningful case, as we did in class.
-   - Include the uncertainty from **both** fits (the 95% CI *and* the 95% credible interval), plus **one sentence comparing them**: do the two traditions agree here, and what does the posterior let you *say* that the p-value doesn't?
+   - Include the uncertainty: the 95% confidence interval for each key coefficient (`confint()`; for logistic, exponentiate it too), and say in a sentence what it tells you.
 
 3. **Produce ONE table or figure you plan to show at presentations.** A tidy coefficient table, a plot of predicted values or probabilities, a well-labeled scatterplot with your fitted line: your choice, but it must be presentation-ready: real variable names, labeled axes or columns, a title. Not raw console output.
 
 4. **Write the three sentences you'd say about it to a non-statistician.** As a comment block. Imagine a police chief, a judge, or a city council member: no "log-odds," no "p < .05," no Greek letters. What did you find, how sure are you, and why should they care? These three sentences are the spine of your Session 12 presentation: write them now and presentation prep gets much easier.
 
-If anything above breaks (the model won't run, a coefficient makes no sense, the output contradicts Checkpoint 3), **say so in your comments, and if it surfaced by clinic day, bring it to class.** Finding that out now, with a week before the full project is due, is precisely what this checkpoint is for.
+If anything above breaks (the model won't run, a coefficient makes no sense, the output contradicts Checkpoint 3), **say so in your comments and email me the code.** Finding that out now, with a week before the full project is due, is precisely what this checkpoint is for.
 
 ## If You Get Stuck
 

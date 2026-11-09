@@ -13,13 +13,13 @@ Twelve sessions ago the course opened with a statistical model you couldn't read
 
 By the end of this session you can:
 
-- deliver an 8-minute, evidence-backed presentation of your project: question, data, methods, results, and what they mean
+- deliver an evidence-backed presentation of your project in about 5 minutes: question, data, methods, results, and what they mean
 - answer questions about every line of your code: how it works and why you wrote it that way
 - interpret your findings for a non-statistician, limitations included, without overclaiming
 
 ## Format
 
-- **8 minutes + 2 minutes of questions**, in the order announced at Session 11. At 8 minutes you'll be stopped so everyone presents: practice once with a timer
+- **about 5 minutes + 2 minutes of questions.** Presentation order will be announced before Session 12. At about 5 minutes you'll be asked to wrap up so everyone presents: practice once with a timer
 - Slides or your rendered report on screen: either works, but you **must show your one key visualization**
 - **You will walk through your code and explain how and why it works.** Being unable to confidently explain your own code will affect your grade: this is the point of the [AI policy](../syllabus.qmd#use-of-artificial-intelligence-tools)
 - Questions from the class and from me
