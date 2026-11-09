@@ -26,7 +26,7 @@ areas <- read_csv("https://smourtgos.github.io/crju705/data/chicago-areas.csv",
                   show_col_types = FALSE)
 ```
 
-Was an **arrest** made? Does the defendant **fail to appear**? Is the parolee **re-arrested** within three years? Is this a **high violence** neighborhood? Every model so far predicted a *number*: a crime rate, an incident hour. Logistic regression predicts a **yes/no**, and its currency is probability (0 to 1), expressed along the way as odds and log-odds. This session also returns to the Session 1 bank-robbery model (patrol cars sent to the West Zone off a coefficient table nobody could read yet): it was logistic regression all along, its mysterious `estimate` column just log-odds, one `exp()` away from sense. The [Session 11 slides](../slides/week-12-logistic.qmd) reopen that exact model with today's eyes ("The Machinery, Reopened").
+Was an **arrest** made? Does the defendant **fail to appear**? Is the parolee **re-arrested** within three years? Is this a **high violence** neighborhood? Every model so far predicted a *number*: a crime rate, an incident hour. Logistic regression predicts a **yes/no** as a probability (0 to 1), built along the way from odds and log-odds. This session also returns to the Session 1 bank-robbery model (patrol cars sent to the West Zone off a coefficient table nobody could read yet): it was logistic regression all along, its mysterious `estimate` column just log-odds, one `exp()` away from sense. The [Session 11 slides](../slides/week-12-logistic.qmd) reopen that exact model with today's eyes ("The Machinery, Reopened").
 
 ## 1 · Watch linear regression fail
 
@@ -201,7 +201,7 @@ In plain language: for an area like Forest Glen (4.2% unemployment, 2.6% vacant)
 
 > "Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most."
 
-Three ingredients every time: the effect (as an odds ratio), the uncertainty, and a **probability a reader can feel**. And say ***odds*** when you mean odds: an odds ratio of 1.45 is not "45% more likely."
+Say ***odds*** when you mean odds: an odds ratio of 1.45 is not "45% more likely."
 
 ## Try a variation
 

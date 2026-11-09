@@ -28,7 +28,7 @@ By the end of this week you can:
 ## In class
 
 - Why criminal justice runs on binary outcomes (arrest, failure to appear, re-arrest, intoxicated or not), and why `lm()` predicts impossible probabilities when you feed it one
-- **Closing the loop on Session 1:** the bank-robbery case study that opened the course was a logistic regression: we re-fit the exact model and finally read its table (coefficients are log-odds; `exp()` them into odds ratios; West Zone's odds ratio is why the cars went west)
+- **Closing the loop on Session 1:** the bank-robbery case study that opened the course was a logistic regression: the same equation as Session 10 with one extra argument, `family = binomial`, then the predicted risk by zone and the cars sent west
 - Probability → odds → log-odds, and why a straight line can only live on the last of the three
 - `glm(family = binomial)`, one argument away from `lm()`, and the two interpretation moves: **odds ratios** for effects, **predicted probabilities** for cases
 - **The 3D logistic surface:** Session 10's flat plane, bent into an S-shaped probability sheet
