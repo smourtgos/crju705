@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Statistics is Awesome!</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -541,18 +541,18 @@ Scott M. Mourtgos
 <section id="scale-determines-the-math-nominal" class="slide level2">
 <h2>Scale Determines the Math: Nominal</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># WRONG: the "mean zone" is meaningless</span></span>
-<span id="cb1-2"><a></a>rob<span class="sc">$</span>zone <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>() <span class="sc">|&gt;</span> <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># WRONG: the "mean zone" is meaningless</span></span>
+<span id="cb1-2"><a></a>rob<span class="sc">$</span>zone <span class="sc">|&gt;</span> <span class="fu">as.numeric</span>() <span class="sc">|&gt;</span> <span class="fu">mean</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.17</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># RIGHT: counts and percentages</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># RIGHT: counts and percentages</span></span>
 <span id="cb3-2"><a></a>rob <span class="sc">|&gt;</span></span>
 <span id="cb3-3"><a></a>  <span class="fu">count</span>(zone) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> <span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 3
   zone         n   pct
@@ -569,17 +569,17 @@ Scott M. Mourtgos
 <section id="scale-determines-the-math-ordinal" class="slide level2">
 <h2>Scale Determines the Math: Ordinal</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Summarize a Likert item (ordinal): median &amp; IQR</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="co"># Summarize a Likert item (ordinal): median &amp; IQR</span></span>
 <span id="cb5-2"><a></a>rob <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a></a>  <span class="fu">summarize</span>(<span class="at">med =</span> <span class="fu">median</span>(risk_likert), <span class="at">iqr =</span> <span class="fu">IQR</span>(risk_likert))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a></a>  <span class="fu">summarize</span>(<span class="at">med =</span> <span class="fu">median</span>(risk_likert), <span class="at">iqr =</span> <span class="fu">IQR</span>(risk_likert))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
     med   iqr
   &lt;dbl&gt; &lt;dbl&gt;
 1     4     3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Association with a numeric variable: Spearman (rank-based)</span></span>
-<span id="cb7-2"><a></a><span class="fu">cor</span>(rob<span class="sc">$</span>risk_likert, rob<span class="sc">$</span>prior_robberies_in_zone, <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="co"># Association with a numeric variable: Spearman (rank-based)</span></span>
+<span id="cb7-2"><a></a><span class="fu">cor</span>(rob<span class="sc">$</span>risk_likert, rob<span class="sc">$</span>prior_robberies_in_zone, <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.001707403</code></pre>
 </div>
@@ -588,11 +588,11 @@ Scott M. Mourtgos
 <section id="interval-vs.-ratio" class="slide level2">
 <h2>Interval vs.&nbsp;Ratio</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">mean</span>(rob<span class="sc">$</span>temp_c)             <span class="co"># ~20 °C</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">mean</span>(rob<span class="sc">$</span>temp_c)             <span class="co"># ~20 °C</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20.07643</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">mean</span>(rob<span class="sc">$</span>temp_c <span class="sc">*</span> <span class="fl">1.8</span> <span class="sc">+</span> <span class="dv">32</span>)  <span class="co"># same temperatures in °F</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">mean</span>(rob<span class="sc">$</span>temp_c <span class="sc">*</span> <span class="fl">1.8</span> <span class="sc">+</span> <span class="dv">32</span>)  <span class="co"># same temperatures in °F</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 68.13757</code></pre>
 </div>
@@ -604,7 +604,7 @@ Scott M. Mourtgos
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">mean</span>(rob<span class="sc">$</span>age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">mean</span>(rob<span class="sc">$</span>age)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 40.605</code></pre>
 </div>
@@ -620,9 +620,9 @@ Scott M. Mourtgos
 <h2>Choosing the Right Test (Preview of the Semester)</h2>
 <p>Real Chicago data: the questions, not the code, are the point today.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Categorical × categorical → chi-squared</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Categorical × categorical → chi-squared</span></span>
 <span id="cb15-2"><a></a><span class="co"># Do arrest rates differ across crime types?</span></span>
-<span id="cb15-3"><a></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(crimes<span class="sc">$</span>crime_category, crimes<span class="sc">$</span>arrest))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(crimes<span class="sc">$</span>crime_category, crimes<span class="sc">$</span>arrest))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -634,9 +634,9 @@ X-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Numeric × numeric → correlation                [Session 8]</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Numeric × numeric → correlation                [Session 8]</span></span>
 <span id="cb17-2"><a></a><span class="co"># Across the 77 community areas: unemployment and violent crime rate</span></span>
-<span id="cb17-3"><a></a><span class="fu">cor</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a></a><span class="fu">cor</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell fragment">
 <div class="cell-output cell-output-stdout">
@@ -647,9 +647,9 @@ X-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022</code></pre>
 <section id="treating-ordinal-as-numeric-can-mislead" class="slide level2">
 <h2>Treating Ordinal as Numeric Can Mislead</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>educ <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">each =</span> <span class="dv">50</span>)                 <span class="co"># ordinal codes 1..5</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>educ <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">each =</span> <span class="dv">50</span>)                 <span class="co"># ordinal codes 1..5</span></span>
 <span id="cb19-2"><a></a>income <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1000</span>), <span class="at">each =</span> <span class="dv">50</span>)  <span class="co"># HUGE jump at the top</span></span>
-<span id="cb19-3"><a></a><span class="fu">cor</span>(educ, income)                           <span class="co"># Pearson looks "strong"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-3"><a></a><span class="fu">cor</span>(educ, income)                           <span class="co"># Pearson looks "strong"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.7088768</code></pre>
 </div>
@@ -673,7 +673,7 @@ X-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022</code></pre>
 <li>Install the course packages:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"swirl"</span>, <span class="st">"BayesFactor"</span>, <span class="st">"here"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"swirl"</span>, <span class="st">"BayesFactor"</span>, <span class="st">"here"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Check:</strong> open RStudio and verify you see four panes (Source, Console, Environment/History, Files/Plots/Help).</p>
 </section>
@@ -681,12 +681,12 @@ X-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022</code></pre>
 <h2>First Steps: Arithmetic &amp; Assignment</h2>
 <p><em>(Stanton Appendix A)</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 8</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb24-2"><a></a><span class="fu">sum</span>(x); <span class="fu">mean</span>(x); <span class="fu">sd</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb24-2"><a></a><span class="fu">sum</span>(x); <span class="fu">mean</span>(x); <span class="fu">sd</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 55</code></pre>
 </div>
@@ -698,17 +698,17 @@ X-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>?mean   <span class="co"># every function has a help page: use them constantly</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a>?mean   <span class="co"># every function has a help page: use them constantly</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="first-steps-logical-indexing" class="slide level2">
 <h2>First Steps: Logical Indexing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>x <span class="sc">&gt;</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>x <span class="sc">&gt;</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>x[x <span class="sc">&gt;</span> <span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>x[x <span class="sc">&gt;</span> <span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  6  7  8  9 10</code></pre>
 </div>
@@ -717,13 +717,13 @@ X-squared = 1203.9, df = 2, p-value &lt; 0.00000000000000022</code></pre>
 <section id="first-steps-characters-factors" class="slide level2">
 <h2>First Steps: Characters &amp; Factors</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>student_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carol"</span>)</span>
-<span id="cb33-2"><a></a><span class="fu">is.character</span>(student_names)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>student_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Carol"</span>)</span>
+<span id="cb33-2"><a></a><span class="fu">is.character</span>(student_names)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>f <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"red"</span>))</span>
-<span id="cb35-2"><a></a>f</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>f <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>, <span class="st">"red"</span>))</span>
+<span id="cb35-2"><a></a>f</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] red  blue red 
 Levels: blue red</code></pre>
@@ -736,23 +736,23 @@ Levels: blue red</code></pre>
 <section id="your-turn-vectors-one-way-to-do-it" class="slide level2 smaller">
 <h2>Your Turn: Vectors, One Way to Do It</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">24</span>, <span class="dv">31</span>, <span class="dv">27</span>, <span class="dv">45</span>, <span class="dv">38</span>, <span class="dv">22</span>)   <span class="co"># any seven numbers work</span></span>
-<span id="cb37-2"><a></a><span class="fu">mean</span>(ages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>ages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">24</span>, <span class="dv">31</span>, <span class="dv">27</span>, <span class="dv">45</span>, <span class="dv">38</span>, <span class="dv">22</span>)   <span class="co"># any seven numbers work</span></span>
+<span id="cb37-2"><a></a><span class="fu">mean</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 29.42857</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">sd</span>(ages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">sd</span>(ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.28901</code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>ages[ages <span class="sc">&gt;</span> <span class="dv">30</span>]       <span class="co"># the logical vector inside [ ] does the subsetting</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>ages[ages <span class="sc">&gt;</span> <span class="dv">30</span>]       <span class="co"># the logical vector inside [ ] does the subsetting</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 31 45 38</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)   <span class="co"># `?seq` is where you'd find the `by =` argument</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.2</span>)   <span class="co"># `?seq` is where you'd find the `by =` argument</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0 0.2 0.4 0.6 0.8 1.0</code></pre>
 </div>
@@ -763,9 +763,9 @@ Levels: blue red</code></pre>
 <h2>Data Frames &amp; dplyr</h2>
 <p><em>(Stanton Appendix B: modern form)</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb45-2"><a></a>cars_data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(mtcars, <span class="at">rownames =</span> <span class="st">"model"</span>)</span>
-<span id="cb45-3"><a></a><span class="fu">head</span>(cars_data, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-3"><a></a><span class="fu">head</span>(cars_data, <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 12
   model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
@@ -783,7 +783,7 @@ Levels: blue red</code></pre>
 <section id="select-pick-columns" class="slide level2">
 <h2>select: pick columns</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">select</span>(model, mpg, cyl, hp) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">select</span>(model, mpg, cyl, hp) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   model            mpg   cyl    hp
@@ -798,7 +798,7 @@ Levels: blue red</code></pre>
 <section id="filter-pick-rows" class="slide level2 smaller">
 <h2>filter: pick rows</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>cars_data <span class="sc">|&gt;</span> <span class="fu">filter</span>(cyl <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 12
   model          mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
@@ -813,10 +813,10 @@ Levels: blue red</code></pre>
 <section id="mutate-summarize" class="slide level2">
 <h2>mutate &amp; summarize</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
 <span id="cb51-2"><a></a>  <span class="fu">mutate</span>(<span class="at">mpg_per_hp =</span> mpg <span class="sc">/</span> hp) <span class="sc">|&gt;</span></span>
 <span id="cb51-3"><a></a>  <span class="fu">select</span>(model, mpg, hp, mpg_per_hp) <span class="sc">|&gt;</span></span>
-<span id="cb51-4"><a></a>  <span class="fu">head</span>(<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb51-4"><a></a>  <span class="fu">head</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   model            mpg    hp mpg_per_hp
@@ -826,8 +826,8 @@ Levels: blue red</code></pre>
 3 Datsun 710      22.8    93      0.245
 4 Hornet 4 Drive  21.4   110      0.195</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
-<span id="cb53-2"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_mpg =</span> <span class="fu">mean</span>(mpg), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a>cars_data <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_mpg =</span> <span class="fu">mean</span>(mpg), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> cyl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
     cyl avg_mpg     n
@@ -852,8 +852,8 @@ Levels: blue red</code></pre>
 <section id="your-turn-dplyr-one-way-to-do-it" class="slide level2 smaller">
 <h2>Your Turn: dplyr, One Way to Do It</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="co"># 1. Top-3 models by highway mpg</span></span>
-<span id="cb55-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(hwy)) <span class="sc">|&gt;</span> <span class="fu">select</span>(manufacturer, model, hwy) <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a><span class="co"># 1. Top-3 models by highway mpg</span></span>
+<span id="cb55-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(hwy)) <span class="sc">|&gt;</span> <span class="fu">select</span>(manufacturer, model, hwy) <span class="sc">|&gt;</span> <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   manufacturer model        hwy
@@ -865,8 +865,8 @@ Levels: blue red</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="co"># 2. Average city mpg by class</span></span>
-<span id="cb57-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_cty =</span> <span class="fu">mean</span>(cty), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> class) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_cty))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a></a><span class="co"># 2. Average city mpg by class</span></span>
+<span id="cb57-2"><a></a>mpg <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_cty =</span> <span class="fu">mean</span>(cty), <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> class) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(avg_cty))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 3
   class      avg_cty     n
@@ -891,9 +891,9 @@ Levels: blue red</code></pre>
 <h2>Homework (Due by 11:59 pm Sunday)</h2>
 <p><strong>swirl tutorials</strong>: interactive R lessons <em>inside</em> R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
 <span id="cb59-2"><a></a><span class="fu">library</span>(swirl)</span>
-<span id="cb59-3"><a></a><span class="fu">swirl</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb59-3"><a></a><span class="fu">swirl</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Complete these lessons from <em>R Programming</em>: <strong>1)</strong> Basic Building Blocks · <strong>2)</strong> Workspace and Files · <strong>3)</strong> Sequences of Numbers · <strong>4)</strong> Vectors · <strong>5)</strong> Missing Values · <strong>6)</strong> Subsetting Vectors · <strong>7)</strong> Matrices and Data Frames · <strong>8)</strong> Logic · <strong>12)</strong> Looking at Data · <strong>15)</strong> Base Graphics</p>
 <p>Submit your R script files via <strong>Canvas</strong>. Then read <strong>Stanton Ch. 1</strong> before Session 2.</p>
@@ -1091,7 +1091,7 @@ Levels: blue red</code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1203,13 +1203,14 @@ Levels: blue red</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

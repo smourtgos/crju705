@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Syllabus – CRJU 705</title>
 <style>
@@ -28,14 +28,15 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -296,7 +297,7 @@ ul.task-list li input[type="checkbox"] {
 </section><section id="assignment-due-dates" class="level2"><h2 class="anchored" data-anchor-id="assignment-due-dates">Assignment Due Dates</h2>
 <p>Dates for all assignments and exams are listed on the course Canvas page and discussed in class. Course materials (slides, labs, homework) live on this website; submissions go through Canvas.</p>
 </section><section id="final-project-information" class="level2"><h2 class="anchored" data-anchor-id="final-project-information">Final Project Information</h2>
-<p>The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early (<strong>you choose it in Homework 7</strong>, after the Session 7 workshop tours the <a href="./project-data.html">data options</a>), and project checkpoints attached to homework in the second half of the semester keep your analysis moving. Session 11 closes with a <strong>project code clinic</strong> — open Q&amp;A on your own code — before presentations.</p>
+<p>The final project is the culminating assignment for this course, integrating conceptual understanding with applied statistical skills in R. You will select your own dataset early (<strong>you choose it in Homework 7</strong>, after the Session 7 workshop tours the <a href="./project-data.html">data options</a>), and project checkpoints attached to homework in the second half of the semester keep your analysis moving.</p>
 <p>Your completed project — R script, output, and written report — is due <strong>via Canvas by 11:59 pm on Sunday, November 29, 2026</strong> (the Sunday before presentations day). You will then present your work in class at Session 12 on December 01, 2026.</p>
 <p>There will be <em>absolutely</em> no assignments, exams, or final projects accepted after that date and time. None. Add it to your calendar now. Failure to submit any part of the project by that deadline will result in a zero toward your final grade. No appeals will be accepted, so please plan ahead.</p>
 <p>You are responsible for ensuring that your final project is submitted successfully and on time, with all required components included: the R script, output, and written report.</p>
@@ -370,7 +371,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Topics:</strong> Logistic regression</p>
 <p><strong>Readings due:</strong> Stanton Ch. 10</p>
 <p><strong>In-class exercise (graded)</strong> · <strong>Homework:</strong> Problem set 11 (includes <strong>project checkpoint 4</strong>), due Sunday, November 22 · <strong>Full project due via Canvas by 11:59 pm on Sunday, November 29</strong>, one week later</p>
-<p>This is the last session with new statistical content. The final half hour is a <strong>project code clinic</strong> (bring your project code and your two most stuck-on problems), and <strong>presentation order is announced today</strong>.</p>
+<p>This is the last session with new statistical content.</p>
 <p><em>No class November 17 or November 24.</em></p>
 </section><section id="session-12-december-01" class="level2"><h2 class="anchored" data-anchor-id="session-12-december-01">Session 12: December 01</h2>
 <p><strong>Topics:</strong> <strong>Final Project Presentations (in class)</strong></p>
@@ -425,7 +426,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Graded in-class exercises are scored on active participation that day and cannot be made up (see the <a href="#attendance-policy">Attendance Policy</a>). Final letter grades follow the standard scale:</p>
 <div class="cell">
 <div class="cell-output-display">
-<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table caption-top table-sm table-striped small">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Course Percentage</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">Letter Grade</th>
@@ -598,13 +599,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

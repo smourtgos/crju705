@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Demo Walkthrough · Session 11 – CRJU 705</title>
 <style>
@@ -63,14 +63,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="../site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -107,7 +108,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -250,29 +251,27 @@ window.Quarto = {
 <li><a href="#what-youll-build" id="toc-what-youll-build" class="nav-link active" data-scroll-target="#what-youll-build">What you’ll build</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#watch-linear-regression-fail" id="toc-watch-linear-regression-fail" class="nav-link" data-scroll-target="#watch-linear-regression-fail">1 · Watch linear regression fail</a></li>
-  <li><a href="#the-ladder-probability-odds-log-odds" id="toc-the-ladder-probability-odds-log-odds" class="nav-link" data-scroll-target="#the-ladder-probability-odds-log-odds">2 · The ladder: probability → odds → log-odds</a></li>
+  <li><a href="#probability-odds-log-odds" id="toc-probability-odds-log-odds" class="nav-link" data-scroll-target="#probability-odds-log-odds">2 · Probability → odds → log-odds</a></li>
   <li>
 <a href="#fitting-it-glmfamily-binomial" id="toc-fitting-it-glmfamily-binomial" class="nav-link" data-scroll-target="#fitting-it-glmfamily-binomial">3 · Fitting it: glm(family = binomial)</a>
   <ul class="collapse">
 <li><a href="#from-effects-to-cases-predict" id="toc-from-effects-to-cases-predict" class="nav-link" data-scroll-target="#from-effects-to-cases-predict">From effects to cases: predict()</a></li>
-  <li><a href="#the-curved-surface-seen-from-above" id="toc-the-curved-surface-seen-from-above" class="nav-link" data-scroll-target="#the-curved-surface-seen-from-above">The curved surface, seen from above</a></li>
   </ul>
 </li>
   <li>
-<a href="#real-data-chicagos-high-violence-areas" id="toc-real-data-chicagos-high-violence-areas" class="nav-link" data-scroll-target="#real-data-chicagos-high-violence-areas">4 · Real data: Chicago’s high-violence areas</a>
+<a href="#real-data-chicagos-high-violence-areas" id="toc-real-data-chicagos-high-violence-areas" class="nav-link" data-scroll-target="#real-data-chicagos-high-violence-areas">4 · Real data: Chicago’s high violence areas</a>
   <ul class="collapse">
 <li><a href="#coefficients-into-cases" id="toc-coefficients-into-cases" class="nav-link" data-scroll-target="#coefficients-into-cases">Coefficients into cases</a></li>
-  <li><a href="#no-magic-the-plogis-check" id="toc-no-magic-the-plogis-check" class="nav-link" data-scroll-target="#no-magic-the-plogis-check">No magic: the plogis() check</a></li>
   </ul>
 </li>
-  <li><a href="#the-bayesian-version" id="toc-the-bayesian-version" class="nav-link" data-scroll-target="#the-bayesian-version">5 · The Bayesian version</a></li>
+  <li><a href="#how-to-report-it" id="toc-how-to-report-it" class="nav-link" data-scroll-target="#how-to-report-it">5 · How to report it</a></li>
   <li><a href="#try-a-variation" id="toc-try-a-variation" class="nav-link" data-scroll-target="#try-a-variation">Try a variation</a></li>
   </ul></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Demo Walkthrough · Session 11</h1>
-<p class="subtitle lead">Logistic regression: odds, odds ratios, predicted probabilities, and the Bayesian version</p>
+<p class="subtitle lead">Logistic regression: odds, odds ratios, and predicted probabilities</p>
 </div>
 
 
@@ -299,36 +298,24 @@ window.Quarto = {
 <section id="what-youll-build" class="level2"><h2 class="anchored" data-anchor-id="what-youll-build">What you’ll build</h2>
 <ol type="1">
 <li>A demonstration of <em>why</em> <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> breaks on a yes/no outcome: impossible predictions, caught in the act</li>
-<li>The ladder that fixes it: probability → odds → log-odds, plus the odds-ratio Rosetta Stone</li>
+<li>The fix: probability → odds → log-odds, and what <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> does to a coefficient</li>
 <li>
 <code>glm(family = binomial)</code> on 32 cars: exponentiate the coefficients, then predict actual cases</li>
-<li>The same workflow on real data: what separates Chicago’s high-violence community areas, plus a by-hand <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> check that demystifies <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>
-</li>
-<li>The Bayesian version with <code>brms</code>: posterior odds ratios, and the reporting sentence each tradition licenses</li>
+<li>The same workflow on real data: what separates Chicago’s high violence community areas</li>
+<li>How to report a logistic result in one sentence a reader can use</li>
 </ol></section><section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paul-buerkner/brms">brms</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">areas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>,</span>
-<span>                  show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>                  show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="callout callout-style-simple callout-warning">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><code>brms</code> is the same package you installed for Project Checkpoint 2 and used in Session 10: nothing new to install. Same reminder as always: the first <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> of a session pauses at <code>Compiling Stan program...</code> for a minute before sampling starts. It is not frozen.</p>
-</div>
-</div>
-</div>
-<p>Was an <strong>arrest</strong> made? Does the defendant <strong>fail to appear</strong>? Is the parolee <strong>re-arrested</strong> within three years? Is this a <strong>high-violence</strong> neighborhood? Every model so far predicted a <em>number</em>: a crime rate, an incident hour. Logistic regression predicts a <strong>yes/no</strong>, and its currency is probability (0 to 1), expressed along the way as odds and log-odds. This session also pays off a Session 1 promise: the opening-week bank-robbery model (patrol cars sent to the West Zone off a coefficient table nobody could read yet) was logistic regression all along, its mysterious <code>estimate</code> column just log-odds, one <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> away from sense. The <a href="../slides/week-12-logistic.html">Session 11 slides</a> reopen that exact model with today’s eyes (“The Machinery, Reopened”).</p>
+<p>Was an <strong>arrest</strong> made? Does the defendant <strong>fail to appear</strong>? Is the parolee <strong>re-arrested</strong> within three years? Is this a <strong>high violence</strong> neighborhood? Every model so far predicted a <em>number</em>: a crime rate, an incident hour. Logistic regression predicts a <strong>yes/no</strong>, and its currency is probability (0 to 1), expressed along the way as odds and log-odds. This session also returns to the Session 1 bank-robbery model (patrol cars sent to the West Zone off a coefficient table nobody could read yet): it was logistic regression all along, its mysterious <code>estimate</code> column just log-odds, one <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> away from sense. The <a href="../slides/week-12-logistic.html">Session 11 slides</a> reopen that exact model with today’s eyes (“The Machinery, Reopened”).</p>
 </section><section id="watch-linear-regression-fail" class="level2"><h2 class="anchored" data-anchor-id="watch-linear-regression-fail">1 · Watch linear regression fail</h2>
-<p>Predicting <em>graduated the academy (yes/no)</em> from study hours:</p>
+<p>Predicting <em>graduated the academy (yes/no)</em> from study hours, for 100 simulated recruits:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>   <span class="co"># kept from the lecture: same simulated recruits as the slides</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span>   <span class="co"># kept from the lecture: same simulated recruits as the slides</span></span>
 <span><span class="va">recruits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
 <span>  study_hours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span>,</span>
 <span>  prob_grad   <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="op">-</span><span class="op">(</span><span class="op">-</span><span class="fl">4</span> <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">study_hours</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -336,37 +323,53 @@ window.Quarto = {
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">model_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">graduated</span> <span class="op">~</span> <span class="va">study_hours</span>, data <span class="op">=</span> <span class="va">recruits</span><span class="op">)</span></span>
-<span><span class="va">model_logit</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">graduated</span> <span class="op">~</span> <span class="va">study_hours</span>, data <span class="op">=</span> <span class="va">recruits</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">model_logit</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">graduated</span> <span class="op">~</span> <span class="va">study_hours</span>, data <span class="op">=</span> <span class="va">recruits</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Ask the linear model about recruits at the edges:</p>
+<p>Ask both models about three recruits: 0 hours, 5 hours, 10 hours.</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_linear</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>study_hours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         1          2 
--0.7545081  1.6555138 </code></pre>
-</div>
-</div>
-<p>“Probabilities” of -0.75 and 1.66. Those cannot exist. See the whole picture: linear regression is a straight road that runs forever; logistic regression is a curved hill that flattens at 0 and 1:</p>
-<div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid_hours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>study_hours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">15</span>, length.out <span class="op">=</span> <span class="fl">400</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">three_recruits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>study_hours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">three_recruits</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    Linear   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_linear</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pick.html">pick</a></span><span class="op">(</span><span class="va">study_hours</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>    Logistic <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_logit</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pick.html">pick</a></span><span class="op">(</span><span class="va">study_hours</span><span class="op">)</span>,</span>
-<span>                       type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Linear</span>, <span class="va">Logistic</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"model"</span>, values_to <span class="op">=</span> <span class="st">"pred"</span><span class="op">)</span></span>
+<span>    straight_line <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_linear</span>, newdata <span class="op">=</span> <span class="va">three_recruits</span><span class="op">)</span>,</span>
+<span>    curve         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_logit</span>, newdata <span class="op">=</span> <span class="va">three_recruits</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  study_hours straight_line   curve
+        &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+1           0        -0.152 0.00901
+2           5         0.451 0.381  
+3          10         1.05  0.977  </code></pre>
+</div>
+</div>
+<p>The straight line gives the 0-hour recruit a <strong>-15% chance</strong> of graduating and the 10-hour recruit a <strong>105% chance</strong>. Those cannot exist. The curve says 1%, 38%, and 98%. How many of the 100 real recruits get an impossible prediction from the line?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">line_predictions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_linear</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">line_predictions</span> <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">|</span> <span class="va">line_predictions</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18</code></pre>
+</div>
+</div>
+<p>Eighteen of them. See the whole picture: linear regression is a straight road that runs forever; logistic regression is a curved hill that flattens at 0 and 1:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid_hours</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>study_hours <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span>, length.out <span class="op">=</span> <span class="fl">400</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">grid_hours</span> <span class="op">&lt;-</span> <span class="va">grid_hours</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    straight_line <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_linear</span>, newdata <span class="op">=</span> <span class="va">grid_hours</span><span class="op">)</span>,</span>
+<span>    curve         <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_logit</span>, newdata <span class="op">=</span> <span class="va">grid_hours</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">recruits</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">study_hours</span>, <span class="va">graduated</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0.05</span>, width <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"grey40"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, linetype <span class="op">=</span> <span class="fl">2</span>, color <span class="op">=</span> <span class="st">"grey60"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid_hours</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">pred</span>, color <span class="op">=</span> <span class="va">model</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"firebrick"</span>, <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">2.5</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, y <span class="op">=</span> <span class="fl">2.1</span>, label <span class="op">=</span> <span class="st">"Impossible (&gt;1)"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid_hours</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">straight_line</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"firebrick"</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">grid_hours</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">curve</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"steelblue"</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">11</span>, y <span class="op">=</span> <span class="fl">1.2</span>, label <span class="op">=</span> <span class="st">"Impossible (above 1)"</span>,</span>
 <span>           color <span class="op">=</span> <span class="st">"firebrick"</span>, fontface <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">13</span>, y <span class="op">=</span> <span class="op">-</span><span class="fl">1.1</span>, label <span class="op">=</span> <span class="st">"Impossible (&lt;0)"</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, label <span class="op">=</span> <span class="st">"Impossible (below 0)"</span>,</span>
 <span>           color <span class="op">=</span> <span class="st">"firebrick"</span>, fontface <span class="op">=</span> <span class="st">"bold"</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Study hours"</span>, y <span class="op">=</span> <span class="st">"Predicted probability of graduating"</span>, color <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Study hours"</span>, y <span class="op">=</span> <span class="st">"Predicted probability of graduating"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="demo-12-logistic_files/figure-html/road-and-hill-1.png" class="img-fluid figure-img" width="672"></p>
@@ -375,14 +378,14 @@ window.Quarto = {
 </div>
 </div>
 <p>Inside the middle of the data the two lines nearly agree; the damage is at the edges: exactly where predictions get used (“what about a recruit who studies <em>a lot</em>?”). The fix: don’t model the probability directly; model something built from it that a straight line <em>can</em> live on.</p>
-</section><section id="the-ladder-probability-odds-log-odds" class="level2"><h2 class="anchored" data-anchor-id="the-ladder-probability-odds-log-odds">2 · The ladder: probability → odds → log-odds</h2>
-<p>Suppose 3 out of 4 parolees complete supervision: p = 0.75. Then odds = p / (1 - p) = 0.75 / 0.25 = <strong>3</strong>: “three to one.” Odds run 0 to ∞; <em>log</em>-odds run -∞ to +∞. That’s a scale a straight line can live on. Climb the ladder for a few probabilities:</p>
+</section><section id="probability-odds-log-odds" class="level2"><h2 class="anchored" data-anchor-id="probability-odds-log-odds">2 · Probability → odds → log-odds</h2>
+<p>Suppose 3 out of 4 parolees complete supervision: p = 0.75. Then odds = p / (1 - p) = 0.75 / 0.25 = <strong>3</strong>: “three to one.” Odds run 0 to ∞; <em>log</em>-odds run -∞ to +∞. That’s a scale a straight line can live on. Convert a few probabilities:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probability <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>probability <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    odds     <span class="op">=</span> <span class="va">probability</span> <span class="op">/</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">probability</span><span class="op">)</span>,</span>
 <span>    log_odds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">odds</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   probability  odds log_odds
@@ -394,108 +397,17 @@ window.Quarto = {
 </div>
 <p>The logistic model treats the log-odds as its outcome:</p>
 <p><span class="math display">\[\text{logit}(p) = \ln\!\left(\frac{p}{1-p}\right) = b_0 + b_1 X_1 + b_2 X_2\]</span></p>
-<p>Same intercept, same slopes, same “holding the others constant” as Session 10. The line predicts log-odds, which convert back to a probability that politely stays between 0 and 1: the curved hill.</p>
-<p>But the coefficients are log-odds, and nobody thinks in log-odds. So what do we do? <strong>EXPONENTIATE.</strong> <code>exp(coefficient)</code> is the <strong>odds ratio</strong>: <em>multiply the odds of the outcome by this much for each one-unit increase in X, holding the other predictors constant.</em></p>
-<p>The Rosetta Stone, shrink side: negative log-odds → ratio below 1 → odds shrink:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 21%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: center;">Log-odds coefficient (β)</th>
-<th style="text-align: center;">Odds ratio (e<sup>β</sup>)</th>
-<th style="text-align: center;">Effect on odds</th>
-<th style="text-align: left;">Intuitive interpretation</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">-2.0</td>
-<td style="text-align: center;">0.14</td>
-<td style="text-align: center;">↓ 86%</td>
-<td style="text-align: left;">Odds are 86% lower than baseline</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">-1.0</td>
-<td style="text-align: center;">0.37</td>
-<td style="text-align: center;">↓ 63%</td>
-<td style="text-align: left;">Odds are 63% lower than baseline</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">-0.5</td>
-<td style="text-align: center;">0.61</td>
-<td style="text-align: center;">↓ 39%</td>
-<td style="text-align: left;">Odds are 39% lower than baseline</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.0</td>
-<td style="text-align: center;">1.00</td>
-<td style="text-align: center;">No change</td>
-<td style="text-align: left;">Odds unchanged</td>
-</tr>
-</tbody>
-</table>
-<p>And the grow side: positive log-odds → ratio above 1 → odds grow:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 26%">
-<col style="width: 21%">
-</colgroup>
-<thead><tr class="header">
-<th style="text-align: center;">Log-odds coefficient (β)</th>
-<th style="text-align: center;">Odds ratio (e<sup>β</sup>)</th>
-<th style="text-align: center;">Effect on odds</th>
-<th style="text-align: left;">Intuitive interpretation</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">0.0</td>
-<td style="text-align: center;">1.00</td>
-<td style="text-align: center;">No change</td>
-<td style="text-align: left;">Odds unchanged</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">0.3</td>
-<td style="text-align: center;">1.35</td>
-<td style="text-align: center;">↑ 35%</td>
-<td style="text-align: left;">Odds are 35% higher than baseline</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">0.7</td>
-<td style="text-align: center;">2.01</td>
-<td style="text-align: center;">↑ 101%</td>
-<td style="text-align: left;">Odds are about twice as high</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">1.0</td>
-<td style="text-align: center;">2.72</td>
-<td style="text-align: center;">↑ 172%</td>
-<td style="text-align: left;">Odds are 2.7× higher</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">2.0</td>
-<td style="text-align: center;">7.39</td>
-<td style="text-align: center;">↑ 639%</td>
-<td style="text-align: left;">Odds are over seven times higher</td>
-</tr>
-</tbody>
-</table></section><section id="fitting-it-glmfamily-binomial" class="level2"><h2 class="anchored" data-anchor-id="fitting-it-glmfamily-binomial">3 · Fitting it: glm(family = binomial)</h2>
+<p>In words, the same equation as Session 10: <strong>outcome = intercept + variable + variable + error</strong>, with the log-odds as the outcome. Same intercept, same slopes, same “holding the others constant.” The line predicts log-odds, which convert back to a probability that politely stays between 0 and 1: the curved hill.</p>
+<p>But the coefficients are log-odds, and nobody thinks in log-odds. So what do we do? <strong>EXPONENTIATE.</strong> <code>exp(coefficient)</code> is the <strong>odds ratio</strong>. Subtract 1 and read it as a percent change in the odds for each one-unit increase in X, holding the other predictors constant: an odds ratio of <strong>1.45</strong> means the odds are <strong>45% higher</strong>; <strong>0.61</strong> means the odds are <strong>39% lower</strong>; <strong>1.00</strong> means nothing happens.</p>
+</section><section id="fitting-it-glmfamily-binomial" class="level2"><h2 class="anchored" data-anchor-id="fitting-it-glmfamily-binomial">3 · Fitting it: glm(family = binomial)</h2>
 <p>Toy data first: 32 cars from a 1974 <em>Motor Trend</em> issue (<code>mtcars</code>, built into R), predicting <strong>manual transmission (1) vs.&nbsp;automatic (0)</strong> from horsepower and weight. Small enough to check every number; real CJ data below.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cars_df</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames_to_column</a></span><span class="op">(</span><span class="st">"car"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>am <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">am</span><span class="op">)</span><span class="op">)</span>   <span class="co"># 0 = automatic, 1 = manual</span></span>
-<span></span>
-<span><span class="va">model_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">cars_df</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model_freq</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cars_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">am</span> <span class="op">~</span> <span class="va">hp</span> <span class="op">+</span> <span class="va">wt</span>, data <span class="op">=</span> <span class="va">mtcars</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span>   <span class="co"># am: 1 = manual, 0 = automatic</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cars_model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = am ~ hp + wt, family = binomial, data = cars_df)
+glm(formula = am ~ hp + wt, family = binomial, data = mtcars)
 
 Coefficients:
             Estimate Std. Error z value Pr(&gt;|z|)   
@@ -516,7 +428,7 @@ Number of Fisher Scoring iterations: 8</code></pre>
 </div>
 <p><code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> is the <em>generalized</em> linear model, regression’s family business, and <code>family = binomial</code> is the switch that makes it logistic. The estimates are log-odds. Exponentiate:</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model_freq</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">cars_model</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> (Intercept)           hp           wt 
 1.561455e+08 1.036921e+00 3.085967e-04 </code></pre>
@@ -524,59 +436,35 @@ Number of Fisher Scoring iterations: 8</code></pre>
 </div>
 <ul>
 <li>
-<code>hp</code>: log-odds 0.036 → <strong>odds ratio 1.04</strong>; each additional horsepower multiplies the odds of a manual transmission by about 1.04 (+3.7%), <em>holding weight constant</em>
+<code>hp</code>: log-odds 0.036 → <strong>odds ratio 1.037</strong>; each additional horsepower increases the odds of a manual transmission by about <strong>4%</strong>, <em>holding weight constant</em>
 </li>
 <li>
-<code>wt</code>: log-odds -8.08 → <strong>odds ratio 0.0003</strong>; each additional 1,000 lbs cuts the odds by about 99.97%, <em>holding horsepower constant</em>
+<code>wt</code>: log-odds -8.08 → <strong>odds ratio 0.0003</strong>; each additional 1,000 lbs decreases the odds by more than <strong>99%</strong>, <em>holding horsepower constant</em>
 </li>
-<li>Wildly different sizes partly because the <strong>units</strong> differ: one horsepower is a nudge; a thousand pounds is a different car (Session 10’s units lesson, again)</li>
 </ul>
 <section id="from-effects-to-cases-predict" class="level3"><h3 class="anchored" data-anchor-id="from-effects-to-cases-predict">From effects to cases: predict()</h3>
 <p>Odds ratios describe <em>effects</em>. For an actual <em>case</em>, ask for the probability directly:</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">two_cars</span> <span class="op">&lt;-</span> <span class="va">cars_df</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">car</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Honda Civic"</span>, <span class="st">"Cadillac Fleetwood"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">car</span>, <span class="va">hp</span>, <span class="va">wt</span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">two_cars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>car <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Honda Civic"</span>, <span class="st">"Cadillac Fleetwood"</span><span class="op">)</span>,</span>
+<span>                   hp  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">52</span>, <span class="fl">205</span><span class="op">)</span>,</span>
+<span>                   wt  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.615</span>, <span class="fl">5.250</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">two_cars</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_freq</span>, newdata <span class="op">=</span> <span class="va">two_cars</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_manual <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">cars_model</span>, newdata <span class="op">=</span> <span class="va">two_cars</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                 car  hp    wt     p_manual
-1 Cadillac Fleetwood 205 5.250 9.787752e-08
-2        Honda Civic  52 1.615 9.995459e-01</code></pre>
+<pre><code># A tibble: 2 × 4
+  car                   hp    wt     p_manual
+  &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;
+1 Honda Civic           52  1.62 1.000       
+2 Cadillac Fleetwood   205  5.25 0.0000000979</code></pre>
 </div>
 </div>
-<p><code>type = "response"</code> returns probabilities: the light Civic is a near-certain manual (99.95%); the 5,250-lb Fleetwood’s probability of a manual has seven zeros after the decimal. <strong>Report both: odds ratios for effects, predicted probabilities for cases.</strong></p>
-</section><section id="the-curved-surface-seen-from-above" class="level3"><h3 class="anchored" data-anchor-id="the-curved-surface-seen-from-above">The curved surface, seen from above</h3>
-<p>Session 10’s flat plane, bent: with two predictors, the logistic model is a <strong>curved sheet</strong>, with a plateau near probability 1, a floor near 0, and an S-shaped cliff between them. Ask the model for a prediction at every (hp, wt) combination and look straight down at the surface:</p>
+<p><code>type = "response"</code> returns probabilities: the light Civic is a near-certain manual (99.9%); the 5,250-lb Fleetwood’s probability of a manual is essentially zero. <strong>Report both: odds ratios for effects, predicted probabilities for cases.</strong></p>
+<p>With two predictors, the logistic model is Session 10’s flat plane <strong>bent</strong> into a curved sheet: a plateau near probability 1, a floor near 0, and an S-shaped cliff between them. The spinnable 3D version is on the <a href="../slides/week-12-logistic.html">Session 11 slides</a> (“The 3D Logistic Surface”).</p>
+</section></section><section id="real-data-chicagos-high-violence-areas" class="level2"><h2 class="anchored" data-anchor-id="real-data-chicagos-high-violence-areas">4 · Real data: Chicago’s high violence areas</h2>
+<p>What separates Chicago’s <strong>high violence</strong> community areas from the rest? The outcome, <code>high_violence</code>, is whether the area’s violent crime rate is above the citywide median:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand_grid.html">expand_grid</a></span><span class="op">(</span></span>
-<span>  hp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">cars_df</span><span class="op">$</span><span class="va">hp</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">cars_df</span><span class="op">$</span><span class="va">hp</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>,</span>
-<span>  wt <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">cars_df</span><span class="op">$</span><span class="va">wt</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">cars_df</span><span class="op">$</span><span class="va">wt</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">grid</span><span class="op">$</span><span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_freq</span>, newdata <span class="op">=</span> <span class="va">grid</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">hp</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_raster</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">prob</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_contour.html">geom_contour</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>z <span class="op">=</span> <span class="va">prob</span><span class="op">)</span>, breaks <span class="op">=</span> <span class="fl">0.5</span>, color <span class="op">=</span> <span class="st">"white"</span>, linewidth <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">cars_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="va">am</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">2.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"lightblue"</span>, high <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Predicted probability of a manual transmission"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"The white line is p = 0.5: the S-curve's cliff edge, seen from above"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Horsepower"</span>, y <span class="op">=</span> <span class="st">"Weight (1,000 lbs)"</span>,</span>
-<span>       fill <span class="op">=</span> <span class="st">"P(manual)"</span>, shape <span class="op">=</span> <span class="st">"Manual?"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="demo-12-logistic_files/figure-html/surface-map-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Color is the surface’s height; the tight color transition is where the cliff lives. For the spinnable 3-D version, and the recorded guided tour, open the <a href="../slides/week-12-logistic.html">Session 11 slides</a>.</p>
-</section></section><section id="real-data-chicagos-high-violence-areas" class="level2"><h2 class="anchored" data-anchor-id="real-data-chicagos-high-violence-areas">4 · Real data: Chicago’s high-violence areas</h2>
-<p>What separates Chicago’s <strong>high-violence</strong> community areas from the rest? The outcome ships in the file: is the area’s violent-crime rate above the citywide median?</p>
-<div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">areas</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">high_violence</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">areas</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">high_violence</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   high_violence     n
@@ -585,29 +473,12 @@ Number of Fisher Scoring iterations: 8</code></pre>
 2 TRUE             38</code></pre>
 </div>
 </div>
-<p>The line that built it, <code>areas |&gt; mutate(high_violence = violent_rate &gt; median(violent_rate))</code>, already ran for you. R treats <code>TRUE</code> as 1 and <code>FALSE</code> as 0, so a logical column drops straight into <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>; if your project outcome isn’t binary yet, it may be one <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> away too. One caution: cutting a continuous variable in half <strong>throws away information</strong>; defensible when the yes/no version is the question you actually care about.</p>
-<p>Look first (always): one predictor against the outcome, with the fitted logistic curve:</p>
+<p>38 above, 39 at or below. R treats <code>TRUE</code> as 1 and <code>FALSE</code> as 0, so a logical column drops straight into <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>.</p>
+<p>Two predictors: unemployment and vacant housing, both plausible markers of concentrated disadvantage:</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">areas</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">unemployment_rate</span>, <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">high_violence</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>height <span class="op">=</span> <span class="fl">0.04</span>, width <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fl">2.5</span>, alpha <span class="op">=</span> <span class="fl">0.6</span>,</span>
-<span>              color <span class="op">=</span> <span class="st">"firebrick"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"glm"</span>, method.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"binomial"</span><span class="op">)</span>,</span>
-<span>              se <span class="op">=</span> <span class="cn">FALSE</span>, color <span class="op">=</span> <span class="st">"navy"</span>, linewidth <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"The S-curve, on real data"</span>,</span>
-<span>       subtitle <span class="op">=</span> <span class="st">"77 community areas; curve = single-predictor logistic fit"</span>,</span>
-<span>       x <span class="op">=</span> <span class="st">"Unemployment rate (%)"</span>, y <span class="op">=</span> <span class="st">"High-violence area (0/1)"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="demo-12-logistic_files/figure-html/chicago-s-curve-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Now the two-predictor model: unemployment and vacant housing, both plausible markers of concentrated disadvantage:</p>
-<div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">v_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">high_violence</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">v_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">high_violence</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>,</span>
 <span>               data <span class="op">=</span> <span class="va">areas</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">v_model</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">v_model</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -631,31 +502,36 @@ AIC: 58.06
 Number of Fisher Scoring iterations: 6</code></pre>
 </div>
 </div>
+<p>Translate: the odds ratios, then their 95% confidence intervals.</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>OR <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">v_model</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">v_model</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>   <span class="co"># translate: log-odds -&gt; ORs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">v_model</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                           OR        2.5 %     97.5 %
-(Intercept)       0.002965276 0.0001115289 0.02846386
-unemployment_rate 1.447590364 1.1934960639 1.84714872
-pct_vacant        1.329619347 1.0371047252 1.83804694</code></pre>
+<pre><code>      (Intercept) unemployment_rate        pct_vacant 
+      0.002965276       1.447590364       1.329619347 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">v_model</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                         2.5 %     97.5 %
+(Intercept)       0.0001115289 0.02846386
+unemployment_rate 1.1934960639 1.84714872
+pct_vacant        1.0371047252 1.83804694</code></pre>
 </div>
 </div>
 <ul>
 <li>
-<strong>Unemployment: OR 1.45</strong> [1.19, 1.85]; each additional point of unemployment multiplies an area’s odds of high-violence status by about 1.45 (+45%), holding vacancy constant</li>
+<strong>Unemployment: OR 1.45</strong> [1.19, 1.85]; each additional point of unemployment increases the odds of being a high violence area by <strong>45%</strong>, holding vacancy constant</li>
 <li>
-<strong>Vacancy: OR 1.33</strong> [1.04, 1.84]; +33% odds per point, holding unemployment constant</li>
+<strong>Vacancy: OR 1.33</strong> [1.04, 1.84]; each additional point of vacant housing increases the odds by <strong>33%</strong>, holding unemployment constant</li>
 <li>For a <em>ratio</em>, no effect = <strong>1</strong>, not 0: both intervals exclude it. And these are associations, <strong>not causes</strong>: nobody randomly assigned unemployment to neighborhoods</li>
 </ul>
 <section id="coefficients-into-cases" class="level3"><h3 class="anchored" data-anchor-id="coefficients-into-cases">Coefficients into cases</h3>
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">two_areas</span> <span class="op">&lt;-</span> <span class="va">areas</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">two_areas</span> <span class="op">&lt;-</span> <span class="va">areas</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">community</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Forest Glen"</span>, <span class="st">"West Garfield Park"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">community</span>, <span class="va">unemployment_rate</span>, <span class="va">pct_vacant</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">two_areas</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_high_violence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">v_model</span>, newdata <span class="op">=</span> <span class="va">two_areas</span>,</span>
-<span>                                   type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>p_high_violence <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">v_model</span>, newdata <span class="op">=</span> <span class="va">two_areas</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   community          unemployment_rate pct_vacant p_high_violence
@@ -664,48 +540,17 @@ pct_vacant        1.329619347 1.0371047252 1.83804694</code></pre>
 2 West Garfield Park              18.9       20            0.999 </code></pre>
 </div>
 </div>
-<p>In plain language: for an area like Forest Glen (4.2% unemployment, 2.6% vacant), the model puts the probability of high-violence status at about <strong>3%</strong>. For one like West Garfield Park (18.9%, 20.0%), it’s over <strong>99%</strong>. That’s a sentence a chief, or a city council, can actually use.</p>
-</section><section id="no-magic-the-plogis-check" class="level3"><h3 class="anchored" data-anchor-id="no-magic-the-plogis-check">No magic: the plogis() check</h3>
-<p><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> is just the ladder run in reverse: plug the predictors into the log-odds line, then squash the result back into [0, 1]. Do Forest Glen by hand:</p>
-<div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">v_model</span><span class="op">)</span></span>
-<span><span class="va">log_odds_fg</span> <span class="op">&lt;-</span> <span class="va">b</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">4.2</span> <span class="op">+</span> <span class="va">b</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">*</span> <span class="fl">2.6</span>   <span class="co"># Forest Glen's log-odds</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/Logistic.html">plogis</a></span><span class="op">(</span><span class="va">log_odds_fg</span><span class="op">)</span>                             <span class="co"># back to probability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(Intercept) 
- 0.02856804 </code></pre>
-</div>
-</div>
-<p>Same 0.029 as <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>. <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code> is R’s name for the inverse logit: the function that bends the straight line into the hill.</p>
-</section></section><section id="the-bayesian-version" class="level2"><h2 class="anchored" data-anchor-id="the-bayesian-version">5 · The Bayesian version</h2>
-<p>Same formula; <code>family = bernoulli()</code> is brms’s name for a 0/1 outcome: the switch that <code>family = binomial</code> flips in <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code>. Everything else is the <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code> pattern from Session 10’s regression: <code>chains = 2, iter = 2000, seed = 705, refresh = 0</code>. (In lecture we first ran this machinery on the 32 cars, where the honest posterior intervals came out enormous; with 77 areas they tighten to something usable.) This is the chunk with the compile pause.</p>
-<div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">v_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">high_violence</span> <span class="op">~</span> <span class="va">unemployment_rate</span> <span class="op">+</span> <span class="va">pct_vacant</span>,</span>
-<span>               data <span class="op">=</span> <span class="va">areas</span>, family <span class="op">=</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brmsfamily.html">bernoulli</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>               chains <span class="op">=</span> <span class="fl">2</span>, iter <span class="op">=</span> <span class="fl">2000</span>, seed <span class="op">=</span> <span class="fl">705</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/fixed.effects.html">fixef</a></span><span class="op">(</span><span class="va">v_bayes</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Estimate"</span>, <span class="st">"Q2.5"</span>, <span class="st">"Q97.5"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                     Estimate         Q2.5      Q97.5
-Intercept         0.001792006 7.756542e-05 0.02117534
-unemployment_rate 1.492292997 1.219122e+00 1.92093080
-pct_vacant        1.366238869 1.035275e+00 1.87703700</code></pre>
-</div>
-</div>
-<p>Both traditions land in the same place: posterior odds ratios near the <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> estimates, credible intervals excluding 1. The prior: we stated none, so these are <code>brms</code> defaults: flat on the coefficients, weakly informative on the intercept. Your project’s Bayesian model will use these too, so <strong>say so in your methods</strong>, one sentence: “brms default priors, 2 chains × 2,000 iterations, seed 705.”</p>
-<p>How to report it, in each tradition:</p>
+<p>In plain language: for an area like Forest Glen (4.2% unemployment, 2.6% vacant), the model puts the probability of high violence status at about <strong>3%</strong>. For one like West Garfield Park (18.9%, 20.0%), it’s over <strong>99%</strong>. That’s a sentence a chief, or a city council, can actually use.</p>
+</section></section><section id="how-to-report-it" class="level2"><h2 class="anchored" data-anchor-id="how-to-report-it">5 · How to report it</h2>
 <blockquote class="blockquote">
-<p><strong>Frequentist:</strong> “Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high-violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most.”</p>
-<p><strong>Bayesian:</strong> “Given the data and priors, each one-point increase in unemployment multiplied the odds of high-violence status by about 1.5 (posterior mean OR ≈ 1.5, 95% credible interval ≈ [1.2, 1.9]).”</p>
+<p>“Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most.”</p>
 </blockquote>
-<p>Same three ingredients every time: the effect (as an odds ratio), the uncertainty, and a <strong>probability a reader can feel</strong>. And say <strong><em>odds</em></strong> when you mean odds: an odds ratio of 1.45 is not “45% more likely.”</p>
+<p>Three ingredients every time: the effect (as an odds ratio), the uncertainty, and a <strong>probability a reader can feel</strong>. And say <strong><em>odds</em></strong> when you mean odds: an odds ratio of 1.45 is not “45% more likely.”</p>
 </section><section id="try-a-variation" class="level2"><h2 class="anchored" data-anchor-id="try-a-variation">Try a variation</h2>
 <ol type="1">
 <li>A reentry study reports two log-odds coefficients for re-arrest within 12 months: risk score <strong>0.7</strong> per point, completed programming <strong>-0.5</strong>. Convert both with <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> and say each in a sentence a police chief would understand. (Check yourself: one roughly doubles the odds; the other cuts them by about 39%.)</li>
 <li>Rebuild the outcome with a harsher cut (<code>areas |&gt; mutate(top_quartile = violent_rate &gt; quantile(violent_rate, 0.75))</code>) and refit <code>v_model</code> on it. What happens to the odds ratios and their intervals when only about 19 areas are a “yes”?</li>
 <li>Swap <code>pct_vacant</code> for <code>pct_no_hs_diploma</code> in <code>v_model</code>. Does the unemployment odds ratio move? Connect what you see to Session 10’s lurker lesson.</li>
-<li>Pick any other Chicago community area and compute its predicted probability by hand with <code><a href="https://rdrr.io/r/stats/Logistic.html">plogis()</a></code>, then check yourself with <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code>.</li>
 </ol>
 
 
@@ -760,13 +605,14 @@ pct_vacant        1.366238869 1.035275e+00 1.87703700</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

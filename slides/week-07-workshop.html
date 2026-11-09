@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Applied Workshop: Real Questions, Real Tests</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -303,7 +303,7 @@ Scott M. Mourtgos
 <section id="count" class="slide level2">
 <h2>Count</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>rossi <span class="sc">|&gt;</span> <span class="fu">count</span>(fin, arrest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>rossi <span class="sc">|&gt;</span> <span class="fu">count</span>(fin, arrest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   fin   arrest     n
@@ -323,7 +323,7 @@ Scott M. Mourtgos
 <section id="test-prop.test" class="slide level2">
 <h2>Test: <code>prop.test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">48</span>, <span class="dv">66</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">216</span>, <span class="dv">216</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">48</span>, <span class="dv">66</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">216</span>, <span class="dv">216</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     2-sample test for equality of proportions with continuity correction
@@ -352,7 +352,7 @@ sample estimates:
 <section id="test-bayes_prop_test" class="slide level2">
 <h2>Test: <code>bayes_prop_test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">48</span>, <span class="dv">66</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">216</span>, <span class="dv">216</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">48</span>, <span class="dv">66</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">216</span>, <span class="dv">216</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Bayesian test of two proportions 
@@ -403,7 +403,7 @@ Probability group 1 is lower than group 2:  0.97 </code></pre>
 <section id="count-1" class="slide level2">
 <h2>Count</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">count</span>(employed, released)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">count</span>(employed, released)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   employed released     n
@@ -422,7 +422,7 @@ Probability group 1 is lower than group 2:  0.97 </code></pre>
 <section id="test-prop.test-1" class="slide level2">
 <h2>Test: <code>prop.test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3568</span>, <span class="dv">766</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">4111</span>, <span class="dv">1115</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3568</span>, <span class="dv">766</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">4111</span>, <span class="dv">1115</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -443,7 +443,7 @@ sample estimates:
 </div></section><section id="test-bayes_prop_test-1" class="slide level2">
 <h2>Test: <code>bayes_prop_test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3568</span>, <span class="dv">766</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">4111</span>, <span class="dv">1115</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3568</span>, <span class="dv">766</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">4111</span>, <span class="dv">1115</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -479,7 +479,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <h2>The Groups Differ in Other Ways</h2>
 <p><code>checks</code> counts how many police databases (prior arrests, convictions, parole, and so on) had the person’s name in them.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_checks =</span> <span class="fu">mean</span>(checks), <span class="at">people =</span> <span class="fu">n</span>(), <span class="at">.by =</span> employed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg_checks =</span> <span class="fu">mean</span>(checks), <span class="at">people =</span> <span class="fu">n</span>(), <span class="at">.by =</span> employed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   employed avg_checks people
@@ -494,7 +494,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <h2>Compare Like With Like</h2>
 <p>Keep only people with <strong>no record at all</strong> (<code>checks == 0</code>), and ask again.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">filter</span>(checks <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">count</span>(employed, released)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>arrests <span class="sc">|&gt;</span> <span class="fu">filter</span>(checks <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> <span class="fu">count</span>(employed, released)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   employed released     n
@@ -513,7 +513,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <section id="test-again-prop.test" class="slide level2">
 <h2>Test Again: <code>prop.test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1526</span>, <span class="dv">166</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">1650</span>, <span class="dv">201</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1526</span>, <span class="dv">166</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">1650</span>, <span class="dv">201</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -534,7 +534,7 @@ sample estimates:
 </div></section><section id="test-again-bayes_prop_test" class="slide level2">
 <h2>Test Again: <code>bayes_prop_test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1526</span>, <span class="dv">166</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">1650</span>, <span class="dv">201</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1526</span>, <span class="dv">166</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">1650</span>, <span class="dv">201</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -590,9 +590,9 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <section id="describe" class="slide level2">
 <h2>Describe</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>areas <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a></a>  <span class="fu">summarize</span>(<span class="at">avg_income =</span> <span class="fu">mean</span>(median_income), <span class="at">areas =</span> <span class="fu">n</span>(), <span class="at">.by =</span> violence) <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a></a>  <span class="fu">arrange</span>(violence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-3"><a></a>  <span class="fu">arrange</span>(violence)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   violence      avg_income areas
@@ -615,7 +615,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <section id="test" class="slide level2">
 <h2>Test</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">t.test</span>(median_income <span class="sc">~</span> violence, <span class="at">data =</span> areas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">t.test</span>(median_income <span class="sc">~</span> violence, <span class="at">data =</span> areas)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -668,7 +668,7 @@ mean in group High violence   mean in group Other areas
 <section id="count-2" class="slide level2">
 <h2>Count</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>shootings <span class="sc">|&gt;</span> <span class="fu">count</span>(period, body_camera)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>shootings <span class="sc">|&gt;</span> <span class="fu">count</span>(period, body_camera)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   period       body_camera     n
@@ -707,7 +707,7 @@ mean in group High violence   mean in group Other areas
 <section id="test-prop.test-2" class="slide level2">
 <h2>Test: <code>prop.test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1205</span>, <span class="dv">594</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">5507</span>, <span class="dv">4923</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1205</span>, <span class="dv">594</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">5507</span>, <span class="dv">4923</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -728,7 +728,7 @@ sample estimates:
 </div></section><section id="test-bayes_prop_test-2" class="slide level2">
 <h2>Test: <code>bayes_prop_test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1205</span>, <span class="dv">594</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">5507</span>, <span class="dv">4923</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1205</span>, <span class="dv">594</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">5507</span>, <span class="dv">4923</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -852,11 +852,11 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
 <section id="two-ways-to-load-a-dataset" class="slide level2">
 <h2>Two Ways to Load a Dataset</h2>
 <p>Our course copy, the way you have loaded everything all semester:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>arrests <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/toronto-arrests.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a>arrests <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/toronto-arrests.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The original, from an R package (install once, then load it each time):</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">install.packages</span>(<span class="st">"carData"</span>)   <span class="co"># once, in the console</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">install.packages</span>(<span class="st">"carData"</span>)   <span class="co"># once, in the console</span></span>
 <span id="cb32-2"><a></a><span class="fu">library</span>(carData)</span>
-<span id="cb32-3"><a></a><span class="fu">data</span>(Arrests)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-3"><a></a><span class="fu">data</span>(Arrests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Same data either way. Use whichever you like.</p>
 </section>
 <section id="how-to-size-up-a-dataset-in-five-minutes" class="slide level2">
@@ -1070,7 +1070,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1182,13 +1182,14 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.27">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Final Project Exemplar – CRJU 705</title>
 <style>
@@ -63,14 +63,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-84cb686640d042177fa90b9a4eb69106.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap-212115d4fcae7dcb87683cfb9f43609e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
@@ -232,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
 <li><a href="#descriptives" id="toc-descriptives" class="nav-link" data-scroll-target="#descriptives">Descriptives</a></li>
   <li><a href="#the-key-visualization" id="toc-the-key-visualization" class="nav-link" data-scroll-target="#the-key-visualization">The key visualization</a></li>
-  <li><a href="#the-final-model-both-traditions" id="toc-the-final-model-both-traditions" class="nav-link" data-scroll-target="#the-final-model-both-traditions">The final model — both traditions</a></li>
+  <li><a href="#the-final-model" id="toc-the-final-model" class="nav-link" data-scroll-target="#the-final-model">The final model</a></li>
   </ul>
 </li>
   <li><a href="#discussion-and-limitations" id="toc-discussion-and-limitations" class="nav-link" data-scroll-target="#discussion-and-limitations">4 · Discussion and limitations</a></li>
@@ -296,33 +297,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>📋 <strong>Rubric note (The question, motivated):</strong> two sentences in, a reader knows the question, the data, and why anyone should care. No statistics yet — motivation first.</p>
 </section><section id="data-and-methods" class="level2"><h2 class="anchored" data-anchor-id="data-and-methods">2 · Data and methods</h2>
 <div class="cell">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"https://smourtgos.github.io/crju705/data/crash-ak.csv"</span>,</span>
-<span>                    show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>                    show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The dataset holds one row per crash (n = 20,000) with the number of people injured, an intoxication flag (<code>intox_any</code>: alcohol or drugs recorded for a driver), a timestamp, and crash characteristics. Three variables are derived for analysis:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="va">crashes</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">&lt;-</span> <span class="va">crashes</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    any_injury <span class="op">=</span> <span class="va">injuries</span> <span class="op">&gt;</span> <span class="fl">0</span>,                          <span class="co"># outcome: was anyone hurt?</span></span>
 <span>    hour       <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/hour.html">hour</a></span><span class="op">(</span><span class="va">time</span><span class="op">)</span>,</span>
 <span>    night      <span class="op">=</span> <span class="va">hour</span> <span class="op">&gt;=</span> <span class="fl">20</span> <span class="op">|</span> <span class="va">hour</span> <span class="op">&lt;</span> <span class="fl">4</span>,                 <span class="co"># 8 pm – 4 am</span></span>
 <span>    weekend    <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/day.html">wday</a></span><span class="op">(</span><span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html">mdy</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">7</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Outcome.</strong> <code>any_injury</code> is binary (someone was hurt / no one was hurt), so the final model is a <strong>logistic regression</strong>; both the frequentist fit (<code>glm</code>) and the Bayesian fit (<code>brm</code>, default priors, 2 chains × 2,000 iterations, seed 705) are reported, per the course requirement. <code>driver_age</code> is included as a control.</p>
+<p><strong>Outcome.</strong> <code>any_injury</code> is binary (someone was hurt / no one was hurt), so the final model is a <strong>logistic regression</strong>; the frequentist fit (<code>glm</code>) is reported with its 95% confidence intervals. <code>driver_age</code> is included as a control.</p>
 <p>📋 <strong>Rubric note (Quality of analysis):</strong> the outcome’s <em>type</em> drives the model choice, and the sentence says so. The derivations are shown, not hidden — a reader can re-create every variable.</p>
 </section><section id="results" class="level2"><h2 class="anchored" data-anchor-id="results">3 · Results</h2>
 <section id="descriptives" class="level3"><h3 class="anchored" data-anchor-id="descriptives">Descriptives</h3>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    crashes        <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    p_any_injury   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">any_injury</span><span class="op">)</span>,</span>
 <span>    mean_injuries  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">injuries</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="va">intox_any</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">intox_any</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">intox_any</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
   intox_any crashes p_any_injury mean_injuries
@@ -334,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>About 8% of crashes involve an intoxicated driver. Injury is common in both groups — roughly <strong>48% of sober-driver crashes</strong> injure someone — but intoxication-involved crashes injure someone about <strong>64%</strong> of the time, and average more injured people per crash (≈1.1 vs ≈0.7).</p>
 </section><section id="the-key-visualization" class="level3"><h3 class="anchored" data-anchor-id="the-key-visualization">The key visualization</h3>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">crashes</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    intox   <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span><span class="va">intox_any</span> <span class="op">==</span> <span class="fl">1</span>, <span class="st">"Intoxication involved"</span>, <span class="st">"No intoxication"</span><span class="op">)</span>,</span>
 <span>    period  <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case-and-replace-when.html">case_when</a></span><span class="op">(</span></span>
@@ -355,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span>    x <span class="op">=</span> <span class="cn">NULL</span>, y <span class="op">=</span> <span class="st">"Crashes with any injury"</span>, fill <span class="op">=</span> <span class="cn">NULL</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">13</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="final-project-exemplar_files/figure-html/headline-figure-1.png" class="img-fluid figure-img" width="672"></p>
@@ -365,15 +366,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The gap between the red and grey bars — roughly 15 percentage points — is strikingly <em>flat</em> across the four time windows. Whatever intoxication does to injury risk, it does not appear to save it up for Saturday night.</p>
 <p>📋 <strong>Rubric note (The key visualization):</strong> one figure carries the whole finding, the caption says what the plot <em>shows</em> (not what the author hoped), and the y-axis is honest (percentages, baseline visible).</p>
-</section><section id="the-final-model-both-traditions" class="level3"><h3 class="anchored" data-anchor-id="the-final-model-both-traditions">The final model — both traditions</h3>
-<p><strong>Frequentist:</strong></p>
+</section><section id="the-final-model" class="level3"><h3 class="anchored" data-anchor-id="the-final-model">The final model</h3>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">any_injury</span> <span class="op">~</span> <span class="va">intox_any</span> <span class="op">+</span> <span class="va">night</span> <span class="op">+</span> <span class="va">weekend</span> <span class="op">+</span> <span class="va">driver_age</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">m_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">any_injury</span> <span class="op">~</span> <span class="va">intox_any</span> <span class="op">+</span> <span class="va">night</span> <span class="op">+</span> <span class="va">weekend</span> <span class="op">+</span> <span class="va">driver_age</span>,</span>
 <span>              data <span class="op">=</span> <span class="va">crashes</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">m_freq</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>odds_ratio <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 6
   term        estimate std.error statistic p.value odds_ratio
@@ -386,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">m_freq</span><span class="op">)</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">m_freq</span><span class="op">)</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            2.5 % 97.5 %
 (Intercept) 0.799  0.948
@@ -396,31 +396,12 @@ weekendTRUE 0.929  1.052
 driver_age  0.998  1.002</code></pre>
 </div>
 </div>
-<p><strong>Bayesian twin</strong> (same formula; brms default priors — flat on coefficients, weakly informative on the intercept — 2 chains × 2,000 iterations, seed 705):</p>
-<div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/paul-buerkner/brms">brms</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">705</span><span class="op">)</span></span>
-<span><span class="va">m_bayes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brm.html">brm</a></span><span class="op">(</span><span class="va">any_injury</span> <span class="op">~</span> <span class="va">intox_any</span> <span class="op">+</span> <span class="va">night</span> <span class="op">+</span> <span class="va">weekend</span> <span class="op">+</span> <span class="va">driver_age</span>,</span>
-<span>               data <span class="op">=</span> <span class="va">crashes</span>, family <span class="op">=</span> <span class="fu"><a href="https://paulbuerkner.com/brms/reference/brmsfamily.html">bernoulli</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>               chains <span class="op">=</span> <span class="fl">2</span>, iter <span class="op">=</span> <span class="fl">2000</span>, seed <span class="op">=</span> <span class="fl">705</span>, refresh <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/nlme/man/fixed.effects.html">fixef</a></span><span class="op">(</span><span class="va">m_bayes</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Estimate"</span>, <span class="st">"Q2.5"</span>, <span class="st">"Q97.5"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Estimate  Q2.5 Q97.5
-Intercept      0.870 0.800 0.950
-intox_any      1.915 1.728 2.122
-nightTRUE      1.008 0.951 1.066
-weekendTRUE    0.990 0.931 1.057
-driver_age     1.000 0.998 1.002</code></pre>
-</div>
-</div>
-<p><strong>Reading the two fits together.</strong> Both traditions tell the same story. Holding time-of-week and driver age constant, intoxication roughly <strong>doubles the odds of an injury crash</strong> (frequentist OR ≈ 1.9, 95% CI ≈ [1.7, 2.1]; Bayesian posterior OR ≈ 1.9, 95% credible interval ≈ [1.7, 2.1], excluding 1 decisively). The Bayesian fit licenses the sentence the frequentist one doesn’t: <em>given the data and priors, there is a 95% probability the true odds ratio lies in that interval</em> — the confidence interval, by contrast, is a statement about the procedure, not this interval. With 20,000 crashes the two traditions converge numerically; the difference here is what we’re <em>allowed to say</em>, not the numbers.</p>
+<p><strong>Reading the fit.</strong> Holding time-of-week and driver age constant, intoxication roughly <strong>doubles the odds of an injury crash</strong> (OR ≈ 1.9, 95% CI ≈ [1.7, 2.1]). The interval sits well above 1, the no-effect value for an odds ratio.</p>
 <p>In concrete terms: for a 35-year-old driver on a weekday afternoon, the model puts the probability of an injury crash near <strong>47%</strong> without intoxication and near <strong>62%</strong> with it.</p>
-<p><strong>And the honest nulls:</strong> <code>night</code> (OR ≈ 1.01), <code>weekend</code> (OR ≈ 0.99), and <code>driver_age</code> (OR ≈ 1.00) all sit almost exactly at 1, with intervals straddling it in both traditions. In these data, <em>when</em> a crash happens tells us essentially nothing about injury risk once intoxication is accounted for — and there is no evidence the intoxication effect needs nights or weekends to operate.</p>
-<p>📋 <strong>Rubric note (Interpretation &amp; honesty):</strong> the null predictors are reported with the same prominence as the significant one, magnitudes are in real units (probabilities, not log-odds), and the both-traditions comparison sentence names the actual philosophical difference instead of hand-waving.</p>
+<p><strong>And the honest nulls:</strong> <code>night</code> (OR ≈ 1.01), <code>weekend</code> (OR ≈ 0.99), and <code>driver_age</code> (OR ≈ 1.00) all sit almost exactly at 1, with intervals straddling it. In these data, <em>when</em> a crash happens tells us essentially nothing about injury risk once intoxication is accounted for — and there is no evidence the intoxication effect needs nights or weekends to operate.</p>
+<p>📋 <strong>Rubric note (Interpretation &amp; honesty):</strong> the null predictors are reported with the same prominence as the significant one, and magnitudes are in real units (probabilities, not log-odds).</p>
 </section></section><section id="discussion-and-limitations" class="level2"><h2 class="anchored" data-anchor-id="discussion-and-limitations">4 · Discussion and limitations</h2>
-<p><strong>What was found.</strong> Intoxication-involved crashes are substantially more likely to injure someone — an effect visible in the raw percentages, robust to adjustment, and essentially identical in the frequentist and Bayesian fits. The patrol-scheduling assumption fared worse: injury risk shows no independent night or weekend pattern, and the intoxication penalty is as present on a Tuesday afternoon as on a Saturday night.</p>
+<p><strong>What was found.</strong> Intoxication-involved crashes are substantially more likely to injure someone — an effect visible in the raw percentages, and robust to adjustment. The patrol-scheduling assumption fared worse: injury risk shows no independent night or weekend pattern, and the intoxication penalty is as present on a Tuesday afternoon as on a Saturday night.</p>
 <p><strong>Three sentences for a police chief.</strong> Crashes involving an impaired driver are about twice as likely to hurt somebody, whatever the day or hour. The extra risk does not concentrate on weekend nights — it travels with the impaired driver. If the goal is fewer injuries, impairment enforcement is a seven-day job, not a Friday-night one.</p>
 <p><strong>Limitations.</strong> These are simulated training data; real Alaska crash records would bring reporting artifacts (minor no-injury crashes underreported, intoxication recorded more diligently when someone is hurt — which could <em>inflate</em> the association). The unit is the crash, not the driver: nothing here says <em>which</em> driver was injured. The model is deliberately simple; interactions (e.g., intoxication × road condition) were beyond the course’s scope, and <code>severity</code> was excluded because it is partially defined by injuries — putting it in would be circular. Finally, this is an observational association: no crash was randomly assigned an impaired driver, and the causal reading — however plausible — rests on the adjustment being adequate, which three covariates cannot guarantee.</p>
 <p>📋 <strong>Rubric note (Interpretation &amp; honesty, again):</strong> limitations are specific to <em>this</em> analysis — the mechanical “correlation isn’t causation” sentence appears only alongside named, checkable concerns (reporting bias direction, circularity of <code>severity</code>, unit-of-analysis).</p>
@@ -487,7 +468,7 @@ driver_age     1.000 0.998 1.002</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Read these for what a solid report looks like, not as a template for this year.</strong> All four report their final model in the frequentist tradition only. Your final model must be reported in <strong>both</strong> traditions, <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> or <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> and <code><a href="https://paulbuerkner.com/brms/reference/brm.html">brm()</a></code>, with a sentence comparing the two (see <a href="./final-project.html#steps-and-expectations">Step 3</a>). Your dataset also has to come from the <a href="./project-data.html">data options</a> or be cleared with me first, and your report should run 3 to 5 pages.</p>
+<p><strong>Read these for what a solid report looks like, not as a template for this year.</strong> Your dataset has to come from the <a href="./project-data.html">data options</a> or be cleared with me first, your final model needs its 95% confidence intervals and a plain-language interpretation (see <a href="./final-project.html#steps-and-expectations">Step 3</a>), and your report should run 3 to 5 pages.</p>
 </div>
 </div>
 </div>
@@ -544,13 +525,14 @@ driver_age     1.000 0.998 1.002</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

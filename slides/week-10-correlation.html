@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.32">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="Scott M. Mourtgos">
   <title>CRJU 705 – Correlation, Then Midterm Review</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-46fe9194c7aa732e2eafbd472d3cb092.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-1057dcdd0c631574b29197041191720a.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -333,11 +333,11 @@ Scott M. Mourtgos
 <h2>The Units Problem</h2>
 <p>Two covariances with violent crime, from Chicago’s 77 community areas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 107.7543</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>median_income,     areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>median_income,     areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -482660.1</code></pre>
 </div>
@@ -351,12 +351,12 @@ Scott M. Mourtgos
 <p>Divide the covariance by both standard deviations and the units cancel:</p>
 <p><span class="math display">\[r \;=\; \frac{\text{cov}(x, y)}{s_x \, s_y}\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate) <span class="sc">/</span></span>
-<span id="cb5-2"><a></a>  (<span class="fu">sd</span>(areas<span class="sc">$</span>unemployment_rate) <span class="sc">*</span> <span class="fu">sd</span>(areas<span class="sc">$</span>violent_rate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">cov</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate) <span class="sc">/</span></span>
+<span id="cb5-2"><a></a>  (<span class="fu">sd</span>(areas<span class="sc">$</span>unemployment_rate) <span class="sc">*</span> <span class="fu">sd</span>(areas<span class="sc">$</span>violent_rate))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8398579</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)   <span class="co"># same thing, one function</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)   <span class="co"># same thing, one function</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8398579</code></pre>
 </div>
@@ -420,11 +420,11 @@ Scott M. Mourtgos
 <section id="anscombes-quartet-four-identical-summaries" class="slide level2">
 <h2>Anscombe’s Quartet: Four Identical Summaries</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>anscombe_long <span class="ot">&lt;-</span> anscombe <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>anscombe_long <span class="ot">&lt;-</span> anscombe <span class="sc">|&gt;</span></span>
 <span id="cb9-2"><a></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"set"</span>), <span class="at">names_pattern =</span> <span class="st">"(.)(.)"</span>)</span>
 <span id="cb9-3"><a></a></span>
 <span id="cb9-4"><a></a>anscombe_long <span class="sc">|&gt;</span></span>
-<span id="cb9-5"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x), <span class="at">mean_y =</span> <span class="fu">mean</span>(y), <span class="at">r =</span> <span class="fu">cor</span>(x, y), <span class="at">.by =</span> set)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-5"><a></a>  <span class="fu">summarize</span>(<span class="at">mean_x =</span> <span class="fu">mean</span>(x), <span class="at">mean_y =</span> <span class="fu">mean</span>(y), <span class="at">r =</span> <span class="fu">cor</span>(x, y), <span class="at">.by =</span> set)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   set   mean_x mean_y     r
@@ -467,8 +467,8 @@ Scott M. Mourtgos
 <h2>A Rank-Based Backup: Spearman’s rho</h2>
 <p>Replace each value with its <strong>rank</strong> (1st, 2nd, 3rd…), then correlate the ranks. Spearman asks only: <em>is the relationship consistently up, or consistently down?</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">c</span>(<span class="at">pearson  =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y),</span>
-<span id="cb11-2"><a></a>  <span class="at">spearman =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">c</span>(<span class="at">pearson  =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y),</span>
+<span id="cb11-2"><a></a>  <span class="at">spearman =</span> <span class="fu">cor</span>(outlier_data<span class="sc">$</span>x, outlier_data<span class="sc">$</span>y, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   pearson   spearman 
  0.4235804 -0.1142857 </code></pre>
@@ -487,9 +487,9 @@ Scott M. Mourtgos
 <h2>From Incidents to Areas</h2>
 <p>The anchor data’s <strong>second level</strong> (<a href="../chicago-data.html">codebook</a>): all 237,472 of 2025’s incidents, added up to the <strong>77 community areas</strong> and joined with Census measures:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>areas <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a></a>  <span class="fu">select</span>(community, violent_rate, unemployment_rate, median_income, pct_vacant) <span class="sc">|&gt;</span></span>
-<span id="cb13-3"><a></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a></a>  <span class="fu">head</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   community   violent_rate unemployment_rate median_income pct_vacant
@@ -561,7 +561,7 @@ Scott M. Mourtgos
 <section id="cor.test" class="slide level2">
 <h2><code>cor.test()</code></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>unemployment_rate, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -591,7 +591,7 @@ sample estimates:
 <h2>When the Answer Is “Nothing Here”</h2>
 <p>Median age and violence, from the menu slide:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>median_age, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>median_age, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -614,10 +614,10 @@ sample estimates:
 <h2>Several Pairs at Once</h2>
 <p>Real analyses rarely stop at one pair. <code>cor()</code> takes every numeric column you give it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>areas <span class="sc">|&gt;</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>areas <span class="sc">|&gt;</span></span>
 <span id="cb19-2"><a></a>  <span class="fu">select</span>(violent_rate, unemployment_rate, median_income, pct_vacant) <span class="sc">|&gt;</span></span>
 <span id="cb19-3"><a></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  violent_rate unemployment_rate median_income pct_vacant
 violent_rate              1.00              0.84         -0.71       0.81
@@ -640,10 +640,10 @@ pct_vacant                0.81              0.67         -0.55       1.00</code>
 <section id="your-turn-5-minutes" class="slide level2">
 <h2>Your Turn (5 Minutes)</h2>
 <p><code>pct_no_hs_diploma</code> is the share of an area’s adults without a high-school diploma. <strong>Before you compute anything:</strong> write down your guess for the sign and rough size of its correlation with <code>violent_rate</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>areas <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://smourtgos.github.io/crju705/data/chicago-areas.csv"</span>)</span>
 <span id="cb21-2"><a></a></span>
 <span id="cb21-3"><a></a><span class="fu">ggplot</span>(areas, <span class="fu">aes</span>(pct_no_hs_diploma, violent_rate)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb21-4"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>pct_no_hs_diploma, areas<span class="sc">$</span>violent_rate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a></a><span class="fu">cor.test</span>(areas<span class="sc">$</span>pct_no_hs_diploma, areas<span class="sc">$</span>violent_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <p>Most people guess a strong positive. The data: <strong>r = 0.17, p = 0.13</strong>, no evidence of an association. Yet <code>pct_bachelors</code> runs <strong>-0.45</strong>. Sensible-sounding measures can fail, and related measures tangle together. Untangling them is <em>exactly</em> what regression does in Session 10.</p>
 </div>
@@ -755,16 +755,16 @@ pct_vacant                0.81              0.67         -0.55       1.00</code>
 <section id="part-2-describe-a-small-vector" class="slide level2">
 <h2>Part 2: Describe a Small Vector</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>days_held <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">20</span>)</span>
-<span id="cb22-2"><a></a><span class="fu">mean</span>(days_held)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>days_held <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">20</span>)</span>
+<span id="cb22-2"><a></a><span class="fu">mean</span>(days_held)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.375</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">median</span>(days_held)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">median</span>(days_held)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">sd</span>(days_held)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">sd</span>(days_held)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.390562</code></pre>
 </div>
@@ -817,7 +817,7 @@ pct_vacant                0.81              0.67         -0.55       1.00</code>
 <h2>Part 4: A Two-Group <code>t.test()</code></h2>
 <p>Were intoxicated drivers younger than sober drivers, on average? (Intoxicated first, set by a <code>factor()</code> line.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">t.test</span>(driver_age <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">t.test</span>(driver_age <span class="sc">~</span> intox, <span class="at">data =</span> crashes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -848,7 +848,7 @@ mean in group Intoxicated       mean in group Sober
 <h2>Part 5: Which Sentence Belongs to Which Output?</h2>
 <p>Lab 7: suspicious-person stops vs traffic stops, searched or not.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3214</span>, <span class="dv">2023</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3214</span> <span class="sc">+</span> <span class="dv">17271</span>, <span class="dv">2023</span> <span class="sc">+</span> <span class="dv">21191</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">bayes_prop_test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3214</span>, <span class="dv">2023</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">3214</span> <span class="sc">+</span> <span class="dv">17271</span>, <span class="dv">2023</span> <span class="sc">+</span> <span class="dv">21191</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <div class="fragment">
@@ -1099,7 +1099,7 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1211,13 +1211,14 @@ Probability group 1 is lower than group 2:  less than 0.01 </code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
