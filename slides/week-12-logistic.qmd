@@ -230,7 +230,7 @@ robbery_model <- glm(future_hit ~ day_of_year + prior_robberies_in_zone + zone,
 
 :::: {.columns}
 ::: {.column width="62%"}
-<video src="../media/week-01/deploy_cars_east_in.mp4" controls preload="metadata" style="max-height:430px;"></video>
+<video src="../media/week-12/deploy_cars_west_siren.mp4" controls preload="metadata" style="max-height:430px;"></video>
 :::
 ::: {.column width="38%"}
 <br>
