@@ -645,7 +645,7 @@ Every substantive change has a bullet in `_private/notes/CHANGES-week-NN.md` (ne
 ## TODO when you come back
 
 ### Next publish
-- [ ] **First publish from the `mourtgosstudio` Mac goes through `./publish.sh --dry-run`.** It has never run there. Expect step 5 to list the 1.7.32 `site_libs` files from the Oct 20 publish (harmless; the real run deletes them).
+- [x] **First publish from the `mourtgosstudio` Mac: DONE Nov 9, 2026** (`./publish.sh --dry-run`, then `./publish.sh`; gh-pages `f43fc34`). Step 5 listed the two 1.7.32 `site_libs` files plus five orphaned figures, as expected. **Found and fixed the same night:** under Quarto 1.8.27 the publish step itself removes files the build no longer produces, so step 7 found nothing to commit and `set -e` turned the empty commit into exit 1, leaving a temp worktree registered (`git worktree prune` cleared it). Step 7 now checks `git diff --cached --quiet` first and says "already gone." Under 1.7.32 (the `s.mourtgos` Mac) step 7 still does the deleting.
 
 ### Decisions / reviews needed from Scott
 - [ ] **Confirm the semester start/end against USC's official Fall 2026 calendar.** The meeting pattern and blackouts are now CONFIRMED (Tue 6:00–8:45, Currell 204; out Oct 27 / Nov 3 / Nov 24), but `firstday`, `semester_start`, and `semester_end` in `syllabus.qmd` are still provisional (Aug 18 → Dec 5). Everything recomputes from them. **If the semester starts Aug 25 instead of Aug 18 the course drops to 12 sessions** and something else has to give. Also update the placeholder date language on `final-project.qmd`.

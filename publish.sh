@@ -79,8 +79,12 @@ if [ -s "$STALE" ]; then
   git fetch -q origin gh-pages
   git worktree add -q "$WT" origin/gh-pages
   (cd "$WT" && tr '\n' '\0' < "$STALE" | xargs -0 git rm -q --ignore-unmatch \
-     && git commit -q -m "Remove files the site no longer builds" \
-     && git push -q origin HEAD:gh-pages)
+     && if git diff --cached --quiet; then
+          echo "already gone: the publish step removed them itself (Quarto 1.8 does; 1.7 does not)"
+        else
+          git commit -q -m "Remove files the site no longer builds" \
+            && git push -q origin HEAD:gh-pages
+        fi)
   git worktree remove --force "$WT"
 fi
 
