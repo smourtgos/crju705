@@ -266,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="in-class">In class</h2>
 <ul>
 <li>Why criminal justice runs on binary outcomes (arrest, failure to appear, re-arrest, intoxicated or not), and why <code>lm()</code> predicts impossible probabilities when you feed it one</li>
-<li><strong>Closing the loop on Session 1:</strong> the bank-robbery case study that opened the course was a logistic regression: we re-fit the exact model and finally read its table (coefficients are log-odds; <code>exp()</code> them into odds ratios; West Zone’s odds ratio is why the cars went west)</li>
+<li><strong>Closing the loop on Session 1:</strong> the bank-robbery case study that opened the course was a logistic regression: the same equation as Session 10 with one extra argument, <code>family = binomial</code>, then the predicted risk by zone and the cars sent west</li>
 <li>Probability → odds → log-odds, and why a straight line can only live on the last of the three</li>
 <li><code>glm(family = binomial)</code>, one argument away from <code>lm()</code>, and the two interpretation moves: <strong>odds ratios</strong> for effects, <strong>predicted probabilities</strong> for cases</li>
 <li><strong>The 3D logistic surface:</strong> Session 10’s flat plane, bent into an S-shaped probability sheet</li>

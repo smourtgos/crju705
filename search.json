@@ -2566,7 +2566,7 @@
     "href": "demos/demo-12-logistic.html#setup",
     "title": "Demo Walkthrough · Session 11",
     "section": "Setup",
-    "text": "Setup\n\nlibrary(tidyverse)\nset.seed(705)\n\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\",\n                  show_col_types = FALSE)\n\nWas an arrest made? Does the defendant fail to appear? Is the parolee re-arrested within three years? Is this a high violence neighborhood? Every model so far predicted a number: a crime rate, an incident hour. Logistic regression predicts a yes/no, and its currency is probability (0 to 1), expressed along the way as odds and log-odds. This session also returns to the Session 1 bank-robbery model (patrol cars sent to the West Zone off a coefficient table nobody could read yet): it was logistic regression all along, its mysterious estimate column just log-odds, one exp() away from sense. The Session 11 slides reopen that exact model with today’s eyes (“The Machinery, Reopened”)."
+    "text": "Setup\n\nlibrary(tidyverse)\nset.seed(705)\n\nareas &lt;- read_csv(\"https://smourtgos.github.io/crju705/data/chicago-areas.csv\",\n                  show_col_types = FALSE)\n\nWas an arrest made? Does the defendant fail to appear? Is the parolee re-arrested within three years? Is this a high violence neighborhood? Every model so far predicted a number: a crime rate, an incident hour. Logistic regression predicts a yes/no as a probability (0 to 1), built along the way from odds and log-odds. This session also returns to the Session 1 bank-robbery model (patrol cars sent to the West Zone off a coefficient table nobody could read yet): it was logistic regression all along, its mysterious estimate column just log-odds, one exp() away from sense. The Session 11 slides reopen that exact model with today’s eyes (“The Machinery, Reopened”)."
   },
   {
     "objectID": "demos/demo-12-logistic.html#watch-linear-regression-fail",
@@ -2601,7 +2601,7 @@
     "href": "demos/demo-12-logistic.html#how-to-report-it",
     "title": "Demo Walkthrough · Session 11",
     "section": "5 · How to report it",
-    "text": "5 · How to report it\n\n“Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most.”\n\nThree ingredients every time: the effect (as an odds ratio), the uncertainty, and a probability a reader can feel. And say odds when you mean odds: an odds ratio of 1.45 is not “45% more likely.”"
+    "text": "5 · How to report it\n\n“Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most.”\n\nSay odds when you mean odds: an odds ratio of 1.45 is not “45% more likely.”"
   },
   {
     "objectID": "demos/demo-12-logistic.html#try-a-variation",
@@ -4988,7 +4988,7 @@
     "href": "slides/week-12-logistic.html#this-week",
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "This Week",
-    "text": "This Week\n\nTopic: logistic regression: modeling outcomes that are yes or no\n\nWhy lm() breaks when the outcome is 0/1\nOdds, log-odds, and the odds ratio: the currency of logistic regression\nglm(family = binomial) and predicted probabilities\n\nLearning goals: fit a logistic regression with glm(); translate coefficients into odds ratios and predicted probabilities; say the results in plain language without confusing odds with probability."
+    "text": "This Week\n\nTopic: logistic regression: modeling outcomes that are yes or no\n\nWhy lm() breaks when the outcome is 0/1\nOdds, log-odds, and the odds ratio\nglm(family = binomial) and predicted probabilities\n\nLearning goals: fit a logistic regression with glm(); translate coefficients into odds ratios and predicted probabilities; say the results in plain language."
   },
   {
     "objectID": "slides/week-12-logistic.html#where-weve-been",
@@ -5002,14 +5002,14 @@
     "href": "slides/week-12-logistic.html#where-weve-been-the-plane",
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "Where We’ve Been: The Plane",
-    "text": "Where We’ve Been: The Plane\nOutcome = intercept + variable + variable + error. Three variables, one flat plane: that equation, drawn."
+    "text": "Where We’ve Been: The Plane\n\\[Y = b_0 + b_1 X_1 + b_2 X_2 + e\\]\nThree variables (\\(Y\\), \\(X_1\\), \\(X_2\\)), one flat plane: that equation, drawn."
   },
   {
     "objectID": "slides/week-12-logistic.html#criminal-justice-runs-on-binary-outcomes",
     "href": "slides/week-12-logistic.html#criminal-justice-runs-on-binary-outcomes",
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "Criminal Justice Runs on Binary Outcomes",
-    "text": "Criminal Justice Runs on Binary Outcomes\n\nWas an arrest made?\nDoes the defendant fail to appear?\nIs the parolee re-arrested within three years?\nDid the crash involve an intoxicated driver?\nIs this neighborhood a high violence area?\n\n\nLinear regression predicts continuous outcomes (crime rates, response times). Logistic regression predicts binary outcomes: its currency is probability (0 to 1), expressed along the way as odds and log-odds."
+    "text": "Criminal Justice Runs on Binary Outcomes\n\nWas an arrest made?\nDoes the defendant fail to appear?\nIs the parolee re-arrested within three years?\nDid the crash involve an intoxicated driver?\nIs this neighborhood a high violence area?\n\n\nLinear regression predicts continuous outcomes (crime rates, response times). Logistic regression predicts binary outcomes as a probability (0 to 1), built along the way from odds and log-odds."
   },
   {
     "objectID": "slides/week-12-logistic.html#session-1-made-you-a-promise",
@@ -5024,13 +5024,6 @@
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "What Did the Data Look Like?",
     "text": "What Did the Data Look Like?\n40 bank robberies across 5 city zones over several months:\n\n\n\n\n\n\n\nVariable\nMeaning\n\n\n\n\nrobbery_id\nRobbery sequence\n\n\ndate\nWhen the robbery occurred\n\n\nzone\nWhich part of the city was hit\n\n\nday_of_year\nNumeric version of the date (for modeling time)\n\n\nlat & lon\nSpatial location (for mapping)\n\n\nprior_robberies_in_zone\nHow many robberies already happened in that zone?"
-  },
-  {
-    "objectID": "slides/week-12-logistic.html#timeline-of-robberies-by-zone-any-patterns",
-    "href": "slides/week-12-logistic.html#timeline-of-robberies-by-zone-any-patterns",
-    "title": "Logistic Regression: Yes/No Outcomes",
-    "section": "Timeline of Robberies by Zone: any patterns?",
-    "text": "Timeline of Robberies by Zone: any patterns?"
   },
   {
     "objectID": "slides/week-12-logistic.html#mapped-locations-any-patterns",
@@ -5058,21 +5051,7 @@
     "href": "slides/week-12-logistic.html#the-machinery-reopened",
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "The Machinery, Reopened",
-    "text": "The Machinery, Reopened\nThe equation we have been writing all semester:\nOutcome = intercept + variable + variable + variable + error\nFor the robberies:\nfuture hit = intercept + day of year + prior robberies in zone + zone + error\nAnd the R code, exactly as in Session 1:\n\nrobbery_model &lt;- glm(future_hit ~ day_of_year + prior_robberies_in_zone + zone,\n                     data = robberies, family = binomial)"
-  },
-  {
-    "objectID": "slides/week-12-logistic.html#the-table-you-couldnt-read-in-august",
-    "href": "slides/week-12-logistic.html#the-table-you-couldnt-read-in-august",
-    "title": "Logistic Regression: Yes/No Outcomes",
-    "section": "The Table You Couldn’t Read in August",
-    "text": "The Table You Couldn’t Read in August\n\nsummary(robbery_model)\n\n\nCall:\nglm(formula = future_hit ~ day_of_year + prior_robberies_in_zone + \n    zone, family = binomial, data = robberies)\n\nCoefficients:\n                            Estimate   Std. Error z value Pr(&gt;|z|)\n(Intercept)               -1.0396572    1.4166747  -0.734    0.463\nday_of_year                0.0006144    0.0192783   0.032    0.975\nprior_robberies_in_zone   -0.0331458    0.1935250  -0.171    0.864\nzoneNorth                -16.5491434 3956.1804420  -0.004    0.997\nzoneSouth                -16.5838360 2284.0208851  -0.007    0.994\nzoneEast                  -0.3303114    1.3900683  -0.238    0.812\nzoneWest                   2.0932238    1.5202336   1.377    0.169\n\n(Dispersion parameter for binomial family taken to be 1)\n\n    Null deviance: 53.834  on 38  degrees of freedom\nResidual deviance: 41.372  on 32  degrees of freedom\nAIC: 55.372\n\nNumber of Fisher Scoring iterations: 16"
-  },
-  {
-    "objectID": "slides/week-12-logistic.html#reading-it-with-todays-eyes",
-    "href": "slides/week-12-logistic.html#reading-it-with-todays-eyes",
-    "title": "Logistic Regression: Yes/No Outcomes",
-    "section": "Reading It With Today’s Eyes",
-    "text": "Reading It With Today’s Eyes\n\nexp(coef(robbery_model)) |&gt; round(2)\n\n            (Intercept)             day_of_year prior_robberies_in_zone \n                   0.35                    1.00                    0.97 \n              zoneNorth               zoneSouth                zoneEast \n                   0.00                    0.00                    0.72 \n               zoneWest \n                   8.11 \n\n\n\nglm() is lm() with one extra argument. family = binomial is the switch that makes it logistic: predict a 0/1 outcome\nThe Estimate column is in log-odds: that’s why it looked like gibberish in August; by the end of today it won’t\nexp(estimate) turns each one into an odds ratio: West’s odds of a repeat hit are about 8 times Downtown’s (the zone R used as the starting point), the largest by far. That’s why the cars went west."
+    "text": "The Machinery, Reopened\nThe equation we have been writing all semester:\n\\[Y = b_0 + b_1 X_1 + b_2 X_2 + b_3 X_3 + e\\]\nFor the robberies:\nfuture hit = intercept + day of year + prior robberies in zone + zone + error\nAnd the R code:\n\nrobbery_model &lt;- glm(future_hit ~ day_of_year + prior_robberies_in_zone + zone,\n                     data = robberies, family = binomial)\n\n\nglm() is lm() with one extra argument. family = binomial is the switch that makes it logistic: predict a 0/1 outcome"
   },
   {
     "objectID": "slides/week-12-logistic.html#predicted-risk-by-zone",
@@ -5080,6 +5059,13 @@
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "Predicted Risk by Zone",
     "text": "Predicted Risk by Zone"
+  },
+  {
+    "objectID": "slides/week-12-logistic.html#strategic-deployment",
+    "href": "slides/week-12-logistic.html#strategic-deployment",
+    "title": "Logistic Regression: Yes/No Outcomes",
+    "section": "Strategic Deployment",
+    "text": "Strategic Deployment\n\n\n\n\n\n\n\n📍 Where: West Zone had the highest predicted probability\n🚔 Action: Deploy units there for surveillance and hopeful capture\n🎯 Goal: Increase arrest probability"
   },
   {
     "objectID": "slides/week-12-logistic.html#logistic-vs.-linear-the-road-and-the-hill",
@@ -5128,7 +5114,7 @@
     "href": "slides/week-12-logistic.html#step-1-probability-to-odds",
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "Step 1: Probability to Odds",
-    "text": "Step 1: Probability to Odds\nSuppose 3 out of 4 parolees complete supervision: \\(p = 0.75\\).\n\\[\\text{odds} = \\frac{p}{1-p} = \\frac{0.75}{0.25} = 3 \\quad \\text{(\"three to one\")}\\]\n\n\n\nProbability\nOdds\nLog-odds\n\n\n\n\n0.25\n0.33\n-1.10\n\n\n0.50\n1.00\n0.00\n\n\n0.75\n3.00\n+1.10\n\n\n\nStep 2, odds to log-odds: odds run 0 to ∞; log-odds run -∞ to +∞. That’s a scale a straight line can live on."
+    "text": "Step 1: Probability to Odds\nSuppose 3 out of 4 parolees complete supervision: \\(p = 0.75\\).\n\\[\\text{odds} = \\frac{p}{1-p} = \\frac{0.75}{0.25} = 3 \\quad \\text{(\"three to one\")}\\]\n\n\n\nProbability\nOdds\nLog-odds\n\n\n\n\n0.25\n0.33\n-1.10\n\n\n0.50\n1.00\n0.00\n\n\n0.75\n3.00\n+1.10"
   },
   {
     "objectID": "slides/week-12-logistic.html#the-logistic-model",
@@ -5233,7 +5219,7 @@
     "href": "slides/week-12-logistic.html#how-to-report-it",
     "title": "Logistic Regression: Yes/No Outcomes",
     "section": "How to Report It",
-    "text": "How to Report It\n\n“Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most.”\n\n\nThe effect (as an odds ratio), the uncertainty, and a probability a reader can feel: all three, every time."
+    "text": "How to Report It\n\n“Each one-point increase in the unemployment rate was associated with 45% higher odds of being a high violence area (OR = 1.45, 95% CI [1.19, 1.85]), holding vacancy constant. Predicted probabilities ranged from about 3% for the least-disadvantaged areas to over 99% for the most.”"
   },
   {
     "objectID": "slides/week-12-logistic.html#the-toolbox-is-complete",
@@ -5450,7 +5436,7 @@
     "href": "weeks/week-12.html#in-class",
     "title": "Session 11 · Logistic Regression: Yes/No Outcomes",
     "section": "In class",
-    "text": "In class\n\nWhy criminal justice runs on binary outcomes (arrest, failure to appear, re-arrest, intoxicated or not), and why lm() predicts impossible probabilities when you feed it one\nClosing the loop on Session 1: the bank-robbery case study that opened the course was a logistic regression: we re-fit the exact model and finally read its table (coefficients are log-odds; exp() them into odds ratios; West Zone’s odds ratio is why the cars went west)\nProbability → odds → log-odds, and why a straight line can only live on the last of the three\nglm(family = binomial), one argument away from lm(), and the two interpretation moves: odds ratios for effects, predicted probabilities for cases\nThe 3D logistic surface: Session 10’s flat plane, bent into an S-shaped probability sheet\nReal-data thread: which Chicago community areas are high violence? Unemployment (OR ≈ 1.45 per point) and vacant housing (OR ≈ 1.33 per point) both raise the odds; predicted probabilities run from ~3% (Forest Glen) to over 99% (West Garfield Park). Associations, not causes, and we say so.\nLab 11: the whole workflow yourself: Chicago walkthrough, then your own model of injury crashes in the Alaska data (does an intoxicated driver raise the odds that anyone is hurt, holding driver age and the number of vehicles constant?), plus odds-ratio translation drills\n\nMissed class? The demo walkthrough reproduces today’s live demos step by step."
+    "text": "In class\n\nWhy criminal justice runs on binary outcomes (arrest, failure to appear, re-arrest, intoxicated or not), and why lm() predicts impossible probabilities when you feed it one\nClosing the loop on Session 1: the bank-robbery case study that opened the course was a logistic regression: the same equation as Session 10 with one extra argument, family = binomial, then the predicted risk by zone and the cars sent west\nProbability → odds → log-odds, and why a straight line can only live on the last of the three\nglm(family = binomial), one argument away from lm(), and the two interpretation moves: odds ratios for effects, predicted probabilities for cases\nThe 3D logistic surface: Session 10’s flat plane, bent into an S-shaped probability sheet\nReal-data thread: which Chicago community areas are high violence? Unemployment (OR ≈ 1.45 per point) and vacant housing (OR ≈ 1.33 per point) both raise the odds; predicted probabilities run from ~3% (Forest Glen) to over 99% (West Garfield Park). Associations, not causes, and we say so.\nLab 11: the whole workflow yourself: Chicago walkthrough, then your own model of injury crashes in the Alaska data (does an intoxicated driver raise the odds that anyone is hurt, holding driver age and the number of vehicles constant?), plus odds-ratio translation drills\n\nMissed class? The demo walkthrough reproduces today’s live demos step by step."
   },
   {
     "objectID": "weeks/week-12.html#homework",
